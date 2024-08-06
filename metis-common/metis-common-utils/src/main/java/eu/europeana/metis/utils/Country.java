@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.common;
+package eu.europeana.metis.utils;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -118,6 +118,28 @@ public enum Country {
       }
     }
     return null;
+  }
+
+  /**
+   * Method that returns the enum with the corresponding given string value
+   * @param countryName The string value to match the enum values with
+   * @return The enum country values that matches the given string value
+   */
+  public static Country fromCountryNameToISOCode(String countryName){
+    Country result = null;
+    for(Country country : values()){
+      if(country.name().equals(countryName)){
+        result = country;
+        break;
+      }
+    }
+
+    if(result == null){
+      throw new IllegalArgumentException("Country name "+countryName+" not found");
+    }
+
+    return result;
+
   }
 
   /**

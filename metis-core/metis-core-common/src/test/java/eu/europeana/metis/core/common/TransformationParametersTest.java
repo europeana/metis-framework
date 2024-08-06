@@ -3,6 +3,7 @@ package eu.europeana.metis.core.common;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.utils.Country;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
 

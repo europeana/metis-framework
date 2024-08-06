@@ -3,6 +3,7 @@ package eu.europeana.metis.core.common;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import eu.europeana.metis.utils.Country;
 import java.io.IOException;
 
 /**
