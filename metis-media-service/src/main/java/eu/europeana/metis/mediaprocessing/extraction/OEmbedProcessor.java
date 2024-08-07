@@ -1,10 +1,10 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.checkValidWidthAndHeightDimensions;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getDurationFromModel;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromJson;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromXml;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.checkValidWidthAndHeightDimensions;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getDurationFromModel;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getOEmbedModelFromJson;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getOEmbedModelFromXml;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
@@ -98,21 +98,25 @@ public class OEmbedProcessor implements MediaProcessor {
   private ResourceExtractionResult getResourceExtractionResult(Resource resource, String detectedMimeType,
       OEmbedModel oEmbedModel) throws MediaExtractionException {
     ResourceExtractionResult resourceExtractionResult;
-    switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
-      case "photo" -> {
-        ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType,
-            resource.getResourceUrl(),
-            resource.getProvidedFileSize(), oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
-        resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
+    if (oEmbedModel != null) {
+      switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
+        case "photo" -> {
+          ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType,
+              resource.getResourceUrl(),
+              resource.getProvidedFileSize(), oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
+          resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
+        }
+        case "video" -> {
+          Double duration = getDurationFromModel(oEmbedModel);
+          VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(detectedMimeType,
+              resource.getResourceUrl(),
+              resource.getProvidedFileSize(), duration, null, oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
+          resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
+        }
+        default -> resourceExtractionResult = null;
       }
-      case "video" -> {
-        Double duration = getDurationFromModel(oEmbedModel);
-        VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(detectedMimeType,
-            resource.getResourceUrl(),
-            resource.getProvidedFileSize(), duration, null, oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
-        resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
-      }
-      default -> resourceExtractionResult = null;
+    } else {
+      resourceExtractionResult = null;
     }
     return resourceExtractionResult;
   }

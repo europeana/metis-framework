@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.getOEmbedModelFromXml;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getOEmbedModelFromXml;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidOEmbedPhotoOrVideo;
 
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
 import java.io.IOException;

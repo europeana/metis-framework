@@ -212,12 +212,13 @@ class MediaExtractorImplTest {
 
   @Test
   void testChooseMediaProcessor() {
-   /* assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
-    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
-    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
-    assertSame(linkedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER));*/
+    assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE,"image/subtype"));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO,"audio/subtype"));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO,"video/subtype"));
+    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT, "text/subtype"));
+    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D,"model/subtype"));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER,"application/json+oembed"));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER,"application/xml+oembed"));
   }
 
   @Test
