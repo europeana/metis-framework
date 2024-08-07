@@ -43,9 +43,13 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
+  @SuppressWarnings("java:S1075")
   private static final String XPATH_OBJECT = "/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource";
+  @SuppressWarnings("java:S1075")
   private static final String XPATH_IS_SHOWN_BY = "/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource";
+  @SuppressWarnings("java:S1075")
   private static final String XPATH_HAS_VIEW = "/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource";
+  @SuppressWarnings("java:S1075")
   private static final String XPATH_IS_SHOWN_AT = "/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource";
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_HAS_SERVICE =

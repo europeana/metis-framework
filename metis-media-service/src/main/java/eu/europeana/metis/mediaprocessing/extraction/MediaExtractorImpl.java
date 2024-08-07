@@ -75,14 +75,6 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
   }
 
-  private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
-    for (Object mediaProcessor : mediaProcessorList) {
-      if (type.isInstance(mediaProcessor)) {
-        return type.cast(mediaProcessor);
-      }
-    }
-    return null;
-  }
   /**
    * Constructor for non-testing purposes.
    *
@@ -112,6 +104,15 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
+  }
+
+  private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
+    for (Object mediaProcessor : mediaProcessorList) {
+      if (type.isInstance(mediaProcessor)) {
+        return type.cast(mediaProcessor);
+      }
+    }
+    return null;
   }
 
   @Override
