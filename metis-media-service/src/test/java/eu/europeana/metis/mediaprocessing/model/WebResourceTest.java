@@ -3,10 +3,8 @@ package eu.europeana.metis.mediaprocessing.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.WebResourceType;

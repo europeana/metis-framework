@@ -43,6 +43,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import org.apache.tika.metadata.Metadata;
@@ -82,7 +83,7 @@ class MediaExtractorImplTest {
     media3dProcessor = mock(Media3dProcessor.class);
     oEmbedProcessor = mock(OEmbedProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor));
+        tika, List.of(imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor)));
   }
 
   @BeforeEach

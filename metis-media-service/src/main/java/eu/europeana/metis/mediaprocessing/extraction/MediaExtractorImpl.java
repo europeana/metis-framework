@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.io.TikaInputStream;
@@ -59,25 +60,29 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param resourceDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
-   * @param imageProcessor An image processor.
-   * @param audioVideoProcessor An audio/video processor.
-   * @param textProcessor A text processor.
+   * @param mediaProcessorList the media processor list
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
-      ImageProcessor imageProcessor, AudioVideoProcessor audioVideoProcessor,
-      TextProcessor textProcessor, Media3dProcessor media3dProcessor,
-      OEmbedProcessor oEmbedProcessor) {
+      List<MediaProcessor> mediaProcessorList) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
-    this.imageProcessor = imageProcessor;
-    this.audioVideoProcessor = audioVideoProcessor;
-    this.textProcessor = textProcessor;
-    this.media3dProcessor = media3dProcessor;
-    this.oEmbedProcessor = oEmbedProcessor;
+    this.imageProcessor = (ImageProcessor) getMediaProcessor(mediaProcessorList, ImageProcessor.class);
+    this.audioVideoProcessor = (AudioVideoProcessor) getMediaProcessor(mediaProcessorList, AudioVideoProcessor.class);
+    this.textProcessor = (TextProcessor) getMediaProcessor(mediaProcessorList, TextProcessor.class);
+    this.media3dProcessor = (Media3dProcessor) getMediaProcessor(mediaProcessorList, Media3dProcessor.class);
+    this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
   }
 
+  private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
+    for (Object mediaProcessor : mediaProcessorList) {
+      if (type.isInstance(mediaProcessor)) {
+        return type.cast(mediaProcessor);
+      }
+    }
+    return null;
+  }
   /**
    * Constructor for non-testing purposes.
    *

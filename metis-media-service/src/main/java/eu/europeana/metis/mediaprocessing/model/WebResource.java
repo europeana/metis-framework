@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.schema.jibx.AudioChannelNumber;
 import eu.europeana.metis.schema.jibx.BitRate;
 import eu.europeana.metis.schema.jibx.CodecName;
