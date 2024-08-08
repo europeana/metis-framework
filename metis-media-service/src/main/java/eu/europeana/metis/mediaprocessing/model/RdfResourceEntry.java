@@ -21,6 +21,17 @@ public class RdfResourceEntry implements Serializable {
   private Set<UrlType> urlTypes;
 
   /**
+   * Instantiates a new Rdf resource entry.
+   *
+   * @param resourceUrl The URL of the resource.
+   * @param urlTypes The resource URL types with which this resource is referenced.
+   */
+  public RdfResourceEntry(String resourceUrl, Set<UrlType> urlTypes) {
+    this.resourceUrl = resourceUrl;
+    this.urlTypes = new HashSet<>(urlTypes);
+  }
+
+  /**
    * Constructor.
    *
    * @param resourceUrl The URL of the resource.

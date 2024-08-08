@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:svcs="http://rdfs.org/sioc/services#"
+>
+  <edm:WebResource
+    rdf:about="http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&amp;format=json">
+    <edm:type>IMAGE</edm:type>
+    <svcs:has_service rdf:resource="http://www.flickr.com/services/oembed/"/>
+  </edm:WebResource>
+
+  <edm:WebResource
+    rdf:about="https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4">
+    <dc:description xml:lang="en">Vimeo video</dc:description>
+    <dc:rights xml:lang="en">Europeana</dc:rights>
+    <dc:source xml:lang="en">Europeana</dc:source>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    <svcs:has_service rdf:resource="https://vimeo.com/api/oembed.json"/>
+  </edm:WebResource>
+  <edm:Place rdf:about="iid:6767/SP.1">
+    <wgs84_pos:lat>58.04861</wgs84_pos:lat>
+    <wgs84_pos:long>-2.343056</wgs84_pos:long>
+    <wgs84_pos:alt>8.0</wgs84_pos:alt>
+    <skos:prefLabel xml:lang="en">Skara Brae</skos:prefLabel>
+  </edm:Place>
+  <edm:TimeSpan rdf:about="HA/1255#timespan">
+    <skos:prefLabel xml:lang="en">Neolithic</skos:prefLabel>
+    <edm:begin>-3180</edm:begin>
+    <edm:end>-2500</edm:end>
+    <owl:sameAs rdf:resource="https://www.wikidata.org/wiki/Q2314809"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300019272"/>
+  </edm:TimeSpan>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/25">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q839954"/>
+    <skos:exactMatch rdf:resource="http://dati.beniculturali.it/cis/ArchaeologicalArea"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh2004001339"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/2069"/>
+    <skos:exactMatch rdf:resource="https://www.freebase.com/m/012ww9"/>
+    <skos:exactMatch rdf:resource="https://g.co/kg/m/012ww9"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300000810"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300387007"/>
+    <skos:exactMatch rdf:resource="http://www.yso.fi/onto/yso/p38240"/>
+    <skos:exactMatch rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+    <skos:exactMatch rdf:resource="http://babelnet.org/rdf/s16741381n"/>
+    <skos:exactMatch rdf:resource="http://vocabularies.unesco.org/thesaurus/concept2680"/>
+    <skos:exactMatch rdf:resource="http://dbpedia.org/resource/Archaeological_site"/>
+    <skos:note xml:lang="de">Ort, an dem Überreste der Vergangenheit erhalten geblieben sind</skos:note>
+    <skos:note xml:lang="fi">Tietyllä paikalla kiinteästi sijaitsevien jäännösten muodostama kokonaisuus</skos:note>
+    <skos:note xml:lang="sv">Plats där fornlämning påträffats</skos:note>
+    <skos:note xml:lang="ru">Объект материальной культуры, несущий в себе определённый объём информации о прошлом</skos:note>
+    <skos:note xml:lang="pt">Local onde se concentram vestígios arquelógicos</skos:note>
+    <skos:note xml:lang="el">Τοποθεσία στην οποία βρίσκονται ενδείξεις ανθρώπινης δραστηριότητας του παρελθόντος</skos:note>
+    <skos:note xml:lang="en">Place (or group of physical sites) in which evidence of past activity is preserved</skos:note>
+    <skos:note xml:lang="hr">Mjesto na kojemu postoji veća količina sačuvanih izrađevina i tvorevina iz prošlosti</skos:note>
+    <skos:note xml:lang="it">Luogo in cui si conservano tracce dell'attività umana del passato</skos:note>
+    <skos:note xml:lang="fr">Lieu ou groupe de sites physiques où sont préservées des preuves de l'activité préhistorique,
+      historique ou contemporaine
+    </skos:note>
+    <skos:note xml:lang="es">Lugar donde se concentran vestigios arqueológicos</skos:note>
+    <skos:note xml:lang="cs">Místo nebo skupina míst, kde jsou zachovány důkazy a pozůstatky historické aktivity</skos:note>
+    <skos:note xml:lang="eu">Historiaurreko, historiako edo gaur egungo jardueraren froga materialak gordetzen dituen leku edo
+      gune fisikoen multzoa
+    </skos:note>
+    <skos:note xml:lang="ca">Lloc on es conserven vestigis arqueològics</skos:note>
+    <skos:note xml:lang="nl">Plaats waar men archeologische vondsten heeft gedaan</skos:note>
+    <skos:prefLabel xml:lang="de">Archäologische Stätte</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Археологическое место</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Arkeologinen kohde</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Sítio arqueológico</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">Археологически обект</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Archeologinė vieta</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Arheoloģiskais piemineklis</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">Arheološko nalazište</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Site archéologique</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Régészeti lelőhely</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">Archeologická lokalita</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Arheološko najdišče</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">Suíomh seandálaíochta</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Jaciment arqueològic</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Arkeologisk lokal</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Αρχαιολογική θέση</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Archaeological site</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Sito archeologico</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Yacimiento arqueológico</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Muistis</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">Arkeologia-aztarnategi</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Archeologická lokalita</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Stanowisko archeologiczne</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Sit arheologic</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Arkæologisk område</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Archeologische vindplaats</skos:prefLabel>
+    <skos:related rdf:resource="http://data.europeana.eu/concept/80"/>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/307/CMC_HA_2255">
+    <edm:aggregatedCHO rdf:resource="/307/CMC_HA_2255"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/1554"></edm:dataProvider>
+    <edm:isShownBy
+      rdf:resource="https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4"/>
+    <edm:hasView
+      rdf:resource="http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&amp;format=json"/>
+
+    <edm:object rdf:resource="https://player.vimeo.com/video/24416915?app_id=122963"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1554"></edm:provider>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/307/CMC_HA_2255">
+    <dc:identifier>CMC_HA/2255</dc:identifier>
+    <dc:language>eng</dc:language>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/25"></dc:subject>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/307/CMC_HA_2255"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/307/CMC_HA_2255"/>
+    <ore:lineage rdf:resource="/proxy/provider/307/CMC_HA_2255"/>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/307/CMC_HA_2255">
+    <dc:description xml:lang="en">Dive into the heart of Spain's vibrant cultural landscape with this mesmerizing video. Explore
+      the electrifying atmosphere of La Tomatina in Buñol, the haunting beauty of Semana Santa processions in Seville, and the
+      thrilling bull runs of San Fermín in Pamplona. Revel in the passionate Flamenco performances, savor the diverse flavors of
+      Spanish cuisine, and discover the deep-rooted traditions that weave through Spain's history. This video showcases the
+      colorful, spirited, and deeply traditional festivals that define Spanish culture
+    </dc:description>
+    <dc:format>mov</dc:format>
+    <dc:identifier>http://3dicons.dcu.gr/object/HA/1255</dc:identifier>
+    <dc:language xml:lang="en">English</dc:language>
+    <dc:relation rdf:resource="http://3dicons.dcu.gr/object/HA/2255"></dc:relation>
+    <dc:rights xml:lang="en">CMC Associates</dc:rights>
+    <dc:source xml:lang="en">CMC</dc:source>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300008372"></dc:subject>
+    <dc:subject rdf:resource="http://vocab.getty.edu/aat/300000810"></dc:subject>
+    <dc:subject xml:lang="en">Settlement</dc:subject>
+    <dc:title xml:lang="en">Panorama Movie of link path 1-5, Skara Brae</dc:title>
+    <dc:type>Movie</dc:type>
+    <dcterms:isPartOf xml:lang="en">3D ICONS</dcterms:isPartOf>
+    <dcterms:spatial rdf:resource="iid:6767/SP.1"></dcterms:spatial>
+    <dcterms:temporal xml:lang="en">Neolithic</dcterms:temporal>
+    <dcterms:temporal rdf:resource="HA/1255#timespan"></dcterms:temporal>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/307/CMC_HA_2255"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/307/CMC_HA_2255"/>
+    <edm:type>VIDEO</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/307/CMC_HA_2255">
+    <edm:aggregatedCHO rdf:resource="/307/CMC_HA_2255"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:datasetName>307_local_31072024_1640</edm:datasetName>
+    <edm:country>Netherlands</edm:country>
+    <edm:language>nl</edm:language>
+    <edm:completeness>10</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1554">
+    <skos:prefLabel xml:lang="en">Europeana</skos:prefLabel>
+  </foaf:Organization>
+  <svcs:Service rdf:about="https://vimeo.com/api/oembed.json">
+    <dcterms:conformsTo rdf:resource="https://oembed.com/"></dcterms:conformsTo>
+  </svcs:Service>
+  <svcs:Service rdf:about="http://www.flickr.com/services/oembed/">
+    <dcterms:conformsTo rdf:resource="https://oembed.com/"/>
+  </svcs:Service>
+</rdf:RDF>

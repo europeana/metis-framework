@@ -52,6 +52,7 @@ class AudioVideoProcessor implements MediaProcessor {
   private static String globalFfprobeCommand;
 
   private final CommandExecutor commandExecutor;
+
   private final String ffprobeCommand;
 
   /**

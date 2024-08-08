@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
@@ -25,8 +27,11 @@ import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
+import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
 import java.io.IOException;
@@ -38,8 +43,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.apache.tika.metadata.Metadata;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,8 +63,13 @@ class MediaExtractorImplTest {
   private static AudioVideoProcessor audioVideoProcessor;
   private static TextProcessor textProcessor;
   private static Media3dProcessor media3dProcessor;
-
+  private static OEmbedProcessor oEmbedProcessor;
   private static MediaExtractorImpl mediaExtractor;
+
+  private void testGetMode(ProcessingMode expected, Set<UrlType> urlTypes) {
+    final RdfResourceEntry entry = new RdfResourceEntry("url string", new ArrayList<>(urlTypes));
+    assertEquals(expected, mediaExtractor.getMode(entry));
+  }
 
   @BeforeAll
   static void prepare() {
@@ -69,14 +81,15 @@ class MediaExtractorImplTest {
     audioVideoProcessor = mock(AudioVideoProcessor.class);
     textProcessor = mock(TextProcessor.class);
     media3dProcessor = mock(Media3dProcessor.class);
+    oEmbedProcessor = mock(OEmbedProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor));
+        tika, List.of(imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor)));
   }
 
   @BeforeEach
   void resetMocks() {
     reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
-        audioVideoProcessor, textProcessor, mediaExtractor);
+        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor);
   }
 
   @Test
@@ -123,9 +136,9 @@ class MediaExtractorImplTest {
     // Check what happens if we are not supposed to process
     assertThrows(IllegalStateException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.NONE));
   }
-  
-  @Test 
-  void testVerifyAndCorrectContentAvailability () throws MediaExtractionException, IOException {
+
+  @Test
+  void testVerifyAndCorrectContentAvailability() throws MediaExtractionException, IOException {
 
     // Set up the resource
     final String location = "resource url";
@@ -166,7 +179,7 @@ class MediaExtractorImplTest {
     assertThrows(MediaExtractionException.class,
         () -> mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL,
             detectedMimeTypeWithContent));
-    
+
     // Test case where there is no content, but there should be and a correction is attempted.
     // Step 1: set the mocking to use a boolean that changes when content is set.
     final AtomicBoolean hasContent = new AtomicBoolean(false);
@@ -178,7 +191,7 @@ class MediaExtractorImplTest {
     doReturn(detectedMimeTypeNoContent).when(resource).getProvidedMimeType();
     doReturn(resourceWithContent).when(resourceDownloadClient).downloadWithContent(any());
     doReturn(true).when(resourceWithContent).hasContent();
-    
+
     // Step 2: make the call and check that the download has occurred.
     verify(resourceDownloadClient, never()).downloadWithContent(any());
     mediaExtractor.verifyAndCorrectContentAvailability(resource, ProcessingMode.FULL, detectedMimeTypeWithContent);
@@ -189,7 +202,7 @@ class MediaExtractorImplTest {
     final RdfResourceEntry entry = entryCaptor.getValue();
     assertEquals(location, entry.getResourceUrl());
     verify(resource, times(1)).markAsWithContent(content);
-    
+
     // Step 3: check what happens when the download does not include content either.
     hasContent.set(false);
     doReturn(false).when(resourceWithContent).hasContent();
@@ -200,12 +213,13 @@ class MediaExtractorImplTest {
 
   @Test
   void testChooseMediaProcessor() {
-    assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO));
-    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO));
-    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT));
-    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D));
-    assertNull(mediaExtractor.chooseMediaProcessor(MediaType.OTHER));
+    assertSame(imageProcessor, mediaExtractor.chooseMediaProcessor(MediaType.IMAGE,"image/subtype"));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.AUDIO,"audio/subtype"));
+    assertSame(audioVideoProcessor, mediaExtractor.chooseMediaProcessor(MediaType.VIDEO,"video/subtype"));
+    assertSame(textProcessor, mediaExtractor.chooseMediaProcessor(MediaType.TEXT, "text/subtype"));
+    assertSame(media3dProcessor, mediaExtractor.chooseMediaProcessor(MediaType.THREE_D,"model/subtype"));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER,"application/json+oembed"));
+    assertSame(oEmbedProcessor, mediaExtractor.chooseMediaProcessor(MediaType.OTHER,"application/xml+oembed"));
   }
 
   @Test
@@ -221,7 +235,7 @@ class MediaExtractorImplTest {
 
     // Set processor.
     doReturn(audioVideoProcessor)
-        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
+        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
     final ResourceExtractionResultImpl result1 = new ResourceExtractionResultImpl(null, null);
     doReturn(result1).when(audioVideoProcessor).extractMetadata(resource, detectedMimeType, hasMainThumbnail);
     final ResourceExtractionResultImpl result2 = new ResourceExtractionResultImpl(null, null);
@@ -236,13 +250,13 @@ class MediaExtractorImplTest {
     verify(mediaExtractor, times(1)).detectAndVerifyMimeType(resource, ProcessingMode.REDUCED);
     verify(mediaExtractor, times(1)).verifyAndCorrectContentAvailability(resource,
         ProcessingMode.REDUCED, detectedMimeType);
-    
+
     // Check what happens if we are not supposed to process
     assertThrows(IllegalStateException.class,
-            () -> mediaExtractor.performProcessing(resource, ProcessingMode.NONE, hasMainThumbnail));
+        () -> mediaExtractor.performProcessing(resource, ProcessingMode.NONE, hasMainThumbnail));
 
     // Check what happens if there is no processor
-    doReturn(null).when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
+    doReturn(null).when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
     assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.FULL, hasMainThumbnail));
     assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED, hasMainThumbnail));
   }
@@ -257,10 +271,10 @@ class MediaExtractorImplTest {
     doReturn(ProcessingMode.FULL).when(mediaExtractor).getMode(entry1);
     doReturn(resource1).when(resourceDownloadClient).downloadBasedOnMimeType(entry1);
     final ResourceExtractionResultImpl result1 = new ResourceExtractionResultImpl(null, null);
-    doReturn(result1).when(mediaExtractor).performProcessing(resource1, ProcessingMode.FULL, hasMainThumbnail );
+    doReturn(result1).when(mediaExtractor).performProcessing(resource1, ProcessingMode.FULL, hasMainThumbnail);
 
     // Make the call and verify that the resource is closed.
-    assertSame(result1, mediaExtractor.performMediaExtraction(entry1, hasMainThumbnail ));
+    assertSame(result1, mediaExtractor.performMediaExtraction(entry1, hasMainThumbnail));
     verify(resource1).close();
 
     // mock for reduced processing
@@ -269,10 +283,10 @@ class MediaExtractorImplTest {
     doReturn(ProcessingMode.REDUCED).when(mediaExtractor).getMode(entry2);
     doReturn(resource2).when(resourceDownloadClient).downloadWithoutContent(entry2);
     final ResourceExtractionResultImpl result2 = new ResourceExtractionResultImpl(null, null);
-    doReturn(result2).when(mediaExtractor).performProcessing(resource2, ProcessingMode.REDUCED, hasMainThumbnail );
+    doReturn(result2).when(mediaExtractor).performProcessing(resource2, ProcessingMode.REDUCED, hasMainThumbnail);
 
     // Make the call and verify that the resource is closed.
-    assertSame(result2, mediaExtractor.performMediaExtraction(entry2, hasMainThumbnail ));
+    assertSame(result2, mediaExtractor.performMediaExtraction(entry2, hasMainThumbnail));
     verify(resource2).close();
 
     // Check exception from downloading.
@@ -280,14 +294,14 @@ class MediaExtractorImplTest {
     doReturn(ProcessingMode.FULL).when(mediaExtractor).getMode(entry3);
     doThrow(IOException.class).when(resourceDownloadClient).downloadBasedOnMimeType(entry3);
     assertThrows(MediaExtractionException.class,
-        () -> mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail ));
+        () -> mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail));
     doThrow(RuntimeException.class).when(resourceDownloadClient).downloadBasedOnMimeType(entry3);
     assertThrows(MediaExtractionException.class,
-        () -> mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail ));
+        () -> mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail));
 
     // Verify sanity check
     doReturn(ProcessingMode.NONE).when(mediaExtractor).getMode(entry3);
-    assertNull(mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail ));
+    assertNull(mediaExtractor.performMediaExtraction(entry3, hasMainThumbnail));
   }
 
   @Test
@@ -302,12 +316,15 @@ class MediaExtractorImplTest {
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(media3dProcessor).downloadResourceForFullProcessing();
+    doReturn(true).when(oEmbedProcessor).downloadResourceForFullProcessing();
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("image/unknown_type"));
     assertTrue(mediaExtractor.shouldDownloadForFullProcessing("text/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("audio/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("video/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("model/unknown_type"));
     assertFalse(mediaExtractor.shouldDownloadForFullProcessing("unknown_type"));
+    assertTrue(mediaExtractor.shouldDownloadForFullProcessing("application/xml+oembed"));
+    assertTrue(mediaExtractor.shouldDownloadForFullProcessing("application/json+oembed"));
   }
 
   @Test
@@ -330,8 +347,49 @@ class MediaExtractorImplTest {
     testGetMode(ProcessingMode.FULL, EnumSet.allOf(UrlType.class));
   }
 
-  private void testGetMode(ProcessingMode expected, Set<UrlType> urlTypes) {
-    final RdfResourceEntry entry = new RdfResourceEntry("url string", new ArrayList<>(urlTypes));
-    assertEquals(expected, mediaExtractor.getMode(entry));
+  @Test
+  void getOEmbedJson() throws MediaExtractionException, IOException {
+    final String resourceUrl = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915";
+
+    final String detectedMimeType = "application/json+oembed";
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
+    final Resource resource = spy(
+        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
+    doReturn(true)
+        .when(resource).hasContent();
+    doReturn(detectedMimeType)
+        .when(tika).detect(any(InputStream.class), any(Metadata.class));
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.json").getPath()))
+        .when(resource).getContentPath();
+    doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
+    ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
+        new VideoResourceMetadata(detectedMimeType, resourceUrl, 0L));
+    doReturn(extractionResult).when(oEmbedProcessor).extractMetadata(any(Resource.class), anyString(), anyBoolean());
+
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor.performMediaExtraction(rdfResourceEntry, false);
+    assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
+  }
+
+  @Test
+  void getOEmbedXml() throws MediaExtractionException, IOException {
+    final String resourceUrl = "https://vimeo.com/api/oembed.xml?url=https%3A%2F%2Fvimeo.com%2F24416915";
+
+    final String detectedMimeType = "application/xml+oembed";
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY));
+    final ResourceImpl resource = spy(
+        new ResourceImpl(rdfResourceEntry, detectedMimeType, null, URI.create(resourceUrl)));
+    doReturn(true)
+        .when(resource).hasContent();
+    doReturn(detectedMimeType)
+        .when(tika).detect(any(InputStream.class), any(Metadata.class));
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.xml").getPath()))
+        .when(resource).getContentPath();
+    doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
+    ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
+        new VideoResourceMetadata(detectedMimeType, resourceUrl, 0L));
+    doReturn(extractionResult).when(oEmbedProcessor).extractMetadata(any(Resource.class), anyString(), anyBoolean());
+
+    ResourceExtractionResult resourceExtractionResult = mediaExtractor.performMediaExtraction(rdfResourceEntry, false);
+    assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
   }
 }
