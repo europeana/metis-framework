@@ -27,7 +27,7 @@ import com.jayway.jsonpath.JsonPath;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.utils.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetSearchView;
