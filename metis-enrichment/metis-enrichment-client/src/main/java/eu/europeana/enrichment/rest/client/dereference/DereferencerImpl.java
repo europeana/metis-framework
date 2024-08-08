@@ -114,7 +114,7 @@ public class DereferencerImpl implements Dereferencer {
   private static String getResultStatusMessage(DereferenceResultStatus resultStatus) {
     return switch (resultStatus) {
       case ENTITY_FOUND_XML_XSLT_ERROR -> "Entity was found, applying the XSLT results in an XML error"
-          .concat("either because the entity is malformed or the XSLT is malformed).");
+          .concat(" either because the entity is malformed or the XSLT is malformed.");
       case ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS ->
           "Entity was found, but the XSLT mapping did not produce a contextual class.";
       case INVALID_URL -> "A URL to be dereferenced is invalid.";
