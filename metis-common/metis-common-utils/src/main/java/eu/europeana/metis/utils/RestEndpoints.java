@@ -88,6 +88,9 @@ public final class RestEndpoints {
   public static final String REPOSITORY_HTTP_ENDPOINT_ZIP = "/repository/zip/{dataset}.zip";
   public static final String REPOSITORY_OAI_ENDPOINT = "/repository/oai";
 
+  /* METIS-DEBIAS ENDPOINTS */
+  public static final String DEBIAS_DETECTION = "/debias";
+
   private RestEndpoints() {
   }
 

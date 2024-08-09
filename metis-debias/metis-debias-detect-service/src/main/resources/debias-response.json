@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "annotator": "de-bias",
+    "thesaurus": null,
+    "date": "2024-08-09T15:06:54"
+  },
+  "results": [
+    {
+      "language": "en",
+      "literal": "sample title of aboriginal and addict",
+      "tags": [
+        {
+          "uri": "http://www.example.org/debias#t_2_en",
+          "start": 16,
+          "end": 26,
+          "length": 10
+        },
+        {
+          "uri": "http://www.example.org/debias#t_3_en",
+          "start": 31,
+          "end": 37,
+          "length": 6
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "literal": "a second addict sample title",
+      "tags": [
+        {
+          "uri": "http://www.example.org/debias#t_3_en",
+          "start": 9,
+          "end": 15,
+          "length": 6
+        }
+      ]
+    },
+    {
+      "language": "en",
+      "literal": "this is a demo of master and slave branch",
+      "tags": [
+        {
+          "uri": "http://www.example.org/debias#t_198_en",
+          "start": 29,
+          "end": 34,
+          "length": 5
+        }
+      ]
+    }
+  ]
+}
