@@ -9,6 +9,8 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
+import eu.europeana.corelib.solr.entity.AgentImpl;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.AltLabel;
 import eu.europeana.metis.schema.jibx.Begin;
@@ -16,17 +18,12 @@ import eu.europeana.metis.schema.jibx.End;
 import eu.europeana.metis.schema.jibx.LiteralType.Lang;
 import eu.europeana.metis.schema.jibx.Note;
 import eu.europeana.metis.schema.jibx.PrefLabel;
-import eu.europeana.metis.mongo.dao.RecordDao;
-import eu.europeana.corelib.solr.entity.AgentImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit test for the Agent field input creator
- * 
- * @author Yorgos.Mamakis@ kb.nl
- *
  */
 class AgentFieldInputTest {
 
@@ -83,17 +80,12 @@ class AgentFieldInputTest {
     mongoServerMock.getDatastore().save(agent);
     assertEquals(agentType.getAbout(), agent.getAbout());
     assertEquals(agentType.getBegin().getString(),
-        agent.getBegin().values().iterator().next().get(0));
-    assertEquals(agentType.getEnd().getString(), agent.getEnd().values().iterator().next().get(0));
-    assertEquals(agentType.getNoteList().get(0).getString(),
-        agent.getNote().values().iterator().next().get(0));
-    assertTrue(
-        agent.getAltLabel().containsKey(agentType.getAltLabelList().get(0).getLang().getLang()));
-    assertTrue(
-        agent.getPrefLabel().containsKey(agentType.getPrefLabelList().get(0).getLang().getLang()));
-    assertEquals(agentType.getAltLabelList().get(0).getString(),
-        agent.getAltLabel().values().iterator().next().get(0));
-    assertEquals(agentType.getPrefLabelList().get(0).getString(),
-        agent.getPrefLabel().values().iterator().next().get(0));
+        agent.getBegin().values().iterator().next().getFirst());
+    assertEquals(agentType.getEnd().getString(), agent.getEnd().values().iterator().next().getFirst());
+    assertEquals(agentType.getNoteList().getFirst().getString(), agent.getNote().values().iterator().next().getFirst());
+    assertTrue(agent.getAltLabel().containsKey(agentType.getAltLabelList().getFirst().getLang().getLang()));
+    assertTrue(agent.getPrefLabel().containsKey(agentType.getPrefLabelList().getFirst().getLang().getLang()));
+    assertEquals(agentType.getAltLabelList().getFirst().getString(), agent.getAltLabel().values().iterator().next().getFirst());
+    assertEquals(agentType.getPrefLabelList().getFirst().getString(), agent.getPrefLabel().values().iterator().next().getFirst());
   }
 }

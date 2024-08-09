@@ -18,15 +18,11 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import eu.europeana.metis.mongo.model.HasMongoObjectId;
-import eu.europeana.metis.mongo.utils.MorphiaUtils;
-import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import java.util.List;
 import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -37,7 +33,7 @@ import org.junit.jupiter.api.Test;
  */
 class MorphiaUtilsTest {
 
-  private final static String DATABASE_NAME = "dbTest";
+  private static final String DATABASE_NAME = "dbTest";
 
   private static Datastore datastore;
 
@@ -92,7 +88,7 @@ class MorphiaUtilsTest {
     final List<DummyEntity> dummyEntityList = MorphiaUtils.getListOfAggregationRetryable(aggregation, DummyEntity.class);
 
     assertEquals(1, dummyEntityList.size());
-    assertEquals(5, Integer.valueOf(dummyEntityList.get(0).name));
+    assertEquals(5, Integer.valueOf(dummyEntityList.getFirst().name));
   }
 
   @Test
@@ -107,7 +103,7 @@ class MorphiaUtilsTest {
         aggregationOptions);
 
     assertEquals(1, dummyEntityList.size());
-    assertEquals(5, Integer.valueOf(dummyEntityList.get(0).name));
+    assertEquals(5, Integer.valueOf(dummyEntityList.getFirst().name));
   }
 
   private static void addEntitiesToDatastore() {
@@ -180,11 +176,9 @@ class MorphiaUtilsTest {
       if (this == o) {
         return true;
       }
-      if (!(o instanceof DummyEntity)) {
+      if (!(o instanceof DummyEntity that)) {
         return false;
       }
-
-      final DummyEntity that = (DummyEntity) o;
 
       if (!Objects.equals(id, that.id)) {
         return false;

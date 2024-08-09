@@ -154,7 +154,7 @@ public class OaiRecordParser {
     final TransformerFactory transformerFactory = new net.sf.saxon.TransformerFactoryImpl();
     final Transformer transformer = transformerFactory.newTransformer();
     transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-    transformer.transform(nodes.get(0), outputTarget);
+    transformer.transform(nodes.getFirst(), outputTarget);
     return true;
   }
 }

@@ -22,7 +22,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
 import org.mockito.ArgumentCaptor;
 
 abstract class MongoEntityUpdaterTest<T> {
@@ -126,8 +125,7 @@ abstract class MongoEntityUpdaterTest<T> {
     verify(propertyUpdater, times(1))
         .updateWebResources(eq(fieldName), getterCaptor.capture(), same(rootAbout), any());
     assertEquals(Collections.singletonList(aboutValue),
-        getterCaptor.getValue().apply(testEntity).stream().map(WebResource::getAbout)
-            .collect(Collectors.toList()));
+        getterCaptor.getValue().apply(testEntity).stream().map(WebResource::getAbout).toList());
   }
 
   <F extends AbstractEdmEntity, A> void testReferencedEntitiesPropertyUpdate(
@@ -153,8 +151,7 @@ abstract class MongoEntityUpdaterTest<T> {
         .updateReferencedEntities(eq(fieldName), getterCaptor.capture(),
             ancestorInfoCreatorCaptor.capture(), updaterCaptor.capture());
     assertEquals(Collections.singletonList(aboutValue),
-        getterCaptor.getValue().apply(testEntity).stream().map(AbstractEdmEntity::getAbout)
-            .collect(Collectors.toList()));
+        getterCaptor.getValue().apply(testEntity).stream().map(AbstractEdmEntity::getAbout).toList());
     if (ancestorInfoType == null) {
       assertNull(ancestorInfoCreatorCaptor.getValue().apply(testEntity));
     } else {

@@ -622,12 +622,12 @@ class EntityMergeEngineTest {
     verifyRdf(rdf, 2, 2, 0, 1, 1);
 
     // Verify content
-    verifyAgent((Agent) inputList.get(0), rdf.getAgentList().get(0));
-    verifyConcept((Concept) inputList.get(1), rdf.getConceptList().get(0));
-    verifyTimespan((TimeSpan) inputList.get(2), rdf.getTimeSpanList().get(0));
+    verifyAgent((Agent) inputList.get(0), rdf.getAgentList().getFirst());
+    verifyConcept((Concept) inputList.get(1), rdf.getConceptList().getFirst());
+    verifyTimespan((TimeSpan) inputList.get(2), rdf.getTimeSpanList().getFirst());
     verifyAgent((Agent) inputList.get(3), rdf.getAgentList().get(1));
     verifyConcept((Concept) inputList.get(4), rdf.getConceptList().get(1));
-    verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().get(0));
+    verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().getFirst());
 
     // Convert RDF to string as extra test that everything is OK.
     rdfConversionUtils.convertRdfToString(rdf);

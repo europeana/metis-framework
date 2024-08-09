@@ -388,7 +388,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return Optional.ofNullable(metisPluginsIterator).stream().flatMap(Collection::stream)
                    .filter(execution -> !execution.getMetisPlugins().isEmpty())
                    .map(execution -> new PluginWithExecutionId<MetisPlugin>(execution,
-                       execution.getMetisPlugins().get(0))).findFirst().orElse(null);
+                       execution.getMetisPlugins().getFirst())).findFirst().orElse(null);
   }
 
   private void verifyEnumSetIsValidAndNotEmpty(Set<? extends Enum<?>> set) {

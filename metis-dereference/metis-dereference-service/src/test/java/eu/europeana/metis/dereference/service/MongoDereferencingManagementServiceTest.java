@@ -1,6 +1,8 @@
 package eu.europeana.metis.dereference.service;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -44,7 +46,7 @@ class MongoDereferencingManagementServiceTest {
   private final ProcessedEntityDao processedEntityDao = mock(ProcessedEntityDao.class);
 
   @BeforeEach
-  void prepare() throws IOException {
+  void prepare() {
     embeddedLocalhostMongo.start();
     String mongoHost = embeddedLocalhostMongo.getMongoHost();
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
@@ -118,26 +120,26 @@ class MongoDereferencingManagementServiceTest {
   }
 
   @Test
-  void loadVocabularies_expectSucess() throws VocabularyImportException, URISyntaxException, IOException {
-    final URL resourceLocation = this.getClass().getClassLoader().getResource("vocabulary.yml");
-    final String expectedXslt = Files.readString(Paths.get(getClass()
-        .getClassLoader()
-        .getResource("vocabulary/voctest.xsl").toURI())).trim();
+  void loadVocabularies_expectSuccess() throws VocabularyImportException, URISyntaxException, IOException {
+    final URL vocabularyUrl = this.getClass().getClassLoader().getResource("vocabulary.yml");
+    final URL vocabularyTestXslUrl = requireNonNull(getClass().getClassLoader().getResource("vocabulary/voctest.xsl"));
+    final String expectedXslt = Files.readString(Paths.get(vocabularyTestXslUrl.toURI())).trim();
 
-    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory().createImporter(resourceLocation);
+    final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory().createImporter(vocabularyUrl);
     doReturn(importer).when(vocabularyCollectionImporterFactory).createImporter(any(URL.class));
 
-    service.loadVocabularies(resourceLocation);
+    service.loadVocabularies(vocabularyUrl);
     Vocabulary vocabulary = vocabularyDaoDatastore.find(Vocabulary.class).first();
 
+    assertNotNull(vocabulary);
     assertEquals("TestWikidata", vocabulary.getName());
     assertEquals(expectedXslt, vocabulary.getXslt());
-    assertEquals("http://www.wikidata.org/entity/", vocabulary.getUris().stream().findFirst().get());
-    verify(vocabularyCollectionImporterFactory, times(1)).createImporter(resourceLocation);
+    assertEquals("http://www.wikidata.org/entity/", vocabulary.getUris().stream().findFirst().orElse(null));
+    verify(vocabularyCollectionImporterFactory, times(1)).createImporter(vocabularyUrl);
   }
 
   @Test
-  void loadVocabularies_expectVocabularyImportError() throws VocabularyImportException, URISyntaxException, IOException {
+  void loadVocabularies_expectVocabularyImportError() {
     final URL resourceLocation = this.getClass().getClassLoader().getResource("vocabulary-fault.yml");
     final VocabularyCollectionImporter importer = new VocabularyCollectionImporterFactory().createImporter(resourceLocation);
     doReturn(importer).when(vocabularyCollectionImporterFactory).createImporter(any(URL.class));

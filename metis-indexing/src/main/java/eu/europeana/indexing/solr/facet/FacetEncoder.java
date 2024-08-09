@@ -158,7 +158,7 @@ public class FacetEncoder {
     }
     // Filter the code lists so that empty sets or null sets are ignored.
     final List<Set<Integer>> filteredCodes = codes.stream().filter(Objects::nonNull)
-            .filter(set->!set.isEmpty()).collect(Collectors.toList());
+            .filter(set->!set.isEmpty()).toList();
     final int shiftedMediaTypeCode = getShiftedMediaTypeCode(mediaType);
     return SetUtils.generateForcedCombinations(filteredCodes, shiftedMediaTypeCode,
             (combination, code) -> combination | code);
@@ -389,11 +389,11 @@ public class FacetEncoder {
       return Collections.emptyList();
     }
     return facets.getFacets().stream().map(facet -> facet.encodeValues(webResource))
-        .filter(set -> !set.isEmpty()).collect(Collectors.toList());
+        .filter(set -> !set.isEmpty()).toList();
   }
 
   private static List<Set<Integer>> compileIntegerSets(FacetWithValues<?>... values) {
-    return Stream.of(values).map(FacetWithValues::compileIntegerSet).collect(Collectors.toList());
+    return Stream.of(values).map(FacetWithValues::compileIntegerSet).toList();
   }
 
   private static List<Set<Integer>> compileAudioIntegerSets(Set<MimeTypeEncoding> mimeTypes,

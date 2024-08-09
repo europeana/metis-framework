@@ -134,7 +134,7 @@ class SolrPropertiesTest {
     List<URI> actualSolrHosts = solrProperties.getSolrHosts();
 
     assertEquals(1, actualSolrHosts.size());
-    assertEquals(new URI("http://localhost:8983/solr"), actualSolrHosts.get(0));
+    assertEquals(new URI("http://localhost:8983/solr"), actualSolrHosts.getFirst());
   }
 
   @Test

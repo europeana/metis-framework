@@ -270,7 +270,7 @@ class ClientEntityResolverTest {
                                          .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
-        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
+        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
       } else {
         when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
       }
@@ -358,7 +358,7 @@ class ClientEntityResolverTest {
                                          .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
-        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.get(0));
+        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
       } else {
         when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
       }

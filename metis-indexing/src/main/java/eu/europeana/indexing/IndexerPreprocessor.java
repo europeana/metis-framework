@@ -16,7 +16,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 /**
  * The type Indexer preprocessor.
  */
-public class IndexerPreprocessor {
+public final class IndexerPreprocessor {
 
   private static final TierClassifier<MediaTier, ContentTierBreakdown> mediaClassifier =
       ClassifierFactory.getMediaClassifier();

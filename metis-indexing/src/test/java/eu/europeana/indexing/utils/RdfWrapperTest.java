@@ -9,14 +9,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import org.junit.jupiter.api.Test;
+
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Aggregation;
@@ -32,6 +25,13 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.Service;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import org.junit.jupiter.api.Test;
 
 class RdfWrapperTest {
 
@@ -135,8 +135,7 @@ class RdfWrapperTest {
     final RDF rdf = mock(RDF.class);
     when(rdf.getWebResourceList()).thenReturn(Arrays.asList(entity0, entity1, entity2, null));
     assertEquals(Collections.singletonList(entity1.getAbout()),
-        new RdfWrapper(rdf).getWebResources().stream().map(WebResourceType::getAbout)
-            .collect(Collectors.toList()));
+        new RdfWrapper(rdf).getWebResources().stream().map(WebResourceType::getAbout).toList());
 
     // Test rdf that returns null
     when(rdf.getWebResourceList()).thenReturn(null);

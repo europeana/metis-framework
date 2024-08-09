@@ -227,7 +227,7 @@ class FacetEncoderTest {
   void getFacetFilterCodes() {
     List<WebResourceWrapper> webResourceWrappers = getBasicWebResourceWrappers();
 
-    Set<Integer> result = encoder.getFacetFilterCodes(webResourceWrappers.get(0));
+    Set<Integer> result = encoder.getFacetFilterCodes(webResourceWrappers.getFirst());
 
     assertEquals(0, result.size());
   }
@@ -265,7 +265,7 @@ class FacetEncoderTest {
   void getFacetValueCodes() {
     List<WebResourceWrapper> webResourceWrappers = getBasicWebResourceWrappers();
 
-    Set<Integer> result = encoder.getFacetValueCodes(webResourceWrappers.get(0));
+    Set<Integer> result = encoder.getFacetValueCodes(webResourceWrappers.getFirst());
 
     assertEquals(0, result.size());
   }

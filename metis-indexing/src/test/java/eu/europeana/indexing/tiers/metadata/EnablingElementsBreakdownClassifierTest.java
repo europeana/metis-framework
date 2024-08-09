@@ -190,7 +190,7 @@ class EnablingElementsBreakdownClassifierTest {
     hasMet.setResource(link);
     final ProxyType proxy = new ProxyType();
     proxy.setChoiceList(Collections.singletonList(new Choice()));
-    proxy.getChoiceList().get(0).setCreated(created);
+    proxy.getChoiceList().getFirst().setCreated(created);
     proxy.setHasMetList(Collections.singletonList(hasMet));
     final List<ProxyType> proxies = Collections.singletonList(proxy);
 

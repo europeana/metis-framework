@@ -20,15 +20,17 @@ public class DepublishRecordIdView {
 
   /**
    * Constructor.
-   * @param record The record to create this view for.
+   *
+   * @param depublishRecordId The depublishRecordId to create this view for.
    */
-  public DepublishRecordIdView(DepublishRecordId record) {
-    this.recordId = record.getRecordId();
-    this.depublicationDate = record.getDepublicationDate();
+  public DepublishRecordIdView(DepublishRecordId depublishRecordId) {
+    this.recordId = depublishRecordId.getRecordId();
+    this.depublicationDate = depublishRecordId.getDepublicationDate();
     this.depublicationStatus = DepublicationStatus
-        .convertFromModelToView(record.getDepublicationStatus());
-    this.depublicationReason = record.getDepublicationReason() == null ? DepublicationReason.UNKNOWN.toString() :
-        record.getDepublicationReason().toString();
+        .convertFromModelToView(depublishRecordId.getDepublicationStatus());
+    this.depublicationReason =
+        depublishRecordId.getDepublicationReason() == null ? DepublicationReason.UNKNOWN.toString()
+            : depublishRecordId.getDepublicationReason().toString();
   }
 
   public String getRecordId() {
@@ -53,16 +55,12 @@ public class DepublishRecordIdView {
   public enum DepublicationStatus {
     DEPUBLISHED, PENDING;
 
-    private static DepublicationStatus convertFromModelToView(
-        DepublishRecordId.DepublicationStatus depublicationStatus) {
-      DepublicationStatus depublicationStatusView = null;
-      if (depublicationStatus != null) {
-        switch (depublicationStatus) {
-          case DEPUBLISHED -> depublicationStatusView = DepublicationStatus.DEPUBLISHED;
-          default -> depublicationStatusView = DepublicationStatus.PENDING;
-        }
-      }
-      return depublicationStatusView;
+    private static DepublicationStatus convertFromModelToView(DepublishRecordId.DepublicationStatus depublicationStatus) {
+      return switch (depublicationStatus) {
+        case DEPUBLISHED -> DepublicationStatus.DEPUBLISHED;
+        case PENDING_DEPUBLICATION -> DepublicationStatus.PENDING;
+        case null -> null;
+      };
     }
   }
 }

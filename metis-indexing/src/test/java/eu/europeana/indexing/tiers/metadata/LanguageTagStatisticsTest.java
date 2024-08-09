@@ -87,11 +87,11 @@ class LanguageTagStatisticsTest {
     assertTrue(statistics1.containsContextualClass(about3));
     assertTrue(statistics1.containsContextualClass(about4));
 
-    // Now make some preflabels invalid.
-    place1.getPrefLabelList().get(0).setLang(new Lang());
-    place2.getPrefLabelList().get(0).setLang(null);
-    timeSpan.getPrefLabelList().get(0).setString(" ");
-    concept.getChoiceList().get(0).getPrefLabel().getLang().setLang(" ");
+    // Now make some prefLabels invalid.
+    place1.getPrefLabelList().getFirst().setLang(new Lang());
+    place2.getPrefLabelList().getFirst().setLang(null);
+    timeSpan.getPrefLabelList().getFirst().setString(" ");
+    concept.getChoiceList().getFirst().getPrefLabel().getLang().setLang(" ");
     final LanguageTagStatistics statistics2 = new LanguageTagStatistics(
         Arrays.asList(place1, place2), Collections.singletonList(timeSpan),
         Collections.singletonList(concept));
@@ -102,11 +102,11 @@ class LanguageTagStatisticsTest {
         Collections.singletonList(concept));
     assertEquals(Collections.emptySet(), statistics3.getContextualClassesWithLanguage());
 
-    // Now make some preflabel collections invalid
+    // Now make some prefLabel collections invalid
     place1.setPrefLabelList(Collections.emptyList());
     place2.setPrefLabelList(null);
     concept.getChoiceList().forEach(Concept.Choice::clearChoiceListSelect);
-    concept.getChoiceList().get(0).setAltLabel(new AltLabel());
+    concept.getChoiceList().getFirst().setAltLabel(new AltLabel());
     concept.getChoiceList().get(0).getAltLabel().setString("altLabelValue");
     concept.getChoiceList().get(0).getAltLabel().setLang(createLang("altLabelLanguage"));
     concept.getChoiceList().get(1).setAltLabel(null);

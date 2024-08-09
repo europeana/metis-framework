@@ -143,8 +143,8 @@ public enum ProxyFieldType implements FieldType<ProxyType> {
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
 
-    protected final Predicate<Choice> choiceChecker;
-    protected final Function<Choice, T> contentGetter;
+    private final Predicate<Choice> choiceChecker;
+    private final Function<Choice, T> contentGetter;
     private final BiConsumer<Choice, T> contentSetter;
     private final Supplier<T> contentCreator;
 

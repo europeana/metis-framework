@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import dev.morphia.Datastore;
-import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import eu.europeana.metis.mongo.model.RecordRedirect;
 import java.time.Instant;
@@ -26,7 +25,7 @@ import org.junit.jupiter.api.Test;
  */
 class RecordRedirectDaoTest {
 
-  private final static String DATABASE_NAME = "dbTest";
+  private static final String DATABASE_NAME = "dbTest";
 
   private static RecordRedirectDao recordRedirectDao;
 
@@ -91,7 +90,7 @@ class RecordRedirectDaoTest {
     List<RecordRedirect> recordRedirectList = recordRedirectDao.getRecordRedirectsByNewId("61eec080f582833f364dad08");
 
     assertEquals(1, recordRedirectList.size());
-    assertEquals(recordRedirect.getNewId(), recordRedirectList.get(0).getNewId());
+    assertEquals(recordRedirect.getNewId(), recordRedirectList.getFirst().getNewId());
   }
 
   @Test

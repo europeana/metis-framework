@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -174,7 +173,7 @@ public class TestWorkflowValidationUtils {
       when(plugin.isEnabled()).thenReturn(true);
       doReturn(type).when(plugin).getExecutablePluginType();
       return plugin;
-    }).collect(Collectors.toList()));
+    }).toList());
     return workflow;
   }
 

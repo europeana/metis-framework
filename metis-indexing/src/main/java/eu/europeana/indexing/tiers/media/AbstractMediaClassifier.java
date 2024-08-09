@@ -18,7 +18,6 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This is the superclass of all classifiers for specific media types. Classification happens both for the entity as a whole and
@@ -56,7 +55,7 @@ public abstract class AbstractMediaClassifier implements TierClassifier<MediaTie
           webResources.stream().map(
                           resource -> classifyWebResourceAndLicense(resource, entityLicenseType, hasLandingPage, hasEmbeddableMedia))
                       .sorted(Comparator.comparing(MediaResourceTechnicalMetadata::getMediaTier, Tier.getComparator().reversed()))
-                      .collect(Collectors.toList());
+                      .toList();
       //Get the highest value or else default
       mediaTier = descendingMediaResourceTechnicalMetadata.stream().map(MediaResourceTechnicalMetadata::getMediaTier).findFirst()
                                                           .orElse(MediaTier.T0);

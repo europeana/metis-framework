@@ -123,7 +123,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
         !getRdf().getEuropeanaAggregationList().isEmpty()) {
       final Preview preview = new Preview();
       preview.setResource(url);
-      getRdf().getEuropeanaAggregationList().get(0).setPreview(preview);
+      getRdf().getEuropeanaAggregationList().getFirst().setPreview(preview);
     }
   }
 

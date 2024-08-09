@@ -16,9 +16,6 @@ import jakarta.persistence.TemporalType;
 /**
  * The Metis user containing all parameters.
  * <p>This class is used as a JPA class to the postgresql database</p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-27
  */
 @Entity
 @Table(name = "metis_users")

@@ -108,7 +108,7 @@ public class DataEvolutionUtils {
                          .filter(plugin -> predecessorTypes.contains(plugin.getPluginMetadata().getExecutablePluginType()))
                          .filter(plugin -> plugin.getPluginStatus() == PluginStatus.FINISHED).collect(Collectors.toList());
     if (!candidates.isEmpty()) {
-      return candidates.get(candidates.size() - 1);
+      return candidates.getLast();
     }
 
     // If no successful plugin found, throw exception.
@@ -229,7 +229,7 @@ public class DataEvolutionUtils {
     if (evolution.isEmpty()) {
       return new PluginWithExecutionId<>(plugin.getExecutionId(), plugin.getPlugin());
     }
-    return new PluginWithExecutionId<>(evolution.get(0).getRight(), evolution.get(0).getLeft());
+    return new PluginWithExecutionId<>(evolution.getFirst().getRight(), evolution.getFirst().getLeft());
   }
 
   /**

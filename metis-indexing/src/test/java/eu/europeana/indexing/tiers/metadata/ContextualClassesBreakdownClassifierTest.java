@@ -246,7 +246,7 @@ class ContextualClassesBreakdownClassifierTest {
 
     // Set values
     concept.setChoiceList(
-        IntStream.range(0, 7).mapToObj(index -> new Choice()).collect(Collectors.toList()));
+        IntStream.range(0, 7).mapToObj(index -> new Choice()).toList());
     concept.getChoiceList().get(0).setPrefLabel(prefLabel);
     concept.getChoiceList().get(1).setNote(note);
     concept.getChoiceList().get(2).setBroader(broader);
@@ -413,11 +413,11 @@ class ContextualClassesBreakdownClassifierTest {
     final String unlinkedPlaceAbout = "unlinkedPlaceAbout";
     final String existingTimespanAbout = "existingTimeSpanAbout";
     final String absentTimespanAbout = "absentTimeSpanAbout";
-    agents.get(0).setAbout(agentAbout);
-    concepts.get(0).setAbout(conceptAbout);
+    agents.getFirst().setAbout(agentAbout);
+    concepts.getFirst().setAbout(conceptAbout);
     places.get(0).setAbout(linkedPlaceAbout);
     places.get(1).setAbout(unlinkedPlaceAbout);
-    timeSpans.get(0).setAbout(existingTimespanAbout);
+    timeSpans.getFirst().setAbout(existingTimespanAbout);
 
     // Create links to most objects and check that they are indeed obtainable.
     final List<ProxyType> proxies = Arrays.asList(new ProxyType(), new ProxyType());
@@ -438,31 +438,31 @@ class ContextualClassesBreakdownClassifierTest {
                                      .collect(Collectors.toSet()));
 
     // Do the tests for no qualifying entities (except the unlinked one).
-    doReturn(false).when(classifier).entityQualifies(agents.get(0));
-    doReturn(false).when(classifier).entityQualifies(concepts.get(0));
+    doReturn(false).when(classifier).entityQualifies(agents.getFirst());
+    doReturn(false).when(classifier).entityQualifies(concepts.getFirst());
     doReturn(false).when(classifier).entityQualifies(places.get(0));
     doReturn(true).when(classifier).entityQualifies(places.get(1));
-    doReturn(false).when(classifier).entityQualifies(timeSpans.get(0));
+    doReturn(false).when(classifier).entityQualifies(timeSpans.getFirst());
     assertEquals(0, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
 
     // Make some of them qualifying and do the tests again.
-    doReturn(true).when(classifier).entityQualifies(agents.get(0));
+    doReturn(true).when(classifier).entityQualifies(agents.getFirst());
     assertEquals(1, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(true).when(classifier).entityQualifies(concepts.get(0));
+    doReturn(true).when(classifier).entityQualifies(concepts.getFirst());
     assertEquals(2, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(true).when(classifier).entityQualifies(places.get(0));
+    doReturn(true).when(classifier).entityQualifies(places.getFirst());
     assertEquals(3, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(true).when(classifier).entityQualifies(timeSpans.get(0));
+    doReturn(true).when(classifier).entityQualifies(timeSpans.getFirst());
     assertEquals(4, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
 
     // Make some of them non-qualifying and do the tests again.
-    doReturn(false).when(classifier).entityQualifies(agents.get(0));
+    doReturn(false).when(classifier).entityQualifies(agents.getFirst());
     assertEquals(3, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(false).when(classifier).entityQualifies(concepts.get(0));
+    doReturn(false).when(classifier).entityQualifies(concepts.getFirst());
     assertEquals(2, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(false).when(classifier).entityQualifies(places.get(0));
+    doReturn(false).when(classifier).entityQualifies(places.getFirst());
     assertEquals(1, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
-    doReturn(false).when(classifier).entityQualifies(timeSpans.get(0));
+    doReturn(false).when(classifier).entityQualifies(timeSpans.getFirst());
     assertEquals(0, classifier.countQualifyingContextualClassTypes(entity).getCompleteContextualResources());
   }
 
