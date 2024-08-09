@@ -5,6 +5,7 @@ import eu.europeana.indexing.utils.WebResourceLinkType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -69,6 +70,9 @@ final class EmbeddableMedia {
       .get()
       .collect(Collectors.toList());
 
+  private static final String OEMBED_XML = "application/xml+oembed";
+  private static final String OEMBED_JSON = "application/json+oembed";
+
   // Create patterns from the urls, quote url, wildcards are allowed in the pattern, so we do not quote those,
   // and we also add a wildcard at the end of each url
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
@@ -97,7 +101,29 @@ final class EmbeddableMedia {
    */
   static boolean hasEmbeddableMedia(RdfWrapper entity) {
     return entity.getUrlsOfTypes(EnumSet.of(WebResourceLinkType.IS_SHOWN_BY)).stream()
-                 .anyMatch(EmbeddableMedia::isEmbeddableMedia);
+                 .anyMatch(EmbeddableMedia::isEmbeddableMedia)
+        || isOEmbeddableMedia(entity);
+  }
+
+  /**
+   * Is an OEmbeddable media .
+   *
+   * @param entity the entity
+   * @return true, if the mimetype has application/json+oembed or application/xml+oembed
+   */
+  static boolean isOEmbeddableMedia(RdfWrapper entity) {
+    return entity.getWebResources()
+                 .stream()
+                 .filter(Objects::nonNull)
+                 .anyMatch(webResourceType ->
+                     webResourceType.getHasMimeType()
+                                    .getHasMimeType()
+                                    .startsWith(OEMBED_XML)
+                         || webResourceType.getHasMimeType()
+                                           .getHasMimeType()
+                                           .startsWith(OEMBED_JSON)
+                 );
+
   }
 
   private static boolean isEmbeddableMedia(String url) {
