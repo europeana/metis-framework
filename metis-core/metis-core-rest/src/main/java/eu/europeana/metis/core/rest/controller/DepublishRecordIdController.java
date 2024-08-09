@@ -83,12 +83,11 @@ public class DepublishRecordIdController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
-        .addRecordIdsToBeDepublished(metisUserView, datasetId, recordIdsInSeparateLines, depublicationReason);
+        .addRecordIdsToBeDepublished(metisUserView, datasetId, recordIdsInSeparateLines);
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info("{} Depublish record ids added to dataset with datasetId: {}", added,
           CRLF_PATTERN.matcher(datasetId).replaceAll(""));
@@ -114,10 +113,9 @@ public class DepublishRecordIdController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
-      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestPart("depublicationFile") MultipartFile recordIdsFile
   ) throws GenericMetisException, IOException {
-    createRecordIdsToBeDepublished(authorization, datasetId, depublicationReason,
+    createRecordIdsToBeDepublished(authorization, datasetId,
         new String(recordIdsFile.getBytes(), StandardCharsets.UTF_8));
   }
 

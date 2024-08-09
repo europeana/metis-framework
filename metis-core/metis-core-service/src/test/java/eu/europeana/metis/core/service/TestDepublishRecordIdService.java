@@ -68,11 +68,11 @@ public class TestDepublishRecordIdService {
 
   @Test
   void addRecordIdsToBeDepublishedTest() throws GenericMetisException {
-    depublishRecordIdService.addRecordIdsToBeDepublished(metisUserView, datasetId, "1002", DepublicationReason.UNKNOWN);
+    depublishRecordIdService.addRecordIdsToBeDepublished(metisUserView, datasetId, "1002");
 
     verify(authorizer, times(1)).authorizeWriteExistingDatasetById(metisUserView, datasetId);
     verify(depublishRecordIdService, times(1)).checkAndNormalizeRecordIds(any(), any());
-    verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any(), any());
+    verify(depublishRecordIdDao, times(1)).createRecordIdsToBeDepublished(any(), any());
     verifyNoMoreInteractions(orchestratorService);
 
 
