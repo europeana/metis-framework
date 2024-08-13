@@ -1,5 +1,6 @@
 package eu.europeana.indexing.tiers.media;
 
+import static org.apache.commons.lang3.StringUtils.isNoneBlank;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -22,9 +23,11 @@ class EmbeddableMediaTest {
 
   private static WebResourceType getResource(String mimeType) {
     WebResourceType webResourceType = new WebResourceType();
-    HasMimeType hasMimeTypeXml = new HasMimeType();
-    hasMimeTypeXml.setHasMimeType(mimeType);
-    webResourceType.setHasMimeType(hasMimeTypeXml);
+    if (isNoneBlank(mimeType)) {
+      HasMimeType hasMimeTypeXml = new HasMimeType();
+      hasMimeTypeXml.setHasMimeType(mimeType);
+      webResourceType.setHasMimeType(hasMimeTypeXml);
+    }
 
     return webResourceType;
   }
@@ -72,6 +75,8 @@ class EmbeddableMediaTest {
             List.of(getResource("application/xml+oembed"))),
         Arguments.of("https://oembed.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915", true,
             List.of(getResource("application/json+oembed"))),
+        Arguments.of("https://oembed.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915", false,
+            List.of(getResource(null))),
         Arguments.of("https://oembed.com/api/oembed?url=https%3A%2F%2Fvimeo.com%2F24416915", false,
             List.of(getResource("image/jpeg"))),
         Arguments.of("https://oembed.com/api/oembed?url=https%3A%2F%2Fvimeo.com%2F24416915", false,
@@ -82,7 +87,7 @@ class EmbeddableMediaTest {
   @ParameterizedTest
   @MethodSource("embeddableMedia")
   void hasEmbeddableMedia(String url, boolean expectedEmbeddable, List<WebResourceType> resourceTypeList) {
-    
+
     final RdfWrapper entity = mock(RdfWrapper.class);
     when(entity.getUrlsOfTypes(any())).thenReturn(Set.of(url));
     when(entity.getWebResources()).thenReturn(resourceTypeList);

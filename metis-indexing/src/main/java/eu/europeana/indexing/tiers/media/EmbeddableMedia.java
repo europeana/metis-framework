@@ -2,6 +2,8 @@ package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
+import eu.europeana.metis.schema.jibx.HasMimeType;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -37,8 +39,8 @@ final class EmbeddableMedia {
       "https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=");
 
   private static final Collection<String> URL_EUSCREEN = Arrays.asList(
-          "http://www.euscreen.eu/item.html",
-          "https://www.euscreen.eu/item.html*");
+      "http://www.euscreen.eu/item.html",
+      "https://www.euscreen.eu/item.html*");
 
   private static final Collection<String> URL_SKETCHFAB = Arrays.asList(
       "https://sketchfab.com/3d-models",
@@ -115,14 +117,11 @@ final class EmbeddableMedia {
     return entity.getWebResources()
                  .stream()
                  .filter(Objects::nonNull)
-                 .anyMatch(webResourceType ->
-                     webResourceType.getHasMimeType()
-                                    .getHasMimeType()
-                                    .startsWith(OEMBED_XML)
-                         || webResourceType.getHasMimeType()
-                                           .getHasMimeType()
-                                           .startsWith(OEMBED_JSON)
-                 );
+                 .map(WebResourceType::getHasMimeType).
+                 filter(Objects::nonNull)
+                 .map(HasMimeType::getHasMimeType)
+                 .filter(Objects::nonNull)
+                 .anyMatch(value -> value.startsWith(OEMBED_XML) || value.startsWith(OEMBED_JSON));
 
   }
 
