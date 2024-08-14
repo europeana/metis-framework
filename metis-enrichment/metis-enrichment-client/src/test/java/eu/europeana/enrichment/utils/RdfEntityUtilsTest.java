@@ -25,7 +25,7 @@ import org.apache.commons.compress.utils.Sets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RdfEntityUtilsTest {
+class RdfEntityUtilsTest {
 
   private static RDF TEST_RDF;
   private static ProxyType PROXY_EUROPEANA;
@@ -55,10 +55,10 @@ public class RdfEntityUtilsTest {
 
     RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
-    assertEquals(1, TEST_RDF.getProxyList().get(0).getChoiceList().size());
+    assertEquals(1, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
     assertEquals(link,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCoverage().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource()
+                .getResource());
   }
 
   @Test
@@ -83,13 +83,13 @@ public class RdfEntityUtilsTest {
 
     RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
-    assertEquals(2, TEST_RDF.getProxyList().get(0).getChoiceList().size());
+    assertEquals(2, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
     assertEquals("http://differentdummylink.com",
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCoverage().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().get(0).getCoverage().getResource()
+                .getResource());
     assertEquals(link,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(1).getCoverage().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().get(1).getCoverage().getResource()
+                .getResource());
 
   }
 
@@ -116,10 +116,9 @@ public class RdfEntityUtilsTest {
 
     RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
 
-    assertEquals(1, TEST_RDF.getProxyList().get(0).getChoiceList().size());
+    assertEquals(1, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
     assertEquals(link,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCoverage().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource().getResource());
 
   }
 
@@ -143,9 +142,9 @@ public class RdfEntityUtilsTest {
     List<ProxyType> output = RdfEntityUtils.getProviderProxies(TEST_RDF);
     assertNotNull(output);
     assertEquals(1, output.size());
-    assertNotNull(output.get(0));
-    assertFalse(output.get(0).getEuropeanaProxy().isEuropeanaProxy());
-    assertEquals(proxyProvider, output.get(0));
+    assertNotNull(output.getFirst());
+    assertFalse(output.getFirst().getEuropeanaProxy().isEuropeanaProxy());
+    assertEquals(proxyProvider, output.getFirst());
   }
 
   @Test
@@ -189,25 +188,25 @@ public class RdfEntityUtilsTest {
     timeSpanType.setAbout(timespanLink);
     TEST_RDF.setTimeSpanList(new ArrayList<>(Collections.singleton(timeSpanType)));
 
-    assertEquals(4, TEST_RDF.getProxyList().get(0).getChoiceList().size());
+    assertEquals(4, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
     assertEquals(agentLink,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(0).getCreator().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCreator().getResource()
+                .getResource());
     assertEquals(1, TEST_RDF.getAgentList().size());
 
     assertEquals(conceptLink,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(1).getSubject().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().get(1).getSubject().getResource()
+                .getResource());
     assertEquals(1, TEST_RDF.getConceptList().size());
 
     assertEquals(placeLink,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(2).getCoverage().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().get(2).getCoverage().getResource()
+                .getResource());
     assertEquals(1, TEST_RDF.getPlaceList().size());
 
     assertEquals(timespanLink,
-        TEST_RDF.getProxyList().get(0).getChoiceList().get(3).getCreated().getResource()
-            .getResource());
+        TEST_RDF.getProxyList().getFirst().getChoiceList().get(3).getCreated().getResource()
+                .getResource());
     assertEquals(1, TEST_RDF.getTimeSpanList().size());
 
     //Find the correct links
@@ -218,7 +217,7 @@ public class RdfEntityUtilsTest {
     links.add(timespanLink);
     RdfEntityUtils.removeMatchingEntities(TEST_RDF, links);
 
-    assertEquals(0, TEST_RDF.getProxyList().get(0).getChoiceList().size());
+    assertEquals(0, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
     assertEquals(0, TEST_RDF.getAgentList().size());
     assertEquals(0, TEST_RDF.getConceptList().size());
     assertEquals(0, TEST_RDF.getPlaceList().size());

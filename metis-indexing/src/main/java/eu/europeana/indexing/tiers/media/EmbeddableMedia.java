@@ -69,8 +69,7 @@ final class EmbeddableMedia {
           URL_VIMEO.stream(),
           URL_YOUTUBE.stream())
       .reduce(Stream::concat)
-      .get()
-      .collect(Collectors.toList());
+      .get().toList();
 
   private static final String OEMBED_XML = "application/xml+oembed";
   private static final String OEMBED_JSON = "application/json+oembed";
@@ -80,7 +79,7 @@ final class EmbeddableMedia {
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
                                                                        .map(EmbeddableMedia::quotedRegexFromString)
                                                                        .map(Pattern::compile)
-                                                                       .collect(Collectors.toList());
+                                                                       .toList();
 
   // Quote the string but not asterisk(*) characters. Asterisk character get converted to the regex
   // equivalent (.*).

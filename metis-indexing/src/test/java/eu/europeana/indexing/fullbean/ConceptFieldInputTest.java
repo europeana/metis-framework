@@ -22,8 +22,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for Concepts field input creator
- *
- * @author Yorgos.Mamakis@ kb.nl
  */
 class ConceptFieldInputTest {
 
@@ -77,20 +75,15 @@ class ConceptFieldInputTest {
     assertEquals(concept.getAbout(), conceptMongo.getAbout());
     for (Concept.Choice choice2 : concept.getChoiceList()) {
       if (choice2.ifNote()) {
-        assertEquals(choice2.getNote().getString(),
-            conceptMongo.getNote().values().iterator().next().get(0));
+        assertEquals(choice2.getNote().getString(), conceptMongo.getNote().values().iterator().next().getFirst());
       }
       if (choice2.ifAltLabel()) {
-        assertTrue(
-            conceptMongo.getAltLabel().containsKey(choice2.getAltLabel().getLang().getLang()));
-        assertEquals(choice2.getAltLabel().getString(),
-            conceptMongo.getAltLabel().values().iterator().next().get(0));
+        assertTrue(conceptMongo.getAltLabel().containsKey(choice2.getAltLabel().getLang().getLang()));
+        assertEquals(choice2.getAltLabel().getString(), conceptMongo.getAltLabel().values().iterator().next().getFirst());
       }
       if (choice2.ifPrefLabel()) {
-        assertTrue(
-            conceptMongo.getPrefLabel().containsKey(choice2.getPrefLabel().getLang().getLang()));
-        assertEquals(choice2.getPrefLabel().getString(),
-            conceptMongo.getPrefLabel().values().iterator().next().get(0));
+        assertTrue(conceptMongo.getPrefLabel().containsKey(choice2.getPrefLabel().getLang().getLang()));
+        assertEquals(choice2.getPrefLabel().getString(), conceptMongo.getPrefLabel().values().iterator().next().getFirst());
       }
     }
   }

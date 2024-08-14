@@ -45,7 +45,7 @@ class EnablingElementTest {
     final BiConsumer<ProxyType, T> wrappedSetter = (proxy, value) -> {
       proxy.setChoiceList(new ArrayList<>());
       proxy.getChoiceList().add(new Choice());
-      setter.accept(proxy.getChoiceList().get(0), value);
+      setter.accept(proxy.getChoiceList().getFirst(), value);
     };
     testElementWithFixedGroup(element, group, constructor, wrappedSetter);
   }

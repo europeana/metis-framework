@@ -186,7 +186,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private static class RecordIterator extends HttpHarvestIterator<ArchiveEntry>
+  private static class RecordIterator extends AbstractHttpHarvestIterator<ArchiveEntry>
       implements FullRecordHarvestingIterator<ArchiveEntry, Path> {
 
     public RecordIterator(Path extractedDirectory) {
@@ -200,7 +200,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private static class PathIterator extends HttpHarvestIterator<Path> implements HttpRecordIterator {
+  private static class PathIterator extends AbstractHttpHarvestIterator<Path> implements HttpRecordIterator {
 
     public PathIterator(Path extractedDirectory) {
       super(extractedDirectory);
@@ -226,11 +226,11 @@ public class HttpHarvesterImpl implements HttpHarvester {
   /**
    * Iterator for harvesting
    */
-  private static abstract class HttpHarvestIterator<R> implements HarvestingIterator<R, Path> {
+  private abstract static class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
     private final Path extractedDirectory;
 
-    public HttpHarvestIterator(Path extractedDirectory) {
+    public AbstractHttpHarvestIterator(Path extractedDirectory) {
       if (extractedDirectory == null) {
         throw new IllegalStateException("Extracted directory is null. This should not happen.");
       }

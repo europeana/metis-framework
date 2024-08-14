@@ -171,7 +171,7 @@ class AudioVideoProcessor implements MediaProcessor {
   private Representation getRepresentationFromMpd(AdaptationSet videoAdaptationSet)
       throws MediaExtractionException {
     // If only one representation available, get that one, otherwise get the first of type video
-    Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
+    Representation videoRepresentation = videoAdaptationSet.getRepresentations().getFirst();
     if (videoAdaptationSet.getRepresentations().size() > 1) {
       //Get the one with the highest width*height if possible
       videoRepresentation = videoAdaptationSet.getRepresentations().stream()

@@ -37,9 +37,6 @@ import org.springframework.util.CollectionUtils;
 /**
  * Utilities class to assist record redirects logic.
  * <p>Not to be instantiated</p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2020-02-11
  */
 public final class RecordRedirectsUtil {
 
@@ -192,10 +189,9 @@ public final class RecordRedirectsUtil {
       Map<String, List<String>> thirdMapOfLists) {
     //Collect all required information for heuristics
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
-                                               .map(Identifier::getString).filter(StringUtils::isNotBlank)
-                                               .collect(Collectors.toList());
+                                               .map(Identifier::getString).filter(StringUtils::isNotBlank).toList();
     final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
-                                          .filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                                          .filter(StringUtils::isNotBlank).toList();
     final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
                                                 .map(description -> {
                                                   if (StringUtils.isNotBlank(description.getString())) {
@@ -205,10 +201,10 @@ public final class RecordRedirectsUtil {
                                                     return description.getResource().getResource();
                                                   }
                                                   return null;
-                                                }).filter(Objects::nonNull).collect(Collectors.toList());
+                                                }).filter(Objects::nonNull).toList();
     final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
                                                  .map(IsShownBy::getResource).filter(StringUtils::isNotBlank)
-                                                 .collect(Collectors.toList());
+                                                 .toList();
 
     //Create all lists that need to be combined
     firstMapOfLists.putAll(createFirstCombinationGroup(identifiers, titles, descriptions));
@@ -273,7 +269,7 @@ public final class RecordRedirectsUtil {
   private static String generateQueryForFields(Map<String, List<String>> listsToCombine) {
     final List<String> items = listsToCombine.entrySet().stream()
                                              .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
-                                             .filter(StringUtils::isNotBlank).collect(Collectors.toList());
+                                             .filter(StringUtils::isNotBlank).toList();
     return computeJoiningQuery(items, UnaryOperator.identity(),
         Collectors.joining(" AND ", "(", ")"));
   }
@@ -302,7 +298,7 @@ public final class RecordRedirectsUtil {
   }
 
   private static List<String> getFilteredItems(List<String> items) {
-    return items.stream().filter(StringUtils::isNotBlank).collect(Collectors.toList());
+    return items.stream().filter(StringUtils::isNotBlank).toList();
   }
 
   private static Pair<String, List<String>> generateQueryForDatasetIds(
@@ -315,7 +311,7 @@ public final class RecordRedirectsUtil {
 
       concatenatedDatasetRecordIds = filteredItems.stream().map(
                                                       datasetIdForRedirection -> String.format("\"/%s/%s\"", datasetIdForRedirection, recordId))
-                                                  .collect(Collectors.toList());
+                                                  .toList();
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
           UnaryOperator.identity(),

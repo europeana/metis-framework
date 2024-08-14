@@ -19,9 +19,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * FieldInputUtils unit tests
- * 
- * @author Yorgos.Mamakis@ kb.nl
- * 
  */
 class FieldInputUtilsTest {
 
@@ -36,7 +33,7 @@ class FieldInputUtilsTest {
     assertNotNull(testMap);
     assertEquals(1, testMap.size());
     assertEquals("en", testMap.keySet().iterator().next());
-    assertEquals("str", testMap.get("en").get(0));
+    assertEquals("str", testMap.get("en").getFirst());
 
     assertNull(FieldInputUtils.createLiteralMapFromString(null));
     assertNull(FieldInputUtils.createLiteralMapFromString(new LiteralType()));
@@ -48,7 +45,7 @@ class FieldInputUtilsTest {
     assertNotNull(testMap);
     assertEquals(1, testMap.size());
     assertEquals("def", testMap.keySet().iterator().next());
-    assertEquals("str", testMap.get("def").get(0));
+    assertEquals("str", testMap.get("def").getFirst());
 
     assertNull(FieldInputUtils.createMapFromString(null));
     assertNull(FieldInputUtils.createMapFromString(" "));
@@ -66,7 +63,7 @@ class FieldInputUtilsTest {
     assertNotNull(testMap);
     assertEquals(1, testMap.size());
     assertEquals("en", testMap.keySet().iterator().next());
-    assertEquals("str", testMap.get("en").get(0));
+    assertEquals("str", testMap.get("en").getFirst());
 
     ResourceOrLiteralType obj2 = new ResourceOrLiteralType();
     Resource res = new Resource();
@@ -76,7 +73,7 @@ class FieldInputUtilsTest {
     assertNotNull(testMap2);
     assertEquals(1, testMap2.size());
     assertEquals("def", testMap2.keySet().iterator().next());
-    assertEquals("str", testMap2.get("def").get(0));
+    assertEquals("str", testMap2.get("def").getFirst());
 
     ResourceOrLiteralType obj3 = new ResourceOrLiteralType();
     ResourceOrLiteralType.Lang lang3 = new ResourceOrLiteralType.Lang();
@@ -134,8 +131,8 @@ class FieldInputUtilsTest {
     assertEquals(2, mapB.size());
     assertTrue(mapB.containsKey("def"));
     assertTrue(mapB.containsKey("en"));
-    assertEquals("strC", mapB.get("en").get(0));
-    assertEquals("strD", mapB.get("def").get(0));
+    assertEquals("strC", mapB.get("en").getFirst());
+    assertEquals("strD", mapB.get("def").getFirst());
 
     ltE.setString("strE");
     ltF.setString("strF");
@@ -190,8 +187,8 @@ class FieldInputUtilsTest {
     assertEquals(2, mapB.size());
     assertTrue(mapB.containsKey("def"));
     assertTrue(mapB.containsKey("en"));
-    assertEquals("strC", mapB.get("en").get(0));
-    assertEquals("strD", mapB.get("def").get(0));
+    assertEquals("strC", mapB.get("en").getFirst());
+    assertEquals("strD", mapB.get("def").getFirst());
 
     ltE.setString("strE");
     ltF.setString("strF");

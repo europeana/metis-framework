@@ -32,7 +32,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestDepublishRecordIdDao {
+class TestDepublishRecordIdDao {
 
   private static MorphiaDatastoreProvider provider;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
@@ -153,7 +153,7 @@ public class TestDepublishRecordIdDao {
             SortDirection.ASCENDING, null);
 
     assertEquals(1, find1004.size());
-    assertEquals("1004", find1004.get(0).getRecordId());
+    assertEquals("1004", find1004.getFirst().getRecordId());
     assertEquals(2, findAll.size());
   }
 
@@ -323,9 +323,9 @@ public class TestDepublishRecordIdDao {
 
   @Test
   void getPageSizeTest() {
-    final DepublishRecordIdDao depublishRecordIdDao = new DepublishRecordIdDao(provider,
+    final DepublishRecordIdDao depublishRecordIdDaoWithPageSize = new DepublishRecordIdDao(provider,
         MAX_DEPUBLISH_RECORD_IDS_PER_DATASET, 3);
     verifyNoInteractions(provider);
-    assertEquals(3, depublishRecordIdDao.getPageSize());
+    assertEquals(3, depublishRecordIdDaoWithPageSize.getPageSize());
   }
 }

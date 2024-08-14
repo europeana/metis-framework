@@ -68,7 +68,7 @@ class SonarqubeNullcheckAvoidanceUtilsTest {
 
     Integer actualValue = performThrowingFunction(number, x -> {
           integerList.add(x * 2);
-          return integerList.get(0);
+          return integerList.getFirst();
         }
     );
     assertEquals(24, actualValue);

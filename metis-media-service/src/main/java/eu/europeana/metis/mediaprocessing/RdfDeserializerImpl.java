@@ -136,7 +136,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
 
     // So there is exactly one. Convert and return.
-    return Optional.of(convertToResourceEntries(resourceEntries).get(0));
+    return Optional.of(convertToResourceEntries(resourceEntries).getFirst());
   }
 
   @Override

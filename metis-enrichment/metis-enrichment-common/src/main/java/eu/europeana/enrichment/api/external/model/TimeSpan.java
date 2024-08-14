@@ -110,7 +110,7 @@ public class TimeSpan extends EnrichmentBase {
     }
     this.hiddenLabel = convertListToLabel(timeSpan.getHiddenLabel());
     if (timeSpan.getIsNextInSequence() != null) {
-      this.isNextInSequence = new Part(timeSpan.getIsNextInSequence().get(0));
+      this.isNextInSequence = new Part(timeSpan.getIsNextInSequence().getFirst());
     }
   }
 }

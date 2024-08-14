@@ -20,18 +20,16 @@ import eu.europeana.metis.schema.jibx.Title;
 import eu.europeana.metis.schema.jibx._Object;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class EnrichmentUtilsTest {
+class EnrichmentUtilsTest {
 
-  private final static RDF TEST_RDF = spy(new RDF());
-  private final static ProxyType PROXY_EUROPEANA = new ProxyType();
-  private final static ProxyType PROXY_PROVIDER = new ProxyType();
-  private final static EuropeanaAggregationType EUROPEANA_AGGREGATION_TYPE = new EuropeanaAggregationType();
+  private static final RDF TEST_RDF = spy(new RDF());
+  private static final ProxyType PROXY_EUROPEANA = new ProxyType();
+  private static final ProxyType PROXY_PROVIDER = new ProxyType();
+  private static final EuropeanaAggregationType EUROPEANA_AGGREGATION_TYPE = new EuropeanaAggregationType();
 
   @BeforeEach
   void setUp() {
@@ -95,8 +93,7 @@ public class EnrichmentUtilsTest {
     EnrichmentUtils.setAdditionalData(TEST_RDF);
 
     ProxyType proxyResult = TEST_RDF.getProxyList().stream()
-        .filter(x -> x.getEuropeanaProxy().isEuropeanaProxy())
-        .collect(Collectors.toList()).get(0);
+        .filter(x -> x.getEuropeanaProxy().isEuropeanaProxy()).toList().getFirst();
 
     assertEquals(4, proxyResult.getYearList().size());
     assertEquals("1990", proxyResult.getYearList().get(0).getString());
@@ -135,10 +132,10 @@ public class EnrichmentUtilsTest {
 
     ProxyType proxyResult = TEST_RDF.getProxyList().stream()
         .filter(x -> x.getEuropeanaProxy().isEuropeanaProxy())
-        .collect(Collectors.toList()).get(0);
+        .toList().getFirst();
 
     assertEquals(1, proxyResult.getYearList().size());
-    assertEquals("1990", proxyResult.getYearList().get(0).getString());
+    assertEquals("1990", proxyResult.getYearList().getFirst().getString());
 
   }
 
@@ -153,7 +150,7 @@ public class EnrichmentUtilsTest {
 
     EnrichmentUtils.setAdditionalData(TEST_RDF);
 
-    EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().get(0);
+    EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().getFirst();
 
     assertEquals("0", aggregationTypeResult.getCompleteness().getString());
   }
@@ -192,7 +189,7 @@ public class EnrichmentUtilsTest {
 
     EnrichmentUtils.setAdditionalData(TEST_RDF);
 
-    EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().get(0);
+    EuropeanaAggregationType aggregationTypeResult = TEST_RDF.getEuropeanaAggregationList().getFirst();
 
     assertTrue(Integer.parseInt(aggregationTypeResult.getCompleteness().getString()) > 0);
   }
@@ -217,6 +214,6 @@ public class EnrichmentUtilsTest {
     EnrichmentUtils.setAdditionalData(newRdf);
 
     assertArrayEquals(toCompare.getProxyList().toArray(), newRdf.getProxyList().toArray());
-    assertEquals(toCompare.getEuropeanaAggregationList().get(0), newRdf.getEuropeanaAggregationList().get(0));
+    assertEquals(toCompare.getEuropeanaAggregationList().getFirst(), newRdf.getEuropeanaAggregationList().getFirst());
   }
 }

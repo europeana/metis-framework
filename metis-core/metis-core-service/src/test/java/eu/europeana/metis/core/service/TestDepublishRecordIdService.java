@@ -35,7 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-public class TestDepublishRecordIdService {
+class TestDepublishRecordIdService {
 
   private static Authorizer authorizer;
   private static OrchestratorService orchestratorService;
@@ -113,7 +113,7 @@ public class TestDepublishRecordIdService {
     // verify the result
     assertEquals(1, result.getListSize());
     assertEquals(1, result.getResults().size());
-    assertEquals(record.getRecordId(), result.getResults().get(0).getRecordId());
+    assertEquals(record.getRecordId(), result.getResults().getFirst().getRecordId());
   }
 
   @Test
@@ -125,7 +125,7 @@ public class TestDepublishRecordIdService {
         mockRecordIdsSeparateLines);
 
     //Do the actual call
-    WorkflowExecution result = depublishRecordIdService
+    depublishRecordIdService
         .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines,
             DepublicationReason.GENERIC);
 
