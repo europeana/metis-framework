@@ -107,8 +107,8 @@ class LanguageTagStatisticsTest {
     place2.setPrefLabelList(null);
     concept.getChoiceList().forEach(Concept.Choice::clearChoiceListSelect);
     concept.getChoiceList().getFirst().setAltLabel(new AltLabel());
-    concept.getChoiceList().get(0).getAltLabel().setString("altLabelValue");
-    concept.getChoiceList().get(0).getAltLabel().setLang(createLang("altLabelLanguage"));
+    concept.getChoiceList().getFirst().getAltLabel().setString("altLabelValue");
+    concept.getChoiceList().getFirst().getAltLabel().setLang(createLang("altLabelLanguage"));
     concept.getChoiceList().get(1).setAltLabel(null);
     final LanguageTagStatistics statistics4 = new LanguageTagStatistics(
         Arrays.asList(place1, place2), Collections.singletonList(timeSpan),

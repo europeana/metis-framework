@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.common;
 
+import static java.lang.Boolean.FALSE;
+
 import com.fasterxml.jackson.datatype.jsr310.ser.InstantSerializer;
 import java.io.Serial;
 import java.time.format.DateTimeFormatter;
@@ -20,10 +22,10 @@ public final class JavaTimeSerialization {
     @Serial private static final long serialVersionUID = -4172609679650500288L;
 
     /**
-     * Constructor for Iso InstantSerializer.
+     * Constructor for Iso InstantSerializer. Does not utilize nanoseconds.
      */
     public IsoInstantSerializer() {
-      super(InstantSerializer.INSTANCE, Boolean.FALSE, false, DateTimeFormatter.ISO_INSTANT);
+      super(InstantSerializer.INSTANCE, FALSE, FALSE, DateTimeFormatter.ISO_INSTANT);
     }
   }
 }
