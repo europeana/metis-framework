@@ -1,5 +1,10 @@
 package eu.europeana.metis.mediaprocessing;
 
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_HAS_VIEW;
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_IS_SHOWN_AT;
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_IS_SHOWN_BY;
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_OBJECT;
+
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
@@ -43,14 +48,6 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
-  @SuppressWarnings("java:S1075")
-  private static final String XPATH_OBJECT = "/rdf:RDF/ore:Aggregation/edm:object/@rdf:resource";
-  @SuppressWarnings("java:S1075")
-  private static final String XPATH_IS_SHOWN_BY = "/rdf:RDF/ore:Aggregation/edm:isShownBy/@rdf:resource";
-  @SuppressWarnings("java:S1075")
-  private static final String XPATH_HAS_VIEW = "/rdf:RDF/ore:Aggregation/edm:hasView/@rdf:resource";
-  @SuppressWarnings("java:S1075")
-  private static final String XPATH_IS_SHOWN_AT = "/rdf:RDF/ore:Aggregation/edm:isShownAt/@rdf:resource";
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_HAS_SERVICE =
       "svcs:has_service/@rdf:resource = /rdf:RDF/svcs:Service/@rdf:about" +
@@ -58,19 +55,19 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_WEB_RESOURCE =
       "/rdf:RDF/edm:WebResource[" + XPATH_HAS_SERVICE + " = \"" + OEMBED_NAMESPACE + "\"";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
-      XPATH_IS_SHOWN_BY + "[" + XPATH_IS_SHOWN_BY + " = " + XPATH_WEB_RESOURCE + "]/@rdf:about]";
-  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW = XPATH_HAS_VIEW
-      + "[" + XPATH_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "]/@rdf:about]";
+      EDM_IS_SHOWN_BY + "[" + EDM_IS_SHOWN_BY + " = " + XPATH_WEB_RESOURCE + "]/@rdf:about]";
+  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW = EDM_HAS_VIEW
+      + "[" + EDM_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "]/@rdf:about]";
 
   private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(XPATH_OBJECT));
+      xPath -> xPath.compile(EDM_OBJECT));
   private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(XPATH_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_HAS_VIEW));
+      xPath -> xPath.compile(EDM_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_HAS_VIEW));
   private final XPathExpressionWrapper getIsShownAtExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(XPATH_IS_SHOWN_AT));
+      xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(XPATH_IS_SHOWN_BY + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+      xPath -> xPath.compile(EDM_IS_SHOWN_BY + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private static List<RdfResourceEntry> convertToResourceEntries(
       Map<String, Set<UrlType>> urlWithTypes) {
