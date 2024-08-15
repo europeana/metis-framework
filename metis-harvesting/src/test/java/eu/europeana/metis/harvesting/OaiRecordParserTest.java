@@ -59,7 +59,7 @@ class OaiRecordParserTest {
     assertEquals("oai:mediateka.centrumzamenhofa.pl:20", result.getHeader().getOaiIdentifier());
     assertEquals(LocalDateTime.of(2020, 2, 2, 12, 21).toInstant(ZoneOffset.UTC),
         result.getHeader().getDatestamp());
-    assertThrows(HarvesterException.class, result::getRecord);
+    assertThrows(IllegalStateException.class, result::getRecord);
   }
 
   @Test

@@ -310,8 +310,8 @@ class TestDataEvolutionUtils {
         .compileVersionEvolution(plugin2, execution2);
     assertNotNull(resultForTwo);
     assertEquals(1, resultForTwo.size());
-    assertSame(plugin1, resultForThree.get(0).getLeft());
-    assertSame(execution1, resultForThree.get(0).getRight());
+    assertSame(plugin1, resultForThree.getFirst().getLeft());
+    assertSame(execution1, resultForThree.getFirst().getRight());
 
     // Execute the call to examine just one
     final List<Pair<ExecutablePlugin, WorkflowExecution>> resultForOne = dataEvolutionUtils
@@ -352,19 +352,18 @@ class TestDataEvolutionUtils {
 
     // Test the absence of the execution despite the presence of the pointers.
     when(workflowExecutionDao
-        .getByTaskExecution(eq(new ExecutedMetisPluginId(previousPluginTime, previousPluginType)), eq(datasetId)))
+        .getByTaskExecution(new ExecutedMetisPluginId(previousPluginTime, previousPluginType), datasetId))
         .thenReturn(null);
     assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
     when(workflowExecutionDao
-        .getByTaskExecution(eq(new ExecutedMetisPluginId(previousPluginTime, previousPluginType)), eq(datasetId)))
+        .getByTaskExecution(new ExecutedMetisPluginId(previousPluginTime, previousPluginType), datasetId))
         .thenReturn(previousExecution);
 
     // Test the absence of the plugin despite the presence of the pointers.
-    when(previousExecution.getMetisPluginWithType(eq(previousPluginType))).thenReturn(
+    when(previousExecution.getMetisPluginWithType(previousPluginType)).thenReturn(
         Optional.empty());
     assertNull(dataEvolutionUtils.getPreviousExecutionAndPlugin(plugin, datasetId));
-    when(previousExecution.getMetisPluginWithType(eq(previousPluginType)))
-        .thenReturn(Optional.of(previousPlugin));
+    when(previousExecution.getMetisPluginWithType(previousPluginType)).thenReturn(Optional.of(previousPlugin));
 
     // Test the happy flow
     final Pair<MetisPlugin, WorkflowExecution> result = dataEvolutionUtils

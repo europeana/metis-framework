@@ -32,7 +32,7 @@ public class EnablingElementsClassifier implements TierClassifierBreakdown<Enabl
   private final ClassifierMode classifierMode;
 
   /**
-   * Instantiates a new Enabling elements' classifier.
+   * Instantiates a new Enabling elements' classifier for default mode {@link ClassifierMode#PROVIDER_PROXIES}.
    */
   public EnablingElementsClassifier() {
     this.classifierMode = ClassifierMode.PROVIDER_PROXIES;

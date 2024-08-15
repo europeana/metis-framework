@@ -30,6 +30,7 @@ public final class RestEndpoints {
   // DEPUBLISHED RECORDS
   public static final String DEPUBLISH_RECORDIDS_DATASETID = "/depublish/record_ids/{datasetId}";
   public static final String DEPUBLISH_EXECUTE_DATASETID = "/depublish/execute/{datasetId}";
+  public static final String DEPUBLISH_REASONS = "/depublish/reasons";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";

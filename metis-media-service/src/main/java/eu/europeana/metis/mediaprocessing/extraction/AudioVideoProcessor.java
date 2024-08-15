@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
 class AudioVideoProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
-  public static final int FFPROBE_MAX_VERSION = 5;
+  public static final int FFPROBE_MAX_VERSION = 7;
   public static final int FFPROBE_MIN_VERSION = 2;
 
   private static String globalFfprobeCommand;
@@ -174,7 +174,7 @@ class AudioVideoProcessor implements MediaProcessor {
   private Representation getRepresentationFromMpd(AdaptationSet videoAdaptationSet)
       throws MediaExtractionException {
     // If only one representation available, get that one, otherwise get the first of type video
-    Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
+    Representation videoRepresentation = videoAdaptationSet.getRepresentations().getFirst();
     if (videoAdaptationSet.getRepresentations().size() > 1) {
       //Get the one with the highest width*height if possible
       videoRepresentation = videoAdaptationSet.getRepresentations().stream()

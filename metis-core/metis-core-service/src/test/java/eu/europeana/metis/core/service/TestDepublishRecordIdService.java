@@ -26,6 +26,7 @@ import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +35,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-public class TestDepublishRecordIdService {
+class TestDepublishRecordIdService {
 
   private static Authorizer authorizer;
   private static OrchestratorService orchestratorService;
@@ -112,7 +113,7 @@ public class TestDepublishRecordIdService {
     // verify the result
     assertEquals(1, result.getListSize());
     assertEquals(1, result.getResults().size());
-    assertEquals(record.getRecordId(), result.getResults().get(0).getRecordId());
+    assertEquals(record.getRecordId(), result.getResults().getFirst().getRecordId());
   }
 
   @Test
@@ -124,8 +125,9 @@ public class TestDepublishRecordIdService {
         mockRecordIdsSeparateLines);
 
     //Do the actual call
-    WorkflowExecution result = depublishRecordIdService
-        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines);
+    depublishRecordIdService
+        .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId, true, 1, mockRecordIdsSeparateLines,
+            DepublicationReason.GENERIC);
 
     //Verify interactions
     verify(authorizer, times(1)).authorizeReadExistingDatasetById(metisUserView, datasetId);

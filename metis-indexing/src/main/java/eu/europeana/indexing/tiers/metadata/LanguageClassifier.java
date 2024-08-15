@@ -27,7 +27,7 @@ public class LanguageClassifier implements TierClassifierBreakdown<LanguageBreak
   private final ClassifierMode classifierMode;
 
   /**
-   * Instantiates a new Language classifier.
+   * Instantiates a new Language classifier for default mode {@link ClassifierMode#PROVIDER_PROXIES}.
    */
   public LanguageClassifier() {
     this.classifierMode = ClassifierMode.PROVIDER_PROXIES;

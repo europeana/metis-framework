@@ -9,7 +9,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
-import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.utils.Country;
 import eu.europeana.metis.core.common.CountryDeserializer;
 import eu.europeana.metis.core.common.CountrySerializer;
 import eu.europeana.metis.core.common.Language;

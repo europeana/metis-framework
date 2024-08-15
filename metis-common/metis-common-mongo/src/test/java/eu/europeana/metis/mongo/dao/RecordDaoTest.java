@@ -57,7 +57,7 @@ import org.junit.jupiter.api.Test;
  */
 class RecordDaoTest {
 
-  private final static String DATABASE_NAME = "dbTest";
+  private static final String DATABASE_NAME = "dbTest";
 
   private static RecordDao recordDao;
 

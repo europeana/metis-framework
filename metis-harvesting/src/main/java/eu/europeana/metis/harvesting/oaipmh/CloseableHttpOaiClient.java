@@ -6,6 +6,7 @@ import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;

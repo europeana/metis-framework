@@ -89,6 +89,11 @@ class AudioVideoProcessorTest {
     // ffprobe command
     final String ffprobeCommand = "ffprobe";
 
+    // Test ffprobe 6
+    doReturn("ffprobe version 6.1.1-3ubuntu5 Copyright (c) 2007-2023 the FFmpeg developers")
+        .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
+    assertEquals(ffprobeCommand, AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
+
     // Test ffprobe 4
     doReturn("ffprobe version 4.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
@@ -109,7 +114,7 @@ class AudioVideoProcessorTest {
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));
-    doReturn("ffprobe version 5.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
+    doReturn("ffprobe version 7.4.4-0ubuntu0.18.04.1 Copyright (c) 2007-2018 the FFmpeg developers")
         .when(commandExecutor).execute(eq(Collections.singletonList(ffprobeCommand)), anyMap(), eq(true), any());
     assertThrows(MediaProcessorException.class,
         () -> AudioVideoProcessor.discoverFfprobeCommand(commandExecutor));

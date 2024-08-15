@@ -32,9 +32,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-10-11
  */
 public class WorkflowExecutionFactory {
 
@@ -79,8 +76,7 @@ public class WorkflowExecutionFactory {
 
     // Set the predecessor
     if (predecessor != null) {
-      workflowPlugins.get(0).getPluginMetadata()
-          .setPreviousRevisionInformation(predecessor.getPlugin());
+      workflowPlugins.getFirst().getPluginMetadata().setPreviousRevisionInformation(predecessor.getPlugin());
     }
 
     // Done: create workflow with all the information.

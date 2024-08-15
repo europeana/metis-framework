@@ -456,7 +456,7 @@ class TestWorkflowExecutor {
     assertNotNull(workflowExecution.getStartedDate());
     assertNotNull(workflowExecution.getUpdatedDate());
     assertNotNull(workflowExecution.getFinishedDate());
-    assertNotNull(workflowExecution.getMetisPlugins().get(0).getFinishedDate());
+    assertNotNull(workflowExecution.getMetisPlugins().getFirst().getFinishedDate());
   }
 
   @Test

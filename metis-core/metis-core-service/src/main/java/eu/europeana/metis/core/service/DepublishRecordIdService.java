@@ -12,6 +12,7 @@ import eu.europeana.metis.core.common.RecordIdUtils;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.core.workflow.plugins.DepublishPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -179,7 +180,8 @@ public class DepublishRecordIdService {
    */
   public WorkflowExecution createAndAddInQueueDepublishWorkflowExecution(
       MetisUserView metisUserView,
-      String datasetId, boolean datasetDepublish, int priority, String recordIdsInSeparateLines)
+      String datasetId, boolean datasetDepublish, int priority, String recordIdsInSeparateLines,
+      DepublicationReason depublicationReason)
       throws GenericMetisException {
     // Authorize.
     authorizer.authorizeReadExistingDatasetById(metisUserView, datasetId);
@@ -190,6 +192,7 @@ public class DepublishRecordIdService {
     final DepublishPluginMetadata depublishPluginMetadata = new DepublishPluginMetadata();
     depublishPluginMetadata.setEnabled(true);
     depublishPluginMetadata.setDatasetDepublish(datasetDepublish);
+    depublishPluginMetadata.setDepublicationReason(depublicationReason);
     if (StringUtils.isNotBlank(recordIdsInSeparateLines)) {
       // Check and normalize the record IDs (Just in case).
       final Set<String> normalizedRecordIds = checkAndNormalizeRecordIds(datasetId,

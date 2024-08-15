@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -8,6 +9,7 @@ import eu.europeana.metis.core.service.DepublishRecordIdService;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
@@ -15,6 +17,8 @@ import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +33,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,6 +68,7 @@ public class DepublishRecordIdController {
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The dataset ID to which the depublish record ids belong.
+   * @param depublicationReason the reason of depublication
    * @param recordIdsInSeparateLines The string containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -77,7 +81,8 @@ public class DepublishRecordIdController {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createRecordIdsToBeDepublished(@RequestHeader("Authorization") String authorization,
-      @PathVariable("datasetId") String datasetId, @RequestBody String recordIdsInSeparateLines
+      @PathVariable("datasetId") String datasetId,
+      @RequestBody String recordIdsInSeparateLines
   ) throws GenericMetisException {
     final MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     final int added = depublishRecordIdService
@@ -93,6 +98,7 @@ public class DepublishRecordIdController {
    *
    * @param authorization the HTTP Authorization header, in the form of a Bearer Access Token.
    * @param datasetId The dataset ID to which the depublish record ids belong.
+   * @param depublicationReason the reason of depublication
    * @param recordIdsFile The file containing the record IDs in separate lines.
    * @throws GenericMetisException which can be one of:
    * <ul>
@@ -161,7 +167,6 @@ public class DepublishRecordIdController {
   @GetMapping(value = RestEndpoints.DEPUBLISH_RECORDIDS_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public DepublicationInfoView getDepublishRecordIds(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
@@ -186,6 +191,7 @@ public class DepublishRecordIdController {
    * @param authorization the authorization header with the access token
    * @param datasetId the dataset identifier for which the execution will take place
    * @param datasetDepublish true for dataset depublication, false for record depublication
+   * @param depublicationReason the reason of depublication
    * @param priority the priority of the execution in case the system gets overloaded, 0 lowest, 10 highest
    * @param recordIdsInSeparateLines the specific pending record ids to depublish. Only record ids that are marked as
    * {@link eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus#PENDING_DEPUBLICATION} in the database will be
@@ -210,17 +216,47 @@ public class DepublishRecordIdController {
   @PostMapping(value = RestEndpoints.DEPUBLISH_EXECUTE_DATASETID, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  @ResponseBody
   public WorkflowExecution addDepublishWorkflowInQueueOfWorkflowExecutions(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") String datasetId,
       @RequestParam(value = "datasetDepublish", defaultValue = "" + true) boolean datasetDepublish,
+      @RequestParam(value = "depublicationReason") DepublicationReason depublicationReason,
       @RequestParam(value = "priority", defaultValue = "0") int priority,
       @RequestBody(required = false) String recordIdsInSeparateLines)
       throws GenericMetisException {
     MetisUserView metisUserView = authenticationClient.getUserByAccessTokenInHeader(authorization);
     return depublishRecordIdService
         .createAndAddInQueueDepublishWorkflowExecution(metisUserView, datasetId,
-            datasetDepublish, priority, recordIdsInSeparateLines);
+            datasetDepublish, priority, recordIdsInSeparateLines, depublicationReason);
+  }
+
+  /**
+   * API to return all possible values of depublication reasons
+   * @return All possible values of depublication reasons
+   */
+  @GetMapping(value = RestEndpoints.DEPUBLISH_REASONS, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  public List<DepublicationReasonView> getAllDepublicationReasons(){
+    return Arrays.stream(DepublicationReason.values()).filter(value -> value != DepublicationReason.UNKNOWN)
+                 .map(DepublicationReasonView::new).toList();
+  }
+
+  private static class DepublicationReasonView {
+
+    @JsonProperty("name")
+    private final String name;
+    @JsonProperty("valueAsString")
+    private final String valueAsString;
+
+    /**
+     * Instantiates a new DepublicationReason view.
+     *
+     * @param depublicationReason the depublication reason
+     */
+    DepublicationReasonView(DepublicationReason depublicationReason) {
+      this.name = depublicationReason.name();
+      this.valueAsString = depublicationReason.toString();
+    }
   }
 }

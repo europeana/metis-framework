@@ -6,6 +6,7 @@ import dev.morphia.annotations.Id;
 import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.mongo.model.HasMongoObjectId;
 import java.time.Instant;
 import org.bson.types.ObjectId;
@@ -59,6 +60,11 @@ public class DepublishRecordId implements HasMongoObjectId {
    **/
   private Instant depublicationDate;
 
+  /**
+   * Reason for depublication of record
+   */
+  private DepublicationReason depublicationReason;
+
   @Override
   public void setId(ObjectId id) {
     this.id = id;
@@ -99,5 +105,13 @@ public class DepublishRecordId implements HasMongoObjectId {
 
   public void setDepublicationDate(Instant depublicationDate) {
     this.depublicationDate = depublicationDate;
+  }
+
+  public DepublicationReason getDepublicationReason() {
+    return depublicationReason;
+  }
+
+  public void setDepublicationReason(DepublicationReason depublicationReason) {
+    this.depublicationReason = depublicationReason;
   }
 }

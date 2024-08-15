@@ -5,7 +5,8 @@ import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUserView;
-import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.CountrySerializer;
+import eu.europeana.metis.utils.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetSearchView;
@@ -585,7 +586,7 @@ public class DatasetController {
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input should follow the rule Bearer
    * accessTokenHere </p>
-   * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.CountrySerializer}
+   * @return The list of countries that are serialized based on {@link CountrySerializer}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
