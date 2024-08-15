@@ -1,16 +1,17 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
+
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.network.AbstractHttpClient;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.tika.Tika;
-import org.apache.tika.metadata.Metadata;
-import org.springframework.http.ContentDisposition;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
+import org.springframework.http.ContentDisposition;
 
 /**
  * An {@link AbstractHttpClient} that tries to determine the mime type of a link. It does so based
@@ -77,7 +78,7 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
             final Metadata metadata = new Metadata();
             final String resourceName = getResourceNameFromContentDispositionOrFromActualURI(contentDisposition, actualUri);
             if (resourceName != null) {
-                metadata.set(Metadata.RESOURCE_NAME_KEY, resourceName);
+                metadata.set(RESOURCE_NAME_KEY, resourceName);
             }
             if (mimeType != null) {
                 final int separatorIndex = mimeType.indexOf(';');

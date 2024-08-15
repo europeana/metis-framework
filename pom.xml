@@ -184,7 +184,7 @@
     <version.springdoc-openapi-starter-webmvc-ui>2.3.0</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
-    <version.tika.core>1.26</version.tika.core>
+    <version.tika.core>2.9.2</version.tika.core>
     <version.org.wiremock>3.4.2</version.org.wiremock>
     <version.testcontainers>1.19.6</version.testcontainers>
     <version.xerces>2.12.2</version.xerces>

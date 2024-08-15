@@ -48,10 +48,13 @@ import org.slf4j.LoggerFactory;
 class AudioVideoProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
+  public static final int FFPROBE_MAX_VERSION = 7;
+  public static final int FFPROBE_MIN_VERSION = 2;
 
   private static String globalFfprobeCommand;
 
   private final CommandExecutor commandExecutor;
+
   private final String ffprobeCommand;
 
   /**
@@ -97,7 +100,7 @@ class AudioVideoProcessor implements MediaProcessor {
     int indexVersion = output.lastIndexOf("version ") + "version ".length();
     int version = Character.isDigit(output.charAt(indexVersion)) ?
         Integer.parseInt(String.valueOf(output.charAt(indexVersion))) : 0;
-    if (!(version >= 2 && version < 7)) {
+    if (!(version >= FFPROBE_MIN_VERSION && version < FFPROBE_MAX_VERSION)) {
       throw new MediaProcessorException("ffprobe version " + version + ".x not found");
     }
 

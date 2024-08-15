@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.io.TikaInputStream;
@@ -51,6 +52,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
+  private final OEmbedProcessor oEmbedProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -58,20 +60,19 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param resourceDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
-   * @param imageProcessor An image processor.
-   * @param audioVideoProcessor An audio/video processor.
-   * @param textProcessor A text processor.
+   * @param mediaProcessorList the media processor list
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
-      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika, ImageProcessor imageProcessor,
-      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor, Media3dProcessor media3dProcessor) {
+      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
+      List<MediaProcessor> mediaProcessorList) {
     this.resourceDownloadClient = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
-    this.imageProcessor = imageProcessor;
-    this.audioVideoProcessor = audioVideoProcessor;
-    this.textProcessor = textProcessor;
-    this.media3dProcessor = media3dProcessor;
+    this.imageProcessor = (ImageProcessor) getMediaProcessor(mediaProcessorList, ImageProcessor.class);
+    this.audioVideoProcessor = (AudioVideoProcessor) getMediaProcessor(mediaProcessorList, AudioVideoProcessor.class);
+    this.textProcessor = (TextProcessor) getMediaProcessor(mediaProcessorList, TextProcessor.class);
+    this.media3dProcessor = (Media3dProcessor) getMediaProcessor(mediaProcessorList, Media3dProcessor.class);
+    this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
   }
 
   /**
@@ -102,6 +103,16 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = new TextProcessor(thumbnailGenerator,
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
+    this.oEmbedProcessor = new OEmbedProcessor();
+  }
+
+  private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
+    for (Object mediaProcessor : mediaProcessorList) {
+      if (type.isInstance(mediaProcessor)) {
+        return type.cast(mediaProcessor);
+      }
+    }
+    return null;
   }
 
   @Override
@@ -193,16 +204,30 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  MediaProcessor chooseMediaProcessor(MediaType mediaType) {
+  MediaProcessor chooseMediaProcessor(MediaType mediaType, String detectedMimeType) {
     final MediaProcessor processor;
     switch (mediaType) {
-      case TEXT -> processor = textProcessor;
+      case TEXT, OTHER -> processor = chooseByDetectedMimeType(mediaType, detectedMimeType);
       case AUDIO, VIDEO -> processor = audioVideoProcessor;
       case IMAGE -> processor = imageProcessor;
       case THREE_D -> processor = media3dProcessor;
       default -> processor = null;
     }
     return processor;
+  }
+
+  MediaProcessor chooseByDetectedMimeType(MediaType mediaType, String detectedMimeType) {
+    if (detectedMimeType == null) {
+      return null;
+    } else if ((mediaType == MediaType.TEXT || mediaType == MediaType.OTHER) &&
+        (detectedMimeType.startsWith("text/xml") || detectedMimeType.startsWith("application/xml")
+            || detectedMimeType.startsWith("application/json"))) {
+      return oEmbedProcessor;
+    } else if (mediaType == MediaType.TEXT) {
+      return textProcessor;
+    } else {
+      return null;
+    }
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
@@ -255,19 +280,32 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Choose the right media processor.
-    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
+    MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType);
 
-    // Process the resource depending on the mode.
-    final ResourceExtractionResult result;
+    ResourceExtractionResult result;
     if (processor == null) {
       result = null;
-    } else if (mode == ProcessingMode.FULL) {
+    } else {
+      result = getResourceExtractionResult(resource, mode, mainThumbnailAvailable, processor, detectedMimeType);
+    }
+    // No oEmbed detected try with text processing
+    if (processor instanceof OEmbedProcessor && result == null) {
+      processor = textProcessor;
+      result = getResourceExtractionResult(resource, mode, mainThumbnailAvailable, processor, detectedMimeType);
+    }
+    // Done
+    return result;
+  }
+
+  private static ResourceExtractionResult getResourceExtractionResult(Resource resource, ProcessingMode mode,
+      boolean mainThumbnailAvailable, MediaProcessor processor, String detectedMimeType) throws MediaExtractionException {
+    ResourceExtractionResult result;
+    // Process the resource depending on the mode.
+    if (mode == ProcessingMode.FULL) {
       result = processor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     } else {
       result = processor.copyMetadata(resource, detectedMimeType);
     }
-
-    // Done
     return result;
   }
 
@@ -281,7 +319,7 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @return true if and only if resources of the given type need to be downloaded before performing full processing.
    */
   boolean shouldDownloadForFullProcessing(String mimeType) {
-    return Optional.of(MediaType.getMediaType(mimeType)).map(this::chooseMediaProcessor)
+    return Optional.of(MediaType.getMediaType(mimeType)).map(mediaType -> chooseMediaProcessor(mediaType, mimeType))
                    .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
   }
 }
