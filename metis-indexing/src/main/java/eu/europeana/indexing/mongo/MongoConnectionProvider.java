@@ -32,6 +32,7 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
 
   private final MongoClient mongoClient;
   private final RecordDao recordDao;
+  private final RecordDao tombstoneRecordDao;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -48,6 +49,7 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
     try {
       this.mongoClient = createMongoClient(settings);
       this.recordDao = new RecordDao(this.mongoClient, nonNullFieldName(settings.getMongoDatabaseName(), "mongoDatabaseName"));
+      this.tombstoneRecordDao = new RecordDao(this.mongoClient, nonNullFieldName(settings.getMongoTombstoneDatabaseName(), "mongoTombstoneDatabaseName"));
       this.recordRedirectDao = new RecordRedirectDao(this.mongoClient,
           nonNullFieldName(settings.getRecordRedirectDatabaseName(), "recordRedirectDatabaseName"));
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
@@ -77,6 +79,11 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
   @Override
   public RecordDao getRecordDao() {
     return recordDao;
+  }
+
+  @Override
+  public RecordDao getTombstoneRecordDao() {
+    return tombstoneRecordDao;
   }
 
   @Override

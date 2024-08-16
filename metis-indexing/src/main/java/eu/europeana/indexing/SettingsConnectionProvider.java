@@ -37,6 +37,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   private final CompoundSolrClient solrClient;
   private final MongoClient mongoClient;
   private final RecordDao recordDao;
+  private final RecordDao tombstoneRecordDao;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -57,6 +58,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     try {
       this.mongoClient = createMongoClient(settings);
       this.recordDao = setUpEdmMongoConnection(settings, this.mongoClient);
+      this.tombstoneRecordDao = setUpTombstoneMongoConnection(settings, this.mongoClient);
       this.recordRedirectDao = setUpRecordRedirectDaoConnection(settings, this.mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
@@ -66,7 +68,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   private static MongoClient createMongoClient(IndexingSettings settings) throws SetupRelatedIndexingException {
-    // Perform logging unecessary
+    // Perform logging unnecessary
     if (LOGGER.isInfoEnabled()) {
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
@@ -86,7 +88,16 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     try {
       return new RecordDao(client, settings.getMongoDatabaseName());
     } catch (RuntimeException e) {
-      throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
+      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
+    }
+  }
+
+  private static RecordDao setUpTombstoneMongoConnection(IndexingSettings settings, MongoClient client)
+      throws SetupRelatedIndexingException {
+    try {
+      return new RecordDao(client, settings.getMongoTombstoneDatabaseName());
+    } catch (RuntimeException e) {
+      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     }
   }
 
@@ -99,7 +110,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       }
       return recordRedirectDao;
     } catch (RuntimeException e) {
-      throw new SetupRelatedIndexingException("Could not set up mongo server.", e);
+      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     }
   }
 
@@ -111,6 +122,11 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   @Override
   public RecordDao getRecordDao() {
     return recordDao;
+  }
+
+  @Override
+  public RecordDao getTombstoneRecordDao() {
+    return tombstoneRecordDao;
   }
 
   @Override

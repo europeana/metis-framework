@@ -14,28 +14,34 @@ import org.apache.solr.client.solrj.SolrClient;
  */
 final class ClientsConnectionProvider implements AbstractConnectionProvider {
 
-  private final RecordDao edmMongoClient;
+  private final RecordDao recordDao;
+  private final RecordDao tombstoneRecordDao;
   private final RecordRedirectDao recordRedirectDao;
   private final SolrClient solrClient;
 
   /**
    * Constructor.
    *
-   * @param edmMongoClient The Mongo client to be used. Cannot be null.
+   * @param recordDao The Mongo dao to be used. Cannot be null.
+   * @param recordDao The Mongo tombstone dao to be used. Cannot be null.
    * @param recordRedirectDao The record redirect dao.
    * @param solrClient The Solr client to be used. Cannot be null.
    * @throws SetupRelatedIndexingException In case either of the two clients are null.
    */
-  ClientsConnectionProvider(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
+  ClientsConnectionProvider(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient)
       throws SetupRelatedIndexingException {
-    if (edmMongoClient == null) {
-      throw new SetupRelatedIndexingException("The provided Mongo client is null.");
+    if (recordDao == null) {
+      throw new SetupRelatedIndexingException("The provided Mongo dao is null.");
+    }
+    if (tombstoneRecordDao == null) {
+      throw new SetupRelatedIndexingException("The provided Mongo tombstone dao is null.");
     }
     if (solrClient == null) {
       throw new SetupRelatedIndexingException("The provided Solr client is null.");
     }
-    this.edmMongoClient = edmMongoClient;
+    this.recordDao = recordDao;
+    this.tombstoneRecordDao = tombstoneRecordDao;
     this.recordRedirectDao = recordRedirectDao;
     this.solrClient = solrClient;
   }
@@ -47,7 +53,12 @@ final class ClientsConnectionProvider implements AbstractConnectionProvider {
 
   @Override
   public RecordDao getRecordDao() {
-    return edmMongoClient;
+    return recordDao;
+  }
+
+  @Override
+  public RecordDao getTombstoneRecordDao() {
+    return tombstoneRecordDao;
   }
 
   @Override

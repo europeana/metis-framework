@@ -1,7 +1,7 @@
 package eu.europeana.indexing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.mongo.MongoIndexer;
@@ -24,7 +24,7 @@ class SimpleIndexerFactoryTest {
     solrProperties.addSolrHost(new URI("http://localhost:8983"));
     SolrIndexingSettings settings = new SolrIndexingSettings(solrProperties);
 
-    assertTrue(simpleIndexerFactory.getIndexer(settings) instanceof SolrIndexer);
+    assertInstanceOf(SolrIndexer.class, simpleIndexerFactory.getIndexer(settings));
   }
 
   @Test
@@ -33,9 +33,10 @@ class SimpleIndexerFactoryTest {
     mongoProperties.setMongoHosts(new String[]{"localhost"},new int[]{27001});
     MongoIndexingSettings settings = new MongoIndexingSettings(mongoProperties);
     settings.setMongoDatabaseName("recordDB");
+    settings.setMongoTombstoneDatabaseName("tombstoneRecordDB");
     settings.setRecordRedirectDatabaseName("recordRedirectDB");
 
-    assertTrue(simpleIndexerFactory.getIndexer(settings) instanceof MongoIndexer);
+    assertInstanceOf(MongoIndexer.class, simpleIndexerFactory.getIndexer(settings));
     assertEquals("recordDB", settings.getMongoDatabaseName());
     assertEquals("recordRedirectDB", settings.getRecordRedirectDatabaseName());
   }
