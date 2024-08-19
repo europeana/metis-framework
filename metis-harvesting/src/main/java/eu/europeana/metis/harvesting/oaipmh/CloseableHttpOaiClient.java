@@ -158,7 +158,7 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
 
       while (additionallyReadBytes != -1 && readBytes < length) {
         additionallyReadBytes = source.read(buffer, offset + readBytes, length - readBytes);
-        readBytes = additionallyReadBytes != -1 ? readBytes + additionallyReadBytes : readBytes;
+        readBytes = additionallyReadBytes != -1 ? (readBytes + additionallyReadBytes) : readBytes;
       }
       return readBytes;
     }
