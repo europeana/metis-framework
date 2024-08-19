@@ -6,7 +6,6 @@ import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.List;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -153,7 +152,15 @@ public class CloseableHttpOaiClient extends CloseableOaiClient {
 
     @Override
     public int read(byte[] buffer, int offset, int length) throws IOException {
-      return source.read(buffer, offset, length);
+
+      int readBytes = source.read(buffer, offset, length);
+      int additionallyReadBytes = readBytes;
+
+      while (additionallyReadBytes != -1 && readBytes < length) {
+        additionallyReadBytes = source.read(buffer, offset + readBytes, length - readBytes);
+        readBytes = additionallyReadBytes != -1 ? readBytes + additionallyReadBytes : readBytes;
+      }
+      return readBytes;
     }
 
     @Override
