@@ -341,6 +341,11 @@ public class DepublishRecordIdDao {
       throw new IllegalArgumentException(String
           .format("DepublicationDate cannot be null if depublicationStatus == %s ",
               DepublicationStatus.DEPUBLISHED.name()));
+    } else if(depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
+        .isNull(depublicationReason)){
+      throw new IllegalArgumentException(String
+          .format("DepublicationReason cannot be null if depublicationStatus == %s ",
+              DepublicationStatus.DEPUBLISHED.name()));
     }
 
     // If we have a specific record list, make sure that missing records are added.
