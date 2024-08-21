@@ -29,22 +29,22 @@ public final class SolrConnectionProvider implements AbstractConnectionProvider 
   }
 
   @Override
-  public SolrClient getSolrClient() {
+  public SolrClient solrClient() {
     return this.solrClient.getSolrClient();
   }
 
   @Override
-  public RecordDao getRecordDao() {
+  public RecordDao recordDao() {
     return null;
   }
 
   @Override
-  public RecordDao getTombstoneRecordDao() {
+  public RecordDao tombstoneRecordDao() {
     return null;
   }
 
   @Override
-  public RecordRedirectDao getRecordRedirectDao() {
+  public RecordRedirectDao recordRedirectDao() {
     return null;
   }
 

@@ -149,7 +149,7 @@ public class IndexerImpl implements Indexer {
 
   private void indexRecords(List<RDF> records, IndexingProperties properties,
       Predicate<TierResults> tierResultsConsumer) throws IndexingException {
-    if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
+    if (properties.isPerformRedirects() && connectionProvider.recordRedirectDao() == null) {
       throw new SetupRelatedIndexingException(
           "Record redirect dao has not been initialized and performing redirects is requested");
     }

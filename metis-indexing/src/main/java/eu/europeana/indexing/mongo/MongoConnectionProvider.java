@@ -72,22 +72,22 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
   }
 
   @Override
-  public SolrClient getSolrClient() {
+  public SolrClient solrClient() {
     return null;
   }
 
   @Override
-  public RecordDao getRecordDao() {
+  public RecordDao recordDao() {
     return recordDao;
   }
 
   @Override
-  public RecordDao getTombstoneRecordDao() {
+  public RecordDao tombstoneRecordDao() {
     return tombstoneRecordDao;
   }
 
   @Override
-  public RecordRedirectDao getRecordRedirectDao() {
+  public RecordRedirectDao recordRedirectDao() {
     return recordRedirectDao;
   }
 

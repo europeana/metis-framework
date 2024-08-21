@@ -61,7 +61,11 @@ public class IndexerFactory {
    */
   public Indexer getIndexer()
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
-    return new IndexerImpl(connectionProviderSupplier.get());
+    try {
+      return new IndexerImpl(connectionProviderSupplier.get());
+    }catch (IllegalArgumentException e) {
+      throw new SetupRelatedIndexingException("Creating a connection from the supplier failed.", e);
+    }
   }
 
   /**
