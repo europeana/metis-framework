@@ -17,6 +17,7 @@ import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
+import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -129,18 +130,19 @@ public class DepublishRecordIdDao {
     }
 
     // Add the records and we're done.
-    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null);
+    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     return recordIdsToAdd.size();
   }
 
   void addRecords(Set<String> recordIdsToAdd, String datasetId,
-      DepublicationStatus depublicationStatus, Instant depublicationDate) {
+      DepublicationStatus depublicationStatus, Instant depublicationDate, DepublicationReason depublicationReason) {
     final List<DepublishRecordId> objectsToAdd = recordIdsToAdd.stream().map(recordId -> {
       final DepublishRecordId depublishRecordId = new DepublishRecordId();
       depublishRecordId.setId(new ObjectId());
       depublishRecordId.setDatasetId(datasetId);
       depublishRecordId.setRecordId(recordId);
       depublishRecordId.setDepublicationStatus(depublicationStatus);
+      depublishRecordId.setDepublicationReason(depublicationReason);
       depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
     }).toList();
@@ -328,7 +330,7 @@ public class DepublishRecordIdDao {
    * {@link DepublicationStatus#PENDING_DEPUBLICATION}
    */
   public void markRecordIdsWithDepublicationStatus(String datasetId, Set<String> recordIds,
-      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate) {
+      DepublicationStatus depublicationStatus, @Nullable Date depublicationDate, DepublicationReason depublicationReason) {
 
     // Check correctness of parameters
     if (Objects.isNull(depublicationStatus) || StringUtils.isBlank(datasetId)) {
@@ -338,6 +340,11 @@ public class DepublishRecordIdDao {
         .isNull(depublicationDate)) {
       throw new IllegalArgumentException(String
           .format("DepublicationDate cannot be null if depublicationStatus == %s ",
+              DepublicationStatus.DEPUBLISHED.name()));
+    } else if(depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
+        .isNull(depublicationReason)){
+      throw new IllegalArgumentException(String
+          .format("DepublicationReason cannot be null if depublicationStatus == %s ",
               DepublicationStatus.DEPUBLISHED.name()));
     }
 
@@ -353,7 +360,7 @@ public class DepublishRecordIdDao {
                                                    .filter(
                                                        date -> depublicationStatus != DepublicationStatus.PENDING_DEPUBLICATION)
                                                    .map(Date::toInstant).orElse(null);
-      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant);
+      addRecords(recordIdsToAdd, datasetId, depublicationStatus, depublicationInstant, depublicationReason);
 
       // Compute the records to update - if there are none, we're done.
       recordIdsToUpdate = new HashSet<>(recordIds);
