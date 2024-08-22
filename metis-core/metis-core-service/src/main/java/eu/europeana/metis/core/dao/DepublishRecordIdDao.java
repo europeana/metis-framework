@@ -385,10 +385,14 @@ public class DepublishRecordIdDao {
             depublicationStatus));
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
       updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
+      updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_REASON));
     } else {
       updateOperators.add(
           UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD,
           depublicationDate == null? Date.from(Instant.now()): depublicationDate)
+      );
+      updateOperators.add(
+          UpdateOperators.set(DepublishRecordId.DEPUBLICATION_REASON, depublicationReason)
       );
     }
 
