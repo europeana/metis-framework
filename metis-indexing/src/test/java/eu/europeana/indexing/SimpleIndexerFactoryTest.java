@@ -38,6 +38,7 @@ class SimpleIndexerFactoryTest {
 
     assertInstanceOf(MongoIndexer.class, simpleIndexerFactory.getIndexer(settings));
     assertEquals("recordDB", settings.getMongoDatabaseName());
+    assertEquals("tombstoneRecordDB", settings.getMongoTombstoneDatabaseName());
     assertEquals("recordRedirectDB", settings.getRecordRedirectDatabaseName());
   }
 }

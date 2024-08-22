@@ -30,7 +30,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A publisher.
    */
   default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {
-    return new FullBeanPublisher(recordDao(), tombstoneRecordDao(), recordRedirectDao(), solrClient(),
+    return new FullBeanPublisher(getRecordDao(), getTombstoneRecordDao(), getRecordRedirectDao(), getSolrClient(),
         preserveUpdateAndCreateTimesFromRdf);
   }
 
@@ -47,7 +47,7 @@ public interface AbstractConnectionProvider extends Closeable {
    */
   default void triggerFlushOfPendingChanges(boolean blockUntilComplete)
       throws SolrServerException, IOException {
-    solrClient().commit(blockUntilComplete, blockUntilComplete);
+    getSolrClient().commit(blockUntilComplete, blockUntilComplete);
   }
 
   /**
@@ -56,7 +56,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A dataset remover.
    */
   default IndexedRecordAccess getIndexedRecordAccess() {
-    return new IndexedRecordAccess(recordDao(), solrClient());
+    return new IndexedRecordAccess(getRecordDao(), getSolrClient());
   }
 
   /**
@@ -64,27 +64,27 @@ public interface AbstractConnectionProvider extends Closeable {
    *
    * @return A Solr client.
    */
-  SolrClient solrClient();
+  SolrClient getSolrClient();
 
   /**
    * Provides a Mongo client object for connecting with the Mongo database.
    *
    * @return A Mongo client.
    */
-  RecordDao recordDao();
+  RecordDao getRecordDao();
 
   /**
    * Provides a Mongo client object for connecting with the Mongo tombstone database.
    *
    * @return A Mongo client.
    */
-  RecordDao tombstoneRecordDao();
+  RecordDao getTombstoneRecordDao();
 
   /**
    * Provides a Mongo redirect dao.
    *
    * @return A Mongo record redirect dao.
    */
-  RecordRedirectDao recordRedirectDao();
+  RecordRedirectDao getRecordRedirectDao();
 
 }

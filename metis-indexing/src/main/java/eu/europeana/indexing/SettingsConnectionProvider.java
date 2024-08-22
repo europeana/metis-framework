@@ -1,6 +1,7 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullMessage;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import com.mongodb.MongoConfigurationException;
 import com.mongodb.MongoIncompatibleDriverException;
@@ -16,15 +17,14 @@ import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
 import java.io.IOException;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection
- * using an {@link IndexingSettings} object. Various methods are made public so that this class may
- * be constructed and used outside the scope of the indexing library.
+ * This class is an implementation of {@link AbstractConnectionProvider} that sets up the connection using an
+ * {@link IndexingSettings} object. Various methods are made public so that this class may be constructed and used outside the
+ * scope of the indexing library.
  *
  * @author jochen
  */
@@ -47,9 +47,10 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
    * @throws SetupRelatedIndexingException In case the connections could not be set up.
    * @throws IndexerRelatedIndexingException In case the connection could not be established.
    */
-  public SettingsConnectionProvider(IndexingSettings settings) throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
+  public SettingsConnectionProvider(IndexingSettings settings)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
     // Sanity check
-    settings = nonNullMessage(settings,"The provided settings object is null.");
+    settings = nonNullMessage(settings, "The provided settings object is null.");
 
     // Create Solr and Zookeeper connections.
     this.solrClient = new SolrClientProvider<>(settings.getSolrProperties()).createSolrClient();
@@ -57,8 +58,9 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     // Create mongo connection.
     try {
       this.mongoClient = createMongoClient(settings);
-      this.recordDao = setUpEdmMongoConnection(settings, this.mongoClient);
-      this.tombstoneRecordDao = setUpTombstoneMongoConnection(settings, this.mongoClient);
+      this.recordDao = setUpEdmMongoConnection(settings.getMongoDatabaseName(), this.mongoClient);
+      this.tombstoneRecordDao = isNotBlank(settings.getMongoTombstoneDatabaseName()) ?
+          setUpEdmMongoConnection(settings.getMongoTombstoneDatabaseName(), this.mongoClient) : null;
       this.recordRedirectDao = setUpRecordRedirectDaoConnection(settings, this.mongoClient);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
@@ -73,7 +75,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       LOGGER.info(
           "Connecting to Mongo hosts: [{}], database [{}], with{} authentication, with{} SSL. ",
           settings.getMongoProperties().getMongoHosts().stream().map(ServerAddress::toString)
-              .collect(Collectors.joining(", ")),
+                  .collect(Collectors.joining(", ")),
           settings.getMongoDatabaseName(),
           settings.getMongoProperties().getMongoCredentials() == null ? "out" : "",
           settings.getMongoProperties().mongoEnableSsl() ? "" : "out");
@@ -83,19 +85,10 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
     return new MongoClientProvider<>(settings.getMongoProperties()).createMongoClient();
   }
 
-  private static RecordDao setUpEdmMongoConnection(IndexingSettings settings, MongoClient client)
+  private static RecordDao setUpEdmMongoConnection(String databaseName, MongoClient client)
       throws SetupRelatedIndexingException {
     try {
-      return new RecordDao(client, settings.getMongoDatabaseName());
-    } catch (RuntimeException e) {
-      throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
-    }
-  }
-
-  private static RecordDao setUpTombstoneMongoConnection(IndexingSettings settings, MongoClient client)
-      throws SetupRelatedIndexingException {
-    try {
-      return new RecordDao(client, settings.getMongoTombstoneDatabaseName());
+      return new RecordDao(client, databaseName);
     } catch (RuntimeException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_SETUP_ERROR, e);
     }
@@ -105,7 +98,7 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
       MongoClient client) throws SetupRelatedIndexingException {
     try {
       RecordRedirectDao recordRedirectDao = null;
-      if (StringUtils.isNotBlank(settings.getRecordRedirectDatabaseName())) {
+      if (isNotBlank(settings.getRecordRedirectDatabaseName())) {
         recordRedirectDao = new RecordRedirectDao(client, settings.getRecordRedirectDatabaseName());
       }
       return recordRedirectDao;
@@ -115,22 +108,22 @@ public final class SettingsConnectionProvider implements AbstractConnectionProvi
   }
 
   @Override
-  public SolrClient solrClient() {
+  public SolrClient getSolrClient() {
     return this.solrClient.getSolrClient();
   }
 
   @Override
-  public RecordDao recordDao() {
+  public RecordDao getRecordDao() {
     return recordDao;
   }
 
   @Override
-  public RecordDao tombstoneRecordDao() {
+  public RecordDao getTombstoneRecordDao() {
     return tombstoneRecordDao;
   }
 
   @Override
-  public RecordRedirectDao recordRedirectDao() {
+  public RecordRedirectDao getRecordRedirectDao() {
     return recordRedirectDao;
   }
 

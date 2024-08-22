@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Supplier;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.SolrClient;
@@ -189,7 +188,6 @@ public class FullBeanPublisher {
         recordsForRedirection);
 
     //Around here we need to use th new tombstone record dao.
-    Objects.requireNonNull(tombstoneRecordDao);
 
     publishToSolrFinal(rdf, savedFullBean);
   }

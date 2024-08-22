@@ -28,6 +28,19 @@ public class IndexerFactory {
    * #getIndexer()} method will then no longer work and no new ones can be created.
    *
    * @param recordDao The Mongo dao to use.
+   * @param recordRedirectDao The record redirect dao
+   * @param solrClient The Solr client to use.
+   */
+  public IndexerFactory(RecordDao recordDao, RecordRedirectDao recordRedirectDao, SolrClient solrClient) {
+    this(() -> new ClientsConnectionProvider(recordDao, recordRedirectDao, solrClient));
+  }
+
+  /**
+   * Constructor for setting up a factory using already existing Mongo and Solr clients. Note: the
+   * caller is responsible for closing the clients. Any indexers created through the {@link
+   * #getIndexer()} method will then no longer work and no new ones can be created.
+   *
+   * @param recordDao The Mongo dao to use.
    * @param tombstoneRecordDao The Mongo tombstone dao to use.
    * @param recordRedirectDao The record redirect dao
    * @param solrClient The Solr client to use.
