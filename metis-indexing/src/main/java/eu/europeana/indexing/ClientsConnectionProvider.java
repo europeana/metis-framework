@@ -23,8 +23,8 @@ record ClientsConnectionProvider(RecordDao recordDao, RecordDao tombstoneRecordD
    * @param solrClient The Solr client to be used. Cannot be null.
    */
   public ClientsConnectionProvider {
-    Objects.requireNonNull(recordDao);
-    Objects.requireNonNull(solrClient);
+    Objects.requireNonNull(recordDao, "recordDao cannot be null");
+    Objects.requireNonNull(solrClient, "solrClient cannot be null");
   }
 
   /**
