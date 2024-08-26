@@ -21,4 +21,14 @@ public class DebiasException extends RuntimeException {
   public DebiasException(String message) {
     super(message);
   }
+
+  /**
+   * Instantiates a new DeBias exception.
+   *
+   * @param message the message
+   * @param cause the cause
+   */
+  public DebiasException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

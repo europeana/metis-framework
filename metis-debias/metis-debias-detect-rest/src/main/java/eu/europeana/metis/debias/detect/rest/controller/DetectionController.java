@@ -12,11 +12,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Detection controller.
+ */
 @RestController
 public class DetectionController {
 
+  /**
+   * The Detect service.
+   */
   DetectService detectService;
 
+  /**
+   * DeBias detection result.
+   *
+   * @param detectionParameter the detection parameter
+   * @return the detection result
+   */
   @PostMapping(value = RestEndpoints.DEBIAS_DETECTION, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE})
   @Operation(description = "DeBias a list of values", responses = {@ApiResponse(responseCode = "200")})
@@ -24,7 +36,7 @@ public class DetectionController {
     try {
       return detectService.detect(detectionParameter);
     } catch (RuntimeException e) {
-      throw new DebiasException(e.getMessage());
+      throw new DebiasException(e.getMessage(), e);
     }
   }
 }
