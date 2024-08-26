@@ -151,9 +151,10 @@ class MongoIndexerTest {
      */
     @Bean
     MongoIndexingSettings mongoIndexingSettings(MongoProperties mongoProperties, @Value("${mongo.db}") String mongoDatabase,
-        @Value("${mongo.redirect.db}") String mongoRedirectDatabase) throws SetupRelatedIndexingException {
+        @Value("${mongo.tombstone.db}") String mongoTombstoneDatabase, @Value("${mongo.redirect.db}") String mongoRedirectDatabase) throws SetupRelatedIndexingException {
       MongoIndexingSettings mongoIndexingSettings = new MongoIndexingSettings(mongoProperties);
       mongoIndexingSettings.setMongoDatabaseName(mongoDatabase);
+      mongoIndexingSettings.setMongoTombstoneDatabaseName(mongoTombstoneDatabase);
       mongoIndexingSettings.setRecordRedirectDatabaseName(mongoRedirectDatabase);
       IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
           true,

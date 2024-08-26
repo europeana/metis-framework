@@ -14,6 +14,7 @@ import eu.europeana.metis.mongo.connection.MongoProperties;
 public class MongoIndexingSettings implements SettingsHolder {
 
   private String mongoDatabaseName;
+  private String mongoTombstoneDatabaseName;
   private String recordRedirectDatabaseName;
   private final MongoProperties<SetupRelatedIndexingException> mongoProperties;
   private IndexingProperties indexingProperties;
@@ -44,6 +45,24 @@ public class MongoIndexingSettings implements SettingsHolder {
    */
   public void setMongoDatabaseName(String mongoDatabaseName) {
     this.mongoDatabaseName = mongoDatabaseName;
+  }
+
+  /**
+   * Gets mongo database name.
+   *
+   * @return the mongo tombstone database name
+   */
+  public String getMongoTombstoneDatabaseName() {
+    return mongoTombstoneDatabaseName;
+  }
+
+  /**
+   * Sets mongo tombstone database name.
+   *
+   * @param mongoTombstoneDatabaseName the mongo tombstone database name
+   */
+  public void setMongoTombstoneDatabaseName(String mongoTombstoneDatabaseName) {
+    this.mongoTombstoneDatabaseName = mongoTombstoneDatabaseName;
   }
 
   /**
