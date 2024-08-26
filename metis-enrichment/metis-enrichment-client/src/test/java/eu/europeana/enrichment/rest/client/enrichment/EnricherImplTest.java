@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -12,10 +13,12 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
@@ -206,6 +209,33 @@ class EnricherImplTest {
   }
 
   @Test
+  void testEnrichReferenceWarnFlowForOrganization() throws MalformedURLException, URISyntaxException {
+    // Given the mocks
+    final RecordParser recordParser = Mockito.mock(RecordParser.class);
+    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
+
+
+    // When the enricher a 301
+    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+
+    SearchTermContext searchTermContext = new SearchTermContext("organization1", "language1", Set.of(
+        AggregationFieldType.DATA_PROVIDER));
+
+    when(entityResolver.resolveByText(anySet())).thenReturn(Map.of(searchTermContext, Collections.emptyList()));
+
+
+    Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichValues(
+        Set.of(searchTermContext));
+
+    // Then verify
+    assertNotNull(enrichReferences);
+    assertEquals(getExpectedReportMessagesWarningForOrganization(), enrichReferences.getRight());
+
+
+  }
+
+  @Test
   void testEnrichReferenceExceptionFlow() throws MalformedURLException, URISyntaxException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
@@ -387,6 +417,16 @@ class EnricherImplTest {
         .withStatus(HttpStatus.MOVED_PERMANENTLY)
         .withValue("http://urlValue1")
         .withException(new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY))
+        .build());
+    return reports;
+  }
+
+  private HashSet<Report> getExpectedReportMessagesWarningForOrganization() {
+    HashSet<Report> reports = new HashSet<>();
+    reports.add(Report
+        .buildEnrichmentWarn()
+        .withMessage("Could not find an entity for the given search term with type Organization.")
+        .withValue("organization1")
         .build());
     return reports;
   }

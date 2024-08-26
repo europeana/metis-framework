@@ -6,6 +6,7 @@ import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPatt
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
 import eu.europeana.enrichment.api.internal.EntityResolver;
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
@@ -13,7 +14,9 @@ import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Arrays;
@@ -214,7 +217,14 @@ public class EnricherImpl implements Enricher {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues) {
     HashSet<Report> reports = new HashSet<>();
     for (SearchTermContext searchTerm : searchTerms) {
-      if (enrichedValues.get(searchTerm).isEmpty()) {
+      if(fieldTypeContainsOrganizationType(searchTerm.getFieldTypes()) &&
+          enrichedValues.get(searchTerm).isEmpty()){
+        reports.add(Report
+            .buildEnrichmentWarn()
+            .withMessage("Could not find an entity for the given search term with type Organization.")
+            .withValue(searchTerm.getTextValue())
+            .build());
+      } else if (enrichedValues.get(searchTerm).isEmpty()) {
         reports.add(Report
             .buildEnrichmentIgnore()
             .withMessage("Could not find an entity for the given search term.")
@@ -238,5 +248,14 @@ public class EnricherImpl implements Enricher {
       }
     }
     return reports;
+  }
+
+  private boolean fieldTypeContainsOrganizationType(Set<FieldType<? extends AboutType>> fieldTypes) {
+    for(FieldType<? extends AboutType> fieldType : fieldTypes){
+      if(fieldType.getEntityType().equals(EntityType.ORGANIZATION))
+        return true;
+    }
+    
+    return false;
   }
 }
