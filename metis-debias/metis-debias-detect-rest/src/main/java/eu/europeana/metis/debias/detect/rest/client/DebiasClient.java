@@ -16,11 +16,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * The type DeBias client.
  */
+@Service
 public class DebiasClient implements DetectService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -44,8 +46,8 @@ public class DebiasClient implements DetectService {
   /**
    * Method to detect biased terms according to the input values provided
    *
-   * @param detectionParameter language and values
-   * @return DetectionResult containing metadata and values of the detection
+   * @param detectionParameter {@link DetectionParameter} language and values
+   * @return {@link DetectionResult} containing metadata and values of the detection
    */
   @Override
   public DetectionResult detect(DetectionParameter detectionParameter) {

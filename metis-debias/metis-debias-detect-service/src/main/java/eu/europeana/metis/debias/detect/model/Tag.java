@@ -5,8 +5,9 @@ package eu.europeana.metis.debias.detect.model;
  */
 public class Tag {
   private int start;
+  private int end;
   private int length;
-  private String vocabulary;
+  private String uri;
   private float score;
 
   /**
@@ -25,6 +26,24 @@ public class Tag {
    */
   public void setStart(int start) {
     this.start = start;
+  }
+
+  /**
+   * Gets end.
+   *
+   * @return the end
+   */
+  public int getEnd() {
+    return end;
+  }
+
+  /**
+   * Sets end.
+   *
+   * @param end the end
+   */
+  public void setEnd(int end) {
+    this.end = end;
   }
 
   /**
@@ -50,17 +69,17 @@ public class Tag {
    *
    * @return the vocabulary
    */
-  public String getVocabulary() {
-    return vocabulary;
+  public String getUri() {
+    return uri;
   }
 
   /**
    * Sets vocabulary.
    *
-   * @param vocabulary the vocabulary
+   * @param uri the vocabulary
    */
-  public void setVocabulary(String vocabulary) {
-    this.vocabulary = vocabulary;
+  public void setUri(String uri) {
+    this.uri = uri;
   }
 
   /**

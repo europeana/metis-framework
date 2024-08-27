@@ -1,5 +1,6 @@
 package eu.europeana.metis.debias.detect.model;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -72,7 +73,7 @@ public class ValueDetection {
    * @return the tags
    */
   public List<Tag> getTags() {
-    return tags;
+    return Collections.unmodifiableList(tags);
   }
 
   /**
@@ -81,6 +82,6 @@ public class ValueDetection {
    * @param tags the tags
    */
   public void setTags(List<Tag> tags) {
-    this.tags = tags;
+    this.tags = Collections.unmodifiableList(tags);
   }
 }

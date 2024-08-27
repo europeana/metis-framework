@@ -7,6 +7,7 @@ import eu.europeana.metis.debias.detect.service.DetectService;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +24,16 @@ public class DetectionController {
    */
   DetectService detectService;
 
+  @Autowired
+  public DetectionController(DetectService detectService) {
+    this.detectService = detectService;
+  }
+
   /**
    * DeBias detection result.
    *
-   * @param detectionParameter the detection parameter
-   * @return the detection result
+   * @param detectionParameter {@link DetectionParameter} the detection parameter
+   * @return {@link DetectionResult} the detection result
    */
   @PostMapping(value = RestEndpoints.DEBIAS_DETECTION, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE})
