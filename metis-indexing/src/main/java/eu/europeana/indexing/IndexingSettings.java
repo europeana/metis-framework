@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
-import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullMessage;
 
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -191,20 +190,18 @@ public final class IndexingSettings {
    * Returns the Mongo database name.
    *
    * @return The Mongo database name.
-   * @throws SetupRelatedIndexingException In case no Mongo database name was set.
    */
-  public String getMongoDatabaseName() throws SetupRelatedIndexingException {
-    return nonNullMessage(mongoDatabaseName, "Please provide a Mongo database name.");
+  public String getMongoDatabaseName() {
+    return mongoDatabaseName;
   }
 
   /**
    * Returns the Mongo tombstone database name.
    *
    * @return The Mongo tombstone database name.
-   * @throws SetupRelatedIndexingException In case no Mongo tombstone database name was set.
    */
-  public String getMongoTombstoneDatabaseName() throws SetupRelatedIndexingException {
-    return nonNullMessage(mongoTombstoneDatabaseName, "Please provide a Mongo tombstone database name.");
+  public String getMongoTombstoneDatabaseName() {
+    return mongoTombstoneDatabaseName;
   }
 
   /**
