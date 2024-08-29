@@ -184,10 +184,8 @@ public class FullBeanPublisher {
     final List<Pair<String, Date>> recordsForRedirection = performRedirection(rdf,
         recordDate, datasetIdsToRedirectFrom, performRedirects);
 
-    final FullBeanImpl savedFullBean = publishToMongo(recordDate, fullBean, fullBeanPreprocessor,
+    final FullBeanImpl savedFullBean = publishToRecordMongo(recordDate, fullBean, fullBeanPreprocessor,
         recordsForRedirection);
-
-    //Around here we need to use th new tombstone record dao.
 
     publishToSolrFinal(rdf, savedFullBean);
   }
@@ -210,7 +208,24 @@ public class FullBeanPublisher {
 
     final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
 
-    publishToMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
+    publishToRecordMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
+  }
+
+  /**
+   * Publishes an RDF only to tombstone mongo.
+   * @param fullBean Fullbean to publish.
+   * @param recordDate the data that would represent the created/updated date of a record
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publishTombstone(FullBeanImpl fullBean, Date recordDate) throws IndexingException {
+    final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
+    publishToTombstoneMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
   }
 
   /**
@@ -283,16 +298,29 @@ public class FullBeanPublisher {
     }
   }
 
-  private FullBeanImpl publishToMongo(Date recordDate, FullBeanImpl fullBean,
+  private FullBeanImpl publishToRecordMongo(Date recordDate, FullBeanImpl fullBean,
       TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
       List<Pair<String, Date>> recordsForRedirection)
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    // Publish to Mongo
+    return publishToMongo(recordDate, fullBean, fullBeanPreprocessor, recordsForRedirection, recordDao);
+  }
+
+  private FullBeanImpl publishToTombstoneMongo(Date recordDate, FullBeanImpl fullBean,
+      TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
+      List<Pair<String, Date>> recordsForRedirection)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    return publishToMongo(recordDate, fullBean, fullBeanPreprocessor, recordsForRedirection, tombstoneRecordDao);
+  }
+
+  private FullBeanImpl publishToMongo(Date recordDate, FullBeanImpl fullBean,
+      TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
+      List<Pair<String, Date>> recordsForRedirection, RecordDao tombstoneRecordDao)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
     final FullBeanImpl savedFullBean;
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate,
           recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
-                               .orElse(null), recordDao);
+                               .orElse(null), tombstoneRecordDao);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
