@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.jibx.EdmType;
 import java.util.List;
 
 /**
@@ -60,6 +61,7 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
     super.updateResource(resource);
     resource.setContainsText(containsText);
     resource.setResolution(resolution);
+    resource.setEdmType(EdmType.TEXT);
   }
 
   /**

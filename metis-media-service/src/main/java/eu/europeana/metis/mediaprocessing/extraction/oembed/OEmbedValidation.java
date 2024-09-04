@@ -52,16 +52,6 @@ public final class OEmbedValidation {
   }
 
   /**
-   * Is valid oembed photo or video boolean.
-   *
-   * @param oEmbedModel the oembed model
-   * @return the boolean true complies the minimum required fields for each type
-   */
-  public static boolean isValidOEmbedPhotoOrVideo(OEmbedModel oEmbedModel) {
-    return hasValidVersion(oEmbedModel) && hasValidType(oEmbedModel);
-  }
-
-  /**
    * Has valid height size url boolean.
    *
    * @param oEmbedModel the oEmbed model
@@ -319,22 +309,12 @@ public final class OEmbedValidation {
   }
 
   /**
-   * Has valid type boolean.
-   *
-   * @param oEmbedModel the oEmbed model
-   * @return the boolean
-   */
-  private static boolean hasValidType(OEmbedModel oEmbedModel) {
-    return (isValidTypePhoto(oEmbedModel) || isValidTypeVideo(oEmbedModel));
-  }
-
-  /**
    * Is valid type photo boolean.
    *
    * @param oEmbedModel the oEmbed model
    * @return the boolean
    */
-  private static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
+  public static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
     return hasValidModelAndType(oEmbedModel)
         && "photo".equalsIgnoreCase(oEmbedModel.getType())
         && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
@@ -347,7 +327,7 @@ public final class OEmbedValidation {
    * @param oEmbedModel the oEmbed model
    * @return the boolean
    */
-  private static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
+  public static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
     return hasValidModelAndType(oEmbedModel)
         && "video".equalsIgnoreCase(oEmbedModel.getType())
         && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
@@ -380,7 +360,7 @@ public final class OEmbedValidation {
    * @param oEmbedModel the oEmbed model
    * @return the boolean
    */
-  private static boolean hasValidVersion(OEmbedModel oEmbedModel) {
+  public static boolean hasValidVersion(OEmbedModel oEmbedModel) {
     return oEmbedModel != null && oEmbedModel.getVersion() != null
         && oEmbedModel.getVersion().startsWith("1.0");
   }

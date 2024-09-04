@@ -106,7 +106,7 @@ class TextProcessorTest {
 
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY));
+        Collections.singletonList(UrlType.IS_SHOWN_BY), false);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
@@ -160,7 +160,7 @@ class TextProcessorTest {
     final File contentFile = new File("content");
     doReturn(contentFile).when(contentPath).toFile();
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY));
+        Collections.singletonList(UrlType.IS_SHOWN_BY), false);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "application/pdf";

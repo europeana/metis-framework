@@ -6,7 +6,7 @@ import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidat
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidHeightSizeUrl;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidWidthSizeThumbnail;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidWidthSizeUrl;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidTypeVideo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,7 +24,7 @@ class OEmbedModelTest {
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
 
     assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
+    assertTrue(isValidTypeVideo(oEmbedModel));
   }
 
   @Test
@@ -34,7 +34,7 @@ class OEmbedModelTest {
     OEmbedModel oEmbedModel = getOEmbedModelFromXml(inputStream.readAllBytes());
 
     assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
+    assertTrue(isValidTypeVideo(oEmbedModel));
   }
 
   @Test

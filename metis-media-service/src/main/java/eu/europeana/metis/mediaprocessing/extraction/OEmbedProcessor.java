@@ -4,10 +4,13 @@ import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidat
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getDurationFromModel;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getOEmbedModelFromJson;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.getOEmbedModelFromXml;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidVersion;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidTypePhoto;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidTypeVideo;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedModel;
+import eu.europeana.metis.mediaprocessing.model.GenericResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
@@ -46,23 +49,33 @@ public class OEmbedProcessor implements MediaProcessor {
   public ResourceExtractionResult extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
 
-    ResourceExtractionResult resourceExtractionResult;
+    final ResourceExtractionResult resourceExtractionResult;
     // the content for this oembed needs to be downloaded to be examined
     if (resource.getContentPath() != null) {
       try {
-        OEmbedModel embedModel = null;
+
+        // Parse the model.
+        final OEmbedModel embedModel;
+        final String oEmbedMimetype;
         if (detectedMimeType.startsWith("application/json")) {
           embedModel = getOEmbedModelFromJson(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
-        } else if (detectedMimeType.startsWith("application/xml")) {
+          oEmbedMimetype = "application/json+oembed";
+        } else if (detectedMimeType.startsWith("application/xml") || detectedMimeType.startsWith("text/xml")) {
           embedModel = getOEmbedModelFromXml(Files.readAllBytes(Paths.get(resource.getContentPath().toString())));
-        }
-        if (isValidOEmbedPhotoOrVideo(embedModel)) {
-          checkValidWidthAndHeightDimensions(embedModel, resource.getResourceUrl());
-          resourceExtractionResult = getResourceExtractionResult(resource, detectedMimeType, embedModel);
+          oEmbedMimetype = "application/xml+oembed";
         } else {
-          LOGGER.warn("No oembed model found");
+          embedModel = null;
+          oEmbedMimetype = null;
+        }
+
+        // Validate model and compile the extraction result.
+        if (embedModel != null && hasValidVersion(embedModel)) {
+          resourceExtractionResult = getResourceExtractionResult(resource, oEmbedMimetype, embedModel);
+        } else {
+          LOGGER.info("No oembed model found.");
           resourceExtractionResult = null;
         }
+
       } catch (IOException e) {
         throw new MediaExtractionException("Unable to read OEmbedded resource", e);
       }
@@ -95,28 +108,34 @@ public class OEmbedProcessor implements MediaProcessor {
     return true;
   }
 
-  private ResourceExtractionResult getResourceExtractionResult(Resource resource, String detectedMimeType,
+  private ResourceExtractionResult getResourceExtractionResult(Resource resource, String oEmbedMimetype,
       OEmbedModel oEmbedModel) throws MediaExtractionException {
-    ResourceExtractionResult resourceExtractionResult;
-    if (oEmbedModel != null) {
-      switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
-        case "photo" -> {
-          ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType,
-              resource.getResourceUrl(),
-              resource.getProvidedFileSize(), oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
+    ResourceExtractionResult resourceExtractionResult = null;
+    switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
+      case "photo" -> {
+        if (isValidTypePhoto(oEmbedModel)) {
+          checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
+          ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(oEmbedMimetype,
+              resource.getResourceUrl(), resource.getProvidedFileSize(),
+              oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
           resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
         }
-        case "video" -> {
+      }
+      case "video" -> {
+        if (isValidTypeVideo(oEmbedModel)) {
+          checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
           Double duration = getDurationFromModel(oEmbedModel);
-          VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(detectedMimeType,
-              resource.getResourceUrl(),
-              resource.getProvidedFileSize(), duration, null, oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
+          VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(oEmbedMimetype,
+              resource.getResourceUrl(), resource.getProvidedFileSize(), duration, null,
+              oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
           resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
         }
-        default -> resourceExtractionResult = null;
       }
-    } else {
-      resourceExtractionResult = null;
+      default -> {
+        GenericResourceMetadata genericResourceMetadata = new GenericResourceMetadata(oEmbedMimetype,
+            resource.getResourceUrl(), resource.getProvidedFileSize());
+        resourceExtractionResult = new ResourceExtractionResultImpl(genericResourceMetadata);
+      }
     }
     return resourceExtractionResult;
   }

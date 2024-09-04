@@ -160,7 +160,7 @@ class MimeTypeDetectHttpClientTest {
     String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
 
     // then
-    assertEquals("application/json+oembed", detectedMimeType);
+    assertEquals("application/json", detectedMimeType);
   }
 
   @Test
@@ -179,6 +179,6 @@ class MimeTypeDetectHttpClientTest {
     String detectedMimeType = mimeTypeDetectHttpClient.download(new URI(url).toURL());
 
     // then
-    assertEquals("application/xml+oembed", detectedMimeType);
+    assertEquals("application/xml", detectedMimeType);
   }
 }
