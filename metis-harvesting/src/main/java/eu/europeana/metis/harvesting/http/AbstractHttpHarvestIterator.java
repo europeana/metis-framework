@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import org.apache.commons.io.FileUtils;
@@ -33,9 +34,7 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
   private final Path extractedDirectory;
 
   protected AbstractHttpHarvestIterator(Path extractedDirectory) {
-    if (extractedDirectory == null) {
-      throw new IllegalStateException("Extracted directory is null. This should not happen.");
-    }
+    Objects.requireNonNull(extractedDirectory,"Extracted directory is null. This should not happen.");
     this.extractedDirectory = extractedDirectory;
   }
 
@@ -146,7 +145,7 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
     }
   }
 
-  record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
+  private record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
 
     @Override
     public String getHarvestingIdentifier() {
@@ -174,7 +173,3 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
     }
   }
 }
-
-
-
-
