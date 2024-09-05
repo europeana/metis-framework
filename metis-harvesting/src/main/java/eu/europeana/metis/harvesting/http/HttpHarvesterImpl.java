@@ -4,14 +4,13 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performF
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempDirectoryAndFile;
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
+import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
-import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.CompressedFileHandler;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,21 +19,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
-import java.time.Instant;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -51,9 +43,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   @Override
   public void harvestFullRecords(InputStream inputStream,
-      CompressedFileExtension compressedFileType, ReportingIteration<ArchiveEntry> action)
+      CompressedFileExtension compressedFileType, ReportingIteration<FullRecord> action)
       throws HarvesterException {
-    try (final HarvestingIterator<ArchiveEntry, Path> iterator = createFullRecordHarvestIterator(inputStream, compressedFileType)) {
+    try (final HarvestingIterator<FullRecord, Path> iterator = createFullRecordHarvestIterator(inputStream, compressedFileType)) {
       iterator.forEach(action);
     } catch (IOException e) {
       throw new HarvesterException("Could not clean up.", e);
@@ -61,16 +53,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
-  public void harvestRecords(InputStream inputStream, CompressedFileExtension compressedFileType,
-      Consumer<ArchiveEntry> action) throws HarvesterException {
-    this.harvestFullRecords(inputStream, compressedFileType, file -> {
-      action.accept(file);
-      return IterationResult.CONTINUE;
-    });
-  }
-
-  @Override
-  public HttpRecordIterator harvestRecords(String archiveUrl, String downloadDirectory)
+  public HarvestingIterator<Path, Path> harvestRecords(String archiveUrl, String downloadDirectory)
       throws HarvesterException {
 
     // Download the archive. Note that we allow any directory here (even on other file systems),
@@ -89,15 +72,9 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
-  public FullRecordHarvestingIterator<ArchiveEntry, Path> createFullRecordHarvestIterator(InputStream input,
+  public FullRecordHarvestingIterator<FullRecord, Path> createFullRecordHarvestIterator(InputStream input,
       CompressedFileExtension compressedFileType) throws HarvesterException {
     return new RecordIterator(extractArchiveSecurely(input, compressedFileType));
-  }
-
-  @Override
-  public HttpRecordIterator createTemporaryHttpHarvestIterator(InputStream input,
-      CompressedFileExtension compressedFileType) throws HarvesterException {
-    return new PathIterator(extractArchiveSecurely(input, compressedFileType));
   }
 
   private Path extractArchiveSecurely(InputStream input,
@@ -186,21 +163,21 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private static class RecordIterator extends AbstractHttpHarvestIterator<ArchiveEntry>
-      implements FullRecordHarvestingIterator<ArchiveEntry, Path> {
+  private static class RecordIterator extends AbstractHttpHarvestIterator<FullRecord>
+      implements FullRecordHarvestingIterator<FullRecord, Path> {
 
     public RecordIterator(Path extractedDirectory) {
       super(extractedDirectory);
     }
 
     @Override
-    public void forEachFiltered(ReportingIteration<ArchiveEntry> action, Predicate<Path> filter)
+    public void forEachFiltered(ReportingIteration<FullRecord> action, Predicate<Path> filter)
         throws HarvesterException {
       forEachFileFiltered(action, filter);
     }
   }
 
-  private static class PathIterator extends AbstractHttpHarvestIterator<Path> implements HttpRecordIterator {
+  private static class PathIterator extends AbstractHttpHarvestIterator<Path> {
 
     public PathIterator(Path extractedDirectory) {
       super(extractedDirectory);
@@ -215,154 +192,6 @@ public class HttpHarvesterImpl implements HttpHarvester {
     @Override
     public String getExtractedDirectory() {
       return super.getExtractedDirectory();
-    }
-
-    @Override
-    public void deleteIteratorContent() {
-      this.close();
-    }
-  }
-
-  /**
-   * Iterator for harvesting
-   */
-  private abstract static class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, Path> {
-
-    private final Path extractedDirectory;
-
-    public AbstractHttpHarvestIterator(Path extractedDirectory) {
-      if (extractedDirectory == null) {
-        throw new IllegalStateException("Extracted directory is null. This should not happen.");
-      }
-      this.extractedDirectory = extractedDirectory;
-    }
-
-    protected String getExtractedDirectory() {
-      return extractedDirectory.toString();
-    }
-
-    @Override
-    public void close() {
-      try {
-        FileUtils.deleteDirectory(extractedDirectory.toFile());
-      } catch (IOException e) {
-        LOGGER.warn("Could not delete directory.", e);
-      }
-    }
-
-    public void forEachPathFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
-        throws HarvesterException {
-      try {
-        Files.walkFileTree(extractedDirectory, new FileIteration(action, filter));
-      } catch (IOException e) {
-        throw new HarvesterException("Exception while iterating through the extracted files.", e);
-      }
-    }
-
-    public void forEachFileFiltered(ReportingIteration<ArchiveEntry> action, Predicate<Path> filter)
-        throws HarvesterException {
-      forEachPathFiltered(path -> {
-        try (InputStream content = Files.newInputStream(path)) {
-          return action.process(new ArchiveEntryImpl(extractedDirectory.relativize(path).toString(),
-              new ByteArrayInputStream(IOUtils.toByteArray(content))));
-        } catch (RuntimeException e) {
-          throw new IOException("Could not process path " + path + ".", e);
-        }
-      }, filter);
-    }
-
-    @Override
-    public void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException {
-      forEach(action);
-    }
-
-    @Override
-    public Integer countRecords() throws HarvesterException {
-      // Go by each path only: no need to inspect the full file.
-      final AtomicInteger counter = new AtomicInteger(0);
-      forEachPathFiltered(path -> {
-        counter.incrementAndGet();
-        return IterationResult.CONTINUE;
-      }, path -> true);
-      return counter.get();
-    }
-  }
-
-  private static class FileIteration extends SimpleFileVisitor<Path> {
-
-    private static final String MAC_TEMP_FILE = ".DS_Store";
-    private static final String MAC_TEMP_FOLDER = "__MACOSX";
-
-    private final ReportingIteration<Path> action;
-    private final Predicate<Path> filter;
-
-    public FileIteration(ReportingIteration<Path> action, Predicate<Path> filter) {
-      this.action = action;
-      this.filter = filter;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-      if (!filter.test(file)) {
-        return FileVisitResult.CONTINUE;
-      }
-      final Path fileName = file.getFileName();
-      if (fileName != null && MAC_TEMP_FILE.equals(fileName.toString())) {
-        return FileVisitResult.CONTINUE;
-      }
-      if (CompressedFileExtension.forPath(file) != null) {
-        return FileVisitResult.CONTINUE;
-      }
-      final IterationResult result = action.process(file);
-      if (result == null) {
-        throw new IllegalArgumentException("Iteration result cannot be null.");
-      }
-      return result == IterationResult.TERMINATE ? FileVisitResult.TERMINATE
-          : FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-      final Path dirName = dir.getFileName();
-      if (dirName != null && MAC_TEMP_FOLDER.equals(dirName.toString())) {
-        return FileVisitResult.SKIP_SUBTREE;
-      }
-      return FileVisitResult.CONTINUE;
-    }
-  }
-
-  private record ArchiveEntryImpl(String relativeFilePath, ByteArrayInputStream entryContent)
-      implements ArchiveEntry {
-
-    @Override
-    public String getHarvestingIdentifier() {
-      return relativeFilePath;
-    }
-
-    @Override
-    public void writeContent(OutputStream outputStream) throws IOException {
-       IOUtils.copy(entryContent, outputStream);
-    }
-
-    @Override
-    public ByteArrayInputStream getContent() {
-      return entryContent;
-    }
-
-    @Override
-    public boolean isDeleted() {
-      return false;
-    }
-
-    @Override
-    @Deprecated
-    public ByteArrayInputStream getEntryContent() {
-      return getContent();
-    }
-
-    @Override
-    public Instant getTimeStamp() {
-      return null;
     }
   }
 }
