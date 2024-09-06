@@ -318,7 +318,7 @@ class MediaExtractorImplTest {
   }
 
   @Test
-  void testShouldDownloadForFullProcessing() {
+  void testshouldDownloadForFullProcessing() {
     doReturn(true).when(imageProcessor).downloadResourceForFullProcessing();
     doReturn(true).when(textProcessor).downloadResourceForFullProcessing();
     doReturn(false).when(audioVideoProcessor).downloadResourceForFullProcessing();

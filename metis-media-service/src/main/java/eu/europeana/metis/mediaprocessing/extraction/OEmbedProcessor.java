@@ -37,7 +37,7 @@ public class OEmbedProcessor implements MediaProcessor {
    * Process a resource by extracting the metadata from the content.
    *
    * @param resource The resource to process. Note that the resource may not have content (see
-   * {@link MediaExtractorImpl#shouldDownloadForFullProcessing(String)}).
+   * {@link MediaExtractorImpl#shouldDownloadForFullProcessing(String, boolean)}).
    * @param detectedMimeType The mime type that was detected for this resource (may deviate from the mime type that was provided
    * by the server and which is stored in {@link Resource#getProvidedMimeType()}).
    * @param mainThumbnailAvailable Whether the main thumbnail for this record is available. This may influence the decision on
@@ -69,7 +69,7 @@ public class OEmbedProcessor implements MediaProcessor {
         }
 
         // Validate model and compile the extraction result.
-        if (embedModel != null && hasValidVersion(embedModel)) {
+        if (hasValidVersion(embedModel)) {
           resourceExtractionResult = getResourceExtractionResult(resource, oEmbedMimetype, embedModel);
         } else {
           LOGGER.info("No oembed model found.");
@@ -111,31 +111,24 @@ public class OEmbedProcessor implements MediaProcessor {
   private ResourceExtractionResult getResourceExtractionResult(Resource resource, String oEmbedMimetype,
       OEmbedModel oEmbedModel) throws MediaExtractionException {
     ResourceExtractionResult resourceExtractionResult = null;
-    switch (oEmbedModel.getType().toLowerCase(Locale.US)) {
-      case "photo" -> {
-        if (isValidTypePhoto(oEmbedModel)) {
-          checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
-          ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(oEmbedMimetype,
-              resource.getResourceUrl(), resource.getProvidedFileSize(),
-              oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
-          resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
-        }
-      }
-      case "video" -> {
-        if (isValidTypeVideo(oEmbedModel)) {
-          checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
-          Double duration = getDurationFromModel(oEmbedModel);
-          VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(oEmbedMimetype,
-              resource.getResourceUrl(), resource.getProvidedFileSize(), duration, null,
-              oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
-          resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
-        }
-      }
-      default -> {
-        GenericResourceMetadata genericResourceMetadata = new GenericResourceMetadata(oEmbedMimetype,
-            resource.getResourceUrl(), resource.getProvidedFileSize());
-        resourceExtractionResult = new ResourceExtractionResultImpl(genericResourceMetadata);
-      }
+    final String oEmbedType = oEmbedModel.getType().toLowerCase(Locale.US);
+    if ("photo".equals(oEmbedType) && isValidTypePhoto(oEmbedModel)) {
+      checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
+      ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(oEmbedMimetype,
+          resource.getResourceUrl(), resource.getProvidedFileSize(),
+          oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
+      resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
+    } else if ("video".equals(oEmbedType) && isValidTypeVideo(oEmbedModel)) {
+      checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
+      Double duration = getDurationFromModel(oEmbedModel);
+      VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(oEmbedMimetype,
+          resource.getResourceUrl(), resource.getProvidedFileSize(), duration, null,
+          oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
+      resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
+    } else {
+      GenericResourceMetadata genericResourceMetadata = new GenericResourceMetadata(oEmbedMimetype,
+          resource.getResourceUrl(), resource.getProvidedFileSize());
+      resourceExtractionResult = new ResourceExtractionResultImpl(genericResourceMetadata);
     }
     return resourceExtractionResult;
   }

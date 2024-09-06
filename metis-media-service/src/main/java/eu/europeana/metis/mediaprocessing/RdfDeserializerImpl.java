@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -62,7 +63,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW = EDM_HAS_VIEW
       + "[" + EDM_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "]/@rdf:about]";
 
-  private static final Set<UrlType> URL_TYPES_FOR_OEMBED = Set.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
+  private static final Set<UrlType> URL_TYPES_FOR_OEMBED = EnumSet.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
 
   private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
@@ -73,7 +74,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
-
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
+      xPath -> xPath.compile(
+          OEMBED_XPATH_CONDITION_IS_SHOWN_BY + "|" + OEMBED_XPATH_CONDITION_HAS_VIEW));
   private static List<RdfResourceEntry> convertToResourceEntries(
       Map<String, ResourceInfo> urlWithTypes) {
     return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
@@ -191,8 +194,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Parse document to schema-agnostic XML document (but make parsing namespace-aware).
     try {
-      // False positive. The parser has all security settings applied (see below).
-      @SuppressWarnings("squid:S2755")
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -314,23 +315,29 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
 
     // For each resource, check whether they are configured for oEmbed.
-    final Map<String, ResourceInfo> result = new HashMap<>(urls.size());
+    final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
+    final Set<String> oEmbedUrls = getOEmbedUrls(document);
     for (Entry<String, Set<UrlType>> entry :urls.entrySet()){
-      final boolean configuredForOembed =
+      final boolean isConfiguredForOembed =
           URL_TYPES_FOR_OEMBED.stream().anyMatch(entry.getValue()::contains) &&
-              configuredForOembed(entry.getKey(), document);
-      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), configuredForOembed));
+              hasConfigurationForOembed(entry.getKey(), oEmbedUrls);
+      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), isConfiguredForOembed));
     }
 
     // Done
     return result;
   }
 
-  private boolean configuredForOembed(String url, Document document) {
-    // TODO Perform XPath queries on the document. Only using the URL. We want to know whether there
-    //  is a webresource for the url with a link to a service which conforms to oembed. This can be
-    //  done in multiple steps if needed.
-    return false;
+  private Set<String> getOEmbedUrls(Document document) throws RdfDeserializationException {
+    final NodeList oEmbedNodes = getOEmbedExpression.evaluate(document);
+    return IntStream.range(0, oEmbedNodes.getLength())
+                    .mapToObj(oEmbedNodes::item)
+                    .map(Node::getNodeValue)
+                    .collect(Collectors.toSet());
+  }
+
+  private boolean hasConfigurationForOembed(String url, Set<String> oEmbedUrls)  {
+    return oEmbedUrls.contains(url);
   }
 
   record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
