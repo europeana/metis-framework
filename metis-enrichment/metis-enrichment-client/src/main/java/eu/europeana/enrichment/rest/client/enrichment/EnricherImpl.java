@@ -217,8 +217,8 @@ public class EnricherImpl implements Enricher {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues) {
     HashSet<Report> reports = new HashSet<>();
     for (SearchTermContext searchTerm : searchTerms) {
-      if(fieldTypeContainsOrganizationType(searchTerm.getFieldTypes()) &&
-          enrichedValues.get(searchTerm).isEmpty()){
+      if (fieldTypeContainsOrganizationType(searchTerm.getFieldTypes())
+          && enrichedValues.get(searchTerm).isEmpty()) {
         reports.add(Report
             .buildEnrichmentWarn()
             .withMessage("Could not find an entity for the given search term with type Organization.")

@@ -209,12 +209,11 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlowForOrganization() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferenceWarnFlowForOrganization() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
-
 
     // When the enricher a 301
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
@@ -224,15 +223,12 @@ class EnricherImplTest {
 
     when(entityResolver.resolveByText(anySet())).thenReturn(Map.of(searchTermContext, Collections.emptyList()));
 
-
     Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichValues(
         Set.of(searchTermContext));
 
     // Then verify
     assertNotNull(enrichReferences);
     assertEquals(getExpectedReportMessagesWarningForOrganization(), enrichReferences.getRight());
-
-
   }
 
   @Test
