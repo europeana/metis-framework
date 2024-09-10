@@ -215,7 +215,7 @@ public class SolrDocumentPopulator {
       final String finalEnd = ofNullable(end).orElse(begin);
       // We only need to check if finalBegin is no-null since if finalBegin is non-null then finalEnd will certainly be non-null
       if (finalBegin != null) {
-        document.addField(edmLabelDate.toString(), String.format("[%sTO%s]", finalBegin, finalEnd));
+        document.addField(edmLabelDate.toString(), String.format("[%s TO %s]", finalBegin, finalEnd));
 
         final LocalDate localDateFinalBegin = LocalDate.parse(finalBegin);
         final LocalDate localDateFinalEnd = LocalDate.parse(finalEnd);
