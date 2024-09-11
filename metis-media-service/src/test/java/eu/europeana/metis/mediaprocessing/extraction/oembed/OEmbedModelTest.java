@@ -28,6 +28,18 @@ class OEmbedModelTest {
   }
 
   @Test
+  void getOEmbedModelFromJsonTestNoMaxDimensions() throws IOException {
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/test_oembed.json");
+
+    OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
+    final String url = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250";
+    OEmbedValidation.checkValidWidthAndHeightDimensions(oEmbedModel, url);
+
+    assertNotNull(oEmbedModel);
+    assertTrue(isValidTypeVideo(oEmbedModel));
+  }
+
+  @Test
   void getOEmbedModelFromXmlTest() throws IOException {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml");
 

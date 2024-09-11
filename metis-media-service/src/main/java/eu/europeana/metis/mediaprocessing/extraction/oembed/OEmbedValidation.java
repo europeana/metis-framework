@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,6 +20,8 @@ public final class OEmbedValidation {
   private static final String MAX_HEIGHT = "maxheight";
   private static final String MAX_WIDTH = "maxwidth";
   private static final String INVALID_URL = "Invalid url";
+  private static final String OEMBED_IS_REQUIRED_MESSAGE = "OEmbedModel is required cannot be null";
+  private static final String OEMBED_PROPERTY_CHECK_IGNORED = "Property check ignored it doesn't apply";
   private static final Logger LOGGER = LoggerFactory.getLogger(OEmbedValidation.class);
 
   private OEmbedValidation() {
@@ -61,24 +64,27 @@ public final class OEmbedValidation {
   public static boolean hasValidHeightSizeUrl(OEmbedModel oEmbedModel, String url) {
     boolean result = false;
     Map<String, String> params;
-    if (oEmbedModel != null) {
-      try {
-        params = UriComponentsBuilder.fromUri(new URI(url))
-                                     .build()
-                                     .getQueryParams()
-                                     .toSingleValueMap();
+    Objects.requireNonNull(oEmbedModel, OEMBED_IS_REQUIRED_MESSAGE);
+    try {
+      params = UriComponentsBuilder.fromUri(new URI(url))
+                                   .build()
+                                   .getQueryParams()
+                                   .toSingleValueMap();
 
-        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxHeight(params)
-            && isOEmbedValidHeight(oEmbedModel, params)) {
+      if (containsMaxHeightAndMaxWidth(params)) {
+        if (hasValidMaxHeight(params) && isOEmbedValidHeight(oEmbedModel, params)) {
           result = true;
         } else {
-          LOGGER.warn("Not valid height according to max height");
+          LOGGER.warn("Not valid height according to max height {}", url);
         }
-      } catch (URISyntaxException e) {
-        LOGGER.warn(INVALID_URL, e);
-      } catch (NumberFormatException e) {
-        LOGGER.warn("Not valid height dimension size", e);
+      } else {
+        result = true;
+        LOGGER.warn(OEMBED_PROPERTY_CHECK_IGNORED);
       }
+    } catch (URISyntaxException e) {
+      LOGGER.warn(INVALID_URL, e);
+    } catch (NumberFormatException e) {
+      LOGGER.warn("Not valid height dimension size", e);
     }
     return result;
   }
@@ -93,25 +99,30 @@ public final class OEmbedValidation {
   public static boolean hasValidHeightSizeThumbnail(OEmbedModel oEmbedModel, String url) {
     boolean result = false;
     Map<String, String> params;
-    if (oEmbedModel != null) {
-      try {
-        params = UriComponentsBuilder.fromUri(new URI(url)).
-                                     build()
-                                     .getQueryParams()
-                                     .toSingleValueMap();
+    Objects.requireNonNull(oEmbedModel, OEMBED_IS_REQUIRED_MESSAGE);
+    try {
+      params = UriComponentsBuilder.fromUri(new URI(url)).
+                                   build()
+                                   .getQueryParams()
+                                   .toSingleValueMap();
 
-        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxHeight(params)
-            && hasThumbnailUrl(oEmbedModel) && isOEmbedValidThumbnailHeight(oEmbedModel, params)) {
+      if (containsMaxHeightAndMaxWidth(params)) {
+        if (hasValidMaxHeight(params) && hasThumbnailUrl(oEmbedModel)
+            && isOEmbedValidThumbnailHeight(oEmbedModel, params)) {
           result = true;
         } else {
-          LOGGER.warn("Not valid thumbnail size for max height parameter");
+          LOGGER.warn("Not valid thumbnail size for max height parameter {}", url);
         }
-      } catch (URISyntaxException e) {
-        LOGGER.warn(INVALID_URL, e);
-      } catch (NumberFormatException e) {
-        LOGGER.warn("Not valid height thumbnail dimension size", e);
+      } else {
+        result = true;
+        LOGGER.warn(OEMBED_PROPERTY_CHECK_IGNORED);
       }
+    } catch (URISyntaxException e) {
+      LOGGER.warn(INVALID_URL, e);
+    } catch (NumberFormatException e) {
+      LOGGER.warn("Not valid height thumbnail dimension size", e);
     }
+
     return result;
   }
 
@@ -125,25 +136,29 @@ public final class OEmbedValidation {
   public static boolean hasValidWidthSizeUrl(OEmbedModel oEmbedModel, String url) {
     boolean result = false;
     Map<String, String> params;
-    if (oEmbedModel != null) {
-      try {
-        params = UriComponentsBuilder.fromUri(new URI(url)).
-                                     build()
-                                     .getQueryParams()
-                                     .toSingleValueMap();
+    Objects.requireNonNull(oEmbedModel, OEMBED_IS_REQUIRED_MESSAGE);
+    try {
+      params = UriComponentsBuilder.fromUri(new URI(url)).
+                                   build()
+                                   .getQueryParams()
+                                   .toSingleValueMap();
 
-        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxWidth(params)
-            && isOEmbedValidWidth(oEmbedModel, params)) {
+      if (containsMaxHeightAndMaxWidth(params)) {
+        if (hasValidMaxWidth(params) && isOEmbedValidWidth(oEmbedModel, params)) {
           result = true;
         } else {
-          LOGGER.warn("Not valid width according to max width");
+          LOGGER.warn("Not valid width according to max width {}", url);
         }
-      } catch (URISyntaxException e) {
-        LOGGER.warn(INVALID_URL, e);
-      } catch (NumberFormatException e) {
-        LOGGER.warn("Not valid width dimension size", e);
+      } else {
+        result = true;
+        LOGGER.warn(OEMBED_PROPERTY_CHECK_IGNORED);
       }
+    } catch (URISyntaxException e) {
+      LOGGER.warn(INVALID_URL, e);
+    } catch (NumberFormatException e) {
+      LOGGER.warn("Not valid width dimension size", e);
     }
+
     return result;
   }
 
@@ -157,25 +172,30 @@ public final class OEmbedValidation {
   public static boolean hasValidWidthSizeThumbnail(OEmbedModel oEmbedModel, String url) {
     boolean result = false;
     Map<String, String> params;
-    if (oEmbedModel != null) {
-      try {
-        params = UriComponentsBuilder.fromUri(new URI(url)).
-                                     build()
-                                     .getQueryParams()
-                                     .toSingleValueMap();
+    Objects.requireNonNull(oEmbedModel, OEMBED_IS_REQUIRED_MESSAGE);
+    try {
+      params = UriComponentsBuilder.fromUri(new URI(url)).
+                                   build()
+                                   .getQueryParams()
+                                   .toSingleValueMap();
 
-        if (containsMaxHeightAndMaxWidth(params) && hasValidMaxWidth(params)
-            && hasThumbnailUrl(oEmbedModel) && isOEmbedValidThumbnailWidth(oEmbedModel, params)) {
+      if (containsMaxHeightAndMaxWidth(params)) {
+        if (hasValidMaxWidth(params) && hasThumbnailUrl(oEmbedModel)
+            && isOEmbedValidThumbnailWidth(oEmbedModel, params)) {
           result = true;
         } else {
-          LOGGER.warn("Not valid thumbnail size for max width parameter");
+          LOGGER.warn("Not valid thumbnail size for max width parameter {}", url);
         }
-      } catch (URISyntaxException e) {
-        LOGGER.warn("Invalid url ", e);
-      } catch (NumberFormatException e) {
-        LOGGER.warn("Not valid thumbnail width dimension size", e);
+      } else {
+        result = true;
+        LOGGER.warn(OEMBED_PROPERTY_CHECK_IGNORED);
       }
+    } catch (URISyntaxException e) {
+      LOGGER.warn("Invalid url ", e);
+    } catch (NumberFormatException e) {
+      LOGGER.warn("Not valid thumbnail width dimension size", e);
     }
+
     return result;
   }
 
@@ -189,22 +209,22 @@ public final class OEmbedValidation {
     if (hasValidHeightSizeUrl(oEmbedModel, url)) {
       LOGGER.info("Valid url dimensions of height");
     } else {
-      LOGGER.warn("Not valid url dimensions of height");
+      LOGGER.warn("Not valid url dimensions of height {}", url);
     }
     if (hasValidWidthSizeUrl(oEmbedModel, url)) {
       LOGGER.info("Valid url dimensions of width");
     } else {
-      LOGGER.warn("Not valid url dimensions of width");
+      LOGGER.warn("Not valid url dimensions of width {}", url);
     }
     if (hasValidHeightSizeThumbnail(oEmbedModel, url)) {
       LOGGER.info("Valid thumbnail dimensions of height");
     } else {
-      LOGGER.warn("Not valid thumbnail dimensions of height");
+      LOGGER.warn("Not valid thumbnail dimensions of height {}", url);
     }
     if (hasValidWidthSizeThumbnail(oEmbedModel, url)) {
       LOGGER.info("Valid thumbnail dimensions of width");
     } else {
-      LOGGER.warn("Not valid thumbnail dimensions of width");
+      LOGGER.warn("Not valid thumbnail dimensions of width {}", url);
     }
   }
 
@@ -222,6 +242,43 @@ public final class OEmbedValidation {
       duration = 0.0;
     }
     return duration;
+  }
+
+  /**
+   * Is valid type photo boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the boolean
+   */
+  public static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
+    return hasValidModelAndType(oEmbedModel)
+        && "photo".equalsIgnoreCase(oEmbedModel.getType())
+        && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
+        && hasValidDimensions(oEmbedModel);
+  }
+
+  /**
+   * Is valid type video boolean.
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the boolean
+   */
+  public static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
+    return hasValidModelAndType(oEmbedModel)
+        && "video".equalsIgnoreCase(oEmbedModel.getType())
+        && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
+        && hasValidDimensions(oEmbedModel);
+  }
+
+  /**
+   * Has valid version boolean. private
+   *
+   * @param oEmbedModel the oEmbed model
+   * @return the boolean
+   */
+  public static boolean hasValidVersion(OEmbedModel oEmbedModel) {
+    return oEmbedModel != null && oEmbedModel.getVersion() != null
+        && oEmbedModel.getVersion().startsWith("1.0");
   }
 
   /**
@@ -309,32 +366,6 @@ public final class OEmbedValidation {
   }
 
   /**
-   * Is valid type photo boolean.
-   *
-   * @param oEmbedModel the oEmbed model
-   * @return the boolean
-   */
-  public static boolean isValidTypePhoto(OEmbedModel oEmbedModel) {
-    return hasValidModelAndType(oEmbedModel)
-        && "photo".equalsIgnoreCase(oEmbedModel.getType())
-        && oEmbedModel.getUrl() != null && !oEmbedModel.getUrl().isEmpty()
-        && hasValidDimensions(oEmbedModel);
-  }
-
-  /**
-   * Is valid type video boolean.
-   *
-   * @param oEmbedModel the oEmbed model
-   * @return the boolean
-   */
-  public static boolean isValidTypeVideo(OEmbedModel oEmbedModel) {
-    return hasValidModelAndType(oEmbedModel)
-        && "video".equalsIgnoreCase(oEmbedModel.getType())
-        && oEmbedModel.getHtml() != null && !oEmbedModel.getHtml().isEmpty()
-        && hasValidDimensions(oEmbedModel);
-  }
-
-  /**
    * Has valid model and type boolean.
    *
    * @param oEmbedModel the oEmbed model
@@ -352,16 +383,5 @@ public final class OEmbedValidation {
    */
   private static boolean hasValidDimensions(OEmbedModel oEmbedModel) {
     return (oEmbedModel.getWidth() > 0 && oEmbedModel.getHeight() > 0);
-  }
-
-  /**
-   * Has valid version boolean. private
-   *
-   * @param oEmbedModel the oEmbed model
-   * @return the boolean
-   */
-  public static boolean hasValidVersion(OEmbedModel oEmbedModel) {
-    return oEmbedModel != null && oEmbedModel.getVersion() != null
-        && oEmbedModel.getVersion().startsWith("1.0");
   }
 }
