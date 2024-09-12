@@ -58,7 +58,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_HAS_SERVICE =
       "svcs:has_service/@rdf:resource = " + SVCS_SERVICE + "[" +
           EDM_WEBRESOURCE + "/svcs:has_service/@rdf:resource = " + SVCS_SERVICE + "/@rdf:about" +
-          " and dcterms:conformsTo/@rdf:resource = \""+ OEMBED_NAMESPACE +"\"]/@rdf:about";
+          " and dcterms:conformsTo/@rdf:resource = \"" + OEMBED_NAMESPACE + "\"]/@rdf:about";
   private static final String XPATH_WEB_RESOURCE =
       EDM_WEBRESOURCE + "[" + XPATH_HAS_SERVICE + "]";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
@@ -66,7 +66,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
       EDM_HAS_VIEW + "[" + EDM_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "/@rdf:about]";
 
-  private static final Set<UrlType> URL_TYPES_FOR_OEMBED = EnumSet.of(UrlType.IS_SHOWN_BY, HAS_VIEW);
+  private static final Set<UrlType> URL_TYPES_FOR_OEMBED = EnumSet.of(IS_SHOWN_BY, HAS_VIEW);
 
   private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
@@ -77,10 +77,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
-  private final XPathExpressionWrapper getShownByOEmbedExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
-  private final XPathExpressionWrapper getHasViewOEmbedExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW));
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
+      xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private static List<RdfResourceEntry> convertToResourceEntries(
       Map<String, ResourceInfo> urlWithTypes) {
@@ -209,6 +207,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
+  private Set<String> getOEmbedUrls(Document document) throws RdfDeserializationException {
+    final NodeList oEmbedNodes = getOEmbedExpression.evaluate(document);
+    return IntStream.range(0, oEmbedNodes.getLength())
+                    .mapToObj(oEmbedNodes::item)
+                    .map(Node::getNodeValue)
+                    .collect(Collectors.toSet());
+  }
+
+  private boolean hasConfigurationForOembed(String url, Set<String> oEmbedUrls) {
+    return oEmbedUrls.contains(url);
+  }
+
   @FunctionalInterface
   private interface DeserializationOperation<R> {
 
@@ -299,6 +309,10 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
+  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
+
+  }
+
   /**
    * Gets resource entries.
    *
@@ -321,10 +335,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // For each resource, check whether they are configured for oEmbed.
     final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
-    final Set<String> oEmbedUrls = getOEmbedUrls(document, HAS_VIEW);
-    oEmbedUrls.addAll(getOEmbedUrls(document, IS_SHOWN_BY));
-    for (Entry<String, Set<UrlType>> entry :urls.entrySet()){
-       boolean isConfiguredForOembed =
+    final Set<String> oEmbedUrls = getOEmbedUrls(document);
+    for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
+      boolean isConfiguredForOembed =
           URL_TYPES_FOR_OEMBED.stream().anyMatch(entry.getValue()::contains) &&
               hasConfigurationForOembed(entry.getKey(), oEmbedUrls);
       result.put(entry.getKey(), new ResourceInfo(entry.getValue(), isConfiguredForOembed));
@@ -332,33 +345,5 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Done
     return result;
-  }
-
-  private Set<String> getOEmbedUrls(Document document, UrlType type) throws RdfDeserializationException {
-    XPathExpressionWrapper expression = null;
-
-    if (type.equals(HAS_VIEW)) {
-      expression = getHasViewOEmbedExpression;
-    }
-    if (type.equals(IS_SHOWN_BY)) {
-      expression = getShownByOEmbedExpression;
-    }
-    if (expression != null) {
-      final NodeList oEmbedNodes = expression.evaluate(document);
-      return IntStream.range(0, oEmbedNodes.getLength())
-                      .mapToObj(oEmbedNodes::item)
-                      .map(Node::getNodeValue)
-                      .collect(Collectors.toSet());
-    } else {
-      return Set.of();
-    }
-  }
-
-  private boolean hasConfigurationForOembed(String url, Set<String> oEmbedUrls)  {
-    return oEmbedUrls.contains(url);
-  }
-
-  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
-
   }
 }

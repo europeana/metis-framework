@@ -235,7 +235,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private List<MediaProcessor> chooseMediaProcessorTextAndOther(MediaType mediaType,
       String detectedMimeType, boolean potentialOembedResource) {
     if (detectedMimeType == null) {
-      return null;
+      return Collections.emptyList();
     } else if (potentialOembedResource && (detectedMimeType.startsWith("text/xml")
         || detectedMimeType.startsWith("application/xml") || detectedMimeType.startsWith("application/json"))) {
       return List.of(oEmbedProcessor, textProcessor);
