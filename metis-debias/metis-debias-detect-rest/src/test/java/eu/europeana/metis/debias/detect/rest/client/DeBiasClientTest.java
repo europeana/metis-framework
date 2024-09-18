@@ -15,6 +15,7 @@ import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
+import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasBadRequestException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -113,12 +114,10 @@ class DeBiasClientTest {
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
-    ErrorDeBiasResult detectionResult = (ErrorDeBiasResult) debiasClient.detect(detectionParameter);
+    DeBiasBadRequestException deBiasBadRequestException = assertThrows(DeBiasBadRequestException.class, () -> debiasClient.detect(detectionParameter));
 
-    assertNotNull(detectionResult.getDetailList().getFirst());
-    assertEquals("Input should be a valid string", detectionResult.getDetailList().getFirst().getMsg());
-    assertEquals("string_type", detectionResult.getDetailList().getFirst().getType());
-    assertEquals("https://errors.pydantic.dev/2.5/v/string_type", detectionResult.getDetailList().getFirst().getUrl());
+    assertNotNull(deBiasBadRequestException);
+    assertEquals("422 UNPROCESSABLE_ENTITY string_type Input should be a valid string", deBiasBadRequestException.getMessage());
   }
 
   @Test
