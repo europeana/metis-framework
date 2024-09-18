@@ -180,6 +180,15 @@ public interface Indexer extends Closeable {
   boolean remove(String rdfAbout) throws IndexingException;
 
   /**
+   * Creates and indexes a tombstone record.
+   *
+   * @param rdfAbout the id of the record
+   * @return whether a record was tombstoned
+   * @throws IndexingException in case something went wrong.
+   */
+  boolean indexTombstone(String rdfAbout) throws IndexingException;
+
+  /**
    * <p>
    * Removes all records that belong to a given dataset. This method also removes the associated
    * objects (i.e. those objects that are always part of only one record and the removal of which

@@ -97,7 +97,6 @@ public final class MorphiaUtils {
    * @param <T> the type of class that the {@link Query} represents
    * @return the morphia cursor
    */
-  @SuppressWarnings("resource")
   private static <T> BiFunction<Query<T>, FindOptions, MorphiaCursor<T>> getMorphiaCursorFromQuery() {
     return (querySupplied, findOptionsSupplied) -> Optional.ofNullable(findOptionsSupplied)
         .map(querySupplied::iterator).orElseGet(querySupplied::iterator);
@@ -114,7 +113,6 @@ public final class MorphiaUtils {
    * @param <R> the type of class that the result of the {@link Aggregation} represents
    * @return the morphia cursor
    */
-  @SuppressWarnings("resource")
   private static <T, R> BiFunction<Aggregation<T>, AggregationOptions, MorphiaCursor<R>> getMorphiaCursorFromAggregation(
       Class<R> resultObjectClass) {
     return (aggregationSupplied, aggregationOptionsSupplied) -> Optional

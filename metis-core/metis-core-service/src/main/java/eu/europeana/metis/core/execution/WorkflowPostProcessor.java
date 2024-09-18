@@ -178,7 +178,7 @@ public class WorkflowPostProcessor {
                                                                    Collectors.mapping(Pair::getRight, Collectors.toSet())));
     successfulRecords.forEach((dataset, records) ->
         depublishRecordIdDao.markRecordIdsWithDepublicationStatus(dataset, records,
-            DepublicationStatus.DEPUBLISHED, new Date(), null));
+            DepublicationStatus.DEPUBLISHED, new Date(), depublishPlugin.getPluginMetadata().getDepublicationReason()));
 
     // Set publication fitness to PARTIALLY FIT (if not set to the more severe UNFIT).
     final Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);

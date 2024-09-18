@@ -67,7 +67,7 @@ public class DepublishRecordIdService {
    * </ul>
    */
   public int addRecordIdsToBeDepublished(MetisUserView metisUserView, String datasetId,
-      String recordIdsInSeparateLines, DepublicationReason depublicationReason) throws GenericMetisException {
+      String recordIdsInSeparateLines) throws GenericMetisException {
 
     // Authorize.
     authorizer.authorizeWriteExistingDatasetById(metisUserView, datasetId);
@@ -77,7 +77,7 @@ public class DepublishRecordIdService {
         recordIdsInSeparateLines);
 
     // Add the records.
-    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds, depublicationReason);
+    return depublishRecordIdDao.createRecordIdsToBeDepublished(datasetId, normalizedRecordIds);
   }
 
   /**

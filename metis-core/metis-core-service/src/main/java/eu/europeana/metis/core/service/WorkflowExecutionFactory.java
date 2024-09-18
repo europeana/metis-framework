@@ -6,7 +6,6 @@ import eu.europeana.metis.core.dao.DepublishRecordIdDao;
 import eu.europeana.metis.core.dao.PluginWithExecutionId;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetXslt;
-import eu.europeana.metis.core.dataset.DepublishRecordId;
 import eu.europeana.metis.core.dataset.DepublishRecordId.DepublicationStatus;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
@@ -29,14 +28,10 @@ import eu.europeana.metis.exception.BadContentException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class that contains various functionality for "helping" the {@link OrchestratorService}.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-10-11
  */
 public class WorkflowExecutionFactory {
 
@@ -81,8 +76,7 @@ public class WorkflowExecutionFactory {
 
     // Set the predecessor
     if (predecessor != null) {
-      workflowPlugins.get(0).getPluginMetadata()
-          .setPreviousRevisionInformation(predecessor.getPlugin());
+      workflowPlugins.getFirst().getPluginMetadata().setPreviousRevisionInformation(predecessor.getPlugin());
     }
 
     // Done: create workflow with all the information.

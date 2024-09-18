@@ -1,10 +1,8 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.FullRecord;
-import eu.europeana.metis.harvesting.HarvesterException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.Instant;
 import java.util.function.Supplier;
@@ -16,7 +14,7 @@ import java.util.function.Supplier;
 public class OaiRecord implements FullRecord {
 
   private final OaiRecordHeader header;
-  private final byte[] record;
+  private final byte[] content;
 
   /**
    * Constructor.
@@ -26,7 +24,7 @@ public class OaiRecord implements FullRecord {
    */
   public OaiRecord(OaiRecordHeader header, Supplier<byte[]> recordSupplier) {
     this.header = header;
-    this.record = this.header.isDeleted() ? new byte[0] : recordSupplier.get();
+    this.content = this.header.isDeleted() ? new byte[0] : recordSupplier.get();
   }
 
   public OaiRecordHeader getHeader() {
@@ -43,7 +41,7 @@ public class OaiRecord implements FullRecord {
     if (isDeleted()) {
       throw new IllegalStateException("Record is deleted at source.");
     }
-    outputStream.write(this.record);
+    outputStream.write(this.content);
   }
 
   @Override
@@ -51,20 +49,12 @@ public class OaiRecord implements FullRecord {
     if (isDeleted()) {
       throw new IllegalStateException("Record is deleted at source.");
     }
-    return new ByteArrayInputStream(record);
+    return new ByteArrayInputStream(content);
   }
 
   @Override
   public boolean isDeleted() {
     return getHeader().isDeleted();
-  }
-
-  /**
-   * @deprecated use {@link #getContent()} instead.
-   */
-  @Deprecated
-  public InputStream getRecord() throws HarvesterException {
-    return getContent();
   }
 
   @Override

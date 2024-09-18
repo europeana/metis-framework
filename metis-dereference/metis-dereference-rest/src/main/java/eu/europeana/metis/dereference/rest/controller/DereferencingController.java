@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,8 +80,7 @@ public class DereferencingController {
       return new EnrichmentResultList(resourceIds.stream()
                                                  .map(this::dereferenceInternal)
                                                  .map(item -> new EnrichmentResultBaseWrapper(item.getEnrichmentBasesAsList(),
-                                                     item.getDereferenceStatus()))
-                                                 .collect(Collectors.toList()));
+                                                     item.getDereferenceStatus())).toList());
     } catch (RuntimeException e) {
       throw new DereferenceException(generateExceptionMessage(String.join(",", resourceIds), e), e);
     }

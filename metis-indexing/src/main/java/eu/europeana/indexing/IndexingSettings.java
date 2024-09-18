@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
-import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullMessage;
 
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -22,6 +21,7 @@ public final class IndexingSettings {
 
   // Mongo settings
   private String mongoDatabaseName;
+  private String mongoTombstoneDatabaseName;
   private String recordRedirectDatabaseName;
   private final MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(
       SetupRelatedIndexingException::new);
@@ -48,6 +48,10 @@ public final class IndexingSettings {
    */
   public void setMongoDatabaseName(String mongoDatabaseName) throws SetupRelatedIndexingException {
     this.mongoDatabaseName = nonNullFieldName(mongoDatabaseName, "mongoDatabaseName");
+  }
+
+  public void setMongoTombstoneDatabaseName(String mongoTombstoneDatabaseName) throws SetupRelatedIndexingException {
+    this.mongoTombstoneDatabaseName = nonNullFieldName(mongoTombstoneDatabaseName, "mongoTombstoneDatabaseName");
   }
 
   public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
@@ -183,13 +187,21 @@ public final class IndexingSettings {
   }
 
   /**
-   * This method returns the Mongo database name.
+   * Returns the Mongo database name.
    *
    * @return The Mongo database name.
-   * @throws SetupRelatedIndexingException In case no Mongo database name was set.
    */
-  public String getMongoDatabaseName() throws SetupRelatedIndexingException {
-    return nonNullMessage(mongoDatabaseName, "Please provide a Mongo database name.");
+  public String getMongoDatabaseName() {
+    return mongoDatabaseName;
+  }
+
+  /**
+   * Returns the Mongo tombstone database name.
+   *
+   * @return The Mongo tombstone database name.
+   */
+  public String getMongoTombstoneDatabaseName() {
+    return mongoTombstoneDatabaseName;
   }
 
   /**

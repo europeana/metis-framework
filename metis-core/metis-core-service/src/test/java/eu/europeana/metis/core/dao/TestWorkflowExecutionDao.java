@@ -125,13 +125,13 @@ class TestWorkflowExecutionDao {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createWorkflowExecutionObject();
     assertEquals(PluginStatus.INQUEUE,
-        workflowExecution.getMetisPlugins().get(0).getPluginStatus());
+        workflowExecution.getMetisPlugins().getFirst().getPluginStatus());
     String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
-    workflowExecution.getMetisPlugins().get(0).setPluginStatus(PluginStatus.RUNNING);
+    workflowExecution.getMetisPlugins().getFirst().setPluginStatus(PluginStatus.RUNNING);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     WorkflowExecution updatedWorkflowExecution = workflowExecutionDao.getById(objectId);
     assertEquals(PluginStatus.RUNNING,
-        updatedWorkflowExecution.getMetisPlugins().get(0).getPluginStatus());
+        updatedWorkflowExecution.getMetisPlugins().getFirst().getPluginStatus());
   }
 
   @Test
@@ -141,16 +141,16 @@ class TestWorkflowExecutionDao {
     Date createdDate = new Date();
     workflowExecution.setCreatedDate(createdDate);
     assertEquals(PluginStatus.INQUEUE,
-        workflowExecution.getMetisPlugins().get(0).getPluginStatus());
+        workflowExecution.getMetisPlugins().getFirst().getPluginStatus());
     String objectId = workflowExecutionDao.create(workflowExecution).getId().toString();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     Date startedDate = new Date();
     workflowExecution.setStartedDate(startedDate);
     workflowExecution.setUpdatedDate(startedDate);
-    workflowExecution.getMetisPlugins().get(0).setPluginStatus(PluginStatus.RUNNING);
+    workflowExecution.getMetisPlugins().getFirst().setPluginStatus(PluginStatus.RUNNING);
     Date pluginUpdatedDate = new Date();
-    if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
-      workflowExecution.getMetisPlugins().get(0).setUpdatedDate(pluginUpdatedDate);
+    if (workflowExecution.getMetisPlugins().getFirst() instanceof AbstractExecutablePlugin) {
+      workflowExecution.getMetisPlugins().getFirst().setUpdatedDate(pluginUpdatedDate);
     }
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     WorkflowExecution updatedWorkflowExecution = workflowExecutionDao.getById(objectId);
@@ -159,10 +159,10 @@ class TestWorkflowExecutionDao {
     assertEquals(0, startedDate.compareTo(updatedWorkflowExecution.getStartedDate()));
     assertEquals(0, startedDate.compareTo(updatedWorkflowExecution.getUpdatedDate()));
     assertEquals(PluginStatus.RUNNING,
-        updatedWorkflowExecution.getMetisPlugins().get(0).getPluginStatus());
-    if (workflowExecution.getMetisPlugins().get(0) instanceof AbstractExecutablePlugin) {
+        updatedWorkflowExecution.getMetisPlugins().getFirst().getPluginStatus());
+    if (workflowExecution.getMetisPlugins().getFirst() instanceof AbstractExecutablePlugin) {
       assertEquals(0, pluginUpdatedDate.compareTo(
-          updatedWorkflowExecution.getMetisPlugins().get(0).getUpdatedDate()));
+          updatedWorkflowExecution.getMetisPlugins().getFirst().getUpdatedDate()));
     }
   }
 
@@ -194,8 +194,8 @@ class TestWorkflowExecutionDao {
     assertEquals(workflowExecution.getWorkflowPriority(),
         retrievedWorkflowExecution.getWorkflowPriority());
     assertFalse(retrievedWorkflowExecution.isCancelling());
-    assertEquals(workflowExecution.getMetisPlugins().get(0).getPluginType(),
-        retrievedWorkflowExecution.getMetisPlugins().get(0).getPluginType());
+    assertEquals(workflowExecution.getMetisPlugins().getFirst().getPluginType(),
+        retrievedWorkflowExecution.getMetisPlugins().getFirst().getPluginType());
   }
 
   @Test
@@ -268,14 +268,14 @@ class TestWorkflowExecutionDao {
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), false);
     assertEquals(latestFinishedWorkflowExecution.getPlugin().getFinishedDate(),
-        workflowExecutionSecond.getMetisPlugins().get(0).getFinishedDate());
+        workflowExecutionSecond.getMetisPlugins().getFirst().getFinishedDate());
     assertEquals(executionSecondId, latestFinishedWorkflowExecution.getExecutionId());
 
     PluginWithExecutionId<MetisPlugin> firstFinishedWorkflowExecution = workflowExecutionDao
         .getFirstOrLastFinishedPlugin(Integer.toString(TestObjectFactory.DATASETID),
             EnumSet.of(PluginType.OAIPMH_HARVEST), true);
     assertEquals(firstFinishedWorkflowExecution.getPlugin().getFinishedDate(),
-        workflowExecutionFirst.getMetisPlugins().get(0).getFinishedDate());
+        workflowExecutionFirst.getMetisPlugins().getFirst().getFinishedDate());
     assertEquals(executionFirstId, firstFinishedWorkflowExecution.getExecutionId());
   }
 
@@ -516,7 +516,7 @@ class TestWorkflowExecutionDao {
           result.isMaxResultCountReached());
       if (!result.getResults().isEmpty()) {
         WorkflowExecution beforeWorkflowExecution =
-            userWorkflowExecutionResponseListWrapper.getResults().get(0);
+            userWorkflowExecutionResponseListWrapper.getResults().getFirst();
         for (int i = 1; i < userWorkflowExecutionResponseListWrapper.getListSize(); i++) {
           WorkflowExecution afterWorkflowExecution =
               userWorkflowExecutionResponseListWrapper.getResults().get(i);
@@ -666,7 +666,7 @@ class TestWorkflowExecutionDao {
                                                                            .map(ObjectId::toString).toList();
     assertEquals(Collections.singletonList(cancelledOldId), actualOrderWithFilterPlugin);
     assertEquals(2,
-        resultWithFilterPlugin.getResults().get(0).getExecution().getMetisPlugins().size());
+        resultWithFilterPlugin.getResults().getFirst().getExecution().getMetisPlugins().size());
 
     // Try with filtering on pluginStatuses and pluginTypes that do not exist.
     workflowExecutionDao.setWorkflowExecutionsPerRequest(expectedOrder.size());

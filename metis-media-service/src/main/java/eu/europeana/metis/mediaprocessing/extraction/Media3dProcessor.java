@@ -29,4 +29,5 @@ class Media3dProcessor implements MediaProcessor {
   public boolean downloadResourceForFullProcessing() {
     return false;
   }
+
 }

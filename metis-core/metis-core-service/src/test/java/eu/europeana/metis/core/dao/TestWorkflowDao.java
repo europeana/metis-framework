@@ -85,8 +85,8 @@ class TestWorkflowDao {
         .getMetisPluginsMetadata();
     assertEquals(metisPluginsMetadata.size(),
         retrievedUserWorkflowMetisPluginsMetadata.size());
-    assertEquals(retrievedUserWorkflowMetisPluginsMetadata.get(0).getPluginType(),
-        metisPluginsMetadata.get(0).getPluginType());
+    assertEquals(retrievedUserWorkflowMetisPluginsMetadata.getFirst().getPluginType(),
+        metisPluginsMetadata.getFirst().getPluginType());
   }
 
   @Test

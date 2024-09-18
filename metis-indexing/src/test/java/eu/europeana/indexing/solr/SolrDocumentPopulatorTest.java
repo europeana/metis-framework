@@ -116,11 +116,11 @@ class SolrDocumentPopulatorTest {
 
     assertTrue(document.get(EUROPEANA_ID.toString()).getValues().contains(fullBean.getAbout()));
     assertTrue(CollectionUtils.isEqualCollection(document.get(CREATED_DATE.toString()).getValues(),
-        List.of("[1426-01-01TO1450-12-31]", "[1942-01-01TO1942-12-31]")));
+        List.of("[1426-01-01 TO 1450-12-31]", "[1942-01-01 TO 1942-12-31]")));
     assertEquals("1426-01-01", document.get(CREATED_DATE_BEGIN.toString()).getValue());
     assertEquals("1942-12-31", document.get(CREATED_DATE_END.toString()).getValue());
     assertTrue(CollectionUtils.isEqualCollection(document.get(ISSUED_DATE.toString()).getValues(),
-        List.of("[1942-01-01TO1942-12-31]")));
+        List.of("[1942-01-01 TO 1942-12-31]")));
     assertEquals("1942-01-01", document.get(ISSUED_DATE_BEGIN.toString()).getValue());
     assertEquals("1942-12-31", document.get(ISSUED_DATE_END.toString()).getValue());
   }

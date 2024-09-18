@@ -110,7 +110,7 @@ public class DepublishRecordIdDao {
    * @throws BadContentException In case adding the records would violate the maximum number of depublished records that each
    * dataset can have.
    */
-  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds, DepublicationReason depublicationReason)
+  public int createRecordIdsToBeDepublished(String datasetId, Set<String> candidateRecordIds)
       throws BadContentException {
 
     // Check list size: if this is too large we can throw exception regardless of what's in the database.
@@ -130,7 +130,7 @@ public class DepublishRecordIdDao {
     }
 
     // Add the records and we're done.
-    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null, depublicationReason);
+    addRecords(recordIdsToAdd, datasetId, DepublicationStatus.PENDING_DEPUBLICATION, null, null);
     return recordIdsToAdd.size();
   }
 
@@ -142,8 +142,8 @@ public class DepublishRecordIdDao {
       depublishRecordId.setDatasetId(datasetId);
       depublishRecordId.setRecordId(recordId);
       depublishRecordId.setDepublicationStatus(depublicationStatus);
-      depublishRecordId.setDepublicationDate(depublicationDate);
       depublishRecordId.setDepublicationReason(depublicationReason);
+      depublishRecordId.setDepublicationDate(depublicationDate);
       return depublishRecordId;
     }).toList();
     retryableExternalRequestForNetworkExceptions(() -> {
@@ -341,6 +341,11 @@ public class DepublishRecordIdDao {
       throw new IllegalArgumentException(String
           .format("DepublicationDate cannot be null if depublicationStatus == %s ",
               DepublicationStatus.DEPUBLISHED.name()));
+    } else if(depublicationStatus == DepublicationStatus.DEPUBLISHED && Objects
+        .isNull(depublicationReason)){
+      throw new IllegalArgumentException(String
+          .format("DepublicationReason cannot be null if depublicationStatus == %s ",
+              DepublicationStatus.DEPUBLISHED.name()));
     }
 
     // If we have a specific record list, make sure that missing records are added.
@@ -380,10 +385,14 @@ public class DepublishRecordIdDao {
             depublicationStatus));
     if (depublicationStatus == DepublicationStatus.PENDING_DEPUBLICATION) {
       updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_DATE_FIELD));
+      updateOperators.add(UpdateOperators.unset(DepublishRecordId.DEPUBLICATION_REASON));
     } else {
       updateOperators.add(
           UpdateOperators.set(DepublishRecordId.DEPUBLICATION_DATE_FIELD,
           depublicationDate == null? Date.from(Instant.now()): depublicationDate)
+      );
+      updateOperators.add(
+          UpdateOperators.set(DepublishRecordId.DEPUBLICATION_REASON, depublicationReason)
       );
     }
 

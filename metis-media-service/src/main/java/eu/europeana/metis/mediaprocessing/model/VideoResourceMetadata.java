@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.jibx.EdmType;
+
 /**
  * Resource metadata for video resources.
  */
@@ -78,6 +80,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
     resource.setHeight(height);
     resource.setCodecName(codecName);
     resource.setFrameRate(frameRate);
+    resource.setEdmType(EdmType.VIDEO);
   }
 
   public Double getDuration() {

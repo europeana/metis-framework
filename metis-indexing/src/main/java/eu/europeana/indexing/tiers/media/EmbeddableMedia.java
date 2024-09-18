@@ -2,9 +2,12 @@ package eu.europeana.indexing.tiers.media;
 
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.WebResourceLinkType;
+import eu.europeana.metis.schema.jibx.HasMimeType;
+import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -36,8 +39,8 @@ final class EmbeddableMedia {
       "https://api.picturepipe.net/api/html/widgets/public/playout_cloudfront?token=");
 
   private static final Collection<String> URL_EUSCREEN = Arrays.asList(
-          "http://www.euscreen.eu/item.html",
-          "https://www.euscreen.eu/item.html*");
+      "http://www.euscreen.eu/item.html",
+      "https://www.euscreen.eu/item.html*");
 
   private static final Collection<String> URL_SKETCHFAB = Arrays.asList(
       "https://sketchfab.com/3d-models",
@@ -66,15 +69,17 @@ final class EmbeddableMedia {
           URL_VIMEO.stream(),
           URL_YOUTUBE.stream())
       .reduce(Stream::concat)
-      .get()
-      .collect(Collectors.toList());
+      .get().toList();
+
+  private static final String OEMBED_XML = "application/xml+oembed";
+  private static final String OEMBED_JSON = "application/json+oembed";
 
   // Create patterns from the urls, quote url, wildcards are allowed in the pattern, so we do not quote those,
   // and we also add a wildcard at the end of each url
   private static final Collection<Pattern> PATTERNS = URL_MATCHING_LIST.stream()
                                                                        .map(EmbeddableMedia::quotedRegexFromString)
                                                                        .map(Pattern::compile)
-                                                                       .collect(Collectors.toList());
+                                                                       .toList();
 
   // Quote the string but not asterisk(*) characters. Asterisk character get converted to the regex
   // equivalent (.*).
@@ -97,7 +102,26 @@ final class EmbeddableMedia {
    */
   static boolean hasEmbeddableMedia(RdfWrapper entity) {
     return entity.getUrlsOfTypes(EnumSet.of(WebResourceLinkType.IS_SHOWN_BY)).stream()
-                 .anyMatch(EmbeddableMedia::isEmbeddableMedia);
+                 .anyMatch(EmbeddableMedia::isEmbeddableMedia)
+        || isOEmbeddableMedia(entity);
+  }
+
+  /**
+   * Is an OEmbeddable media .
+   *
+   * @param entity the entity
+   * @return true, if the mimetype has application/json+oembed or application/xml+oembed
+   */
+  static boolean isOEmbeddableMedia(RdfWrapper entity) {
+    return entity.getWebResources()
+                 .stream()
+                 .filter(Objects::nonNull)
+                 .map(WebResourceType::getHasMimeType).
+                 filter(Objects::nonNull)
+                 .map(HasMimeType::getHasMimeType)
+                 .filter(Objects::nonNull)
+                 .anyMatch(value -> value.startsWith(OEMBED_XML) || value.startsWith(OEMBED_JSON));
+
   }
 
   private static boolean isEmbeddableMedia(String url) {

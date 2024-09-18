@@ -62,7 +62,8 @@ public class FullBeanPublisher {
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
-  private final RecordDao edmMongoClient;
+  private final RecordDao recordDao;
+  private final RecordDao tombstoneRecordDao;
   private final SolrClient solrServer;
   private final boolean preserveUpdateAndCreateTimesFromRdf;
   private final RecordRedirectDao recordRedirectDao;
@@ -70,22 +71,24 @@ public class FullBeanPublisher {
   /**
    * Constructor.
    *
-   * @param edmMongoClient The Mongo persistence.
+   * @param recordDao The Mongo persistence.
+   * @param tombstoneRecordDao The mongo tombstone persistence.
    * @param recordRedirectDao The record redirect dao
    * @param solrServer The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
    * the incoming RDFs, or whether it computes its own.
    */
-  FullBeanPublisher(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
+  FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf) {
-    this(edmMongoClient, recordRedirectDao, solrServer, preserveUpdateAndCreateTimesFromRdf,
+    this(recordDao, tombstoneRecordDao, recordRedirectDao, solrServer, preserveUpdateAndCreateTimesFromRdf,
         RdfToFullBeanConverter::new);
   }
 
   /**
    * Constructor for testing purposes.
    *
-   * @param edmMongoClient The Mongo persistence.
+   * @param recordDao The Mongo persistence.
+   * @param tombstoneRecordDao The Mongo persistence.
    * @param recordRedirectDao The record redirect dao
    * @param solrServer The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
@@ -93,14 +96,15 @@ public class FullBeanPublisher {
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to parse strings to instances of
    * {@link FullBeanImpl}. Will be called once during every publish.
    */
-  FullBeanPublisher(RecordDao edmMongoClient, RecordRedirectDao recordRedirectDao,
+  FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
-    this.edmMongoClient = edmMongoClient;
+    this.recordDao = recordDao;
+    this.tombstoneRecordDao = tombstoneRecordDao;
+    this.recordRedirectDao = recordRedirectDao;
     this.solrServer = solrServer;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
-    this.recordRedirectDao = recordRedirectDao;
   }
 
   private static void setUpdateAndCreateTime(IdBean current, FullBean updated,
@@ -180,7 +184,7 @@ public class FullBeanPublisher {
     final List<Pair<String, Date>> recordsForRedirection = performRedirection(rdf,
         recordDate, datasetIdsToRedirectFrom, performRedirects);
 
-    final FullBeanImpl savedFullBean = publishToMongo(recordDate, fullBean, fullBeanPreprocessor,
+    final FullBeanImpl savedFullBean = publishToRecordMongo(recordDate, fullBean, fullBeanPreprocessor,
         recordsForRedirection);
 
     publishToSolrFinal(rdf, savedFullBean);
@@ -204,7 +208,24 @@ public class FullBeanPublisher {
 
     final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
 
-    publishToMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
+    publishToRecordMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
+  }
+
+  /**
+   * Publishes an RDF only to tombstone mongo.
+   * @param fullBean Fullbean to publish.
+   * @param recordDate the data that would represent the created/updated date of a record
+   * @throws IndexingException which can be one of:
+   * <ul>
+   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
+   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
+   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
+   * contents</li>
+   * </ul>
+   */
+  public void publishTombstone(FullBeanImpl fullBean, Date recordDate) throws IndexingException {
+    final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor = providePreprocessor();
+    publishToTombstoneMongo(recordDate, fullBean, fullBeanPreprocessor, Collections.emptyList());
   }
 
   /**
@@ -277,16 +298,29 @@ public class FullBeanPublisher {
     }
   }
 
-  private FullBeanImpl publishToMongo(Date recordDate, FullBeanImpl fullBean,
+  private FullBeanImpl publishToRecordMongo(Date recordDate, FullBeanImpl fullBean,
       TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
       List<Pair<String, Date>> recordsForRedirection)
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    // Publish to Mongo
+    return publishToMongo(recordDate, fullBean, fullBeanPreprocessor, recordsForRedirection, recordDao);
+  }
+
+  private FullBeanImpl publishToTombstoneMongo(Date recordDate, FullBeanImpl fullBean,
+      TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
+      List<Pair<String, Date>> recordsForRedirection)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
+    return publishToMongo(recordDate, fullBean, fullBeanPreprocessor, recordsForRedirection, tombstoneRecordDao);
+  }
+
+  private FullBeanImpl publishToMongo(Date recordDate, FullBeanImpl fullBean,
+      TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor,
+      List<Pair<String, Date>> recordsForRedirection, RecordDao tombstoneRecordDao)
+      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
     final FullBeanImpl savedFullBean;
     try {
       savedFullBean = new FullBeanUpdater(fullBeanPreprocessor).update(fullBean, recordDate,
           recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
-                               .orElse(null), edmMongoClient);
+                               .orElse(null), tombstoneRecordDao);
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
       throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
     } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {

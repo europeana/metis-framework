@@ -27,13 +27,27 @@ public class IndexerFactory {
    * caller is responsible for closing the clients. Any indexers created through the {@link
    * #getIndexer()} method will then no longer work and no new ones can be created.
    *
-   * @param mongoClient The Mongo client to use.
+   * @param recordDao The Mongo dao to use.
    * @param recordRedirectDao The record redirect dao
    * @param solrClient The Solr client to use.
    */
-  public IndexerFactory(RecordDao mongoClient, RecordRedirectDao recordRedirectDao,
+  public IndexerFactory(RecordDao recordDao, RecordRedirectDao recordRedirectDao, SolrClient solrClient) {
+    this(() -> new ClientsConnectionProvider(recordDao, recordRedirectDao, solrClient));
+  }
+
+  /**
+   * Constructor for setting up a factory using already existing Mongo and Solr clients. Note: the
+   * caller is responsible for closing the clients. Any indexers created through the {@link
+   * #getIndexer()} method will then no longer work and no new ones can be created.
+   *
+   * @param recordDao The Mongo dao to use.
+   * @param tombstoneRecordDao The Mongo tombstone dao to use.
+   * @param recordRedirectDao The record redirect dao
+   * @param solrClient The Solr client to use.
+   */
+  public IndexerFactory(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient) {
-    this(() -> new ClientsConnectionProvider(mongoClient, recordRedirectDao, solrClient));
+    this(() -> new ClientsConnectionProvider(recordDao, tombstoneRecordDao, recordRedirectDao, solrClient));
   }
 
   /**
@@ -60,7 +74,11 @@ public class IndexerFactory {
    */
   public Indexer getIndexer()
       throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
-    return new IndexerImpl(connectionProviderSupplier.get());
+    try {
+      return new IndexerImpl(connectionProviderSupplier.get());
+    } catch (IllegalArgumentException e) {
+      throw new SetupRelatedIndexingException("Creating a connection from the supplier failed.", e);
+    }
   }
 
   /**

@@ -1,5 +1,10 @@
 package eu.europeana.indexing;
 
+import eu.europeana.corelib.definitions.edm.entity.ChangeLog;
+import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.ChangeLogImpl;
+import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -21,8 +26,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link Indexer}.
- *
- * @author jochen
  */
 public class IndexerImpl implements Indexer {
 
@@ -86,7 +89,7 @@ public class IndexerImpl implements Indexer {
     final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(recordContent);
     final List<TierResults> result = new ArrayList<>();
     indexRecords(List.of(rdfRecord), indexingProperties, result::add);
-    return result.get(0);
+    return result.getFirst();
   }
 
   @Override
@@ -124,6 +127,34 @@ public class IndexerImpl implements Indexer {
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
     return this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout);
+  }
+
+  @Override
+  public boolean indexTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+    final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
+    if (publishedFullbean != null) {
+      final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
+      prepareTombstoneFullbean();
+      try {
+        publisher.publishTombstone(publishedFullbean, publishedFullbean.getTimestampCreated());
+      } catch (IndexingException e) {
+        throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
+      }
+    }
+    return publishedFullbean != null;
+  }
+
+  //TODO: 2024-08-29 - Once tombstones are working, we need to refine the fields we need. For now unused.
+  private FullBeanImpl prepareTombstoneFullbean() {
+    final FullBeanImpl tombstoneFullbean = new FullBeanImpl();
+    final ChangeLog changeLog = new ChangeLogImpl();
+    changeLog.setType("Delete");
+    changeLog.setContext("http://data.europeana.eu/vocabulary/depublicationReason/noPermission");
+    changeLog.setEndTime(new Date());
+    final EuropeanaAggregation europeanaAggregation = new EuropeanaAggregationImpl();
+    europeanaAggregation.setChangeLog(List.of(changeLog));
+    tombstoneFullbean.setEuropeanaAggregation(europeanaAggregation);
+    return tombstoneFullbean;
   }
 
   @Override
