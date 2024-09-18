@@ -1,7 +1,7 @@
 package eu.europeana.metis.debias.detect.service;
 
-import eu.europeana.metis.debias.detect.model.DetectionParameter;
-import eu.europeana.metis.debias.detect.model.DetectionResult;
+import eu.europeana.metis.debias.detect.model.DeBiasResult;
+import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 
 /**
  * Implementations of this interface are able to detect biased terms given the languages
@@ -13,7 +13,7 @@ public interface DetectService {
    * Method to detect biased terms according to the input values provided
    *
    * @param detectionParameter language and values
-   * @return DetectionResult containing metadata and values of the detection
+   * @return DeBiasResult containing metadata and values of the detection
    */
-  DetectionResult detect(DetectionParameter detectionParameter);
+  DeBiasResult detect(DetectionParameter detectionParameter);
 }

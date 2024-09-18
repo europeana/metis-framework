@@ -1,4 +1,4 @@
-package eu.europeana.metis.debias.detect.model;
+package eu.europeana.metis.debias.detect.model.request;
 
 import java.util.List;
 

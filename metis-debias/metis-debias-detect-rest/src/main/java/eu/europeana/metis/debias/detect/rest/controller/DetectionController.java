@@ -1,8 +1,8 @@
 package eu.europeana.metis.debias.detect.rest.controller;
 
-import eu.europeana.metis.debias.detect.model.DetectionParameter;
-import eu.europeana.metis.debias.detect.model.DetectionResult;
-import eu.europeana.metis.debias.detect.rest.exceptions.DebiasException;
+import eu.europeana.metis.debias.detect.model.DeBiasResult;
+import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
+import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.service.DetectService;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,16 +33,12 @@ public class DetectionController {
    * DeBias detection result.
    *
    * @param detectionParameter {@link DetectionParameter} the detection parameter
-   * @return {@link DetectionResult} the detection result
+   * @return {@link DetectionDeBiasResult} response of result
    */
   @PostMapping(value = RestEndpoints.DEBIAS_DETECTION, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
       MediaType.APPLICATION_JSON_VALUE})
-  @Operation(description = "DeBias a list of values", responses = {@ApiResponse(responseCode = "200")})
-  public DetectionResult debias(@RequestBody DetectionParameter detectionParameter) {
-    try {
-      return detectService.detect(detectionParameter);
-    } catch (RuntimeException e) {
-      throw new DebiasException(e.getMessage(), e);
-    }
+  @Operation(description = "DeBias a list of values", responses = {@ApiResponse(responseCode = "200"),@ApiResponse(responseCode = "422")})
+  public DeBiasResult debias(@RequestBody DetectionParameter detectionParameter) {
+    return detectService.detect(detectionParameter);
   }
 }

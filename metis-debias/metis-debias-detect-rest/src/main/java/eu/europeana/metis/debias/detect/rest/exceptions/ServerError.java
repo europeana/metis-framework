@@ -5,6 +5,7 @@ package eu.europeana.metis.debias.detect.rest.exceptions;
  */
 public class ServerError {
 
+  private int statusCode;
   private String errorMessage;
 
   /**
@@ -17,9 +18,11 @@ public class ServerError {
   /**
    * Instantiates a new Server error.
    *
+   * @param statusCode the status code
    * @param errorMessage the error message
    */
-  public ServerError(String errorMessage) {
+  public ServerError(int statusCode, String errorMessage) {
+    this.statusCode = statusCode;
     this.errorMessage = errorMessage;
   }
 
@@ -39,5 +42,23 @@ public class ServerError {
    */
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
+  }
+
+  /**
+   * Gets status code.
+   *
+   * @return the status code
+   */
+  public int getStatusCode() {
+    return statusCode;
+  }
+
+  /**
+   * Sets status code.
+   *
+   * @param statusCode the status code
+   */
+  public void setStatusCode(int statusCode) {
+    this.statusCode = statusCode;
   }
 }

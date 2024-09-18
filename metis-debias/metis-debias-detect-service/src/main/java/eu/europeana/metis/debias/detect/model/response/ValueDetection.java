@@ -1,4 +1,4 @@
-package eu.europeana.metis.debias.detect.model;
+package eu.europeana.metis.debias.detect.model.response;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +10,6 @@ public class ValueDetection {
 
   private String language;
   private String literal;
-  private int index;
   private List<Tag> tags;
 
   /**
@@ -47,24 +46,6 @@ public class ValueDetection {
    */
   public void setLiteral(String literal) {
     this.literal = literal;
-  }
-
-  /**
-   * Gets index.
-   *
-   * @return the index
-   */
-  public int getIndex() {
-    return index;
-  }
-
-  /**
-   * Sets index.
-   *
-   * @param index the index
-   */
-  public void setIndex(int index) {
-    this.index = index;
   }
 
   /**

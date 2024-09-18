@@ -76,8 +76,19 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-debias-detect-service</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>13-SNAPSHOT</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.wiremock</groupId>
+      <artifactId>wiremock-standalone</artifactId>
+      <version>${version.org.wiremock}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${version.apache.httpclient}</version>
     </dependency>
   </dependencies>
 

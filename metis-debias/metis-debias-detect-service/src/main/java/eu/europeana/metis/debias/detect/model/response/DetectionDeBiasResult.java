@@ -1,12 +1,13 @@
-package eu.europeana.metis.debias.detect.model;
+package eu.europeana.metis.debias.detect.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eu.europeana.metis.debias.detect.model.DeBiasResult;
 import java.util.List;
 
 /**
  * The type Detection result.
  */
-public class DetectionResult {
+public class DetectionDeBiasResult implements DeBiasResult {
 
   private Metadata metadata;
   @JsonProperty("results")

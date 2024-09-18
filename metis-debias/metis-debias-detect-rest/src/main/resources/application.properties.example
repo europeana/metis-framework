@@ -15,7 +15,9 @@ truststore.path=
 truststore.password=
 
 # DeBias detect
-debias.simple.detect.url =
+debias.simple.client.detect-url =
+debias.simple.client.connect-timeout =
+debias.simple.client.request-timeout =
 
 #Actuator
 management.endpoint.health.probes.enabled=true
@@ -27,7 +29,7 @@ elastic.apm.enabled=false
 elastic.apm.recording=true
 elastic.apm.instrument=true
 elastic.apm.service_name=metis-debias
-elastic.apm.server_url=
+elastic.apm.server_url=https://logstash-apm.eanadev.org:8200
 elastic.apm.environment=local
 elastic.apm.application_packages=eu.europeana
 elastic.apm.log_level=ERROR

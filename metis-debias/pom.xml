@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
 
   <modules>
-
+    <module>metis-debias-detect-rest</module>
+    <module>metis-debias-detect-service</module>
   </modules>
 </project>

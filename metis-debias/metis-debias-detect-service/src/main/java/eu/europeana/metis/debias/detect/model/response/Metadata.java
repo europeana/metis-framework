@@ -1,16 +1,17 @@
-package eu.europeana.metis.debias.detect.model;
+package eu.europeana.metis.debias.detect.model.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
 
 /**
  * The type Metadata.
  */
 public class Metadata {
+
   private String annotator;
-  @JsonProperty("thesaurus_version")
-  private String thesaurusVersion;
-  private LocalDateTime date;
+  private String thesaurus;
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+  private Date date;
 
   /**
    * Gets annotator.
@@ -35,17 +36,17 @@ public class Metadata {
    *
    * @return the thesaurus version
    */
-  public String getThesaurusVersion() {
-    return thesaurusVersion;
+  public String getThesaurus() {
+    return thesaurus;
   }
 
   /**
    * Sets thesaurus version.
    *
-   * @param thesaurusVersion the thesaurus version
+   * @param thesaurus the thesaurus version
    */
-  public void setThesaurusVersion(String thesaurusVersion) {
-    this.thesaurusVersion = thesaurusVersion;
+  public void setThesaurus(String thesaurus) {
+    this.thesaurus = thesaurus;
   }
 
   /**
@@ -53,7 +54,7 @@ public class Metadata {
    *
    * @return the date
    */
-  public LocalDateTime getDate() {
+  public Date getDate() {
     return date;
   }
 
@@ -62,7 +63,7 @@ public class Metadata {
    *
    * @param date the date
    */
-  public void setDate(LocalDateTime date) {
+  public void setDate(Date date) {
     this.date = date;
   }
 }

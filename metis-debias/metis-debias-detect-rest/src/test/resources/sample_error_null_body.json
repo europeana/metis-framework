@@ -1,0 +1,24 @@
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "language"
+      ],
+      "msg": "Field required",
+      "input": {},
+      "url": "https://errors.pydantic.dev/2.5/v/missing"
+    },
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "values"
+      ],
+      "msg": "Field required",
+      "input": {},
+      "url": "https://errors.pydantic.dev/2.5/v/missing"
+    }
+  ]
+}
