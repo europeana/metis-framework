@@ -1,10 +1,14 @@
 package eu.europeana.indexing;
 
+import static java.util.function.Predicate.not;
+
 import eu.europeana.corelib.definitions.edm.entity.ChangeLog;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.ChangeLogImpl;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -17,10 +21,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,9 +140,9 @@ public class IndexerImpl implements Indexer {
     final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
     if (publishedFullbean != null) {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-      prepareTombstoneFullbean();
+      final FullBeanImpl tombstoneFullbean = prepareTombstoneFullbean(publishedFullbean);
       try {
-        publisher.publishTombstone(publishedFullbean, publishedFullbean.getTimestampCreated());
+        publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
       } catch (IndexingException e) {
         throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
       }
@@ -144,17 +150,57 @@ public class IndexerImpl implements Indexer {
     return publishedFullbean != null;
   }
 
-  //TODO: 2024-08-29 - Once tombstones are working, we need to refine the fields we need. For now unused.
-  private FullBeanImpl prepareTombstoneFullbean() {
+  private FullBeanImpl prepareTombstoneFullbean(FullBeanImpl publishedFullbean) {
     final FullBeanImpl tombstoneFullbean = new FullBeanImpl();
-    final ChangeLog changeLog = new ChangeLogImpl();
-    changeLog.setType("Delete");
-    changeLog.setContext("http://data.europeana.eu/vocabulary/depublicationReason/noPermission");
-    changeLog.setEndTime(new Date());
-    final EuropeanaAggregation europeanaAggregation = new EuropeanaAggregationImpl();
-    europeanaAggregation.setChangeLog(List.of(changeLog));
-    tombstoneFullbean.setEuropeanaAggregation(europeanaAggregation);
+    tombstoneFullbean.setAbout(publishedFullbean.getAbout());
+    tombstoneFullbean.setTimestampCreated(publishedFullbean.getTimestampCreated());
+    tombstoneFullbean.setTimestampUpdated(publishedFullbean.getTimestampUpdated());
+
+    tombstoneFullbean.setEuropeanaAggregation(prepareEuropeanaAggregation(publishedFullbean.getEuropeanaAggregation()));
+    tombstoneFullbean.setAggregations(List.of(prepareAggregation(publishedFullbean.getAggregations().getFirst())));
+    final Optional<ProxyImpl> providerProxy =
+        publishedFullbean.getProxies().stream().filter(not(ProxyImpl::isEuropeanaProxy)).findFirst();
+    providerProxy.ifPresent(proxy -> tombstoneFullbean.setProxies(List.of(prepareProxy(proxy))));
     return tombstoneFullbean;
+  }
+
+  private static EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation) {
+    final ChangeLog tombstoneChangeLog = new ChangeLogImpl();
+    tombstoneChangeLog.setType("Delete");
+    tombstoneChangeLog.setContext("http://data.europeana.eu/vocabulary/depublicationReason/noPermission");
+    tombstoneChangeLog.setEndTime(new Date());
+    final EuropeanaAggregation tombstoneEuropeanaAggregation = new EuropeanaAggregationImpl();
+    tombstoneEuropeanaAggregation.setAbout(europeanaAggregation.getAbout());
+    tombstoneEuropeanaAggregation.setChangeLog(List.of(tombstoneChangeLog));
+    tombstoneEuropeanaAggregation.setEdmPreview(europeanaAggregation.getEdmPreview());
+    return tombstoneEuropeanaAggregation;
+  }
+
+  private static @NotNull AggregationImpl prepareAggregation(AggregationImpl aggregation) {
+    final AggregationImpl tombstoneAggregation = new AggregationImpl();
+    tombstoneAggregation.setAbout(aggregation.getAbout());
+    tombstoneAggregation.setEdmDataProvider(aggregation.getEdmDataProvider());
+    tombstoneAggregation.setEdmProvider(aggregation.getEdmProvider());
+    tombstoneAggregation.setEdmObject(aggregation.getEdmObject());
+    tombstoneAggregation.setEdmIntermediateProvider(aggregation.getEdmIntermediateProvider());
+    tombstoneAggregation.setEdmIsShownAt(aggregation.getEdmIsShownAt());
+    tombstoneAggregation.setEdmIsShownBy(aggregation.getEdmIsShownBy());
+    return tombstoneAggregation;
+  }
+
+  private static @NotNull ProxyImpl prepareProxy(ProxyImpl providerProxy) {
+    final ProxyImpl tombstoneProviderProxy = new ProxyImpl();
+    tombstoneProviderProxy.setAbout(providerProxy.getAbout());
+    tombstoneProviderProxy.setEuropeanaProxy(false);
+    tombstoneProviderProxy.setDcTitle(providerProxy.getDcTitle());
+    tombstoneProviderProxy.setDcDescription(providerProxy.getDcDescription());
+    tombstoneProviderProxy.setDcIdentifier(providerProxy.getDcIdentifier());
+    tombstoneProviderProxy.setDcCreator(providerProxy.getDcCreator());
+    tombstoneProviderProxy.setDcContributor(providerProxy.getDcContributor());
+    tombstoneProviderProxy.setEdmRights(providerProxy.getEdmRights());
+    tombstoneProviderProxy.setDcRights(providerProxy.getDcRights());
+    tombstoneProviderProxy.setDctermsIsReferencedBy(providerProxy.getDctermsIsReferencedBy());
+    return tombstoneProviderProxy;
   }
 
   @Override
