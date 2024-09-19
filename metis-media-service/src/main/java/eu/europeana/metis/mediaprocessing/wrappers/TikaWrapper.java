@@ -2,10 +2,7 @@ package eu.europeana.metis.mediaprocessing.wrappers;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import org.apache.tika.Tika;
-import org.apache.tika.detect.CompositeDetector;
-import org.apache.tika.detect.DefaultDetector;
 import org.apache.tika.metadata.Metadata;
 
 /**
@@ -19,13 +16,7 @@ public class TikaWrapper {
    * It creates a new instance of Tika
    */
   public TikaWrapper() {
-    OEmbedJsonFileDetector embedJsonFileDetector = new OEmbedJsonFileDetector();
-    OEmbedXmlFileDetector embedXmlFileDetector = new OEmbedXmlFileDetector();
-    CompositeDetector compositeDetector = new CompositeDetector(
-        List.of(embedJsonFileDetector, embedXmlFileDetector, new DefaultDetector())
-    );
-
-    this.tika = new Tika(compositeDetector);
+    this.tika = new Tika();
   }
 
   /**
@@ -38,12 +29,16 @@ public class TikaWrapper {
    */
   public String detect(InputStream inputStream, Metadata metadata) throws IOException {
 
+    // Do the detection. Create a markable input stream for tika to use, so that the marking it does
+    // will not interfere with our mark above.
     String detectedMimeType = tika.detect(inputStream, metadata);
 
+    // Normalize STL files (a 3D format).
     if (detectedMimeType.equals("application/vnd.ms-pki.stl")) {
       return "model/x.stl-binary";
     }
 
+    // Done
     return detectedMimeType;
   }
 }

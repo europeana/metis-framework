@@ -1,0 +1,23 @@
+{
+  "type": "video",
+  "version": "1.0",
+  "provider_name": "Vimeo",
+  "provider_url": "https://vimeo.com/",
+  "title": "Mountain Water",
+  "author_name": "RhythmRancher",
+  "author_url": "https://vimeo.com/user8752833",
+  "is_plus": "0",
+  "account_type": "basic",
+  "html": "<iframe src=\"https://player.vimeo.com/video/42947250?app_id=122963\" width=\"640\" height=\"360\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" title=\"Mountain Water\"></iframe>",
+  "width": 640,
+  "height": 360,
+  "duration": 199,
+  "description": "Mountain Water ~The snow is melting here in the Marble Mountain Wilderness zone and here is what it looks like when the water comes rushing down from the mountains into the valley.  The look is enchanting and the sound is sublime :-)  hope you will enjoy this video and feel the closeness to nature :-)  wishing you many positive vibrations ~ peace ~\n\nPlease check my band page out @ rhythmrancher.com ~ studio gear 4 sale :)\nand also please visit my business page to find out about having healthy drinking water @ multipureusa.com/willandgemma/",
+  "thumbnail_url": "https://i.vimeocdn.com/video/298084091-2ceb89d13a3e6a4f786238488c4b16d598b89d6e7245cd2e24b6dbb1d6c326a3-d_640",
+  "thumbnail_width": 640,
+  "thumbnail_height": 360,
+  "thumbnail_url_with_play_button": "https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F298084091-2ceb89d13a3e6a4f786238488c4b16d598b89d6e7245cd2e24b6dbb1d6c326a3-d_640&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+  "upload_date": "2012-05-27 20:24:19",
+  "video_id": 42947250,
+  "uri": "/videos/42947250"
+}

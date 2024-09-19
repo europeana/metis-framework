@@ -4,6 +4,10 @@ import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_HAS_VIEW;
 import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_IS_SHOWN_AT;
 import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_IS_SHOWN_BY;
 import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_OBJECT;
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.EDM_WEBRESOURCE;
+import static eu.europeana.metis.mediaprocessing.RdfXpathConstants.SVCS_SERVICE;
+import static eu.europeana.metis.mediaprocessing.model.UrlType.HAS_VIEW;
+import static eu.europeana.metis.mediaprocessing.model.UrlType.IS_SHOWN_BY;
 
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
@@ -16,10 +20,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -50,33 +56,39 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_HAS_SERVICE =
-      "svcs:has_service/@rdf:resource = /rdf:RDF/svcs:Service/@rdf:about" +
-          " and /rdf:RDF/svcs:Service/dcterms:conformsTo/@rdf:resource";
+      "svcs:has_service/@rdf:resource = " + SVCS_SERVICE + "[" +
+          EDM_WEBRESOURCE + "/svcs:has_service/@rdf:resource = " + SVCS_SERVICE + "/@rdf:about" +
+          " and dcterms:conformsTo/@rdf:resource = \"" + OEMBED_NAMESPACE + "\"]/@rdf:about";
   private static final String XPATH_WEB_RESOURCE =
-      "/rdf:RDF/edm:WebResource[" + XPATH_HAS_SERVICE + " = \"" + OEMBED_NAMESPACE + "\"";
+      EDM_WEBRESOURCE + "[" + XPATH_HAS_SERVICE + "]";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
-      EDM_IS_SHOWN_BY + "[" + EDM_IS_SHOWN_BY + " = " + XPATH_WEB_RESOURCE + "]/@rdf:about]";
-  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW = EDM_HAS_VIEW
-      + "[" + EDM_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "]/@rdf:about]";
+      EDM_IS_SHOWN_BY + "[" + EDM_IS_SHOWN_BY + " = " + XPATH_WEB_RESOURCE + "/@rdf:about]";
+  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
+      EDM_HAS_VIEW + "[" + EDM_HAS_VIEW + "=" + XPATH_WEB_RESOURCE + "/@rdf:about]";
+
+  private static final Set<UrlType> URL_TYPES_FOR_OEMBED = EnumSet.of(IS_SHOWN_BY, HAS_VIEW);
 
   private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_OBJECT));
   private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(EDM_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_HAS_VIEW));
+      xPath -> xPath.compile(EDM_HAS_VIEW));
   private final XPathExpressionWrapper getIsShownAtExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(EDM_IS_SHOWN_BY + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+      xPath -> xPath.compile(EDM_IS_SHOWN_BY));
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
+      xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private static List<RdfResourceEntry> convertToResourceEntries(
-      Map<String, Set<UrlType>> urlWithTypes) {
+      Map<String, ResourceInfo> urlWithTypes) {
     return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
                        .toList();
   }
 
-  private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, Set<UrlType>> entry) {
-    return new RdfResourceEntry(entry.getKey(), entry.getValue());
+  private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, ResourceInfo> entry) {
+    return new RdfResourceEntry(entry.getKey(), entry.getValue().urlTypes(),
+        entry.getValue().configuredForOembed());
   }
 
   private static <R> R performDeserialization(byte[] input, DeserializationOperation<R> operation)
@@ -113,7 +125,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Get all the resource entries.
     final Document deserializedDocument = deserializeToDocument(inputStream);
-    final Map<String, Set<UrlType>> allResources = getResourceEntries(deserializedDocument,
+    final Map<String, ResourceInfo> allResources = getResourceEntries(deserializedDocument,
         UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
 
     // Find the main thumbnail resource if it exists and remove it from the result.
@@ -152,7 +164,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
       throws RdfDeserializationException {
 
     // Get the entries of the required types.
-    final Map<String, Set<UrlType>> resourceEntries = getResourceEntries(document,
+    final Map<String, ResourceInfo> resourceEntries = getResourceEntries(document,
         Collections.singleton(UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE));
 
     // If there is not exactly one, we return an empty optional.
@@ -185,8 +197,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Parse document to schema-agnostic XML document (but make parsing namespace-aware).
     try {
-      // False positive. The parser has all security settings applied (see below).
-      @SuppressWarnings("squid:S2755")
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -195,6 +205,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
     } catch (SAXException | IOException | ParserConfigurationException e) {
       throw new RdfDeserializationException("Problem with deserializing record to XML document.", e);
     }
+  }
+
+  private Set<String> getOEmbedUrls(Document document) throws RdfDeserializationException {
+    final NodeList oEmbedNodes = getOEmbedExpression.evaluate(document);
+    return IntStream.range(0, oEmbedNodes.getLength())
+                    .mapToObj(oEmbedNodes::item)
+                    .map(Node::getNodeValue)
+                    .collect(Collectors.toSet());
+  }
+
+  private boolean hasConfigurationForOembed(String url, Set<String> oEmbedUrls) {
+    return oEmbedUrls.contains(url);
   }
 
   @FunctionalInterface
@@ -287,6 +309,10 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
+  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
+
+  }
+
   /**
    * Gets resource entries.
    *
@@ -295,8 +321,10 @@ class RdfDeserializerImpl implements RdfDeserializer {
    * @return the resource entries
    * @throws RdfDeserializationException the rdf deserialization exception
    */
-  Map<String, Set<UrlType>> getResourceEntries(Document document,
+  Map<String, ResourceInfo> getResourceEntries(Document document,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
+
+    // Get the resources and their types.
     final Map<String, Set<UrlType>> urls = new HashMap<>();
     for (UrlType type : allowedUrlTypes) {
       final Set<String> urlsForType = getUrls(document, type);
@@ -304,6 +332,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
         urls.computeIfAbsent(url, k -> new HashSet<>()).add(type);
       }
     }
-    return urls;
+
+    // For each resource, check whether they are configured for oEmbed.
+    final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
+    final Set<String> oEmbedUrls = getOEmbedUrls(document);
+    for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
+      boolean isConfiguredForOembed =
+          URL_TYPES_FOR_OEMBED.stream().anyMatch(entry.getValue()::contains) &&
+              hasConfigurationForOembed(entry.getKey(), oEmbedUrls);
+      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), isConfiguredForOembed));
+    }
+
+    // Done
+    return result;
   }
 }

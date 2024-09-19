@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.jibx.EdmType;
+
 /**
  * Resource metadata for audio resources.
  */
@@ -77,6 +79,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
     resource.setSampleRate(sampleRate);
     resource.setSampleSize(sampleSize);
     resource.setCodecName(codecName);
+    resource.setEdmType(EdmType.SOUND);
   }
 
   public Double getDuration() {

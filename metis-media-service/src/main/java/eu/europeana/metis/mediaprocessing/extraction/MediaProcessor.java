@@ -15,7 +15,7 @@ interface MediaProcessor {
    * Process a resource by extracting the metadata from the content.
    *
    * @param resource The resource to process. Note that the resource may not have content (see
-   * {@link MediaExtractorImpl#shouldDownloadForFullProcessing(String)}).
+   * {@link MediaExtractorImpl#shouldDownloadForFullProcessing(String, boolean)} (String)}).
    * @param detectedMimeType The mime type that was detected for this resource (may deviate from the
    * mime type that was provided by the server and which is stored in {@link
    * Resource#getProvidedMimeType()}).
