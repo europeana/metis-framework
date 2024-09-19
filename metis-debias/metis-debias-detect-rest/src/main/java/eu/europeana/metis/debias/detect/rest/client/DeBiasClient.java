@@ -42,7 +42,7 @@ public class DeBiasClient implements DetectService {
    * @param requestTimeout the request time out
    */
   public DeBiasClient(String apiURL, int connectTimeOut, int requestTimeout) {
-    this.apiURL = Objects.requireNonNull(apiURL, "api URL is required");;
+    this.apiURL = Objects.requireNonNull(apiURL, "api URL is required");
     this.connectTimeOut = connectTimeOut;
     this.requestTimeout = requestTimeout;
   }

@@ -25,7 +25,7 @@ public class SwaggerConfig {
             .description("DeBias REST API for Europeana")
             .version("v1")
             .license(new License()
-                .name("EUPL Licence v1.2")
+                .name("EUPL License v1.2")
                 .url("https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12")));
   }
 }

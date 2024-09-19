@@ -55,7 +55,11 @@ public class Metadata {
    * @return the date
    */
   public Date getDate() {
-    return date;
+    if (date != null) {
+      return new Date(date.getTime());
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -64,6 +68,8 @@ public class Metadata {
    * @param date the date
    */
   public void setDate(Date date) {
-    this.date = date;
+    if (date != null) {
+      this.date = new Date(date.getTime());
+    }
   }
 }

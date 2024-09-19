@@ -24,6 +24,11 @@ public class DetectionController {
    */
   DetectService detectService;
 
+  /**
+   * Instantiates a new Detection controller.
+   *
+   * @param detectService the detect service
+   */
   @Autowired
   public DetectionController(DetectService detectService) {
     this.detectService = detectService;

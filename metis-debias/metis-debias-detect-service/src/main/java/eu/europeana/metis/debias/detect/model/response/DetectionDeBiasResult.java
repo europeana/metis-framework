@@ -2,6 +2,7 @@ package eu.europeana.metis.debias.detect.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.debias.detect.model.DeBiasResult;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class DetectionDeBiasResult implements DeBiasResult {
    * @param detections the detections
    */
   public void setDetections(List<ValueDetection> detections) {
-    this.detections = detections;
+    if (detections != null) {
+      this.detections = Collections.unmodifiableList(detections);
+    }
   }
 }

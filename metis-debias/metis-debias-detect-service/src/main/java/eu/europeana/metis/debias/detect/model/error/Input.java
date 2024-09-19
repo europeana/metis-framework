@@ -1,5 +1,6 @@
 package eu.europeana.metis.debias.detect.model.error;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,6 +28,8 @@ public class Input {
    * @param values the values
    */
   public void setValues(List<String> values) {
-    this.values = values;
+    if (values != null) {
+      this.values = Collections.unmodifiableList(values);
+    }
   }
 }

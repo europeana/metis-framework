@@ -1,11 +1,13 @@
 package eu.europeana.metis.debias.detect.model.error;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * The type Detail.
  */
 public class Detail {
+
   private String type;
   private List<String> loc;
   private String msg;
@@ -45,7 +47,9 @@ public class Detail {
    * @param loc the loc
    */
   public void setLoc(List<String> loc) {
-    this.loc = loc;
+    if (loc != null) {
+      this.loc = Collections.unmodifiableList(loc);
+    }
   }
 
   /**

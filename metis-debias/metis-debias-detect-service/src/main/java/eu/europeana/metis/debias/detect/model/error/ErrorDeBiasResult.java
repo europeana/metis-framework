@@ -2,6 +2,7 @@ package eu.europeana.metis.debias.detect.model.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu.europeana.metis.debias.detect.model.DeBiasResult;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,6 +28,8 @@ public class ErrorDeBiasResult implements DeBiasResult {
    * @param detailList the detail list
    */
   public void setDetailList(List<Detail> detailList) {
-    this.detailList = detailList;
+    if (detailList != null) {
+      this.detailList = Collections.unmodifiableList(detailList);
+    }
   }
 }

@@ -54,7 +54,7 @@ public class ValueDetection {
    * @return the tags
    */
   public List<Tag> getTags() {
-    return Collections.unmodifiableList(tags);
+    return tags;
   }
 
   /**
@@ -63,6 +63,8 @@ public class ValueDetection {
    * @param tags the tags
    */
   public void setTags(List<Tag> tags) {
-    this.tags = Collections.unmodifiableList(tags);
+    if (tags != null) {
+      this.tags = Collections.unmodifiableList(tags);
+    }
   }
 }

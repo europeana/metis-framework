@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
-import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasBadRequestException;
@@ -33,7 +32,7 @@ class DeBiasClientTest {
 
   private static void assertMetadata(DetectionDeBiasResult detectionResult) {
     assertEquals("de-bias", detectionResult.getMetadata().getAnnotator());
-    assertNull(null, detectionResult.getMetadata().getThesaurus());
+    assertNull(detectionResult.getMetadata().getThesaurus());
     assertNotNull(detectionResult.getMetadata().getDate());
   }
 
@@ -114,7 +113,8 @@ class DeBiasClientTest {
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
-    DeBiasBadRequestException deBiasBadRequestException = assertThrows(DeBiasBadRequestException.class, () -> debiasClient.detect(detectionParameter));
+    DeBiasBadRequestException deBiasBadRequestException = assertThrows(DeBiasBadRequestException.class,
+        () -> debiasClient.detect(detectionParameter));
 
     assertNotNull(deBiasBadRequestException);
     assertEquals("422 UNPROCESSABLE_ENTITY string_type Input should be a valid string", deBiasBadRequestException.getMessage());
