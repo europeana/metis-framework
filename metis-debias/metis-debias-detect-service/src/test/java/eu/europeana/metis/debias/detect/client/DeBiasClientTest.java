@@ -1,20 +1,17 @@
-package eu.europeana.metis.debias.detect.rest.client;
+package eu.europeana.metis.debias.detect.client;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
-import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasBadRequestException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -133,4 +130,3 @@ class DeBiasClientTest {
     assertThrows(ResourceAccessException.class, () -> debiasClient.detect(detectionParameter));
   }
 }
-

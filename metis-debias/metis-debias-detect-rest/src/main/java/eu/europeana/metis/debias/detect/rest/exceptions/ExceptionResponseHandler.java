@@ -1,8 +1,9 @@
 package eu.europeana.metis.debias.detect.rest.exceptions;
 
+import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.net.URISyntaxException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -17,6 +18,26 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class ExceptionResponseHandler {
+
+  /**
+   * Handle generic server error.
+   *
+   * @param response the response
+   * @param request the request
+   * @param exception the exception
+   * @return the server error
+   */
+  @ResponseBody
+  @ExceptionHandler({Exception.class})
+  public ServerError handleResponse(HttpServletResponse response, HttpServletRequest request,
+      Exception exception) {
+    final ResponseStatus annotationResponseStatus = AnnotationUtils
+        .findAnnotation(exception.getClass(), ResponseStatus.class);
+    HttpStatus status = annotationResponseStatus == null ? HttpStatus.INTERNAL_SERVER_ERROR
+        : annotationResponseStatus.value();
+    response.setStatus(status.value());
+    return new ServerError(response.getStatus(), exception.getMessage());
+  }
 
   /**
    * Handle Bad Request response server error.

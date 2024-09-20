@@ -85,11 +85,7 @@
       <version>${version.org.wiremock}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>${version.apache.httpclient}</version>
-    </dependency>
+
   </dependencies>
 
   <dependencyManagement>

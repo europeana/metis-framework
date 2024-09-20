@@ -12,7 +12,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
-import eu.europeana.metis.debias.detect.rest.client.DeBiasClient;
+import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.service.DetectService;
 import eu.europeana.metis.utils.RestEndpoints;

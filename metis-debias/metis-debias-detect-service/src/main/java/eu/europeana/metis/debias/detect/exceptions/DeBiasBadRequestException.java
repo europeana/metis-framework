@@ -1,4 +1,4 @@
-package eu.europeana.metis.debias.detect.rest.exceptions;
+package eu.europeana.metis.debias.detect.exceptions;
 
 import java.io.Serial;
 import org.springframework.http.HttpStatus;

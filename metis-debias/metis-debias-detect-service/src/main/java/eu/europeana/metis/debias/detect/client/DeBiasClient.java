@@ -1,15 +1,15 @@
-package eu.europeana.metis.debias.detect.rest.client;
+package eu.europeana.metis.debias.detect.client;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
 import eu.europeana.metis.debias.detect.model.DeBiasResult;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
-import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasBadRequestException;
-import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasInternalServerException;
 import eu.europeana.metis.debias.detect.service.DetectService;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;

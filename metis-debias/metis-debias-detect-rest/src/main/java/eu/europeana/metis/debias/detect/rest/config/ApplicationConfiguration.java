@@ -1,8 +1,9 @@
 package eu.europeana.metis.debias.detect.rest.config;
 
-import eu.europeana.metis.debias.detect.rest.client.DeBiasClient;
+import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.service.DetectService;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
+import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import java.lang.invoke.MethodHandles;
 import metis.common.config.properties.TruststoreConfigurationProperties;
@@ -22,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties({ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class})
 @ComponentScan(basePackages = {
-    "eu.europeana.metis.debias.rest"})
+    "eu.europeana.metis.debias.detect.rest"})
 public class ApplicationConfiguration {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -44,7 +45,7 @@ public class ApplicationConfiguration {
    */
   @Autowired
   public ApplicationConfiguration(TruststoreConfigurationProperties truststoreConfigurationProperties)
-      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+      throws TrustStoreConfigurationException {
     ApplicationConfiguration.initializeTruststore(truststoreConfigurationProperties);
   }
 
@@ -65,7 +66,7 @@ public class ApplicationConfiguration {
    * @throws TrustStoreConfigurationException the trust store configuration exception
    */
   static void initializeTruststore(TruststoreConfigurationProperties truststoreConfigurationProperties)
-      throws CustomTruststoreAppender.TrustStoreConfigurationException {
+      throws TrustStoreConfigurationException {
     if (StringUtils.isNotEmpty(truststoreConfigurationProperties.getPath()) && StringUtils
         .isNotEmpty(truststoreConfigurationProperties.getPassword())) {
       CustomTruststoreAppender

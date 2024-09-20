@@ -10,6 +10,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.debias.detect.client.DeBiasClient;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
+import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
+import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.model.error.Detail;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.error.Input;
@@ -18,13 +22,8 @@ import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.model.response.Metadata;
 import eu.europeana.metis.debias.detect.model.response.Tag;
 import eu.europeana.metis.debias.detect.model.response.ValueDetection;
-import eu.europeana.metis.debias.detect.rest.client.DeBiasClient;
-import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasBadRequestException;
-import eu.europeana.metis.debias.detect.rest.exceptions.DeBiasInternalServerException;
-import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.service.DetectService;
 import eu.europeana.metis.utils.RestEndpoints;
-import java.net.URISyntaxException;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +37,18 @@ class DetectionControllerTest {
 
   private MockMvc mockMvc;
   private DetectService detectService;
+
+  private static String getDetectionParameterJson() throws JsonProcessingException {
+    DetectionParameter detectionParameter = new DetectionParameter();
+    detectionParameter.setValues(List.of(
+        "sample title of aboriginal and addict",
+        "a second addict sample title",
+        "this is a demo of master and slave branch"));
+    detectionParameter.setLanguage("en");
+    ObjectMapper mapper = new ObjectMapper();
+
+    return mapper.writeValueAsString(detectionParameter);
+  }
 
   @BeforeEach
   void setUp() {
@@ -164,7 +175,8 @@ class DetectionControllerTest {
   void debias_detect_expectInternalServerError() throws Exception {
     String detectionParameterJson = getDetectionParameterJson();
 
-    when(detectService.detect(any(DetectionParameter.class))).thenThrow(new DeBiasInternalServerException("Internal Server Error"));
+    when(detectService.detect(any(DetectionParameter.class))).thenThrow(
+        new DeBiasInternalServerException("Internal Server Error"));
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -172,17 +184,5 @@ class DetectionControllerTest {
                                           .characterEncoding("utf-8"))
            .andExpect(status().is(500))
            .andExpect(jsonPath("$.errorMessage", containsString("Internal Server Error")));
-  }
-
-  private static String getDetectionParameterJson() throws JsonProcessingException {
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(List.of(
-        "sample title of aboriginal and addict",
-        "a second addict sample title",
-        "this is a demo of master and slave branch"));
-    detectionParameter.setLanguage("en");
-    ObjectMapper mapper = new ObjectMapper();
-
-    return mapper.writeValueAsString(detectionParameter);
   }
 }
