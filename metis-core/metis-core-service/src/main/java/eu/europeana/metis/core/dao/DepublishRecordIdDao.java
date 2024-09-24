@@ -17,7 +17,7 @@ import eu.europeana.metis.core.rest.DepublishRecordIdView;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.util.DepublishRecordIdSortField;
 import eu.europeana.metis.core.util.SortDirection;
-import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
+import eu.europeana.metis.utils.DepublicationReason;
 import eu.europeana.metis.exception.BadContentException;
 import java.time.Instant;
 import java.util.ArrayList;

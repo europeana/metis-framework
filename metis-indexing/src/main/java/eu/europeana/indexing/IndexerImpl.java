@@ -16,6 +16,7 @@ import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -136,11 +137,21 @@ public class IndexerImpl implements Indexer {
   }
 
   @Override
-  public boolean indexTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+  public FullBeanImpl getTombstone(String rdfAbout){
+    return this.connectionProvider.getIndexedRecordAccess().getTombstoneFullbean(rdfAbout);
+  }
+
+  @Override
+  public boolean indexTombstone(String rdfAbout) throws IndexingException {
+    return indexTombstone(rdfAbout, DepublicationReason.GENERIC);
+  }
+
+  @Override
+  public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
     final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
     if (publishedFullbean != null) {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-      final FullBeanImpl tombstoneFullbean = prepareTombstoneFullbean(publishedFullbean);
+      final FullBeanImpl tombstoneFullbean = prepareTombstoneFullbean(publishedFullbean, depublicationReason);
       try {
         publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
       } catch (IndexingException e) {
@@ -150,13 +161,14 @@ public class IndexerImpl implements Indexer {
     return publishedFullbean != null;
   }
 
-  private FullBeanImpl prepareTombstoneFullbean(FullBeanImpl publishedFullbean) {
+  private FullBeanImpl prepareTombstoneFullbean(FullBeanImpl publishedFullbean, DepublicationReason depublicationReason) {
     final FullBeanImpl tombstoneFullbean = new FullBeanImpl();
     tombstoneFullbean.setAbout(publishedFullbean.getAbout());
     tombstoneFullbean.setTimestampCreated(publishedFullbean.getTimestampCreated());
     tombstoneFullbean.setTimestampUpdated(publishedFullbean.getTimestampUpdated());
 
-    tombstoneFullbean.setEuropeanaAggregation(prepareEuropeanaAggregation(publishedFullbean.getEuropeanaAggregation()));
+    tombstoneFullbean.setEuropeanaAggregation(
+        prepareEuropeanaAggregation(publishedFullbean.getEuropeanaAggregation(), depublicationReason));
     tombstoneFullbean.setAggregations(List.of(prepareAggregation(publishedFullbean.getAggregations().getFirst())));
     final Optional<ProxyImpl> providerProxy =
         publishedFullbean.getProxies().stream().filter(not(ProxyImpl::isEuropeanaProxy)).findFirst();
@@ -164,10 +176,11 @@ public class IndexerImpl implements Indexer {
     return tombstoneFullbean;
   }
 
-  private static EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation) {
+  private static EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation,
+      DepublicationReason depublicationReason) {
     final ChangeLog tombstoneChangeLog = new ChangeLogImpl();
     tombstoneChangeLog.setType("Delete");
-    tombstoneChangeLog.setContext("http://data.europeana.eu/vocabulary/depublicationReason/noPermission");
+    tombstoneChangeLog.setContext(depublicationReason.getUrl());
     tombstoneChangeLog.setEndTime(new Date());
     final EuropeanaAggregation tombstoneEuropeanaAggregation = new EuropeanaAggregationImpl();
     tombstoneEuropeanaAggregation.setAbout(europeanaAggregation.getAbout());

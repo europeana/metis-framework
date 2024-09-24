@@ -1,14 +1,22 @@
 package eu.europeana.indexing.mongo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.indexing.mongo.property.MongoPropertyUpdater;
 import eu.europeana.indexing.mongo.property.RootAboutWrapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 class EuropeanaAggregationUpdaterTest extends MongoEntityUpdaterTest<EuropeanaAggregationImpl> {
 
@@ -48,6 +56,15 @@ class EuropeanaAggregationUpdaterTest extends MongoEntityUpdaterTest<EuropeanaAg
     testArrayPropertyUpdate(propertyUpdater, "aggregates", EuropeanaAggregation::setAggregates);
     testWebResourcesPropertyUpdate(propertyUpdater, "webResources",
         EuropeanaAggregationImpl::setWebResources, rootAbout);
+
+    final EuropeanaAggregationImpl europeanaAggregation = new EuropeanaAggregationImpl();
+    europeanaAggregation.setChangeLog(new ArrayList<>());
+    @SuppressWarnings("unchecked")
+    final ArgumentCaptor<Function<EuropeanaAggregationImpl, List<Object>>> getterCaptor = ArgumentCaptor
+        .forClass(Function.class);
+    verify(propertyUpdater, times(1))
+        .updateObjectList(eq("changeLog"), getterCaptor.capture());
+    assertSame(europeanaAggregation.getChangeLog(), getterCaptor.getValue().apply(europeanaAggregation));
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);

@@ -3,7 +3,7 @@ package eu.europeana.metis.core.rest;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.JavaTimeSerialization.IsoInstantSerializer;
 import eu.europeana.metis.core.dataset.DepublishRecordId;
-import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.time.Instant;
 
 /**

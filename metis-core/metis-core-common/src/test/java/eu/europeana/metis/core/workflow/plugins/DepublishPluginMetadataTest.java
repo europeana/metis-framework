@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import eu.europeana.metis.utils.DepublicationReason;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

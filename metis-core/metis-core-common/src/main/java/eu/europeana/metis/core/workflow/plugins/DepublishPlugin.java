@@ -63,6 +63,8 @@ public class DepublishPlugin extends AbstractExecutablePlugin<DepublishPluginMet
         extraParameters.put(PluginParameterKeys.RECORD_IDS_TO_DEPUBLISH, recordIdList);
       }
     }
+    //TODO: 2024-09-24 - Update below key with the PluginParameterKeys equivalent when it's available
+    extraParameters.put("DEPUBLICATION_REASON", getPluginMetadata().getDepublicationReason().name());
     DpsTask dpsTask = new DpsTask();
     dpsTask.setParameters(extraParameters);
     return dpsTask;

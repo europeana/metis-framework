@@ -26,7 +26,7 @@ import eu.europeana.metis.core.util.SortDirection;
 import eu.europeana.metis.core.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.DepublicationReason;
+import eu.europeana.metis.utils.DepublicationReason;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
 import java.util.Set;

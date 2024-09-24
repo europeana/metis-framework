@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 
+import eu.europeana.metis.utils.DepublicationReason;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
