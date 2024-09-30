@@ -1,5 +1,7 @@
 package eu.europeana.indexing;
 
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
@@ -180,13 +182,33 @@ public interface Indexer extends Closeable {
   boolean remove(String rdfAbout) throws IndexingException;
 
   /**
+   * Get a tombstone record given an rdf about.
+   * @param rdfAbout the rdf about
+   * @return the tombstone record or else null
+   */
+  FullBeanImpl getTombstone(String rdfAbout);
+
+  /**
    * Creates and indexes a tombstone record.
    *
    * @param rdfAbout the id of the record
    * @return whether a record was tombstoned
    * @throws IndexingException in case something went wrong.
+   * @deprecated Use {@link #indexTombstone(String, DepublicationReason)}.
    */
+  //TODO: 2024-09-24 - Remove once ecloud has updated the code for tombstoning
+  @Deprecated(since = "13-SNAPSHOT", forRemoval = true)
   boolean indexTombstone(String rdfAbout) throws IndexingException;
+
+  /**
+   * Creates and indexes a tombstone record.
+   *
+   * @param rdfAbout the id of the record
+   * @param depublicationReason the depublication reason
+   * @return whether a record was tombstoned
+   * @throws IndexingException in case something went wrong.
+   */
+  boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException;
 
   /**
    * <p>
