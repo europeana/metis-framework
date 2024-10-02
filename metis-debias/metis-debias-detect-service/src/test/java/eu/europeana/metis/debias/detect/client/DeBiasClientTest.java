@@ -48,7 +48,6 @@ class DeBiasClientTest {
     assertEquals(10, detectionResult.getDetections().getFirst().getTags().getFirst().getLength());
     assertEquals("http://www.example.org/debias#t_2_en",
         detectionResult.getDetections().getFirst().getTags().getFirst().getUri());
-    assertEquals(0.0, detectionResult.getDetections().getFirst().getTags().getFirst().getScore());
   }
 
   @BeforeAll

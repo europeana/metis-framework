@@ -14,6 +14,7 @@ import eu.europeana.metis.debias.detect.service.DetectService;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,12 +89,16 @@ public class DeBiasClient implements DetectService {
                 DetectionDeBiasResult result = mapper.readValue(clientResponse.getBody(), DetectionDeBiasResult.class);
                 return new ResponseEntity<>(result, clientResponse.getStatusCode());
               } else {
-                String errorResponse = new String(clientResponse.getBody().readAllBytes(), "UTF-8");
+                String errorResponse = new String(clientResponse.getBody().readAllBytes(), StandardCharsets.UTF_8);
                 if (!errorResponse.isBlank()) {
                   ErrorDeBiasResult result = mapper.readValue(errorResponse, ErrorDeBiasResult.class);
-                  throw new DeBiasBadRequestException(clientResponse.getStatusCode()+" "
-                      +result.getDetailList().getFirst().getType()+" "
-                      +result.getDetailList().getFirst().getMsg());
+                  if (result.getDetailList() !=null) {
+                    throw new DeBiasBadRequestException(clientResponse.getStatusCode() + " "
+                        + result.getDetailList().getFirst().getType() + " "
+                        + result.getDetailList().getFirst().getMsg());
+                  } else {
+                    throw new DeBiasBadRequestException(errorResponse);
+                  }
                 } else if (clientResponse.getStatusCode().is5xxServerError()) {
                   throw new DeBiasInternalServerException(clientResponse.getStatusCode().value()+" "+clientResponse.getStatusText());
                 } else if (clientResponse.getStatusCode().is4xxClientError()) {

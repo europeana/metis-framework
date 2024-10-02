@@ -8,7 +8,6 @@ public class Tag {
   private int end;
   private int length;
   private String uri;
-  private float score;
 
   /**
    * Gets start.
@@ -82,21 +81,4 @@ public class Tag {
     this.uri = uri;
   }
 
-  /**
-   * Gets score.
-   *
-   * @return the score
-   */
-  public float getScore() {
-    return score;
-  }
-
-  /**
-   * Sets score.
-   *
-   * @param score the score
-   */
-  public void setScore(float score) {
-    this.score = score;
-  }
 }
