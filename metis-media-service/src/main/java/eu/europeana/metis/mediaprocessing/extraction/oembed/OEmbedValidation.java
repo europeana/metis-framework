@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -175,7 +176,7 @@ public final class OEmbedValidation {
   public static double getDurationFromModel(OEmbedModel oEmbedModel) {
     double duration;
     try {
-      duration = Double.parseDouble(oEmbedModel.getDuration());
+      duration = Optional.ofNullable(oEmbedModel.getDuration()).map(Double::parseDouble).orElse(0.0);
     } catch (NumberFormatException e) {
       duration = 0.0;
     }
