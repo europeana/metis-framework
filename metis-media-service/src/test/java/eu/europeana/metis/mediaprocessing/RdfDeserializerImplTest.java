@@ -192,7 +192,7 @@ class RdfDeserializerImplTest {
     final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl()
         .getResourceEntries(document, Set.of(UrlType.values()));
 
-    // then check the oEmbedResources where succesfully identified.
+    // then check the oEmbedResources where successfully identified.
     assertEquals(2, resultAllTypes.size());
     assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultAllTypes.get(hasView).urlTypes());
     assertTrue( resultAllTypes.get(hasView).configuredForOembed());
@@ -240,18 +240,11 @@ class RdfDeserializerImplTest {
 
     // then
     assertEquals(2, rdfResourceEntry.size());
-    assertTrue(rdfResourceEntry
-        .stream()
-        .anyMatch(
-            r -> r.getResourceUrl().equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250")
-                && !r.isResourceConfiguredForOembed()
-        )
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(
-            r -> r.getResourceUrl().equals("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_pano.html")
-                && !r.isResourceConfiguredForOembed()
-        )
-    );
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
+        .equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250")
+        && !r.isResourceConfiguredForOembed()));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
+        .equals("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_pano.html")
+        && !r.isResourceConfiguredForOembed()));
   }
 }
