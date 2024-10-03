@@ -29,16 +29,6 @@ jobs:
     secrets:
       DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
       DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-  docker-build_metis-core:
-    needs: ci
-    uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
-    with:
-      docker-organization: europeana
-      docker-image-name: metis-core
-      project-path: metis-core/metis-core-rest/
-    secrets:
-      DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-      DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
   docker-build_metis-dereference:
     needs: ci
     uses: europeana/metis-actions/.github/workflows/docker-build-push.yml@main
