@@ -22,7 +22,7 @@
     <module>metis-pattern-analysis</module>
   </modules>
 
-  <!-- Github connection -->
+  <!-- GitHub connection -->
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
@@ -53,50 +53,6 @@
           <configuration>
             <release>21</release>
           </configuration>
-        </plugin>
-        <!--Setup highest directory path, so that it can be used as a variable avoiding relative paths-->
-        <plugin>
-          <artifactId>directory-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <configuration>
-                <property>main.basedir</property>
-              </configuration>
-              <goals>
-                <goal>highest-basedir</goal>
-              </goals>
-              <id>directories</id>
-              <phase>initialize</phase>
-            </execution>
-          </executions>
-          <groupId>org.commonjava.maven.plugins</groupId>
-          <version>${version.directory.maven.plugin}</version>
-        </plugin>
-        <!--If you are using Jibx classes in a sub module in the repository and want to be able to run the code or tests from the
-        IDE, this plugin(preconfigured here) should be added to the module! That is because jibx is generating the class bindings
-        inside the target directory and they are not findable from the IDE..
-        Building with maven directly is fine.
-        Other repositories that have as a dependency the metis-schema module are fine, since they are directly dependent on the
-        .jar and those projects do not require the following plugin configuration to work through the IDE.-->
-        <plugin>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <configuration>
-                <sources>
-                  <!--suppress UnresolvedMavenProperty, the property is generated from directory-maven-plugin -->
-                  <source>${main.basedir}/metis-schema/target/eu/europeana/metis/schema/jibx</source>
-                </sources>
-              </configuration>
-              <goals>
-                <goal>add-source</goal>
-              </goals>
-              <id>add-source</id>
-              <phase>generate-sources</phase>
-            </execution>
-          </executions>
-          <groupId>org.codehaus.mojo</groupId>
-          <version>${version.build.helper.maven.plugin}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -136,11 +92,7 @@
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commons-compress>1.26.0</version.commons-compress>
     <version.corelib>2.16.10-SNAPSHOT</version.corelib>
-
-    <!-- These two versions are interdependent. -->
-    <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
     <version.gdcc.xoai>5.2.0</version.gdcc.xoai>
-
     <version.embedded.mongo>4.17.0</version.embedded.mongo>
     <version.hamcrest>1.3</version.hamcrest>
     <version.hibernate.core>6.4.4.Final</version.hibernate.core>
@@ -171,12 +123,10 @@
     <version.morphia.core>2.4.5</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.powermock>2.0.9</version.powermock>
-    <version.rabbitmq>5.12.0</version.rabbitmq>
-    <version.redisson>3.24.3</version.redisson>
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.spring>6.1.4</version.spring>
+    <version.spring>6.1.5</version.spring>
     <version.spring.boot>3.2.3</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
@@ -637,7 +587,6 @@
       <artifactId>slf4j-api</artifactId>
       <version>${version.slf4j}</version>
     </dependency>
-
   </dependencies>
 
   <repositories>

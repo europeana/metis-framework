@@ -123,14 +123,4 @@
       <artifactId>annotations</artifactId>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <!--This plugin is required for local IDE tests that use Jibx related classes. Check root pom for more information. -->
-      <plugin>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-      </plugin>
-    </plugins>
-  </build>
 </project>
