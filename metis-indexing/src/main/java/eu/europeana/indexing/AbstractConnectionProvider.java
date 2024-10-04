@@ -56,7 +56,7 @@ public interface AbstractConnectionProvider extends Closeable {
    * @return A dataset remover.
    */
   default IndexedRecordAccess getIndexedRecordAccess() {
-    return new IndexedRecordAccess(getRecordDao(), getSolrClient());
+    return new IndexedRecordAccess(getRecordDao(), getTombstoneRecordDao(), getSolrClient());
   }
 
   /**

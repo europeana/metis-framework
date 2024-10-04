@@ -26,6 +26,7 @@ import eu.europeana.metis.schema.jibx.Width;
 import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -149,19 +150,11 @@ class WebResource {
   }
 
   void setEdmType(EdmType edmType) {
-    if (edmType == null) {
-      resource.setType1(null);
-    } else if (isValidEdmType(edmType)) {
-      Type2 type2 = new Type2();
+    resource.setType1(Optional.ofNullable(edmType).map(type -> {
+      final Type2 type2 = new Type2();
       type2.setType(edmType);
-      resource.setType1(type2);
-    } else {
-      resource.setType1(null);
-    }
-  }
-
-  boolean isValidEdmType(EdmType edmType) {
-    return edmType.equals(EdmType.IMAGE) || edmType.equals(EdmType.VIDEO);
+      return type2;
+    }).orElse(null));
   }
 
   private static <T extends IntegerType> T intVal(Supplier<T> constructor, Integer value) {

@@ -6,7 +6,7 @@ import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidat
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidHeightSizeUrl;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidWidthSizeThumbnail;
 import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.hasValidWidthSizeUrl;
-import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidOEmbedPhotoOrVideo;
+import static eu.europeana.metis.mediaprocessing.extraction.oembed.OEmbedValidation.isValidTypeVideo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,7 +24,19 @@ class OEmbedModelTest {
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
 
     assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
+    assertTrue(isValidTypeVideo(oEmbedModel));
+  }
+
+  @Test
+  void getOEmbedModelFromJsonTestNoMaxDimensions() throws IOException {
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/test_oembed.json");
+
+    OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
+    final String url = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250";
+    OEmbedValidation.checkValidWidthAndHeightDimensions(oEmbedModel, url);
+
+    assertNotNull(oEmbedModel);
+    assertTrue(isValidTypeVideo(oEmbedModel));
   }
 
   @Test
@@ -34,7 +46,7 @@ class OEmbedModelTest {
     OEmbedModel oEmbedModel = getOEmbedModelFromXml(inputStream.readAllBytes());
 
     assertNotNull(oEmbedModel);
-    assertTrue(isValidOEmbedPhotoOrVideo(oEmbedModel));
+    assertTrue(isValidTypeVideo(oEmbedModel));
   }
 
   @Test

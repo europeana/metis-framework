@@ -35,16 +35,19 @@ public class IndexedRecordAccess {
   private static final String ABOUT_FIELD = "about";
 
   private final RecordDao recordDao;
+  private final RecordDao tombstoneDao;
   private final SolrClient solrServer;
 
   /**
    * Constructor.
    *
    * @param recordDao the mongo dao for connecting with the Mongo records database.
+   * @param tombstoneDao the mongo dao for connecting with the Mongo tombstone records database.
    * @param solrServer The Solr server connection.
    */
-  IndexedRecordAccess(RecordDao recordDao, SolrClient solrServer) {
+  IndexedRecordAccess(RecordDao recordDao, RecordDao tombstoneDao, SolrClient solrServer) {
     this.recordDao = recordDao;
+    this.tombstoneDao = tombstoneDao;
     this.solrServer = solrServer;
   }
 
@@ -60,12 +63,22 @@ public class IndexedRecordAccess {
   }
 
   /**
-   * Get fullbean from database give the rdf about.
+   * Get fullbean from database given an rdf about.
    * @param rdfAbout the rdf about
    * @return the fullbean
    */
   public FullBeanImpl getFullbean(String rdfAbout) {
     final Datastore datastore = recordDao.getDatastore();
+    return datastore.find(FullBeanImpl.class).filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
+  }
+
+  /**
+   * Get fullbean from tombstone database given an rdf about.
+   * @param rdfAbout the rdf about
+   * @return the fullbean
+   */
+  public FullBeanImpl getTombstoneFullbean(String rdfAbout) {
+    final Datastore datastore = tombstoneDao.getDatastore();
     return datastore.find(FullBeanImpl.class).filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
   }
 

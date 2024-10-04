@@ -29,5 +29,6 @@ public class EuropeanaAggregationUpdater
     propertyUpdater.updateArray("aggregates", EuropeanaAggregation::getAggregates);
     propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources,
         ancestorInformation, new WebResourceUpdater());
+    propertyUpdater.updateObjectList("changeLog", EuropeanaAggregation::getChangeLog);
   }
 }

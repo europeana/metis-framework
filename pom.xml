@@ -10,7 +10,6 @@
 
   <modules>
     <module>metis-common</module>
-    <module>metis-core</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
@@ -460,6 +459,10 @@
           <exclusion>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>*</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
           </exclusion>
         </exclusions>
       </dependency>

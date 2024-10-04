@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.jibx.EdmType;
+
 public class Media3dResourceMetadata extends AbstractResourceMetadata{
 
   /**
@@ -17,8 +19,15 @@ public class Media3dResourceMetadata extends AbstractResourceMetadata{
   public Media3dResourceMetadata(String mimeType, String resourceUrl, Long contentSize) {
     super(mimeType, resourceUrl, contentSize, null);
   }
+
   @Override
   protected ResourceMetadata prepareForSerialization() {
     return new ResourceMetadata(this);
+  }
+
+  @Override
+  protected void updateResource(WebResource resource) {
+    super.updateResource(resource);
+    resource.setEdmType(EdmType._3_D);
   }
 }
