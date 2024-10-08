@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
+
 /**
  * This class defines the input for media extraction.
  */

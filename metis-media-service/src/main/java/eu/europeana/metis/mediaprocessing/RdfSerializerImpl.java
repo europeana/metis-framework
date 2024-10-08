@@ -14,6 +14,7 @@ import org.jibx.runtime.JiBXException;
  *
  * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
  * import should remain.
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfSerializer from metis-schema library.
  */
 class RdfSerializerImpl implements RdfSerializer {
 

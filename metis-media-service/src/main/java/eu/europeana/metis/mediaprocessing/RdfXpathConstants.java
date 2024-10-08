@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing;
 
 /**
  * Rdf xpath string constants.
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfDeserializer from metis-schema library.
  */
 public final class RdfXpathConstants {
 

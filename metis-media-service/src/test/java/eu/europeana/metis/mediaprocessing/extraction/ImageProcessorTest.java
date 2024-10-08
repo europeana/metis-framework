@@ -13,13 +13,13 @@ import static org.mockito.Mockito.spy;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
+import eu.europeana.metis.schema.convert.model.UrlType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -89,7 +89,7 @@ class ImageProcessorTest {
     // Define input
     final String url = "testUrl";
     final File content = new File("content file");
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
+    final eu.europeana.metis.schema.convert.model.RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
         Collections.singletonList(UrlType.IS_SHOWN_BY), false);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));

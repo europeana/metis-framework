@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing;
 /**
  * This factory creates objects for (de)serializing RDF files.
  * <p>Used by external code such as scripts or ECloud.</p>
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfDeserializer from metis-schema library.
  */
 public class RdfConverterFactory {
 

@@ -25,12 +25,12 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
-import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.convert.model.UrlType;
 import eu.europeana.metis.mediaprocessing.model.VideoResourceMetadata;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -361,7 +361,8 @@ class MediaExtractorImplTest {
     final String resourceUrl = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915";
 
     final String detectedMimeType = "application/json+oembed";
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), true);
+    final eu.europeana.metis.schema.convert.model.RdfResourceEntry rdfResourceEntry = new eu.europeana.metis.schema.convert.model.RdfResourceEntry(resourceUrl, Collections.singletonList(
+        eu.europeana.metis.schema.convert.model.UrlType.IS_SHOWN_BY), true);
     final Resource resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
     doReturn(true)
@@ -384,7 +385,8 @@ class MediaExtractorImplTest {
     final String resourceUrl = "https://vimeo.com/api/oembed.xml?url=https%3A%2F%2Fvimeo.com%2F24416915";
 
     final String detectedMimeType = "application/xml+oembed";
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), true);
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(
+        UrlType.IS_SHOWN_BY), true);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, detectedMimeType, null, URI.create(resourceUrl)));
     doReturn(true)

@@ -7,6 +7,7 @@ package eu.europeana.metis.mediaprocessing;
  *
  * @param <T> The type of the object.
  * @param <E> The type of the exception that may be thrown during creation and/or processing.
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfDeserializer from metis-schema library.
  */
 abstract class AbstractThreadSafeWrapper<T, E extends Exception> {
 

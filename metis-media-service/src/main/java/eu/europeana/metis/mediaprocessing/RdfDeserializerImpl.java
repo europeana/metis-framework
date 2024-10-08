@@ -47,8 +47,11 @@ import org.xml.sax.SAXException;
  * convert the record to an EDM internal format. Link checking must also run on EDM external. We therefore use XPath expressions
  * to obtain the required data.
  * <p>
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfDeserializer from metis-schema library.
  * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.* import should remain.
+ *
  */
+@Deprecated
 class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";

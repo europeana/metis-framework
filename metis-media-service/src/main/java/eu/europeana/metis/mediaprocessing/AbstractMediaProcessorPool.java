@@ -4,7 +4,7 @@ import eu.europeana.metis.mediaprocessing.exception.LinkCheckingException;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.model.MediaExtractorInput;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.Closeable;
 import java.time.Duration;

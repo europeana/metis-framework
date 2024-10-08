@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.exception;
 
 /**
  * This exception represents a problem that occurred during serialization of an RDF object.
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfSerializer from metis-schema library.
  */
 public class RdfSerializationException extends Exception {
 

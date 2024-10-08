@@ -12,6 +12,7 @@ import java.util.List;
  * This object can be reused multiple times, as the construction of it incurs overhead. Please note
  * that this object is thread-safe, but currently it achieves this by synchronization, meaning that
  * it is not designed for many threads to access the object simultaneously.
+ * @deprecated Use {@link eu.europeana.metis.mediaprocessing.utils.ConverterUtils} and/or RdfDeserializer from metis-schema library.
  */
 public interface RdfDeserializer {
 

@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.network.AbstractHttpClient;

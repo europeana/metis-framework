@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import eu.europeana.metis.schema.convert.model.RdfResourceEntry;
+import eu.europeana.metis.schema.convert.model.UrlType;
 import java.io.File;
 import java.net.URI;
 import java.nio.file.Path;
