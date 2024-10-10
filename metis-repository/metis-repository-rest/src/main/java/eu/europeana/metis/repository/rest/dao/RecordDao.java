@@ -1,6 +1,6 @@
 package eu.europeana.metis.repository.rest.dao;
 
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -57,8 +57,7 @@ public class RecordDao {
     ExternalRequestUtil.retryableExternalRequestForNetworkExceptions(
         () -> datastore.save(providedRecord));
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("Record for datasetId '{}' created in Mongo",
-          CRLF_PATTERN.matcher(providedRecord.getDatasetId()).replaceAll(""));
+      LOGGER.info("Record for datasetId '{}' created in Mongo", sanitizeCRLF(providedRecord.getDatasetId()));
     }
 
     return recordFound.isEmpty();
@@ -90,7 +89,7 @@ public class RecordDao {
       return recordFound.get();
     } else {
       if (LOGGER.isWarnEnabled()) {
-        LOGGER.warn("There is no such record with id {}.", CRLF_PATTERN.matcher(recordId).replaceAll(""));
+        LOGGER.warn("There is no such record with id {}.", sanitizeCRLF(recordId));
       }
       return null;
     }
@@ -106,7 +105,7 @@ public class RecordDao {
     final boolean isDeleted = datastore.find(Record.class)
                                        .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
     if (!isDeleted) {
-      LOGGER.warn("There is no such record with id {}.", recordId);
+      LOGGER.warn("There is no such record with id {}.", sanitizeCRLF(recordId));
     }
     return isDeleted;
   }

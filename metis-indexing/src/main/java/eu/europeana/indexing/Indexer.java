@@ -30,18 +30,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdf, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index.
+   * @param rdf The rdf to index.
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException;
+  void indexRdf(RDF rdf, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -60,18 +60,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdfString, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param rdfString The rdfString to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(String record, IndexingProperties indexingProperties) throws IndexingException;
+  void index(String rdfString, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -110,18 +110,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdfInputStream, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param rdfInputStream The rdfInputStream to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(InputStream record, IndexingProperties indexingProperties) throws IndexingException;
+  void index(InputStream rdfInputStream, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -187,18 +187,6 @@ public interface Indexer extends Closeable {
    * @return the tombstone record or else null
    */
   FullBeanImpl getTombstone(String rdfAbout);
-
-  /**
-   * Creates and indexes a tombstone record.
-   *
-   * @param rdfAbout the id of the record
-   * @return whether a record was tombstoned
-   * @throws IndexingException in case something went wrong.
-   * @deprecated Use {@link #indexTombstone(String, DepublicationReason)}.
-   */
-  //TODO: 2024-09-24 - Remove once ecloud has updated the code for tombstoning
-  @Deprecated(since = "13-SNAPSHOT", forRemoval = true)
-  boolean indexTombstone(String rdfAbout) throws IndexingException;
 
   /**
    * Creates and indexes a tombstone record.

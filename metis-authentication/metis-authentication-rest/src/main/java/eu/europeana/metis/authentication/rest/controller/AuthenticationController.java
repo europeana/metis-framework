@@ -1,6 +1,6 @@
 package eu.europeana.metis.authentication.rest.controller;
 
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
 
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -181,8 +181,7 @@ public class AuthenticationController {
     }
     authenticationService.deleteUser(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} deleted",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
+      LOGGER.info("User with email: {} deleted", sanitizeCRLF(emailParameter.getEmail()));
     }
   }
 
@@ -208,15 +207,13 @@ public class AuthenticationController {
     if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
       throw new BadContentException("userEmailToMakeAdmin is empty");
     }
-    String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(emailParameter.getEmail());
     if (LOGGER.isInfoEnabled()) {
-      LOGGER.info("User with email: {} made admin",
-          CRLF_PATTERN.matcher(emailParameter.getEmail()).replaceAll(""));
+      LOGGER.info("User with email: {} made admin", sanitizeCRLF(emailParameter.getEmail()));
     }
   }
 

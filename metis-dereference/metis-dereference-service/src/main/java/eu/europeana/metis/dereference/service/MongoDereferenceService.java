@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service;
 
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
 
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Concept;
@@ -284,7 +284,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Evaluate and return the result.
         if (originalEntity == null && LOGGER.isInfoEnabled()) {
-            LOGGER.info("No entity XML for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+            LOGGER.info("No entity XML for uri {}", sanitizeCRLF(resourceId));
         }
         final DereferenceResultStatus dereferenceResultStatus = originalEntity == null ?
             DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY : DereferenceResultStatus.SUCCESS;

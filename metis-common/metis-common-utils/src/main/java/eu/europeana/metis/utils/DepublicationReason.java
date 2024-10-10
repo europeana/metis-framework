@@ -2,28 +2,39 @@ package eu.europeana.metis.utils;
 
 /**
  * Enum for depublication reason.
+ * <p>Note: The enum value {@link #UNKNOWN} is to be used for historical depublication workflows(before the reason was
+ * implemented).
+ * In other words the historical workflows will be populated by a script once with the {@link #UNKNOWN} reason, and this value
+ * should never be used during depublication since its release. Therefore the url is an empty string and not meant to be used for
+ * populating records in the database(e.g. tombstoning)</p>
  */
 public enum DepublicationReason {
 
-  BROKEN_MEDIA_LINKS("Broken media links", "http://data.europeana.eu/vocabulary/depublicationReason/contentTier0"),
-  GDPR("GDPR", "http://data.europeana.eu/vocabulary/depublicationReason/gdpr"),
-  PERMISSION_ISSUES("Permission issues", "http://data.europeana.eu/vocabulary/depublicationReason/noPermission"),
-  SENSITIVE_CONTENT("Sensitive content", "http://data.europeana.eu/vocabulary/depublicationReason/sensitiveContent"),
-  REMOVED_DATA_AT_SOURCE("Removed data at source", "http://data.europeana.eu/vocabulary/depublicationReason/sourceRemoval"),
-  GENERIC("Generic", "http://data.europeana.eu/vocabulary/depublicationReason/generic"),
-  UNKNOWN("Unknown", "http://data.europeana.eu/vocabulary/depublicationReason/unknown");
+  BROKEN_MEDIA_LINKS("Broken media links", "contentTier0"),
+  GDPR("GDPR", "gdpr"),
+  PERMISSION_ISSUES("Permission issues", "noPermission"),
+  SENSITIVE_CONTENT("Sensitive content", "sensitiveContent"),
+  REMOVED_DATA_AT_SOURCE("Removed data at source", "sourceRemoval"),
+  GENERIC("Generic", "generic"),
+  UNKNOWN("Unknown", "");
 
-  private final String valueAsString;
+  private static final String BASE_URL = "http://data.europeana.eu/vocabulary/depublicationReason/";
+
+  private final String title;
   private final String url;
 
-  DepublicationReason(String valueAsString, String url) {
-    this.valueAsString = valueAsString;
-    this.url = url;
+  DepublicationReason(String title, String urlSuffix) {
+    this.title = title;
+    this.url = BASE_URL + urlSuffix;
   }
 
   @Override
-  public String toString(){
-    return valueAsString;
+  public String toString() {
+    return title;
+  }
+
+  public String getTitle() {
+    return title;
   }
 
   public String getUrl() {

@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 
 import eu.europeana.corelib.definitions.edm.entity.ChangeLog;
@@ -84,10 +85,10 @@ public class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void index(InputStream recordInputStream, IndexingProperties indexingProperties)
+  public void index(InputStream rdfInputStream, IndexingProperties indexingProperties)
       throws IndexingException {
     final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
-    indexRdf(stringToRdfConverter.convertToRdf(recordInputStream), indexingProperties);
+    indexRdf(stringToRdfConverter.convertToRdf(rdfInputStream), indexingProperties);
   }
 
   @Override
@@ -100,13 +101,13 @@ public class IndexerImpl implements Indexer {
   }
 
   @Override
-  public void indexRdf(RDF rdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    indexRdfs(List.of(rdfRecord), indexingProperties);
+  public void indexRdf(RDF rdf, IndexingProperties indexingProperties) throws IndexingException {
+    indexRdfs(List.of(rdf), indexingProperties);
   }
 
   @Override
-  public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    index(List.of(stringRdfRecord), indexingProperties);
+  public void index(String rdfString, IndexingProperties indexingProperties) throws IndexingException {
+    index(List.of(rdfString), indexingProperties);
   }
 
   @Override
@@ -137,17 +138,16 @@ public class IndexerImpl implements Indexer {
   }
 
   @Override
-  public FullBeanImpl getTombstone(String rdfAbout){
+  public FullBeanImpl getTombstone(String rdfAbout) {
     return this.connectionProvider.getIndexedRecordAccess().getTombstoneFullbean(rdfAbout);
   }
 
   @Override
-  public boolean indexTombstone(String rdfAbout) throws IndexingException {
-    return indexTombstone(rdfAbout, DepublicationReason.GENERIC);
-  }
-
-  @Override
   public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
+    if (depublicationReason == DepublicationReason.UNKNOWN) {
+      throw new IndexerRelatedIndexingException(
+          format("Depublication reason %s, is not allowed", depublicationReason));
+    }
     final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
     if (publishedFullbean != null) {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
@@ -178,6 +178,7 @@ public class IndexerImpl implements Indexer {
 
   private static EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation,
       DepublicationReason depublicationReason) {
+
     final ChangeLog tombstoneChangeLog = new ChangeLogImpl();
     tombstoneChangeLog.setType("Delete");
     tombstoneChangeLog.setContext(depublicationReason.getUrl());
