@@ -207,7 +207,7 @@ public class AuthenticationController {
     if (emailParameter == null || StringUtils.isBlank(emailParameter.getEmail())) {
       throw new BadContentException("userEmailToMakeAdmin is empty");
     }
-    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
+    final String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }

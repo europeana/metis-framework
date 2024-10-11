@@ -31,7 +31,7 @@ public final class CommonStringValues {
 
   /**
    * Sanitized input value from Logging injection attacks(javasecurity:S5145).
-   * <p>Replaces CR and LF characters with a safe value e.g. '_'.</p>
+   * <p>Replaces CR and LF characters with a safe value e.g. ""(empty string).</p>
    *
    * @param input the input
    * @return the sanitized input, safe for logging
