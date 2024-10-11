@@ -24,8 +24,19 @@ public final class CommonStringValues {
 
   public static final String REPLACEABLE_CRLF_CHARACTERS_REGEX = "[\r\n\t]";
 
-  public static final Pattern CRLF_PATTERN = Pattern.compile(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX);
+  public static final Pattern CRLF_PATTERN = Pattern.compile(REPLACEABLE_CRLF_CHARACTERS_REGEX);
 
   private CommonStringValues() {
+  }
+
+  /**
+   * Sanitized input value from Logging injection attacks(javasecurity:S5145).
+   * <p>Replaces CR and LF characters with a safe value e.g. ""(empty string).</p>
+   *
+   * @param input the input
+   * @return the sanitized input, safe for logging
+   */
+  public static String sanitizeCRLF(String input) {
+    return input == null ? null : CRLF_PATTERN.matcher(input).replaceAll("");
   }
 }
