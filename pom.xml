@@ -76,7 +76,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.ecloud>13-SNAPSHOT</version.ecloud>
     <version.metis-schema>10-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
