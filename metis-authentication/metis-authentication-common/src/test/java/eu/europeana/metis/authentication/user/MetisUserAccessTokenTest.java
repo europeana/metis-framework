@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Simon Tzanakis
- * @since 2020-09-11
- */
 class MetisUserAccessTokenTest {
 
   @Test

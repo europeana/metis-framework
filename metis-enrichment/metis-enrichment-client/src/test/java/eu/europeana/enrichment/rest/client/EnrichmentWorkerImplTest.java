@@ -1,5 +1,21 @@
 package eu.europeana.enrichment.rest.client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
@@ -18,6 +34,10 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,27 +47,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-
-import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Stream;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.get;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 class EnrichmentWorkerImplTest {
 
@@ -355,7 +354,7 @@ class EnrichmentWorkerImplTest {
     }
 
     @Test
-    void testEnrichmentWorkerHappyFlow() throws DereferenceException, EnrichmentException {
+    void testEnrichmentWorkerHappyFlow() {
         TreeSet<Mode> modeSetWithOnlyEnrichment = new TreeSet<>();
         TreeSet<Mode> modeSetWithOnlyDereference = new TreeSet<>();
         TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
@@ -370,7 +369,7 @@ class EnrichmentWorkerImplTest {
     }
 
     @Test
-    void testEnrichmentWorkerNullFlow() throws DereferenceException, EnrichmentException {
+    void testEnrichmentWorkerNullFlow() {
         TreeSet<Mode> modeSetWithOnlyEnrichment = new TreeSet<>();
         TreeSet<Mode> modeSetWithOnlyDereference = new TreeSet<>();
         TreeSet<Mode> modeSetWithBoth = new TreeSet<>();
@@ -384,8 +383,7 @@ class EnrichmentWorkerImplTest {
         testEnrichmentWorkerNullFlow(modeSetWithBoth);
     }
 
-    private void testEnrichmentWorkerHappyFlow(Set<Mode> modes)
-            throws DereferenceException, EnrichmentException {
+    private void testEnrichmentWorkerHappyFlow(Set<Mode> modes) {
 
         // Create enricher and mock it.
         final Enricher enricher = mock(EnricherImpl.class);
@@ -404,11 +402,9 @@ class EnrichmentWorkerImplTest {
         // Check the performed tasks
         verifyDereferencingHappyFlow(doDereferencing, dereferencer, inputRdf);
         verifyEnrichmentHappyFlow(doEnrichment, enricher, inputRdf);
-        //    verifyMergeHappyFlow(doEnrichment, doDereferencing, entityMergeEngine);
     }
 
-    private void testEnrichmentWorkerNullFlow(Set<Mode> modes)
-            throws DereferenceException, EnrichmentException {
+    private void testEnrichmentWorkerNullFlow(Set<Mode> modes) {
 
         // Create enrichment worker and mock the enrichment and dereferencing results.
         final Enricher enricher = mock(EnricherImpl.class);
@@ -432,8 +428,7 @@ class EnrichmentWorkerImplTest {
     }
 
     // Verify dereference related calls
-    private void verifyDereferencingHappyFlow(boolean doDereferencing, Dereferencer dereferencer,
-                                              RDF inputRdf) throws DereferenceException {
+    private void verifyDereferencingHappyFlow(boolean doDereferencing, Dereferencer dereferencer, RDF inputRdf) {
         if (doDereferencing) {
             verify(dereferencer, times(1)).dereference(inputRdf);
 
@@ -442,8 +437,7 @@ class EnrichmentWorkerImplTest {
         }
     }
 
-    private void verifyDereferencingNullFlow(boolean doDereferencing, Dereferencer dereferencer,
-                                             RDF inputRdf) throws DereferenceException {
+    private void verifyDereferencingNullFlow(boolean doDereferencing, Dereferencer dereferencer, RDF inputRdf) {
         if (doDereferencing) {
 
             verify(dereferencer, times(1)).dereference(inputRdf);
@@ -454,8 +448,7 @@ class EnrichmentWorkerImplTest {
     }
 
     // Verify enrichment related calls
-    private void verifyEnrichmentHappyFlow(boolean doEnrichment, Enricher enricher,
-                                           RDF inputRdf) throws EnrichmentException {
+    private void verifyEnrichmentHappyFlow(boolean doEnrichment, Enricher enricher, RDF inputRdf) {
         if (doEnrichment) {
             verify(enricher, times(1)).enrichment(inputRdf);
 
@@ -464,8 +457,7 @@ class EnrichmentWorkerImplTest {
         }
     }
 
-    private void verifyEnrichmentNullFlow(boolean doEnrichment, Enricher worker, RDF inputRdf)
-            throws EnrichmentException {
+    private void verifyEnrichmentNullFlow(boolean doEnrichment, Enricher worker, RDF inputRdf) {
         if (doEnrichment) {
             verify(worker, times(1)).enrichment(inputRdf);
 

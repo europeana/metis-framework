@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +27,6 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
@@ -116,7 +116,7 @@ class ImageProcessorTest {
     final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType, true);
 
     // Verify result metadata general properties
-    assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
+    assertInstanceOf(ImageResourceMetadata.class, result.getOriginalMetadata());
     final ImageResourceMetadata metadata = (ImageResourceMetadata) result.getOriginalMetadata();
     assertEquals(rdfResourceEntry.getResourceUrl(), metadata.getResourceUrl());
     assertEquals(detectedMimeType, metadata.getMimeType());
@@ -129,8 +129,7 @@ class ImageProcessorTest {
     assertEquals(Integer.valueOf(imageMetadata.getWidth()), metadata.getWidth());
     assertEquals(Integer.valueOf(imageMetadata.getHeight()), metadata.getHeight());
     assertEquals(imageMetadata.getColorSpace(), metadata.getColorSpace().xmlValue());
-    assertEquals(imageMetadata.getDominantColors().stream().map(color -> "#" + color)
-        .collect(Collectors.toList()), metadata.getDominantColors());
+    assertEquals(imageMetadata.getDominantColors().stream().map(color -> "#" + color).toList(), metadata.getDominantColors());
 
     // Verify result thumbnails
     assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());

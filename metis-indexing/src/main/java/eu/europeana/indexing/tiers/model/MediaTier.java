@@ -28,6 +28,11 @@ public enum MediaTier implements Tier {
     return stringRepresentation;
   }
 
+  /**
+   * Get the Enum representation given a string value
+   * @param value the string value
+   * @return the enum representation
+   */
   public static MediaTier getEnum(String value){
     MediaTier result = null;
     for(MediaTier tier: MediaTier.values()) {

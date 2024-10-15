@@ -4,9 +4,6 @@ package eu.europeana.metis.authentication.user;
  * Contains the old and new password parameters.
  * <p>This class is used for passing parameters as json to a http request body. It contains the old
  * password to be changed with the new provided password</p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2019-02-07
  */
 public class OldNewPasswordParameters {
 

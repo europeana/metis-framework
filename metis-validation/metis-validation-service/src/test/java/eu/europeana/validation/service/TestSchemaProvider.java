@@ -1,3 +1,5 @@
+package eu.europeana.validation.service;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -11,9 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.metis.network.NetworkUtil;
 import eu.europeana.validation.model.Schema;
-import eu.europeana.validation.service.PredefinedSchemas;
-import eu.europeana.validation.service.SchemaProvider;
-import eu.europeana.validation.service.SchemaProviderException;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
@@ -21,9 +20,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-/**
- * Created by pwozniak on 12/21/17
- */
 class TestSchemaProvider {
 
   private static int portForWireMock = 9999;

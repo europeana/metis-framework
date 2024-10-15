@@ -1,17 +1,11 @@
+package eu.europeana.validation.service;
+
 import eu.europeana.metis.network.NetworkUtil;
-import eu.europeana.validation.service.ClasspathResourceResolver;
-import eu.europeana.validation.service.PredefinedSchemas;
-import eu.europeana.validation.service.SchemaProvider;
-import eu.europeana.validation.service.ValidationExecutionService;
-import eu.europeana.validation.service.ValidationServiceConfig;
 import java.io.IOException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-/**
- * Created by ymamakis on 7/14/16.
- */
 @Configuration
 public class TestApplication {
 

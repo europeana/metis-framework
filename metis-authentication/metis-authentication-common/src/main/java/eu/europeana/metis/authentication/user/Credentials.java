@@ -3,8 +3,6 @@ package eu.europeana.metis.authentication.user;
 /**
  * Contains the email and password of a user temporarily.
  * <p>Used mostly after decoding the Authorization Header in an HTTP request.</p>
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-02-14
  */
 public class Credentials {
 
