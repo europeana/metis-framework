@@ -3,7 +3,7 @@ package eu.europeana.metis.debias.detect.rest.controller;
 import eu.europeana.metis.debias.detect.model.DeBiasResult;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
-import eu.europeana.metis.debias.detect.service.DetectService;
+import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,16 +22,16 @@ public class DetectionController {
   /**
    * The Detect service.
    */
-  DetectService detectService;
+  BiasDetectService biasDetectService;
 
   /**
    * Instantiates a new Detection controller.
    *
-   * @param detectService the detect service
+   * @param biasDetectService the detect service
    */
   @Autowired
-  public DetectionController(DetectService detectService) {
-    this.detectService = detectService;
+  public DetectionController(BiasDetectService biasDetectService) {
+    this.biasDetectService = biasDetectService;
   }
 
   /**
@@ -44,6 +44,6 @@ public class DetectionController {
       MediaType.APPLICATION_JSON_VALUE})
   @Operation(description = "DeBias a list of values", responses = {@ApiResponse(responseCode = "200"),@ApiResponse(responseCode = "422")})
   public DeBiasResult debias(@RequestBody DetectionParameter detectionParameter) {
-    return detectService.detect(detectionParameter);
+    return biasDetectService.detect(detectionParameter);
   }
 }

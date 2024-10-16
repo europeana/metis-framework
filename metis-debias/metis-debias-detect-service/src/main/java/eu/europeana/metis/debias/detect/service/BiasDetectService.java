@@ -7,7 +7,7 @@ import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
  * Implementations of this interface are able to detect biased terms given the languages
  * and the terms to search, and it returns a report indicating the result of the terms.
  */
-public interface DetectService {
+public interface BiasDetectService {
 
   /**
    * Method to detect biased terms according to the input values provided

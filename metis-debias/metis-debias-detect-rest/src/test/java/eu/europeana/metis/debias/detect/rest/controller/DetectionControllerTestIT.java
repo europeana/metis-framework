@@ -14,7 +14,7 @@ import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
-import eu.europeana.metis.debias.detect.service.DetectService;
+import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
 import java.util.Objects;
@@ -52,8 +52,8 @@ class DetectionControllerTestIT {
 
   @BeforeEach
   void setUp() {
-    final DetectService detectService = new DeBiasClient("http://debias.host", 300, 300);
-    final DetectionController detectionController = new DetectionController(detectService);
+    final BiasDetectService biasDetectService = new DeBiasClient("http://debias.host", 300, 300);
+    final DetectionController detectionController = new DetectionController(biasDetectService);
     mockMvc = MockMvcBuilders.standaloneSetup(detectionController)
                              .setControllerAdvice(new ExceptionResponseHandler())
                              .alwaysDo(MockMvcResultHandlers.print())

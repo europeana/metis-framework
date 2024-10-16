@@ -15,7 +15,7 @@ public class ValueDetection {
   /**
    * Gets language.
    *
-   * @return the language
+   * @return the language 2-letter code ISO 6391
    */
   public String getLanguage() {
     return language;
@@ -24,7 +24,7 @@ public class ValueDetection {
   /**
    * Sets language.
    *
-   * @param language the language
+   * @param language the language 2-letter code ISO 6391
    */
   public void setLanguage(String language) {
     this.language = language;

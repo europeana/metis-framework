@@ -1,7 +1,7 @@
 package eu.europeana.metis.debias.detect.rest.config;
 
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
-import eu.europeana.metis.debias.detect.service.DetectService;
+import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
@@ -55,7 +55,7 @@ public class ApplicationConfiguration {
    * @return the detect service
    */
   @Bean
-  public DetectService detectService() {
+  public BiasDetectService detectService() {
     return new DeBiasClient(this.detectUrl, this.connectTimeOut, this.requestTimeOut);
   }
 

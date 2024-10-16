@@ -10,7 +10,7 @@ import eu.europeana.metis.debias.detect.model.DeBiasResult;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
-import eu.europeana.metis.debias.detect.service.DetectService;
+import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +28,7 @@ import org.springframework.web.client.RestClient;
 /**
  * The type DeBias client.
  */
-public class DeBiasClient implements DetectService {
+public class DeBiasClient implements BiasDetectService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final String apiURL;
@@ -111,11 +111,10 @@ public class DeBiasClient implements DetectService {
 
     if (response.getStatusCode().is2xxSuccessful()) {
       LOGGER.info("Detection processed successfully!");
-      return response.getBody();
     } else {
       LOGGER.warn("Failed to process request. Response code: {}", response.getStatusCode().value());
-      return response.getBody();
     }
+    return response.getBody();
   }
 
 }
