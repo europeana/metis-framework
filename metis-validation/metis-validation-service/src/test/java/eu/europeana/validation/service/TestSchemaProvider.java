@@ -183,8 +183,8 @@ class TestSchemaProvider {
   }
 
   private void clearSchemasDir() throws IOException {
-    String TMP_DIR = System.getProperty("java.io.tmpdir");
-    File schemasDirectory = new File(TMP_DIR, "schemas");
+    String tmpDir = System.getProperty("java.io.tmpdir");
+    File schemasDirectory = new File(tmpDir, "schemas");
     FileUtils.deleteDirectory(schemasDirectory);
     schemasDirectory.mkdirs();
   }

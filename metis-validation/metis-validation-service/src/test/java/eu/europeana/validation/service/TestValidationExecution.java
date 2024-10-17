@@ -283,12 +283,12 @@ class TestValidationExecution {
   @Test
   void ValidationExecutionServiceTestWithProvidedProperties() {
     Properties property = loadDefaultProperties("src/test/resources/custom-validation.properties");
-    ValidationExecutionService validationExecutionService = new ValidationExecutionService(
+    ValidationExecutionService validationExecutionServiceWithProvidedProperties = new ValidationExecutionService(
         property);
-    ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+    ExecutorService es = Whitebox.getInternalState(validationExecutionServiceWithProvidedProperties, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox
-        .getInternalState(validationExecutionService, "schemaProvider");
+        .getInternalState(validationExecutionServiceWithProvidedProperties, "schemaProvider");
     Properties properties = loadDefaultProperties(
         "src/test/resources/custom-validation.properties");
     assertNotNull(schemaProvider);
@@ -311,12 +311,12 @@ class TestValidationExecution {
     PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
     predefinedSchemas.add("name", "location", "root", "schematronFile");
     predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");
-    ValidationExecutionService validationExecutionService = new ValidationExecutionService(
+    ValidationExecutionService validationExecutionServiceWithCustomConfig = new ValidationExecutionService(
             () -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
-    ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+    ExecutorService es = Whitebox.getInternalState(validationExecutionServiceWithCustomConfig, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox
-        .getInternalState(validationExecutionService, "schemaProvider");
+        .getInternalState(validationExecutionServiceWithCustomConfig, "schemaProvider");
     assertNotNull(schemaProvider);
     PredefinedSchemas locations = Whitebox
         .getInternalState(schemaProvider, "predefinedSchemasLocations");
