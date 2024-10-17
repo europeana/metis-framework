@@ -20,6 +20,7 @@
     <module>metis-harvesting</module>
     <module>metis-repository</module>
     <module>metis-pattern-analysis</module>
+    <module>metis-debias</module>
   </modules>
 
   <!-- GitHub connection -->

@@ -1,0 +1,14 @@
+{
+  "detail": [
+    {
+      "type": "list_type",
+      "loc": [
+        "body",
+        "values"
+      ],
+      "msg": "Input should be a valid list",
+      "input": null,
+      "url": "https://errors.pydantic.dev/2.5/v/list_type"
+    }
+  ]
+}
