@@ -2,11 +2,10 @@ package eu.europeana.metis.utils;
 
 /**
  * Enum for depublication reason.
- * <p>Note: The enum value {@link #UNKNOWN} is to be used for historical depublication workflows(before the reason was
- * implemented).
- * In other words the historical workflows will be populated by a script once with the {@link #UNKNOWN} reason, and this value
- * should never be used during depublication since its release. Therefore the url is an empty string and not meant to be used for
- * populating records in the database(e.g. tombstoning)</p>
+ * <p>Note: The enum value {@link #LEGACY} is to be used for historical depublication workflows(before the reason was
+ * implemented). In other words the historical workflows will be populated by a script once with the {@link #LEGACY} reason, and
+ * this value should never be used during depublication since its release. At the time of writing the url String is not meant to
+ * be used for populating records in the database(e.g. tombstoning)</p>
  */
 public enum DepublicationReason {
 
@@ -16,7 +15,7 @@ public enum DepublicationReason {
   SENSITIVE_CONTENT("Sensitive content", "sensitiveContent"),
   REMOVED_DATA_AT_SOURCE("Removed data at source", "sourceRemoval"),
   GENERIC("Generic", "generic"),
-  UNKNOWN("Unknown", "");
+  LEGACY("Legacy", "legacy");
 
   private static final String BASE_URL = "http://data.europeana.eu/vocabulary/depublicationReason/";
 
