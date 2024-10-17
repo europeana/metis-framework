@@ -8,7 +8,7 @@ import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
 import eu.europeana.metis.debias.detect.model.DeBiasResult;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
-import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
+import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import java.lang.invoke.MethodHandles;
@@ -51,15 +51,15 @@ public class DeBiasClient implements BiasDetectService {
   /**
    * Method to detect biased terms according to the input values provided
    *
-   * @param detectionParameter {@link DetectionParameter} language and values
+   * @param biasInputLiterals {@link BiasInputLiterals} language and values
    * @return {@link DeBiasResult } containing metadata and values of the detection or error
    */
   @Override
-  public DeBiasResult detect(DetectionParameter detectionParameter) {
+  public DeBiasResult detect(BiasInputLiterals biasInputLiterals) {
     URI uri;
     try {
       uri = new URI(this.apiURL);
-    } catch (URISyntaxException e) {
+    } catch (URISyntaxException | RuntimeException e) {
       LOGGER.error("Error with API URL", e);
       throw new IllegalArgumentException("Not valid API url");
     }
@@ -79,7 +79,7 @@ public class DeBiasClient implements BiasDetectService {
         .uri(uri)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
-        .body(detectionParameter)
+        .body(biasInputLiterals)
         .exchange(((clientRequest, clientResponse) -> {
               ObjectMapper mapper = new ObjectMapper();
               mapper.setSerializationInclusion(Include.ALWAYS);

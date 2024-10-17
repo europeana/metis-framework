@@ -17,7 +17,7 @@ import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler
 import eu.europeana.metis.debias.detect.model.error.Detail;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
 import eu.europeana.metis.debias.detect.model.error.Input;
-import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
+import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.model.response.Metadata;
 import eu.europeana.metis.debias.detect.model.response.Tag;
@@ -39,15 +39,15 @@ class DetectionControllerTest {
   private BiasDetectService biasDetectService;
 
   private static String getDetectionParameterJson() throws JsonProcessingException {
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
-    detectionParameter.setLanguage("en");
+    biasInputLiterals.setLanguage("en");
     ObjectMapper mapper = new ObjectMapper();
 
-    return mapper.writeValueAsString(detectionParameter);
+    return mapper.writeValueAsString(biasInputLiterals);
   }
 
   @BeforeEach
@@ -85,7 +85,7 @@ class DetectionControllerTest {
     String detectionParameterJson = getDetectionParameterJson();
     ObjectMapper mapper = new ObjectMapper();
     String expectedJson = mapper.writeValueAsString(detectionResult);
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenReturn(detectionResult);
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(detectionResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +114,7 @@ class DetectionControllerTest {
     String detectionParameterJson = getDetectionParameterJson();
     ObjectMapper mapper = new ObjectMapper();
     String expectedJson = mapper.writeValueAsString(errorResult);
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenReturn(errorResult);
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(errorResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -132,7 +132,7 @@ class DetectionControllerTest {
     Metadata metadata = new Metadata();
     detectionResult.setMetadata(metadata);
 
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenReturn(detectionResult);
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(detectionResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .characterEncoding("utf-8"))
@@ -147,7 +147,7 @@ class DetectionControllerTest {
     Metadata metadata = new Metadata();
     detectionResult.setMetadata(metadata);
 
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenReturn(detectionResult);
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(detectionResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -161,7 +161,7 @@ class DetectionControllerTest {
   void debias_detect_expectBadRequest() throws Exception {
     String detectionParameterJson = getDetectionParameterJson();
 
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenThrow(new DeBiasBadRequestException("Unprocessable Entity"));
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenThrow(new DeBiasBadRequestException("Unprocessable Entity"));
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -175,7 +175,7 @@ class DetectionControllerTest {
   void debias_detect_expectInternalServerError() throws Exception {
     String detectionParameterJson = getDetectionParameterJson();
 
-    when(biasDetectService.detect(any(DetectionParameter.class))).thenThrow(
+    when(biasDetectService.detect(any(BiasInputLiterals.class))).thenThrow(
         new DeBiasInternalServerException("Internal Server Error"));
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)

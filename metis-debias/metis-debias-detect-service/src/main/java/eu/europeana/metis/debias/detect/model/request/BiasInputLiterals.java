@@ -3,10 +3,11 @@ package eu.europeana.metis.debias.detect.model.request;
 import java.util.Collections;
 import java.util.List;
 
+
 /**
- * The type Detection parameter.
+ * The type Bias input literals.
  */
-public class DetectionParameter {
+public class BiasInputLiterals {
 
   private String language;
   private List<String> values;
@@ -14,7 +15,7 @@ public class DetectionParameter {
   /**
    * Gets language.
    *
-   * @return the language
+   * @return the language 2-letter code ISO 6391
    */
   public String getLanguage() {
     return language;
@@ -23,7 +24,7 @@ public class DetectionParameter {
   /**
    * Sets language.
    *
-   * @param language the language
+   * @param language the language 2-letter code ISO 6391
    */
   public void setLanguage(String language) {
     this.language = language;

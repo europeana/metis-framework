@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
-import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
+import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import java.io.IOException;
 import java.util.List;
@@ -76,14 +76,14 @@ class DeBiasClientTest {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withBody(successResponse)
             .withStatus(200)));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setLanguage("en");
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setLanguage("en");
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
-    DetectionDeBiasResult detectionResult = (DetectionDeBiasResult) debiasClient.detect(detectionParameter);
+    DetectionDeBiasResult detectionResult = (DetectionDeBiasResult) debiasClient.detect(biasInputLiterals);
 
     assertNotNull(detectionResult);
     assertMetadata(detectionResult);
@@ -102,15 +102,15 @@ class DeBiasClientTest {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withBody(errorResponse)
             .withStatus(422)));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setLanguage(null);
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setLanguage(null);
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
     DeBiasBadRequestException deBiasBadRequestException = assertThrows(DeBiasBadRequestException.class,
-        () -> debiasClient.detect(detectionParameter));
+        () -> debiasClient.detect(biasInputLiterals));
 
     assertNotNull(deBiasBadRequestException);
     assertEquals("422 UNPROCESSABLE_ENTITY string_type Input should be a valid string", deBiasBadRequestException.getMessage());
@@ -119,13 +119,13 @@ class DeBiasClientTest {
   @Test
   void detect_noService_errorResponse() {
 
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setLanguage("en");
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setLanguage("en");
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
-    assertThrows(ResourceAccessException.class, () -> debiasClient.detect(detectionParameter));
+    assertThrows(ResourceAccessException.class, () -> debiasClient.detect(biasInputLiterals));
   }
 }

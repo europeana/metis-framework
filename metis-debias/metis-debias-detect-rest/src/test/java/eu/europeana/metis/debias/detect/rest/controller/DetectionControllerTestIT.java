@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
-import eu.europeana.metis.debias.detect.model.request.DetectionParameter;
+import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.service.BiasDetectService;
@@ -71,14 +71,14 @@ class DetectionControllerTestIT {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withBody(successResponse)
             .withStatus(200)));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
-    detectionParameter.setLanguage("en");
+    biasInputLiterals.setLanguage("en");
     ObjectMapper mapper = new ObjectMapper();
-    String detectionParameterJson = mapper.writeValueAsString(detectionParameter);
+    String detectionParameterJson = mapper.writeValueAsString(biasInputLiterals);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -101,14 +101,14 @@ class DetectionControllerTestIT {
             .withStatus(422)
             .withBody(errorResponse)
         ));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
-    detectionParameter.setLanguage(null);
+    biasInputLiterals.setLanguage(null);
     ObjectMapper mapper = new ObjectMapper();
-    String detectionParameterJson = mapper.writeValueAsString(detectionParameter);
+    String detectionParameterJson = mapper.writeValueAsString(biasInputLiterals);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -132,11 +132,11 @@ class DetectionControllerTestIT {
             .withStatus(422)
             .withBody(errorResponse)
         ));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(null);
-    detectionParameter.setLanguage("en");
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setValues(null);
+    biasInputLiterals.setLanguage("en");
     ObjectMapper mapper = new ObjectMapper();
-    String detectionParameterJson = mapper.writeValueAsString(detectionParameter);
+    String detectionParameterJson = mapper.writeValueAsString(biasInputLiterals);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
@@ -185,14 +185,14 @@ class DetectionControllerTestIT {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withStatus(502)
             .withBody(errorAPIResponse)));
-    DetectionParameter detectionParameter = new DetectionParameter();
-    detectionParameter.setValues(List.of(
+    BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
         "this is a demo of master and slave branch"));
-    detectionParameter.setLanguage(null);
+    biasInputLiterals.setLanguage(null);
     ObjectMapper mapper = new ObjectMapper();
-    String detectionParameterJson = mapper.writeValueAsString(detectionParameter);
+    String detectionParameterJson = mapper.writeValueAsString(biasInputLiterals);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
                                           .contentType(MediaType.APPLICATION_JSON)
