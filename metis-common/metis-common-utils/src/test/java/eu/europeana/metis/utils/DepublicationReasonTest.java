@@ -6,7 +6,7 @@ import static eu.europeana.metis.utils.DepublicationReason.GENERIC;
 import static eu.europeana.metis.utils.DepublicationReason.PERMISSION_ISSUES;
 import static eu.europeana.metis.utils.DepublicationReason.REMOVED_DATA_AT_SOURCE;
 import static eu.europeana.metis.utils.DepublicationReason.SENSITIVE_CONTENT;
-import static eu.europeana.metis.utils.DepublicationReason.UNKNOWN;
+import static eu.europeana.metis.utils.DepublicationReason.LEGACY;
 import static eu.europeana.metis.utils.DepublicationReason.values;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +35,7 @@ class DepublicationReasonTest {
     assertEquals("Sensitive content", SENSITIVE_CONTENT.toString());
     assertEquals("Removed data at source", REMOVED_DATA_AT_SOURCE.toString());
     assertEquals("Generic", GENERIC.toString());
-    assertEquals("Unknown", UNKNOWN.toString());
+    assertEquals("Legacy", LEGACY.toString());
   }
 
   @Test
@@ -49,6 +49,6 @@ class DepublicationReasonTest {
     assertTrue(depublicationReasons.contains(SENSITIVE_CONTENT));
     assertTrue(depublicationReasons.contains(REMOVED_DATA_AT_SOURCE));
     assertTrue(depublicationReasons.contains(GENERIC));
-    assertTrue(depublicationReasons.contains(UNKNOWN));
+    assertTrue(depublicationReasons.contains(LEGACY));
   }
 }
