@@ -12,6 +12,7 @@ import eu.europeana.metis.schema.jibx.CodecName;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.DoubleType;
 import eu.europeana.metis.schema.jibx.Duration;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.HasColorSpace;
 import eu.europeana.metis.schema.jibx.HasMimeType;
 import eu.europeana.metis.schema.jibx.HexBinaryType;
@@ -20,6 +21,7 @@ import eu.europeana.metis.schema.jibx.LongType;
 import eu.europeana.metis.schema.jibx.NonNegativeIntegerType;
 import eu.europeana.metis.schema.jibx.OrientationType;
 import eu.europeana.metis.schema.jibx.Type1;
+import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.schema.model.Orientation;
@@ -131,16 +133,32 @@ class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl
       webResource.setEdmPreview(wResourceType.getPreview().getResource());
     }
 
-    webResource.setWebResourceMetaInfo(createWebresourceMetaInfo(wResourceType));
+    webResource.setWebResourceMetaInfo(createWebResourceMetaInfo(wResourceType));
 
     return webResource;
   }
 
-  private WebResourceMetaInfoImpl createWebresourceMetaInfo(WebResourceType webResource) {
+  private WebResourceMetaInfoImpl createWebResourceMetaInfo(WebResourceType webResource) {
 
     // Get the media type and determine meta data creator
-    final MediaType mediaType = Optional.ofNullable(webResource.getHasMimeType())
-                                        .map(HasMimeType::getHasMimeType).map(MediaType::getMediaType).orElse(MediaType.OTHER);
+    final Optional<String> optionalHasMimeType = Optional.ofNullable(webResource.getHasMimeType())
+                                                         .map(HasMimeType::getHasMimeType);
+
+    final MediaType mediaType = optionalHasMimeType.map(hasMimeType -> {
+      MediaType adaptedMediaType = MediaType.getMediaType(hasMimeType);
+      final EdmType edmType = Optional.ofNullable(webResource.getType1()).map(Type2::getType).orElse(null);
+      final boolean isOembedMimeType = hasMimeType.startsWith("application/xml+oembed") || hasMimeType.startsWith("application/json+oembed");
+      final boolean isPossibleOembedMediaType = adaptedMediaType == MediaType.TEXT || adaptedMediaType == MediaType.OTHER;
+      if (isPossibleOembedMediaType && edmType != null && isOembedMimeType) {
+        if (edmType == EdmType.IMAGE) {
+          adaptedMediaType = MediaType.IMAGE;
+        } else if (edmType == EdmType.VIDEO) {
+          adaptedMediaType = MediaType.VIDEO;
+        }
+      }
+
+      return adaptedMediaType;
+    }).orElse(MediaType.OTHER);
 
     final BiConsumer<WebResourceType, WebResourceMetaInfoImpl> metaDataCreator =
         switch (mediaType) {
