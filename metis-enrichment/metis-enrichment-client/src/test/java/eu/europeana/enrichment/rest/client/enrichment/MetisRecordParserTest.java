@@ -30,12 +30,12 @@ import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
-public class MetisRecordParserTest {
+class MetisRecordParserTest {
 
   private static final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   @Test
-  public void testExtractedFieldValuesForEnrichment() {
+  void testExtractedFieldValuesForEnrichment() {
     RDF rdf = new RDF();
     ProxyType proxy = new ProxyType();
     ArrayList<Choice> choiceList = new ArrayList<>();
@@ -178,7 +178,7 @@ public class MetisRecordParserTest {
   }
 
   @Test
-  public void testSetAdditionalData() throws Exception {
+  void testSetAdditionalData() throws Exception {
     String xml = IOUtils
         .toString(getClass().getClassLoader().getResourceAsStream("sample_completeness.rdf"), StandardCharsets.UTF_8);
     RDF rdf = rdfConversionUtils.convertStringToRdf(xml);

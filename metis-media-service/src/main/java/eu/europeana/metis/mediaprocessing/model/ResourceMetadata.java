@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.Serial;
 import java.util.Set;
 
 /**
@@ -11,7 +12,7 @@ public class ResourceMetadata implements IResourceMetadata {
   /**
    * Implements {@link java.io.Serializable}.
    */
-  private static final long serialVersionUID = 1648797505550562988L;
+  @Serial private static final long serialVersionUID = 1648797505550562988L;
 
   private AudioResourceMetadata audioResourceMetadata;
   private ImageResourceMetadata imageResourceMetadata;

@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 
 class IncomingRecordToEdmTransformerTest {
 
-  private static final String copyXmlXsltFileName = "copy_xml.xslt";
-  private static final String produceEmptyXsltFileName = "produce_empty.xslt";
-  private static final String produceInvalidXmlXsltFileName = "produce_invalid_xml.xslt";
-  private static final String ysoP105069FileName = "yso_p105069.xml";
-  private static final String invalidXmlFileName = "invalid_xml.xml";
+  private static final String COPY_XML_XSLT_FILE_NAME = "copy_xml.xslt";
+  private static final String PRODUCE_EMPTY_XSLT_FILE_NAME = "produce_empty.xslt";
+  private static final String PRODUCE_INVALID_XML_XSLT_FILE_NAME = "produce_invalid_xml.xslt";
+  private static final String YSO_P_105069_FILE_NAME = "yso_p105069.xml";
+  private static final String INVALID_XML_FILE_NAME = "invalid_xml.xml";
 
   private static String copyXmlXsltString;
   private static String produceEmptyXsltString;
@@ -31,19 +31,19 @@ class IncomingRecordToEdmTransformerTest {
   @BeforeAll
   static void setUp() throws Exception {
     ClassLoader classLoader = IncomingRecordToEdmTransformerTest.class.getClassLoader();
-    Path path = Paths.get(Objects.requireNonNull(classLoader.getResource(copyXmlXsltFileName)).toURI());
+    Path path = Paths.get(Objects.requireNonNull(classLoader.getResource(COPY_XML_XSLT_FILE_NAME)).toURI());
     copyXmlXsltString = Files.readString(path, StandardCharsets.UTF_8);
 
-    path = Paths.get(Objects.requireNonNull(classLoader.getResource(produceEmptyXsltFileName)).toURI());
+    path = Paths.get(Objects.requireNonNull(classLoader.getResource(PRODUCE_EMPTY_XSLT_FILE_NAME)).toURI());
     produceEmptyXsltString = Files.readString(path, StandardCharsets.UTF_8);
 
-    path = Paths.get(Objects.requireNonNull(classLoader.getResource(produceInvalidXmlXsltFileName)).toURI());
+    path = Paths.get(Objects.requireNonNull(classLoader.getResource(PRODUCE_INVALID_XML_XSLT_FILE_NAME)).toURI());
     produceInvalidXmlXsltString = Files.readString(path, StandardCharsets.UTF_8);
 
-    path = Paths.get(Objects.requireNonNull(classLoader.getResource(ysoP105069FileName)).toURI());
+    path = Paths.get(Objects.requireNonNull(classLoader.getResource(YSO_P_105069_FILE_NAME)).toURI());
     ysoP105069String = Files.readString(path, StandardCharsets.UTF_8);
 
-    path = Paths.get(Objects.requireNonNull(classLoader.getResource(invalidXmlFileName)).toURI());
+    path = Paths.get(Objects.requireNonNull(classLoader.getResource(INVALID_XML_FILE_NAME)).toURI());
     invalidXmlString = Files.readString(path, StandardCharsets.UTF_8);
   }
 

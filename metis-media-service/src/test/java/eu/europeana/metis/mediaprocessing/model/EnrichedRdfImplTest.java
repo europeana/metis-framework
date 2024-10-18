@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -137,7 +136,7 @@ class EnrichedRdfImplTest {
     final String url = "url value";
     doReturn(url).when(enrichedRdf).getEdmPreviewThumbnailUrl();
     assertEquals(rdf, enrichedRdf.finalizeRdf());
-    verify(enrichedRdf, times(1)).updateEdmPreview(eq(url));
+    verify(enrichedRdf, times(1)).updateEdmPreview(url);
     verify(enrichedRdf, times(1)).updateEdmPreview(anyString());
   }
 

@@ -11,7 +11,7 @@ public abstract class AbstractReferenceTerm implements ReferenceTerm {
 
   private final URL reference;
 
-  public AbstractReferenceTerm(URL reference) {
+  protected AbstractReferenceTerm(URL reference) {
     this.reference = reference;
   }
 

@@ -4,9 +4,6 @@ package eu.europeana.metis.authentication.user;
  * Contains the email parameter.
  * <p>This class is used for passing parameters as json to a http request body. It contains the
  * email parameter</p>
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2019-02-07
  */
 public class EmailParameter {
 

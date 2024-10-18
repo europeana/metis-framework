@@ -9,7 +9,7 @@ public abstract class AbstractSearchTerm implements SearchTerm {
   private final String textValue;
   private final String language;
 
-  public AbstractSearchTerm(String textValue, String language) {
+  protected AbstractSearchTerm(String textValue, String language) {
     this.textValue = textValue;
     this.language = language;
   }

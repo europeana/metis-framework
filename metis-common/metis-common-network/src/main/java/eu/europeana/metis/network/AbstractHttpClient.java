@@ -5,6 +5,7 @@ import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performT
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,7 +57,7 @@ import org.springframework.http.ContentDisposition;
  */
 public abstract class AbstractHttpClient<I, R> implements Closeable {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractHttpClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final int HTTP_SUCCESS_MIN_INCLUSIVE = HttpStatus.SC_OK;
   private static final int HTTP_SUCCESS_MAX_EXCLUSIVE = HttpStatus.SC_MULTIPLE_CHOICES;
@@ -194,16 +195,7 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
       final RedirectLocations redirectUris = context.getRedirectLocations();
       final URI actualUri = (redirectUris == null || redirectUris.size() == 0) ? httpGet.getUri()
               : redirectUris.get(redirectUris.size() - 1);
-      final ContentDisposition contentDisposition = Optional.ofNullable(responseObject).map( re -> {
-                try {
-                  return re.getHeader("Content-Disposition") != null ?
-                          ContentDisposition.parse(re.getHeader("Content-Disposition").getValue()) : null;
-                } catch (ProtocolException ex) {
-                  LOGGER.debug("No content-disposition header, nothing to do", ex);
-                  return null;
-                }
-              }
-      ).orElse(null);
+      final ContentDisposition contentDisposition = getContentDisposition(responseObject);
       // Obtain the result (check for timeout just in case).
       final ContentRetriever contentRetriever = ContentRetriever.forNonCloseableContent(
               responseEntity == null ? InputStream::nullInputStream : responseEntity::getContent,
@@ -245,6 +237,20 @@ public abstract class AbstractHttpClient<I, R> implements Closeable {
         }
       });
     }
+  }
+
+  private static ContentDisposition getContentDisposition(CloseableHttpResponse responseObject) {
+    return Optional.ofNullable(responseObject).map(re -> {
+          try {
+            return Optional.ofNullable(re.getHeader("Content-Disposition"))
+                           .map(header -> ContentDisposition.parse(header.getValue()))
+                           .orElse(null);
+          } catch (ProtocolException ex) {
+            LOGGER.debug("No content-disposition header, nothing to do", ex);
+            return null;
+          }
+        }
+    ).orElse(null);
   }
 
   private static boolean httpCallIsSuccessful(int status) {

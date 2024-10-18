@@ -11,9 +11,6 @@ import jakarta.persistence.TemporalType;
 
 /**
  * The token of a user, which related to an email of that user.
- *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-10-30
  */
 @Entity
 @Table(name = "metis_user_access_tokens")

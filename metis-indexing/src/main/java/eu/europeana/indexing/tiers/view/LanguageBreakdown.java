@@ -21,7 +21,7 @@ public class LanguageBreakdown implements TierProvider<MetadataTier> {
   /**
    * Constructor with required parameters.
    *
-   * @param qualifiedElements the qualified elementes
+   * @param qualifiedElements the qualified elements
    * @param qualifiedElementsWithoutLanguageList the qualified elements that do not contain a language
    * @param metadataTier the tier for the breakdown
    */

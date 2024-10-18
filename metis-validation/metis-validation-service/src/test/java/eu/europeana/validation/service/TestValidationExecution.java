@@ -1,3 +1,5 @@
+package eu.europeana.validation.service;
+
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
@@ -11,10 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-import eu.europeana.validation.service.ClasspathResourceResolver;
-import eu.europeana.validation.service.PredefinedSchemas;
-import eu.europeana.validation.service.SchemaProvider;
-import eu.europeana.validation.service.ValidationExecutionService;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,9 +38,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-/**
- * Created by gmamakis on 18-12-15.
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = TestApplication.class, loader = AnnotationConfigContextLoader.class)
 @WebAppConfiguration
@@ -288,12 +283,12 @@ class TestValidationExecution {
   @Test
   void ValidationExecutionServiceTestWithProvidedProperties() {
     Properties property = loadDefaultProperties("src/test/resources/custom-validation.properties");
-    ValidationExecutionService validationExecutionService = new ValidationExecutionService(
+    ValidationExecutionService validationExecutionServiceWithProvidedProperties = new ValidationExecutionService(
         property);
-    ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+    ExecutorService es = Whitebox.getInternalState(validationExecutionServiceWithProvidedProperties, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox
-        .getInternalState(validationExecutionService, "schemaProvider");
+        .getInternalState(validationExecutionServiceWithProvidedProperties, "schemaProvider");
     Properties properties = loadDefaultProperties(
         "src/test/resources/custom-validation.properties");
     assertNotNull(schemaProvider);
@@ -316,12 +311,12 @@ class TestValidationExecution {
     PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
     predefinedSchemas.add("name", "location", "root", "schematronFile");
     predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");
-    ValidationExecutionService validationExecutionService = new ValidationExecutionService(
+    ValidationExecutionService validationExecutionServiceWithCustomConfig = new ValidationExecutionService(
             () -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
-    ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+    ExecutorService es = Whitebox.getInternalState(validationExecutionServiceWithCustomConfig, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox
-        .getInternalState(validationExecutionService, "schemaProvider");
+        .getInternalState(validationExecutionServiceWithCustomConfig, "schemaProvider");
     assertNotNull(schemaProvider);
     PredefinedSchemas locations = Whitebox
         .getInternalState(schemaProvider, "predefinedSchemasLocations");

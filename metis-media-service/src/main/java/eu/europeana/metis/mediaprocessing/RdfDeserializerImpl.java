@@ -12,7 +12,8 @@ import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
-import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.utils.RdfNamespaceContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -35,8 +36,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -47,7 +46,6 @@ import org.xml.sax.SAXException;
  * convert the record to an EDM internal format. Link checking must also run on EDM external. We therefore use XPath expressions
  * to obtain the required data.
  * <p>
- * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.* import should remain.
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
@@ -63,7 +61,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
       EDM_HAS_VIEW + XPATH_IS_OEMBED_RESOURCE_CONDITION;
 
-  private final UnmarshallingContextWrapper unmarshallingContext = new UnmarshallingContextWrapper();
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_OBJECT));
   private final XPathExpressionWrapper getHasViewExpression = new XPathExpressionWrapper(
@@ -74,6 +71,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
   private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+
+  private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   private static List<RdfResourceEntry> convertToResourceEntries(
       Map<String, ResourceInfo> urlWithTypes) {
@@ -152,7 +151,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public EnrichedRdf getRdfForResourceEnriching(InputStream inputStream)
       throws RdfDeserializationException {
-    return new EnrichedRdfImpl(unmarshallingContext.deserializeToRdf(inputStream));
+    try {
+      return new EnrichedRdfImpl(rdfConversionUtils.convertInputStreamToRdf(inputStream));
+    } catch (SerializationException e) {
+      throw new RdfDeserializationException("Problem with deserializing record to RDF.", e);
+    }
   }
 
   private Optional<RdfResourceEntry> getMainThumbnailResourceForMediaExtraction(Document document)
@@ -265,45 +268,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
       });
     }
   }
-
-  private static class UnmarshallingContextWrapper extends
-      AbstractThreadSafeWrapper<IUnmarshallingContext, RdfDeserializationException> {
-
-    /**
-     * Instantiates a new Unmarshalling context wrapper.
-     */
-    public UnmarshallingContextWrapper() {
-      super(() -> {
-        try {
-          return RdfBindingFactoryProvider.getBindingFactory().createUnmarshallingContext();
-        } catch (JiBXException e) {
-          throw new RdfDeserializationException("Problem creating deserializer.", e);
-        }
-      });
-    }
-
-    /**
-     * Deserialize to rdf rdf.
-     *
-     * @param inputStream the input stream
-     * @return the rdf
-     * @throws RdfDeserializationException the rdf deserialization exception
-     */
-    public RDF deserializeToRdf(InputStream inputStream) throws RdfDeserializationException {
-      return process(context -> {
-        try {
-          return (RDF) context.unmarshalDocument(inputStream, "UTF-8");
-        } catch (JiBXException e) {
-          throw new RdfDeserializationException("Problem with deserializing record to RDF.", e);
-        }
-      });
-    }
-  }
-
-  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
-
-  }
-
   /**
    * Gets resource entries.
    *
@@ -334,5 +298,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Done
     return result;
+  }
+
+  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
   }
 }

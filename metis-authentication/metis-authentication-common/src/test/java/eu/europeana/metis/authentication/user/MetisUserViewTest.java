@@ -8,10 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Simon Tzanakis
- * @since 2020-09-11
- */
 class MetisUserViewTest {
 
   @Test

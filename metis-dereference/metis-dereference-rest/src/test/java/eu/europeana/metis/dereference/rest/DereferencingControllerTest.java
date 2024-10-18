@@ -1,5 +1,6 @@
 package eu.europeana.metis.dereference.rest;
 
+import static java.util.Map.entry;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -17,7 +18,6 @@ import eu.europeana.metis.dereference.service.DereferenceService;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +44,24 @@ class DereferencingControllerTest {
     DereferencingController dereferenceController = new DereferencingController(dereferenceServiceMock);
     dereferencingControllerMock = MockMvcBuilders.standaloneSetup(dereferenceController)
                                                  .setControllerAdvice(new RestResponseExceptionHandler()).build();
+  }
+
+  private Map<String, String> getNamespaceMap() {
+    return Map.ofEntries(
+        entry("metis", "http://www.europeana.eu/schemas/metis"),
+        entry("edm", "http://www.europeana.eu/schemas/edm/"),
+        entry("skos", "http://www.w3.org/2004/02/skos/core#"),
+        entry("dcterms", "http://purl.org/dc/terms/"),
+        entry("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
+        entry("rdfs", "http://www.w3.org/2000/01/rdf-schema"),
+        entry("cc", "http://creativecommons.org/ns"),
+        entry("foaf", "http://xmlns.com/foaf/0.1/"),
+        entry("wgs84_pos", "http://www.w3.org/2003/01/geo/wgs84_pos#"),
+        entry("owl", "http://www.w3.org/2002/07/owl#"),
+        entry("xml", "http://www.w3.org/XML/1998/namespace"),
+        entry("dc", "http://purl.org/dc/elements/1.1/"),
+        entry("rdaGr2", "http://rdvocab.info/ElementsGr2/")
+    );
   }
 
   @Test
@@ -129,23 +147,5 @@ class DereferencingControllerTest {
     agent.setDateOfBirth(dob);
 
     return agent;
-  }
-
-  private Map<String, String> getNamespaceMap() {
-    Map<String, String> namespaceMap = new HashMap<>();
-    namespaceMap.put("metis", "http://www.europeana.eu/schemas/metis");
-    namespaceMap.put("edm", "http://www.europeana.eu/schemas/edm/");
-    namespaceMap.put("skos", "http://www.w3.org/2004/02/skos/core#");
-    namespaceMap.put("dcterms", "http://purl.org/dc/terms/");
-    namespaceMap.put("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-    namespaceMap.put("rdfs", "http://www.w3.org/2000/01/rdf-schema");
-    namespaceMap.put("cc", "http://creativecommons.org/ns");
-    namespaceMap.put("foaf", "http://xmlns.com/foaf/0.1/");
-    namespaceMap.put("wgs84_pos", "http://www.w3.org/2003/01/geo/wgs84_pos#");
-    namespaceMap.put("owl", "http://www.w3.org/2002/07/owl#");
-    namespaceMap.put("xml", "http://www.w3.org/XML/1998/namespace");
-    namespaceMap.put("dc", "http://purl.org/dc/elements/1.1/");
-    namespaceMap.put("rdaGr2", "http://rdvocab.info/ElementsGr2/");
-    return namespaceMap;
   }
 }

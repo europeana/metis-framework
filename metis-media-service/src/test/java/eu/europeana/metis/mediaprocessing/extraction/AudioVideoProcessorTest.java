@@ -6,6 +6,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -200,7 +201,6 @@ class AudioVideoProcessorTest {
     final JSONObject object1 = mock(JSONObject.class);
     final JSONObject object2 = mock(JSONObject.class);
     final JSONObject[] objects = new JSONObject[]{object1, object2};
-    final String key = "key";
     final String value = "test value";
 
     // Test first object only
@@ -317,14 +317,14 @@ class AudioVideoProcessorTest {
     final Integer bitsPerSample = 8;
     final Double duration = 180.062050;
     final Integer bitRate = 320000;
-    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(formatAsArray));
-    doReturn(sampleRate).when(audioVideoProcessor).findInt(eq("sample_rate"), eq(candidates));
-    doReturn(channels).when(audioVideoProcessor).findInt(eq("channels"), eq(candidates));
+    doReturn(size).when(audioVideoProcessor).findLong("size", formatAsArray);
+    doReturn(sampleRate).when(audioVideoProcessor).findInt("sample_rate", candidates);
+    doReturn(channels).when(audioVideoProcessor).findInt("channels", candidates);
     doReturn(bitsPerSample).when(audioVideoProcessor)
-                           .findInt(eq("bits_per_sample"), eq(candidates));
-    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
-    doReturn("aac").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
+                           .findInt("bits_per_sample", candidates);
+    doReturn(duration).when(audioVideoProcessor).findDouble("duration", candidates);
+    doReturn(bitRate).when(audioVideoProcessor).findInt("bit_rate", candidates);
+    doReturn("aac").when(audioVideoProcessor).findString("codec_name", candidates);
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
@@ -375,14 +375,14 @@ class AudioVideoProcessorTest {
     final Integer bitRate = 595283;
     final int frameRateNumerator = 629150;
     final int frameRateDenominator = 25181;
-    doReturn(size).when(audioVideoProcessor).findLong(eq("size"), eq(formatAsArray));
-    doReturn(width).when(audioVideoProcessor).findInt(eq("width"), eq(candidates));
-    doReturn(height).when(audioVideoProcessor).findInt(eq("height"), eq(candidates));
-    doReturn("h264").when(audioVideoProcessor).findString(eq("codec_name"), eq(candidates));
-    doReturn(duration).when(audioVideoProcessor).findDouble(eq("duration"), eq(candidates));
-    doReturn(bitRate).when(audioVideoProcessor).findInt(eq("bit_rate"), eq(candidates));
+    doReturn(size).when(audioVideoProcessor).findLong("size", formatAsArray);
+    doReturn(width).when(audioVideoProcessor).findInt("width", candidates);
+    doReturn(height).when(audioVideoProcessor).findInt("height", candidates);
+    doReturn("h264").when(audioVideoProcessor).findString("codec_name", candidates);
+    doReturn(duration).when(audioVideoProcessor).findDouble("duration", candidates);
+    doReturn(bitRate).when(audioVideoProcessor).findInt("bit_rate", candidates);
     doReturn(frameRateNumerator + "/" + frameRateDenominator).when(audioVideoProcessor)
-                                                             .findString(eq("avg_frame_rate"), eq(candidates));
+                                                             .findString("avg_frame_rate", candidates);
 
     // Run and verify
     final AbstractResourceMetadata abstractMetadata = audioVideoProcessor
@@ -402,11 +402,11 @@ class AudioVideoProcessorTest {
     assertEquals(width, metadata.getWidth());
 
     // Try various options for the frame rate
-    doReturn("0/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
+    doReturn("0/0").when(audioVideoProcessor).findString("avg_frame_rate", candidates);
     final AbstractResourceMetadata metadataWith0FrameRate = audioVideoProcessor
         .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertEquals(Double.valueOf(0.0), ((VideoResourceMetadata) metadataWith0FrameRate).getFrameRate());
-    doReturn("1/0").when(audioVideoProcessor).findString(eq("avg_frame_rate"), eq(candidates));
+    doReturn("1/0").when(audioVideoProcessor).findString("avg_frame_rate", candidates);
     final AbstractResourceMetadata metadataWithInvalidFrameRate = audioVideoProcessor
         .parseCommandResponse(resource, detectedMimeType, commandResponse);
     assertNull(((VideoResourceMetadata) metadataWithInvalidFrameRate).getFrameRate());
@@ -492,7 +492,7 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testCopy() {
+  void testAudioCopy() {
 
     // Create resource
     final Resource resource = mock(Resource.class);
@@ -510,7 +510,7 @@ class AudioVideoProcessorTest {
     // Verify
     assertNotNull(audioResult);
     assertNotNull(audioResult.getOriginalMetadata());
-    assertTrue(audioResult.getOriginalMetadata() instanceof AudioResourceMetadata);
+    assertInstanceOf(AudioResourceMetadata.class, audioResult.getOriginalMetadata());
     assertEquals(detectedAudioMimeType, audioResult.getOriginalMetadata().getMimeType());
     assertEquals(fileSize, audioResult.getOriginalMetadata().getContentSize());
     assertEquals(url, audioResult.getOriginalMetadata().getResourceUrl());
@@ -522,6 +522,17 @@ class AudioVideoProcessorTest {
     assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getChannels());
     assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getBitRate());
     assertNull(((AudioResourceMetadata) audioResult.getOriginalMetadata()).getCodecName());
+  }
+
+  @Test
+  void testVideoCopy() {
+
+    // Create resource
+    final Resource resource = mock(Resource.class);
+    final Long fileSize = 12345L;
+    final String url = "test url";
+    doReturn(fileSize).when(resource).getProvidedFileSize();
+    doReturn(url).when(resource).getResourceUrl();
 
     // Mime type for video
     final String detectedVideoMimeType = "video/detected mime type";
@@ -532,7 +543,7 @@ class AudioVideoProcessorTest {
     // Verify
     assertNotNull(videoResult);
     assertNotNull(videoResult.getOriginalMetadata());
-    assertTrue(videoResult.getOriginalMetadata() instanceof VideoResourceMetadata);
+    assertInstanceOf(VideoResourceMetadata.class, videoResult.getOriginalMetadata());
     assertEquals(detectedVideoMimeType, videoResult.getOriginalMetadata().getMimeType());
     assertEquals(fileSize, videoResult.getOriginalMetadata().getContentSize());
     assertEquals(url, videoResult.getOriginalMetadata().getResourceUrl());
@@ -544,6 +555,12 @@ class AudioVideoProcessorTest {
     assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getCodecName());
     assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getBitRate());
     assertNull(((VideoResourceMetadata) videoResult.getOriginalMetadata()).getDuration());
+  }
+
+  @Test
+  void testOtherCopy() {
+    // Create resource
+    final Resource resource = mock(Resource.class);
 
     // Other mime type
     final String detectedOtherMimeType = "detected other mime type";

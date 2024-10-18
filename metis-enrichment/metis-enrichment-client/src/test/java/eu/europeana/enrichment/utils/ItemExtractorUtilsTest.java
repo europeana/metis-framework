@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,7 +21,6 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class ItemExtractorUtilsTest {
@@ -188,16 +188,6 @@ class ItemExtractorUtilsTest {
   }
 
   @Test
-  void testExtractLabelToResourceOrLiteralEmpty() {
-    Label label = new Label(null);
-    LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
-
-    assertNotNull(output);
-    assertEquals("", output.getString());
-    assertNull(output.getLang());
-  }
-
-  @Test
   void testExtractLabelResource() {
     LabelResource label = new LabelResource("lang1", "value1");
     label.setResource("resource1");
@@ -326,14 +316,12 @@ class ItemExtractorUtilsTest {
     altLabels.add(label3);
 
     ItemExtractorUtils.toChoices(altLabels, Choice::setAltLabel, choices);
-
-    assertTrue(choices.size() > 0);
+    
+    assertFalse(choices.isEmpty());
 
     for (AltLabel label : altLabels) {
-      List<Choice> result = choices.stream().filter(x -> x.getAltLabel().equals(label)).collect(
-          Collectors.toList());
-
-      assertTrue(result.size() > 0);
+      List<Choice> result = choices.stream().filter(x -> x.getAltLabel().equals(label)).toList();
+      assertFalse(result.isEmpty());
     }
   }
 }

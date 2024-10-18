@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -53,7 +52,6 @@ public class HttpHarvestController {
    */
   @GetMapping(value = RestEndpoints.REPOSITORY_HTTP_ENDPOINT_ZIP, produces = "application/zip")
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   @ApiOperation(value = "The dataset is exported as a zip file for harvesting by Metis. Records "
       + "that are marked as deleted will be excluded from the resulting zip file.")
   @ApiResponses(value = {@ApiResponse(code = 404, message = "No records for this dataset."),

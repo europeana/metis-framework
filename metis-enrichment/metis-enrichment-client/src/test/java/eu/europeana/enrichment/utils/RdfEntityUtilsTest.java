@@ -27,38 +27,38 @@ import org.junit.jupiter.api.Test;
 
 class RdfEntityUtilsTest {
 
-  private static RDF TEST_RDF;
-  private static ProxyType PROXY_EUROPEANA;
+  private RDF testRdf;
+  private ProxyType proxyEuropeana;
 
   @BeforeEach
   void setUp() {
 
-    TEST_RDF = new RDF();
+    testRdf = new RDF();
 
     EuropeanaProxy europeanaProxy = new EuropeanaProxy();
     europeanaProxy.setEuropeanaProxy(true);
 
-    PROXY_EUROPEANA = new ProxyType();
-    PROXY_EUROPEANA.setAbout("/proxy/europeana/260/_kmo_av_sid_45006");
-    PROXY_EUROPEANA.setEuropeanaProxy(europeanaProxy);
+    proxyEuropeana = new ProxyType();
+    proxyEuropeana.setAbout("/proxy/europeana/260/_kmo_av_sid_45006");
+    proxyEuropeana.setEuropeanaProxy(europeanaProxy);
 
   }
 
   @Test
   void testAppendLinkToEuropeanaProxy() {
 
-    TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
+    testRdf.setProxyList(Collections.singletonList(proxyEuropeana));
 
     String link = "http://dummylink.com";
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, link, linkTypes);
 
-    assertEquals(1, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
+    assertEquals(1, testRdf.getProxyList().getFirst().getChoiceList().size());
     assertEquals(link,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource()
-                .getResource());
+        testRdf.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource()
+               .getResource());
   }
 
   @Test
@@ -73,23 +73,23 @@ class RdfEntityUtilsTest {
 
     List<Choice> choices = new ArrayList<>();
     choices.add(choice);
-    PROXY_EUROPEANA.setChoiceList(choices);
+    proxyEuropeana.setChoiceList(choices);
 
-    TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
+    testRdf.setProxyList(Collections.singletonList(proxyEuropeana));
 
     String link = "http://dummylink.com";
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, link, linkTypes);
 
-    assertEquals(2, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
+    assertEquals(2, testRdf.getProxyList().getFirst().getChoiceList().size());
     assertEquals("http://differentdummylink.com",
-        TEST_RDF.getProxyList().getFirst().getChoiceList().get(0).getCoverage().getResource()
-                .getResource());
+        testRdf.getProxyList().getFirst().getChoiceList().get(0).getCoverage().getResource()
+               .getResource());
     assertEquals(link,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().get(1).getCoverage().getResource()
-                .getResource());
+        testRdf.getProxyList().getFirst().getChoiceList().get(1).getCoverage().getResource()
+               .getResource());
 
   }
 
@@ -107,18 +107,18 @@ class RdfEntityUtilsTest {
 
     List<Choice> choices = new ArrayList<>();
     choices.add(choice);
-    PROXY_EUROPEANA.setChoiceList(choices);
+    proxyEuropeana.setChoiceList(choices);
 
-    TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
+    testRdf.setProxyList(Collections.singletonList(proxyEuropeana));
 
     Set<ProxyFieldType> linkTypes = new HashSet<>();
     linkTypes.add(ProxyFieldType.DC_COVERAGE);
 
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, link, linkTypes);
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, link, linkTypes);
 
-    assertEquals(1, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
+    assertEquals(1, testRdf.getProxyList().getFirst().getChoiceList().size());
     assertEquals(link,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource().getResource());
+        testRdf.getProxyList().getFirst().getChoiceList().getFirst().getCoverage().getResource().getResource());
 
   }
 
@@ -134,12 +134,12 @@ class RdfEntityUtilsTest {
     proxyProvider.setEuropeanaProxy(providerProxy);
 
     ArrayList<ProxyType> proxyList = new ArrayList<>();
-    proxyList.add(PROXY_EUROPEANA);
+    proxyList.add(proxyEuropeana);
     proxyList.add(proxyProvider);
 
-    TEST_RDF.setProxyList(proxyList);
+    testRdf.setProxyList(proxyList);
 
-    List<ProxyType> output = RdfEntityUtils.getProviderProxies(TEST_RDF);
+    List<ProxyType> output = RdfEntityUtils.getProviderProxies(testRdf);
     assertNotNull(output);
     assertEquals(1, output.size());
     assertNotNull(output.getFirst());
@@ -149,65 +149,65 @@ class RdfEntityUtilsTest {
 
   @Test
   void testGetProviderProxyWithoutProvider() {
-    TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
-    List<ProxyType> output = RdfEntityUtils.getProviderProxies(TEST_RDF);
+    testRdf.setProxyList(Collections.singletonList(proxyEuropeana));
+    List<ProxyType> output = RdfEntityUtils.getProviderProxies(testRdf);
     assertNotNull(output);
     assertTrue(output.isEmpty());
   }
 
   @Test
   void testRemoveMatchingEntities() {
-    TEST_RDF.setProxyList(Collections.singletonList(PROXY_EUROPEANA));
+    testRdf.setProxyList(Collections.singletonList(proxyEuropeana));
 
     String agentLink = "http://data.europeana.eu/agent/example1";
     String conceptLink = "http://data.europeana.eu/concept/example1";
     String placeLink = "http://data.europeana.eu/place/example1";
     String timespanLink = "http://data.europeana.eu/timespan/example1";
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, agentLink,
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, agentLink,
         Sets.newHashSet(ProxyFieldType.DC_CREATOR));
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, conceptLink,
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, conceptLink,
         Sets.newHashSet(ProxyFieldType.DC_SUBJECT));
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, placeLink,
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, placeLink,
         Sets.newHashSet(ProxyFieldType.DC_COVERAGE));
-    RdfEntityUtils.appendLinkToEuropeanaProxy(TEST_RDF, timespanLink,
+    RdfEntityUtils.appendLinkToEuropeanaProxy(testRdf, timespanLink,
         Sets.newHashSet(ProxyFieldType.DCTERMS_CREATED));
 
     final AgentType agentType = new AgentType();
     agentType.setAbout(agentLink);
-    TEST_RDF.setAgentList(new ArrayList<>(Collections.singleton(agentType)));
+    testRdf.setAgentList(new ArrayList<>(Collections.singleton(agentType)));
 
     final Concept concept = new Concept();
     concept.setAbout(conceptLink);
-    TEST_RDF.setConceptList(new ArrayList<>(Collections.singleton(concept)));
+    testRdf.setConceptList(new ArrayList<>(Collections.singleton(concept)));
 
     final PlaceType placeType = new PlaceType();
     placeType.setAbout(placeLink);
-    TEST_RDF.setPlaceList(new ArrayList<>(Collections.singleton(placeType)));
+    testRdf.setPlaceList(new ArrayList<>(Collections.singleton(placeType)));
 
     final TimeSpanType timeSpanType = new TimeSpanType();
     timeSpanType.setAbout(timespanLink);
-    TEST_RDF.setTimeSpanList(new ArrayList<>(Collections.singleton(timeSpanType)));
+    testRdf.setTimeSpanList(new ArrayList<>(Collections.singleton(timeSpanType)));
 
-    assertEquals(4, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
+    assertEquals(4, testRdf.getProxyList().getFirst().getChoiceList().size());
     assertEquals(agentLink,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().getFirst().getCreator().getResource()
-                .getResource());
-    assertEquals(1, TEST_RDF.getAgentList().size());
+        testRdf.getProxyList().getFirst().getChoiceList().getFirst().getCreator().getResource()
+               .getResource());
+    assertEquals(1, testRdf.getAgentList().size());
 
     assertEquals(conceptLink,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().get(1).getSubject().getResource()
-                .getResource());
-    assertEquals(1, TEST_RDF.getConceptList().size());
+        testRdf.getProxyList().getFirst().getChoiceList().get(1).getSubject().getResource()
+               .getResource());
+    assertEquals(1, testRdf.getConceptList().size());
 
     assertEquals(placeLink,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().get(2).getCoverage().getResource()
-                .getResource());
-    assertEquals(1, TEST_RDF.getPlaceList().size());
+        testRdf.getProxyList().getFirst().getChoiceList().get(2).getCoverage().getResource()
+               .getResource());
+    assertEquals(1, testRdf.getPlaceList().size());
 
     assertEquals(timespanLink,
-        TEST_RDF.getProxyList().getFirst().getChoiceList().get(3).getCreated().getResource()
-                .getResource());
-    assertEquals(1, TEST_RDF.getTimeSpanList().size());
+        testRdf.getProxyList().getFirst().getChoiceList().get(3).getCreated().getResource()
+               .getResource());
+    assertEquals(1, testRdf.getTimeSpanList().size());
 
     //Find the correct links
     final Set<String> links = new HashSet<>();
@@ -215,12 +215,12 @@ class RdfEntityUtilsTest {
     links.add(conceptLink);
     links.add(placeLink);
     links.add(timespanLink);
-    RdfEntityUtils.removeMatchingEntities(TEST_RDF, links);
+    RdfEntityUtils.removeMatchingEntities(testRdf, links);
 
-    assertEquals(0, TEST_RDF.getProxyList().getFirst().getChoiceList().size());
-    assertEquals(0, TEST_RDF.getAgentList().size());
-    assertEquals(0, TEST_RDF.getConceptList().size());
-    assertEquals(0, TEST_RDF.getPlaceList().size());
-    assertEquals(0, TEST_RDF.getTimeSpanList().size());
+    assertEquals(0, testRdf.getProxyList().getFirst().getChoiceList().size());
+    assertEquals(0, testRdf.getAgentList().size());
+    assertEquals(0, testRdf.getConceptList().size());
+    assertEquals(0, testRdf.getPlaceList().size());
+    assertEquals(0, testRdf.getTimeSpanList().size());
   }
 }
