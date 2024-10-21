@@ -57,7 +57,7 @@ public class RecordController {
 
   private static final Pattern UNSUPPORTED_CHARACTERS_PATTERN = Pattern.compile("\\W");
   private static final String REPLACEMENT_CHARACTER = "_";
-  public static final String NOT_FOUND_REPORT_STRING = "No record found for this identifier.";
+  public static final String NOT_FOUND_LOG_STRING = "No record found for this identifier.";
 
   private RecordDao recordDao;
 
@@ -170,7 +170,7 @@ public class RecordController {
       @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_REPORT_STRING);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
     return saveRecord(recordId, datasetId, dateStamp, markAsDeleted, oaiRecord.getEdmRecord());
   }
@@ -209,7 +209,7 @@ public class RecordController {
       @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_REPORT_STRING);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
     return new RecordView(oaiRecord.getRecordId(), oaiRecord.getDatasetId(), oaiRecord.getDateStamp(),
         oaiRecord.isDeleted(), oaiRecord.getEdmRecord());
@@ -228,7 +228,7 @@ public class RecordController {
   public void deleteRecord(
       @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
     if (!recordDao.deleteRecord(recordId)) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_REPORT_STRING);
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
   }
 
