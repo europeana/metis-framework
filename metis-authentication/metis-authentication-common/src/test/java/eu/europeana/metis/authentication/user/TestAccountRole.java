@@ -6,10 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import eu.europeana.metis.exception.BadContentException;
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-11-03
- */
 class TestAccountRole {
 
   @Test

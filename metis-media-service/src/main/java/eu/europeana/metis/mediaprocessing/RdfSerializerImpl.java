@@ -1,62 +1,23 @@
 package eu.europeana.metis.mediaprocessing;
 
-import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.mediaprocessing.exception.RdfSerializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import org.jibx.runtime.IMarshallingContext;
-import org.jibx.runtime.JiBXException;
+import eu.europeana.metis.schema.convert.RdfConversionUtils;
+import eu.europeana.metis.schema.convert.SerializationException;
 
 /**
  * This object implements RDF serialization functionality.
- *
- * TODO use {@link eu.europeana.metis.schema.convert.RdfConversionUtils} - no org.jibx.runtime.*
- * import should remain.
  */
 class RdfSerializerImpl implements RdfSerializer {
 
-  private final MarshallingContextWrapper marshallingContext = new MarshallingContextWrapper();
-
-  private static class MarshallingContextWrapper extends
-          AbstractThreadSafeWrapper<IMarshallingContext, RdfSerializationException> {
-
-    MarshallingContextWrapper() {
-      super(() -> {
-        try {
-          return RdfBindingFactoryProvider.getBindingFactory().createMarshallingContext();
-        } catch (JiBXException e) {
-          throw new RdfSerializationException("Problem creating serializer.", e);
-        }
-      });
-    }
-
-    void serializeFromRdf(RDF rdf, OutputStream outputStream) throws RdfSerializationException {
-      process(context -> {
-        try {
-          context.marshalDocument(rdf, "UTF-8", null, outputStream);
-          return null;
-        } catch (JiBXException e) {
-          throw new RdfSerializationException("Problem with serializing RDF.", e);
-        }
-      });
-    }
-  }
+  private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   @Override
   public byte[] serialize(EnrichedRdf rdf) throws RdfSerializationException {
-    try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-      serialize(rdf, outputStream);
-      return outputStream.toByteArray();
-    } catch (IOException e) {
+    try {
+      return rdfConversionUtils.convertRdfToBytes(rdf.finalizeRdf());
+    } catch (SerializationException e) {
       throw new RdfSerializationException("Problem with serializing RDF.", e);
     }
-  }
-
-  @Override
-  public void serialize(EnrichedRdf rdf, OutputStream outputStream)
-      throws RdfSerializationException {
-    marshallingContext.serializeFromRdf(rdf.finalizeRdf(), outputStream);
   }
 }

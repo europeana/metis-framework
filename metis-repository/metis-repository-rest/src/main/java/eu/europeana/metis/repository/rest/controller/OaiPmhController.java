@@ -61,6 +61,15 @@ public class OaiPmhController {
     this.recordDao = recordDao;
   }
 
+  /**
+   * Request an OAI-PMH ListIdentifiers or GetRecord given the required parameters.
+   *
+   * @param verb the verb, can be ListIdentifiers or GetRecord
+   * @param set the set
+   * @param metadataPrefix the metadata prefix
+   * @param identifier the identifier in case of GetRecord verb
+   * @return the response
+   */
   @GetMapping(value = RestEndpoints.REPOSITORY_OAI_ENDPOINT,
       produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)

@@ -301,10 +301,9 @@ class LanguageTagStatisticsTest {
     final PropertyType propertyType = PropertyType.DC_FORMAT;
 
     // Test sanity check
-    assertThrows(IllegalArgumentException.class,
-        () -> statistics.addToStatistics(Arrays.asList(valid1, valid2), null));
-    assertThrows(IllegalArgumentException.class,
-        () -> statistics.addToStatistics((List<ResourceOrLiteralType>) null, null));
+    final List<ResourceOrLiteralType> resourceOrLiteralTypes = Arrays.asList(valid1, valid2);
+    assertThrows(IllegalArgumentException.class, () -> statistics.addToStatistics(resourceOrLiteralTypes, null));
+    assertThrows(IllegalArgumentException.class, () -> statistics.addToStatistics((List<ResourceOrLiteralType>) null, null));
     statistics.addToStatistics((List<ResourceOrLiteralType>) null, propertyType);
     verify(statistics, never()).addToStatistics(any(ResourceOrLiteralType.class), any());
 
