@@ -116,19 +116,19 @@ public class OEmbedProcessor implements MediaProcessor {
       if ("photo".equals(oEmbedType) && isValidTypePhoto(oEmbedModel)) {
         checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
         ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(oEmbedMimetype,
-            resource.getResourceUrl(), resource.getProvidedFileSize(),
+            resource.getResourceUrl(), null,
             oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null, null);
         resourceExtractionResult = new ResourceExtractionResultImpl(imageResourceMetadata);
       } else if ("video".equals(oEmbedType) && isValidTypeVideo(oEmbedModel)) {
         checkValidWidthAndHeightDimensions(oEmbedModel, resource.getResourceUrl());
         Double duration = getDurationFromModel(oEmbedModel);
         VideoResourceMetadata videoResourceMetadata = new VideoResourceMetadata(oEmbedMimetype,
-            resource.getResourceUrl(), resource.getProvidedFileSize(), duration, null,
+            resource.getResourceUrl(), null, duration, null,
             oEmbedModel.getWidth(), oEmbedModel.getHeight(), null, null);
         resourceExtractionResult = new ResourceExtractionResultImpl(videoResourceMetadata);
       } else {
         GenericResourceMetadata genericResourceMetadata = new GenericResourceMetadata(oEmbedMimetype,
-            resource.getResourceUrl(), resource.getProvidedFileSize());
+            resource.getResourceUrl(), null);
         resourceExtractionResult = new ResourceExtractionResultImpl(genericResourceMetadata);
       }
     }
