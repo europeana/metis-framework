@@ -1,6 +1,7 @@
 package eu.europeana.metis.repository.rest.controller;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
@@ -54,8 +55,9 @@ public class RecordController {
   public static final String CONTROLLER_TAG_NAME = "RecordController";
   private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
 
-  private static final Pattern UNSUPPORTED_CHARACTERS_PATTERN = Pattern.compile("[^a-zA-Z0-9_]");
+  private static final Pattern UNSUPPORTED_CHARACTERS_PATTERN = Pattern.compile("\\W");
   private static final String REPLACEMENT_CHARACTER = "_";
+  public static final String NOT_FOUND_LOG_STRING = "No record found for this identifier.";
 
   private RecordDao recordDao;
 
@@ -70,6 +72,7 @@ public class RecordController {
    * @param recordId - A unique record id
    * @param datasetId - The id of the dataset which the record belongs to
    * @param dateStamp - Last time the record was updated. It can also be the date of creation
+   * @param markAsDeleted Mark record as deleted
    * @param edmRecord - The record itself
    * @return a summary of the performed actions.
    */
@@ -126,10 +129,14 @@ public class RecordController {
     final InsertionResult result = new InsertionResult(datasetId,
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
     try (final InputStream inputStream = recordsZipFile.getInputStream()) {
-      new HttpHarvesterImpl().harvestRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
-        final byte[] content = entry.getEntryContent().readAllBytes();
-        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getEntryName());
+      new HttpHarvesterImpl().harvestFullRecords(inputStream, CompressedFileExtension.ZIP, entry -> {
+        final byte[] content;
+        try (InputStream contentStream = entry.getContent()) {
+          content = contentStream.readAllBytes();
+        }
+        final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getHarvestingIdentifier());
         saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result, false);
+        return IterationResult.CONTINUE;
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
 
@@ -143,9 +150,10 @@ public class RecordController {
   /**
    * Update record header (metadata information) of the record given by the record ID.
    *
-   * @param recordId - A unique record id
-   * @param datasetId - The id of the dataset which the record belongs to
-   * @param dateStamp - Last time the record was updated. It can also be the date of creation
+   * @param recordId A unique record id
+   * @param datasetId The id of the dataset which the record belongs to
+   * @param dateStamp Last time the record was updated. It can also be the date of creation
+   * @param markAsDeleted Mark record as deleted
    * @return a summary of the performed actions.
    */
   @PutMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER,
@@ -162,7 +170,7 @@ public class RecordController {
       @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found for this identifier.");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
     return saveRecord(recordId, datasetId, dateStamp, markAsDeleted, oaiRecord.getEdmRecord());
   }
@@ -186,6 +194,11 @@ public class RecordController {
     }
   }
 
+  /**
+   * Get a record from the database using an identifier.
+   * @param recordId the record identifier
+   * @return the record
+   */
   @GetMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID,
       produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -196,12 +209,16 @@ public class RecordController {
       @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found for this identifier.");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
     return new RecordView(oaiRecord.getRecordId(), oaiRecord.getDatasetId(), oaiRecord.getDateStamp(),
         oaiRecord.isDeleted(), oaiRecord.getEdmRecord());
   }
 
+  /**
+   * Delete a record from the database given a record identifier.
+   * @param recordId the record identifier
+   */
   @DeleteMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID)
   @ResponseStatus(HttpStatus.OK)
   @ApiOperation(value = "The record is deleted from the database. Note: this is not the same as "
@@ -211,7 +228,7 @@ public class RecordController {
   public void deleteRecord(
       @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
     if (!recordDao.deleteRecord(recordId)) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found for this identifier.");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
   }
 

@@ -22,8 +22,6 @@ import org.springframework.web.client.HttpServerErrorException;
  * A utilities class used to encapsulate methods that throw exceptions {@link RuntimeException} or
  * {@link Exception} and should follow retries logic based on specific caused exceptions.
  *
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2018-07-24
  */
 public final class ExternalRequestUtil {
 

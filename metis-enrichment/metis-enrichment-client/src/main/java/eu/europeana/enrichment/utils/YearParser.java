@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.utils;
 
-import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +71,7 @@ public class YearParser {
       readLines = IOUtils
           .readLines(Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath),
               StandardCharsets.UTF_8.name());
-    } catch (IOException e) {
+    } catch (UncheckedIOException e) {
       LOGGER.error("Problem reading file '" + filePath + "'", e);
       return Collections.emptyList();
     }

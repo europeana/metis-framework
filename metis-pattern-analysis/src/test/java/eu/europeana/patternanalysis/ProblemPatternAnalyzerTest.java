@@ -74,7 +74,7 @@ class ProblemPatternAnalyzerTest {
     return problemPatterns.stream()
                           .filter(problemPattern -> problemPattern.getProblemPatternDescription()
                               == problemPatternDescription)
-                          .map(problemPattern -> problemPattern.getRecordAnalysisList().get(0).getProblemOccurrenceList().size())
+                          .map(problemPattern -> problemPattern.getRecordAnalysisList().getFirst().getProblemOccurrenceList().size())
                           .findFirst().orElse(0);
   }
 

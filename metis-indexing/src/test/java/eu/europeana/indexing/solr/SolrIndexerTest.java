@@ -85,7 +85,7 @@ class SolrIndexerTest {
       assertThatDocumentFieldsExist(document);
     });
     assertEquals(expectedSize, documents.size());
-    return documents.get(0);
+    return documents.getFirst();
   }
 
   private void assertThatDocumentFieldsExist(SolrDocument document) {

@@ -59,7 +59,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class ResourceLinkFromProxyTest {
@@ -95,8 +94,7 @@ class ResourceLinkFromProxyTest {
     // Test with actual value
     final String testResource = "test resource";
     value.setResource(testResource);
-    final List<String> links = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+    final List<String> links = resource.getLinkAndValueGetter().getLinks(proxy).toList();
     assertEquals(Collections.singletonList(testResource), links);
     assertNoValues(proxy, resource);
   }
@@ -144,15 +142,13 @@ class ResourceLinkFromProxyTest {
     final String testResource2 = "test resource 2";
     value1.setResource(testResource1);
     value2.setResource(testResource2);
-    final List<String> linksDifferent = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+    final List<String> linksDifferent = resource.getLinkAndValueGetter().getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource2), linksDifferent);
     assertNoValues(proxy, resource);
 
     // Test with the same values
     value2.setResource(testResource1);
-    final List<String> linksSame = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+    final List<String> linksSame = resource.getLinkAndValueGetter().getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource1), linksSame);
     assertNoValues(proxy, resource);
   }
@@ -193,9 +189,9 @@ class ResourceLinkFromProxyTest {
     value.getResource().setResource(testResource);
     value.setString(testLiteral);
     final List<String> links = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+        .getLinks(proxy).toList();
     final List<String> values = resource.getLinkAndValueGetter()
-        .getValues(proxy).collect(Collectors.toList());
+        .getValues(proxy).toList();
     assertEquals(Collections.singletonList(testResource), links);
     assertEquals(Collections.singletonList(testLiteral), values);
   }
@@ -242,20 +238,20 @@ class ResourceLinkFromProxyTest {
     value1.setString(testLiteral1);
     value2.setString(testLiteral2);
     final List<String> linksDifferent = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+        .getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource2), linksDifferent);
     final List<String> valuesDifferent = resource.getLinkAndValueGetter()
-        .getValues(proxy).collect(Collectors.toList());
+        .getValues(proxy).toList();
     assertEquals(Arrays.asList(testLiteral1, testLiteral2), valuesDifferent);
 
     // Test with the same values
     value2.getResource().setResource(testResource1);
     value2.setString(testLiteral1);
     final List<String> linksSame = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+        .getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource1), linksSame);
     final List<String> valuesSame = resource.getLinkAndValueGetter()
-        .getValues(proxy).collect(Collectors.toList());
+        .getValues(proxy).toList();
     assertEquals(Arrays.asList(testLiteral1, testLiteral1), valuesSame);
 
   }
@@ -359,20 +355,20 @@ class ResourceLinkFromProxyTest {
     value1.setString(testLiteral1);
     value2.setString(testLiteral2);
     final List<String> linksDifferent = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+        .getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource2), linksDifferent);
     final List<String> valuesDifferent = resource.getLinkAndValueGetter()
-        .getValues(proxy).collect(Collectors.toList());
+        .getValues(proxy).toList();
     assertEquals(Arrays.asList(testLiteral1, testLiteral2), valuesDifferent);
 
     // Test with the same values
     value2.getResource().setResource(testResource1);
     value2.setString(testLiteral1);
     final List<String> linksSame = resource.getLinkAndValueGetter()
-        .getLinks(proxy).collect(Collectors.toList());
+        .getLinks(proxy).toList();
     assertEquals(Arrays.asList(testResource1, testResource1), linksSame);
     final List<String> valuesSame = resource.getLinkAndValueGetter()
-        .getValues(proxy).collect(Collectors.toList());
+        .getValues(proxy).toList();
     assertEquals(Arrays.asList(testLiteral1, testLiteral1), valuesSame);
   }
 

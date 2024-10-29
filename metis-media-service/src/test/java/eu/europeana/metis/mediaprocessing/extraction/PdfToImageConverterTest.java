@@ -50,6 +50,12 @@ class PdfToImageConverterTest {
     final List<String> ghostScriptVersionCommand = Arrays.asList(ghostScriptCommand, "--version");
 
     // Test right version
+    doReturn("10.02").when(commandExecutor)
+                    .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
+    assertEquals(ghostScriptCommand,
+        PdfToImageConverter.discoverGhostScriptCommand(commandExecutor));
+
+    // Test right version
     doReturn("9.26").when(commandExecutor)
                     .execute(eq(ghostScriptVersionCommand), anyMap(), eq(true), any());
     assertEquals(ghostScriptCommand,

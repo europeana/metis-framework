@@ -16,6 +16,7 @@ import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.lang.invoke.MethodHandles;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
 
   private final MongoClient mongoClient;
   private final RecordDao recordDao;
+  private RecordDao tombstoneRecordDao;
   private final RecordRedirectDao recordRedirectDao;
 
   /**
@@ -48,6 +50,9 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
     try {
       this.mongoClient = createMongoClient(settings);
       this.recordDao = new RecordDao(this.mongoClient, nonNullFieldName(settings.getMongoDatabaseName(), "mongoDatabaseName"));
+      if (StringUtils.isNotBlank(settings.getMongoTombstoneDatabaseName())) {
+        this.tombstoneRecordDao = new RecordDao(this.mongoClient, settings.getMongoTombstoneDatabaseName());
+      }
       this.recordRedirectDao = new RecordRedirectDao(this.mongoClient,
           nonNullFieldName(settings.getRecordRedirectDatabaseName(), "recordRedirectDatabaseName"));
     } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
@@ -77,6 +82,11 @@ public final class MongoConnectionProvider implements AbstractConnectionProvider
   @Override
   public RecordDao getRecordDao() {
     return recordDao;
+  }
+
+  @Override
+  public RecordDao getTombstoneRecordDao() {
+    return tombstoneRecordDao;
   }
 
   @Override

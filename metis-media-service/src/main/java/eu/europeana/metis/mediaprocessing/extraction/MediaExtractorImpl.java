@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import org.apache.tika.io.TikaInputStream;
@@ -43,7 +45,8 @@ public class MediaExtractorImpl implements MediaExtractor {
   private static final Set<UrlType> URL_TYPES_FOR_REDUCED_PROCESSING = Collections
       .singleton(UrlType.IS_SHOWN_AT);
 
-  private final ResourceDownloadClient resourceDownloadClient;
+  private final ResourceDownloadClient resourceDownloadClientOembed;
+  private final ResourceDownloadClient resourceDownloadClientNonOembed;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final TikaWrapper tika;
 
@@ -51,6 +54,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
+  private final OEmbedProcessor oEmbedProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -58,20 +62,20 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param resourceDownloadClient The download client for resources.
    * @param mimeTypeDetectHttpClient The mime type detector for URLs.
    * @param tika A tika instance.
-   * @param imageProcessor An image processor.
-   * @param audioVideoProcessor An audio/video processor.
-   * @param textProcessor A text processor.
+   * @param mediaProcessorList the media processor list
    */
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
-      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika, ImageProcessor imageProcessor,
-      AudioVideoProcessor audioVideoProcessor, TextProcessor textProcessor, Media3dProcessor media3dProcessor) {
-    this.resourceDownloadClient = resourceDownloadClient;
+      MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
+      List<MediaProcessor> mediaProcessorList) {
+    this.resourceDownloadClientNonOembed = resourceDownloadClient;
+    this.resourceDownloadClientOembed = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
-    this.imageProcessor = imageProcessor;
-    this.audioVideoProcessor = audioVideoProcessor;
-    this.textProcessor = textProcessor;
-    this.media3dProcessor = media3dProcessor;
+    this.imageProcessor = (ImageProcessor) getMediaProcessor(mediaProcessorList, ImageProcessor.class);
+    this.audioVideoProcessor = (AudioVideoProcessor) getMediaProcessor(mediaProcessorList, AudioVideoProcessor.class);
+    this.textProcessor = (TextProcessor) getMediaProcessor(mediaProcessorList, TextProcessor.class);
+    this.media3dProcessor = (Media3dProcessor) getMediaProcessor(mediaProcessorList, Media3dProcessor.class);
+    this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
   }
 
   /**
@@ -92,8 +96,12 @@ public class MediaExtractorImpl implements MediaExtractor {
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
-    this.resourceDownloadClient = new ResourceDownloadClient(redirectCount,
-        this::shouldDownloadForFullProcessing, connectTimeout, responseTimeout, downloadTimeout);
+    this.resourceDownloadClientOembed = new ResourceDownloadClient(redirectCount,
+        type -> this.shouldDownloadForFullProcessing(type, true),
+        connectTimeout, responseTimeout, downloadTimeout);
+    this.resourceDownloadClientNonOembed = new ResourceDownloadClient(redirectCount,
+        type -> this.shouldDownloadForFullProcessing(type, false),
+        connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
     this.tika = new TikaWrapper();
@@ -102,6 +110,16 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = new TextProcessor(thumbnailGenerator,
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
+    this.oEmbedProcessor = new OEmbedProcessor();
+  }
+
+  private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
+    for (Object mediaProcessor : mediaProcessorList) {
+      if (type.isInstance(mediaProcessor)) {
+        return type.cast(mediaProcessor);
+      }
+    }
+    return null;
   }
 
   @Override
@@ -115,26 +133,36 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Download resource and then perform media extraction on it.
-    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
-      return performProcessing(resource, mode, mainThumbnailAvailable);
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode,
+        resourceEntry.isResourceConfiguredForOembed())) {
+      return performProcessing(resource, mode, mainThumbnailAvailable,
+          resourceEntry.isResourceConfiguredForOembed());
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
   }
 
+  private ResourceDownloadClient getResourceDownloadClient(boolean potentialOembedResource) {
+    return potentialOembedResource ? this.resourceDownloadClientOembed
+        : this.resourceDownloadClientNonOembed;
+  }
+
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
-      ProcessingMode mode) throws IOException {
+      ProcessingMode mode, boolean potentialOembedResource) throws IOException {
 
     // Determine the download method to use (full download vs. quick ping)
+    final ResourceDownloadClient client = getResourceDownloadClient(potentialOembedResource);
     return (mode == ProcessingMode.FULL)
-        ? this.resourceDownloadClient.downloadBasedOnMimeType(resourceEntry)
-        : this.resourceDownloadClient.downloadWithoutContent(resourceEntry);
+        ? client.downloadBasedOnMimeType(resourceEntry)
+        : client.downloadWithoutContent(resourceEntry);
   }
 
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
-    if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
+    if (resourceEntry.isResourceConfiguredForOembed()) {
+      result = ProcessingMode.FULL;
+    } else if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
       result = ProcessingMode.FULL;
     } else if (URL_TYPES_FOR_REDUCED_PROCESSING.stream()
                                                .anyMatch(resourceEntry.getUrlTypes()::contains)) {
@@ -193,26 +221,40 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
   }
 
-  MediaProcessor chooseMediaProcessor(MediaType mediaType) {
-    final MediaProcessor processor;
-    switch (mediaType) {
-      case TEXT -> processor = textProcessor;
-      case AUDIO, VIDEO -> processor = audioVideoProcessor;
-      case IMAGE -> processor = imageProcessor;
-      case THREE_D -> processor = media3dProcessor;
-      default -> processor = null;
+  List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,
+      boolean potentialOembedResource) {
+    return switch (mediaType) {
+      case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType,
+          potentialOembedResource);
+      case AUDIO, VIDEO -> List.of(audioVideoProcessor);
+      case IMAGE ->  List.of(imageProcessor);
+      case THREE_D -> List.of(media3dProcessor);
+    };
+  }
+
+  private List<MediaProcessor> chooseMediaProcessorTextAndOther(MediaType mediaType,
+      String detectedMimeType, boolean potentialOembedResource) {
+    if (detectedMimeType == null) {
+      return Collections.emptyList();
+    } else if (potentialOembedResource && (detectedMimeType.startsWith("text/xml")
+        || detectedMimeType.startsWith("application/xml") || detectedMimeType.startsWith("application/json"))) {
+      return List.of(oEmbedProcessor, textProcessor);
+    } else if (mediaType == MediaType.TEXT) {
+      return List.of(textProcessor);
+    } else {
+      return Collections.emptyList();
     }
-    return processor;
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
-      String detectedMimeType) throws MediaExtractionException, IOException {
+      String detectedMimeType, boolean potentialOembedResource)
+      throws MediaExtractionException, IOException {
 
     // If the mime type changed and we need the content after all, we download it.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
-        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType())) {
-      final RdfResourceEntry downloadInput =
-          new RdfResourceEntry(resource.getResourceUrl(), new ArrayList<>(resource.getUrlTypes()));
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, potentialOembedResource)
+        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), potentialOembedResource)) {
+      final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
+          new ArrayList<>(resource.getUrlTypes()), potentialOembedResource);
 
       ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
         if (resourceWithContent.hasContent()) {
@@ -221,14 +263,14 @@ public class MediaExtractorImpl implements MediaExtractor {
           }
         }
       };
-      try (final Resource resourceWithContent = this.resourceDownloadClient
+      try (final Resource resourceWithContent = getResourceDownloadClient(potentialOembedResource)
           .downloadWithContent(downloadInput)) {
         performThrowingAction(resourceWithContent, action);
       }
     }
 
     // Verify that we have content when we need to.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType)
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, potentialOembedResource)
         && !resource.hasContent()) {
       throw new MediaExtractionException(
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
@@ -236,7 +278,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
-      boolean mainThumbnailAvailable) throws MediaExtractionException {
+      boolean mainThumbnailAvailable, boolean potentialOembedResource) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -249,39 +291,53 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {
-      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType);
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType, potentialOembedResource);
     } catch (IOException e) {
       throw new MediaExtractionException("Content availability verification error.", e);
     }
 
     // Choose the right media processor.
-    final MediaProcessor processor = chooseMediaProcessor(MediaType.getMediaType(detectedMimeType));
+    final List<MediaProcessor> processors = chooseMediaProcessor(
+        MediaType.getMediaType(detectedMimeType), detectedMimeType, potentialOembedResource);
 
-    // Process the resource depending on the mode.
+    // Go in order, the first result we get, we accept.
+    for (MediaProcessor processor: processors) {
+      final ResourceExtractionResult result = getResourceExtractionResult(resource, mode,
+          mainThumbnailAvailable, processor, detectedMimeType);
+      if (result != null) {
+        return result;
+      }
+    }
+    return null;
+  }
+
+  private static ResourceExtractionResult getResourceExtractionResult(Resource resource,
+      ProcessingMode mode, boolean mainThumbnailAvailable, MediaProcessor processor,
+      String detectedMimeType) throws MediaExtractionException {
     final ResourceExtractionResult result;
-    if (processor == null) {
-      result = null;
-    } else if (mode == ProcessingMode.FULL) {
+    // Process the resource depending on the mode.
+    if (mode == ProcessingMode.FULL) {
       result = processor.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     } else {
       result = processor.copyMetadata(resource, detectedMimeType);
     }
-
-    // Done
     return result;
   }
 
   @Override
   public void close() throws IOException {
-    resourceDownloadClient.close();
+    resourceDownloadClientOembed.close();
+    resourceDownloadClientNonOembed.close();
     mimeTypeDetectHttpClient.close();
   }
 
   /**
    * @return true if and only if resources of the given type need to be downloaded before performing full processing.
    */
-  boolean shouldDownloadForFullProcessing(String mimeType) {
-    return Optional.of(MediaType.getMediaType(mimeType)).map(this::chooseMediaProcessor)
-                   .map(MediaProcessor::downloadResourceForFullProcessing).orElse(Boolean.FALSE);
+  boolean shouldDownloadForFullProcessing(String mimeType, boolean potentialOembedResource) {
+    return Optional.of(MediaType.getMediaType(mimeType))
+        .map(mediaType -> chooseMediaProcessor(mediaType, mimeType, potentialOembedResource))
+        .stream().flatMap(Collection::stream)
+        .anyMatch(MediaProcessor::downloadResourceForFullProcessing);
   }
 }

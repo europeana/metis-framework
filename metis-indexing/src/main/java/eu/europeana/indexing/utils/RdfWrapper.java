@@ -63,13 +63,19 @@ public class RdfWrapper {
     this.rdfRecord = rdfRecord;
   }
 
-  private static boolean isEuropeanaProxy(ProxyType proxy) {
+  /**
+   * Identify if a proxy is a Europeana one.
+   *
+   * @param proxy the proxy to identify
+   * @return true if it is a Europeana proxy, otherwise false
+   */
+  public static boolean isEuropeanaProxy(ProxyType proxy) {
     return Optional.of(proxy).map(ProxyType::getEuropeanaProxy)
                    .map(EuropeanaProxy::isEuropeanaProxy).orElse(Boolean.FALSE);
   }
 
   private static <T extends AboutType> List<T> getFilteredPropertyList(List<T> propertyList) {
-    return getFilteredPropertyStream(propertyList).collect(Collectors.toList());
+    return getFilteredPropertyStream(propertyList).toList();
   }
 
   private static <T extends AboutType> Stream<T> getFilteredPropertyStream(List<T> propertyList) {
@@ -121,30 +127,26 @@ public class RdfWrapper {
 
   public List<Identifier> getProviderProxyIdentifiers() {
     final List<Choice> choiceList = getProviderProxiesChoices();
-    return choiceList.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier)
-                     .filter(Objects::nonNull).collect(Collectors.toList());
+    return choiceList.stream().filter(Choice::ifIdentifier).map(Choice::getIdentifier).filter(Objects::nonNull).toList();
   }
 
   public List<Title> getProviderProxyTitles() {
     final List<Choice> choiceList = getProviderProxiesChoices();
-    return choiceList.stream().filter(Choice::ifTitle).map(Choice::getTitle)
-                     .filter(Objects::nonNull).collect(Collectors.toList());
+    return choiceList.stream().filter(Choice::ifTitle).map(Choice::getTitle).filter(Objects::nonNull).toList();
   }
 
   public List<Description> getProviderProxyDescriptions() {
     final List<Choice> choiceList = getProviderProxiesChoices();
-    return choiceList.stream().filter(Choice::ifDescription).map(Choice::getDescription)
-                     .filter(Objects::nonNull).collect(Collectors.toList());
+    return choiceList.stream().filter(Choice::ifDescription).map(Choice::getDescription).filter(Objects::nonNull).toList();
   }
 
   public List<Choice> getProviderProxiesChoices() {
-    return getProviderProxies().stream().map(EuropeanaType::getChoiceList).filter(Objects::nonNull)
-                               .flatMap(Collection::stream).filter(Objects::nonNull).collect(Collectors.toList());
+    return getProviderProxies().stream().map(EuropeanaType::getChoiceList).filter(Objects::nonNull).flatMap(Collection::stream)
+                               .filter(Objects::nonNull).toList();
   }
 
   public List<IsShownBy> getIsShownByList() {
-    return getAggregations().stream().map(Aggregation::getIsShownBy).filter(Objects::nonNull)
-                            .collect(Collectors.toList());
+    return getAggregations().stream().map(Aggregation::getIsShownBy).filter(Objects::nonNull).toList();
   }
 
   /**
@@ -171,8 +173,7 @@ public class RdfWrapper {
    * @return The list of proxies. Is not null, but could be empty.
    */
   public List<ProxyType> getProviderProxies() {
-    return getProxies().stream().filter(proxy -> !isEuropeanaProxy(proxy))
-                       .collect(Collectors.toList());
+    return getProxies().stream().filter(proxy -> !isEuropeanaProxy(proxy)).toList();
   }
 
   /**
@@ -261,8 +262,7 @@ public class RdfWrapper {
         types);
     return getFilteredPropertyStream(rdfRecord.getWebResourceList())
         .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout())).map(
-            webResource -> new WebResourceWrapper(webResource,
-                webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
+            webResource -> new WebResourceWrapper(webResource, webResourceUrlsWithTypes.get(webResource.getAbout()))).toList();
   }
 
   /**
@@ -288,8 +288,7 @@ public class RdfWrapper {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
         Stream.of(WebResourceLinkType.values()).collect(Collectors.toSet()));
     return getFilteredPropertyStream(rdfRecord.getWebResourceList()).map(
-        webResource -> new WebResourceWrapper(webResource,
-            webResourceUrlsWithTypes.get(webResource.getAbout()))).collect(Collectors.toList());
+        webResource -> new WebResourceWrapper(webResource, webResourceUrlsWithTypes.get(webResource.getAbout()))).toList();
   }
 
   /**
@@ -304,8 +303,7 @@ public class RdfWrapper {
     final Map<String, Set<WebResourceLinkType>> webResourceUrlsWithTypes = getAllLinksForTypes(
         types);
     return getFilteredPropertyStream(rdfRecord.getWebResourceList())
-        .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout()))
-        .collect(Collectors.toList());
+        .filter(webResource -> webResourceUrlsWithTypes.containsKey(webResource.getAbout())).toList();
   }
 
   /**
@@ -444,8 +442,6 @@ public class RdfWrapper {
                                                         .map(ProxyIn::getResource)
                                                         .collect(Collectors.toSet());
 
-    return rdfRecord.getAggregationList().stream()
-                    .filter(aggregation -> proxyInList.contains(aggregation.getAbout()))
-                    .collect(Collectors.toList());
+    return rdfRecord.getAggregationList().stream().filter(aggregation -> proxyInList.contains(aggregation.getAbout())).toList();
   }
 }

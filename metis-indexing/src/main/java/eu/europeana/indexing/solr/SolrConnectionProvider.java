@@ -39,6 +39,11 @@ public final class SolrConnectionProvider implements AbstractConnectionProvider 
   }
 
   @Override
+  public RecordDao getTombstoneRecordDao() {
+    return null;
+  }
+
+  @Override
   public RecordRedirectDao getRecordRedirectDao() {
     return null;
   }

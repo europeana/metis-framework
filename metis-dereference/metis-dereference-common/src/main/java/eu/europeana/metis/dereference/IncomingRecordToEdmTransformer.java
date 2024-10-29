@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference;
 
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
 
 import eu.europeana.metis.exception.BadContentException;
 import java.io.ByteArrayInputStream;
@@ -105,8 +105,7 @@ public class IncomingRecordToEdmTransformer {
     if (isEmptyXml(xml)) {
       xmlResponse = Optional.empty();
       if (LOGGER.isInfoEnabled()) {
-        LOGGER.info("Transformed entity {} results to an empty XML.",
-            CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+        LOGGER.info("Transformed entity {} results to an empty XML.", sanitizeCRLF(resourceId));
       }
     } else {
       try {

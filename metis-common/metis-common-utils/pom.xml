@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>12.2</version>
+    <version>13</version>
   </parent>
   <artifactId>metis-common-utils</artifactId>
 
@@ -20,6 +20,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
+      <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
     <dependency>

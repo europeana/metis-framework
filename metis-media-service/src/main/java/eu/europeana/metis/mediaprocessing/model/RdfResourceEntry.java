@@ -20,15 +20,21 @@ public class RdfResourceEntry implements Serializable {
   private String resourceUrl;
   private Set<UrlType> urlTypes;
 
+  private boolean resourceConfiguredForOembed;
+
   /**
    * Constructor.
    *
    * @param resourceUrl The URL of the resource.
    * @param urlTypes The resource URL types with which this resource is referenced.
+   * @param resourceConfiguredForOembed If the resource is configured in the record as if it were
+   *                                    an oEmbed resource.
    */
-  public RdfResourceEntry(String resourceUrl, Collection<UrlType> urlTypes) {
+  public RdfResourceEntry(String resourceUrl, Collection<UrlType> urlTypes,
+      boolean resourceConfiguredForOembed) {
     this.resourceUrl = resourceUrl;
     this.urlTypes = new HashSet<>(urlTypes);
+    this.resourceConfiguredForOembed = resourceConfiguredForOembed;
   }
 
   /**
@@ -45,8 +51,13 @@ public class RdfResourceEntry implements Serializable {
     return Collections.unmodifiableSet(urlTypes);
   }
 
+  public boolean isResourceConfiguredForOembed() {
+    return resourceConfiguredForOembed;
+  }
+
   @Override
   public String toString() {
-    return String.format("%s{resourceUrl=%s, urlTypes=%s}", RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes);
+    return String.format("%s{resourceUrl=%s, urlTypes=%s, oembed=%s}",
+        RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes, resourceConfiguredForOembed);
   }
 }

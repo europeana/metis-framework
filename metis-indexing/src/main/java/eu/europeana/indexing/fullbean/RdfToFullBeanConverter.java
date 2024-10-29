@@ -43,7 +43,7 @@ public class RdfToFullBeanConverter {
 
   private static <S, T> List<T> convertList(List<S> sourceList, Function<S, T> converter,
       boolean returnNullIfEmpty) {
-    final List<T> result = sourceList.stream().map(converter).collect(Collectors.toList());
+    final List<T> result = sourceList.stream().map(converter).toList();
     if (result.isEmpty() && returnNullIfEmpty) {
       return null;
     }
@@ -79,32 +79,32 @@ public class RdfToFullBeanConverter {
   /**
    * Converts an RDF to Full Bean.
    *
-   * @param record The RDF record to convert.
+   * @param rdfWrapper The RDF record to convert.
    * @return The Full Bean.
    */
-  public FullBeanImpl convertRdfToFullBean(RdfWrapper record) {
+  public FullBeanImpl convertRdfToFullBean(RdfWrapper rdfWrapper) {
 
     // Create full bean and set about value.
     final FullBeanImpl fullBean = new FullBeanImpl();
-    fullBean.setAbout(record.getAbout());
+    fullBean.setAbout(rdfWrapper.getAbout());
 
     // Set list properties.
-    fullBean.setProvidedCHOs(convertList(record.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
-    fullBean.setProxies(convertList(record.getProxies(), new ProxyFieldInput(), false));
-    fullBean.setAggregations(convertAggregations(record));
-    fullBean.setConcepts(convertList(record.getConcepts(), new ConceptFieldInput(), false));
-    fullBean.setPlaces(convertList(record.getPlaces(), new PlaceFieldInput(), false));
-    fullBean.setTimespans(convertList(record.getTimeSpans(), new TimespanFieldInput(), false));
-    fullBean.setAgents(convertList(record.getAgents(), new AgentFieldInput(), false));
-    fullBean.setOrganizations(convertList(record.getOrganizations(), new OrganizationFieldInput(), false));
-    fullBean.setLicenses(convertList(record.getLicenses(), new LicenseFieldInput(), false));
-    fullBean.setServices(convertList(record.getServices(), new ServiceFieldInput(), false));
-    var qualityAnnotationsList = convertList(getQualityAnnotations(record), new QualityAnnotationFieldInput(), false);
+    fullBean.setProvidedCHOs(convertList(rdfWrapper.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
+    fullBean.setProxies(convertList(rdfWrapper.getProxies(), new ProxyFieldInput(), false));
+    fullBean.setAggregations(convertAggregations(rdfWrapper));
+    fullBean.setConcepts(convertList(rdfWrapper.getConcepts(), new ConceptFieldInput(), false));
+    fullBean.setPlaces(convertList(rdfWrapper.getPlaces(), new PlaceFieldInput(), false));
+    fullBean.setTimespans(convertList(rdfWrapper.getTimeSpans(), new TimespanFieldInput(), false));
+    fullBean.setAgents(convertList(rdfWrapper.getAgents(), new AgentFieldInput(), false));
+    fullBean.setOrganizations(convertList(rdfWrapper.getOrganizations(), new OrganizationFieldInput(), false));
+    fullBean.setLicenses(convertList(rdfWrapper.getLicenses(), new LicenseFieldInput(), false));
+    fullBean.setServices(convertList(rdfWrapper.getServices(), new ServiceFieldInput(), false));
+    var qualityAnnotationsList = convertList(getQualityAnnotations(rdfWrapper), new QualityAnnotationFieldInput(), false);
     fullBean.setQualityAnnotations(qualityAnnotationsList);
 
     // Set properties related to the Europeana aggregation
-    fullBean.setEuropeanaCollectionName(new String[]{record.getDatasetName()});
-    final Optional<EuropeanaAggregationType> europeanaAggregation = record
+    fullBean.setEuropeanaCollectionName(new String[]{rdfWrapper.getDatasetName()});
+    final Optional<EuropeanaAggregationType> europeanaAggregation = rdfWrapper
         .getEuropeanaAggregation();
     fullBean.setEuropeanaAggregation(
         europeanaAggregation.map(new EuropeanaAggregationFieldInput()).orElse(null));
@@ -120,21 +120,21 @@ public class RdfToFullBeanConverter {
     return fullBean;
   }
 
-  private List<Aggregation> convertAggregations(RdfWrapper record) {
+  private List<Aggregation> convertAggregations(RdfWrapper rdfWrapper) {
     //The record web resources is reduced every time one of it's web resources gets referenced
     //We only keep the first web resource out of duplicate web resources with the same about value
-    final Map<String, WebResourceImpl> recordWebResourcesMap = new WebResourcesExtractor(record)
+    final Map<String, WebResourceImpl> recordWebResourcesMap = new WebResourcesExtractor(rdfWrapper)
         .get().stream().collect(Collectors.toMap(WebResourceImpl::getAbout, Function.identity(),
             (existing, replacement) -> existing));
     //The reference list is being extended every time a new web resource is referenced from an aggregator
     final Set<String> referencedWebResourceAbouts = new HashSet<>(recordWebResourcesMap.size());
     //We first convert the provider aggregations because we want this aggregator to get first get matches of web resources
-    final List<AggregationImpl> providerAggregations = convertList(record.getProviderAggregations(),
+    final List<AggregationImpl> providerAggregations = convertList(rdfWrapper.getProviderAggregations(),
         new AggregationFieldInput(recordWebResourcesMap, referencedWebResourceAbouts), false);
 
     //Convert the aggregator aggregations
     final List<AggregationImpl> aggregatorAggregations = convertList(
-        record.getAggregatorAggregations(),
+        rdfWrapper.getAggregatorAggregations(),
         new AggregationFieldInput(recordWebResourcesMap, referencedWebResourceAbouts), false);
 
     //We choose to add leftovers on the first provider aggregation
@@ -149,30 +149,29 @@ public class RdfToFullBeanConverter {
 
     //Combine aggregation lists
     return Stream.of(providerAggregations, aggregatorAggregations).filter(Objects::nonNull)
-                 .flatMap(List::stream).map(Aggregation.class::cast).collect(Collectors.toList());
+                 .flatMap(List::stream).map(Aggregation.class::cast).toList();
   }
 
   private static class WebResourcesExtractor implements Supplier<List<WebResourceImpl>> {
 
-    private final RdfWrapper record;
+    private final RdfWrapper rdfWrapper;
     private List<WebResourceImpl> webResources;
 
-    public WebResourcesExtractor(RdfWrapper record) {
-      this.record = record;
+    public WebResourcesExtractor(RdfWrapper rdfWrapper) {
+      this.rdfWrapper = rdfWrapper;
     }
 
     @Override
     public List<WebResourceImpl> get() {
       if (webResources == null) {
-        final Collection<WebResourceType> webResourcesBeforeConversion = record.getWebResources()
-                                                                               .stream().collect(
+        final Collection<WebResourceType> webResourcesBeforeConversion = rdfWrapper.getWebResources()
+                                                                                   .stream().collect(
                 Collectors.toMap(WebResourceType::getAbout, UnaryOperator.identity(),
                     (first, second) -> first)).values();
         if (webResourcesBeforeConversion.isEmpty()) {
           webResources = Collections.emptyList();
         } else {
-          webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput())
-                                                     .collect(Collectors.toList());
+          webResources = webResourcesBeforeConversion.stream().map(new WebResourceFieldInput()).toList();
         }
       }
       return Collections.unmodifiableList(webResources);

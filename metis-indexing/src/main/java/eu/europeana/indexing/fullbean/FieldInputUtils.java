@@ -15,13 +15,12 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Class with utility methods for converting an instance of {@link eu.europeana.metis.schema.jibx.RDF}
- * to an instance of {@link eu.europeana.metis.schema.edm.beans.FullBean}.
+ * Class with utility methods for converting fields of {@link eu.europeana.metis.schema.jibx.RDF}
+ * to fields of {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class FieldInputUtils {
 
@@ -68,7 +67,7 @@ final class FieldInputUtils {
       final Stream<String> values = Optional.ofNullable(listItem).map(valuesGetter)
                                             .filter(valueList -> !valueList.isEmpty()).stream().flatMap(Collection::stream);
       final List<String> filteredValues = values.filter(Objects::nonNull).map(String::trim)
-                                                .filter(StringUtils::isNotEmpty).collect(Collectors.toList());
+                                                .filter(StringUtils::isNotEmpty).toList();
 
       // If there are values to add, we add them to the map.
       if (!filteredValues.isEmpty()) {

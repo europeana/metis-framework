@@ -6,6 +6,7 @@ import eu.europeana.metis.schema.jibx.CodecName;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.DoubleType;
 import eu.europeana.metis.schema.jibx.Duration;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.HasColorSpace;
 import eu.europeana.metis.schema.jibx.HasMimeType;
 import eu.europeana.metis.schema.jibx.Height;
@@ -19,11 +20,13 @@ import eu.europeana.metis.schema.jibx.SampleSize;
 import eu.europeana.metis.schema.jibx.SpatialResolution;
 import eu.europeana.metis.schema.jibx.StringType;
 import eu.europeana.metis.schema.jibx.Type1;
+import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.metis.schema.jibx.Width;
 import eu.europeana.metis.schema.model.Orientation;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -144,6 +147,14 @@ class WebResource {
 
   void setResolution(Integer resolution) {
     resource.setSpatialResolution(uintVal(SpatialResolution::new, resolution));
+  }
+
+  void setEdmType(EdmType edmType) {
+    resource.setType1(Optional.ofNullable(edmType).map(type -> {
+      final Type2 type2 = new Type2();
+      type2.setType(edmType);
+      return type2;
+    }).orElse(null));
   }
 
   private static <T extends IntegerType> T intVal(Supplier<T> constructor, Integer value) {

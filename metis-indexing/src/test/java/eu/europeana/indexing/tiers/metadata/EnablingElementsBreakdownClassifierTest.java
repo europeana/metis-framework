@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -190,7 +189,7 @@ class EnablingElementsBreakdownClassifierTest {
     hasMet.setResource(link);
     final ProxyType proxy = new ProxyType();
     proxy.setChoiceList(Collections.singletonList(new Choice()));
-    proxy.getChoiceList().get(0).setCreated(created);
+    proxy.getChoiceList().getFirst().setCreated(created);
     proxy.setHasMetList(Collections.singletonList(hasMet));
     final List<ProxyType> proxies = Collections.singletonList(proxy);
 

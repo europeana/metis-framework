@@ -40,6 +40,7 @@ public class MongoDBContainerIT extends TestContainer {
   public void dynamicProperties(DynamicPropertyRegistry registry) {
     registry.add("mongo.application-name", () -> "mongo-testcontainer-test");
     registry.add("mongo.db", () -> "test");
+    registry.add("mongo.tombstone.db", () -> "test_tombstone");
     registry.add("mongo.redirect.db", () -> "test_redirect");
     registry.add("mongo.hosts", mongoDBContainer::getHost);
     registry.add("mongo.port", mongoDBContainer::getFirstMappedPort);

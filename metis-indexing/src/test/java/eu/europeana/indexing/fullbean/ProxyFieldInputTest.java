@@ -91,151 +91,151 @@ class ProxyFieldInputTest {
     for (EuropeanaType.Choice choice : dcterms) {
       if (choice.ifAlternative()) {
         assertEquals(choice.getAlternative().getString(),
-            mongoProxy.getDctermsAlternative().values().iterator().next().get(0));
+            mongoProxy.getDctermsAlternative().values().iterator().next().getFirst());
       }
       if (choice.ifConformsTo()) {
         assertEquals(choice.getConformsTo().getResource().getResource(),
-            mongoProxy.getDctermsConformsTo().values().iterator().next().get(0));
+            mongoProxy.getDctermsConformsTo().values().iterator().next().getFirst());
       }
       if (choice.ifCreated()) {
         assertEquals(choice.getCreated().getResource().getResource(),
-            mongoProxy.getDctermsCreated().values().iterator().next().get(0));
+            mongoProxy.getDctermsCreated().values().iterator().next().getFirst());
       }
       if (choice.ifExtent()) {
         assertEquals(choice.getExtent().getResource().getResource(),
-            mongoProxy.getDctermsExtent().values().iterator().next().get(0));
+            mongoProxy.getDctermsExtent().values().iterator().next().getFirst());
       }
       if (choice.ifHasFormat()) {
         assertEquals(choice.getHasFormat().getResource().getResource(),
-            mongoProxy.getDctermsHasFormat().values().iterator().next().get(0));
+            mongoProxy.getDctermsHasFormat().values().iterator().next().getFirst());
       }
       if (choice.ifHasPart()) {
         assertEquals(choice.getHasPart().getResource().getResource(),
-            mongoProxy.getDctermsHasPart().values().iterator().next().get(0));
+            mongoProxy.getDctermsHasPart().values().iterator().next().getFirst());
       }
       if (choice.ifHasVersion()) {
         assertEquals(choice.getHasVersion().getResource().getResource(),
-            mongoProxy.getDctermsHasVersion().values().iterator().next().get(0));
+            mongoProxy.getDctermsHasVersion().values().iterator().next().getFirst());
       }
       if (choice.ifIsFormatOf()) {
         assertEquals(choice.getIsFormatOf().getResource().getResource(),
-            mongoProxy.getDctermsIsFormatOf().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsFormatOf().values().iterator().next().getFirst());
       }
       if (choice.ifIsPartOf()) {
         assertEquals(choice.getIsPartOf().getResource().getResource(),
-            mongoProxy.getDctermsIsPartOf().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsPartOf().values().iterator().next().getFirst());
       }
       if (choice.ifIsReferencedBy()) {
         assertEquals(choice.getIsReferencedBy().getResource().getResource(),
-            mongoProxy.getDctermsIsReferencedBy().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsReferencedBy().values().iterator().next().getFirst());
       }
       if (choice.ifIsReplacedBy()) {
         assertEquals(choice.getIsReplacedBy().getResource().getResource(),
-            mongoProxy.getDctermsIsReplacedBy().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsReplacedBy().values().iterator().next().getFirst());
       }
       if (choice.ifIsRequiredBy()) {
         assertEquals(choice.getIsRequiredBy().getResource().getResource(),
-            mongoProxy.getDctermsIsRequiredBy().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsRequiredBy().values().iterator().next().getFirst());
       }
       if (choice.ifIssued()) {
         assertEquals(choice.getIssued().getResource().getResource(),
-            mongoProxy.getDctermsIssued().values().iterator().next().get(0));
+            mongoProxy.getDctermsIssued().values().iterator().next().getFirst());
       }
       if (choice.ifIsVersionOf()) {
         assertEquals(choice.getIsVersionOf().getResource().getResource(),
-            mongoProxy.getDctermsIsVersionOf().values().iterator().next().get(0));
+            mongoProxy.getDctermsIsVersionOf().values().iterator().next().getFirst());
       }
       if (choice.ifMedium()) {
         assertEquals(choice.getMedium().getResource().getResource(),
-            mongoProxy.getDctermsMedium().values().iterator().next().get(0));
+            mongoProxy.getDctermsMedium().values().iterator().next().getFirst());
       }
       if (choice.ifProvenance()) {
         assertEquals(choice.getProvenance().getResource().getResource(),
-            mongoProxy.getDctermsProvenance().values().iterator().next().get(0));
+            mongoProxy.getDctermsProvenance().values().iterator().next().getFirst());
       }
       if (choice.ifReferences()) {
         assertEquals(choice.getReferences().getResource().getResource(),
-            mongoProxy.getDctermsReferences().values().iterator().next().get(0));
+            mongoProxy.getDctermsReferences().values().iterator().next().getFirst());
       }
       if (choice.ifReplaces()) {
         assertEquals(choice.getReplaces().getResource().getResource(),
-            mongoProxy.getDctermsReplaces().values().iterator().next().get(0));
+            mongoProxy.getDctermsReplaces().values().iterator().next().getFirst());
       }
       if (choice.ifRequires()) {
         assertEquals(choice.getRequires().getResource().getResource(),
-            mongoProxy.getDctermsRequires().values().iterator().next().get(0));
+            mongoProxy.getDctermsRequires().values().iterator().next().getFirst());
       }
       if (choice.ifSpatial()) {
         assertEquals(choice.getSpatial().getResource().getResource(),
-            mongoProxy.getDctermsSpatial().values().iterator().next().get(0));
+            mongoProxy.getDctermsSpatial().values().iterator().next().getFirst());
       }
       if (choice.ifTableOfContents()) {
         assertEquals(choice.getTableOfContents().getResource().getResource(),
-            mongoProxy.getDctermsTOC().values().iterator().next().get(0));
+            mongoProxy.getDctermsTOC().values().iterator().next().getFirst());
       }
       if (choice.ifTemporal()) {
         assertEquals(choice.getTemporal().getResource().getResource(),
-            mongoProxy.getDctermsTemporal().values().iterator().next().get(0));
+            mongoProxy.getDctermsTemporal().values().iterator().next().getFirst());
       }
       if (choice.ifContributor()) {
         assertEquals(choice.getContributor().getResource().getResource(),
-            mongoProxy.getDcContributor().values().iterator().next().get(0));
+            mongoProxy.getDcContributor().values().iterator().next().getFirst());
       }
       if (choice.ifCoverage()) {
         assertEquals(choice.getCoverage().getResource().getResource(),
-            mongoProxy.getDcCoverage().values().iterator().next().get(0));
+            mongoProxy.getDcCoverage().values().iterator().next().getFirst());
       }
       if (choice.ifCreator()) {
         assertEquals(choice.getCreator().getResource().getResource(),
-            mongoProxy.getDcCreator().values().iterator().next().get(0));
+            mongoProxy.getDcCreator().values().iterator().next().getFirst());
       }
       if (choice.ifDate()) {
         assertEquals(choice.getDate().getResource().getResource(),
-            mongoProxy.getDcDate().values().iterator().next().get(0));
+            mongoProxy.getDcDate().values().iterator().next().getFirst());
       }
       if (choice.ifDescription()) {
         assertEquals(choice.getDescription().getResource().getResource(),
-            mongoProxy.getDcDescription().values().iterator().next().get(0));
+            mongoProxy.getDcDescription().values().iterator().next().getFirst());
       }
       if (choice.ifFormat()) {
         assertEquals(choice.getFormat().getResource().getResource(),
-            mongoProxy.getDcFormat().values().iterator().next().get(0));
+            mongoProxy.getDcFormat().values().iterator().next().getFirst());
       }
       if (choice.ifIdentifier()) {
         assertEquals(choice.getIdentifier().getString(),
-            mongoProxy.getDcIdentifier().values().iterator().next().get(0));
+            mongoProxy.getDcIdentifier().values().iterator().next().getFirst());
       }
       if (choice.ifLanguage()) {
         assertEquals(choice.getLanguage().getString(),
-            mongoProxy.getDcLanguage().values().iterator().next().get(0));
+            mongoProxy.getDcLanguage().values().iterator().next().getFirst());
       }
       if (choice.ifPublisher()) {
         assertEquals(choice.getPublisher().getResource().getResource(),
-            mongoProxy.getDcPublisher().values().iterator().next().get(0));
+            mongoProxy.getDcPublisher().values().iterator().next().getFirst());
       }
       if (choice.ifRelation()) {
         assertEquals(choice.getRelation().getResource().getResource(),
-            mongoProxy.getDcRelation().values().iterator().next().get(0));
+            mongoProxy.getDcRelation().values().iterator().next().getFirst());
       }
       if (choice.ifRights()) {
         assertEquals(choice.getRights().getResource().getResource(),
-            mongoProxy.getDcRights().values().iterator().next().get(0));
+            mongoProxy.getDcRights().values().iterator().next().getFirst());
       }
       if (choice.ifSource()) {
         assertEquals(choice.getSource().getResource().getResource(),
-            mongoProxy.getDcSource().values().iterator().next().get(0));
+            mongoProxy.getDcSource().values().iterator().next().getFirst());
       }
       if (choice.ifSubject()) {
         assertEquals(choice.getSubject().getResource().getResource(),
-            mongoProxy.getDcSubject().values().iterator().next().get(0));
+            mongoProxy.getDcSubject().values().iterator().next().getFirst());
       }
       if (choice.ifTitle()) {
         assertEquals(choice.getTitle().getString(),
-            mongoProxy.getDcTitle().values().iterator().next().get(0));
+            mongoProxy.getDcTitle().values().iterator().next().getFirst());
       }
       if (choice.ifType()) {
         assertEquals(choice.getType().getResource().getResource(),
-            mongoProxy.getDcType().values().iterator().next().get(0));
+            mongoProxy.getDcType().values().iterator().next().getFirst());
       }
     }
   }

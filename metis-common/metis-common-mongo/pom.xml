@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-common</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>12.2</version>
+    <version>13</version>
   </parent>
   <artifactId>metis-common-mongo</artifactId>
 

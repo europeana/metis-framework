@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service.utils;
 
-import static eu.europeana.metis.utils.CommonStringValues.CRLF_PATTERN;
+import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
 
 import eu.europeana.metis.dereference.Vocabulary;
 import java.net.URI;
@@ -56,7 +56,7 @@ public final class VocabularyCandidates {
       Function<String, List<Vocabulary>> searchInPersistence) throws URISyntaxException {
 
     // Initial search on the host name (already filtering the great majority of vocabularies).
-    final String searchString = new URI(resourceId.replace(" ", "%20")).getHost();
+    final String searchString = new URI(resourceId).getHost();
     final List<Vocabulary> searchedVocabularies = searchInPersistence.apply(searchString);
 
     // Narrow it down further: precisely match the URI.
@@ -71,10 +71,10 @@ public final class VocabularyCandidates {
 
     // Log and done.
     if (candidates.isEmpty() && (LOGGER.isInfoEnabled())) {
-      LOGGER.info("No vocabularies found for uri {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""));
+      LOGGER.info("No vocabularies found for uri {}", sanitizeCRLF(resourceId));
     }
     if (candidates.size() > 1 && LOGGER.isWarnEnabled()) {
-      LOGGER.warn("Multiple vocabularies found for uri {}: {}", CRLF_PATTERN.matcher(resourceId).replaceAll(""),
+      LOGGER.warn("Multiple vocabularies found for uri {}: {}", sanitizeCRLF(resourceId),
           candidates.stream().map(Vocabulary::getName).collect(Collectors.joining(", ")));
     }
     return new VocabularyCandidates(candidates);

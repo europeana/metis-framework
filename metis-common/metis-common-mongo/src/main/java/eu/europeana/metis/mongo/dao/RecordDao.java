@@ -22,6 +22,7 @@ import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.BasicProxyImpl;
+import eu.europeana.corelib.solr.entity.ChangeLogImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.ConceptSchemeImpl;
 import eu.europeana.corelib.solr.entity.DatasetImpl;
@@ -95,6 +96,7 @@ public class RecordDao {
     mapper.getEntityModel(TimespanImpl.class);
     mapper.getEntityModel(WebResourceImpl.class);
     mapper.getEntityModel(EuropeanaAggregationImpl.class);
+    mapper.getEntityModel(ChangeLogImpl.class);
     mapper.getEntityModel(EventImpl.class);
     mapper.getEntityModel(PhysicalThingImpl.class);
     mapper.getEntityModel(ConceptSchemeImpl.class);

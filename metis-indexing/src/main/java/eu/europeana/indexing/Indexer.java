@@ -1,5 +1,7 @@
 package eu.europeana.indexing;
 
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
@@ -28,18 +30,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdf, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index.
+   * @param rdf The rdf to index.
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void indexRdf(RDF record, IndexingProperties indexingProperties) throws IndexingException;
+  void indexRdf(RDF rdf, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -58,18 +60,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdfString, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param rdfString The rdfString to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(String record, IndexingProperties indexingProperties) throws IndexingException;
+  void index(String rdfString, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -82,7 +84,10 @@ public interface Indexer extends Closeable {
    *
    * @param stringRdfRecord The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
-   * @param tierResultsConsumer The predicate deciding if the record should be published based on evaluated tier.
+   * @param tierResultsConsumer The predicate deciding whether the record should be published based
+   *                            on the evaluated tier. Note: the tier calculations that are provided
+   *                            to the consumer are for provider data only (i.e. mode
+   *                            {@link eu.europeana.indexing.tiers.metadata.ClassifierMode#PROVIDER_PROXIES}).
    * @throws IndexingException In case a problem occurred during indexing.
    */
   void index(String stringRdfRecord, IndexingProperties indexingProperties,
@@ -105,18 +110,18 @@ public interface Indexer extends Closeable {
 
   /**
    * <p>
-   * This method indexes a single record, publishing it to the provided data stores.
+   * This method indexes a single rdfInputStream, publishing it to the provided data stores.
    * </p>
    * <p>
    * <b>NOTE:</b> this operation should not coincide with a remove operation as this operation is
    * not done within a transaction.
    * </p>
    *
-   * @param record The record to index (can be parsed to RDF).
+   * @param rdfInputStream The rdfInputStream to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
    */
-  void index(InputStream record, IndexingProperties indexingProperties) throws IndexingException;
+  void index(InputStream rdfInputStream, IndexingProperties indexingProperties) throws IndexingException;
 
   /**
    * <p>
@@ -131,7 +136,9 @@ public interface Indexer extends Closeable {
    * @param recordContent The record to index (can be parsed to RDF).
    * @param indexingProperties The properties of this indexing operation.
    * @throws IndexingException In case a problem occurred during indexing.
-   * @return A pair with both content tier and metadata tier calculations results of the given record
+   * @return A pair with both content tier and metadata tier calculations results of the given
+   * record. The tier calculations are for provider data only (i.e. mode
+   * {@link eu.europeana.indexing.tiers.metadata.ClassifierMode#PROVIDER_PROXIES}).
    */
   TierResults indexAndGetTierCalculations(InputStream recordContent,
       IndexingProperties indexingProperties) throws IndexingException;
@@ -173,6 +180,23 @@ public interface Indexer extends Closeable {
    * @throws IndexingException In case something went wrong.
    */
   boolean remove(String rdfAbout) throws IndexingException;
+
+  /**
+   * Get a tombstone record given an rdf about.
+   * @param rdfAbout the rdf about
+   * @return the tombstone record or else null
+   */
+  FullBeanImpl getTombstone(String rdfAbout);
+
+  /**
+   * Creates and indexes a tombstone record.
+   *
+   * @param rdfAbout the id of the record
+   * @param depublicationReason the depublication reason
+   * @return whether a record was tombstoned
+   * @throws IndexingException in case something went wrong.
+   */
+  boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException;
 
   /**
    * <p>

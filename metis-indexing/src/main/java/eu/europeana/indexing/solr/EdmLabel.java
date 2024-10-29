@@ -13,8 +13,16 @@ public enum EdmLabel {
   EUROPEANA_COLLECTIONNAME("europeana_collectionName"), 
   EUROPEANA_ID("europeana_id"), 
   TIMESTAMP_CREATED("timestamp_created"), 
-  TIMESTAMP_UPDATED("timestamp_update"), 
-  
+  TIMESTAMP_UPDATED("timestamp_update"),
+
+  //DATE RANGES
+  CREATED_DATE("created_date"),
+  ISSUED_DATE("issued_date"),
+  CREATED_DATE_BEGIN("created_date_begin"),
+  CREATED_DATE_END("created_date_end"),
+  ISSUED_DATE_BEGIN("issued_date_begin"),
+  ISSUED_DATE_END("issued_date_end"),
+
   // CRF Fields
   FACET_HAS_THUMBNAILS("has_thumbnails"),
   FACET_HAS_LANDING_PAGE("has_landingpage"),

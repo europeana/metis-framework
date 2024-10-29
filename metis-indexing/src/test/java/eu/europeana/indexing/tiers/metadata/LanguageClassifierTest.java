@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -151,7 +150,7 @@ class LanguageClassifierTest {
     verify(statistics, times(1))
         .addToStatistics(same(proxy.getIsRelatedToList()), eq(PropertyType.EDM_IS_RELATED_TO));
     verify(statistics, times(1))
-        .addToStatistics(same(proxy.getChoiceList().get(0)));
+        .addToStatistics(same(proxy.getChoiceList().getFirst()));
     verify(statistics, times(1)).addToStatistics(isNull());
     verifyNoMoreInteractions(statistics);
   }

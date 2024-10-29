@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.Serial;
 import java.util.Set;
 
 /**
@@ -11,13 +12,14 @@ public class ResourceMetadata implements IResourceMetadata {
   /**
    * Implements {@link java.io.Serializable}.
    */
-  private static final long serialVersionUID = 1648797505550562988L;
+  @Serial private static final long serialVersionUID = 1648797505550562988L;
 
   private AudioResourceMetadata audioResourceMetadata;
   private ImageResourceMetadata imageResourceMetadata;
   private TextResourceMetadata textResourceMetadata;
   private VideoResourceMetadata videoResourceMetadata;
   private Media3dResourceMetadata threeDResourceMetadata;
+  private GenericResourceMetadata genericResourceMetadata;
 
   /**
    * Constructor for audio resources.
@@ -80,6 +82,18 @@ public class ResourceMetadata implements IResourceMetadata {
   }
 
   /**
+   * Constructor for generic resources.
+   *
+   * @param genericResourceMetadata The resource metadata.
+   */
+  public ResourceMetadata(GenericResourceMetadata genericResourceMetadata) {
+    if (genericResourceMetadata == null) {
+      throw new IllegalArgumentException();
+    }
+    this.genericResourceMetadata = genericResourceMetadata;
+  }
+
+  /**
    * Constructor. Don't use this: it's required for deserialization.
    */
   ResourceMetadata() {
@@ -97,6 +111,8 @@ public class ResourceMetadata implements IResourceMetadata {
       result = videoResourceMetadata;
     } else if (threeDResourceMetadata != null){
       result = threeDResourceMetadata;
+    } else if (genericResourceMetadata != null){
+      result = genericResourceMetadata;
     } else {
       throw new IllegalStateException();
     }

@@ -2,6 +2,7 @@ package eu.europeana.indexing.solr.property;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -15,19 +16,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for {@link ProxySolrCreator} class
  */
-public class PropertySolrCreatorTest {
+class PropertySolrCreatorTest {
 
   @Test
-  public void testAddAllToDocument() {
+  void testAddAllToDocument() {
 
-    // Create property creator that does nothing
-    final PropertySolrCreator<PlaceImpl> creator = spy(new PropertySolrCreator<PlaceImpl>() {
-
-      @Override
-      public void addToDocument(SolrInputDocument document, PlaceImpl property) {
-      }
-
-    });
+    final PropertySolrCreator<PlaceImpl> creator = spy(PropertySolrCreator.class);
+    doNothing().when(creator).addToDocument(any(SolrInputDocument.class), any(PlaceImpl.class));
 
     // Create two properties that will be used, and one that won't.
     final PlaceImpl property1 = new PlaceImpl();

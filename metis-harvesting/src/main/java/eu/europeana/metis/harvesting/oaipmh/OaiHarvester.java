@@ -1,6 +1,7 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvestingIterator;
 
 /**
  * Implementations of this interface provide OAI-PMH harvesting access.
@@ -12,9 +13,16 @@ public interface OaiHarvester {
    *
    * @param harvest The harvest request to execute.
    * @return An iterator providing access to the headers. The caller needs to close it after use.
-   * @throws HarvesterException In case something went wrong.
    */
-  OaiRecordHeaderIterator harvestRecordHeaders(OaiHarvest harvest) throws HarvesterException;
+  HarvestingIterator<OaiRecordHeader, OaiRecordHeader> harvestRecordHeaders(OaiHarvest harvest);
+
+  /**
+   * Harvest the full records.
+   *
+   * @param harvest The harvest request to execute.
+   * @return An iterator providing access to the headers. The caller needs to close it after use.
+   */
+  HarvestingIterator<OaiRecord, OaiRecordHeader> harvestRecords(OaiHarvest harvest);
 
   /**
    * Harvest an individual record.

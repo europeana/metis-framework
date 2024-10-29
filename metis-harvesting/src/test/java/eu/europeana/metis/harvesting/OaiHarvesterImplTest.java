@@ -53,7 +53,7 @@ class OaiHarvesterImplTest {
 
     //when
     final InputStream result = harvester
-        .harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId).getRecord();
+        .harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId).getContent();
 
     //then
     final String actual = TestHelper.convertToString(result);
@@ -74,7 +74,7 @@ class OaiHarvesterImplTest {
     final OaiHarvesterImpl harvester = new OaiHarvesterImpl(CONNECTION_CLIENT_FACTORY);
 
     final OaiRecord oaiRecord = harvester.harvestRecord(new OaiRepository(OAI_PMH_ENDPOINT, "oai_dc"), recordId);
-    assertThrows(HarvesterException.class, oaiRecord::getRecord);
+    assertThrows(IllegalStateException.class, oaiRecord::getContent);
   }
 
   @Test

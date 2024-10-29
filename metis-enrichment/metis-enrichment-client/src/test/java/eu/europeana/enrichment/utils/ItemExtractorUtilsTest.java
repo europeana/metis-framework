@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,10 +21,9 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
-public class ItemExtractorUtilsTest {
+class ItemExtractorUtilsTest {
 
   @Test
   void testSetAbout() {
@@ -74,11 +74,10 @@ public class ItemExtractorUtilsTest {
     List<LiteralType> output = ItemExtractorUtils.extractLabels(labels, LiteralType::new);
 
     for (Label label : labels) {
-      List<LiteralType> result = output.stream().filter(x -> x.getString().equals(label.getValue())).collect(
-          Collectors.toList());
+      List<LiteralType> result = output.stream().filter(x -> x.getString().equals(label.getValue())).toList();
 
       assertEquals(1, result.size());
-      assertEquals(label.getLang(), result.get(0).getLang().getLang());
+      assertEquals(label.getLang(), result.getFirst().getLang().getLang());
     }
   }
 
@@ -180,16 +179,6 @@ public class ItemExtractorUtilsTest {
 
   @Test
   void testExtractLabelReturnEmpty() {
-    Label label = new Label(null);
-    LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
-
-    assertNotNull(output);
-    assertEquals("", output.getString());
-    assertNull(output.getLang());
-  }
-
-  @Test
-  void testExtractLabelToResourceOrLiteralEmpty() {
     Label label = new Label(null);
     LiteralType output = ItemExtractorUtils.extractLabel(label, LiteralType::new);
 
@@ -327,14 +316,12 @@ public class ItemExtractorUtilsTest {
     altLabels.add(label3);
 
     ItemExtractorUtils.toChoices(altLabels, Choice::setAltLabel, choices);
-
-    assertTrue(choices.size() > 0);
+    
+    assertFalse(choices.isEmpty());
 
     for (AltLabel label : altLabels) {
-      List<Choice> result = choices.stream().filter(x -> x.getAltLabel().equals(label)).collect(
-          Collectors.toList());
-
-      assertTrue(result.size() > 0);
+      List<Choice> result = choices.stream().filter(x -> x.getAltLabel().equals(label)).toList();
+      assertFalse(result.isEmpty());
     }
   }
 }

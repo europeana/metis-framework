@@ -5,12 +5,11 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>12.2</version>
+  <version>13</version>
   <packaging>pom</packaging>
 
   <modules>
     <module>metis-common</module>
-    <module>metis-core</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
@@ -21,9 +20,10 @@
     <module>metis-harvesting</module>
     <module>metis-repository</module>
     <module>metis-pattern-analysis</module>
+    <module>metis-debias</module>
   </modules>
 
-  <!-- Github connection -->
+  <!-- GitHub connection -->
   <scm>
     <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
@@ -55,50 +55,6 @@
             <release>21</release>
           </configuration>
         </plugin>
-        <!--Setup highest directory path, so that it can be used as a variable avoiding relative paths-->
-        <plugin>
-          <artifactId>directory-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <configuration>
-                <property>main.basedir</property>
-              </configuration>
-              <goals>
-                <goal>highest-basedir</goal>
-              </goals>
-              <id>directories</id>
-              <phase>initialize</phase>
-            </execution>
-          </executions>
-          <groupId>org.commonjava.maven.plugins</groupId>
-          <version>${version.directory.maven.plugin}</version>
-        </plugin>
-        <!--If you are using Jibx classes in a sub module in the repository and want to be able to run the code or tests from the
-        IDE, this plugin(preconfigured here) should be added to the module! That is because jibx is generating the class bindings
-        inside the target directory and they are not findable from the IDE..
-        Building with maven directly is fine.
-        Other repositories that have as a dependency the metis-schema module are fine, since they are directly dependent on the
-        .jar and those projects do not require the following plugin configuration to work through the IDE.-->
-        <plugin>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <configuration>
-                <sources>
-                  <!--suppress UnresolvedMavenProperty, the property is generated from directory-maven-plugin -->
-                  <source>${main.basedir}/metis-schema/target/eu/europeana/metis/schema/jibx</source>
-                </sources>
-              </configuration>
-              <goals>
-                <goal>add-source</goal>
-              </goals>
-              <id>add-source</id>
-              <phase>generate-sources</phase>
-            </execution>
-          </executions>
-          <groupId>org.codehaus.mojo</groupId>
-          <version>${version.build.helper.maven.plugin}</version>
-        </plugin>
       </plugins>
     </pluginManagement>
     <plugins>
@@ -121,13 +77,12 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.ecloud>12-SNAPSHOT</version.ecloud>
-    <version.metis-schema>10-SNAPSHOT</version.metis-schema>
+    <version.metis-schema>10</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.3.1</version.apache.httpclient>
     <version.commons-fileupload>1.4</version.commons-fileupload>
-    <version.commons.io>2.9.0</version.commons.io>
+    <version.commons.io>2.14.0</version.commons.io>
     <version.commons.lang3>3.12.0</version.commons.lang3>
     <version.commons-collections4>4.4</version.commons-collections4>
     <version.awaitability>4.2.0</version.awaitability>
@@ -136,13 +91,9 @@
     <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commons-compress>1.26.0</version.commons-compress>
-    <version.corelib>2.16.8</version.corelib>
-
-    <!-- These two versions are interdependent. -->
-    <version.directory.maven.plugin>1.0</version.directory.maven.plugin>
+    <version.corelib>2.16.10-SNAPSHOT</version.corelib>
     <version.gdcc.xoai>5.2.0</version.gdcc.xoai>
-
-    <version.embedded.mongo>4.12.2</version.embedded.mongo>
+    <version.embedded.mongo>4.17.0</version.embedded.mongo>
     <version.hamcrest>1.3</version.hamcrest>
     <version.hibernate.core>6.4.4.Final</version.hibernate.core>
     <version.postgresql>42.7.2</version.postgresql>
@@ -172,19 +123,17 @@
     <version.morphia.core>2.4.5</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.powermock>2.0.9</version.powermock>
-    <version.rabbitmq>5.12.0</version.rabbitmq>
-    <version.redisson>3.24.3</version.redisson>
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.spring>6.1.4</version.spring>
+    <version.spring>6.1.5</version.spring>
     <version.spring.boot>3.2.3</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
     <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.springdoc-openapi-starter-webmvc-ui>2.3.0</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
-    <version.tika.core>1.26</version.tika.core>
+    <version.tika.core>2.9.2</version.tika.core>
     <version.org.wiremock>3.4.2</version.org.wiremock>
     <version.testcontainers>1.19.6</version.testcontainers>
     <version.xerces>2.12.2</version.xerces>
@@ -460,6 +409,10 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>*</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -634,7 +587,6 @@
       <artifactId>slf4j-api</artifactId>
       <version>${version.slf4j}</version>
     </dependency>
-
   </dependencies>
 
   <repositories>

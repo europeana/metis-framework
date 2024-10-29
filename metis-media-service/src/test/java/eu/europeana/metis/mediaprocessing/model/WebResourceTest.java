@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
+import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import eu.europeana.metis.schema.model.Orientation;
 import java.util.Arrays;
@@ -211,5 +212,22 @@ class WebResourceTest {
 
     webResource.setResolution(null);
     assertNull(resourceType.getSpatialResolution());
+  }
+
+  @Test
+  void testSetEdmType() {
+    final WebResourceType resourceType = new WebResourceType();
+    final WebResource webResource = new WebResource(resourceType);
+    webResource.setEdmType(EdmType.VIDEO);
+    assertNotNull(resourceType.getType1());
+    assertEquals(EdmType.VIDEO, resourceType.getType1().getType());
+
+    webResource.setEdmType(EdmType.IMAGE);
+    assertNotNull(resourceType.getType1());
+    assertEquals(EdmType.IMAGE, resourceType.getType1().getType());
+
+    webResource.setEdmType(EdmType._3_D);
+    assertNotNull(resourceType.getType1());
+    assertEquals(EdmType._3_D, resourceType.getType1().getType());
   }
 }

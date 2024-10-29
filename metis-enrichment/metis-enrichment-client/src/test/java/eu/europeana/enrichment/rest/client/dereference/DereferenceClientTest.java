@@ -61,10 +61,10 @@ class DereferenceClientTest {
             eq(EnrichmentResultList.class));
 
     assertEquals(
-        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(0).getAbout(),
+        res.getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().get(0).getAbout(),
         agent1.getAbout());
     assertEquals(
-        res.getEnrichmentBaseResultWrapperList().get(0).getEnrichmentBaseList().get(1).getAbout(),
+        res.getEnrichmentBaseResultWrapperList().getFirst().getEnrichmentBaseList().get(1).getAbout(),
         agent2.getAbout());
   }
 }

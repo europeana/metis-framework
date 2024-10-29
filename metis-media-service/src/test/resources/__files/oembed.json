@@ -1,0 +1,23 @@
+{
+  "type": "video",
+  "version": "1.0",
+  "provider_name": "Vimeo",
+  "provider_url": "https://vimeo.com/",
+  "title": "Europeana promo",
+  "author_name": "Europeana",
+  "author_url": "https://vimeo.com/europeana",
+  "is_plus": "1",
+  "account_type": "plus",
+  "html": "<iframe src=\"https://player.vimeo.com/video/24416915?app_id=122963\" width=\"480\" height=\"270\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture; clipboard-write\" title=\"Europeana promo\"></iframe>",
+  "width": 480,
+  "height": 270,
+  "duration": 31,
+  "description": "",
+  "thumbnail_url": "https://i.vimeocdn.com/video/223856359-d86332b534f4edd01355ee14c50b32473f746e4f56454128df8a8ca8228fffb8-d_295x166",
+  "thumbnail_width": 295,
+  "thumbnail_height": 166,
+  "thumbnail_url_with_play_button": "https://i.vimeocdn.com/filter/overlay?src0=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F223856359-d86332b534f4edd01355ee14c50b32473f746e4f56454128df8a8ca8228fffb8-d_295x166&src1=http%3A%2F%2Ff.vimeocdn.com%2Fp%2Fimages%2Fcrawler_play.png",
+  "upload_date": "2011-05-30 09:03:39",
+  "video_id": 24416915,
+  "uri": "/videos/24416915"
+}

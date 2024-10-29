@@ -38,7 +38,7 @@ class OaiRecordParserTest {
     assertEquals(LocalDateTime.of(1981, 7, 1, 0, 0).toInstant(ZoneOffset.UTC),
         result.getHeader().getDatestamp());
     assertFalse(result.getHeader().isDeleted());
-    final String actual = TestHelper.convertToString(result.getRecord());
+    final String actual = TestHelper.convertToString(result.getContent());
     assertThat(actual,
         TestHelper.isSimilarXml(WiremockHelper.getFileContent("/expectedOaiRecord.xml")));
   }
@@ -59,7 +59,7 @@ class OaiRecordParserTest {
     assertEquals("oai:mediateka.centrumzamenhofa.pl:20", result.getHeader().getOaiIdentifier());
     assertEquals(LocalDateTime.of(2020, 2, 2, 12, 21).toInstant(ZoneOffset.UTC),
         result.getHeader().getDatestamp());
-    assertThrows(HarvesterException.class, result::getRecord);
+    assertThrows(IllegalStateException.class, result::getContent);
   }
 
   @Test

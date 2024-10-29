@@ -48,10 +48,13 @@ import org.slf4j.LoggerFactory;
 class AudioVideoProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
+  public static final int FFPROBE_MAX_VERSION = 7;
+  public static final int FFPROBE_MIN_VERSION = 2;
 
   private static String globalFfprobeCommand;
 
   private final CommandExecutor commandExecutor;
+
   private final String ffprobeCommand;
 
   /**
@@ -97,7 +100,7 @@ class AudioVideoProcessor implements MediaProcessor {
     int indexVersion = output.lastIndexOf("version ") + "version ".length();
     int version = Character.isDigit(output.charAt(indexVersion)) ?
         Integer.parseInt(String.valueOf(output.charAt(indexVersion))) : 0;
-    if (!(version >= 2 && version < 5)) {
+    if (!(version >= FFPROBE_MIN_VERSION && version < FFPROBE_MAX_VERSION)) {
       throw new MediaProcessorException("ffprobe version " + version + ".x not found");
     }
 
@@ -171,7 +174,7 @@ class AudioVideoProcessor implements MediaProcessor {
   private Representation getRepresentationFromMpd(AdaptationSet videoAdaptationSet)
       throws MediaExtractionException {
     // If only one representation available, get that one, otherwise get the first of type video
-    Representation videoRepresentation = videoAdaptationSet.getRepresentations().get(0);
+    Representation videoRepresentation = videoAdaptationSet.getRepresentations().getFirst();
     if (videoAdaptationSet.getRepresentations().size() > 1) {
       //Get the one with the highest width*height if possible
       videoRepresentation = videoAdaptationSet.getRepresentations().stream()

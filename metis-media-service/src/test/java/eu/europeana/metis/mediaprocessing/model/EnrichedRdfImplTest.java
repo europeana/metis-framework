@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -69,7 +68,7 @@ class EnrichedRdfImplTest {
     // Verify adding the first resource.
     verify(rdf, times(1)).setWebResourceList(notNull());
     assertEquals(1, rdf.getWebResourceList().size());
-    assertEquals(url1, rdf.getWebResourceList().get(0).getAbout());
+    assertEquals(url1, rdf.getWebResourceList().getFirst().getAbout());
     assertEquals(1, enrichedRdf.getResourceUrls().size());
     assertEquals(names1, enrichedRdf.getThumbnailTargetNames(url1));
     verify(resource1.getMetaData(), times(1)).updateResource(any());
@@ -137,7 +136,7 @@ class EnrichedRdfImplTest {
     final String url = "url value";
     doReturn(url).when(enrichedRdf).getEdmPreviewThumbnailUrl();
     assertEquals(rdf, enrichedRdf.finalizeRdf());
-    verify(enrichedRdf, times(1)).updateEdmPreview(eq(url));
+    verify(enrichedRdf, times(1)).updateEdmPreview(url);
     verify(enrichedRdf, times(1)).updateEdmPreview(anyString());
   }
 

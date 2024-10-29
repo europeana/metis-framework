@@ -1,0 +1,20 @@
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "language"
+      ],
+      "msg": "Field required",
+      "input": {
+        "values": [
+          "sample title of aboriginal and addict",
+          "a second addict sample title",
+          "this is a demo of master and slave branch"
+        ]
+      },
+      "url": "https://errors.pydantic.dev/2.5/v/missing"
+    }
+  ]
+}

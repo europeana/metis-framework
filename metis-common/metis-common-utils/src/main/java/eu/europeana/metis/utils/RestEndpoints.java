@@ -30,6 +30,7 @@ public final class RestEndpoints {
   // DEPUBLISHED RECORDS
   public static final String DEPUBLISH_RECORDIDS_DATASETID = "/depublish/record_ids/{datasetId}";
   public static final String DEPUBLISH_EXECUTE_DATASETID = "/depublish/execute/{datasetId}";
+  public static final String DEPUBLISH_REASONS = "/depublish/reasons";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";
@@ -86,6 +87,9 @@ public final class RestEndpoints {
   public static final String REPOSITORY_RECORDS_RECORD_ID_HEADER = "/repository/records/{recordId}/header";
   public static final String REPOSITORY_HTTP_ENDPOINT_ZIP = "/repository/zip/{dataset}.zip";
   public static final String REPOSITORY_OAI_ENDPOINT = "/repository/oai";
+
+  /* METIS-DEBIAS ENDPOINTS */
+  public static final String DEBIAS_DETECTION = "/debias";
 
   private RestEndpoints() {
   }
