@@ -34,8 +34,6 @@ public class IndexerImpl implements Indexer {
 
   private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
 
-  private final TombstoneUtil tombstoneUtil = new TombstoneUtil();
-
   /**
    * Constructor.
    *
@@ -143,7 +141,7 @@ public class IndexerImpl implements Indexer {
     final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
     if (publishedFullbean != null) {
       final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-      final FullBeanImpl tombstoneFullbean = tombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
+      final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
       try {
         publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
       } catch (IndexingException e) {

@@ -29,12 +29,10 @@ import org.junit.jupiter.api.Test;
 
 class TombstoneUtilTest {
 
-  private TombstoneUtil tombstoneUtil;
   private FullBeanImpl publishedFullbean;
 
   @BeforeEach
   void setUp() {
-    tombstoneUtil = new TombstoneUtil();
     Date currentTime = new Date();
 
     publishedFullbean = new FullBeanImpl();
@@ -124,7 +122,7 @@ class TombstoneUtilTest {
 
     final ConceptImpl concept = new ConceptImpl();
     concept.setAbout("sampleConceptAbout");
-    concept.setPrefLabel(Map.of("en", List.of("samplePrefLabel")));
+    concept.setPrefLabel(null);
     concept.setExactMatch(new String[]{"sampleExactMatch"});
     publishedFullbean.setConcepts(List.of(concept));
 
@@ -137,7 +135,7 @@ class TombstoneUtilTest {
   @Test
   void testPrepareTombstoneFullbean() {
     DepublicationReason depublicationReason = DepublicationReason.PERMISSION_ISSUES;
-    FullBeanImpl tombstone = tombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
+    FullBeanImpl tombstone = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
 
     assertNotEquals(publishedFullbean, tombstone);
     assertEquals(publishedFullbean.getAbout(), tombstone.getAbout());

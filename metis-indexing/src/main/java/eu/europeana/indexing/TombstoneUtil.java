@@ -24,12 +24,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Contains functionality for updating fields that are required for tombstone records.
  */
-public class TombstoneUtil {
+public final class TombstoneUtil {
+
+  private TombstoneUtil() {
+  }
 
   /**
    * Prepare the tombstone fullbean.
@@ -38,7 +40,7 @@ public class TombstoneUtil {
    * @param depublicationReason the depublication reason
    * @return the newly created tombstone
    */
-  public FullBeanImpl prepareTombstoneFullbean(FullBeanImpl publishedFullbean, DepublicationReason depublicationReason) {
+  public static FullBeanImpl prepareTombstoneFullbean(FullBeanImpl publishedFullbean, DepublicationReason depublicationReason) {
 
     final FullBeanImpl tombstoneFullbean = new FullBeanImpl();
     tombstoneFullbean.setAbout(publishedFullbean.getAbout());
@@ -65,19 +67,19 @@ public class TombstoneUtil {
     return tombstoneFullbean;
   }
 
-  private @NotNull ArrayList<ProxyImpl> prepareProxies(FullBeanImpl publishedFullbean) {
+  private static ArrayList<ProxyImpl> prepareProxies(FullBeanImpl publishedFullbean) {
     final ArrayList<ProxyImpl> tombstoneProxies = new ArrayList<>();
     final Optional<ProxyImpl> dataProviderProxy =
         publishedFullbean.getProxies().stream().filter(not(ProxyImpl::isEuropeanaProxy)).findFirst();
-    dataProviderProxy.ifPresent(proxy -> tombstoneProxies.add(this.prepareDataProviderProxy(proxy)));
+    dataProviderProxy.ifPresent(proxy -> tombstoneProxies.add(prepareDataProviderProxy(proxy)));
 
     final List<ProxyImpl> europeanaOrAggregatorProxies = publishedFullbean.getProxies().stream().filter(
         proxy -> proxy.isEuropeanaProxy() || ArrayUtils.isNotEmpty(proxy.getLineage())).toList();
-    tombstoneProxies.addAll(this.prepareEuropeanaOrAggregatorProxy(europeanaOrAggregatorProxies));
+    tombstoneProxies.addAll(prepareEuropeanaOrAggregatorProxy(europeanaOrAggregatorProxies));
     return tombstoneProxies;
   }
 
-  private List<OrganizationImpl> prepareOrganizations(List<OrganizationImpl> organizations) {
+  private static List<OrganizationImpl> prepareOrganizations(List<OrganizationImpl> organizations) {
     return organizations.stream().map(organization -> {
       final OrganizationImpl tombstoneOrganization = new OrganizationImpl();
       tombstoneOrganization.setAbout(organization.getAbout());
@@ -87,7 +89,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private List<AgentImpl> prepareAgents(List<AgentImpl> agents) {
+  private static List<AgentImpl> prepareAgents(List<AgentImpl> agents) {
     return agents.stream().map(agent -> {
       final AgentImpl tombstoneAgent = new AgentImpl();
       tombstoneAgent.setAbout(agent.getAbout());
@@ -98,7 +100,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private List<PlaceImpl> preparePlaces(List<PlaceImpl> places) {
+  private static List<PlaceImpl> preparePlaces(List<PlaceImpl> places) {
     return places.stream().map(place -> {
       final PlaceImpl tombstonePlace = new PlaceImpl();
       tombstonePlace.setAbout(place.getAbout());
@@ -108,7 +110,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private List<TimespanImpl> prepareTimespans(List<TimespanImpl> timespans) {
+  private static List<TimespanImpl> prepareTimespans(List<TimespanImpl> timespans) {
     return timespans.stream().map(timespan -> {
       final TimespanImpl tombstoneTimespan = new TimespanImpl();
       tombstoneTimespan.setAbout(timespan.getAbout());
@@ -120,7 +122,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private List<ConceptImpl> prepareConcepts(List<ConceptImpl> concepts) {
+  private static List<ConceptImpl> prepareConcepts(List<ConceptImpl> concepts) {
     return concepts.stream().map(concept -> {
       final ConceptImpl tombstoneConcept = new ConceptImpl();
       tombstoneConcept.setAbout(concept.getAbout());
@@ -130,7 +132,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private List<LicenseImpl> prepareLicenses(List<LicenseImpl> licenses) {
+  private static List<LicenseImpl> prepareLicenses(List<LicenseImpl> licenses) {
     return licenses.stream().map(license -> {
       final LicenseImpl tombstoneLicense = new LicenseImpl();
       tombstoneLicense.setAbout(license.getAbout());
@@ -139,7 +141,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation,
+  private static EuropeanaAggregation prepareEuropeanaAggregation(EuropeanaAggregation europeanaAggregation,
       DepublicationReason depublicationReason) {
     final ChangeLog tombstoneChangeLog = new ChangeLogImpl();
     tombstoneChangeLog.setType("Delete");
@@ -156,7 +158,7 @@ public class TombstoneUtil {
     return tombstoneEuropeanaAggregation;
   }
 
-  private List<AggregationImpl> prepareAggregations(List<AggregationImpl> aggregations) {
+  private static List<AggregationImpl> prepareAggregations(List<AggregationImpl> aggregations) {
     return aggregations.stream().map(aggregation -> {
       final AggregationImpl tombstoneAggregation = new AggregationImpl();
       tombstoneAggregation.setAbout(aggregation.getAbout());
@@ -172,7 +174,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private ProxyImpl prepareDataProviderProxy(ProxyImpl proxy) {
+  private static ProxyImpl prepareDataProviderProxy(ProxyImpl proxy) {
     final ProxyImpl tombstoneProxy = new ProxyImpl();
     tombstoneProxy.setAbout(proxy.getAbout());
     tombstoneProxy.setDcContributor(copyMap(proxy.getDcContributor()));
@@ -192,7 +194,7 @@ public class TombstoneUtil {
     return tombstoneProxy;
   }
 
-  private List<ProxyImpl> prepareEuropeanaOrAggregatorProxy(List<ProxyImpl> proxies) {
+  private static List<ProxyImpl> prepareEuropeanaOrAggregatorProxy(List<ProxyImpl> proxies) {
     return proxies.stream().map(proxy -> {
       final ProxyImpl tombstoneProxy = new ProxyImpl();
       tombstoneProxy.setAbout(proxy.getAbout());
@@ -204,7 +206,7 @@ public class TombstoneUtil {
     }).toList();
   }
 
-  private <K, V> Map<K, List<V>> copyMap(Map<K, List<V>> original) {
+  private static <K, V> Map<K, List<V>> copyMap(Map<K, List<V>> original) {
     final Map<K, List<V>> copy;
     if (original == null) {
       copy = null;
@@ -217,7 +219,7 @@ public class TombstoneUtil {
     return copy;
   }
 
-  private String[] safeClone(String[] object) {
+  private static String[] safeClone(String[] object) {
     return Optional.ofNullable(object).map(String[]::clone).orElse(null);
   }
 }
