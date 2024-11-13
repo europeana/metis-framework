@@ -92,10 +92,7 @@ public class TombstoneUtil {
       final AgentImpl tombstoneAgent = new AgentImpl();
       tombstoneAgent.setAbout(agent.getAbout());
       tombstoneAgent.setPrefLabel(copyMap(agent.getPrefLabel()));
-      tombstoneAgent.setAltLabel(copyMap(agent.getAltLabel()));
       tombstoneAgent.setDcIdentifier(copyMap(agent.getDcIdentifier()));
-      tombstoneAgent.setRdaGr2DateOfBirth(copyMap(agent.getRdaGr2DateOfBirth()));
-      tombstoneAgent.setRdaGr2DateOfDeath(copyMap(agent.getRdaGr2DateOfDeath()));
       tombstoneAgent.setOwlSameAs(agent.getOwlSameAs().clone());
       return tombstoneAgent;
     }).toList();
@@ -128,7 +125,6 @@ public class TombstoneUtil {
       final ConceptImpl tombstoneConcept = new ConceptImpl();
       tombstoneConcept.setAbout(concept.getAbout());
       tombstoneConcept.setPrefLabel(copyMap(concept.getPrefLabel()));
-      tombstoneConcept.setAltLabel(copyMap(concept.getAltLabel()));
       tombstoneConcept.setExactMatch(concept.getExactMatch().clone());
       return tombstoneConcept;
     }).toList();

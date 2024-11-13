@@ -104,10 +104,7 @@ class TombstoneUtilTest {
     final AgentImpl agent = new AgentImpl();
     agent.setAbout("sampleAgentAbout");
     agent.setPrefLabel(Map.of("en", List.of("samplePrefLabel")));
-    agent.setAltLabel(Map.of("en", List.of("sampleAltLabel")));
     agent.setDcIdentifier(Map.of("en", List.of("sampleDcIdentifier")));
-    agent.setRdaGr2DateOfBirth(Map.of("def", List.of("sampleRdaGr2DateOfBirth")));
-    agent.setRdaGr2DateOfDeath(Map.of("def", List.of("sampleRdaGr2DateOfDeath")));
     agent.setOwlSameAs(new String[]{"sampleOwlSameAs"});
     publishedFullbean.setAgents(List.of(agent));
 
@@ -128,7 +125,6 @@ class TombstoneUtilTest {
     final ConceptImpl concept = new ConceptImpl();
     concept.setAbout("sampleConceptAbout");
     concept.setPrefLabel(Map.of("en", List.of("samplePrefLabel")));
-    concept.setAltLabel(Map.of("en", List.of("sampleAltLabel")));
     concept.setExactMatch(new String[]{"sampleExactMatch"});
     publishedFullbean.setConcepts(List.of(concept));
 
@@ -265,10 +261,7 @@ class TombstoneUtilTest {
       assertNotNull(matchingAgent);
       assertEquals(agent.getAbout(), matchingAgent.getAbout());
       assertEquals(agent.getPrefLabel(), matchingAgent.getPrefLabel());
-      assertEquals(agent.getAltLabel(), matchingAgent.getAltLabel());
       assertEquals(agent.getDcIdentifier(), matchingAgent.getDcIdentifier());
-      assertEquals(agent.getRdaGr2DateOfBirth(), matchingAgent.getRdaGr2DateOfBirth());
-      assertEquals(agent.getRdaGr2DateOfDeath(), matchingAgent.getRdaGr2DateOfDeath());
       assertArrayEquals(agent.getOwlSameAs(), matchingAgent.getOwlSameAs());
     });
   }
@@ -313,7 +306,6 @@ class TombstoneUtilTest {
       assertNotNull(matchingConcept);
       assertEquals(concept.getAbout(), matchingConcept.getAbout());
       assertEquals(concept.getPrefLabel(), matchingConcept.getPrefLabel());
-      assertEquals(concept.getAltLabel(), matchingConcept.getAltLabel());
       assertArrayEquals(concept.getExactMatch(), matchingConcept.getExactMatch());
     });
   }
