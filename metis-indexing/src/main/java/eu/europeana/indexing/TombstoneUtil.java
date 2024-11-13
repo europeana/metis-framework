@@ -48,7 +48,7 @@ public class TombstoneUtil {
 
     final ProvidedCHOImpl providedCHO = new ProvidedCHOImpl();
     providedCHO.setAbout(publishedFullbean.getProvidedCHOs().getFirst().getAbout());
-    providedCHO.setOwlSameAs(publishedFullbean.getProvidedCHOs().getFirst().getOwlSameAs().clone());
+    providedCHO.setOwlSameAs(safeClone(publishedFullbean.getProvidedCHOs().getFirst().getOwlSameAs()));
     tombstoneFullbean.setProvidedCHOs(List.of(providedCHO));
 
     tombstoneFullbean.setEuropeanaAggregation(
@@ -82,7 +82,7 @@ public class TombstoneUtil {
       final OrganizationImpl tombstoneOrganization = new OrganizationImpl();
       tombstoneOrganization.setAbout(organization.getAbout());
       tombstoneOrganization.setPrefLabel(copyMap(organization.getPrefLabel()));
-      tombstoneOrganization.setOwlSameAs(organization.getOwlSameAs().clone());
+      tombstoneOrganization.setOwlSameAs(safeClone(organization.getOwlSameAs()));
       return tombstoneOrganization;
     }).toList();
   }
@@ -93,7 +93,7 @@ public class TombstoneUtil {
       tombstoneAgent.setAbout(agent.getAbout());
       tombstoneAgent.setPrefLabel(copyMap(agent.getPrefLabel()));
       tombstoneAgent.setDcIdentifier(copyMap(agent.getDcIdentifier()));
-      tombstoneAgent.setOwlSameAs(agent.getOwlSameAs().clone());
+      tombstoneAgent.setOwlSameAs(safeClone(agent.getOwlSameAs()));
       return tombstoneAgent;
     }).toList();
   }
@@ -103,7 +103,7 @@ public class TombstoneUtil {
       final PlaceImpl tombstonePlace = new PlaceImpl();
       tombstonePlace.setAbout(place.getAbout());
       tombstonePlace.setPrefLabel(copyMap(place.getPrefLabel()));
-      tombstonePlace.setOwlSameAs(place.getOwlSameAs().clone());
+      tombstonePlace.setOwlSameAs(safeClone(place.getOwlSameAs()));
       return tombstonePlace;
     }).toList();
   }
@@ -115,7 +115,7 @@ public class TombstoneUtil {
       tombstoneTimespan.setPrefLabel(copyMap(timespan.getPrefLabel()));
       tombstoneTimespan.setBegin(copyMap(timespan.getBegin()));
       tombstoneTimespan.setEnd(copyMap(timespan.getEnd()));
-      tombstoneTimespan.setOwlSameAs(timespan.getOwlSameAs().clone());
+      tombstoneTimespan.setOwlSameAs(safeClone(timespan.getOwlSameAs()));
       return tombstoneTimespan;
     }).toList();
   }
@@ -125,7 +125,7 @@ public class TombstoneUtil {
       final ConceptImpl tombstoneConcept = new ConceptImpl();
       tombstoneConcept.setAbout(concept.getAbout());
       tombstoneConcept.setPrefLabel(copyMap(concept.getPrefLabel()));
-      tombstoneConcept.setExactMatch(concept.getExactMatch().clone());
+      tombstoneConcept.setExactMatch(safeClone(concept.getExactMatch()));
       return tombstoneConcept;
     }).toList();
   }
@@ -187,7 +187,7 @@ public class TombstoneUtil {
     tombstoneProxy.setDctermsIssued(copyMap(proxy.getDctermsIssued()));
     tombstoneProxy.setEdmType(proxy.getEdmType());
     tombstoneProxy.setEuropeanaProxy(proxy.isEuropeanaProxy());
-    tombstoneProxy.setProxyIn(proxy.getProxyIn().clone());
+    tombstoneProxy.setProxyIn(safeClone(proxy.getProxyIn()));
     tombstoneProxy.setProxyFor(proxy.getProxyFor());
     return tombstoneProxy;
   }
@@ -197,18 +197,27 @@ public class TombstoneUtil {
       final ProxyImpl tombstoneProxy = new ProxyImpl();
       tombstoneProxy.setAbout(proxy.getAbout());
       tombstoneProxy.setEuropeanaProxy(proxy.isEuropeanaProxy());
-      tombstoneProxy.setLineage(proxy.getLineage().clone());
-      tombstoneProxy.setProxyIn(proxy.getProxyIn().clone());
+      tombstoneProxy.setLineage(safeClone(proxy.getLineage()));
+      tombstoneProxy.setProxyIn(safeClone(proxy.getProxyIn()));
       tombstoneProxy.setProxyFor(proxy.getProxyFor());
       return tombstoneProxy;
     }).toList();
   }
 
   private <K, V> Map<K, List<V>> copyMap(Map<K, List<V>> original) {
-    Map<K, List<V>> copy = new HashMap<>();
-    for (Map.Entry<K, List<V>> entry : original.entrySet()) {
-      copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+    final Map<K, List<V>> copy;
+    if (original == null) {
+      copy = null;
+    } else {
+      copy = new HashMap<>();
+      for (Map.Entry<K, List<V>> entry : original.entrySet()) {
+        copy.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+      }
     }
     return copy;
+  }
+
+  private String[] safeClone(String[] object) {
+    return Optional.ofNullable(object).map(String[]::clone).orElse(null);
   }
 }
