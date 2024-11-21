@@ -77,6 +77,8 @@ class DeBiasClientTest {
             .withBody(successResponse)
             .withStatus(200)));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setLanguage("en");
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
@@ -103,6 +105,8 @@ class DeBiasClientTest {
             .withBody(errorResponse)
             .withStatus(422)));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setLanguage(null);
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
@@ -120,6 +124,8 @@ class DeBiasClientTest {
   void detect_noService_errorResponse() {
 
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setLanguage("en");
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",

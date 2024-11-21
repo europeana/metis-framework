@@ -40,6 +40,8 @@ class DetectionControllerTest {
 
   private static String getDetectionParameterJson() throws JsonProcessingException {
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
