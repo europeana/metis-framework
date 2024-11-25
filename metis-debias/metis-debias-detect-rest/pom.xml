@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-debias</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>14-SNAPSHOT</version>
+    <version>14</version>
   </parent>
   <artifactId>metis-debias-detect-rest</artifactId>
   <dependencies>
@@ -76,7 +76,7 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-debias-detect-service</artifactId>
-      <version>14-SNAPSHOT</version>
+      <version>14</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
