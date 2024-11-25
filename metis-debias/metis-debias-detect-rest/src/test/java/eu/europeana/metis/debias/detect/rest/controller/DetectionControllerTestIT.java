@@ -72,6 +72,8 @@ class DetectionControllerTestIT {
             .withBody(successResponse)
             .withStatus(200)));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
@@ -102,6 +104,8 @@ class DetectionControllerTestIT {
             .withBody(errorResponse)
         ));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
@@ -133,6 +137,8 @@ class DetectionControllerTestIT {
             .withBody(errorResponse)
         ));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setValues(null);
     biasInputLiterals.setLanguage("en");
     ObjectMapper mapper = new ObjectMapper();
@@ -186,6 +192,8 @@ class DetectionControllerTestIT {
             .withStatus(502)
             .withBody(errorAPIResponse)));
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
+    biasInputLiterals.setUseLLM(true);
+    biasInputLiterals.setUseNER(true);
     biasInputLiterals.setValues(List.of(
         "sample title of aboriginal and addict",
         "a second addict sample title",
