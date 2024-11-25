@@ -100,7 +100,7 @@ class AudioVideoProcessor implements MediaProcessor {
     int indexVersion = output.lastIndexOf("version ") + "version ".length();
     int version = Character.isDigit(output.charAt(indexVersion)) ?
         Integer.parseInt(String.valueOf(output.charAt(indexVersion))) : 0;
-    if (!(version >= FFPROBE_MIN_VERSION && version < FFPROBE_MAX_VERSION)) {
+    if (!(version >= FFPROBE_MIN_VERSION && version <= FFPROBE_MAX_VERSION)) {
       throw new MediaProcessorException("ffprobe version " + version + ".x not found");
     }
 
