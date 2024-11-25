@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class BiasInputLiterals {
 
+  private boolean useNER;
+  private boolean useLLM;
   private String language;
   private List<String> values;
 
@@ -48,5 +50,41 @@ public class BiasInputLiterals {
     if (values != null) {
       this.values = Collections.unmodifiableList(values);
     }
+  }
+
+  /**
+   * Is use ner boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isUseNER() {
+    return useNER;
+  }
+
+  /**
+   * Sets use ner.
+   *
+   * @param useNER the use ner
+   */
+  public void setUseNER(boolean useNER) {
+    this.useNER = useNER;
+  }
+
+  /**
+   * Is use llm boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isUseLLM() {
+    return useLLM;
+  }
+
+  /**
+   * Sets use llm.
+   *
+   * @param useLLM the use llm
+   */
+  public void setUseLLM(boolean useLLM) {
+    this.useLLM = useLLM;
   }
 }
