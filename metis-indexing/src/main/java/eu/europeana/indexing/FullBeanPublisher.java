@@ -358,9 +358,7 @@ public class FullBeanPublisher {
     final SolrInputDocument document = new SolrInputDocument();
     documentPopulator.populateWithProperties(document, fullBean);
     documentPopulator.populateWithFacets(document, rdfWrapper);
-
-    // TODO: re-enable when running reindexing process for SOLR.
-    //documentPopulator.populateWithDateRanges(document, rdfWrapper);
+    documentPopulator.populateWithDateRanges(document, rdfWrapper);
 
     // Save Solr document.
     try {
