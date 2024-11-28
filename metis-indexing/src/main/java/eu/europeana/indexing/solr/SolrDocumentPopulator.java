@@ -198,9 +198,15 @@ public class SolrDocumentPopulator {
     final ProxyType europeanaProxy = rdfWrapper.getProxies().stream().filter(RdfWrapper::isEuropeanaProxy).findFirst()
                                                .orElseThrow();
 
-    final List<String> proxyChoiceLinks = europeanaProxy.getChoiceList().stream().filter(choiceTypePredicate)
-                                                        .map(choiceValueGetter).map(ResourceOrLiteralType::getResource)
-                                                        .map(Resource::getResource).toList();
+    final List<String> proxyChoiceLinks = europeanaProxy.getChoiceList().stream()
+                                                        .filter(choiceTypePredicate)
+                                                        .map(choiceValueGetter)
+                                                        .filter(Objects::nonNull)
+                                                        .map(ResourceOrLiteralType::getResource)
+                                                        .filter(Objects::nonNull)
+                                                        .map(Resource::getResource)
+                                                        .filter(Objects::nonNull)
+                                                        .toList();
 
     final List<TimeSpanType> proxyChoiceMatchingTimeSpans = normalizedTimeSpans.stream().filter(
         timeSpanType -> proxyChoiceLinks.contains(timeSpanType.getAbout())).toList();

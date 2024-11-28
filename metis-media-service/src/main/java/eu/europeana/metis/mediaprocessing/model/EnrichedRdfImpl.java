@@ -33,7 +33,7 @@ public class EnrichedRdfImpl extends RdfWrapper implements EnrichedRdf {
       getRdf().setWebResourceList(new ArrayList<>());
     }
     for (WebResourceType resource : getRdf().getWebResourceList()) {
-      if (resource.getAbout().equals(url)) {
+      if (resource != null && resource.getAbout() !=null && resource.getAbout().equals(url)) {
         return new WebResource(resource);
       }
     }
