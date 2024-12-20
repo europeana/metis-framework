@@ -116,19 +116,19 @@ public class VocabularyCollectionMavenRule implements EnforcerRule {
     final Path vocabularyDirectory = baseDirectory.resolve(vocabularyDirectoryFile);
 
     try {
-    // Prepare validation
-    final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
-            .createImporter(baseDirectory, vocabularyDirectory);
-    final VocabularyCollectionValidatorImpl validator = new VocabularyCollectionValidatorImpl(
-            importer, lenientOnLackOfExamples, lenientOnMappingTestFailures,
-            lenientOnExampleRetrievalFailures);
-    log.info("");
-    log.info("Validating vocabulary collection: " + importer.getDirectoryLocation().toString());
+      // Prepare validation
+      final VocabularyCollectionImporter importer = vocabularyCollectionImporterFactory
+          .createImporter(baseDirectory, vocabularyDirectory);
+      final VocabularyCollectionValidatorImpl validator = new VocabularyCollectionValidatorImpl(
+          importer, lenientOnLackOfExamples, lenientOnMappingTestFailures,
+          lenientOnExampleRetrievalFailures);
+      log.info("");
+      log.info("Validating vocabulary collection: " + importer.getDirectoryLocation().toString());
 
-    // Perform validation
+      // Perform validation
 
       validator.validate(vocabulary -> log.info("  Vocabulary found: " + vocabulary.getName()),
-              log::warn);
+          log::warn);
     } catch (VocabularyImportException e) {
       log.error(e.getMessage());
       throw new EnforcerRuleException("Vocabulary collection validation failed.", e);

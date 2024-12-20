@@ -27,6 +27,9 @@ public class Concept extends EnrichmentBase {
   private List<Resource> broadMatch;
   @XmlElement(name = "closeMatch", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> closeMatch;
+  /** Supported for serving in dereference API, not in the wider aggregation workflow. **/
+  @XmlElement(name = "definition", namespace = "http://www.w3.org/2004/02/skos/core#")
+  private List<Label> definitions;
   @XmlElement(name = "exactMatch", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> exactMatch;
   @XmlElement(name = "inScheme", namespace = "http://www.w3.org/2004/02/skos/core#")
@@ -39,6 +42,9 @@ public class Concept extends EnrichmentBase {
   private List<Resource> related;
   @XmlElement(name = "relatedMatch", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> relatedMatch;
+  /** Supported for serving in dereference API, not in the wider aggregation workflow. **/
+  @XmlElement(name = "scopeNote", namespace = "http://www.w3.org/2004/02/skos/core#")
+  private List<Label> scopeNotes;
 
   /**
    * Default constructor.
@@ -94,6 +100,14 @@ public class Concept extends EnrichmentBase {
     this.closeMatch = cloneListAcceptingNull(closeMatch);
   }
 
+  public List<Label> getDefinitions() {
+    return unmodifiableListAcceptingNull(definitions);
+  }
+
+  public void setDefinitions(List<Label> definitions) {
+    this.definitions = cloneListAcceptingNull(definitions);
+  }
+
   public List<Resource> getExactMatch() {
     return unmodifiableListAcceptingNull(exactMatch);
   }
@@ -140,6 +154,14 @@ public class Concept extends EnrichmentBase {
 
   public void setRelatedMatch(List<Resource> relatedMatch) {
     this.relatedMatch = cloneListAcceptingNull(relatedMatch);
+  }
+
+  public List<Label> getScopeNotes() {
+    return unmodifiableListAcceptingNull(scopeNotes);
+  }
+
+  public void setScopeNotes(List<Label> scopeNotes) {
+    this.scopeNotes = cloneListAcceptingNull(scopeNotes);
   }
 
   private void init(eu.europeana.entitymanagement.definitions.model.Concept concept) {
