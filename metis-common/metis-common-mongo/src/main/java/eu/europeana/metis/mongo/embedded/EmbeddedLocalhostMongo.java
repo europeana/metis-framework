@@ -4,7 +4,7 @@ package eu.europeana.metis.mongo.embedded;
 import de.flapdoodle.embed.mongo.commands.ImmutableMongodArguments;
 import de.flapdoodle.embed.mongo.commands.MongodArguments;
 import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.distribution.Version.Main;
 import de.flapdoodle.embed.mongo.transitions.ImmutableMongod;
 import de.flapdoodle.embed.mongo.transitions.Mongod;
 import de.flapdoodle.embed.mongo.transitions.RunningMongodProcess;
@@ -61,7 +61,7 @@ public class EmbeddedLocalhostMongo {
                                        .withProcessOutput(Start.to(ProcessOutput.class).initializedWith(processOutput))
                                        .withMongodArguments(Start.to(MongodArguments.class).initializedWith(mongodArguments));
 
-        runningMongodProcessReachedState = mongod.start(Version.Main.V4_4);
+        runningMongodProcessReachedState = mongod.start(Main.V5_0);
 
       } catch (IOException e) {
         LOGGER.error("Exception when starting embedded mongo", e);
