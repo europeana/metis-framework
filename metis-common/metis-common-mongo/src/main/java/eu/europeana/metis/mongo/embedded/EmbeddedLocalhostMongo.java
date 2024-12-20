@@ -61,7 +61,7 @@ public class EmbeddedLocalhostMongo {
                                        .withProcessOutput(Start.to(ProcessOutput.class).initializedWith(processOutput))
                                        .withMongodArguments(Start.to(MongodArguments.class).initializedWith(mongodArguments));
 
-        runningMongodProcessReachedState = mongod.start(Main.V5_0);
+        runningMongodProcessReachedState = mongod.start(Main.V6_0);
 
       } catch (IOException e) {
         LOGGER.error("Exception when starting embedded mongo", e);
