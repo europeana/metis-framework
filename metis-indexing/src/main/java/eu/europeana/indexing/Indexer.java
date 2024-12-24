@@ -199,6 +199,17 @@ public interface Indexer extends Closeable {
   boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException;
 
   /**
+   * Removes the tombstone of the record with the given rdf:about value. This method also removes the associated  objects (i.e.
+   * those objects that are always part of only one record and the removal of which can not invalidate references from other
+   * records):
+   *
+   * @param rdfAbout the id of the record
+   * @return information if tombstone really existed.
+   * @throws IndexingException in case something went wrong.
+   */
+  boolean removeTombstone(String rdfAbout) throws IndexingException;
+
+  /**
    * <p>
    * Removes all records that belong to a given dataset. This method also removes the associated
    * objects (i.e. those objects that are always part of only one record and the removal of which

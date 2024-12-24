@@ -133,6 +133,11 @@ public class IndexerImpl implements Indexer {
   }
 
   @Override
+  public boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+    return this.connectionProvider.getIndexedRecordAccess().removeTombstone(rdfAbout);
+  }
+
+  @Override
   public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
     if (depublicationReason == DepublicationReason.LEGACY) {
       throw new IndexerRelatedIndexingException(
