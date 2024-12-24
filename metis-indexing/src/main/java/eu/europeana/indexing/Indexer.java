@@ -203,9 +203,9 @@ public interface Indexer extends Closeable {
    * those objects that are always part of only one record and the removal of which can not invalidate references from other
    * records):
    *
-   * @param rdfAbout
+   * @param rdfAbout the id of the record
    * @return information if tombstone really existed.
-   * @throws IndexingException
+   * @throws IndexingException in case something went wrong.
    */
   boolean removeTombstone(String rdfAbout) throws IndexingException;
 
