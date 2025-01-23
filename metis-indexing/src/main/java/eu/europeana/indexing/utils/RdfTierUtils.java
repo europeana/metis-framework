@@ -158,10 +158,10 @@ public final class RdfTierUtils {
   }
 
   private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
-    if(MediaTier.class.getName().equals(tier.getName())) {
+    if(tier.isAssignableFrom(MediaTier.class)) {
       final String contentTier = "http://www.europeana.eu/schemas/epf/contentTier";
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(contentTier));
-    } else if(MetadataTier.class.getName().equals(tier.getName())) {
+    } else if(tier.isAssignableFrom(MetadataTier.class)) {
       final String metadataTier = "http://www.europeana.eu/schemas/epf/metadataTier";
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(metadataTier));
     } else {

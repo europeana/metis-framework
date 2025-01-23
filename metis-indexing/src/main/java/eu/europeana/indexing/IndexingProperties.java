@@ -50,6 +50,7 @@ public class IndexingProperties {
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.
+   * @param computeAbsentTierCalculation the compute absent tier calculation
    * @param typesEnabledForTierCalculation the types enabled for tier calculation if enabled.
    */
   public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
