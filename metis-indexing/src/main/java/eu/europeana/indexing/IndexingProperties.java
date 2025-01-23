@@ -20,6 +20,7 @@ public class IndexingProperties {
   private final List<String> datasetIdsForRedirection;
   private final boolean performRedirects;
   private final boolean performTierCalculation;
+  private final boolean computeAbsentTierCalculation;
   private final EnumSet<EdmType> typesEnabledForTierCalculation;
 
   /**
@@ -31,10 +32,12 @@ public class IndexingProperties {
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.
+   * @param computeAbsentTierCalculation the compute if absent europeana tier calculation
    */
   public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects, boolean performTierCalculation) {
+      boolean performRedirects, boolean performTierCalculation, boolean computeAbsentTierCalculation) {
     this(recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects, performTierCalculation,
+        computeAbsentTierCalculation,
         EnumSet.allOf(EdmType.class));
   }
 
@@ -51,13 +54,14 @@ public class IndexingProperties {
    */
   public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
       List<String> datasetIdsForRedirection, boolean performRedirects,
-      boolean performTierCalculation, Set<EdmType> typesEnabledForTierCalculation) {
+      boolean performTierCalculation, boolean computeAbsentTierCalculation, Set<EdmType> typesEnabledForTierCalculation) {
     this.recordDate = recordDate == null ? null : new Date(recordDate.getTime());
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
     this.datasetIdsForRedirection = Optional.ofNullable(datasetIdsForRedirection)
                                             .<List<String>>map(ArrayList::new).orElseGet(Collections::emptyList);
     this.performRedirects = performRedirects;
     this.performTierCalculation = performTierCalculation;
+    this.computeAbsentTierCalculation = computeAbsentTierCalculation;
     this.typesEnabledForTierCalculation = EnumSet.copyOf(typesEnabledForTierCalculation);
   }
 
@@ -94,6 +98,13 @@ public class IndexingProperties {
    */
   public boolean isPerformTierCalculation() {
     return performTierCalculation;
+  }
+
+  /**
+   * @return Whether europeana tier calculation should be performed.
+   */
+  public boolean isComputeAbsentTierCalculation() {
+    return computeAbsentTierCalculation;
   }
 
   /**

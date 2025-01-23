@@ -4,6 +4,7 @@ import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
@@ -96,6 +97,76 @@ public final class RdfTierUtils {
    */
   public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
     setTierInternalEuropeana(rdf, tier);
+  }
+
+  /**
+   * Check if Europeana Aggregation already has a tier calculation.
+   *
+   * @param rdf the rdf
+   * @param tier the tier
+   * @return the boolean
+   */
+  public static boolean hasTierEuropeanaCalculation(RDF rdf, Class<? extends Tier> tier) {
+    List<String> tierEuropeanaData = rdf.getEuropeanaAggregationList()
+                                        .stream()
+                                        .map(eudata -> {
+                                          if (eudata.getHasQualityAnnotationList() != null) {
+                                            return eudata.getHasQualityAnnotationList()
+                                                         .stream()
+                                                         .map(q -> q.getQualityAnnotation()
+                                                                    .getHasBody()
+                                                                    .getResource())
+                                                         .toList();
+                                          } else {
+                                            return null;
+                                          }
+                                        })
+                                        .filter(Objects::nonNull)
+                                        .findFirst()
+                                        .orElse(List.of());
+
+    return containsTierCalculation(tier, tierEuropeanaData);
+  }
+
+  /**
+   * Check if Aggregation already has a tier calculation.
+   *
+   * @param rdf the rdf
+   * @param tier the tier
+   * @return the boolean
+   */
+  public static boolean hasTierCalculation(RDF rdf, Class<? extends Tier> tier) {
+    List<String> tierData = rdf.getAggregationList()
+                                        .stream()
+                                        .map(eudata -> {
+                                          if (eudata.getHasQualityAnnotationList() != null) {
+                                            return eudata.getHasQualityAnnotationList()
+                                                         .stream()
+                                                         .map(q -> q.getQualityAnnotation()
+                                                                    .getHasBody()
+                                                                    .getResource())
+                                                         .toList();
+                                          } else {
+                                            return null;
+                                          }
+                                        })
+                                        .filter(Objects::nonNull)
+                                        .findFirst()
+                                        .orElse(List.of());
+
+    return containsTierCalculation(tier, tierData);
+  }
+
+  private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
+    if(MediaTier.class.getName().equals(tier.getName())) {
+      final String contentTier = "http://www.europeana.eu/schemas/epf/contentTier";
+      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(contentTier));
+    } else if(MetadataTier.class.getName().equals(tier.getName())) {
+      final String metadataTier = "http://www.europeana.eu/schemas/epf/metadataTier";
+      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(metadataTier));
+    } else {
+      return false;
+    }
   }
 
   private static void setTierInternal(RDF rdf, Tier tier)

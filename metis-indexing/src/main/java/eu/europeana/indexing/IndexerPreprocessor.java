@@ -45,13 +45,21 @@ public final class IndexerPreprocessor {
                                                            .contains(rdfWrapper.getEdmType())) {
       final TierResults tierCalculationsResultProvidedData = new TierResults(
           mediaClassifier.classify(rdfWrapper), metadataClassifier.classify(rdfWrapper));
-      RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
-      RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
-
+      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierCalculation(rdf, MediaTier.class)) {
+        RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
+      }
+      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierCalculation(rdf, MetadataTier.class)) {
+        RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
+      }
       final TierResults tierCalculationsResultEuropeana = new TierResults(
           mediaClassifier.classify(rdfWrapper), metadataClassifierEuropeana.classify(rdfWrapper));
-      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
-      RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
+
+      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierEuropeanaCalculation(rdf, MediaTier.class)) {
+        RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
+      }
+      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierEuropeanaCalculation(rdf, MetadataTier.class)) {
+        RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
+      }
 
       return tierCalculationsResultProvidedData;
     }
