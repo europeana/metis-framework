@@ -4,6 +4,7 @@ import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;
 import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
@@ -90,6 +91,17 @@ public class IndexerPool implements Closeable {
    */
   public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
     indexRecord(indexer -> indexer.index(stringRdfRecord, indexingProperties));
+  }
+
+  /**
+   * Index tombstone.
+   *
+   * @param rdfAbout the rdf about
+   * @param depublicationReason the depublication reason
+   * @throws IndexingException the indexing exception
+   */
+  public void indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
+    indexRecord(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
   }
 
   /**
