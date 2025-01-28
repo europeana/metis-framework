@@ -158,7 +158,7 @@ class MongoIndexerTest {
       mongoIndexingSettings.setRecordRedirectDatabaseName(mongoRedirectDatabase);
       IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
           true,
-          List.of(), true, true, true);
+          List.of(), true, true);
       mongoIndexingSettings.setIndexingProperties(indexingProperties);
       return mongoIndexingSettings;
     }
