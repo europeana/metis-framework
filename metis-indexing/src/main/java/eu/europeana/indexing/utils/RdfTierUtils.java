@@ -1,9 +1,13 @@
 package eu.europeana.indexing.utils;
 
+import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_BASE_URI;
+import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_BASE_URI;
+
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
+import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
@@ -14,6 +18,7 @@ import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
 import eu.europeana.metis.schema.jibx.HasTarget;
 import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,23 +58,11 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing content tier values that apply to
-   * this record.
+   * Set the given tier value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
    * @param rdf The record.
-   * @param contentTier The content tier value to add.
-   * @throws IndexingException In case no tier value could be added to the record.
-   */
-  public static void setTier(RDF rdf, MediaTier contentTier) throws IndexingException {
-    setTierInternal(rdf, contentTier);
-  }
-
-  /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing metadata tier values that apply to
-   * this record.
-   *
-   * @param rdf The record.
-   * @param tier The metadata tier value to add.
+   * @param tier The {@link MediaTier} or {@link MetadataTier} tier value to add.
    * @throws IndexingException In case no tier value could be added to the record.
    */
   public static void setTier(RDF rdf, Tier tier) throws IndexingException {
@@ -77,25 +70,106 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Sets tier europeana.
+   * Set the given tier value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
-   * @param rdf the rdf
-   * @param contentTier the content tier
-   * @throws IndexingException the indexing exception
+   * @param rdf The record.
+   * @param tier The {@link MediaTier} or {@link MetadataTier} tier value to add.
+   * @throws IndexingException In case no tier value could be added to the record.
    */
-  public static void setTierEuropeana(RDF rdf, MediaTier contentTier) throws IndexingException {
-    setTierInternalEuropeana(rdf, contentTier);
+  public static void setTierIfAbsent(RDF rdf, Tier tier) throws IndexingException {
+    if(!RdfTierUtils.hasTierCalculation(rdf, tier.getClass())) {
+      setTierInternal(rdf, tier);
+    }
   }
 
   /**
-   * Sets tier europeana.
+   * Sets tier europeana value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
+   *
+   * @param rdf the rdf
+   * @param tier the {@link MediaTier} or {@link MetadataTier} tier
+   * @throws IndexingException the indexing exception
+   */
+  public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
+    setTierInternalEuropeana(rdf, tier);
+  }
+
+  /**
+   * Sets tier europeana value in the given {@link RDF} record. Only if absent
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
    * @param rdf the rdf
    * @param tier the tier
    * @throws IndexingException the indexing exception
    */
-  public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
-    setTierInternalEuropeana(rdf, tier);
+  public static void setTierEuropeanaIfAbsent(RDF rdf, Tier tier) throws IndexingException {
+    if(!RdfTierUtils.hasTierEuropeanaCalculation(rdf, tier.getClass())) {
+      setTierInternalEuropeana(rdf, tier);
+    }
+  }
+  /**
+   * Check if Europeana Aggregation already has a tier calculation.
+   *
+   * @param rdf the rdf
+   * @param tier the tier
+   * @return the boolean
+   */
+  public static boolean hasTierEuropeanaCalculation(RDF rdf, Class<? extends Tier> tier) {
+    List<String> tierEuropeanaData = extractTierData(rdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList);
+
+    return containsTierCalculation(tier, tierEuropeanaData);
+  }
+
+  /**
+   * Check if Aggregation already has a tier calculation.
+   *
+   * @param rdf the rdf
+   * @param tier the tier
+   * @return the boolean
+   */
+  public static boolean hasTierCalculation(RDF rdf, Class<? extends Tier> tier) {
+    List<String> tierData = extractTierData(rdf.getAggregationList(), Aggregation::getHasQualityAnnotationList);
+
+    return containsTierCalculation(tier, tierData);
+  }
+
+  /**
+   * Extract tier data from a list of aggregations.
+   *
+   * @param <T> the type parameter
+   * @param aggregationList the aggregation list
+   * @param qualityAnnotationSupplier the quality annotation supplier
+   * @return the extracted tier data
+   */
+  public static <T extends AboutType> List<String> extractTierData(List<T> aggregationList,
+      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier) {
+    return aggregationList
+        .stream().map(aboutType -> Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
+                                           .map(annotations -> annotations
+                                               .stream()
+                                               .map(HasQualityAnnotation::getQualityAnnotation)
+                                               .filter(Objects::nonNull)
+                                               .map(QualityAnnotation::getHasBody)
+                                               .filter(Objects::nonNull)
+                                               .map(ResourceType::getResource)
+                                               .filter(Objects::nonNull)
+                                               .toList())
+                                           .orElse(null))
+        .filter(Objects::nonNull)
+        .findFirst()
+        .orElse(List.of());
+  }
+
+  private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
+    if (tier.isAssignableFrom(MediaTier.class)) {
+      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(CONTENT_TIER_BASE_URI));
+    } else if (tier.isAssignableFrom(MetadataTier.class)) {
+      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(METADATA_TIER_BASE_URI));
+    } else {
+      return false;
+    }
   }
 
   private static void setTierInternal(RDF rdf, Tier tier)
@@ -122,7 +196,8 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = getQualityAnnotation(aggregatorAggregation.getAbout(), rdfTier);
 
     aggregatorAggregation.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotations(link, aggregatorAggregation.getHasQualityAnnotationList()), Stream.of(link)).toList());
+        Stream.concat(getExistingAnnotations(link, aggregatorAggregation.getHasQualityAnnotationList()), Stream.of(link))
+              .toList());
   }
 
   private static void setTierInternalEuropeana(RDF rdf, Tier tier)
@@ -144,7 +219,8 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = getQualityAnnotation(europeanaAggregationType.getAbout(), rdfTier);
 
     europeanaAggregationType.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotations(link, europeanaAggregationType.getHasQualityAnnotationList()), Stream.of(link)).toList());
+        Stream.concat(getExistingAnnotations(link, europeanaAggregationType.getHasQualityAnnotationList()), Stream.of(link))
+              .toList());
   }
 
   @NotNull
