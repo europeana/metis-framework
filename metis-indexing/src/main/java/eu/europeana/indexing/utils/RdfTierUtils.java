@@ -58,23 +58,11 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing content tier values that apply to
-   * this record.
+   * Set the given tier value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
    * @param rdf The record.
-   * @param contentTier The content tier value to add.
-   * @throws IndexingException In case no tier value could be added to the record.
-   */
-  public static void setTier(RDF rdf, MediaTier contentTier) throws IndexingException {
-    setTierInternal(rdf, contentTier);
-  }
-
-  /**
-   * Set the given tier value in the given {@link RDF} record. This will replace all existing metadata tier values that apply to
-   * this record.
-   *
-   * @param rdf The record.
-   * @param tier The metadata tier value to add.
+   * @param tier The {@link MediaTier} or {@link MetadataTier} tier value to add.
    * @throws IndexingException In case no tier value could be added to the record.
    */
   public static void setTier(RDF rdf, Tier tier) throws IndexingException {
@@ -82,27 +70,44 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Sets tier europeana.
+   * Set the given tier value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
-   * @param rdf the rdf
-   * @param contentTier the content tier
-   * @throws IndexingException the indexing exception
+   * @param rdf The record.
+   * @param tier The {@link MediaTier} or {@link MetadataTier} tier value to add.
+   * @throws IndexingException In case no tier value could be added to the record.
    */
-  public static void setTierEuropeana(RDF rdf, MediaTier contentTier) throws IndexingException {
-    setTierInternalEuropeana(rdf, contentTier);
+  public static void setTierIfAbsent(RDF rdf, Tier tier) throws IndexingException {
+    if(!RdfTierUtils.hasTierCalculation(rdf, tier.getClass())) {
+      setTierInternal(rdf, tier);
+    }
   }
 
   /**
-   * Sets tier europeana.
+   * Sets tier europeana value in the given {@link RDF} record.
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
    *
    * @param rdf the rdf
-   * @param tier the tier
+   * @param tier the {@link MediaTier} or {@link MetadataTier} tier
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
     setTierInternalEuropeana(rdf, tier);
   }
 
+  /**
+   * Sets tier europeana value in the given {@link RDF} record. Only if absent
+   * This will replace all existing The {@link MediaTier} or {@link MetadataTier} tier values that apply to this record.
+   *
+   * @param rdf the rdf
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
+   */
+  public static void setTierEuropeanaIfAbsent(RDF rdf, Tier tier) throws IndexingException {
+    if(!RdfTierUtils.hasTierEuropeanaCalculation(rdf, tier.getClass())) {
+      setTierInternalEuropeana(rdf, tier);
+    }
+  }
   /**
    * Check if Europeana Aggregation already has a tier calculation.
    *

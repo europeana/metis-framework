@@ -44,7 +44,7 @@ class IndexerPreprocessorTest {
         IndexingTestUtils.getResourceFileContent("europeana_record_tier_calculation_rdf.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
-        List.of(), true, true, EnumSet.allOf(EdmType.class), TierCalculationMode.INITIALISE);
+        List.of(), true, TierCalculationMode.INITIALISE, EnumSet.allOf(EdmType.class));
 
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
@@ -79,7 +79,7 @@ class IndexerPreprocessorTest {
         IndexingTestUtils.getResourceFileContent("europeana_record_rdf_with_tier_calculated.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
-        List.of(), true, true, EnumSet.allOf(EdmType.class), TierCalculationMode.INITIALISE);
+        List.of(), true, TierCalculationMode.INITIALISE, EnumSet.allOf(EdmType.class));
 
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
@@ -120,7 +120,7 @@ class IndexerPreprocessorTest {
         IndexingTestUtils.getResourceFileContent("europeana_record_rdf_with_tier_calculated.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
-        List.of(), true, true, EnumSet.allOf(EdmType.class), TierCalculationMode.OVERWRITE);
+        List.of(), true, TierCalculationMode.OVERWRITE, EnumSet.allOf(EdmType.class));
 
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
@@ -161,7 +161,7 @@ class IndexerPreprocessorTest {
         IndexingTestUtils.getResourceFileContent("europeana_record_rdf_with_tier_calculated.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
-        List.of(), true, true, EnumSet.allOf(EdmType.class), TierCalculationMode.SKIP);
+        List.of(), true, TierCalculationMode.SKIP, EnumSet.allOf(EdmType.class));
 
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
