@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.metis.schema.jibx.EdmType;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +21,7 @@ public class IndexingProperties {
   private final List<String> datasetIdsForRedirection;
   private final boolean performRedirects;
   private final boolean performTierCalculation;
-  private final boolean computeAbsentTierCalculation;
+  private final TierCalculationMode tierCalculationMode;
   private final EnumSet<EdmType> typesEnabledForTierCalculation;
 
   /**
@@ -32,13 +33,36 @@ public class IndexingProperties {
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.
-   * @param computeAbsentTierCalculation the compute if absent europeana tier calculation
    */
   public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects, boolean performTierCalculation, boolean computeAbsentTierCalculation) {
+      boolean performRedirects, boolean performTierCalculation) {
     this(recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects, performTierCalculation,
-        computeAbsentTierCalculation,
         EnumSet.allOf(EdmType.class));
+  }
+
+  /**
+   * Instantiates a new Indexing properties.
+   *
+   * @param recordDate the record date
+   * @param preserveUpdateAndCreateTimesFromRdf the preserve update and create times from rdf
+   * @param datasetIdsForRedirection the dataset ids for redirection
+   * @param performRedirects the perform redirects
+   * @param performTierCalculation the perform tier calculation
+   * @param typesEnabledForTierCalculation the types enabled for tier calculation
+   * @param tierCalculationMode the tier calculation mode
+   */
+  public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
+      List<String> datasetIdsForRedirection, boolean performRedirects,
+      boolean performTierCalculation, Set<EdmType> typesEnabledForTierCalculation,
+      TierCalculationMode tierCalculationMode) {
+    this.recordDate = recordDate == null ? null : new Date(recordDate.getTime());
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
+    this.datasetIdsForRedirection = Optional.ofNullable(datasetIdsForRedirection)
+                                            .<List<String>>map(ArrayList::new).orElseGet(Collections::emptyList);
+    this.performRedirects = performRedirects;
+    this.performTierCalculation = performTierCalculation;
+    this.tierCalculationMode = tierCalculationMode;
+    this.typesEnabledForTierCalculation = EnumSet.copyOf(typesEnabledForTierCalculation);
   }
 
   /**
@@ -50,19 +74,18 @@ public class IndexingProperties {
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.
-   * @param computeAbsentTierCalculation the compute absent tier calculation
    * @param typesEnabledForTierCalculation the types enabled for tier calculation if enabled.
    */
   public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
       List<String> datasetIdsForRedirection, boolean performRedirects,
-      boolean performTierCalculation, boolean computeAbsentTierCalculation, Set<EdmType> typesEnabledForTierCalculation) {
+      boolean performTierCalculation, Set<EdmType> typesEnabledForTierCalculation) {
     this.recordDate = recordDate == null ? null : new Date(recordDate.getTime());
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
     this.datasetIdsForRedirection = Optional.ofNullable(datasetIdsForRedirection)
                                             .<List<String>>map(ArrayList::new).orElseGet(Collections::emptyList);
     this.performRedirects = performRedirects;
     this.performTierCalculation = performTierCalculation;
-    this.computeAbsentTierCalculation = computeAbsentTierCalculation;
+    this.tierCalculationMode = TierCalculationMode.INITIALISE;
     this.typesEnabledForTierCalculation = EnumSet.copyOf(typesEnabledForTierCalculation);
   }
 
@@ -102,10 +125,10 @@ public class IndexingProperties {
   }
 
   /**
-   * @return Whether europeana tier calculation should be performed.
+   * @return the tier calculation mode
    */
-  public boolean isComputeAbsentTierCalculation() {
-    return computeAbsentTierCalculation;
+  public TierCalculationMode getTierCalculationMode() {
+    return tierCalculationMode;
   }
 
   /**

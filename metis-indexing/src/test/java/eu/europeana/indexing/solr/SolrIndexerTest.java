@@ -171,7 +171,7 @@ class SolrIndexerTest {
       SolrIndexingSettings solrIndexingSettings = new SolrIndexingSettings(properties);
       IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
           true,
-          List.of(), true, true, true);
+          List.of(), true, true);
       solrIndexingSettings.setIndexingProperties(indexingProperties);
       return solrIndexingSettings;
     }

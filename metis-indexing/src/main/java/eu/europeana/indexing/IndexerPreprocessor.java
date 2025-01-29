@@ -2,10 +2,12 @@ package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.tiers.ClassifierFactory;
+import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.metadata.ClassifierMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.TierClassifier;
+import eu.europeana.indexing.tiers.model.TierClassifier.TierClassification;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.tiers.view.ContentTierBreakdown;
 import eu.europeana.indexing.tiers.view.MetadataTierBreakdown;
@@ -41,29 +43,39 @@ public final class IndexerPreprocessor {
 
     // Perform the tier classification
     final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    if (properties.isPerformTierCalculation() && properties.getTypesEnabledForTierCalculation()
-                                                           .contains(rdfWrapper.getEdmType())) {
-      final TierResults tierCalculationsResultProvidedData = new TierResults(
-          mediaClassifier.classify(rdfWrapper), metadataClassifier.classify(rdfWrapper));
-      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierCalculation(rdf, MediaTier.class)) {
-        RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
-      }
-      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierCalculation(rdf, MetadataTier.class)) {
-        RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
-      }
-      final TierResults tierCalculationsResultEuropeana = new TierResults(
-          mediaClassifier.classify(rdfWrapper), metadataClassifierEuropeana.classify(rdfWrapper));
 
-      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierEuropeanaCalculation(rdf, MediaTier.class)) {
-        RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
-      }
-      if (properties.isComputeAbsentTierCalculation() && !RdfTierUtils.hasTierEuropeanaCalculation(rdf, MetadataTier.class)) {
-        RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
-      }
+    if (!properties.getTierCalculationMode().equals(TierCalculationMode.SKIP)
+        && properties.isPerformTierCalculation()
+        && properties.getTypesEnabledForTierCalculation().contains(rdfWrapper.getEdmType())) {
+        final TierClassification<MediaTier, ContentTierBreakdown> mediaTierClassification =
+            mediaClassifier.classify(rdfWrapper);
+        final TierResults tierCalculationsResultProvidedData = new TierResults(
+            mediaTierClassification, metadataClassifier.classify(rdfWrapper));
+        final TierResults tierCalculationsResultEuropeana = new TierResults(
+            mediaTierClassification, metadataClassifierEuropeana.classify(rdfWrapper));
 
-      return tierCalculationsResultProvidedData;
-    }
+        if (properties.getTierCalculationMode().equals(TierCalculationMode.INITIALISE)) {
+          if (!RdfTierUtils.hasTierCalculation(rdf, MediaTier.class)) {
+            RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
+          }
+          if (!RdfTierUtils.hasTierCalculation(rdf, MetadataTier.class)) {
+            RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
+          }
+          if (!RdfTierUtils.hasTierEuropeanaCalculation(rdf, MediaTier.class)) {
+            RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
+          }
+          if (!RdfTierUtils.hasTierEuropeanaCalculation(rdf, MetadataTier.class)) {
+            RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
+          }
+        } else if (properties.getTierCalculationMode().equals(TierCalculationMode.OVERWRITE)) {
+          RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMediaTier());
+          RdfTierUtils.setTier(rdf, tierCalculationsResultProvidedData.getMetadataTier());
+          RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMediaTier());
+          RdfTierUtils.setTierEuropeana(rdf, tierCalculationsResultEuropeana.getMetadataTier());
+        }
 
+        return tierCalculationsResultProvidedData;
+      }
     return new TierResults();
   }
 }
