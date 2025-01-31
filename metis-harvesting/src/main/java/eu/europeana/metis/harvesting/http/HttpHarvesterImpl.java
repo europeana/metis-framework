@@ -90,9 +90,15 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   private Path extractArchive(Path archiveFile) throws HarvesterException {
-
-    // Extract the archive.
     final Path extractedDirectory = archiveFile.toAbsolutePath().getParent();
+    extractArchive(archiveFile, extractedDirectory);
+    // Return the extracted directory
+    return extractedDirectory;
+  }
+
+  @Override
+  public void extractArchive(Path archiveFile, Path extractedDirectory) throws HarvesterException{
+    // Extract the archive.
     if (extractedDirectory == null) {
       throw new IllegalStateException("Downloaded file should have a parent.");
     }
@@ -108,12 +114,10 @@ public class HttpHarvesterImpl implements HttpHarvester {
     } catch (IOException e) {
       throw new HarvesterException("Problem correcting directory rights.", e);
     }
-
-    // Return the extracted directory
-    return extractedDirectory;
   }
 
-  private Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
+  @Override
+  public Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
     final URL archiveUrl;
     try {
       archiveUrl = new URI(archiveUrlString).toURL();
@@ -177,7 +181,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  private static class PathIterator extends AbstractHttpHarvestIterator<Path> {
+  public static class PathIterator extends AbstractHttpHarvestIterator<Path> {
 
     public PathIterator(Path extractedDirectory) {
       super(extractedDirectory);

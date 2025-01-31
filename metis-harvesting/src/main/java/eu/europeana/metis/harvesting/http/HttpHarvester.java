@@ -6,7 +6,9 @@ import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.utils.CompressedFileExtension;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 /**
@@ -53,4 +55,23 @@ public interface HttpHarvester {
   FullRecordHarvestingIterator<FullRecord, Path> createFullRecordHarvestIterator(InputStream input,
       CompressedFileExtension compressedFileType) throws HarvesterException;
 
+  /**
+   * Download the file from the url to directory.
+   *
+   * @param archiveUrlString - url to archive file
+   * @param downloadDirectory - the directory where the file will be downloaded
+   * @return - path to the downloaded file
+   * @throws IOException - when there is problem with downloading the file to the disk
+   * @throws URISyntaxException - when url in archiveUrlString is invalid
+   */
+  Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException;
+
+  /**
+   * Extract archive file into the directory
+   *
+   * @param archiveFile - path to the archive file.
+   * @param extractedDirectory - the directory where the file is extracted
+   * @throws HarvesterException - when the file could not be extracted.
+   */
+  void extractArchive(Path archiveFile, Path extractedDirectory) throws HarvesterException;
 }
