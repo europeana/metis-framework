@@ -63,12 +63,4 @@ public interface HttpHarvester {
    */
   Path downloadFile(String archiveUrlString, Path downloadDirectory) throws HarvesterException;
 
-  /**
-   * Extract archive file into the directory
-   *
-   * @param archiveFile - path to the archive file.
-   * @param extractedDirectory - the directory where the file is extracted
-   * @throws HarvesterException - when the file could not be extracted.
-   */
-  void extractArchive(Path archiveFile, Path extractedDirectory) throws HarvesterException;
 }
