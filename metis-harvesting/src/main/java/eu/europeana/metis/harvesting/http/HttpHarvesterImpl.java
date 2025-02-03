@@ -60,12 +60,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     // the calling code is responsible for providing this parameter and should do so properly.
     @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final Path downloadDirectoryPath = Paths.get(
         downloadDirectory);
-    final Path downloadedFile;
-    try {
-      downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
-    } catch (IOException | URISyntaxException e) {
-      throw new HarvesterException("Problem downloading archive " + archiveUrl + ".", e);
-    }
+    final Path downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
 
     // Perform the harvesting
     return new PathIterator(extractArchive(downloadedFile));
@@ -117,7 +112,17 @@ public class HttpHarvesterImpl implements HttpHarvester {
   }
 
   @Override
-  public Path downloadFile(String archiveUrlString, Path downloadDirectory) throws IOException, URISyntaxException {
+  public Path downloadFile(String archiveUrlString, Path downloadDirectory) throws HarvesterException {
+    try{
+      final URL archiveUrl = createUrl(archiveUrlString);
+      final Path directory = Files.createDirectories(downloadDirectory);
+      return downloadFileToExistingDirectory(archiveUrlString, directory, archiveUrl);
+    } catch (IOException | URISyntaxException e) {
+      throw new HarvesterException("Problem downloading archive " + archiveUrlString + ".", e);
+    }
+  }
+
+  private static URL createUrl(String archiveUrlString) throws URISyntaxException, IOException {
     final URL archiveUrl;
     try {
       archiveUrl = new URI(archiveUrlString).toURL();
@@ -128,7 +133,10 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new IOException("This functionality does not support this protocol ("
           + archiveUrl.getProtocol() + ").");
     }
-    final Path directory = Files.createDirectories(downloadDirectory);
+    return archiveUrl;
+  }
+
+  private static Path downloadFileToExistingDirectory(String archiveUrlString, Path directory, URL archiveUrl) throws IOException {
     final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     // Note: we allow any download URL for http harvesting. This is the functionality we support.
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
@@ -181,21 +189,4 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
   }
 
-  public static class PathIterator extends AbstractHttpHarvestIterator<Path> {
-
-    public PathIterator(Path extractedDirectory) {
-      super(extractedDirectory);
-    }
-
-    @Override
-    public void forEachFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
-        throws HarvesterException {
-      forEachPathFiltered(action, filter);
-    }
-
-    @Override
-    public String getExtractedDirectory() {
-      return super.getExtractedDirectory();
-    }
-  }
 }
