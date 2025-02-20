@@ -97,11 +97,12 @@ public class IndexerPool implements Closeable {
    * Index tombstone.
    *
    * @param rdfAbout the rdf about
-   * @param depublicationReason the depublication reason
-   * @throws IndexingException the indexing exception
+   * @param depublicationReason the depublication reason.
+   * @return the boolean result of the tombstoning.
+   * @throws IndexingException the indexing exception.
    */
-  public void indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
-    indexRecord(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
+  public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
+    return indexBoolTask(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
   }
 
   /**
@@ -120,11 +121,12 @@ public class IndexerPool implements Closeable {
   /**
    * This method removes a single record, using a free indexer in the pool
    *
-   * @param stringRdfRecord The record to be removed
+   * @param stringRdfRecord The record to be removed.
+   * @return the boolean result of the record removal.
    * @throws IndexingException In case something went wrong.
    */
-  public void remove(String stringRdfRecord) throws IndexingException {
-    indexRecord(indexer -> indexer.remove(stringRdfRecord));
+  public boolean remove(String stringRdfRecord) throws IndexingException {
+    return indexBoolTask(indexer -> indexer.remove(stringRdfRecord));
   }
 
   private void indexRecord(IndexTask indexTask) throws IndexingException {
@@ -155,6 +157,37 @@ public class IndexerPool implements Closeable {
     pool.returnObject(indexer);
   }
 
+  private boolean indexBoolTask(IndexBoolTask indexTask) throws IndexingException {
+    // Obtain indexer from the pool.
+    final Indexer indexer;
+    boolean result;
+    try {
+      indexer = pool.borrowObject();
+    } catch (IndexingException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new IndexerRelatedIndexingException("Error while obtaining indexer from the pool.", e);
+    }
+
+    // Perform indexing and release indexer.
+    try {
+      result = indexTask.performTask(indexer);
+    } catch (IndexerRelatedIndexingException e) {
+      LOGGER.error("index bool task l1 {}", e.getMessage());
+      invalidateAndSwallowException(indexer);
+      throw e;
+    } catch (IndexingException e) {
+      //If any other indexing exception occurs we want to return the indexer to the pool
+      LOGGER.error("index bool task l2 {}", e.getMessage());
+      pool.returnObject(indexer);
+      throw e;
+    }
+
+    // Return indexer to the pool if it has not been invalidated.
+    pool.returnObject(indexer);
+    return result;
+  }
+
   private void invalidateAndSwallowException(Indexer indexer) {
     try {
       pool.invalidateObject(indexer);
@@ -170,9 +203,12 @@ public class IndexerPool implements Closeable {
 
   @FunctionalInterface
   private interface IndexTask {
-
     void performTask(Indexer indexer) throws IndexingException;
+  }
 
+  @FunctionalInterface
+  private interface IndexBoolTask {
+    boolean performTask(Indexer indexer) throws IndexingException;
   }
 
   private static class PooledIndexerFactory extends BasePooledObjectFactory<Indexer> {
