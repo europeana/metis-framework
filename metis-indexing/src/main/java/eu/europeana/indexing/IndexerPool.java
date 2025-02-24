@@ -174,7 +174,6 @@ public class IndexerPool implements Closeable {
     try {
       result = indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
-      LOGGER.error("index bool task l1 {}", e.getMessage());
       invalidateAndSwallowException(indexer);
       throw new IndexerRelatedIndexingException("Index Task Level 1",e);
     } catch (IndexingException e) {
