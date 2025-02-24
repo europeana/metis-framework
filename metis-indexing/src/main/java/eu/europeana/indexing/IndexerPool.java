@@ -170,7 +170,7 @@ public class IndexerPool implements Closeable {
     }
 
     // Perform indexing and release indexer.
-    boolean result = falseq;
+    boolean result = false;
     try {
       result = indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
