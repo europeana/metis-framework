@@ -2,6 +2,7 @@ package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
@@ -160,7 +161,6 @@ public class IndexerPool implements Closeable {
   private boolean indexBoolTask(IndexBoolTask indexTask) throws IndexingException {
     // Obtain indexer from the pool.
     final Indexer indexer;
-    boolean result;
     try {
       indexer = pool.borrowObject();
     } catch (IndexingException e) {
@@ -170,17 +170,22 @@ public class IndexerPool implements Closeable {
     }
 
     // Perform indexing and release indexer.
+    boolean result = falseq;
     try {
       result = indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
       LOGGER.error("index bool task l1 {}", e.getMessage());
       invalidateAndSwallowException(indexer);
-      throw e;
+      throw new IndexerRelatedIndexingException("Index Task Level 1",e);
     } catch (IndexingException e) {
       //If any other indexing exception occurs we want to return the indexer to the pool
       LOGGER.error("index bool task l2 {}", e.getMessage());
       pool.returnObject(indexer);
-      throw e;
+      if (e instanceof SetupRelatedIndexingException) {
+        throw new SetupRelatedIndexingException("Pool object returned and an exception occurred", e);
+      } else if (e instanceof RecordRelatedIndexingException) {
+        throw new RecordRelatedIndexingException("Pool object returned and an exception occurred", e);
+      }
     }
 
     // Return indexer to the pool if it has not been invalidated.
