@@ -91,7 +91,7 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.index(stringRdfRecord, indexingProperties));
+    indexRecord(indexer ->{ indexer.index(stringRdfRecord, indexingProperties); return true;});
   }
 
   /**
@@ -103,7 +103,7 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException the indexing exception.
    */
   public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
-    return indexBoolTask(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
+    return indexRecord(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
   }
 
   /**
@@ -116,7 +116,7 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void indexRdf(RDF stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.indexRdf(stringRdfRecord, indexingProperties));
+    indexRecord(indexer -> {indexer.indexRdf(stringRdfRecord, indexingProperties); return true;});
   }
 
   /**
@@ -127,10 +127,10 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException In case something went wrong.
    */
   public boolean remove(String stringRdfRecord) throws IndexingException {
-    return indexBoolTask(indexer -> indexer.remove(stringRdfRecord));
+    return indexRecord(indexer -> indexer.remove(stringRdfRecord));
   }
 
-  private void indexRecord(IndexTask indexTask) throws IndexingException {
+  private boolean indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
     final Indexer indexer;
@@ -142,43 +142,15 @@ public class IndexerPool implements Closeable {
       throw new IndexerRelatedIndexingException("Error while obtaining indexer from the pool.", e);
     }
 
+    boolean taskResult = false;
     // Perform indexing and release indexer.
     try {
-      indexTask.performTask(indexer);
+      taskResult = indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
       invalidateAndSwallowException(indexer);
-      throw e;
+      throw new IndexerRelatedIndexingException("Invalidation done", e);
     } catch (IndexingException e) {
       //If any other indexing exception occurs we want to return the indexer to the pool
-      pool.returnObject(indexer);
-      throw e;
-    }
-
-    // Return indexer to the pool if it has not been invalidated.
-    pool.returnObject(indexer);
-  }
-
-  private boolean indexBoolTask(IndexBoolTask indexTask) throws IndexingException {
-    // Obtain indexer from the pool.
-    final Indexer indexer;
-    try {
-      indexer = pool.borrowObject();
-    } catch (IndexingException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new IndexerRelatedIndexingException("Error while obtaining indexer from the pool.", e);
-    }
-
-    // Perform indexing and release indexer.
-    boolean result = false;
-    try {
-      result = indexTask.performTask(indexer);
-    } catch (IndexerRelatedIndexingException e) {
-      invalidateAndSwallowException(indexer);
-      throw new IndexerRelatedIndexingException("Index Task Level 1",e);
-    } catch (IndexingException e) {
-      //If any other indexing exception occurs we want to return the indexer to the pool
-      LOGGER.error("index bool task l2 {}", e.getMessage());
       pool.returnObject(indexer);
       if (e instanceof SetupRelatedIndexingException) {
         throw new SetupRelatedIndexingException("Pool object returned and an exception occurred", e);
@@ -189,7 +161,7 @@ public class IndexerPool implements Closeable {
 
     // Return indexer to the pool if it has not been invalidated.
     pool.returnObject(indexer);
-    return result;
+    return taskResult;
   }
 
   private void invalidateAndSwallowException(Indexer indexer) {
@@ -207,11 +179,6 @@ public class IndexerPool implements Closeable {
 
   @FunctionalInterface
   private interface IndexTask {
-    void performTask(Indexer indexer) throws IndexingException;
-  }
-
-  @FunctionalInterface
-  private interface IndexBoolTask {
     boolean performTask(Indexer indexer) throws IndexingException;
   }
 
