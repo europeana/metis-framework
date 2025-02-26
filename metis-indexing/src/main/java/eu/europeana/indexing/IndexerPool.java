@@ -2,8 +2,10 @@ package eu.europeana.indexing;
 
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;
 import java.time.Duration;
 import org.apache.commons.pool2.BasePooledObjectFactory;
@@ -89,7 +91,19 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void index(String stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.index(stringRdfRecord, indexingProperties));
+    indexRecord(indexer ->{ indexer.index(stringRdfRecord, indexingProperties); return true;});
+  }
+
+  /**
+   * Index tombstone.
+   *
+   * @param rdfAbout the rdf about
+   * @param depublicationReason the depublication reason.
+   * @return the boolean result of the tombstoning.
+   * @throws IndexingException the indexing exception.
+   */
+  public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
+    return indexRecord(indexer -> indexer.indexTombstone(rdfAbout, depublicationReason));
   }
 
   /**
@@ -102,20 +116,32 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException In case a problem occurred during indexing. indexer.
    */
   public void indexRdf(RDF stringRdfRecord, IndexingProperties indexingProperties) throws IndexingException {
-    indexRecord(indexer -> indexer.indexRdf(stringRdfRecord, indexingProperties));
+    indexRecord(indexer -> {indexer.indexRdf(stringRdfRecord, indexingProperties); return true;});
+  }
+
+  /**
+   * This method removes a single record, using a free indexer in the pool
+   * @deprecated use removeRecord instead
+   * @param stringRdfRecord The record to be removed.
+   * @throws IndexingException In case something went wrong.
+   */
+  @Deprecated
+  public void remove(String stringRdfRecord) throws IndexingException {
+    indexRecord(indexer -> indexer.remove(stringRdfRecord));
   }
 
   /**
    * This method removes a single record, using a free indexer in the pool
    *
-   * @param stringRdfRecord The record to be removed
+   * @param stringRdfRecord The record to be removed.
+   * @return the boolean result of the record removal.
    * @throws IndexingException In case something went wrong.
    */
-  public void remove(String stringRdfRecord) throws IndexingException {
-    indexRecord(indexer -> indexer.remove(stringRdfRecord));
+  public boolean removeRecord(String stringRdfRecord) throws IndexingException {
+    return indexRecord(indexer -> indexer.remove(stringRdfRecord));
   }
 
-  private void indexRecord(IndexTask indexTask) throws IndexingException {
+  private boolean indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
     final Indexer indexer;
@@ -127,20 +153,26 @@ public class IndexerPool implements Closeable {
       throw new IndexerRelatedIndexingException("Error while obtaining indexer from the pool.", e);
     }
 
+    boolean taskResult = false;
     // Perform indexing and release indexer.
     try {
-      indexTask.performTask(indexer);
+      taskResult = indexTask.performTask(indexer);
     } catch (IndexerRelatedIndexingException e) {
       invalidateAndSwallowException(indexer);
-      throw e;
+      throw new IndexerRelatedIndexingException("Invalidation done", e);
     } catch (IndexingException e) {
       //If any other indexing exception occurs we want to return the indexer to the pool
       pool.returnObject(indexer);
-      throw e;
+      if (e instanceof SetupRelatedIndexingException) {
+        throw new SetupRelatedIndexingException("Pool object returned and an exception occurred", e);
+      } else if (e instanceof RecordRelatedIndexingException) {
+        throw new RecordRelatedIndexingException("Pool object returned and an exception occurred", e);
+      }
     }
 
     // Return indexer to the pool if it has not been invalidated.
     pool.returnObject(indexer);
+    return taskResult;
   }
 
   private void invalidateAndSwallowException(Indexer indexer) {
@@ -158,9 +190,7 @@ public class IndexerPool implements Closeable {
 
   @FunctionalInterface
   private interface IndexTask {
-
-    void performTask(Indexer indexer) throws IndexingException;
-
+    boolean performTask(Indexer indexer) throws IndexingException;
   }
 
   private static class PooledIndexerFactory extends BasePooledObjectFactory<Indexer> {

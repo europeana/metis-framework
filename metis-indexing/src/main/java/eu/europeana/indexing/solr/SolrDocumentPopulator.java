@@ -198,7 +198,7 @@ public class SolrDocumentPopulator {
     final ProxyType europeanaProxy = rdfWrapper.getProxies().stream().filter(RdfWrapper::isEuropeanaProxy).findFirst()
                                                .orElseThrow();
 
-    final List<String> proxyChoiceLinks = europeanaProxy.getChoiceList().stream()
+    final List<String> proxyChoiceLinks =  europeanaProxy.getChoiceList().stream()
                                                         .filter(choiceTypePredicate)
                                                         .map(choiceValueGetter)
                                                         .filter(Objects::nonNull)
