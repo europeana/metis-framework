@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -249,6 +250,8 @@ public class DereferencerImpl implements Dereferencer {
                    result.putIfAbsent(notFoundOwnId, Collections.emptyList());
                  });
       return new DereferencedEntities(result, reports, classType);
+    } catch (CancellationException e){
+      throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
     }
@@ -262,6 +265,8 @@ public class DereferencerImpl implements Dereferencer {
     }
     try {
       return new DereferencedEntities(new HashMap<>(entityResolver.resolveByUri(resourceIds)), reports, classType);
+    } catch (CancellationException e){
+      throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
     }
@@ -302,6 +307,8 @@ public class DereferencerImpl implements Dereferencer {
             .withException(e)
             .build());
         result = null;
+      } catch (CancellationException e){
+        throw e;
       } catch (Exception e) {
         DereferenceException dereferenceException = new DereferenceException(
             "Exception occurred while trying to perform dereferencing.", e);
