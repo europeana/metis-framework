@@ -47,6 +47,7 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 public class DereferencerImpl implements Dereferencer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
+  public static final String CANCELLATION_EXCEPTION_WARN_MESSAGE = "Cancellation exception occurred while trying to perform dereferencing, rethrowing.";
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
@@ -251,6 +252,7 @@ public class DereferencerImpl implements Dereferencer {
                  });
       return new DereferencedEntities(result, reports, classType);
     } catch (CancellationException e){
+      LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
       throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
@@ -266,6 +268,7 @@ public class DereferencerImpl implements Dereferencer {
     try {
       return new DereferencedEntities(new HashMap<>(entityResolver.resolveByUri(resourceIds)), reports, classType);
     } catch (CancellationException e){
+      LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
       throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
@@ -308,6 +311,7 @@ public class DereferencerImpl implements Dereferencer {
             .build());
         result = null;
       } catch (CancellationException e){
+        LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
         throw e;
       } catch (Exception e) {
         DereferenceException dereferenceException = new DereferenceException(
