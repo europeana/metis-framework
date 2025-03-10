@@ -227,7 +227,7 @@ class ClientEntityResolverTest {
 
   @Test
   void resolveByText_JsonProcessingException() throws JsonProcessingException {
-    when(entityClientApi.getEnrichment(anyString(), anyString(), anyString(), isNull())).thenThrow(JsonProcessingException.class);
+    when(entityClientApi.enrichEntity(anyString(), anyString(), anyString(), isNull())).thenThrow(JsonProcessingException.class);
     final Set<SearchTermImpl> searchTerms = Set.of(new SearchTermImpl("Greece", "en"));
     assertThrows(UnknownException.class, () -> clientEntityResolver.resolveByText(searchTerms));
   }
@@ -240,7 +240,7 @@ class ClientEntityResolverTest {
                                       .collect(Collectors.joining(","));
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::peekFirst)
                                          .filter(Objects::nonNull).toList();
-      when(entityClientApi.getEnrichment(entry.getKey().getTextValue(), entry.getValue().getExpectedConvertedLanguage(),
+      when(entityClientApi.enrichEntity(entry.getKey().getTextValue(), entry.getValue().getExpectedConvertedLanguage(),
           entityTypes, null)).thenReturn(children);
 
       parentMatching(entry.getValue(), children);
@@ -270,9 +270,9 @@ class ClientEntityResolverTest {
                                          .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
-        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
+        when(entityClientApi.getEntity(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
       } else {
-        when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
+        when(entityClientApi.resolveEntity(entry.getKey().getReference().toString())).thenReturn(children);
       }
       parentMatching(entry.getValue(), children);
     }
@@ -358,9 +358,9 @@ class ClientEntityResolverTest {
                                          .toList();
 
       if (entry.getValue().isChildEuropeanaEntity) {
-        when(entityClientApi.getEntityById(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
+        when(entityClientApi.getEntity(entry.getKey().getReference().toString())).thenReturn(children.getFirst());
       } else {
-        when(entityClientApi.getEntityByUri(entry.getKey().getReference().toString())).thenReturn(children);
+        when(entityClientApi.resolveEntity(entry.getKey().getReference().toString())).thenReturn(children);
       }
       parentMatching(entry.getValue(), children);
     }
@@ -394,7 +394,7 @@ class ClientEntityResolverTest {
                                              .filter(entity -> !childIds.contains(entity.getEntityId()))
                                              .toList();
     for (Entity parentEntity : parentEntities) {
-      when(entityClientApi.getEntityById(parentEntity.getEntityId())).thenReturn(parentEntity);
+      when(entityClientApi.getEntity(parentEntity.getEntityId())).thenReturn(parentEntity);
     }
   }
 }

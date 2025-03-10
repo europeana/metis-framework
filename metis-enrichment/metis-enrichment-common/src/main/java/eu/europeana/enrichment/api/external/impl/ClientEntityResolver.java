@@ -144,10 +144,10 @@ public class ClientEntityResolver implements EntityResolver {
     List<Entity> result = new ArrayList<>();
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
       result = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.getEntityById(referenceValue))).map(List::of).orElse(Collections.emptyList());
+          () -> entityClientApi.getEntity(referenceValue))).map(List::of).orElse(Collections.emptyList());
     } else if (uriSearch) {
       result = retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.getEntityByUri(referenceValue));
+          () -> entityClientApi.resolveEntity(referenceValue));
     }
     return result;
   }
@@ -175,7 +175,7 @@ public class ClientEntityResolver implements EntityResolver {
     final List<Entity> entities;
     try {
       entities = retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.getEnrichment(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
+          () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
       return entities.size() == 1 ? entities : Collections.emptyList();
     } catch (JsonProcessingException e) {
       throw new UnknownException(
@@ -223,7 +223,7 @@ public class ClientEntityResolver implements EntityResolver {
               .filter(StringUtils::isNotBlank)
               .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
               .map(parentEntityId -> retryableExternalRequestForNetworkExceptionsThrowing(
-                  () -> entityClientApi.getEntityById(parentEntityId)))
+                  () -> entityClientApi.getEntity(parentEntityId)))
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
 

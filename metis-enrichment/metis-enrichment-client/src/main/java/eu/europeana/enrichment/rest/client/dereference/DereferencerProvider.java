@@ -25,7 +25,7 @@ public class DereferencerProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
-    private boolean entityManagementRedirectEnabled;
+
     /**
      * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
@@ -34,7 +34,6 @@ public class DereferencerProvider extends ConnectionProvider {
      */
     public void setDereferenceUrl(String dereferenceUrl) {
         this.dereferenceUrl = dereferenceUrl;
-
     }
 
     /**
@@ -49,7 +48,6 @@ public class DereferencerProvider extends ConnectionProvider {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
       this.entityApiKey = entityApiKey;
-      this.entityManagementRedirectEnabled = false;
     }
 
     /**
@@ -63,7 +61,6 @@ public class DereferencerProvider extends ConnectionProvider {
      */
     public void setEnrichmentPropertiesValuesWithRedirect(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
         setEnrichmentPropertiesValues(entityManagementUrl, entityApiUrl, entityApiKey);
-        this.entityManagementRedirectEnabled = true;
     }
     /**
      * Builds an {@link Dereferencer} according to the parameters that are set.
@@ -110,7 +107,6 @@ public class DereferencerProvider extends ConnectionProvider {
             properties.put("entity.api.url", entityApiUrl);
             properties.put("entity.api.key", entityApiKey);
             EntityClientConfiguration entityClientConfiguration = new EntityClientConfiguration(properties);
-            entityClientConfiguration.setEntityManagementRedirectEnabled(entityManagementRedirectEnabled);
             entityResolver = new ClientEntityResolver(new EntityClientApiImpl(entityClientConfiguration),
                     batchSizeEnrichment);
 
