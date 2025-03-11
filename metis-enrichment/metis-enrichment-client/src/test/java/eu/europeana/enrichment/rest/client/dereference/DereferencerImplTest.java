@@ -4,9 +4,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anySet;
 import static org.mockito.Mockito.anyString;
@@ -57,6 +55,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.collections.CollectionUtils;
@@ -253,6 +252,25 @@ class DereferencerImplTest {
 
         verifyDereferenceExceptionFlow(dereferenceClient, dereferencer, inputRdf, reports, expectedMessageType, expectedMessage);
         verifyMergeExceptionFlow(entityMergeEngine);
+    }
+
+    @Test
+    void testDereferenceCancellationException() {
+        String cancellationExceptionMessage = "Cancellation exception occurred while trying to perform dereferencing.";
+        CancellationException cancellationException = new CancellationException(cancellationExceptionMessage);
+        // Create mocks of the dependencies
+        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
+        final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+        doThrow(cancellationException).when(dereferenceClient).dereference(any());
+        final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+
+        final Dereferencer dereferencer = spy(
+                new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+        doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
+
+        final RDF inputRdf = new RDF();
+        assertThrows(cancellationException.getClass(), () -> dereferencer.dereference(inputRdf));
     }
 
     private void verifyDereferenceHappyFlow(DereferenceClient dereferenceClient,
