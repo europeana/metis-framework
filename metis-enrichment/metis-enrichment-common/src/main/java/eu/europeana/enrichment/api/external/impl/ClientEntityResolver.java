@@ -4,9 +4,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
-import static org.apache.commons.collections4.ListUtils.partition;
 
-import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
@@ -16,23 +14,22 @@ import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
-import java.lang.invoke.MethodHandles;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -41,154 +38,89 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientEntityResolver implements EntityResolver {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-  private final int batchSize;
   private final LanguageCodeConverter languageCodeConverter;
   private final EntityApiClient entityClientApi;
+
 
   /**
    * Constructor with required parameters.
    *
    * @param entityClientApi the entity client api
-   * @param batchSize the batch size
    */
-  public ClientEntityResolver(EntityApiClient entityClientApi, int batchSize) {
-    this.batchSize = batchSize;
+  public ClientEntityResolver(EntityApiClient entityClientApi) {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
   }
 
-  /**
-   * Build entity api client properties properties.
-   *
-   * @param entityManagementUrl the entity management url
-   * @param entityApiUrl the entity api url
-   * @param entityApiKey the entity api key
-   * @return the properties
-   */
-  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
-    final Properties properties = new Properties();
-    properties.put("entity.management.url", entityManagementUrl);
-    properties.put("entity.api.url", entityApiUrl);
-    properties.put("apikey", entityApiKey);
-    return properties;
-  }
-
-  /**
-   * Checks if an entity identifier matches an identifier of the entities provided.
-   *
-   * @param entityIdToCheck the entity identifier to check
-   * @param entities the entity list
-   * @return true if it matches otherwise false
-   */
-  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
-    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
-  }
-
   @Override
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
-    return performInBatches(searchTerms);
+    return searchTerms.stream().collect(Collectors.toMap(Function.identity(), this::resolveTextSearch));
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms) {
-    return performInBatches(referenceTerms, true);
+    return referenceTerms.stream().collect(Collectors.toMap(Function.identity(), this::resolveEquivalency));
   }
 
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
-    final Map<T, List<EnrichmentBase>> batches = performInBatches(referenceTerms);
-    return convertToMapWithSingleValues(batches);
-  }
-
-  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues) {
-    return performInBatches(inputValues, false);
-  }
-
-  private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
-      Map<T, List<EnrichmentBase>> batches) {
-    Map<T, List<EnrichmentBase>> filteredBatches = batches.entrySet().stream().filter(entry -> !entry.getValue().isEmpty())
-                                                          .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    return filteredBatches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
-        entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
+    return referenceTerms.stream()
+        .map(term -> new ImmutablePair<>(term, this.resolveId(term)))
+        .filter(pair -> pair.getValue() != null)
+        .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
   }
 
   /**
-   * Perform search in batches.
-   *
-   * @param <I> the input value type. Can be <T extends SearchTerm> OR <T extends ReferenceTerm>
-   * @param inputValues the set of values for which enrichment will be performed
-   * @param uriSearch boolean indicating if it is an uri search or not(then it is an id search)
-   * @return the results mapped per input value
+   * Get entity by ID. Only supported for Europeana IDs, and no equivalences (e.g. old IDs)
+   * are honored.
+   * @param referenceTerm the reference term
+   * @return The entity with the given ID, or null.
    */
-  private <I> Map<I, List<EnrichmentBase>> performInBatches(Set<I> inputValues, boolean uriSearch) {
-    final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    for (List<I> batch : partition(new ArrayList<>(inputValues), batchSize)) {
-      result.putAll(performBatch(uriSearch, batch));
+  private EnrichmentBase resolveId(ReferenceTerm referenceTerm) {
+    final String referenceValue = referenceTerm.getReference().toString();
+    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
+      final Entity entity;
+      try {
+        entity = retryableExternalRequestForNetworkExceptionsThrowing(
+            () -> entityClientApi.getEntity(referenceValue));
+      } catch (EntityClientException e) {
+        throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
+      }
+      return (entity.getEntityId().equals(referenceValue))
+          ? EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entity) : null;
     }
-    return result;
-  }
-
-  private <I> Map<I, List<EnrichmentBase>> performBatch(boolean uriSearch, List<I> batch) {
-    final Map<I, List<EnrichmentBase>> result = new HashMap<>();
-    // TODO: 02/06/2022 This is actually bypassing the batching.. This is the selected way to perform this for now.
-    for (I batchItem : batch) {
-      List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
-      result.put(batchItem, !enrichmentBaseList.isEmpty() ? enrichmentBaseList.stream().filter(Objects::nonNull).toList() :
-          Collections.emptyList());
-    }
-    return result;
-  }
-
-  private <I> List<EnrichmentBase> performItem(I batchItem, boolean uriSearch) {
-    List<Entity> entities = resolveEntities(batchItem, uriSearch);
-    List<EnrichmentBase> enrichmentBases = new ArrayList<>();
-    if (isNotEmpty(entities)) {
-      entities = extendEntitiesWithParents(entities);
-      enrichmentBases = convertToEnrichmentBase(entities);
-    }
-    return enrichmentBases;
-  }
-
-  private <I> List<Entity> resolveEntities(I batchItem, boolean uriSearch) {
-    if (batchItem instanceof ReferenceTerm referenceTerm) {
-      return resolveReference(referenceTerm, uriSearch);
-    } else {
-      return resolveTextSearch((SearchTerm) batchItem);
-    }
+    return null;
   }
 
   /**
-   * Get entities based on a reference.
-   * <p>We always check first if the reference resembles a euroepeana entity identifier and if so then we search by id..</p>
-   * <p>For invocations that are uri searches({@code uriSearch} equals true) then we also invoke the remote uri search.</p>
-   * <p>For uri searches, this resembles the metis implementation where the about search is invoked and if no result return then
-   * a second invocation on the owlSameAs is performed.</p>
+   * Get equivalent entities based on a reference. If the reference is to a Europeana entity
+   * identifier, we search for an entity with this Europeana id or equivalent to this Europeana
+   * id (i.e. in case of an ID change). Else, if we have a remote URI (e.g. wikidata, VIAF, ...)
+   * we search for an equivalence with the remote URI.
    *
    * @param referenceTerm the reference term
-   * @param uriSearch indicates if the search is an uri or an id search
    * @return the list of entities
    */
-  private List<Entity> resolveReference(ReferenceTerm referenceTerm, boolean uriSearch) {
+  private List<EnrichmentBase> resolveEquivalency(ReferenceTerm referenceTerm) {
     final String referenceValue = referenceTerm.getReference().toString();
-
-    List<Entity> result = new ArrayList<>();
+    final List<Entity> entities;
     try {
       if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-        result = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.getEntity(referenceValue))).map(List::of).orElse(Collections.emptyList());
-      } else if (uriSearch) {
-        result = retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.resolveEntity(referenceValue));
+        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+                () -> entityClientApi.getEntity(referenceValue))).map(List::of)
+            .orElse(Collections.emptyList());
+      } else {
+        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+            () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
       }
     } catch (EntityClientException e) {
-      LOGGER.error("resolveReference getEntity failed for referenceTerm {}", referenceTerm.getReference(), e);
+      throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
     }
-    return result;
+    return convertToEnrichmentBase(extendEntitiesWithParents(entities));
   }
 
   /**
-   * Get entities by text search.e.getMessage()
+   * Get entities by text search.
    * <p>
    * The result will always be a list of size 1. Internally the remote request might return more than one entities which in that
    * case the return of this method will be an empty list. That is because the remote request would be ambiguous and therefore we
@@ -202,21 +134,21 @@ public class ClientEntityResolver implements EntityResolver {
    * @param searchTerm the text search term
    * @return the list of entities(at this point of size 0 or 1)
    */
-  private List<Entity> resolveTextSearch(SearchTerm searchTerm) {
+  private List<EnrichmentBase> resolveTextSearch(SearchTerm searchTerm) {
     final String entityTypesConcatenated = searchTerm.getCandidateTypes().stream()
                                                      .map(entityType -> entityType.name().toLowerCase(Locale.US))
                                                      .collect(Collectors.joining(","));
     final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
-    final List<Entity> entities;
+    final List<Entity> result;
     try {
-      entities = retryableExternalRequestForNetworkExceptionsThrowing(
+      result = retryableExternalRequestForNetworkExceptionsThrowing(
           () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
-      return entities.size() == 1 ? entities : Collections.emptyList();
     } catch (EntityClientException e) {
-      throw new UnknownException(
-          format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
-              searchTerm.getLanguage(), entityTypesConcatenated), e);
+      throw new EntityApiException(format("Enrichment request failed for textValue: %s, language: %s, entityTypes: %s.",
+          searchTerm.getTextValue(), searchTerm.getLanguage(), entityTypesConcatenated), e);
     }
+    final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
+    return convertToEnrichmentBase(extendEntitiesWithParents(singleResult));
   }
 
   /**
@@ -235,7 +167,7 @@ public class ClientEntityResolver implements EntityResolver {
    * Converts the list of entities to a list of {@link EnrichmentBase}s.
    *
    * @param entities the entities
-   * @return the converted list
+   * @return the converted list. List is not null, not containing null values.
    */
   private List<EnrichmentBase> convertToEnrichmentBase(List<Entity> entities) {
     return EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entities);
@@ -262,8 +194,7 @@ public class ClientEntityResolver implements EntityResolver {
                   return retryableExternalRequestForNetworkExceptionsThrowing(
                       () -> entityClientApi.getEntity(parentEntityId));
                 } catch (EntityClientException e) {
-                  LOGGER.error("findParentEntitiesRecursive request getEntity failed for parentEntityId: {}", parentEntityId, e);
-                  return null;
+                  throw new EntityApiException("Issue trying to get parent entity with ID" + parentEntityId, e);
                 }
               })
               .filter(Objects::nonNull)
@@ -275,5 +206,26 @@ public class ClientEntityResolver implements EntityResolver {
       findParentEntitiesRecursive(collectedEntities, parentEntities);
     }
     return collectedEntities;
+  }
+
+  /**
+   * Checks if an entity identifier matches an identifier of the entities provided.
+   *
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
+   */
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
+  }
+
+  public static class EntityApiException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = -272263706753226938L;
+
+    public EntityApiException(String message, Throwable cause) {
+      super(message, cause);
+    }
   }
 }
