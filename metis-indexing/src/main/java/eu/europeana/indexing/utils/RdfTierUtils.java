@@ -158,8 +158,8 @@ public final class RdfTierUtils {
                                                .toList())
                                            .orElse(null))
         .filter(Objects::nonNull)
-        .findFirst()
-        .orElse(List.of());
+        .flatMap(List::stream)
+        .toList();
   }
 
   private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
