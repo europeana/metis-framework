@@ -27,6 +27,7 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
+import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
@@ -35,17 +36,11 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.Concept;
-import eu.europeana.metis.schema.jibx.PlaceType;
-import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.*;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServiceUnavailableException;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
+
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -86,9 +81,15 @@ class DereferencerImplTest {
             Concept.class, Set.of("http://data.europeana.eu.host/concept"),
             PlaceType.class, Set.of("http://valid-example.host/place"));
 
+    private static final Map<Class<? extends AboutType>, Set<String>> DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID = Map.of(
+            AboutType.class, Set.of("http://valid-example.host/place"));
+    private static final Map<Class<? extends Aggregation>, Set<String>> DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID = Map.of(
+            Aggregation.class, Set.of("http://valid-example.host/place"));
+
     private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
     private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
 
+    private static final Map<ReferenceTerm, EnrichmentBase> ENRICHMENT_RESULT_BY_ID = new HashMap<>();
     private static WireMockServer wireMockServer;
 
     static {
@@ -122,6 +123,16 @@ class DereferencerImplTest {
         ENRICHMENT_RESULT.put(searchTerm1, List.of(place1));
         ENRICHMENT_RESULT.put(searchTerm2, null);
         ENRICHMENT_RESULT.put(searchTerm3, List.of(place2));
+
+        try {
+            URL url = URI.create("http://valid-example.host/place").toURL();
+            ReferenceTerm referenceTerm = new ReferenceTermImpl(url, Set.of(EntityType.PLACE));
+            ENRICHMENT_RESULT_BY_ID.put(referenceTerm, place1);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     @BeforeAll
@@ -262,14 +273,66 @@ class DereferencerImplTest {
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
-        doThrow(cancellationException).when(dereferenceClient).dereference(any());
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
-
+        final RDF inputRdf = new RDF();
         final Dereferencer dereferencer = spy(
                 new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
-        doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
-        final RDF inputRdf = new RDF();
+
+        verifyCaseWithInternalEntities(cancellationException, clientEntityResolver, inputRdf,
+                dereferencer);
+
+
+        verifyCaseWithExternalEntities(cancellationException, clientEntityResolver, inputRdf,
+                dereferencer, dereferenceClient);
+
+
+        verifyCaseWithEntitiesWithUris(cancellationException, clientEntityResolver, inputRdf,
+                dereferencer);
+    }
+
+    private static void verifyCaseWithInternalEntities(CancellationException cancellationException,
+                                                       ClientEntityResolver clientEntityResolver, RDF inputRdf,
+                                                       Dereferencer dereferencer) {
+        // Case when cancellation is thrown during dereference own entities
+        doReturn(DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID)
+                .when(dereferencer)
+                .extractReferencesForDereferencing(any());
+        doThrow(cancellationException)
+                .when(clientEntityResolver)
+                .resolveById(any());
+        assertThrows(cancellationException.getClass(), () -> dereferencer.dereference(inputRdf));
+    }
+
+    private static void verifyCaseWithExternalEntities(CancellationException cancellationException,
+                                                       ClientEntityResolver clientEntityResolver, RDF inputRdf,
+                                                       Dereferencer dereferencer, DereferenceClient dereferenceClient) {
+        // Case when cancellation is thrown during dereference external entities
+        doReturn(DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID)
+                .when(dereferencer)
+                .extractReferencesForDereferencing(any());
+        doThrow(cancellationException)
+                .when(dereferenceClient)
+                .dereference(any());
+        doReturn(ENRICHMENT_RESULT_BY_ID)
+                .when(clientEntityResolver)
+                .resolveById(any());
+        assertThrows(cancellationException.getClass(), () -> dereferencer.dereference(inputRdf));
+    }
+
+    private static void verifyCaseWithEntitiesWithUris(CancellationException cancellationException,
+                                                       ClientEntityResolver clientEntityResolver,
+                                                       RDF inputRdf, Dereferencer dereferencer) {
+        // Case when cancellation is thrown during dereference entities with Uris
+        doReturn(DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID)
+                .when(dereferencer)
+                .extractReferencesForDereferencing(any());
+        doReturn(ENRICHMENT_RESULT_BY_ID)
+                .when(clientEntityResolver)
+                .resolveById(any());
+        doThrow(CancellationException.class)
+                .when(clientEntityResolver)
+                .resolveByUri(any());
         assertThrows(cancellationException.getClass(), () -> dereferencer.dereference(inputRdf));
     }
 
