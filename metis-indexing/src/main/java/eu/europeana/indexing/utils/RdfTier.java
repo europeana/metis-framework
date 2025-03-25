@@ -4,6 +4,7 @@ import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import java.util.Arrays;
 
 /**
  * This enum lists the content and metadata tiers that exist.
@@ -108,5 +109,18 @@ public enum RdfTier {
    */
   public EdmLabel getEdmLabel() {
     return edmLabel;
+  }
+
+  /**
+   * From uri to rdf tier.
+   *
+   * @param uri the uri
+   * @return the rdf tier
+   */
+  public static RdfTier fromUri(String uri) {
+    return Arrays.stream(RdfTier.values())
+                 .filter( rdfTier -> rdfTier.uri.equals(uri))
+                 .findFirst()
+                 .orElse(null);
   }
 }

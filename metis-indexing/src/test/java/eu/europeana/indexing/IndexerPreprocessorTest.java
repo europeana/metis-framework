@@ -3,6 +3,7 @@ package eu.europeana.indexing;
 import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_BASE_URI;
 import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_BASE_URI;
 import static eu.europeana.indexing.utils.RdfTierUtils.extractTierData;
+import static eu.europeana.indexing.utils.RdfTierUtils.extractTierDataByTarget;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,6 +16,7 @@ import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
+import eu.europeana.metis.schema.jibx.AggregatedCHO;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
@@ -104,6 +106,78 @@ class IndexerPreprocessorTest {
         tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
     assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
         tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
+  }
+
+  @Test
+  void preprocessRecordTierCalculationByTargetAndInitialiseExisting() throws SerializationException, IndexingException {
+    // given
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_rdf_tier_for_overwrite.xml"));
+
+    final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+        true,
+        List.of(), true, TierCalculationMode.INITIALISE, EnumSet.allOf(EdmType.class));
+
+    // when
+    TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+
+    // then
+    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList, "/aggregation/provider/2022502/_KAMRA_356338");
+
+    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+
+    // verify two different aggregation has different calculations
+    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "3", METADATA_TIER_BASE_URI + "A"}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "3", METADATA_TIER_BASE_URI + "A"}, tierEuropeanaData.toArray());
+
+    // verify return of tier calculation
+    assertEquals("2", results.getMediaTier().toString());
+    assertEquals("A", results.getMetadataTier().toString());
+
+//    // verify return is equal to aggregation and not europeana aggregation
+//    assertTrue(tierProvidedData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
+//        tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
+//    assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
+//        tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
+  }
+
+  @Test
+  void preprocessRecordTierCalculationByTargetAndOverWriteExisting() throws SerializationException, IndexingException {
+    // given
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_rdf_tier_for_overwrite.xml"));
+
+    final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+        true,
+        List.of(), true, TierCalculationMode.OVERWRITE, EnumSet.allOf(EdmType.class));
+
+    // when
+    TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+
+    // then
+    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList, "/aggregation/aggregator/2022502/_KAMRA_356338");
+
+    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+
+    // verify two different aggregation has different calculations
+    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "2", METADATA_TIER_BASE_URI + "B"}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "2", METADATA_TIER_BASE_URI + "A"}, tierEuropeanaData.toArray());
+
+    // verify return of tier calculation
+    assertEquals("2", results.getMediaTier().toString());
+    assertEquals("A", results.getMetadataTier().toString());
+
+    //    // verify return is equal to aggregation and not europeana aggregation
+    //    assertTrue(tierProvidedData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
+    //        tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
+    //    assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
+    //        tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
   }
 
   /**
