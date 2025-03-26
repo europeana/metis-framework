@@ -26,7 +26,6 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.entity.client.exception.TechnicalRuntimeException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -179,7 +178,7 @@ class EnricherImplTest {
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
-    doThrow(new TechnicalRuntimeException("Error", new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY)),
+    doThrow(new RuntimeException("Error", new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY)),
         new HttpClientErrorException(HttpStatus.BAD_REQUEST))
         .when(entityResolver)
         .resolveByUri(any());
@@ -239,8 +238,8 @@ class EnricherImplTest {
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
     final Exception nullCause = new RuntimeException();
     nullCause.initCause(null);
-    doThrow(new TechnicalRuntimeException("Error", null),
-        new TechnicalRuntimeException("Error", new HttpClientErrorException(HttpStatus.TEMPORARY_REDIRECT)),
+    doThrow(new RuntimeException("Error", null),
+        new RuntimeException("Error", new HttpClientErrorException(HttpStatus.TEMPORARY_REDIRECT)),
         new NullPointerException(),
         nullCause)
         .when(entityResolver)
@@ -433,7 +432,7 @@ class EnricherImplTest {
         .buildEnrichmentError()
         .withMessage("Error while resolving values by uri when enriching references")
         .withValue("http://urlValue1")
-        .withException(new TechnicalRuntimeException("Error", null))
+        .withException(new RuntimeException("Error", null))
         .build());
     return reports;
   }

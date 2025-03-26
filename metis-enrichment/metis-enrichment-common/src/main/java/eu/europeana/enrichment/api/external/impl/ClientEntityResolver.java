@@ -6,7 +6,6 @@ import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import static org.apache.commons.collections4.ListUtils.partition;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -14,8 +13,10 @@ import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
-import eu.europeana.entity.client.web.EntityClientApi;
+import eu.europeana.entity.client.EntityApiClient;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,10 +26,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -39,8 +43,8 @@ public class ClientEntityResolver implements EntityResolver {
 
   private final int batchSize;
   private final LanguageCodeConverter languageCodeConverter;
-  private final EntityClientApi entityClientApi;
-
+  private final EntityApiClient entityClientApi;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * Constructor with required parameters.
@@ -48,7 +52,7 @@ public class ClientEntityResolver implements EntityResolver {
    * @param entityClientApi the entity client api
    * @param batchSize the batch size
    */
-  public ClientEntityResolver(EntityClientApi entityClientApi, int batchSize) {
+  public ClientEntityResolver(EntityApiClient entityClientApi, int batchSize) {
     this.batchSize = batchSize;
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
@@ -142,18 +146,22 @@ public class ClientEntityResolver implements EntityResolver {
     final String referenceValue = referenceTerm.getReference().toString();
 
     List<Entity> result = new ArrayList<>();
-    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      result = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.getEntity(referenceValue))).map(List::of).orElse(Collections.emptyList());
-    } else if (uriSearch) {
-      result = retryableExternalRequestForNetworkExceptionsThrowing(
-          () -> entityClientApi.resolveEntity(referenceValue));
+    try {
+      if (europeanaLinkPattern.matcher(referenceValue).matches()) {
+        result = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+            () -> entityClientApi.getEntity(referenceValue))).map(List::of).orElse(Collections.emptyList());
+      } else if (uriSearch) {
+        result = retryableExternalRequestForNetworkExceptionsThrowing(
+            () -> entityClientApi.resolveEntity(referenceValue));
+      }
+    } catch (EntityClientException e) {
+      LOGGER.error("resolveReference getEntity failed for referenceTerm {}",referenceTerm.getReference(), e);
     }
     return result;
   }
 
   /**
-   * Get entities by text search.
+   * Get entities by text search.e.getMessage()
    * <p>
    * The result will always be a list of size 1. Internally the remote request might return more than one entities which in that
    * case the return of this method will be an empty list. That is because the remote request would be ambiguous and therefore we
@@ -177,7 +185,7 @@ public class ClientEntityResolver implements EntityResolver {
       entities = retryableExternalRequestForNetworkExceptionsThrowing(
           () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
       return entities.size() == 1 ? entities : Collections.emptyList();
-    } catch (JsonProcessingException e) {
+    } catch (EntityClientException e) {
       throw new UnknownException(
           format("SearchTerm request failed for textValue: %s, language: %s, entityTypes: %s.", searchTerm.getTextValue(),
               searchTerm.getLanguage(), entityTypesConcatenated), e);
@@ -217,21 +225,28 @@ public class ClientEntityResolver implements EntityResolver {
    * @return the extended list of entities
    */
   private List<Entity> findParentEntitiesRecursive(List<Entity> collectedEntities, List<Entity> children) {
-    List<Entity> parentEntities =
-        Stream.ofNullable(children).flatMap(Collection::stream)
-              .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
-              .filter(StringUtils::isNotBlank)
-              .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
-              .map(parentEntityId -> retryableExternalRequestForNetworkExceptionsThrowing(
-                  () -> entityClientApi.getEntity(parentEntityId)))
-              .filter(Objects::nonNull)
-              .collect(Collectors.toCollection(ArrayList::new));
+      List<Entity> parentEntities =
+          Stream.ofNullable(children).flatMap(Collection::stream)
+                .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
+                .filter(StringUtils::isNotBlank)
+                .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
+                .map(parentEntityId -> {
+                  try {
+                    return retryableExternalRequestForNetworkExceptionsThrowing(
+                        () -> entityClientApi.getEntity(parentEntityId));
+                  } catch (EntityClientException e) {
+                    LOGGER.error("findParentEntitiesRecursive request getEntity failed for parentEntityId: {}", parentEntityId, e);
+                    return null;
+                  }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
 
-    if (isNotEmpty(parentEntities)) {
-      collectedEntities.addAll(parentEntities);
-      //Now check again parents of parents
-      findParentEntitiesRecursive(collectedEntities, parentEntities);
-    }
+      if (isNotEmpty(parentEntities)) {
+        collectedEntities.addAll(parentEntities);
+        //Now check again parents of parents
+        findParentEntitiesRecursive(collectedEntities, parentEntities);
+      }
     return collectedEntities;
   }
 
@@ -244,5 +259,28 @@ public class ClientEntityResolver implements EntityResolver {
    */
   private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
+  }
+
+  /**
+   * Build entity api client properties properties.
+   *
+   * @param entityManagementUrl the entity management url
+   * @param entityApiUrl the entity api url
+   * @param entityApiKey the entity api key
+   * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
+   * @param entityApiGrantParams the entity api grant params
+   * @param entityApiAccessToken the entity api access token
+   * @return the properties
+   */
+  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey,
+      String entityApiAuthTokenEndpointUri, String entityApiGrantParams, String entityApiAccessToken) {
+    final Properties properties = new Properties();
+    properties.put("entity.management.url", entityManagementUrl);
+    properties.put("entity.api.url", entityApiUrl);
+    properties.put("apikey", entityApiKey);
+    properties.put("token_endpoint", entityApiAuthTokenEndpointUri);
+    properties.put("grant_params", entityApiGrantParams);
+    properties.put("access_token", entityApiAccessToken);
+    return properties;
   }
 }
