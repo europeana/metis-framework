@@ -16,7 +16,6 @@ import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
-import eu.europeana.metis.schema.jibx.AggregatedCHO;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
@@ -136,12 +135,6 @@ class IndexerPreprocessorTest {
     // verify return of tier calculation
     assertEquals("2", results.getMediaTier().toString());
     assertEquals("A", results.getMetadataTier().toString());
-
-//    // verify return is equal to aggregation and not europeana aggregation
-//    assertTrue(tierProvidedData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
-//        tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
-//    assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
-//        tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
   }
 
   @Test
@@ -172,12 +165,6 @@ class IndexerPreprocessorTest {
     // verify return of tier calculation
     assertEquals("2", results.getMediaTier().toString());
     assertEquals("A", results.getMetadataTier().toString());
-
-    //    // verify return is equal to aggregation and not europeana aggregation
-    //    assertTrue(tierProvidedData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
-    //        tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
-    //    assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
-    //        tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
   }
 
   /**

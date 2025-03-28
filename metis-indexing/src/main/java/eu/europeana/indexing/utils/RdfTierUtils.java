@@ -247,9 +247,9 @@ public final class RdfTierUtils {
   }
 
   private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
-    if (tier.isAssignableFrom(MediaTier.class)) {
+    if (tier.isInstance(MediaTier.class)) {
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(CONTENT_TIER_BASE_URI));
-    } else if (tier.isAssignableFrom(MetadataTier.class)) {
+    } else if (tier.isInstance(MetadataTier.class)) {
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(METADATA_TIER_BASE_URI));
     } else {
       return false;
@@ -257,9 +257,9 @@ public final class RdfTierUtils {
   }
 
   private static String getTierBaseUri(Class<? extends Tier> tier) {
-    if (tier.isAssignableFrom(MediaTier.class)) {
+    if (tier.isInstance(MediaTier.class)) {
       return CONTENT_TIER_BASE_URI;
-    } else if (tier.isAssignableFrom(MetadataTier.class)) {
+    } else if (tier.isInstance(MetadataTier.class)) {
       return METADATA_TIER_BASE_URI;
     } else {
       return "";
