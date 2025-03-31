@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
@@ -183,26 +184,37 @@ public final class RdfTierUtils {
         .filter(aggregation -> aggregation.getAbout().equals(target))
         .map(aboutType ->
             Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
-                    .map(annotations -> annotations
-                        .stream()
-                        .map(HasQualityAnnotation::getQualityAnnotation)
-                        .filter(Objects::nonNull)
-                        .map(qualityAnnotation -> qualityAnnotation
-                            .getHasTargetList()
-                            .stream()
-                            .filter(Objects::nonNull)
-                            .map(HasTarget::getResource)
-                            .anyMatch(t -> t.equals(target)) ? qualityAnnotation : null)
-                        .filter(Objects::nonNull)
-                        .map(QualityAnnotation::getHasBody)
-                        .filter(Objects::nonNull)
-                        .map(ResourceType::getResource)
-                        .filter(Objects::nonNull)
-                        .toList())
+                    .map(mapperQualityAnnotationBodyBy(target))
                     .orElse(null))
         .filter(Objects::nonNull)
         .flatMap(List::stream)
         .toList();
+  }
+
+  @NotNull
+  private static Function<List<HasQualityAnnotation>, List<String>> mapperQualityAnnotationBodyBy(String target) {
+    return annotations -> annotations
+        .stream()
+        .map(HasQualityAnnotation::getQualityAnnotation)
+        .filter(Objects::nonNull)
+        .map(mapperQualityAnnotationByTarget(target))
+        .filter(Objects::nonNull)
+        .map(QualityAnnotation::getHasBody)
+        .filter(Objects::nonNull)
+        .map(ResourceType::getResource)
+        .filter(Objects::nonNull)
+        .toList();
+  }
+
+  @NotNull
+  private static Function<QualityAnnotation, QualityAnnotation> mapperQualityAnnotationByTarget(
+      String target) {
+    return qualityAnnotation -> qualityAnnotation
+        .getHasTargetList()
+        .stream()
+        .filter(Objects::nonNull)
+        .map(HasTarget::getResource)
+        .anyMatch(t -> t.equals(target)) ? qualityAnnotation : null;
   }
 
   /**
@@ -345,20 +357,32 @@ public final class RdfTierUtils {
     return Optional.ofNullable(qualityAnnotations)
                    .stream()
                    .flatMap(Collection::stream)
-                   .filter(existingLink -> newAnnotation.getQualityAnnotation()
-                                                        .getHasTargetList()
-                                                        .stream()
-                                                        .anyMatch(hasTarget ->
-                                                            hasTarget.getResource()
-                                                                     .equals(target))
-                       && !getTierBaseUri(RdfTier.fromUri(newAnnotation.getQualityAnnotation()
-                                                                       .getHasBody().
-                                                                       getResource())
-                                                 .getTier().getClass())
-                       .equals(getTierBaseUri(RdfTier.fromUri(existingLink.getQualityAnnotation()
-                                                                          .getHasBody()
-                                                                          .getResource())
-                                                     .getTier().getClass())));
+                   .filter(hasQualityAnnotationByTarget(newAnnotation, target))
+                   .filter(hasNotQualityAnnotationByTier(newAnnotation));
+  }
+
+  @NotNull
+  private static Predicate<HasQualityAnnotation> hasQualityAnnotationByTarget(HasQualityAnnotation newAnnotation,
+      String target) {
+    return existingLink -> newAnnotation.getQualityAnnotation()
+                                        .getHasTargetList()
+                                        .stream()
+                                        .anyMatch(hasTarget ->
+                                            hasTarget.getResource()
+                                                     .equals(target));
+  }
+
+  @NotNull
+  private static Predicate<HasQualityAnnotation> hasNotQualityAnnotationByTier(HasQualityAnnotation newAnnotation) {
+    return existingLink ->
+        !getTierBaseUri(RdfTier.fromUri(newAnnotation.getQualityAnnotation()
+                                                     .getHasBody().
+                                                     getResource())
+                               .getTier().getClass())
+            .equals(getTierBaseUri(RdfTier.fromUri(existingLink.getQualityAnnotation()
+                                                               .getHasBody()
+                                                               .getResource())
+                                          .getTier().getClass()));
   }
 
   @NotNull
