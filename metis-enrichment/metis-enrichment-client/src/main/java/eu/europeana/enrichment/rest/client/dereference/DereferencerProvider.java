@@ -109,7 +109,6 @@ public class DereferencerProvider extends ConnectionProvider {
             entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration),
                     batchSizeEnrichment);
           } catch (EntityClientException e) {
-            LOGGER.error("Error while creating entity resolver", e);
             throw new DereferenceException("Could not create entity resolver", e);
           }
 

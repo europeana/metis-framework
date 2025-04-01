@@ -41,10 +41,10 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientEntityResolver implements EntityResolver {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final int batchSize;
   private final LanguageCodeConverter languageCodeConverter;
   private final EntityApiClient entityClientApi;
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
    * Constructor with required parameters.
@@ -56,6 +56,40 @@ public class ClientEntityResolver implements EntityResolver {
     this.batchSize = batchSize;
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
+  }
+
+  /**
+   * Build entity api client properties properties.
+   *
+   * @param entityManagementUrl the entity management url
+   * @param entityApiUrl the entity api url
+   * @param entityApiKey the entity api key
+   * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
+   * @param entityApiGrantParams the entity api grant params
+   * @param entityApiAccessToken the entity api access token
+   * @return the properties
+   */
+  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey,
+      String entityApiAuthTokenEndpointUri, String entityApiGrantParams, String entityApiAccessToken) {
+    final Properties properties = new Properties();
+    properties.put("entity.management.url", entityManagementUrl);
+    properties.put("entity.api.url", entityApiUrl);
+    properties.put("apikey", entityApiKey);
+    properties.put("token_endpoint", entityApiAuthTokenEndpointUri);
+    properties.put("grant_params", entityApiGrantParams);
+    properties.put("access_token", entityApiAccessToken);
+    return properties;
+  }
+
+  /**
+   * Checks if an entity identifier matches an identifier of the entities provided.
+   *
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
+   */
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
   @Override
@@ -81,7 +115,7 @@ public class ClientEntityResolver implements EntityResolver {
   private <T extends ReferenceTerm> HashMap<T, EnrichmentBase> convertToMapWithSingleValues(
       Map<T, List<EnrichmentBase>> batches) {
     Map<T, List<EnrichmentBase>> filteredBatches = batches.entrySet().stream().filter(entry -> !entry.getValue().isEmpty())
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                                                          .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     return filteredBatches.entrySet().stream().collect(HashMap::new, (map, entry) -> map.put(entry.getKey(),
         entry.getValue().stream().findFirst().orElse(null)), HashMap::putAll);
   }
@@ -108,7 +142,7 @@ public class ClientEntityResolver implements EntityResolver {
     for (I batchItem : batch) {
       List<EnrichmentBase> enrichmentBaseList = performItem(batchItem, uriSearch);
       result.put(batchItem, !enrichmentBaseList.isEmpty() ? enrichmentBaseList.stream().filter(Objects::nonNull).toList() :
-              Collections.emptyList());
+          Collections.emptyList());
     }
     return result;
   }
@@ -155,7 +189,7 @@ public class ClientEntityResolver implements EntityResolver {
             () -> entityClientApi.resolveEntity(referenceValue));
       }
     } catch (EntityClientException e) {
-      LOGGER.error("resolveReference getEntity failed for referenceTerm {}",referenceTerm.getReference(), e);
+      LOGGER.error("resolveReference getEntity failed for referenceTerm {}", referenceTerm.getReference(), e);
     }
     return result;
   }
@@ -225,62 +259,28 @@ public class ClientEntityResolver implements EntityResolver {
    * @return the extended list of entities
    */
   private List<Entity> findParentEntitiesRecursive(List<Entity> collectedEntities, List<Entity> children) {
-      List<Entity> parentEntities =
-          Stream.ofNullable(children).flatMap(Collection::stream)
-                .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
-                .filter(StringUtils::isNotBlank)
-                .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
-                .map(parentEntityId -> {
-                  try {
-                    return retryableExternalRequestForNetworkExceptionsThrowing(
-                        () -> entityClientApi.getEntity(parentEntityId));
-                  } catch (EntityClientException e) {
-                    LOGGER.error("findParentEntitiesRecursive request getEntity failed for parentEntityId: {}", parentEntityId, e);
-                    return null;
-                  }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toCollection(ArrayList::new));
+    List<Entity> parentEntities =
+        Stream.ofNullable(children).flatMap(Collection::stream)
+              .map(Entity::getIsPartOfArray).filter(Objects::nonNull).flatMap(Collection::stream)
+              .filter(StringUtils::isNotBlank)
+              .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
+              .map(parentEntityId -> {
+                try {
+                  return retryableExternalRequestForNetworkExceptionsThrowing(
+                      () -> entityClientApi.getEntity(parentEntityId));
+                } catch (EntityClientException e) {
+                  LOGGER.error("findParentEntitiesRecursive request getEntity failed for parentEntityId: {}", parentEntityId, e);
+                  return null;
+                }
+              })
+              .filter(Objects::nonNull)
+              .collect(Collectors.toCollection(ArrayList::new));
 
-      if (isNotEmpty(parentEntities)) {
-        collectedEntities.addAll(parentEntities);
-        //Now check again parents of parents
-        findParentEntitiesRecursive(collectedEntities, parentEntities);
-      }
+    if (isNotEmpty(parentEntities)) {
+      collectedEntities.addAll(parentEntities);
+      //Now check again parents of parents
+      findParentEntitiesRecursive(collectedEntities, parentEntities);
+    }
     return collectedEntities;
-  }
-
-  /**
-   * Checks if an entity identifier matches an identifier of the entities provided.
-   *
-   * @param entityIdToCheck the entity identifier to check
-   * @param entities the entity list
-   * @return true if it matches otherwise false
-   */
-  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
-    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
-  }
-
-  /**
-   * Build entity api client properties properties.
-   *
-   * @param entityManagementUrl the entity management url
-   * @param entityApiUrl the entity api url
-   * @param entityApiKey the entity api key
-   * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
-   * @param entityApiGrantParams the entity api grant params
-   * @param entityApiAccessToken the entity api access token
-   * @return the properties
-   */
-  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey,
-      String entityApiAuthTokenEndpointUri, String entityApiGrantParams, String entityApiAccessToken) {
-    final Properties properties = new Properties();
-    properties.put("entity.management.url", entityManagementUrl);
-    properties.put("entity.api.url", entityApiUrl);
-    properties.put("apikey", entityApiKey);
-    properties.put("token_endpoint", entityApiAuthTokenEndpointUri);
-    properties.put("grant_params", entityApiGrantParams);
-    properties.put("access_token", entityApiAccessToken);
-    return properties;
   }
 }

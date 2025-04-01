@@ -13,8 +13,6 @@ import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * <p>Instances of this object can set up {@link Enricher} instances. It has connection settings
@@ -26,7 +24,6 @@ import org.slf4j.LoggerFactory;
  */
 public class EnricherProvider extends ConnectionProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EnricherProvider.class);
     private RecordParser recordParser;
     private EntityResolverCreator entityResolverCreator;
     private String entityManagementUrl;
@@ -60,7 +57,7 @@ public class EnricherProvider extends ConnectionProvider {
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
      * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setEnrichmentPropertiesValues(String, String, String)} will need to have been called.
+     * #setEnrichmentPropertiesValues(String, String, String, String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
      */
@@ -114,7 +111,6 @@ public class EnricherProvider extends ConnectionProvider {
             entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)),
                     batchSizeEnrichment);
           } catch (EntityClientException e) {
-            LOGGER.error("Could not create entity resolver", e);
             throw new EnrichmentException("Could not create entity resolver", e);
           }
 
