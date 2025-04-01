@@ -328,7 +328,7 @@ class EnrichmentWorkerImplTest {
         enricherProvider.setEnrichmentPropertiesValues(
                 "http://localhost:" + wireMockServer.port() + "/entitymgmt",
                 "http://localhost:" + wireMockServer.port() + "/entity",
-                "api2demo", "access_token", "token_endpoint","grant_params");
+                "api2demo");
 
         final Enricher enricher = enricherProvider.create();
 
@@ -336,7 +336,7 @@ class EnrichmentWorkerImplTest {
         dereferencerProvider.setEnrichmentPropertiesValues(
             "http://localhost:" + wireMockServer.port() + "/entitymgmt",
             "http://localhost:" + wireMockServer.port() + "/entity",
-            "api2demo", "access_token", "token_endpoint","grant_params");
+            "api2demo");
 
         dereferencerProvider.setDereferenceUrl("http://localhost:" + wireMockServer.port());
         final Dereferencer dereferencer = dereferencerProvider.create();

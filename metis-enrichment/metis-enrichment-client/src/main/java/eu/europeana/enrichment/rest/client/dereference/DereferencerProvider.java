@@ -26,9 +26,6 @@ public class DereferencerProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
-    private String entityApiAccessToken;
-    private String entityApiAuthTokenEndpointUri;
-    private String entityApiGrantParams;
     /**
      * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
@@ -46,18 +43,11 @@ public class DereferencerProvider extends ConnectionProvider {
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
-     * @param entityApiAccessToken the entity api access token
-     * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
-     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey,
-        String entityApiAccessToken, String entityApiAuthTokenEndpointUri, String entityApiGrantParams) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
       this.entityApiKey = entityApiKey;
-      this.entityApiAuthTokenEndpointUri = entityApiAuthTokenEndpointUri;
-      this.entityApiGrantParams = entityApiGrantParams;
-      this.entityApiAccessToken = entityApiAccessToken;
     }
 
     /**
@@ -100,14 +90,11 @@ public class DereferencerProvider extends ConnectionProvider {
         if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl) &&
                 StringUtils.isNotBlank(entityApiKey)) {
 
-            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey,
-                entityApiAuthTokenEndpointUri, entityApiGrantParams,
-                entityApiAccessToken);
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey);
 
             EntityClientConfiguration entityClientConfiguration = new EntityClientConfiguration(properties);
           try {
-            entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration),
-                    batchSizeEnrichment);
+            entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration), batchSizeEnrichment);
           } catch (EntityClientException e) {
             throw new DereferenceException("Could not create entity resolver", e);
           }
