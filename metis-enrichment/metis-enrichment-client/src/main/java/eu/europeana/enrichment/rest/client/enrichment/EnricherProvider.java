@@ -29,9 +29,6 @@ public class EnricherProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
-    private String entityApiAccessToken;
-    private String entityApiAuthTokenEndpointUri;
-    private String entityApiGrantParams;
 
     /**
      * Set the record parser to use. The default is null, in which case an instance of {@link
@@ -57,7 +54,7 @@ public class EnricherProvider extends ConnectionProvider {
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
      * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setEnrichmentPropertiesValues(String, String, String, String, String, String)} will need to have been called.
+     * #setEnrichmentPropertiesValues(String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
      */
@@ -72,18 +69,11 @@ public class EnricherProvider extends ConnectionProvider {
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
-     * @param entityApiAccessToken the entity api access token
-     * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
-     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey,
-     String entityApiAccessToken, String entityApiAuthTokenEndpointUri, String entityApiGrantParams) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
         this.entityManagementUrl = entityManagementUrl;
         this.entityApiUrl = entityApiUrl;
         this.entityApiKey = entityApiKey;
-        this.entityApiAuthTokenEndpointUri = entityApiAuthTokenEndpointUri;
-        this.entityApiGrantParams = entityApiGrantParams;
-        this.entityApiAccessToken = entityApiAccessToken;
     }
 
     /**
@@ -105,8 +95,7 @@ public class EnricherProvider extends ConnectionProvider {
         } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
                 && StringUtils.isNotBlank(entityApiKey)) {
 
-            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
-                entityApiKey, entityApiAuthTokenEndpointUri, entityApiGrantParams, entityApiAccessToken);
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey);
             try {
             entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)),
                     batchSizeEnrichment);

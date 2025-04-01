@@ -64,20 +64,13 @@ public class ClientEntityResolver implements EntityResolver {
    * @param entityManagementUrl the entity management url
    * @param entityApiUrl the entity api url
    * @param entityApiKey the entity api key
-   * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
-   * @param entityApiGrantParams the entity api grant params
-   * @param entityApiAccessToken the entity api access token
    * @return the properties
    */
-  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey,
-      String entityApiAuthTokenEndpointUri, String entityApiGrantParams, String entityApiAccessToken) {
+  public static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
     final Properties properties = new Properties();
     properties.put("entity.management.url", entityManagementUrl);
     properties.put("entity.api.url", entityApiUrl);
     properties.put("apikey", entityApiKey);
-    properties.put("token_endpoint", entityApiAuthTokenEndpointUri);
-    properties.put("grant_params", entityApiGrantParams);
-    properties.put("access_token", entityApiAccessToken);
     return properties;
   }
 
