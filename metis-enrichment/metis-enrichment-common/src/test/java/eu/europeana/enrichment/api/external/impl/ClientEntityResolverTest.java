@@ -9,7 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
@@ -17,7 +16,8 @@ import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.utils.EntityType;
-import eu.europeana.entity.client.web.EntityClientApi;
+import eu.europeana.entity.client.EntityApiClient;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import eu.europeana.entitymanagement.definitions.model.Place;
 import java.net.MalformedURLException;
@@ -38,11 +38,39 @@ import org.junit.jupiter.api.Test;
 
 class ClientEntityResolverTest {
 
-  private static ClientEntityResolver clientEntityResolver;
-  private static EntityClientApi entityClientApi;
   private static final String CHILD_URI = "http://data.europeana.eu/place/84838";
   private static final String PARENT_URI = "http://data.europeana.eu/place/87";
   private static final String CHILD_SAME_AS_URI = "http://viaf.org/viaf/237254468";
+  private static ClientEntityResolver clientEntityResolver;
+  private static EntityApiClient entityClientApi;
+
+  private <T> void resultAssertions(Map<T, EntitiesAndExpectedEnrichmentBases> termsEntitiesMap,
+      Map<T, List<EnrichmentBase>> termsEnrichmentBasesMap) {
+    //Verify each request has a result even if it's an empty list
+    assertEquals(termsEntitiesMap.size(), termsEnrichmentBasesMap.size());
+
+    for (Entry<T, EntitiesAndExpectedEnrichmentBases> entry : termsEntitiesMap.entrySet()) {
+      //For each search we expect an amount of enrichment bases
+      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), termsEnrichmentBasesMap.get(entry.getKey()).size());
+
+      //For expected results we check to find that each expected entity exists in the results
+      if (entry.getValue().getEnrichmentBasesExpectedResults() > 0) {
+        entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
+             .forEach(entity -> assertTrue(termsEnrichmentBasesMap.get(entry.getKey()).stream().anyMatch(
+                 item -> entity.getEntityId().equals(item.getAbout()))));
+      }
+    }
+  }
+
+  private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) throws EntityClientException {
+    final Set<String> childIds = children.stream().map(Entity::getEntityId).collect(Collectors.toSet());
+    final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
+                                             .filter(entity -> !childIds.contains(entity.getEntityId()))
+                                             .toList();
+    for (Entity parentEntity : parentEntities) {
+      when(entityClientApi.getEntity(parentEntity.getEntityId())).thenReturn(parentEntity);
+    }
+  }
 
   static class EntitiesAndExpectedEnrichmentBases {
 
@@ -75,7 +103,7 @@ class ClientEntityResolverTest {
 
   @BeforeAll
   static void prepare() {
-    entityClientApi = mock(EntityClientApi.class);
+    entityClientApi = mock(EntityApiClient.class);
     clientEntityResolver = new ClientEntityResolver(entityClientApi, 10);
   }
 
@@ -85,7 +113,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_Entity_Without_Parents() throws EntityClientException {
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -99,7 +127,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_Multiple_Entities_Without_Parents() throws JsonProcessingException {
+  void resolveByText_Multiple_Entities_Without_Parents() throws  EntityClientException {
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -113,7 +141,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_Entity_With_One_Parent() throws JsonProcessingException {
+  void resolveByText_Entity_With_One_Parent() throws EntityClientException {
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -131,7 +159,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_Entity_With_One_Parent_Circular_OK() throws JsonProcessingException {
+  void resolveByText_Entity_With_One_Parent_Circular_OK() throws EntityClientException {
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -150,31 +178,31 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_3LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_3LetterLanguage_Entity_Without_Parents() throws EntityClientException {
     test_not_null("eng", "en");
   }
 
   @Test
-  void resolveByText_InvalidLanguage_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_InvalidLanguage_Entity_Without_Parents() throws EntityClientException {
     test_not_null("invalidLanguage", null);
   }
 
   @Test
-  void resolveByText_1LetterLanguage_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_1LetterLanguage_Entity_Without_Parents() throws EntityClientException {
     test_not_null("e", null);
   }
 
   @Test
-  void resolveByText_EmptyLanguage_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_EmptyLanguage_Entity_Without_Parents() throws EntityClientException {
     test_not_null("", null);
   }
 
   @Test
-  void resolveByText_NullLanguage_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_NullLanguage_Entity_Without_Parents() throws EntityClientException {
     test_not_null(null, null);
   }
 
-  void test_not_null(String language, String expectedLanguage) throws JsonProcessingException {
+  void test_not_null(String language, String expectedLanguage) throws EntityClientException {
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", language);
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
@@ -186,7 +214,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_CorrectEntityType_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_CorrectEntityType_Entity_Without_Parents() throws EntityClientException {
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.PLACE));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -200,7 +228,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_IncorrectEntityType_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_IncorrectEntityType_Entity_Without_Parents() throws EntityClientException {
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -212,7 +240,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_MultipleEntityTypes_Entity_Without_Parents() throws JsonProcessingException {
+  void resolveByText_MultipleEntityTypes_Entity_Without_Parents() throws EntityClientException {
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN, EntityType.PLACE));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -226,14 +254,14 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByText_JsonProcessingException() throws JsonProcessingException {
-    when(entityClientApi.enrichEntity(anyString(), anyString(), anyString(), isNull())).thenThrow(JsonProcessingException.class);
+  void resolveByText_JsonProcessingException() throws EntityClientException {
+    when(entityClientApi.enrichEntity(anyString(), anyString(), anyString(), isNull())).thenThrow(EntityClientException.class);
     final Set<SearchTermImpl> searchTerms = Set.of(new SearchTermImpl("Greece", "en"));
     assertThrows(UnknownException.class, () -> clientEntityResolver.resolveByText(searchTerms));
   }
 
   void resolveByText(Map<SearchTerm, EntitiesAndExpectedEnrichmentBases> searchTermsEntitiesMap)
-      throws JsonProcessingException {
+      throws EntityClientException {
     for (Entry<SearchTerm, EntitiesAndExpectedEnrichmentBases> entry : searchTermsEntitiesMap.entrySet()) {
       final String entityTypes = entry.getKey().getCandidateTypes().stream()
                                       .map(entityType -> entityType.name().toLowerCase(Locale.US))
@@ -253,7 +281,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveById_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
+  void resolveById_Entity_Without_Parents() throws MalformedURLException, URISyntaxException, EntityClientException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
@@ -264,7 +292,8 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  void resolveById(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
+  void resolveById(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap)
+      throws EntityClientException {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
                                          .toList();
@@ -291,7 +320,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_Without_Parents() throws MalformedURLException, URISyntaxException {
+  void resolveByUri_Entity_Without_Parents() throws MalformedURLException, URISyntaxException, EntityClientException {
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
@@ -303,7 +332,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException, URISyntaxException {
+  void resolveByUri_Entity_With_One_Parent() throws MalformedURLException, URISyntaxException, EntityClientException {
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -319,7 +348,8 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK()
+      throws URISyntaxException, MalformedURLException, EntityClientException {
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_SAME_AS_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -336,7 +366,7 @@ class ClientEntityResolverTest {
   }
 
   @Test
-  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException {
+  void resolveByUri_Entity_With_One_Parent_Circular_OK() throws URISyntaxException, MalformedURLException, EntityClientException {
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -352,7 +382,8 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  void resolveByUri(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap) {
+  void resolveByUri(Map<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> referenceTermsEntitiesMap)
+      throws EntityClientException {
     for (Entry<ReferenceTerm, EntitiesAndExpectedEnrichmentBases> entry : referenceTermsEntitiesMap.entrySet()) {
       final List<Entity> children = entry.getValue().getEntitiesWithParents().stream().map(LinkedList::getFirst)
                                          .toList();
@@ -368,33 +399,5 @@ class ClientEntityResolverTest {
     final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermEnrichmentBasesMap = clientEntityResolver.resolveByUri(
         new HashSet<>(referenceTermsEntitiesMap.keySet()));
     resultAssertions(referenceTermsEntitiesMap, referenceTermEnrichmentBasesMap);
-  }
-
-  private <T> void resultAssertions(Map<T, EntitiesAndExpectedEnrichmentBases> termsEntitiesMap,
-      Map<T, List<EnrichmentBase>> termsEnrichmentBasesMap) {
-    //Verify each request has a result even if it's an empty list
-    assertEquals(termsEntitiesMap.size(), termsEnrichmentBasesMap.size());
-
-    for (Entry<T, EntitiesAndExpectedEnrichmentBases> entry : termsEntitiesMap.entrySet()) {
-      //For each search we expect an amount of enrichment bases
-      assertEquals(entry.getValue().getEnrichmentBasesExpectedResults(), termsEnrichmentBasesMap.get(entry.getKey()).size());
-
-      //For expected results we check to find that each expected entity exists in the results
-      if (entry.getValue().getEnrichmentBasesExpectedResults() > 0) {
-        entry.getValue().getEntitiesWithParents().stream().flatMap(List::stream)
-             .forEach(entity -> assertTrue(termsEnrichmentBasesMap.get(entry.getKey()).stream().anyMatch(
-                 item -> entity.getEntityId().equals(item.getAbout()))));
-      }
-    }
-  }
-
-  private void parentMatching(EntitiesAndExpectedEnrichmentBases entry, List<Entity> children) {
-    final Set<String> childIds = children.stream().map(Entity::getEntityId).collect(Collectors.toSet());
-    final List<Entity> parentEntities = entry.getEntitiesWithParents().stream().flatMap(List::stream)
-                                             .filter(entity -> !childIds.contains(entity.getEntityId()))
-                                             .toList();
-    for (Entity parentEntity : parentEntities) {
-      when(entityClientApi.getEntity(parentEntity.getEntityId())).thenReturn(parentEntity);
-    }
   }
 }

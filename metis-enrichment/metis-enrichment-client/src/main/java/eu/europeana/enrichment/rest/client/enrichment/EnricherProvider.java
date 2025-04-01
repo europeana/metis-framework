@@ -1,13 +1,16 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import static eu.europeana.enrichment.api.external.impl.ClientEntityResolver.buildEntityApiClientProperties;
+
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.web.EntityClientApiImpl;
+import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,6 +29,9 @@ public class EnricherProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
+    private String entityApiAccessToken;
+    private String entityApiAuthTokenEndpointUri;
+    private String entityApiGrantParams;
 
     /**
      * Set the record parser to use. The default is null, in which case an instance of {@link
@@ -51,7 +57,7 @@ public class EnricherProvider extends ConnectionProvider {
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
      * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setEnrichmentPropertiesValues(String, String, String)} will need to have been called.
+     * #setEnrichmentPropertiesValues(String, String, String, String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
      */
@@ -60,17 +66,24 @@ public class EnricherProvider extends ConnectionProvider {
     }
 
     /**
-     * Set the properties values of the enrichment service. The default is null, in which case {@link
-     * #setEntityResolverCreator(EntityResolverCreator)} will need to have been called.
+     * Set the properties values of the enrichment service. The default is null, in which case
+     * {@link #setEntityResolverCreator(EntityResolverCreator)}* will need to have been called.
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
+     * @param entityApiAccessToken the entity api access token
+     * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
+     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey,
+     String entityApiAccessToken, String entityApiAuthTokenEndpointUri, String entityApiGrantParams) {
         this.entityManagementUrl = entityManagementUrl;
         this.entityApiUrl = entityApiUrl;
         this.entityApiKey = entityApiKey;
+        this.entityApiAuthTokenEndpointUri = entityApiAuthTokenEndpointUri;
+        this.entityApiGrantParams = entityApiGrantParams;
+        this.entityApiAccessToken = entityApiAccessToken;
     }
 
     /**
@@ -92,12 +105,14 @@ public class EnricherProvider extends ConnectionProvider {
         } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
                 && StringUtils.isNotBlank(entityApiKey)) {
 
-            final Properties properties = new Properties();
-            properties.put("entity.management.url", entityManagementUrl);
-            properties.put("entity.api.url", entityApiUrl);
-            properties.put("entity.api.key", entityApiKey);
-            entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
+                entityApiKey, entityApiAuthTokenEndpointUri, entityApiGrantParams, entityApiAccessToken);
+            try {
+            entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)),
                     batchSizeEnrichment);
+          } catch (EntityClientException e) {
+            throw new EnrichmentException("Could not create entity resolver", e);
+          }
 
         } else {
             throw new EnrichmentException("We must have either a non-null entity resolver creator,"

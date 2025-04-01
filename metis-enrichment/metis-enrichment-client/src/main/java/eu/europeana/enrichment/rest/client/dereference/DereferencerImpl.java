@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +47,7 @@ import org.springframework.web.client.HttpClientErrorException.BadRequest;
 public class DereferencerImpl implements Dereferencer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencerImpl.class);
+  private static final String CANCELLATION_EXCEPTION_WARN_MESSAGE = "Cancellation exception occurred while trying to perform dereferencing, rethrowing.";
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
@@ -249,6 +251,9 @@ public class DereferencerImpl implements Dereferencer {
                    result.putIfAbsent(notFoundOwnId, Collections.emptyList());
                  });
       return new DereferencedEntities(result, reports, classType);
+    } catch (CancellationException e){
+      LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
+      throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
     }
@@ -262,6 +267,9 @@ public class DereferencerImpl implements Dereferencer {
     }
     try {
       return new DereferencedEntities(new HashMap<>(entityResolver.resolveByUri(resourceIds)), reports, classType);
+    } catch (CancellationException e){
+      LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
+      throw e;
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e, classType);
     }
@@ -302,6 +310,9 @@ public class DereferencerImpl implements Dereferencer {
             .withException(e)
             .build());
         result = null;
+      } catch (CancellationException e){
+        LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
+        throw e;
       } catch (Exception e) {
         DereferenceException dereferenceException = new DereferenceException(
             "Exception occurred while trying to perform dereferencing.", e);
