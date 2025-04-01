@@ -1,14 +1,15 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import static eu.europeana.enrichment.api.external.impl.ClientEntityResolver.buildEntityApiClientProperties;
+
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-
-import java.util.Properties;
-
+import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.web.EntityClientApiImpl;
+import eu.europeana.entity.client.exception.EntityClientException;
+import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,9 @@ public class DereferencerProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
-
+    private String entityApiAccessToken;
+    private String entityApiAuthTokenEndpointUri;
+    private String entityApiGrantParams;
     /**
      * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
@@ -37,31 +40,26 @@ public class DereferencerProvider extends ConnectionProvider {
     }
 
     /**
-     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
-     * dereferencer will not be configured to perform dereferencing.
+     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the dereferencer will not be
+     * configured to perform dereferencing.
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
      * @param entityApiKey The key for the entity service
+     * @param entityApiAccessToken the entity api access token
+     * @param entityApiAuthTokenEndpointUri the entity api auth token endpoint uri
+     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey,
+        String entityApiAccessToken, String entityApiAuthTokenEndpointUri, String entityApiGrantParams) {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
       this.entityApiKey = entityApiKey;
+      this.entityApiAuthTokenEndpointUri = entityApiAuthTokenEndpointUri;
+      this.entityApiGrantParams = entityApiGrantParams;
+      this.entityApiAccessToken = entityApiAccessToken;
     }
 
-    /**
-     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
-     * dereferencer will not be configured to perform dereferencing and the redirects for
-     * client entity api are enabled.
-     *
-     * @param entityManagementUrl The url of the entity management service
-     * @param entityApiUrl The url of the entity API service
-     * @param entityApiKey The key for the entity service
-     */
-    public void setEnrichmentPropertiesValuesWithRedirect(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
-        setEnrichmentPropertiesValues(entityManagementUrl, entityApiUrl, entityApiKey);
-    }
     /**
      * Builds an {@link Dereferencer} according to the parameters that are set.
      *
@@ -102,13 +100,17 @@ public class DereferencerProvider extends ConnectionProvider {
         if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl) &&
                 StringUtils.isNotBlank(entityApiKey)) {
 
-            final Properties properties = new Properties();
-            properties.put("entity.management.url", entityManagementUrl);
-            properties.put("entity.api.url", entityApiUrl);
-            properties.put("entity.api.key", entityApiKey);
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey,
+                entityApiAuthTokenEndpointUri, entityApiGrantParams,
+                entityApiAccessToken);
+
             EntityClientConfiguration entityClientConfiguration = new EntityClientConfiguration(properties);
-            entityResolver = new ClientEntityResolver(new EntityClientApiImpl(entityClientConfiguration),
+          try {
+            entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration),
                     batchSizeEnrichment);
+          } catch (EntityClientException e) {
+            throw new DereferenceException("Could not create entity resolver", e);
+          }
 
         } else {
             entityResolver = null;
