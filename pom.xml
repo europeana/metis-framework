@@ -9,7 +9,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>metis-common</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
@@ -77,6 +76,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.metis-common>15</version.metis-common>
     <version.metis-schema>11-SNAPSHOT</version.metis-schema>
 
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
@@ -156,27 +156,32 @@
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-base</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-mongo</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-network</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-solr</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-utils</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-spring-properties</artifactId>
+        <version>${version.metis-common}</version>
       </dependency>
 
       <dependency>
