@@ -27,50 +27,98 @@ class RdfTierUtilsTest {
   }
 
   @Test
+  void hasTierEuropeanaMediaTierCalculationByTarget() throws Exception {
+    setUpRdfWithTierCalculated();
+    assertTrue(RdfTierUtils.hasTierEuropeanaCalculationByTarget(inputRdf, MediaTier.T1));
+  }
+
+  @Test
+  void hasTierEuropeanaMetadataCalculationByTarget() throws Exception {
+    setUpRdfWithTierCalculated();
+    assertTrue(RdfTierUtils.hasTierEuropeanaCalculationByTarget(inputRdf, MetadataTier.TA));
+  }
+
+  @Test
   void hasTierEuropeanaMediaTierCalculation() throws Exception {
     setUpRdfWithTierCalculated();
-    assertTrue(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MediaTier.class));
+    assertTrue(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MediaTier.T1));
   }
 
   @Test
   void hasTierEuropeanaMetadataCalculation() throws Exception {
     setUpRdfWithTierCalculated();
-    assertTrue(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MetadataTier.class));
+    assertTrue(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MetadataTier.TA));
+  }
+
+  @Test
+  void hasTierMediaTierCalculationByTarget() throws Exception {
+    setUpRdfWithTierCalculated();
+    assertTrue(RdfTierUtils.hasTierCalculationByTarget(inputRdf, MediaTier.T1));
+  }
+
+  @Test
+  void hasTierMetadataCalculationByTarget() throws Exception {
+    setUpRdfWithTierCalculated();
+    assertTrue(RdfTierUtils.hasTierCalculationByTarget(inputRdf, MetadataTier.TA));
   }
 
   @Test
   void hasTierMediaTierCalculation() throws Exception {
     setUpRdfWithTierCalculated();
-    assertTrue(RdfTierUtils.hasTierCalculation(inputRdf, MediaTier.class));
+    assertTrue(RdfTierUtils.hasTierCalculation(inputRdf, MediaTier.T1));
   }
 
   @Test
   void hasTierMetadataCalculation() throws Exception {
     setUpRdfWithTierCalculated();
-    assertTrue(RdfTierUtils.hasTierCalculation(inputRdf, MetadataTier.class));
+    assertTrue(RdfTierUtils.hasTierCalculation(inputRdf, MetadataTier.TA));
   }
 
   @Test
   void hasNotTierEuropeanaMediaTierCalculation() throws Exception {
     setUpRdfWithoutTierCalculated();
-    assertFalse(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MediaTier.class));
+    assertFalse(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MediaTier.T1));
   }
 
   @Test
   void hasNotTierEuropeanaMetadataCalculation() throws Exception {
     setUpRdfWithoutTierCalculated();
-    assertFalse(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MetadataTier.class));
+    assertFalse(RdfTierUtils.hasTierEuropeanaCalculation(inputRdf, MetadataTier.TA));
+  }
+
+  @Test
+  void hasNotTierEuropeanaMediaTierCalculationByTarget() throws Exception {
+    setUpRdfWithoutTierCalculated();
+    assertFalse(RdfTierUtils.hasTierEuropeanaCalculationByTarget(inputRdf, MediaTier.T1));
+  }
+
+  @Test
+  void hasNotTierEuropeanaMetadataCalculationByTarget() throws Exception {
+    setUpRdfWithoutTierCalculated();
+    assertFalse(RdfTierUtils.hasTierEuropeanaCalculationByTarget(inputRdf, MetadataTier.TA));
   }
 
   @Test
   void hasNotTierMediaTierCalculation() throws Exception {
     setUpRdfWithoutTierCalculated();
-    assertFalse(RdfTierUtils.hasTierCalculation(inputRdf, MediaTier.class));
+    assertFalse(RdfTierUtils.hasTierCalculation(inputRdf, MediaTier.T1));
   }
 
   @Test
   void hasNotTierMetadataCalculation() throws Exception {
     setUpRdfWithoutTierCalculated();
-    assertFalse(RdfTierUtils.hasTierCalculation(inputRdf, MetadataTier.class));
+    assertFalse(RdfTierUtils.hasTierCalculation(inputRdf, MetadataTier.TA));
+  }
+
+  @Test
+  void hasNotTierMediaTierCalculationByTarget() throws Exception {
+    setUpRdfWithoutTierCalculated();
+    assertFalse(RdfTierUtils.hasTierCalculationByTarget(inputRdf, MediaTier.T1));
+  }
+
+  @Test
+  void hasNotTierMetadataCalculationByTarget() throws Exception {
+    setUpRdfWithoutTierCalculated();
+    assertFalse(RdfTierUtils.hasTierCalculationByTarget(inputRdf, MetadataTier.TA));
   }
 }
