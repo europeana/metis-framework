@@ -79,7 +79,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    if (!RdfTierUtils.hasTierCalculationByTarget(rdf, tier.getClass())) {
+    if (!RdfTierUtils.hasTierCalculationByTarget(rdf, tier)) {
       setTierInternal(rdf, tier);
     }
   }
@@ -105,7 +105,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeanaIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    if (!RdfTierUtils.hasTierEuropeanaCalculationByTarget(rdf, tier.getClass())) {
+    if (!RdfTierUtils.hasTierEuropeanaCalculationByTarget(rdf, tier)) {
       setTierInternalEuropeana(rdf, tier);
     }
   }
@@ -117,7 +117,7 @@ public final class RdfTierUtils {
    * @param tier the tier
    * @return the boolean
    */
-  public static boolean hasTierEuropeanaCalculation(RDF rdf, Class<? extends Tier> tier) {
+  public static boolean hasTierEuropeanaCalculation(RDF rdf, Tier tier) {
     List<String> tierEuropeanaData = extractTierData(rdf.getEuropeanaAggregationList(),
         EuropeanaAggregationType::getHasQualityAnnotationList);
 
@@ -131,7 +131,7 @@ public final class RdfTierUtils {
    * @param tier the tier
    * @return the boolean
    */
-  public static boolean hasTierCalculation(RDF rdf, Class<? extends Tier> tier) {
+  public static boolean hasTierCalculation(RDF rdf, Tier tier) {
     List<String> tierData = extractTierData(rdf.getAggregationList(), Aggregation::getHasQualityAnnotationList);
 
     return containsTierCalculation(tier, tierData);
@@ -224,7 +224,7 @@ public final class RdfTierUtils {
    * @param tier the tier
    * @return the boolean
    */
-  public static boolean hasTierCalculationByTarget(RDF rdf, Class<? extends Tier> tier) {
+  public static boolean hasTierCalculationByTarget(RDF rdf, Tier tier) {
     List<String> tierData = extractTierDataByTarget(rdf.getAggregationList(),
         Aggregation::getHasQualityAnnotationList,
         rdf.getAggregationList()
@@ -243,7 +243,7 @@ public final class RdfTierUtils {
    * @param tier the tier
    * @return the boolean
    */
-  public static boolean hasTierEuropeanaCalculationByTarget(RDF rdf, Class<? extends Tier> tier) {
+  public static boolean hasTierEuropeanaCalculationByTarget(RDF rdf, Tier tier) {
     List<String> tierEuropeanaData = extractTierData(rdf.getEuropeanaAggregationList(),
         EuropeanaAggregationType::getHasQualityAnnotationList);
     extractTierDataByTarget(rdf.getEuropeanaAggregationList(),
@@ -258,10 +258,10 @@ public final class RdfTierUtils {
     return containsTierCalculation(tier, tierEuropeanaData);
   }
 
-  private static boolean containsTierCalculation(Class<? extends Tier> tier, List<String> tierCalculation) {
-    if (tier.isInstance(MediaTier.class)) {
+  private static boolean containsTierCalculation(Tier tier, List<String> tierCalculation) {
+    if (tier instanceof MediaTier) {
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(CONTENT_TIER_BASE_URI));
-    } else if (tier.isInstance(MetadataTier.class)) {
+    } else if (tier instanceof MetadataTier) {
       return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(METADATA_TIER_BASE_URI));
     } else {
       return false;
