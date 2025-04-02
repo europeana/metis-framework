@@ -268,10 +268,10 @@ public final class RdfTierUtils {
     }
   }
 
-  private static String getTierBaseUri(Class<? extends Tier> tier) {
-    if (tier.isInstance(MediaTier.class)) {
+  private static String getTierBaseUri(Tier tier) {
+    if (tier instanceof MediaTier) {
       return CONTENT_TIER_BASE_URI;
-    } else if (tier.isInstance(MetadataTier.class)) {
+    } else if (tier instanceof MetadataTier) {
       return METADATA_TIER_BASE_URI;
     } else {
       return "";
@@ -303,9 +303,9 @@ public final class RdfTierUtils {
 
     aggregatorAggregation.setHasQualityAnnotationList(
         Stream.concat(getExistingAnnotationsFromTargetWithoutNewAnnotation(newAnnotation,
-                  aggregatorAggregation.getHasQualityAnnotationList(),
-                  aggregatorAggregation.getAbout()), Stream.of(newAnnotation))
-              .toList());
+            aggregatorAggregation.getHasQualityAnnotationList(),
+            aggregatorAggregation.getAbout()), Stream.of(newAnnotation)).toList()
+    );
   }
 
   private static void setTierInternalEuropeana(RDF rdf, Tier tier)
@@ -368,8 +368,7 @@ public final class RdfTierUtils {
                                         .getHasTargetList()
                                         .stream()
                                         .anyMatch(hasTarget ->
-                                            hasTarget.getResource()
-                                                     .equals(target));
+                                            hasTarget.getResource().equals(target));
   }
 
   @NotNull
@@ -377,12 +376,10 @@ public final class RdfTierUtils {
     return existingLink ->
         !getTierBaseUri(RdfTier.fromUri(newAnnotation.getQualityAnnotation()
                                                      .getHasBody().
-                                                     getResource())
-                               .getTier().getClass())
+                                                     getResource()).getTier())
             .equals(getTierBaseUri(RdfTier.fromUri(existingLink.getQualityAnnotation()
                                                                .getHasBody()
-                                                               .getResource())
-                                          .getTier().getClass()));
+                                                               .getResource()).getTier()));
   }
 
   @NotNull
