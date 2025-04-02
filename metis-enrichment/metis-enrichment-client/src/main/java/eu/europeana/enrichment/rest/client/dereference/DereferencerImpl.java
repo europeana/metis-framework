@@ -231,8 +231,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   public DereferencedEntities dereferenceOwnEntities(Set<ReferenceTerm> resourceIds,
-      HashSet<Report> reports,
-      Class<? extends AboutType> classType) {
+      HashSet<Report> reports, Class<? extends AboutType> classType) {
     if (entityResolver == null) {
       return new DereferencedEntities(Collections.emptyMap(), new HashSet<>());
     }

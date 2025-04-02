@@ -3,6 +3,8 @@ package eu.europeana.enrichment.api.internal;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,6 +27,17 @@ public interface FieldType<T extends AboutType> {
   default Set<FieldValue> extractFieldValuesForEnrichment(T aboutType) {
     return extractFields(aboutType).filter(content -> StringUtils.isNotEmpty(content.getString()))
         .map(FieldType::convert).collect(Collectors.toSet());
+  }
+
+  /**
+   * Extract the field links set from the provided about type.
+   *
+   * @param aboutType the about type to use
+   * @return the set of field links
+   */
+  default Set<String> extractFieldLinksForEnrichment(T aboutType) {
+    return extractFields(aboutType).map(ResourceOrLiteralType::getResource).filter(Objects::nonNull)
+        .map(Resource::getResource).filter(StringUtils::isNotBlank).collect(Collectors.toSet());
   }
 
   /**

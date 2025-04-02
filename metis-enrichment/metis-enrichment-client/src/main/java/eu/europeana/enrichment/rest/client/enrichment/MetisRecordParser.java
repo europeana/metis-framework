@@ -10,6 +10,7 @@ import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
@@ -45,15 +46,12 @@ public class MetisRecordParser implements RecordParser {
 
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
-    //Proxy search terms
+    // Proxy search terms.
     final Set<SearchTermContext> resultSearchTermsSet = getFieldValueSet(ProxyFieldType.values(),
         RdfEntityUtils.getProviderProxies(rdf));
-    resultSearchTermsSet.addAll(getAggregationSearchTerms(rdf));
+    // Aggregation search terms.
+    resultSearchTermsSet.addAll(getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList()));
     return resultSearchTermsSet;
-  }
-
-  public Set<SearchTermContext> getAggregationSearchTerms(RDF rdf) {
-    return getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList());
   }
 
   private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType<T>[] fieldTypes,
@@ -73,11 +71,11 @@ public class MetisRecordParser implements RecordParser {
   @Override
   public Set<ReferenceTermContext> parseReferences(RDF rdf) {
 
-    // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
-    // use this below to follow sameAs links).
+    // Get all direct references from proxies. Also look in Europeana proxy as it may have been
+    // dereferenced - we use this below to follow sameAs links.
+    final Map<String, Set<FieldType<?>>> directReferences = new HashMap<>();
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
                                             .flatMap(Collection::stream).filter(Objects::nonNull).toList();
-    final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
     for (ProxyFieldType field : ProxyFieldType.values()) {
       final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
                                              .flatMap(Set::stream).collect(Collectors.toSet());
@@ -86,10 +84,31 @@ public class MetisRecordParser implements RecordParser {
       }
     }
 
-    // Get all sameAs links from the directly referenced contextual entities.
-    final Map<String, Set<ProxyFieldType>> indirectReferences = new HashMap<>();
+    // Get all direct references from aggregations. We don't have to look in the Europeana
+    // aggregations as for aggregations dereferencing happens in place (in the aggregation).
+    // Note: we will skip those for which an entity is already known, we don't wish to replace
+    // that connection. We are only looking for orphaned links that can be changed.
+    final List<Aggregation> aggregations = Optional.ofNullable(rdf.getAggregationList()).stream()
+        .flatMap(Collection::stream).filter(Objects::nonNull).toList();
+    final Set<String> knownOrganisationIds = Optional.ofNullable(rdf.getOrganizationList())
+        .stream().flatMap(Collection::stream).filter(Objects::nonNull)
+        .map(AboutType::getAbout).collect(Collectors.toSet());
+    for (AggregationFieldType field : AggregationFieldType.values()) {
+      final Set<String> directLinks = aggregations.stream()
+          .map(field::extractFieldLinksForEnrichment)
+          .flatMap(Set::stream)
+          .filter(link -> !knownOrganisationIds.contains(link))
+          .collect(Collectors.toSet());
+      for (String directLink : directLinks) {
+        directReferences.computeIfAbsent(directLink, key -> new HashSet<>()).add(field);
+      }
+    }
+
+    // Get all sameAs links from the directly referenced contextual entities. Only for
+    // proxy-referenced entities.
+    final Map<String, Set<FieldType<?>>> indirectReferences = new HashMap<>();
     final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
-      final Set<ProxyFieldType> linkTypes = Optional
+      final Set<FieldType<?>> linkTypes = Optional
           .ofNullable(directReferences.get(contextualClass.getAbout()))
           .orElseGet(Collections::emptySet);
       if (!linkTypes.isEmpty()) {
@@ -108,7 +127,7 @@ public class MetisRecordParser implements RecordParser {
             .forEach(contextualTypeProcessor);
 
     // Merge the two maps.
-    final Map<String, Set<ProxyFieldType>> resultMap = mergeMapInto(directReferences,
+    final Map<String, Set<FieldType<?>>> resultMap = mergeMapInto(directReferences,
         indirectReferences);
 
     // Clean up the result: no null values. But objects we already have need to
@@ -117,16 +136,13 @@ public class MetisRecordParser implements RecordParser {
 
     // Convert and done
     final Set<ReferenceTermContext> result = new HashSet<>();
-    for (Map.Entry<String, Set<ProxyFieldType>> entry : resultMap.entrySet()) {
-      ReferenceTermContext value;
+    for (Map.Entry<String, Set<FieldType<?>>> entry : resultMap.entrySet()) {
       try {
         final URI uri = new URI(entry.getKey());
         if (!uri.isAbsolute()) {
           throw new MalformedURLException("URL is not absolute");
         }
-
-        value = new ReferenceTermContext(uri.toURL(), entry.getValue());
-        result.add(value);
+        result.add(new ReferenceTermContext(uri.toURL(), entry.getValue()));
       } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
         LOGGER.debug("Invalid enrichment reference found: {}", entry.getKey());
       }

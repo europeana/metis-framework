@@ -2,7 +2,6 @@ package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,20 +12,20 @@ import java.util.stream.Collectors;
  */
 public class ReferenceTermContext extends AbstractReferenceTerm {
 
-  private final Set<ProxyFieldType> proxyFieldTypes;
+  private final Set<FieldType<?>> fieldTypes;
 
-  public ReferenceTermContext(URL reference, Set<ProxyFieldType> proxyFieldTypes) {
+  public ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
     super(reference);
-    this.proxyFieldTypes = Set.copyOf(proxyFieldTypes);
+    this.fieldTypes = Set.copyOf(fieldTypes);
   }
 
   @Override
   public Set<EntityType> getCandidateTypes() {
-    return proxyFieldTypes.stream().map(ProxyFieldType::getEntityType).collect(Collectors.toSet());
+    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
-  public Set<ProxyFieldType> getProxyFieldTypes() {
-    return Collections.unmodifiableSet(proxyFieldTypes);
+  public Set<FieldType<?>> getFieldTypes() {
+    return fieldTypes;
   }
 
   @Override
@@ -39,13 +38,13 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
     }
     final ReferenceTermContext that = (ReferenceTermContext) o;
     // Note: avoid using reference URL for equality as it may do a domain name check.
-    return Objects.equals(getProxyFieldTypes(), that.getProxyFieldTypes()) && Objects
+    return Objects.equals(getFieldTypes(), that.getFieldTypes()) && Objects
             .equals(getReferenceAsString(), that.getReferenceAsString());
   }
 
   @Override
   public int hashCode() {
     // Note: avoid using reference URL for computing the hash as it may do a domain name check.
-    return Objects.hash(getProxyFieldTypes(), getReferenceAsString());
+    return Objects.hash(getFieldTypes(), getReferenceAsString());
   }
 }

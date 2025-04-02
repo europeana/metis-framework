@@ -117,9 +117,12 @@ public class EntityMergeEngine {
     for (EnrichmentBase base : enrichmentBaseList) {
       final AboutType aboutType = convertAndAddEntity(rdf, base);
       if (referenceTermContext != null) {
-        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
-            referenceTermContext.getProxyFieldTypes().stream().map(ProxyFieldType.class::cast)
-                                .collect(Collectors.toSet()));
+        final Set<ProxyFieldType> proxyFieldTypes = referenceTermContext.getFieldTypes().stream()
+            .filter(field -> field instanceof ProxyFieldType)
+            .map(ProxyFieldType.class::cast)
+            .collect(Collectors.toSet());
+        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), proxyFieldTypes);
+        // TODO merge to aggregation
       }
     }
   }
