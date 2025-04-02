@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import static eu.europeana.enrichment.api.external.impl.ClientEntityResolver.buildEntityApiClientProperties;
-
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
@@ -26,6 +24,7 @@ public class DereferencerProvider extends ConnectionProvider {
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiKey;
+
     /**
      * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
      * dereferencer will not be configured to perform dereferencing.
@@ -37,8 +36,8 @@ public class DereferencerProvider extends ConnectionProvider {
     }
 
     /**
-     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the dereferencer will not be
-     * configured to perform dereferencing.
+     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
+     * dereferencer will not be configured to perform dereferencing.
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
@@ -89,15 +88,13 @@ public class DereferencerProvider extends ConnectionProvider {
         final ClientEntityResolver entityResolver;
         if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl) &&
                 StringUtils.isNotBlank(entityApiKey)) {
-
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey);
-
             EntityClientConfiguration entityClientConfiguration = new EntityClientConfiguration(properties);
-          try {
-            entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration), batchSizeEnrichment);
-          } catch (EntityClientException e) {
-            throw new DereferenceException("Could not create entity resolver", e);
-          }
+            try {
+                entityResolver = new ClientEntityResolver(new EntityApiClient(entityClientConfiguration));
+            } catch (EntityClientException e) {
+                throw new DereferenceException("Could not create entity resolver", e);
+            }
 
         } else {
             entityResolver = null;

@@ -37,10 +37,10 @@ public final class EnrichmentBaseConverter {
   }
 
   /**
-   * Converts a list of {@link Entity} class to {@link EnrichmentBase}
+   * Converts a list of {@link Entity} class to {@link EnrichmentBase}.
    *
    * @param entities the entities
-   * @return the enrichment bases
+   * @return the enrichment bases. List is not null, not containing null values.
    */
   public static List<EnrichmentBase> convertEntitiesToEnrichmentBase(List<Entity> entities) {
     return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase)

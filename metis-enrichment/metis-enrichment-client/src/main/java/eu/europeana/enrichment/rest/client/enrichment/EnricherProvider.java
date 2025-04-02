@@ -1,7 +1,5 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import static eu.europeana.enrichment.api.external.impl.ClientEntityResolver.buildEntityApiClientProperties;
-
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
@@ -94,15 +92,12 @@ public class EnricherProvider extends ConnectionProvider {
             }
         } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
                 && StringUtils.isNotBlank(entityApiKey)) {
-
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey);
             try {
-            entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)),
-                    batchSizeEnrichment);
-          } catch (EntityClientException e) {
-            throw new EnrichmentException("Could not create entity resolver", e);
-          }
-
+                entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)));
+            } catch (EntityClientException e) {
+                throw new EnrichmentException("Could not create entity resolver", e);
+            }
         } else {
             throw new EnrichmentException("We must have either a non-null entity resolver creator,"
                     + " or a non-blank enrichment URL.", null);
