@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
+import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
@@ -219,13 +220,4 @@ public class ClientEntityResolver implements EntityResolver {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
-  public static class EntityApiException extends RuntimeException {
-
-    @Serial
-    private static final long serialVersionUID = -272263706753226938L;
-
-    public EntityApiException(String message, Throwable cause) {
-      super(message, cause);
-    }
-  }
 }
