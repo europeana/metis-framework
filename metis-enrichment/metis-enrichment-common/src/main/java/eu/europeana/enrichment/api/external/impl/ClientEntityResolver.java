@@ -15,7 +15,6 @@ import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
