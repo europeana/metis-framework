@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:oa="http://www.w3.org/ns/oa#" xmlns:dqv="http://www.w3.org/ns/dqv#">
+  <edm:ProvidedCHO rdf:about="/2022502/_KAMRA_356338"/>
+  <edm:WebResource rdf:about="https://www.kamra.si/mm-elementi/rosthornova-zelezarska-sola/">
+    <ebucore:hasMimeType>text/html</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">0</ebucore:fileByteSize>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://www.kamra.si/wp-content/uploads/2022/07/slike_021.jpg">
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    <ebucore:hasMimeType>image/jpeg</ebucore:hasMimeType>
+    <ebucore:fileByteSize rdf:datatype="http://www.w3.org/2001/XMLSchema#long">2094182</ebucore:fileByteSize>
+    <ebucore:width rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2598</ebucore:width>
+    <ebucore:height rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1921</ebucore:height>
+    <edm:hasColorSpace>sRGB</edm:hasColorSpace>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#D2B48C</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FAF0E6</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#FFEBCD</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#556B2F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#2F4F4F</edm:componentColor>
+    <edm:componentColor rdf:datatype="http://www.w3.org/2001/XMLSchema#hexBinary">#808080</edm:componentColor>
+    <ebucore:orientation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">landscape</ebucore:orientation>
+  </edm:WebResource>
+  <ore:Aggregation rdf:about="/aggregation/provider/2022502/_KAMRA_356338">
+    <edm:aggregatedCHO rdf:resource="/2022502/_KAMRA_356338"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/3041"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="https://www.kamra.si/mm-elementi/rosthornova-zelezarska-sola/"/>
+    <edm:isShownBy rdf:resource="https://www.kamra.si/wp-content/uploads/2022/07/slike_021.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1559"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc/3.0/"/>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152112323Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/provider/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/contentTier3"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152125103Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/provider/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/metadataTierA"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+  </ore:Aggregation>
+  <ore:Aggregation rdf:about="/aggregation/aggregator/2022502/_KAMRA_356338">
+    <edm:aggregatedCHO rdf:resource="/2022502/_KAMRA_356338"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/3041"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="https://www.kamra.si/mm-elementi/rosthornova-zelezarska-sola/"/>
+    <edm:isShownBy rdf:resource="https://www.kamra.si/wp-content/uploads/2022/07/slike_021.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/1559"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc/3.0/"/>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152112323Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/aggregator/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/contentTier2"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152125103Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/aggregator/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/metadataTierB"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/2022502/_KAMRA_356338">
+    <dc:identifier>#KAMRA:356338</dc:identifier>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/2022502/_KAMRA_356338"/>
+    <ore:proxyIn rdf:resource="/aggregation/europeana/2022502/_KAMRA_356338"/>
+    <ore:lineage rdf:resource="/proxy/provider/2022502/_KAMRA_356338"/>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/2022502/_KAMRA_356338">
+    <dc:description xml:lang="sl">Rosthornova železarna je leta 1853 zgradila šolsko stavbo na Prevaljah, imenovali so jo “železarska šola” in Rosthornova šola. Pouk so pričeli leta 1854. Zgrajena je bila kot železarska/tovarniška šola (Werksschule), sprva je bila podružnica šole v Farni vasi.  </dc:description>
+    <dc:identifier>#KAMRA:356338</dc:identifier>
+    <dc:rights xml:lang="sl">KOK</dc:rights>
+    <dc:subject xml:lang="sl">ŠOLSTVO</dc:subject>
+    <dc:subject xml:lang="sl">Šolska poslopja</dc:subject>
+    <dc:title xml:lang="sl">Rosthornova "železarska šola"</dc:title>
+    <dc:type xml:lang="sl">Slikovno gradivo</dc:type>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/2022502/_KAMRA_356338"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/2022502/_KAMRA_356338"/>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/2022502/_KAMRA_356338">
+    <edm:aggregatedCHO rdf:resource="/2022502/_KAMRA_356338"/>
+    <edm:datasetName>2022502_Slovenia_Kamra_Multimedia</edm:datasetName>
+    <edm:country>Slovenia</edm:country>
+    <edm:preview rdf:resource="https://www.kamra.si/wp-content/uploads/2022/07/slike_021.jpg"/>
+    <edm:landingPage rdf:resource="https://www.europeana.eu/item/2022502/_KAMRA_356338"/>
+    <edm:language>sl</edm:language>
+    <edm:completeness>0</edm:completeness>
+    <dcterms:created>2023-09-15T09:43:25.514Z</dcterms:created>
+    <dcterms:modified>2024-11-06T13:12:53.529Z</dcterms:modified>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152311480Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/europeana/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/contentTier3"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2024-11-06T14:11:43.152317015Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/europeana/2022502/_KAMRA_356338"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/metadataTierA"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/1559">
+    <skos:prefLabel xml:lang="sl">Slovenski nacionalni agregator e-vsebin</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Slovenian National E-content Aggregator</skos:prefLabel>
+  </foaf:Organization>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/3041">
+    <skos:prefLabel xml:lang="en">Dr Franc Sušnik's Central Library of Carinthia</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Koroška osrednja knjižnica dr. Franca Sušnika</skos:prefLabel>
+  </foaf:Organization>
+</rdf:RDF>

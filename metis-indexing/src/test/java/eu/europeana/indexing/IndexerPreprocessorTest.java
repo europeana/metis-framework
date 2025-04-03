@@ -1,8 +1,14 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_1;
+import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_2;
+import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_3;
 import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_BASE_URI;
+import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_A;
+import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_B;
 import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_BASE_URI;
 import static eu.europeana.indexing.utils.RdfTierUtils.extractTierData;
+import static eu.europeana.indexing.utils.RdfTierUtils.extractTierDataByTarget;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -57,8 +63,8 @@ class IndexerPreprocessorTest {
         EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "A"}, tierProvidedData.toArray());
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "B"}, tierEuropeanaData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_B.getUri()}, tierEuropeanaData.toArray());
 
     // verify return of tier calculation
     assertEquals("1", results.getMediaTier().toString());
@@ -92,8 +98,8 @@ class IndexerPreprocessorTest {
         EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "A"}, tierProvidedData.toArray());
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "B"}, tierEuropeanaData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_B.getUri()}, tierEuropeanaData.toArray());
 
     // verify return of tier calculation
     assertEquals("1", results.getMediaTier().toString());
@@ -104,6 +110,66 @@ class IndexerPreprocessorTest {
         tierProvidedData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
     assertFalse(tierEuropeanaData.contains(CONTENT_TIER_BASE_URI + results.getMediaTier().toString()) &&
         tierEuropeanaData.contains(METADATA_TIER_BASE_URI + results.getMetadataTier().toString()));
+  }
+
+  @Test
+  void preprocessRecordTierCalculationByTargetAndInitialiseExisting() throws SerializationException, IndexingException {
+    // given
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_rdf_tier_for_overwrite.xml"));
+
+    final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+        true,
+        List.of(), true, TierCalculationMode.INITIALISE, EnumSet.allOf(EdmType.class));
+
+    // when
+    TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+
+    // then
+    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList, "/aggregation/provider/2022502/_KAMRA_356338");
+
+    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+
+    // verify two different aggregation has different calculations
+    assertArrayEquals(new String[]{CONTENT_TIER_3.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_3.getUri(), METADATA_TIER_A.getUri()}, tierEuropeanaData.toArray());
+
+    // verify return of tier calculation
+    assertEquals("2", results.getMediaTier().toString());
+    assertEquals("A", results.getMetadataTier().toString());
+  }
+
+  @Test
+  void preprocessRecordTierCalculationByTargetAndOverWriteExisting() throws SerializationException, IndexingException {
+    // given
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RDF inputRdf = conversionUtils.convertStringToRdf(
+        IndexingTestUtils.getResourceFileContent("europeana_record_rdf_tier_for_overwrite.xml"));
+
+    final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+        true,
+        List.of(), true, TierCalculationMode.OVERWRITE, EnumSet.allOf(EdmType.class));
+
+    // when
+    TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+
+    // then
+    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList, "/aggregation/aggregator/2022502/_KAMRA_356338");
+
+    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+
+    // verify two different aggregation has different calculations
+    assertArrayEquals(new String[]{CONTENT_TIER_2.getUri(), METADATA_TIER_B.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_2.getUri(), METADATA_TIER_A.getUri()}, tierEuropeanaData.toArray());
+
+    // verify return of tier calculation
+    assertEquals("2", results.getMediaTier().toString());
+    assertEquals("A", results.getMetadataTier().toString());
   }
 
   /**
@@ -133,8 +199,8 @@ class IndexerPreprocessorTest {
         EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "A"}, tierProvidedData.toArray());
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "B"}, tierEuropeanaData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_B.getUri()}, tierEuropeanaData.toArray());
 
     // verify return of tier calculation
     assertEquals("1", results.getMediaTier().toString());
@@ -174,8 +240,8 @@ class IndexerPreprocessorTest {
         EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "A"}, tierProvidedData.toArray());
-    assertArrayEquals(new String[]{CONTENT_TIER_BASE_URI + "1", METADATA_TIER_BASE_URI + "B"}, tierEuropeanaData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_1.getUri(), METADATA_TIER_B.getUri()}, tierEuropeanaData.toArray());
 
     // verify return of tier calculation
     assertNull(results.getMediaTier());
