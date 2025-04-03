@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foaf:Organization rdf:about="http://data.europeana.eu/organization/2897"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+  <skos:prefLabel xml:lang="en">Malopolska Digital Library</skos:prefLabel>
+  <skos:prefLabel xml:lang="pl">Małopolska Biblioteka Cyfrowa</skos:prefLabel>
+</foaf:Organization>

@@ -60,6 +60,7 @@ public final class EnrichmentBaseConverter {
       case Concept -> new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
       case TimeSpan -> new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
       case Organization -> new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+      case Aggregator -> new Organization((eu.europeana.entitymanagement.definitions.model.Aggregator) entity);
       default -> null;
     };
   }
