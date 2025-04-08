@@ -76,14 +76,19 @@ public class ConnectionProvider {
    *
    * @param entityManagementUrl the entity management url
    * @param entityApiUrl the entity api url
-   * @param entityApiKey the entity api key
+   * @param entityApiTokenEndpoint the entity api token endpoint
+   * @param entityApiGrantParams the entity api grant params
    * @return the properties
    */
-  protected static Properties buildEntityApiClientProperties(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+  protected static Properties buildEntityApiClientProperties(String entityManagementUrl,
+      String entityApiUrl,
+      String entityApiTokenEndpoint,
+      String entityApiGrantParams) {
     final Properties properties = new Properties();
     properties.put("entity.management.url", entityManagementUrl);
     properties.put("entity.api.url", entityApiUrl);
-    properties.put("apikey", entityApiKey);
+    properties.put("token_endpoint", entityApiTokenEndpoint);
+    properties.put("grant_params", entityApiGrantParams);
     return properties;
   }
 }
