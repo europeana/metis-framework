@@ -66,7 +66,7 @@ public class DereferencerProvider extends ConnectionProvider {
     public Dereferencer create() throws DereferenceException {
 
         // Make sure that the worker can do something.
-        if (StringUtils.isBlank(dereferenceUrl) && hasEntityApiClientProperties()) {
+        if (StringUtils.isBlank(dereferenceUrl) && !hasEntityApiClientProperties()) {
             throw new IllegalStateException("Dereferencing must be enabled.");
         }
 
