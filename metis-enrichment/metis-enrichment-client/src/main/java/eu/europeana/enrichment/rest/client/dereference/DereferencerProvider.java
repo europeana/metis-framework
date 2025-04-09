@@ -66,18 +66,14 @@ public class DereferencerProvider extends ConnectionProvider {
     public Dereferencer create() throws DereferenceException {
 
         // Make sure that the worker can do something.
-        if (StringUtils.isBlank(dereferenceUrl) && StringUtils.isBlank(entityManagementUrl)
-                && StringUtils.isBlank(entityApiUrl) && StringUtils.isBlank(entityApiTokenEndpoint)
-                    && StringUtils.isBlank(entityApiGrantParams)) {
-            throw new IllegalStateException(
-                    "Dereferencing must be enabled.");
+        if (StringUtils.isBlank(dereferenceUrl) && hasEntityApiClientProperties()) {
+            throw new IllegalStateException("Dereferencing must be enabled.");
         }
 
         // Do some logging.
         if (dereferenceUrl == null) {
             LOGGER.warn("Creating dereferencer for Europeana entities only.");
-        } else if (entityManagementUrl == null || entityApiUrl == null
-            || entityApiTokenEndpoint == null || entityApiGrantParams == null) {
+        } else if (!hasEntityApiClientProperties()) {
             LOGGER.warn("Creating dereferencer for non-Europeana entities only.");
         } else {
             LOGGER.info("Creating dereferencer for both Europeana and non-Europeana entities.");
@@ -93,10 +89,7 @@ public class DereferencerProvider extends ConnectionProvider {
 
         // Create the enrichment client if needed
         final ClientEntityResolver entityResolver;
-        if (StringUtils.isNotBlank(entityManagementUrl)
-            && StringUtils.isNotBlank(entityApiUrl)
-            && StringUtils.isNotBlank(entityApiTokenEndpoint)
-            && StringUtils.isNotBlank(entityApiGrantParams)) {
+        if (hasEntityApiClientProperties()) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl,
                 entityApiUrl, entityApiTokenEndpoint, entityApiGrantParams);
             EntityClientConfiguration entityClientConfiguration = new EntityClientConfiguration(properties);
@@ -112,5 +105,12 @@ public class DereferencerProvider extends ConnectionProvider {
 
         // Done.
         return new DereferencerImpl(new EntityMergeEngine(), entityResolver, dereferenceClient);
+    }
+
+    private boolean hasEntityApiClientProperties() {
+        return StringUtils.isNotBlank(entityManagementUrl)
+            && StringUtils.isNotBlank(entityApiUrl)
+            && StringUtils.isNotBlank(entityApiTokenEndpoint)
+            && StringUtils.isNotBlank(entityApiGrantParams);
     }
 }
