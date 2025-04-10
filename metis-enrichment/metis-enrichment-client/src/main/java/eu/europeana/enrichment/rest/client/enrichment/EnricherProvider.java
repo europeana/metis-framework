@@ -26,7 +26,8 @@ public class EnricherProvider extends ConnectionProvider {
     private EntityResolverCreator entityResolverCreator;
     private String entityManagementUrl;
     private String entityApiUrl;
-    private String entityApiKey;
+    private String entityApiTokenEndpoint;
+    private String entityApiGrantParams;
 
     /**
      * Set the record parser to use. The default is null, in which case an instance of {@link
@@ -52,7 +53,7 @@ public class EnricherProvider extends ConnectionProvider {
     /**
      * Set the entity resolver creator to use. The default is null, in which case a {@link
      * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setEnrichmentPropertiesValues(String, String, String)} will need to have been called.
+     * #setEnrichmentPropertiesValues(String, String, String, String)} will need to have been called.
      *
      * @param entityResolverCreator A creator for the entity resolver.
      */
@@ -66,12 +67,17 @@ public class EnricherProvider extends ConnectionProvider {
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
-     * @param entityApiKey The key for the entity service
+     * @param entityApiTokenEndpoint the entity api token endpoint
+     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl,
+        String entityApiUrl,
+        String entityApiTokenEndpoint,
+        String entityApiGrantParams) {
         this.entityManagementUrl = entityManagementUrl;
         this.entityApiUrl = entityApiUrl;
-        this.entityApiKey = entityApiKey;
+        this.entityApiTokenEndpoint = entityApiTokenEndpoint;
+        this.entityApiGrantParams = entityApiGrantParams;
     }
 
     /**
@@ -91,8 +97,9 @@ public class EnricherProvider extends ConnectionProvider {
                 throw new EnrichmentException("Entity resolver creator returned a null object.", null);
             }
         } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
-                && StringUtils.isNotBlank(entityApiKey)) {
-            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl, entityApiKey);
+                && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
+                entityApiTokenEndpoint, entityApiGrantParams);
             try {
                 entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)));
             } catch (EntityClientException e) {
