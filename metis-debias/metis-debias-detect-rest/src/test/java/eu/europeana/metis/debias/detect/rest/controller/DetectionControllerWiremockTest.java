@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
-import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
+import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import eu.europeana.metis.utils.RestEndpoints;
@@ -28,7 +28,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-class DetectionControllerTestIT {
+// todo When renaming to *IT then failsafe fails to execute. Needs investigation.
+class DetectionControllerWiremockTest {
 
   private static final String DEBIAS_HOST = "debias.host";
   private static WireMockServer wireMockServer;

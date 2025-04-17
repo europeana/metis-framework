@@ -14,7 +14,7 @@ import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.mongo.MongoIndexerTest.MongoIndexerLocalConfigTest;
+import eu.europeana.indexing.mongo.MongoIndexerIT.MongoIndexerLocalConfigTest;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.dao.RecordDao;
@@ -40,7 +40,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MongoIndexerLocalConfigTest.class)
-class MongoIndexerTest {
+class MongoIndexerIT {
 
   @Autowired
   private MongoIndexer indexer;
