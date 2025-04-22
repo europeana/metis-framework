@@ -80,7 +80,7 @@
     <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
     <version.mockito.core>5.17.0</version.mockito.core>
-    <version.morphia.core>2.4.5</version.morphia.core>
+    <version.morphia.core>2.5.0</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.powermock>2.0.9</version.powermock>
     <version.saxon.he>10.5</version.saxon.he>
