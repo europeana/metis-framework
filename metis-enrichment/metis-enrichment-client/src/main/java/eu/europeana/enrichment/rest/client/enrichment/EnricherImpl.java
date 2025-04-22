@@ -82,7 +82,8 @@ public class EnricherImpl implements Enricher {
    */
   @Override
   public Set<Report> enrichment(RDF rdf) {
-    HashSet<Report> reports = new HashSet<>();
+    final HashSet<Report> reports = new HashSet<>();
+
     // Extract values and references from the RDF for enrichment
     LOGGER.debug("Extracting values and references from RDF for enrichment...");
     final Set<SearchTermContext> searchTerms = recordParser.parseSearchTerms(rdf);
@@ -94,7 +95,7 @@ public class EnricherImpl implements Enricher {
     final Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichedReferences = enrichReferences(
         references);
 
-    //Add the report messages from the enrichment process
+    // Add the report messages from the enrichment process
     reports.addAll(enrichedValues.getRight());
     reports.addAll(enrichedReferences.getRight());
 

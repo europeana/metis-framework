@@ -5,6 +5,7 @@ import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -78,13 +79,38 @@ public final class RdfEntityUtils {
       aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
           .filter(
               resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-                  searchTermAggregation)).forEach(resourceOrLiteralType -> {
-        final Resource resource = new Resource();
-        resource.setResource(link);
-        resourceOrLiteralType.setResource(resource);
-        resourceOrLiteralType.setLang(new Lang());
-        resourceOrLiteralType.setString("");
-      });
+                  searchTermAggregation))
+          .forEach(resourceOrLiteralType -> {
+            final Resource resource = new Resource();
+            resource.setResource(link);
+            resourceOrLiteralType.setResource(resource);
+            resourceOrLiteralType.setLang(new Lang());
+            resourceOrLiteralType.setString("");
+          });
+    }
+  }
+
+  /**
+   * Replace matching aggregation references with their found corresponding links.
+   *
+   * @param rdf the rdf to update
+   * @param link the about value to use
+   * @param referenceTermContext the aggregation search term to use for finding the matched values
+   */
+  public static void replaceReferenceWithLinkInAggregation(RDF rdf, String link,
+      ReferenceTermContext referenceTermContext) {
+    final List<Aggregation> aggregationList = rdf.getAggregationList();
+    for (FieldType<? extends AboutType> aggregationFieldType : referenceTermContext
+        .getFieldTypes()) {
+      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+          .filter(resourceOrLiteralType -> resourceOrLiteralType.getResource() != null)
+          .filter(resourceOrLiteralType -> referenceTermContext.referenceEquals(
+              resourceOrLiteralType.getResource().getResource()))
+          .forEach(resourceOrLiteralType -> {
+            final Resource resource = new Resource();
+            resource.setResource(link);
+            resourceOrLiteralType.setResource(resource);
+          });
     }
   }
 

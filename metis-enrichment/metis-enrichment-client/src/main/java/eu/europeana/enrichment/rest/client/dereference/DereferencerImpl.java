@@ -130,6 +130,7 @@ public class DereferencerImpl implements Dereferencer {
 
   @Override
   public Set<Report> dereference(RDF rdf) {
+
     // Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Map<Class<? extends AboutType>, Set<String>> resourceIds = extractReferencesForDereferencing(rdf);

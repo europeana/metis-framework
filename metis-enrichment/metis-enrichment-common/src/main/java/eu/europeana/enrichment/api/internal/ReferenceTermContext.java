@@ -1,10 +1,15 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is an implementation of {@link ReferenceTerm} that provides context in the sense that it is
@@ -12,9 +17,58 @@ import java.util.stream.Collectors;
  */
 public class ReferenceTermContext extends AbstractReferenceTerm {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceTermContext.class);
+
   private final Set<FieldType<?>> fieldTypes;
 
-  public ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
+  /**
+   * Create an instance of this class.
+   *
+   * @param reference  The String version of the reference.
+   * @param fieldTypes The field types.
+   * @return An instance of this class.
+   */
+  public static ReferenceTermContext createFromString(String reference,
+      Set<FieldType<?>> fieldTypes) {
+    final URL referenceUrl = convertToURL(reference);
+    if (referenceUrl == null) {
+      LOGGER.debug("Invalid enrichment reference found: {}", reference);
+      return null;
+    }
+    return new ReferenceTermContext(referenceUrl, fieldTypes);
+  }
+
+  /**
+   * Converts a string version of a reference to a URL, doing some validation tests.
+   *
+   * @param reference The String version of a reference.
+   * @return The URL version of the reference.
+   */
+  private static URL convertToURL(String reference) {
+    try {
+      final URI uri = new URI(reference);
+      if (!uri.isAbsolute()) {
+        throw new MalformedURLException("URL is not absolute");
+      }
+      return uri.toURL();
+    } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Determines whether this instance's reference is equal to some String value. This is done by
+   * creating a URL of the input value in the same way as the reference of this instance would have
+   * been, and then normalising both to strings before comparing them.
+   *
+   * @param toCompare The String value to compare the reference with.
+   * @return Whether this instance's reference is equal to the input value.
+   */
+  public boolean referenceEquals(String toCompare) {
+    return Objects.equals(urlToString(convertToURL(toCompare)), urlToString(getReference()));
+  }
+
+  private ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
     super(reference);
     this.fieldTypes = Set.copyOf(fieldTypes);
   }

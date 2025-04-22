@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
+import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceReferenceWithLinkInAggregation;
 import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceResourceWithLinkInAggregation;
 import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
 
@@ -77,7 +78,8 @@ public class EntityMergeEngine {
       case Organization organization -> convertAndAddEntity(organization,
           EntityConverterUtils::convertOrganization, rdf::getOrganizationList,
           rdf::setOrganizationList);
-      case null, default -> throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
+      case null -> throw new IllegalArgumentException("Unknown entity type: null.");
+      default -> throw new IllegalArgumentException("Unknown entity type: " + enrichmentBase.getClass());
     };
   }
 
@@ -93,11 +95,10 @@ public class EntityMergeEngine {
     for (EnrichmentBase base : enrichmentBaseList) {
       final AboutType aboutType = convertAndAddEntity(rdf, base);
       if (isProxyFieldType(searchTermContext.getFieldTypes())) {
-        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(),
-            searchTermContext.getFieldTypes().stream().map(ProxyFieldType.class::cast)
-                             .collect(Collectors.toSet()));
+        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), searchTermContext.getFieldTypes()
+            .stream().map(ProxyFieldType.class::cast).collect(Collectors.toSet()));
       } else {
-        //Replace matching values in Aggregation
+        // In Aggregation replace search term with reference
         replaceValueWithLinkInAggregation(rdf, aboutType.getAbout(), searchTermContext);
       }
     }
@@ -116,13 +117,12 @@ public class EntityMergeEngine {
       ReferenceTermContext referenceTermContext) {
     for (EnrichmentBase base : enrichmentBaseList) {
       final AboutType aboutType = convertAndAddEntity(rdf, base);
-      if (referenceTermContext != null) {
-        final Set<ProxyFieldType> proxyFieldTypes = referenceTermContext.getFieldTypes().stream()
-            .filter(field -> field instanceof ProxyFieldType)
-            .map(ProxyFieldType.class::cast)
-            .collect(Collectors.toSet());
-        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), proxyFieldTypes);
-        // TODO merge to aggregation
+      if (isProxyFieldType(referenceTermContext.getFieldTypes())) {
+        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), referenceTermContext.getFieldTypes()
+            .stream().map(ProxyFieldType.class::cast).collect(Collectors.toSet()));
+      } else if (!referenceTermContext.referenceEquals(aboutType.getAbout())) {
+        // In aggregation replace reference with updated reference
+        replaceReferenceWithLinkInAggregation(rdf, aboutType.getAbout(), referenceTermContext);
       }
     }
   }

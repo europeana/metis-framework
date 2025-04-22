@@ -19,6 +19,7 @@ import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
+import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.api.internal.ReferenceTermContext;
@@ -28,9 +29,7 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,6 +37,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
@@ -82,14 +82,16 @@ class EnricherImplTest {
     ENRICHMENT_EXTRACT_RESULT
         .add(new SearchTermContext("value3", "pt", Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
 
-    try {
-      final URL reference = new URI("http://urlValue").toURL();
-      REFERENCE_ENRICHMENT_RESULT = new HashMap<>();
-      ReferenceTermContext referenceTermContext = new ReferenceTermContext(reference, Set.of(ProxyFieldType.DCTERMS_SPATIAL));
-      REFERENCE_ENRICHMENT_RESULT.put(referenceTermContext, List.of(place1));
-    } catch (MalformedURLException | URISyntaxException e) {
-      throw new RuntimeException(e);
-    }
+    REFERENCE_ENRICHMENT_RESULT = new HashMap<>();
+    ReferenceTermContext referenceTermContext = createReferenceTermContext("http://urlValue",
+        Set.of(ProxyFieldType.DCTERMS_SPATIAL));
+    REFERENCE_ENRICHMENT_RESULT.put(referenceTermContext, List.of(place1));
+  }
+
+  private static ReferenceTermContext createReferenceTermContext(String reference,
+      Set<FieldType<?>> fieldTypes) {
+    return Optional.ofNullable(ReferenceTermContext.createFromString(reference, fieldTypes))
+        .orElseThrow(() -> new IllegalArgumentException("Bad reference value"));
   }
 
   @Test
@@ -162,7 +164,7 @@ class EnricherImplTest {
 
     // When the enricher
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
-    ReferenceTermContext referenceTermContext = new ReferenceTermContext(new URI("http://urlValue").toURL(),
+    ReferenceTermContext referenceTermContext = createReferenceTermContext("http://urlValue",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext));
@@ -186,7 +188,7 @@ class EnricherImplTest {
     // When the enricher a 301
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
 
-    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URI("http://urlValue1").toURL(),
+    ReferenceTermContext referenceTermContext1 = createReferenceTermContext("http://urlValue1",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
@@ -197,7 +199,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesWarning1Flow(), enrichReferences.getRight());
 
     // When the enricher a 400
-    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URI("http://urlValue2").toURL(),
+    ReferenceTermContext referenceTermContext2 = createReferenceTermContext("http://urlValue2",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(
         Set.of(referenceTermContext2));
@@ -248,7 +250,7 @@ class EnricherImplTest {
     // When the enricher a null nested exception
     final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
 
-    ReferenceTermContext referenceTermContext1 = new ReferenceTermContext(new URI("http://urlValue1").toURL(),
+    ReferenceTermContext referenceTermContext1 = createReferenceTermContext("http://urlValue1",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
 
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
@@ -259,7 +261,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesError1Flow(), enrichReferences.getRight());
 
     // When the enricher a nested 307 exception
-    ReferenceTermContext referenceTermContext2 = new ReferenceTermContext(new URI("http://urlValue2").toURL(),
+    ReferenceTermContext referenceTermContext2 = createReferenceTermContext("http://urlValue2",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext2));
 
@@ -268,7 +270,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesWarnError2Flow(), enrichReferences.getRight());
 
     // When the enricher with a NullPointerException
-    ReferenceTermContext referenceTermContext3 = new ReferenceTermContext(new URI("http://urlValue3").toURL(),
+    ReferenceTermContext referenceTermContext3 = createReferenceTermContext("http://urlValue3",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext3));
 
@@ -277,7 +279,7 @@ class EnricherImplTest {
     assertEquals(getExpectedReportMessagesError3Flow(),enrichReferences.getRight());
 
     // When the enricher with a Null Cause
-    ReferenceTermContext referenceTermContext4 = new ReferenceTermContext(new URI("http://urlValue4").toURL(),
+    ReferenceTermContext referenceTermContext4 = createReferenceTermContext("http://urlValue4",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     enrichReferences = enricher.enrichReferences(Set.of(referenceTermContext4));
 
