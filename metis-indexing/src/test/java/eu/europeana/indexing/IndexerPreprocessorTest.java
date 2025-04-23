@@ -7,8 +7,6 @@ import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_BASE_URI;
 import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_A;
 import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_B;
 import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_BASE_URI;
-import static eu.europeana.indexing.utils.RdfTierUtils.extractTierData;
-import static eu.europeana.indexing.utils.RdfTierUtils.extractTierDataByTarget;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,14 +19,23 @@ import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
+import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
+import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
+import eu.europeana.metis.schema.jibx.HasTarget;
+import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.ResourceType;
 import java.time.Instant;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -281,5 +288,83 @@ class IndexerPreprocessorTest {
     // verify return of tier calculation
     assertNull(results.getMediaTier());
     assertNull(results.getMetadataTier());
+  }
+
+  /**
+   * Extract tier data from a list of aggregations.
+   *
+   * @param <T> the type parameter
+   * @param aggregationList the aggregation list
+   * @param qualityAnnotationSupplier the quality annotation supplier
+   * @return the extracted tier values
+   */
+  public static <T extends AboutType> List<String> extractTierData(List<T> aggregationList,
+      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier) {
+    return aggregationList
+        .stream()
+        .map(aboutType ->
+            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
+                .map(annotations -> annotations
+                    .stream()
+                    .map(HasQualityAnnotation::getQualityAnnotation)
+                    .filter(Objects::nonNull)
+                    .map(QualityAnnotation::getHasBody)
+                    .filter(Objects::nonNull)
+                    .map(ResourceType::getResource)
+                    .filter(Objects::nonNull)
+                    .toList())
+                .orElse(null))
+        .filter(Objects::nonNull)
+        .flatMap(List::stream)
+        .toList();
+  }
+
+  /**
+   * Extract tier data by target.
+   *
+   * @param <T> the type parameter
+   * @param aggregationList the aggregation list
+   * @param qualityAnnotationSupplier the quality annotation supplier
+   * @param target the target
+   * @return the list
+   */
+  public static <T extends AboutType> List<String> extractTierDataByTarget(List<T> aggregationList,
+      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier, String target) {
+    return aggregationList
+        .stream()
+        .filter(aggregation -> aggregation.getAbout().equals(target))
+        .map(aboutType ->
+            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
+                .map(mapperQualityAnnotationBodyBy(target))
+                .orElse(null))
+        .filter(Objects::nonNull)
+        .flatMap(List::stream)
+        .toList();
+  }
+
+  @NotNull
+  private static Function<List<HasQualityAnnotation>, List<String>> mapperQualityAnnotationBodyBy(String target) {
+    return annotations -> annotations
+        .stream()
+        .map(HasQualityAnnotation::getQualityAnnotation)
+        .filter(Objects::nonNull)
+        .map(mapperQualityAnnotationByTarget(target))
+        .filter(Objects::nonNull)
+        .map(QualityAnnotation::getHasBody)
+        .filter(Objects::nonNull)
+        .map(ResourceType::getResource)
+        .filter(Objects::nonNull)
+        .toList();
+  }
+
+  @NotNull
+  private static Function<QualityAnnotation, QualityAnnotation> mapperQualityAnnotationByTarget(
+      String target) {
+    return qualityAnnotation -> qualityAnnotation
+        .getHasTargetList()
+        .stream()
+        .filter(Objects::nonNull)
+        .map(HasTarget::getResource)
+        .anyMatch(t -> t.equals(target)) ? qualityAnnotation : null;
   }
 }
