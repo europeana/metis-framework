@@ -33,9 +33,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class RdfTierUtils {
 
-  private static final Map<String, RdfTier> tiersByUri = Collections.unmodifiableMap(
+  private static final Map<String, RdfTier> TIERS_BY_URI = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getUri, Function.identity())));
-  private static final Map<Tier, RdfTier> tiersByValue = Collections.unmodifiableMap(
+  private static final Map<Tier, RdfTier> TIERS_BY_VALUE = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getTier, Function.identity())));
 
   private RdfTierUtils() {
@@ -44,14 +44,15 @@ public final class RdfTierUtils {
   /**
    * Find the tier represented by the given quality annotation.
    *
-   * @param annotation The annotation.
+   * @param annotation The corelib annotation.
    * @return The tier, or null if the annotation does not match any tier.
    */
   public static RdfTier getTier(
       eu.europeana.corelib.definitions.edm.entity.QualityAnnotation annotation) {
     return Optional.ofNullable(annotation)
                    .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
-                   .map(tiersByUri::get).orElse(null);
+                   .map(TIERS_BY_URI::get)
+                   .orElse(null);
   }
 
   /**
@@ -63,7 +64,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTier(RDF rdf, Tier tier) throws IndexingException {
-    setTierForTarget(rdf, getTarget(rdf), tier, true);
+    setTierForTargetOverwrite(rdf, getTarget(rdf), tier);
   }
 
   /**
@@ -75,7 +76,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    setTierForTarget(rdf, getTarget(rdf), tier, false);
+    setTierForTargetInitialise(rdf, getTarget(rdf), tier);
   }
 
   /**
@@ -87,7 +88,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
-    setTierForTarget(rdf, getEuropeanaTarget(rdf), tier, true);
+    setTierForTargetOverwrite(rdf, getEuropeanaTarget(rdf), tier);
   }
 
   /**
@@ -99,7 +100,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeanaIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    setTierForTarget(rdf, getEuropeanaTarget(rdf), tier, false);
+    setTierForTargetInitialise(rdf, getEuropeanaTarget(rdf), tier);
   }
 
   /**
@@ -141,27 +142,57 @@ public final class RdfTierUtils {
   }
 
   /**
-   * Set the aggregator/provider tier.
-   * @param rdf The record.
-   * @param tier The tier value.
-   * @param overwrite Whether to overwrite any existing tier annotation.
-   * @throws IndexingException Thrown if no suitable aggregation exists in the record.
+   * Sets tier for target initialise.
+   *
+   * @param rdf the rdf
+   * @param target the target
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
    */
-  private static void setTierForTarget(RDF rdf, TierTarget<?> target, Tier tier, boolean overwrite)
+  private static void setTierForTargetInitialise(RDF rdf, AbstractTierTarget<?> target, Tier tier)
       throws IndexingException {
-    final QualityAnnotation existingAnnotation = getExistingAnnotation(rdf, target.getAbout(), tier);
+    final Optional<QualityAnnotation> existingAnnotation = Optional.ofNullable(getExistingAnnotation(rdf, target.getAbout(), tier));
+    if (existingAnnotation.isEmpty()) {
+      addNewAnnotationToTarget(target, tier);
+    }
+  }
+
+  /**
+   * Sets tier for target overwrite.
+   *
+   * @param rdf the rdf
+   * @param target the target
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
+   */
+  private static void setTierForTargetOverwrite(RDF rdf, AbstractTierTarget<?> target, Tier tier)
+      throws IndexingException {
+    final Optional<QualityAnnotation> existingAnnotation = Optional.ofNullable(getExistingAnnotation(rdf, target.getAbout(), tier));
     final RdfTier rdfTier = getRdfTier(tier);
-    if (existingAnnotation == null) {
-      final HasQualityAnnotation newAnnotation = createQualityAnnotation(target.getAbout(), rdfTier);
-      final List<HasQualityAnnotation> existingAnnotations = new ArrayList<>(Optional
-          .ofNullable(target.getHasQualityAnnotationList()).orElseGet(Collections::emptyList));
-      existingAnnotations.add(newAnnotation);
-      target.setHasQualityAnnotationList(existingAnnotations);
-    } else if (overwrite) {
+    if (existingAnnotation.isPresent()) {
       // We overwrite the value. We can do this because the annotation only has one target. If this
       // is no longer the case, we will need to split up the annotation.
-      existingAnnotation.getHasBody().setResource(rdfTier.getUri());
+      existingAnnotation.get().getHasBody().setResource(rdfTier.getUri());
+    } else {
+      addNewAnnotationToTarget(target, tier);
     }
+  }
+
+  /**
+   * Add a new annotation to the target
+   *
+   * @param target the target
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
+   */
+  private static void addNewAnnotationToTarget(AbstractTierTarget<?> target, Tier tier)
+      throws IndexingException {
+    final RdfTier rdfTier = getRdfTier(tier);
+    final HasQualityAnnotation newAnnotation = createQualityAnnotation(target.getAbout(), rdfTier);
+    final List<HasQualityAnnotation> existingAnnotations = new ArrayList<>(Optional
+        .ofNullable(target.getHasQualityAnnotationList()).orElseGet(Collections::emptyList));
+    existingAnnotations.add(newAnnotation);
+    target.setHasQualityAnnotationList(existingAnnotations);
   }
 
   /**
@@ -220,7 +251,7 @@ public final class RdfTierUtils {
   @NotNull
   private static RdfTier getRdfTier(Tier tier) throws SetupRelatedIndexingException {
     // Get the right instance of RdfTier.
-    final RdfTier rdfTier = tiersByValue.get(tier);
+    final RdfTier rdfTier = TIERS_BY_VALUE.get(tier);
     if (rdfTier == null) {
       throw new SetupRelatedIndexingException("Cannot find settings for tier value "
           + tier.getClass());
@@ -251,11 +282,11 @@ public final class RdfTierUtils {
     return link;
   }
 
-  private static abstract class TierTarget<T extends AboutType> {
+  private abstract static class AbstractTierTarget<T extends AboutType> {
 
     private final T target;
 
-    public TierTarget(T target) {
+    public AbstractTierTarget(T target) {
       this.target = target;
     }
 
@@ -273,7 +304,7 @@ public final class RdfTierUtils {
         List<HasQualityAnnotation> hasQualityAnnotationList);
   }
 
-  private static class AggregatorOrProviderTarget extends TierTarget<Aggregation> {
+  private static class AggregatorOrProviderTarget extends AbstractTierTarget<Aggregation> {
 
     public AggregatorOrProviderTarget(Aggregation target) {
       super(target);
@@ -281,16 +312,16 @@ public final class RdfTierUtils {
 
     @Override
     public List<HasQualityAnnotation> getHasQualityAnnotationList() {
-      return getTarget().getHasQualityAnnotationList();
+      return super.getTarget().getHasQualityAnnotationList();
     }
 
     @Override
     public void setHasQualityAnnotationList(List<HasQualityAnnotation> hasQualityAnnotationList) {
-      getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
+      super.getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
     }
   }
 
-  private static class EuropeanaTarget extends TierTarget<EuropeanaAggregationType> {
+  private static class EuropeanaTarget extends AbstractTierTarget<EuropeanaAggregationType> {
 
     public EuropeanaTarget(EuropeanaAggregationType target) {
       super(target);
@@ -298,12 +329,12 @@ public final class RdfTierUtils {
 
     @Override
     public List<HasQualityAnnotation> getHasQualityAnnotationList() {
-      return getTarget().getHasQualityAnnotationList();
+      return super.getTarget().getHasQualityAnnotationList();
     }
 
     @Override
     public void setHasQualityAnnotationList(List<HasQualityAnnotation> hasQualityAnnotationList) {
-      getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
+      super.getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
     }
   }
 }
