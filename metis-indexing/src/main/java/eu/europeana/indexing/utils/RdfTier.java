@@ -77,6 +77,12 @@ public enum RdfTier {
     this.uri = generateUri(tier);
   }
 
+  /**
+   * Gets tier base uri.
+   *
+   * @param tier the tier
+   * @return the tier base uri
+   */
   public static String getTierBaseUri(Tier tier) {
     if (tier instanceof MediaTier) {
       return CONTENT_TIER_BASE_URI;

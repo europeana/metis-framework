@@ -24,7 +24,6 @@ import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaAggregationType;
 import eu.europeana.metis.schema.jibx.HasQualityAnnotation;
-import eu.europeana.metis.schema.jibx.HasTarget;
 import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
@@ -42,6 +41,52 @@ import org.junit.jupiter.api.Test;
  * The type Indexer preprocessor test.
  */
 class IndexerPreprocessorTest {
+
+  /**
+   * Extract tier data from a list of aggregations.
+   *
+   * @param <T> the type parameter
+   * @param aggregationList the aggregation list
+   * @param qualityAnnotationSupplier the quality annotation supplier
+   * @return the extracted tier values
+   */
+  private static <T extends AboutType> List<String> extractTierData(List<T> aggregationList,
+      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier) {
+    List<String> resultAggregator = getTierDataPerTarget(aggregationList, qualityAnnotationSupplier, "/aggregation/aggregator");
+    List<String> resultProvider = getTierDataPerTarget(aggregationList, qualityAnnotationSupplier, "/aggregation/provider");
+    if (resultAggregator.isEmpty()) {
+      return resultProvider;
+    } else {
+      return resultAggregator;
+    }
+  }
+
+  private static <T extends AboutType> @NotNull List<String> getTierDataPerTarget(List<T> aggregationList,
+      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier, String targetPath) {
+    return aggregationList
+        .stream()
+        .map(aboutType ->
+            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
+                    .map(annotations -> annotations
+                        .stream()
+                        .map(HasQualityAnnotation::getQualityAnnotation)
+                        .filter(Objects::nonNull)
+                        .filter(qualityAnnotation -> qualityAnnotation
+                            .getHasTargetList()
+                            .stream()
+                            .anyMatch(hasTarget ->
+                                hasTarget.getResource().startsWith("/aggregation/europeana")
+                                    || hasTarget.getResource().startsWith(targetPath)))
+                        .map(QualityAnnotation::getHasBody)
+                        .filter(Objects::nonNull)
+                        .map(ResourceType::getResource)
+                        .filter(Objects::nonNull)
+                        .toList())
+                    .orElse(null))
+        .filter(Objects::nonNull)
+        .flatMap(List::stream)
+        .toList();
+  }
 
   /**
    * Preprocess record tier calculation and initialise.
@@ -134,14 +179,14 @@ class IndexerPreprocessorTest {
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
 
     // then
-    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
-        Aggregation::getHasQualityAnnotationList, "/aggregation/provider/2022502/_KAMRA_356338");
+    List<String> tierProvidedData = extractTierData(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList);
 
-    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
-        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+    List<String> tierEuropeanaData = extractTierData(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
-    assertArrayEquals(new String[]{CONTENT_TIER_3.getUri(), METADATA_TIER_A.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_2.getUri(), METADATA_TIER_B.getUri()}, tierProvidedData.toArray());
     assertArrayEquals(new String[]{CONTENT_TIER_3.getUri(), METADATA_TIER_A.getUri()}, tierEuropeanaData.toArray());
 
     // verify return of tier calculation
@@ -150,7 +195,7 @@ class IndexerPreprocessorTest {
   }
 
   @Test
-  void preprocessRecordTierCalculationByTargetAndOverWriteExisting() throws SerializationException, IndexingException {
+  void preprocessRecordTierCalculationByTargetAndOverwriteExisting() throws SerializationException, IndexingException {
     // given
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
@@ -160,15 +205,27 @@ class IndexerPreprocessorTest {
         true,
         List.of(), true, TierCalculationMode.OVERWRITE, EnumSet.allOf(EdmType.class));
 
+    // before
+    List<String> tierProvidedData = extractTierData(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList);
+
+    List<String> tierEuropeanaData = extractTierData(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList);
+
+    // verify two different aggregation has different calculations
+    assertArrayEquals(new String[]{CONTENT_TIER_2.getUri(), METADATA_TIER_B.getUri()}, tierProvidedData.toArray());
+    assertArrayEquals(new String[]{CONTENT_TIER_3.getUri(), METADATA_TIER_A.getUri()}, tierEuropeanaData.toArray());
+
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
 
     // then
-    List<String> tierProvidedData = extractTierDataByTarget(inputRdf.getAggregationList(),
-        Aggregation::getHasQualityAnnotationList, "/aggregation/aggregator/2022502/_KAMRA_356338");
+    // after
+    tierProvidedData = extractTierData(inputRdf.getAggregationList(),
+        Aggregation::getHasQualityAnnotationList);
 
-    List<String> tierEuropeanaData = extractTierDataByTarget(inputRdf.getEuropeanaAggregationList(),
-        EuropeanaAggregationType::getHasQualityAnnotationList,"/aggregation/europeana/2022502/_KAMRA_356338");
+    tierEuropeanaData = extractTierData(inputRdf.getEuropeanaAggregationList(),
+        EuropeanaAggregationType::getHasQualityAnnotationList);
 
     // verify two different aggregation has different calculations
     assertArrayEquals(new String[]{CONTENT_TIER_2.getUri(), METADATA_TIER_B.getUri()}, tierProvidedData.toArray());
@@ -269,7 +326,7 @@ class IndexerPreprocessorTest {
         IndexingTestUtils.getResourceFileContent("europeana_record_tier_calculation_rdf.xml"));
     final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
         true,
-        List.of(), true, false);
+        List.of(), true, TierCalculationMode.SKIP);
 
     // when
     TierResults results = IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
@@ -290,81 +347,4 @@ class IndexerPreprocessorTest {
     assertNull(results.getMetadataTier());
   }
 
-  /**
-   * Extract tier data from a list of aggregations.
-   *
-   * @param <T> the type parameter
-   * @param aggregationList the aggregation list
-   * @param qualityAnnotationSupplier the quality annotation supplier
-   * @return the extracted tier values
-   */
-  public static <T extends AboutType> List<String> extractTierData(List<T> aggregationList,
-      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier) {
-    return aggregationList
-        .stream()
-        .map(aboutType ->
-            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
-                .map(annotations -> annotations
-                    .stream()
-                    .map(HasQualityAnnotation::getQualityAnnotation)
-                    .filter(Objects::nonNull)
-                    .map(QualityAnnotation::getHasBody)
-                    .filter(Objects::nonNull)
-                    .map(ResourceType::getResource)
-                    .filter(Objects::nonNull)
-                    .toList())
-                .orElse(null))
-        .filter(Objects::nonNull)
-        .flatMap(List::stream)
-        .toList();
-  }
-
-  /**
-   * Extract tier data by target.
-   *
-   * @param <T> the type parameter
-   * @param aggregationList the aggregation list
-   * @param qualityAnnotationSupplier the quality annotation supplier
-   * @param target the target
-   * @return the list
-   */
-  public static <T extends AboutType> List<String> extractTierDataByTarget(List<T> aggregationList,
-      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier, String target) {
-    return aggregationList
-        .stream()
-        .filter(aggregation -> aggregation.getAbout().equals(target))
-        .map(aboutType ->
-            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
-                .map(mapperQualityAnnotationBodyBy(target))
-                .orElse(null))
-        .filter(Objects::nonNull)
-        .flatMap(List::stream)
-        .toList();
-  }
-
-  @NotNull
-  private static Function<List<HasQualityAnnotation>, List<String>> mapperQualityAnnotationBodyBy(String target) {
-    return annotations -> annotations
-        .stream()
-        .map(HasQualityAnnotation::getQualityAnnotation)
-        .filter(Objects::nonNull)
-        .map(mapperQualityAnnotationByTarget(target))
-        .filter(Objects::nonNull)
-        .map(QualityAnnotation::getHasBody)
-        .filter(Objects::nonNull)
-        .map(ResourceType::getResource)
-        .filter(Objects::nonNull)
-        .toList();
-  }
-
-  @NotNull
-  private static Function<QualityAnnotation, QualityAnnotation> mapperQualityAnnotationByTarget(
-      String target) {
-    return qualityAnnotation -> qualityAnnotation
-        .getHasTargetList()
-        .stream()
-        .filter(Objects::nonNull)
-        .map(HasTarget::getResource)
-        .anyMatch(t -> t.equals(target)) ? qualityAnnotation : null;
-  }
 }
