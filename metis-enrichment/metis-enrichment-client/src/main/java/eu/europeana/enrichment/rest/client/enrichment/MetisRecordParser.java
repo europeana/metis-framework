@@ -30,8 +30,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the Metis implementation of record parsing. When extracting references from an RDF file, it returns both the references
@@ -39,8 +37,6 @@ import org.slf4j.LoggerFactory;
  * classes.
  */
 public class MetisRecordParser implements RecordParser {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(MetisRecordParser.class);
 
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
@@ -120,7 +116,7 @@ public class MetisRecordParser implements RecordParser {
     // the entity, in which case a new field needs to be created in the Europeana proxy.
     // We can, however, remove known organisations as we will not add new fields for them.
     resultMap.remove(null);
-    Optional.of(rdf.getOrganizationList()).stream().flatMap(Collection::stream)
+    Optional.ofNullable(rdf.getOrganizationList()).stream().flatMap(Collection::stream)
         .filter(Objects::nonNull).map(AboutType::getAbout).filter(Objects::nonNull)
         .forEach(resultMap::remove);
 

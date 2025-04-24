@@ -2,7 +2,6 @@ package eu.europeana.enrichment.utils;
 
 import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
 import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceReferenceWithLinkInAggregation;
-import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceResourceWithLinkInAggregation;
 import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
 
 import eu.europeana.enrichment.api.external.model.Agent;
@@ -19,7 +18,6 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.dereference.DereferencedEntities;
 import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -128,24 +126,14 @@ public class EntityMergeEngine {
   }
 
   /**
-   * Merge entities in a record.
-   * <p>This method is when enrichment is performed where we <b>do</b> want to add the generated
-   * links to the europeana proxy</p>
+   * Merge entities in a record without creating any links to the entities.
    *
    * @param rdf The RDF to enrich
-   * @param dereferencedEntitiesList The information to append
+   * @param dereferencedEntities The information to append
    */
-  public void mergeReferenceEntitiesFromDereferencedEntities(RDF rdf, List<DereferencedEntities> dereferencedEntitiesList) {
-    for (DereferencedEntities dereferencedEntities : dereferencedEntitiesList) {
-      for (Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
-        List<AboutType> aboutTypeList = entry.getValue()
-                                             .stream()
-                                             .map(base -> convertAndAddEntity(rdf, base))
-                                             .toList();
-        if (dereferencedEntities.getClassType().equals(Aggregation.class)) {
-          replaceResourceWithLinkInAggregation(rdf, aboutTypeList, entry.getKey());
-        }
-      }
+  public void convertAndAddAllEntities(RDF rdf, DereferencedEntities dereferencedEntities) {
+    for (Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
+      entry.getValue().forEach(base -> convertAndAddEntity(rdf, base));
     }
   }
 
