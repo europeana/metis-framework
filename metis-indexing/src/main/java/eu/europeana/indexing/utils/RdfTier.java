@@ -50,14 +50,17 @@ public enum RdfTier {
   CONTENT_TIER_4(MediaTier.T4, EdmLabel.CONTENT_TIER);
 
   private static final String BASE_URI = "http://www.europeana.eu/schemas/epf/";
+
   /**
    * The constant METADATA_TIER_BASE_URI.
    */
   public static final String METADATA_TIER_BASE_URI = BASE_URI + "metadataTier";
+
   /**
    * The constant CONTENT_TIER_BASE_URI.
    */
   public static final String CONTENT_TIER_BASE_URI = BASE_URI + "contentTier";
+
   private final String uri;
   private final Tier tier;
   private final EdmLabel edmLabel;
@@ -74,14 +77,24 @@ public enum RdfTier {
     this.uri = generateUri(tier);
   }
 
-  private static String generateUri(Tier tier) {
-    if (tier instanceof MetadataTier) {
-      return METADATA_TIER_BASE_URI + tier;
-    } else if (tier instanceof MediaTier) {
-      return CONTENT_TIER_BASE_URI + tier;
+  /**
+   * Gets tier base uri.
+   *
+   * @param tier the tier
+   * @return the tier base uri
+   */
+  public static String getTierBaseUri(Tier tier) {
+    if (tier instanceof MediaTier) {
+      return CONTENT_TIER_BASE_URI;
+    } else if (tier instanceof MetadataTier) {
+      return METADATA_TIER_BASE_URI;
     } else {
-      throw new IllegalArgumentException("Unknown tier type: " + tier);
+      throw new IllegalArgumentException("Unknown tier type: " + tier.getClass());
     }
+  }
+
+  private static String generateUri(Tier tier) {
+    return getTierBaseUri(tier) + tier;
   }
 
   /**
