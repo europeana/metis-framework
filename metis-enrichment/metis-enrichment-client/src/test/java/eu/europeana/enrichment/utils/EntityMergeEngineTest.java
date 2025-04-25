@@ -13,19 +13,22 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
-import eu.europeana.enrichment.api.external.model.Organization;
 import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
+import eu.europeana.enrichment.api.internal.ProxyFieldType;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.AgentType;
 import eu.europeana.metis.schema.jibx.Alt;
 import eu.europeana.metis.schema.jibx.Concept.Choice;
+import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.Lat;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.PlaceType;
+import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
@@ -36,6 +39,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -49,7 +53,7 @@ class EntityMergeEngineTest {
   private static Place createPlace() {
     Place place = new Place();
 
-    place.setAbout("aboutP0");
+    place.setAbout("http://aboutP0");
     place.setAlt("123.456");
 
     Label label1 = new Label("labelP1");
@@ -80,7 +84,7 @@ class EntityMergeEngineTest {
 
   private static Place createFirstPlaceWithNullValues() {
     Place place = new Place();
-    place.setAbout("aboutP1");
+    place.setAbout("http://aboutP1");
     place.setAltLabelList(Arrays.asList(new Label[]{null}));
     place.setHasPartsList(Collections.emptyList());
     place.setIsPartOf(null);
@@ -91,7 +95,7 @@ class EntityMergeEngineTest {
 
   private static Place createSecondPlaceWithNullValues() {
     Place place = new Place();
-    place.setAbout("aboutP2");
+    place.setAbout("http://aboutP2");
     place.setHasPartsList(List.of(new LabelResource()));
     place.setIsPartOf(List.of(new LabelResource("")));
     return place;
@@ -100,7 +104,7 @@ class EntityMergeEngineTest {
   private static Agent createAgent() {
     Agent agent = new Agent();
 
-    agent.setAbout("aboutA1");
+    agent.setAbout("http://aboutA1");
 
     Label label1 = new Label("LangA1", "labelA1");
     agent.setAltLabelList(List.of(label1));
@@ -183,20 +187,9 @@ class EntityMergeEngineTest {
     return agent;
   }
 
-  private static Organization createOrganization() {
-    Organization organization = new Organization();
-
-    organization.setAbout("aboutO1");
-    Label label1 = new Label("LangA1", "labelA1");
-    Label label2 = new Label("labelA2");
-    organization.setPrefLabelList(Arrays.asList(label1, label2));
-
-    return organization;
-  }
-
   private static Agent createAgentWithNullValues() {
     Agent agent = new Agent();
-    agent.setAbout("aboutA2");
+    agent.setAbout("http://aboutA2");
     agent.setDate(List.of(new LabelResource()));
     agent.setDateOfBirth(Arrays.asList(null, new Label()));
     agent.setDateOfDeath(Arrays.asList(new Label(), null));
@@ -208,43 +201,43 @@ class EntityMergeEngineTest {
   private static Concept createConcept() {
     Concept concept = new Concept();
 
-    concept.setAbout("aboutC1");
+    concept.setAbout("http://aboutC1");
 
     Label label1 = new Label("LangC1", "labelC1");
     Label label2 = new Label("labelC2");
     concept.setAltLabelList(List.of(label1, label2));
 
-    Resource resouce1 = new Resource("resourceC1");
-    Resource resouce2 = new Resource("resourceC2");
-    concept.setBroader(List.of(resouce1, resouce2));
+    Resource resource1 = new Resource("resourceC1");
+    Resource resource2 = new Resource("resourceC2");
+    concept.setBroader(List.of(resource1, resource2));
 
-    Resource resouce3 = new Resource("resourceC3");
-    Resource resouce4 = new Resource("resourceC4");
-    concept.setBroadMatch(List.of(resouce3, resouce4));
+    Resource resource3 = new Resource("resourceC3");
+    Resource resource4 = new Resource("resourceC4");
+    concept.setBroadMatch(List.of(resource3, resource4));
 
-    Resource resouce5 = new Resource("resourceC5");
-    Resource resouce6 = new Resource("resourceC6");
-    concept.setCloseMatch(List.of(resouce5, resouce6));
+    Resource resource5 = new Resource("resourceC5");
+    Resource resource6 = new Resource("resourceC6");
+    concept.setCloseMatch(List.of(resource5, resource6));
 
-    Resource resouce7 = new Resource("resourceC7");
-    Resource resouce8 = new Resource("resourceC8");
-    concept.setExactMatch(List.of(resouce7, resouce8));
+    Resource resource7 = new Resource("resourceC7");
+    Resource resource8 = new Resource("resourceC8");
+    concept.setExactMatch(List.of(resource7, resource8));
 
     Label label3 = new Label("labelC3");
     Label label4 = new Label("labelC4");
     concept.setHiddenLabel(Arrays.asList(null, label3, label4));
 
-    Resource resouce9 = new Resource("resourceC9");
-    Resource resouce10 = new Resource("resourceC10");
-    concept.setInScheme(List.of(resouce9, resouce10));
+    Resource resource9 = new Resource("resourceC9");
+    Resource resource10 = new Resource("resourceC10");
+    concept.setInScheme(List.of(resource9, resource10));
 
-    Resource resouce11 = new Resource("resourceC11");
-    Resource resouce21 = new Resource("resourceC21");
-    concept.setNarrower(List.of(resouce11, resouce21));
+    Resource resource11 = new Resource("resourceC11");
+    Resource resource21 = new Resource("resourceC21");
+    concept.setNarrower(List.of(resource11, resource21));
 
-    Resource resouce12 = new Resource("resourceC12");
-    Resource resouce22 = new Resource("resourceC22");
-    concept.setNarrowMatch(List.of(resouce12, resouce22));
+    Resource resource12 = new Resource("resourceC12");
+    Resource resource22 = new Resource("resourceC22");
+    concept.setNarrowMatch(List.of(resource12, resource22));
 
     Label label7 = new Label("labelC7");
     Label label8 = new Label("labelC8");
@@ -256,20 +249,20 @@ class EntityMergeEngineTest {
     Label label6 = new Label("labelC6");
     concept.setPrefLabelList(List.of(label6));
 
-    Resource resouce14 = new Resource("resourceC14");
-    Resource resouce24 = new Resource("resourceC24");
-    concept.setRelated(Arrays.asList(resouce14, resouce24, null));
+    Resource resource14 = new Resource("resourceC14");
+    Resource resource24 = new Resource("resourceC24");
+    concept.setRelated(Arrays.asList(resource14, resource24, null));
 
-    Resource resouce15 = new Resource("resourceC15");
-    Resource resouce25 = new Resource("resourceC25");
-    concept.setRelatedMatch(List.of(resouce15, resouce25));
+    Resource resource15 = new Resource("resourceC15");
+    Resource resource25 = new Resource("resourceC25");
+    concept.setRelatedMatch(List.of(resource15, resource25));
 
     return concept;
   }
 
   private static Concept createConceptWithNullValues() {
     Concept concept = new Concept();
-    concept.setAbout("aboutC2");
+    concept.setAbout("http://aboutC2");
     concept.setBroader(List.of(new Resource()));
     concept.setBroadMatch(Arrays.asList(null, new Resource()));
     concept.setNarrower(Arrays.asList(new Resource(), null));
@@ -282,7 +275,7 @@ class EntityMergeEngineTest {
   private static TimeSpan createTimeSpan() {
     TimeSpan timespan = new TimeSpan();
 
-    timespan.setAbout("aboutT1");
+    timespan.setAbout("http://aboutT1");
 
     Label label1 = new Label("labelT1");
     Label label2 = new Label("langT2", "labelT2");
@@ -359,16 +352,6 @@ class EntityMergeEngineTest {
     assertTrue(copy.getHasPartList().isEmpty());
     assertTrue(copy.getIsPartOfList().isEmpty());
     assertTrue(copy.getNameList().isEmpty());
-  }
-
-  private void verifyOrganization(Organization original, eu.europeana.metis.schema.jibx.Organization copy) {
-    assertNotNull(copy);
-    verifyString(original.getAbout(), copy.getAbout(), true);
-    verifyList(original.getPrefLabelList(), copy.getPrefLabelList(), this::verifyLabel);
-    verifyList(original.getAcronyms(), copy.getAcronymList(), this::verifyLabel);
-    assertNull(copy.getHomepage());
-    assertNull(copy.getLogo());
-
   }
 
   private void verifyConcept(Concept original, eu.europeana.metis.schema.jibx.Concept copy) {
@@ -455,7 +438,7 @@ class EntityMergeEngineTest {
       }
     }
 
-    // If there is an item, we check it, otherwise there can be no copy.
+    // If there is an item, we check it. Otherwise, there can be no copy.
     if (firstItem != null) {
       assertNotNull(copy);
       objectVerification.accept(firstItem, copy);
@@ -512,7 +495,7 @@ class EntityMergeEngineTest {
     }
   }
 
-  private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount, int timeSpanCount, int organizationCount) {
+  private void verifyRdf(RDF rdf, int agentCount, int conceptCount, int placeCount, int timeSpanCount) {
 
     // Four main lists.
     if (agentCount == 0) {
@@ -539,14 +522,9 @@ class EntityMergeEngineTest {
       assertNotNull(rdf.getTimeSpanList());
       assertEquals(timeSpanCount, rdf.getTimeSpanList().size());
     }
-    if (organizationCount == 0) {
-      assertTrue(CollectionUtils.isEmpty(rdf.getOrganizationList()));
-    } else {
-      assertNotNull(rdf.getOrganizationList());
-      assertEquals(organizationCount, rdf.getOrganizationList().size());
-    }
+    assertTrue(CollectionUtils.isEmpty(rdf.getOrganizationList()));
 
-    // Other lists should be empty.
+    // Other lists should be empty (except the Europeana proxy).
     assertNotNull(rdf.getAggregationList());
     assertNotNull(rdf.getDatasetList());
     assertNotNull(rdf.getEuropeanaAggregationList());
@@ -561,7 +539,7 @@ class EntityMergeEngineTest {
     assertEquals(0, rdf.getEuropeanaAggregationList().size());
     assertEquals(0, rdf.getLicenseList().size());
     assertEquals(0, rdf.getProvidedCHOList().size());
-    assertEquals(0, rdf.getProxyList().size());
+    assertEquals(1, rdf.getProxyList().size());
     assertEquals(0, rdf.getServiceList().size());
     assertEquals(0, rdf.getWebResourceList().size());
   }
@@ -578,12 +556,20 @@ class EntityMergeEngineTest {
         Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
         EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
 
-    // Perform merge
+    // Create record
     RDF rdf = new RDF();
-    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
+    final ProxyType proxyType = new ProxyType();
+    proxyType.setEuropeanaProxy(new EuropeanaProxy());
+    proxyType.getEuropeanaProxy().setEuropeanaProxy(true);
+    rdf.setProxyList(List.of(proxyType));
+
+    // Perform merge
+    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList,
+        ReferenceTermContext.createFromString(inputList.getFirst().getAbout(),
+            Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
 
     // Verify RDF
-    verifyRdf(rdf, 0, 0, 3, 0, 0);
+    verifyRdf(rdf, 0, 0, 3, 0);
 
     // Verify content
     verifyPlace((Place) inputList.get(0), rdf.getPlaceList().get(0));
@@ -598,36 +584,43 @@ class EntityMergeEngineTest {
   void testMergeOtherTypes() throws SerializationException {
 
     // Create input
-    final List<EnrichmentBase> inputList = new ArrayList<>();
-    inputList.add(createAgent());
-    inputList.add(createConcept());
-    inputList.add(createTimeSpan());
-    inputList.add(createAgentWithNullValues());
-    inputList.add(createConceptWithNullValues());
-    inputList.add(createOrganization());
-    final List<EnrichmentBase> enrichmentResultBaseWrapperList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
-        Collections.singletonList(inputList), DereferenceResultStatus.SUCCESS).stream().map(
+    final List<EnrichmentBase> agentList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        List.of(List.of(createAgent(), createAgentWithNullValues())), DereferenceResultStatus.SUCCESS).stream().map(
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
+    final List<EnrichmentBase> conceptList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        List.of(List.of(createConcept(), createConceptWithNullValues())), DereferenceResultStatus.SUCCESS).stream().map(
+        EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
+    final List<EnrichmentBase> timespanList = EnrichmentResultBaseWrapper.createEnrichmentResultBaseWrapperList(
+        List.of(List.of(createTimeSpan())), DereferenceResultStatus.SUCCESS).stream().map(
         EnrichmentResultBaseWrapper::getEnrichmentBaseList).flatMap(List::stream).toList();
 
-    // Perform merge
+    // Create record
     RDF rdf = new RDF();
-    rdf.setPlaceList(null);
-    rdf.setAgentList(null);
-    rdf.setConceptList(null);
-    rdf.setTimeSpanList(null);
-    rdf.setOrganizationList(null);
-    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null);
+    final ProxyType proxyType = new ProxyType();
+    proxyType.setEuropeanaProxy(new EuropeanaProxy());
+    proxyType.getEuropeanaProxy().setEuropeanaProxy(true);
+    rdf.setProxyList(List.of(proxyType));
+
+    // Perform merge
+    new EntityMergeEngine().mergeReferenceEntities(rdf, agentList,
+        ReferenceTermContext.createFromString(agentList.getFirst().getAbout(),
+            Set.of(ProxyFieldType.DC_CREATOR)));
+    new EntityMergeEngine().mergeReferenceEntities(rdf, conceptList,
+        ReferenceTermContext.createFromString(conceptList.getFirst().getAbout(),
+            Set.of(ProxyFieldType.DC_SUBJECT)));
+    new EntityMergeEngine().mergeReferenceEntities(rdf, timespanList,
+        ReferenceTermContext.createFromString(timespanList.getFirst().getAbout(),
+            Set.of(ProxyFieldType.DCTERMS_TEMPORAL)));
 
     // Verify RDF
-    verifyRdf(rdf, 2, 2, 0, 1, 1);
+    verifyRdf(rdf, 2, 2, 0, 1);
 
     // Verify content
-    verifyAgent((Agent) inputList.get(0), rdf.getAgentList().getFirst());
-    verifyConcept((Concept) inputList.get(1), rdf.getConceptList().getFirst());
-    verifyTimespan((TimeSpan) inputList.get(2), rdf.getTimeSpanList().getFirst());
-    verifyAgent((Agent) inputList.get(3), rdf.getAgentList().get(1));
-    verifyConcept((Concept) inputList.get(4), rdf.getConceptList().get(1));
-    verifyOrganization((Organization) inputList.get(5), rdf.getOrganizationList().getFirst());
+    verifyAgent((Agent) agentList.getFirst(), rdf.getAgentList().getFirst());
+    verifyAgent((Agent) agentList.get(1), rdf.getAgentList().get(1));
+    verifyConcept((Concept) conceptList.getFirst(), rdf.getConceptList().getFirst());
+    verifyConcept((Concept) conceptList.get(1), rdf.getConceptList().get(1));
+    verifyTimespan((TimeSpan) timespanList.getFirst(), rdf.getTimeSpanList().getFirst());
 
     // Convert RDF to string as extra test that everything is OK.
     rdfConversionUtils.convertRdfToString(rdf);
