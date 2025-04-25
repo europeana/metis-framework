@@ -18,7 +18,10 @@ import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.dereference.DereferencedEntities;
 import eu.europeana.metis.schema.jibx.AboutType;
+import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +39,13 @@ import java.util.stream.Collectors;
  * Class that contains logic for converting class entity types and/or merging entities to {@link RDF}
  */
 public class EntityMergeEngine {
+
+  private static final Map<EntityType, Class<? extends AboutType>> ENTITY_TYPE_MAP = Map.of(
+      EntityType.AGENT, AgentType.class,
+      EntityType.CONCEPT, eu.europeana.metis.schema.jibx.Concept.class,
+      EntityType.PLACE, PlaceType.class,
+      EntityType.TIMESPAN, TimeSpanType.class
+  );
 
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
       I inputEntity, Function<I, T> converter, Supplier<List<T>> listGetter,
@@ -82,6 +92,25 @@ public class EntityMergeEngine {
   }
 
   /**
+   * Filters the list of fields to include only those whose entity type matches that of the given
+   * entity. The idea is that links should not be created to entities of the wrong type for the
+   * field.
+   *
+   * @param entity The entity to link
+   * @param fields The fields to link from.
+   * @return The fields appropriate for linking to this entity.
+   */
+  private static Set<ProxyFieldType> filterFieldTypesForLinking(AboutType entity,
+      Set<FieldType<?>> fields) {
+    return fields.stream()
+        .filter(field -> Optional
+            .ofNullable(ENTITY_TYPE_MAP.get(field.getEntityType()))
+            .map(type -> type.isAssignableFrom(entity.getClass()))
+            .orElse(false))
+        .map(ProxyFieldType.class::cast).collect(Collectors.toSet());
+  }
+
+  /**
    * Merge entities in a record.
    *
    * @param rdf The RDF to enrich
@@ -91,13 +120,14 @@ public class EntityMergeEngine {
   public void mergeSearchEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
       SearchTermContext searchTermContext) {
     for (EnrichmentBase base : enrichmentBaseList) {
-      final AboutType aboutType = convertAndAddEntity(rdf, base);
+      final AboutType entity = convertAndAddEntity(rdf, base);
       if (isProxyFieldType(searchTermContext.getFieldTypes())) {
-        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), searchTermContext.getFieldTypes()
-            .stream().map(ProxyFieldType.class::cast).collect(Collectors.toSet()));
+        // Filter the fields. We know at least one of the fields is of the correct type.
+        appendLinkToEuropeanaProxy(rdf, entity.getAbout(),
+            filterFieldTypesForLinking(entity, searchTermContext.getFieldTypes()));
       } else {
         // In Aggregation replace search term with reference
-        replaceValueWithLinkInAggregation(rdf, aboutType.getAbout(), searchTermContext);
+        replaceValueWithLinkInAggregation(rdf, entity.getAbout(), searchTermContext);
       }
     }
   }
@@ -114,13 +144,14 @@ public class EntityMergeEngine {
   public void mergeReferenceEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
       ReferenceTermContext referenceTermContext) {
     for (EnrichmentBase base : enrichmentBaseList) {
-      final AboutType aboutType = convertAndAddEntity(rdf, base);
+      final AboutType entity = convertAndAddEntity(rdf, base);
       if (isProxyFieldType(referenceTermContext.getFieldTypes())) {
-        appendLinkToEuropeanaProxy(rdf, aboutType.getAbout(), referenceTermContext.getFieldTypes()
-            .stream().map(ProxyFieldType.class::cast).collect(Collectors.toSet()));
-      } else if (!referenceTermContext.referenceEquals(aboutType.getAbout())) {
+        // Filter the fields. We know at least one of the fields is of the correct type.
+        appendLinkToEuropeanaProxy(rdf, entity.getAbout(),
+            filterFieldTypesForLinking(entity, referenceTermContext.getFieldTypes()));
+      } else if (!referenceTermContext.referenceEquals(entity.getAbout())) {
         // In aggregation replace reference with updated reference
-        replaceReferenceWithLinkInAggregation(rdf, aboutType.getAbout(), referenceTermContext);
+        replaceReferenceWithLinkInAggregation(rdf, entity.getAbout(), referenceTermContext);
       }
     }
   }
