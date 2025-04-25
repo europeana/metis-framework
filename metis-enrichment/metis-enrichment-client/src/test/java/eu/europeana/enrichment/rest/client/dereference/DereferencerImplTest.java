@@ -18,6 +18,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
@@ -52,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -282,17 +284,72 @@ class DereferencerImplTest {
         final Dereferencer dereferencer = spy(
                 new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
 
-
         verifyCaseWithInternalEntities(cancellationException, clientEntityResolver, inputRdf,
                 dereferencer);
-
 
         verifyCaseWithExternalEntities(cancellationException, clientEntityResolver, inputRdf,
                 dereferencer, dereferenceClient);
 
-
         verifyCaseWithEntitiesWithUris(cancellationException, clientEntityResolver, inputRdf,
                 dereferencer);
+    }
+
+    @Test
+    void testDereferenceWithNoEntityResolver() {
+        final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+        final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+        final Dereferencer dereferencer = spy(
+            new DereferencerImpl(entityMergeEngine, null, dereferenceClient));
+
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), HashSet.newHashSet(0));
+
+        assertEquals(0, dereferencedEntities.getReferenceTermListMap().size());
+        assertEquals(0, dereferencedEntities.getReportMessages().size());
+    }
+
+    @Test
+    void testDereferenceWithEntityResolverException() {
+        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+        final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+        final Dereferencer dereferencer = spy(
+            new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+        doThrow(new RuntimeException("Exception occurred while trying to resolve entities")).when(clientEntityResolver)
+                                                                                            .resolveById(any());
+        HashSet<Report> reports = HashSet.newHashSet(0);
+
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), reports);
+
+        assertEquals(1, reports.size());
+        assertEquals("DereferenceException: Exception occurred while trying to perform dereferencing.",
+            reports.iterator().next().getMessage());
+        assertEquals(0, dereferencedEntities.getReferenceTermListMap().size());
+    }
+
+    @Test
+    void testDereferenceExternalEntitiesExceptions () {
+        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+        final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+        final Dereferencer dereferencer = spy(
+            new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+        doReturn(ENRICHMENT_RESULT_BY_ID)
+            .when(clientEntityResolver)
+            .resolveById(any());
+
+            when(dereferenceClient
+            .dereference(any())).thenThrow(new RuntimeException("External Entity"))
+                .thenThrow(HttpClientErrorException.create(HttpStatus.BAD_REQUEST,"External Entity",null, null, null));
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEntities(Set.of("http://localhost","http://demo"));
+
+        assertEquals(2, dereferencedEntities.getReportMessages().size());
+        assertTrue( dereferencedEntities.getReportMessages()
+                                        .stream()
+                                        .anyMatch(report -> report.getMessage().contains("External Entity")) );
+        assertTrue( dereferencedEntities.getReportMessages()
+                                        .stream()
+                                        .filter( r-> (r.getStatus() != null))
+                                        .anyMatch(report -> report.getStatus().equals(HttpStatus.BAD_REQUEST)));
     }
 
     private static void verifyCaseWithInternalEntities(CancellationException cancellationException,

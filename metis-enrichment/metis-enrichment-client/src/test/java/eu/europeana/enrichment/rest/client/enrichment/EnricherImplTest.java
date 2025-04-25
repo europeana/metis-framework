@@ -28,8 +28,6 @@ import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -155,7 +153,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferencesHappyFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferencesHappyFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -175,7 +173,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferenceWarnFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -233,7 +231,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceExceptionFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferenceExceptionFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
