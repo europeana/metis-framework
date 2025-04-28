@@ -16,7 +16,6 @@ import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import jakarta.annotation.PreDestroy;
 import java.lang.invoke.MethodHandles;
-import java.util.Set;
 import metis.common.config.properties.TruststoreConfigurationProperties;
 import metis.common.config.properties.mongo.MongoConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
@@ -27,8 +26,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 
 /**
