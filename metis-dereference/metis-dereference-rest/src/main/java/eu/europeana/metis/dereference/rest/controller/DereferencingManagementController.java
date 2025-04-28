@@ -36,20 +36,20 @@ public class DereferencingManagementController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingManagementController.class);
 
-  private final DereferencingManagementService service;
+  private final DereferencingManagementService dereferencingManagementService;
   private final Set<String> allowedUrlDomains;
 
   /**
    * Constructor parameterized.
    *
-   * @param service the dereferencing management service
+   * @param dereferencingManagementService the dereferencing management dereferencingManagementService
    * @param metisDereferenceConfigurationProperties the metis dereference configuration properties
    */
   @Autowired
-  public DereferencingManagementController(DereferencingManagementService service,
+  public DereferencingManagementController(DereferencingManagementService dereferencingManagementService,
       MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties) {
-    this.service = service;
-    this.allowedUrlDomains = new HashSet<>(Set.of(metisDereferenceConfigurationProperties.getAllowedUrlDomains()));
+    this.dereferencingManagementService = dereferencingManagementService;
+    this.allowedUrlDomains = new HashSet<>(Set.of(metisDereferenceConfigurationProperties.allowedUrlDomains()));
   }
 
   /**
@@ -60,7 +60,7 @@ public class DereferencingManagementController {
   @GetMapping(value = RestEndpoints.VOCABULARIES, produces = "application/json")
   @Operation(description = "Retrieve all the vocabularies", responses = {@ApiResponse(responseCode = "200")})
   public List<Vocabulary> getAllVocabularies() {
-    return service.getAllVocabularies();
+    return dereferencingManagementService.getAllVocabularies();
   }
 
   /**
@@ -70,7 +70,7 @@ public class DereferencingManagementController {
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY)
   @Operation(description = "Empty the cache")
   public void emptyCache() {
-    service.emptyCache();
+    dereferencingManagementService.emptyCache();
   }
 
   /**
@@ -79,7 +79,7 @@ public class DereferencingManagementController {
   @DeleteMapping(value = RestEndpoints.CACHE_EMPTY_XML)
   @Operation(description = "Empty the cache without XML representations")
   public void emptyCacheByEmptyXml() {
-    service.purgeByNullOrEmptyXml();
+    dereferencingManagementService.purgeByNullOrEmptyXml();
   }
 
   /**
@@ -91,7 +91,7 @@ public class DereferencingManagementController {
   @Operation(description = "Empty the cache by resource Id")
   public void emptyCacheByResourceId(
       @Parameter(description = "Id (URI) of resource to clear cache", required = true) @RequestParam(value = "resourceId") String resourceId) {
-    service.purgeByResourceId(resourceId);
+    dereferencingManagementService.purgeByResourceId(resourceId);
   }
 
   /**
@@ -103,7 +103,7 @@ public class DereferencingManagementController {
   @Operation(description = "Empty the cache by vocabulary Id")
   public void emptyCacheByVocabularyId(
       @Parameter(description = "Id of vocabulary to clear cache", required = true) @RequestParam(value = "vocabularyId") String vocabularyId) {
-    service.purgeByVocabularyId(vocabularyId);
+    dereferencingManagementService.purgeByVocabularyId(vocabularyId);
   }
 
 
@@ -125,7 +125,7 @@ public class DereferencingManagementController {
     try {
       final Optional<URL> validatedLocationUrl = getValidatedLocationUrl(directoryUrl);
       if (validatedLocationUrl.isPresent()) {
-        service.loadVocabularies(validatedLocationUrl.get());
+        dereferencingManagementService.loadVocabularies(validatedLocationUrl.get());
         return ResponseEntity.ok().build();
       }
       return

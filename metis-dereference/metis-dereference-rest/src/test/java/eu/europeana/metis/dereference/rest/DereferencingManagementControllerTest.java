@@ -29,6 +29,7 @@ import eu.europeana.metis.utils.RestEndpoints;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,8 +50,8 @@ class DereferencingManagementControllerTest {
   void setUp() {
     deRefManagementServiceMock = mock(DereferencingManagementService.class);
 
-    MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties = new MetisDereferenceConfigurationProperties();
-    metisDereferenceConfigurationProperties.setAllowedUrlDomains("valid.domain.com");
+    MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties =
+        new MetisDereferenceConfigurationProperties("valid.domain.com", null, null, List.of("*"));
     DereferencingManagementController dereferencingManagementController = new DereferencingManagementController(
         deRefManagementServiceMock, metisDereferenceConfigurationProperties);
 
