@@ -140,7 +140,7 @@ public class ApplicationConfiguration {
 
   @Bean
   Set<String> getAllowedUrlDomains(MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties) {
-    return Set.of(metisDereferenceConfigurationProperties.getAllowedUrlDomains());
+    return Set.of(metisDereferenceConfigurationProperties.allowedUrlDomains());
   }
 
   /**
@@ -161,7 +161,7 @@ public class ApplicationConfiguration {
    * scheduled by a cron expression.
    */
   // TODO: 24/08/2023 Is there a better way to load the configuration here?
-  @Scheduled(cron = "${metis-dereference.getPurgeEmptyXmlFrequency}")
+  @Scheduled(cron = "${metis-dereference.purgeEmptyXmlFrequency}")
   public void dereferenceCacheNullOrEmpty() {
     processedEntityDao.purgeByNullOrEmptyXml();
   }
@@ -170,7 +170,7 @@ public class ApplicationConfiguration {
    * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster is used for multiple
    * services then the cache for other services is cleared as well. This task is scheduled by a cron expression.
    */
-  @Scheduled(cron = "${metis-dereference.getPurgeAllFrequency}")
+  @Scheduled(cron = "${metis-dereference.purgeAllFrequency}")
   public void dereferenceCachePurgeAll() {
     processedEntityDao.purgeAll();
   }

@@ -49,7 +49,7 @@ public class DereferencingManagementController {
   public DereferencingManagementController(DereferencingManagementService service,
       MetisDereferenceConfigurationProperties metisDereferenceConfigurationProperties) {
     this.service = service;
-    this.allowedUrlDomains = new HashSet<>(Set.of(metisDereferenceConfigurationProperties.getAllowedUrlDomains()));
+    this.allowedUrlDomains = new HashSet<>(Set.of(metisDereferenceConfigurationProperties.allowedUrlDomains()));
   }
 
   /**
