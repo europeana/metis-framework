@@ -1,0 +1,27 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="metis-authentication (local)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="spring-run-configuration">
+    <option name="ALTERNATIVE_JRE_PATH" value="temurin-21" />
+    <module name="metis-authentication-rest" />
+    <option name="PROGRAM_PARAMETERS" value="--spring.config.location=file:///data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/components/properties/application.properties --server.servlet.context-path=/metis-authentication --logging.config=file:///data/metis-configuration/k8s/common-components/log4j2-xml/log4j2.xml --truststore.path=/data/metis-configuration/k8s/common-components/custom-truststore-jks/custom-truststore.jks" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="eu.europeana.metis.authentication.rest.Application" />
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+      </ENTRIES>
+    </extension>
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+      <option name="LaunchBrowser.Before.Run" url="http://localhost:8080/metis-authentication" />
+    </method>
+  </configuration>
+</component>

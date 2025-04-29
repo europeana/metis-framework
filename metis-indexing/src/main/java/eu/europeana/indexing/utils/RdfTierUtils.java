@@ -1,8 +1,5 @@
 package eu.europeana.indexing.utils;
 
-import static eu.europeana.indexing.utils.RdfTier.CONTENT_TIER_BASE_URI;
-import static eu.europeana.indexing.utils.RdfTier.METADATA_TIER_BASE_URI;
-
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
@@ -20,14 +17,13 @@ import eu.europeana.metis.schema.jibx.QualityAnnotation;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import java.time.Instant;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
@@ -37,9 +33,9 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class RdfTierUtils {
 
-  private static final Map<String, RdfTier> tiersByUri = Collections.unmodifiableMap(
+  private static final Map<String, RdfTier> TIERS_BY_URI = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getUri, Function.identity())));
-  private static final Map<Tier, RdfTier> tiersByValue = Collections.unmodifiableMap(
+  private static final Map<Tier, RdfTier> TIERS_BY_VALUE = Collections.unmodifiableMap(
       Stream.of(RdfTier.values()).collect(Collectors.toMap(RdfTier::getTier, Function.identity())));
 
   private RdfTierUtils() {
@@ -48,14 +44,15 @@ public final class RdfTierUtils {
   /**
    * Find the tier represented by the given quality annotation.
    *
-   * @param annotation The annotation.
+   * @param annotation The corelib annotation.
    * @return The tier, or null if the annotation does not match any tier.
    */
   public static RdfTier getTier(
       eu.europeana.corelib.definitions.edm.entity.QualityAnnotation annotation) {
     return Optional.ofNullable(annotation)
                    .map(eu.europeana.corelib.definitions.edm.entity.QualityAnnotation::getBody)
-                   .map(tiersByUri::get).orElse(null);
+                   .map(TIERS_BY_URI::get)
+                   .orElse(null);
   }
 
   /**
@@ -64,10 +61,10 @@ public final class RdfTierUtils {
    *
    * @param rdf The record.
    * @param tier The {@link MediaTier} or {@link MetadataTier} tier value to add.
-   * @throws IndexingException In case no tier value could be added to the record.
+   * @throws IndexingException the indexing exception
    */
   public static void setTier(RDF rdf, Tier tier) throws IndexingException {
-    setTierInternal(rdf, tier);
+    setTierForTargetOverwrite(rdf, getTarget(rdf), tier);
   }
 
   /**
@@ -79,9 +76,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    if (!RdfTierUtils.hasTierCalculationByTarget(rdf, tier)) {
-      setTierInternal(rdf, tier);
-    }
+    setTierForTargetInitialise(rdf, getTarget(rdf), tier);
   }
 
   /**
@@ -93,7 +88,7 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeana(RDF rdf, Tier tier) throws IndexingException {
-    setTierInternalEuropeana(rdf, tier);
+    setTierForTargetOverwrite(rdf, getEuropeanaTarget(rdf), tier);
   }
 
   /**
@@ -105,238 +100,158 @@ public final class RdfTierUtils {
    * @throws IndexingException the indexing exception
    */
   public static void setTierEuropeanaIfAbsent(RDF rdf, Tier tier) throws IndexingException {
-    if (!RdfTierUtils.hasTierEuropeanaCalculationByTarget(rdf, tier)) {
-      setTierInternalEuropeana(rdf, tier);
-    }
+    setTierForTargetInitialise(rdf, getEuropeanaTarget(rdf), tier);
   }
 
   /**
-   * Check if Europeana Aggregation already has a tier calculation.
+   * Get the provider or aggregator aggregation that should be the target of the tier value.
    *
-   * @param rdf the rdf
-   * @param tier the tier
-   * @return the boolean
+   * @param rdf The record.
+   * @return The target.
+   * @throws IndexingException Thrown if no suitable aggregation exists in the record.
    */
-  public static boolean hasTierEuropeanaCalculation(RDF rdf, Tier tier) {
-    List<String> tierEuropeanaData = extractTierData(rdf.getEuropeanaAggregationList(),
-        EuropeanaAggregationType::getHasQualityAnnotationList);
-
-    return containsTierCalculation(tier, tierEuropeanaData);
-  }
-
-  /**
-   * Check if Aggregation already has a tier calculation.
-   *
-   * @param rdf the rdf
-   * @param tier the tier
-   * @return the boolean
-   */
-  public static boolean hasTierCalculation(RDF rdf, Tier tier) {
-    List<String> tierData = extractTierData(rdf.getAggregationList(), Aggregation::getHasQualityAnnotationList);
-
-    return containsTierCalculation(tier, tierData);
-  }
-
-  /**
-   * Extract tier data from a list of aggregations.
-   *
-   * @param <T> the type parameter
-   * @param aggregationList the aggregation list
-   * @param qualityAnnotationSupplier the quality annotation supplier
-   * @return the extracted tier data
-   */
-  public static <T extends AboutType> List<String> extractTierData(List<T> aggregationList,
-      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier) {
-    return aggregationList
+  @NotNull
+  private static AggregatorOrProviderTarget getTarget(RDF rdf) throws IndexingException {
+    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
+    final Aggregation target = rdfWrapper.getAggregatorAggregations()
         .stream()
-        .map(aboutType ->
-            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
-                    .map(annotations -> annotations
-                        .stream()
-                        .map(HasQualityAnnotation::getQualityAnnotation)
-                        .filter(Objects::nonNull)
-                        .map(QualityAnnotation::getHasBody)
-                        .filter(Objects::nonNull)
-                        .map(ResourceType::getResource)
-                        .filter(Objects::nonNull)
-                        .toList())
-                    .orElse(null))
         .filter(Objects::nonNull)
-        .flatMap(List::stream)
-        .toList();
+        .findAny()
+        .orElse(rdfWrapper.getProviderAggregations()
+            .stream()
+            .filter(Objects::nonNull)
+            .findAny()
+            .orElseThrow(() -> new RecordRelatedIndexingException(
+                "Cannot find suitable aggregator or provider aggregation in record.")));
+    return new AggregatorOrProviderTarget(target);
   }
 
+  /**
+   * Get the Europeana aggregation that should be the target of the tier value.
+   *
+   * @param rdf The record.
+   * @return The target.
+   * @throws IndexingException Thrown if no suitable aggregation exists in the record.
+   */
+  @NotNull
+  private static EuropeanaTarget getEuropeanaTarget(RDF rdf) throws IndexingException {
+    final EuropeanaAggregationType target = new RdfWrapper(rdf).getEuropeanaAggregation()
+        .orElseThrow(() -> new RecordRelatedIndexingException(
+            "Cannot find suitable aggregator or provider aggregation in record."));
+    return new EuropeanaTarget(target);
+  }
 
   /**
-   * Extract tier data by target .
+   * Sets tier for target initialise.
    *
-   * @param <T> the type parameter
-   * @param aggregationList the aggregation list
-   * @param qualityAnnotationSupplier the quality annotation supplier
+   * @param rdf the rdf
    * @param target the target
-   * @return the list
-   */
-  public static <T extends AboutType> List<String> extractTierDataByTarget(List<T> aggregationList,
-      Function<T, List<HasQualityAnnotation>> qualityAnnotationSupplier,
-      String target) {
-    return aggregationList
-        .stream()
-        .filter(aggregation -> aggregation.getAbout().equals(target))
-        .map(aboutType ->
-            Optional.ofNullable(qualityAnnotationSupplier.apply(aboutType))
-                    .map(mapperQualityAnnotationBodyBy(target))
-                    .orElse(null))
-        .filter(Objects::nonNull)
-        .flatMap(List::stream)
-        .toList();
-  }
-
-  @NotNull
-  private static Function<List<HasQualityAnnotation>, List<String>> mapperQualityAnnotationBodyBy(String target) {
-    return annotations -> annotations
-        .stream()
-        .map(HasQualityAnnotation::getQualityAnnotation)
-        .filter(Objects::nonNull)
-        .map(mapperQualityAnnotationByTarget(target))
-        .filter(Objects::nonNull)
-        .map(QualityAnnotation::getHasBody)
-        .filter(Objects::nonNull)
-        .map(ResourceType::getResource)
-        .filter(Objects::nonNull)
-        .toList();
-  }
-
-  @NotNull
-  private static Function<QualityAnnotation, QualityAnnotation> mapperQualityAnnotationByTarget(
-      String target) {
-    return qualityAnnotation -> qualityAnnotation
-        .getHasTargetList()
-        .stream()
-        .filter(Objects::nonNull)
-        .map(HasTarget::getResource)
-        .anyMatch(t -> t.equals(target)) ? qualityAnnotation : null;
-  }
-
-  /**
-   * Has tier calculation by target boolean.
-   *
-   * @param rdf the rdf
    * @param tier the tier
-   * @return the boolean
+   * @throws IndexingException the indexing exception
    */
-  public static boolean hasTierCalculationByTarget(RDF rdf, Tier tier) {
-    List<String> tierData = extractTierDataByTarget(rdf.getAggregationList(),
-        Aggregation::getHasQualityAnnotationList,
-        rdf.getAggregationList()
-           .stream()
-           .map(Aggregation::getAbout)
-           .findFirst()
-           .orElse(null)
-    );
-    return containsTierCalculation(tier, tierData);
-  }
-
-  /**
-   * Has tier europeana calculation by target boolean.
-   *
-   * @param rdf the rdf
-   * @param tier the tier
-   * @return the boolean
-   */
-  public static boolean hasTierEuropeanaCalculationByTarget(RDF rdf, Tier tier) {
-    List<String> tierEuropeanaData = extractTierData(rdf.getEuropeanaAggregationList(),
-        EuropeanaAggregationType::getHasQualityAnnotationList);
-    extractTierDataByTarget(rdf.getEuropeanaAggregationList(),
-        EuropeanaAggregationType::getHasQualityAnnotationList,
-        rdf.getEuropeanaAggregationList()
-           .stream()
-           .map(EuropeanaAggregationType::getAbout)
-           .findFirst()
-           .orElse(null)
-    );
-
-    return containsTierCalculation(tier, tierEuropeanaData);
-  }
-
-  private static boolean containsTierCalculation(Tier tier, List<String> tierCalculation) {
-    if (tier instanceof MediaTier) {
-      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(CONTENT_TIER_BASE_URI));
-    } else if (tier instanceof MetadataTier) {
-      return tierCalculation.stream().filter(Objects::nonNull).anyMatch(t -> t.startsWith(METADATA_TIER_BASE_URI));
-    } else {
-      return false;
+  private static void setTierForTargetInitialise(RDF rdf, AbstractTierTarget<?> target, Tier tier)
+      throws IndexingException {
+    final Optional<QualityAnnotation> existingAnnotation = Optional.ofNullable(getExistingAnnotation(rdf, target.getAbout(), tier));
+    if (existingAnnotation.isEmpty()) {
+      addNewAnnotationToTarget(target, tier);
     }
   }
 
-  private static String getTierBaseUri(Tier tier) {
-    if (tier instanceof MediaTier) {
-      return CONTENT_TIER_BASE_URI;
-    } else if (tier instanceof MetadataTier) {
-      return METADATA_TIER_BASE_URI;
+  /**
+   * Sets tier for target overwrite.
+   *
+   * @param rdf the rdf
+   * @param target the target
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
+   */
+  private static void setTierForTargetOverwrite(RDF rdf, AbstractTierTarget<?> target, Tier tier)
+      throws IndexingException {
+    final Optional<QualityAnnotation> existingAnnotation = Optional.ofNullable(getExistingAnnotation(rdf, target.getAbout(), tier));
+    final RdfTier rdfTier = getRdfTier(tier);
+    if (existingAnnotation.isPresent()) {
+      // We overwrite the value. We can do this because the annotation only has one target. If this
+      // is no longer the case, we will need to split up the annotation.
+      existingAnnotation.get().getHasBody().setResource(rdfTier.getUri());
     } else {
-      return "";
+      addNewAnnotationToTarget(target, tier);
     }
   }
 
-  private static void setTierInternal(RDF rdf, Tier tier)
+  /**
+   * Add a new annotation to the target
+   *
+   * @param target the target
+   * @param tier the tier
+   * @throws IndexingException the indexing exception
+   */
+  private static void addNewAnnotationToTarget(AbstractTierTarget<?> target, Tier tier)
       throws IndexingException {
-
-    // Get the right instance of RdfTier.
     final RdfTier rdfTier = getRdfTier(tier);
-
-    // Determine if there is something to reference and somewhere to add the reference.
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-    final Aggregation aggregatorAggregation = rdfWrapper.getAggregatorAggregations()
-                                                        .stream()
-                                                        .filter(Objects::nonNull)
-                                                        .findAny()
-                                                        .orElse(rdfWrapper.getProviderAggregations()
-                                                                          .stream()
-                                                                          .filter(Objects::nonNull)
-                                                                          .findAny()
-                                                                          .orElse(null));
-
-    checkAggregationNotNull(aggregatorAggregation);
-
-    // Create the annotation
-    final HasQualityAnnotation newAnnotation = createQualityAnnotation(aggregatorAggregation.getAbout(), rdfTier);
-
-    aggregatorAggregation.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotationsFromTargetWithoutNewAnnotation(newAnnotation,
-            aggregatorAggregation.getHasQualityAnnotationList(),
-            aggregatorAggregation.getAbout()), Stream.of(newAnnotation)).toList()
-    );
+    final HasQualityAnnotation newAnnotation = createQualityAnnotation(target.getAbout(), rdfTier);
+    final List<HasQualityAnnotation> existingAnnotations = new ArrayList<>(Optional
+        .ofNullable(target.getHasQualityAnnotationList()).orElseGet(Collections::emptyList));
+    existingAnnotations.add(newAnnotation);
+    target.setHasQualityAnnotationList(existingAnnotations);
   }
 
-  private static void setTierInternalEuropeana(RDF rdf, Tier tier)
-      throws IndexingException {
+  /**
+   * Retrieves the quality annotation from the record that matches the provided target and tier
+   * type. If no such annotation exists, this method returns null.
+   *
+   * @param rdf    The record to check.
+   * @param target The target to match against.
+   * @param tier   The tier (type) to match against.
+   * @return The annotation matching the target and tier (type). Or null if no such annotation is
+   * present in the record.
+   * @throws RecordRelatedIndexingException In case there is some inconsistency in the record. This
+   *                                        could be that there are multiple annotations matching
+   *                                        the target and tier (type) or that one annotation has
+   *                                        multiple target values.
+   */
+  private static QualityAnnotation getExistingAnnotation(RDF rdf, String target, Tier tier)
+      throws RecordRelatedIndexingException {
+    final RdfWrapper wrappedRecord = new RdfWrapper(rdf);
+    final Stream<List<HasQualityAnnotation>> annotationsFromAggregations = wrappedRecord
+        .getAggregations().stream().map(Aggregation::getHasQualityAnnotationList);
+    final Stream<List<HasQualityAnnotation>> annotationsFromEuropeanaAggregation = wrappedRecord
+        .getEuropeanaAggregation().stream().map(EuropeanaAggregationType::getHasQualityAnnotationList);
+    final List<QualityAnnotation> resultCandidates = Stream
+        .concat(annotationsFromAggregations, annotationsFromEuropeanaAggregation)
+        .filter(Objects::nonNull).flatMap(List::stream).filter(Objects::nonNull)
+        .map(HasQualityAnnotation::getQualityAnnotation).filter(Objects::nonNull)
+        .filter(annotation -> annotationMatches(annotation, target, tier))
+        .toList();
+    if (resultCandidates.size() > 1) {
+      throw new RecordRelatedIndexingException("Multiple annotations found for target '"
+          + target + "' and type '" + tier.getClass() + "'.");
+    } else if (!resultCandidates.isEmpty()
+        && resultCandidates.getFirst().getHasTargetList().size() > 1) {
+      throw new RecordRelatedIndexingException("Annotation found with multiple targets.");
+    }
+    return resultCandidates.isEmpty() ? null : resultCandidates.getFirst();
+  }
 
-    final RdfTier rdfTier = getRdfTier(tier);
-
-    // Determine if there is something to reference and somewhere to add the reference.
-    final RdfWrapper rdfWrapper = new RdfWrapper(rdf);
-
-    final EuropeanaAggregationType europeanaAggregationType = rdfWrapper.getEuropeanaAggregation()
-                                                                        .stream()
-                                                                        .filter(Objects::nonNull)
-                                                                        .findAny()
-                                                                        .orElse(null);
-
-    checkAggregationNotNull(europeanaAggregationType);
-
-    final HasQualityAnnotation newAnnotation = createQualityAnnotation(europeanaAggregationType.getAbout(), rdfTier);
-
-    europeanaAggregationType.setHasQualityAnnotationList(
-        Stream.concat(getExistingAnnotationsFromTargetWithoutNewAnnotation(newAnnotation,
-                  europeanaAggregationType.getHasQualityAnnotationList(),
-                  europeanaAggregationType.getAbout()), Stream.of(newAnnotation))
-              .toList());
+  /**
+   * Determines whether the annotation matches the target and tier type as provided.
+   *
+   * @param annotation The annotation to check.
+   * @param target     The target to check against
+   * @param tier       The tier (type) to check against.
+   * @return The result of the test.
+   */
+  private static boolean annotationMatches(QualityAnnotation annotation, String target, Tier tier) {
+    final boolean typeMatches = Optional.ofNullable(annotation.getHasBody())
+        .map(ResourceType::getResource).orElse("").startsWith(RdfTier.getTierBaseUri(tier));
+    return typeMatches && Optional.ofNullable(annotation.getHasTargetList())
+        .stream().flatMap(List::stream).filter(Objects::nonNull).map(HasTarget::getResource)
+        .filter(Objects::nonNull).anyMatch(target::equals);
   }
 
   @NotNull
   private static RdfTier getRdfTier(Tier tier) throws SetupRelatedIndexingException {
     // Get the right instance of RdfTier.
-    final RdfTier rdfTier = tiersByValue.get(tier);
+    final RdfTier rdfTier = TIERS_BY_VALUE.get(tier);
     if (rdfTier == null) {
       throw new SetupRelatedIndexingException("Cannot find settings for tier value "
           + tier.getClass());
@@ -344,46 +259,9 @@ public final class RdfTierUtils {
     return rdfTier;
   }
 
-  private static void checkAggregationNotNull(AboutType aggregatorAggregation) throws RecordRelatedIndexingException {
-    if (aggregatorAggregation == null) {
-      throw new RecordRelatedIndexingException("Cannot find suitable aggregator or provider aggregation in record.");
-    }
-  }
-
-  private static Stream<HasQualityAnnotation> getExistingAnnotationsFromTargetWithoutNewAnnotation(
-      HasQualityAnnotation newAnnotation,
-      List<HasQualityAnnotation> qualityAnnotations, String target) {
-
-    return Optional.ofNullable(qualityAnnotations)
-                   .stream()
-                   .flatMap(Collection::stream)
-                   .filter(hasQualityAnnotationByTarget(newAnnotation, target))
-                   .filter(hasNotQualityAnnotationByTier(newAnnotation));
-  }
-
-  @NotNull
-  private static Predicate<HasQualityAnnotation> hasQualityAnnotationByTarget(HasQualityAnnotation newAnnotation,
-      String target) {
-    return existingLink -> newAnnotation.getQualityAnnotation()
-                                        .getHasTargetList()
-                                        .stream()
-                                        .anyMatch(hasTarget ->
-                                            hasTarget.getResource().equals(target));
-  }
-
-  @NotNull
-  private static Predicate<HasQualityAnnotation> hasNotQualityAnnotationByTier(HasQualityAnnotation newAnnotation) {
-    return existingLink ->
-        !getTierBaseUri(RdfTier.fromUri(newAnnotation.getQualityAnnotation()
-                                                     .getHasBody().
-                                                     getResource()).getTier())
-            .equals(getTierBaseUri(RdfTier.fromUri(existingLink.getQualityAnnotation()
-                                                               .getHasBody()
-                                                               .getResource()).getTier()));
-  }
-
   @NotNull
   private static HasQualityAnnotation createQualityAnnotation(String aggregatorAggregation, RdfTier rdfTier) {
+
     // Create the annotation
     final QualityAnnotation annotation = new QualityAnnotation();
     final Created created = new Created();
@@ -402,5 +280,61 @@ public final class RdfTierUtils {
     final HasQualityAnnotation link = new HasQualityAnnotation();
     link.setQualityAnnotation(annotation);
     return link;
+  }
+
+  private abstract static class AbstractTierTarget<T extends AboutType> {
+
+    private final T target;
+
+    public AbstractTierTarget(T target) {
+      this.target = target;
+    }
+
+    public T getTarget() {
+      return target;
+    }
+
+    public String getAbout() {
+      return target.getAbout();
+    }
+
+    public abstract List<HasQualityAnnotation> getHasQualityAnnotationList();
+
+    public abstract void setHasQualityAnnotationList(
+        List<HasQualityAnnotation> hasQualityAnnotationList);
+  }
+
+  private static class AggregatorOrProviderTarget extends AbstractTierTarget<Aggregation> {
+
+    public AggregatorOrProviderTarget(Aggregation target) {
+      super(target);
+    }
+
+    @Override
+    public List<HasQualityAnnotation> getHasQualityAnnotationList() {
+      return super.getTarget().getHasQualityAnnotationList();
+    }
+
+    @Override
+    public void setHasQualityAnnotationList(List<HasQualityAnnotation> hasQualityAnnotationList) {
+      super.getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
+    }
+  }
+
+  private static class EuropeanaTarget extends AbstractTierTarget<EuropeanaAggregationType> {
+
+    public EuropeanaTarget(EuropeanaAggregationType target) {
+      super(target);
+    }
+
+    @Override
+    public List<HasQualityAnnotation> getHasQualityAnnotationList() {
+      return super.getTarget().getHasQualityAnnotationList();
+    }
+
+    @Override
+    public void setHasQualityAnnotationList(List<HasQualityAnnotation> hasQualityAnnotationList) {
+      super.getTarget().setHasQualityAnnotationList(hasQualityAnnotationList);
+    }
   }
 }
