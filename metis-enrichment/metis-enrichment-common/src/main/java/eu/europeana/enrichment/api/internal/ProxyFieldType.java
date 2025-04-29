@@ -21,14 +21,11 @@ import eu.europeana.metis.schema.jibx.Type;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.lang3.StringUtils;
 
 public enum ProxyFieldType implements FieldType<ProxyType> {
 
@@ -75,11 +72,6 @@ public enum ProxyFieldType implements FieldType<ProxyType> {
     this.choiceContentHandler = new ChoiceContentHandler<>(choiceChecker, contentGetter,
         contentSetter, contentCreator);
     this.entityType = entityType;
-  }
-
-  public final Set<String> extractFieldLinksForEnrichment(ProxyType proxy) {
-    return extractFields(proxy).map(ResourceOrLiteralType::getResource).filter(Objects::nonNull)
-        .map(Resource::getResource).filter(StringUtils::isNotBlank).collect(Collectors.toSet());
   }
 
   @Override

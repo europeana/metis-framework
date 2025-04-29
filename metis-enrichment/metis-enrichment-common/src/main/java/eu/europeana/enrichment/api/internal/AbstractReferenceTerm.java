@@ -21,6 +21,10 @@ public abstract class AbstractReferenceTerm implements ReferenceTerm {
   }
 
   public String getReferenceAsString() {
-    return Optional.ofNullable(reference).map(URL::toString).orElse(null);
+    return urlToString(reference);
+  }
+
+  protected static String urlToString (URL url) {
+    return Optional.ofNullable(url).map(URL::toString).orElse(null);
   }
 }

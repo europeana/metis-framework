@@ -1,32 +1,87 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import java.lang.invoke.MethodHandles;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is an implementation of {@link ReferenceTerm} that provides context in the sense that it is
  * aware of the field type(s) in which the reference term was found.
  */
-public class ReferenceTermContext extends AbstractReferenceTerm {
+public final class ReferenceTermContext extends AbstractReferenceTerm {
 
-  private final Set<ProxyFieldType> proxyFieldTypes;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  public ReferenceTermContext(URL reference, Set<ProxyFieldType> proxyFieldTypes) {
+  private final Set<FieldType<?>> fieldTypes;
+
+  private ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
     super(reference);
-    this.proxyFieldTypes = Set.copyOf(proxyFieldTypes);
+    this.fieldTypes = Set.copyOf(fieldTypes);
+  }
+
+  /**
+   * Create an instance of this class.
+   *
+   * @param reference  The String version of the reference.
+   * @param fieldTypes The field types.
+   * @return An instance of this class.
+   */
+  public static ReferenceTermContext createFromString(String reference,
+      Set<FieldType<?>> fieldTypes) {
+    final URL referenceUrl = convertToURL(reference);
+    if (referenceUrl == null) {
+      LOGGER.debug("Invalid enrichment reference found: {}", reference);
+      return null;
+    }
+    return new ReferenceTermContext(referenceUrl, fieldTypes);
+  }
+
+  /**
+   * Converts a string version of a reference to a URL, doing some validation tests.
+   *
+   * @param reference The String version of a reference.
+   * @return The URL version of the reference.
+   */
+  private static URL convertToURL(String reference) {
+    try {
+      final URI uri = new URI(reference);
+      if (!uri.isAbsolute()) {
+        throw new MalformedURLException("URL is not absolute");
+      }
+      return uri.toURL();
+    } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
+      LOGGER.debug("Error converting reference to URL: {}", reference, e);
+      return null;
+    }
+  }
+
+  /**
+   * Determines whether this instance's reference is equal to some String value. This is done by
+   * creating a URL of the input value in the same way as the reference of this instance would have
+   * been, and then normalising both to strings before comparing them.
+   *
+   * @param toCompare The String value to compare the reference with.
+   * @return Whether this instance's reference is equal to the input value.
+   */
+  public boolean referenceEquals(String toCompare) {
+    return Objects.equals(urlToString(convertToURL(toCompare)), urlToString(getReference()));
   }
 
   @Override
   public Set<EntityType> getCandidateTypes() {
-    return proxyFieldTypes.stream().map(ProxyFieldType::getEntityType).collect(Collectors.toSet());
+    return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
-  public Set<ProxyFieldType> getProxyFieldTypes() {
-    return Collections.unmodifiableSet(proxyFieldTypes);
+  public Set<FieldType<?>> getFieldTypes() {
+    return fieldTypes;
   }
 
   @Override
@@ -39,13 +94,13 @@ public class ReferenceTermContext extends AbstractReferenceTerm {
     }
     final ReferenceTermContext that = (ReferenceTermContext) o;
     // Note: avoid using reference URL for equality as it may do a domain name check.
-    return Objects.equals(getProxyFieldTypes(), that.getProxyFieldTypes()) && Objects
+    return Objects.equals(getFieldTypes(), that.getFieldTypes()) && Objects
             .equals(getReferenceAsString(), that.getReferenceAsString());
   }
 
   @Override
   public int hashCode() {
     // Note: avoid using reference URL for computing the hash as it may do a domain name check.
-    return Objects.hash(getProxyFieldTypes(), getReferenceAsString());
+    return Objects.hash(getFieldTypes(), getReferenceAsString());
   }
 }

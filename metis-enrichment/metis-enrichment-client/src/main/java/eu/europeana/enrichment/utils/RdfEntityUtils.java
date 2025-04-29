@@ -4,7 +4,7 @@ package eu.europeana.enrichment.utils;
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
-import eu.europeana.enrichment.api.internal.ReferenceTerm;
+import eu.europeana.enrichment.api.internal.ReferenceTermContext;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -28,7 +28,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -78,37 +77,38 @@ public final class RdfEntityUtils {
       aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
           .filter(
               resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-                  searchTermAggregation)).forEach(resourceOrLiteralType -> {
-        final Resource resource = new Resource();
-        resource.setResource(link);
-        resourceOrLiteralType.setResource(resource);
-        resourceOrLiteralType.setLang(new Lang());
-        resourceOrLiteralType.setString("");
-      });
+                  searchTermAggregation))
+          .forEach(resourceOrLiteralType -> {
+            final Resource resource = new Resource();
+            resource.setResource(link);
+            resourceOrLiteralType.setResource(resource);
+            resourceOrLiteralType.setLang(new Lang());
+            resourceOrLiteralType.setString("");
+          });
     }
   }
 
   /**
-   * Replace matching aggregation values with their found corresponding links.
+   * Replace matching aggregation references with their found corresponding links.
    *
    * @param rdf the rdf to update
-   * @param listOfAboutTypes the list containing the about types relevant to the referenceTerm
-   * @param referenceTerm the aggregation search term to use for finding the matched values
+   * @param link the about value to use
+   * @param referenceTermContext the aggregation search term to use for finding the matched values
    */
-  public static void replaceResourceWithLinkInAggregation(RDF rdf, List<AboutType> listOfAboutTypes, ReferenceTerm referenceTerm) {
-    if(CollectionUtils.isNotEmpty(listOfAboutTypes)) {
-      final List<Aggregation> aggregationList = rdf.getAggregationList();
-
-      for (AggregationFieldType aggregationFieldType : AggregationFieldType.values()) {
-        aggregationList.stream().flatMap(aggregationFieldType::extractFields)
-                       .filter(resourceOrLiteralType -> isResourceEqualToUri(resourceOrLiteralType,
-                           referenceTerm.getReference().toString()))
-                       .forEach(resourceOrLiteralType -> {
-                         final Resource resource = new Resource();
-                         resource.setResource(listOfAboutTypes.getFirst().getAbout());
-                         resourceOrLiteralType.setResource(resource);
-                       });
-      }
+  public static void replaceReferenceWithLinkInAggregation(RDF rdf, String link,
+      ReferenceTermContext referenceTermContext) {
+    final List<Aggregation> aggregationList = rdf.getAggregationList();
+    for (FieldType<? extends AboutType> aggregationFieldType : referenceTermContext
+        .getFieldTypes()) {
+      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
+          .filter(resourceOrLiteralType -> resourceOrLiteralType.getResource() != null)
+          .filter(resourceOrLiteralType -> referenceTermContext.referenceEquals(
+              resourceOrLiteralType.getResource().getResource()))
+          .forEach(resourceOrLiteralType -> {
+            final Resource resource = new Resource();
+            resource.setResource(link);
+            resourceOrLiteralType.setResource(resource);
+          });
     }
   }
 
@@ -131,11 +131,6 @@ public final class RdfEntityUtils {
       }
     }
     return areEqual;
-  }
-
-  private static boolean isResourceEqualToUri(ResourceOrLiteralType resourceOrLiteralType, String uri){
-    return resourceOrLiteralType.getResource() != null &&
-            resourceOrLiteralType.getResource().getResource().equals(uri);
   }
 
   private static Map<ProxyFieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
