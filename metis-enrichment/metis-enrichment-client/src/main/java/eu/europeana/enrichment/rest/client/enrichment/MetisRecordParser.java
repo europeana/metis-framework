@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -65,9 +66,11 @@ public class MetisRecordParser implements RecordParser {
   @Override
   public Set<ReferenceTermContext> parseReferences(RDF rdf) {
 
-    // Get all direct references from proxies and aggregations. Also look in Europeana proxy as it
-    // may have been dereferenced - we use this below to follow sameAs links. We don't have to look
-    // in the Europeana aggregation as for aggregations dereferencing happens in place (in the aggregation).
+    // Get all direct references from proxies. Also look in Europeana proxy as it may have been
+    // dereferenced - we use this below to follow sameAs links. Note that links to entities that are
+    // already present in the record need to stay. It is possible that a different field (type)
+    // refers to an alias (sameAs) for the entity, in which case a new field needs to be created in
+    // the Europeana proxy.
     final Map<String, Set<FieldType<?>>> directReferences = new HashMap<>();
     final BiConsumer<Set<String>, FieldType<?>> directReferenceCollector = (links, field) -> links.stream()
         .map(link -> directReferences.computeIfAbsent(link, key -> new HashSet<>()))
@@ -78,10 +81,21 @@ public class MetisRecordParser implements RecordParser {
       proxies.stream().map(field::extractFieldLinksForEnrichment)
           .forEach(links -> directReferenceCollector.accept(links, field));
     }
+
+    // Add all direct references from aggregations. We don't have to look in the Europeana
+    // aggregation as for aggregations dereferencing happens in place (in the aggregation).
+    // Also, we can remove known entities as we don't want to change an existing reference
+    // and orphan any entity (contrary to proxy links, aggregation links are updated in place).
+    final Set<String> allEntityIds = Stream.of(rdf.getAgentList(), rdf.getConceptList(),
+            rdf.getOrganizationList(), rdf.getPlaceList(), rdf.getTimeSpanList())
+        .filter(Objects::nonNull).flatMap(Collection::stream)
+        .filter(Objects::nonNull).map(AboutType::getAbout)
+        .filter(Objects::nonNull).collect(Collectors.toSet());
     final List<Aggregation> aggregations = Optional.ofNullable(rdf.getAggregationList()).stream()
         .flatMap(Collection::stream).filter(Objects::nonNull).toList();
     for (AggregationFieldType field : AggregationFieldType.values()) {
       aggregations.stream().map(field::extractFieldLinksForEnrichment)
+          .peek(link -> link.removeAll(allEntityIds))
           .forEach(links -> directReferenceCollector.accept(links, field));
     }
 
@@ -110,15 +124,7 @@ public class MetisRecordParser implements RecordParser {
     // Merge the two maps.
     final Map<String, Set<FieldType<?>>> resultMap = mergeMapInto(directReferences,
         indirectReferences);
-
-    // Clean up the result: no null values. But entities that are already present in the record
-    // need to stay. It is possible that a different field (type) refers to an alias (sameAs) for
-    // the entity, in which case a new field needs to be created in the Europeana proxy.
-    // We can, however, remove known organisations as we will not add new fields for them.
     resultMap.remove(null);
-    Optional.ofNullable(rdf.getOrganizationList()).stream().flatMap(Collection::stream)
-        .filter(Objects::nonNull).map(AboutType::getAbout).filter(Objects::nonNull)
-        .forEach(resultMap::remove);
 
     // Convert and done
     return resultMap.entrySet().stream()
