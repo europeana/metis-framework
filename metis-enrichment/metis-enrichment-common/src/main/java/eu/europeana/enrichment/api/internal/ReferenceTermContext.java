@@ -1,12 +1,14 @@
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -16,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * This is an implementation of {@link ReferenceTerm} that provides context in the sense that it is
  * aware of the field type(s) in which the reference term was found.
  */
-public final class ReferenceTermContext extends AbstractReferenceTerm {
+public final class ReferenceTermContext extends AbstractReferenceTerm implements TermContext {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -80,8 +82,15 @@ public final class ReferenceTermContext extends AbstractReferenceTerm {
     return fieldTypes.stream().map(FieldType::getEntityType).collect(Collectors.toSet());
   }
 
+  @Override
   public Set<FieldType<?>> getFieldTypes() {
     return fieldTypes;
+  }
+
+  @Override
+  public boolean valueEquals(ResourceOrLiteralType resourceOrLiteralType) {
+    return Optional.ofNullable(resourceOrLiteralType.getResource())
+        .map(resource -> this.referenceEquals(resource.getResource())).orElse(false);
   }
 
   @Override

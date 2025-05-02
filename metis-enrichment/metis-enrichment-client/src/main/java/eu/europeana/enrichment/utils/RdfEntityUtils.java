@@ -2,11 +2,7 @@ package eu.europeana.enrichment.utils;
 
 
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
-import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
-import eu.europeana.enrichment.api.internal.ReferenceTermContext;
-import eu.europeana.enrichment.api.internal.SearchTerm;
-import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.EuropeanaType;
@@ -26,6 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
@@ -63,21 +60,21 @@ public final class RdfEntityUtils {
   }
 
   /**
-   * Replace matching aggregation values with their found corresponding links.
+   * Replace matching values in the Aggregation objects with the given link. Note:
+   * even if the aggregation terms are references, and the links are the same, it is still worth
+   * doing this. If nothing else, the term references are set to be exactly equal to that of the
+   * entity (whereas before we can only guarantee that they are equal up to normalisation).
    *
-   * @param rdf the rdf to update
-   * @param link the about value to use
-   * @param searchTermAggregation the aggregation search term to use for finding the matched values
+   * @param rdf the rdf to update.
+   * @param link the about value to introduce in the matching values.
+   * @param fieldTypes the field types to check for matching values.
+   * @param valueEquals predicate indicating whether a field value matches and should be replaced.
    */
-  public static void replaceValueWithLinkInAggregation(RDF rdf, String link,
-      SearchTermContext searchTermAggregation) {
+  public static void replaceValueOfTermInAggregation(RDF rdf, String link,
+      Set<AggregationFieldType> fieldTypes, Predicate<ResourceOrLiteralType> valueEquals) {
     final List<Aggregation> aggregationList = rdf.getAggregationList();
-    for (FieldType<? extends AboutType> aggregationFieldType : searchTermAggregation
-        .getFieldTypes()) {
-      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
-          .filter(
-              resourceOrLiteralType -> resourceOrLiteralAndSearchTermEquality(resourceOrLiteralType,
-                  searchTermAggregation))
+    for (AggregationFieldType aggregationFieldType : fieldTypes) {
+      aggregationList.stream().flatMap(aggregationFieldType::extractFields).filter(valueEquals)
           .forEach(resourceOrLiteralType -> {
             final Resource resource = new Resource();
             resource.setResource(link);
@@ -86,51 +83,6 @@ public final class RdfEntityUtils {
             resourceOrLiteralType.setString("");
           });
     }
-  }
-
-  /**
-   * Replace matching aggregation references with their found corresponding links.
-   *
-   * @param rdf the rdf to update
-   * @param link the about value to use
-   * @param referenceTermContext the aggregation search term to use for finding the matched values
-   */
-  public static void replaceReferenceWithLinkInAggregation(RDF rdf, String link,
-      ReferenceTermContext referenceTermContext) {
-    final List<Aggregation> aggregationList = rdf.getAggregationList();
-    for (FieldType<? extends AboutType> aggregationFieldType : referenceTermContext
-        .getFieldTypes()) {
-      aggregationList.stream().flatMap(((AggregationFieldType) aggregationFieldType)::extractFields)
-          .filter(resourceOrLiteralType -> resourceOrLiteralType.getResource() != null)
-          .filter(resourceOrLiteralType -> referenceTermContext.referenceEquals(
-              resourceOrLiteralType.getResource().getResource()))
-          .forEach(resourceOrLiteralType -> {
-            final Resource resource = new Resource();
-            resource.setResource(link);
-            resourceOrLiteralType.setResource(resource);
-          });
-    }
-  }
-
-  private static boolean resourceOrLiteralAndSearchTermEquality(
-      ResourceOrLiteralType resourceOrLiteralType, SearchTerm searchTerm) {
-
-    boolean areEqual = false;
-    //Check literal values
-    if (resourceOrLiteralType.getString() != null && resourceOrLiteralType.getString()
-        .equals(searchTerm.getTextValue())) {
-      //Check if both languages are blank
-      if ((resourceOrLiteralType.getLang() == null || StringUtils
-          .isBlank(resourceOrLiteralType.getLang().getLang())) && StringUtils
-          .isBlank(searchTerm.getLanguage())) {
-        areEqual = true;
-      } else if (resourceOrLiteralType.getLang() != null
-          && resourceOrLiteralType.getLang().getLang() != null) {
-        //If not blank check language equality
-        areEqual = resourceOrLiteralType.getLang().getLang().equals(searchTerm.getLanguage());
-      }
-    }
-    return areEqual;
   }
 
   private static Map<ProxyFieldType, Set<String>> getAllProxyLinksPerType(RDF rdf) {
