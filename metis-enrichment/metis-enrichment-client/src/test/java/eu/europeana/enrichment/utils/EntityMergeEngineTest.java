@@ -564,7 +564,7 @@ class EntityMergeEngineTest {
     rdf.setProxyList(List.of(proxyType));
 
     // Perform merge
-    new EntityMergeEngine().mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList,
+    new EntityMergeEngine().mergeEntities(rdf, enrichmentResultBaseWrapperList,
         ReferenceTermContext.createFromString(inputList.getFirst().getAbout(),
             Set.of(ProxyFieldType.DCTERMS_SPATIAL)));
 
@@ -602,13 +602,13 @@ class EntityMergeEngineTest {
     rdf.setProxyList(List.of(proxyType));
 
     // Perform merge
-    new EntityMergeEngine().mergeReferenceEntities(rdf, agentList,
+    new EntityMergeEngine().mergeEntities(rdf, agentList,
         ReferenceTermContext.createFromString(agentList.getFirst().getAbout(),
             Set.of(ProxyFieldType.DC_CREATOR)));
-    new EntityMergeEngine().mergeReferenceEntities(rdf, conceptList,
+    new EntityMergeEngine().mergeEntities(rdf, conceptList,
         ReferenceTermContext.createFromString(conceptList.getFirst().getAbout(),
             Set.of(ProxyFieldType.DC_SUBJECT)));
-    new EntityMergeEngine().mergeReferenceEntities(rdf, timespanList,
+    new EntityMergeEngine().mergeEntities(rdf, timespanList,
         ReferenceTermContext.createFromString(timespanList.getFirst().getAbout(),
             Set.of(ProxyFieldType.DCTERMS_TEMPORAL)));
 
@@ -637,7 +637,9 @@ class EntityMergeEngineTest {
     RDF rdf = new RDF();
     EntityMergeEngine entityMergeEngine = new EntityMergeEngine();
     IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class,
-        () -> entityMergeEngine.mergeReferenceEntities(rdf, enrichmentResultBaseWrapperList, null));
-    assertTrue( illegalArgumentException.getMessage().contains("Unknown entity type"));
+        () -> entityMergeEngine.mergeEntities(rdf, enrichmentResultBaseWrapperList,
+            ReferenceTermContext.createFromString("http://invalid_entity",
+                Set.of(ProxyFieldType.DCTERMS_TEMPORAL))));
+    assertTrue(illegalArgumentException.getMessage().contains("Unknown entity type"));
   }
 }

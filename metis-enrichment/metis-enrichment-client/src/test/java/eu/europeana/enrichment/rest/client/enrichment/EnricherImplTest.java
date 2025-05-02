@@ -28,8 +28,6 @@ import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -155,7 +153,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferencesHappyFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferencesHappyFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -175,7 +173,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferenceWarnFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -233,7 +231,7 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceExceptionFlow() throws MalformedURLException, URISyntaxException {
+  void testEnrichReferenceExceptionFlow() {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
@@ -329,7 +327,7 @@ class EnricherImplTest {
     final List<EnrichmentBase> expectedMerges = new ArrayList<>();
     ENRICHMENT_RESULT.forEach((x, y) -> expectedMerges.addAll(y));
     verify(entityMergeEngine, times(ENRICHMENT_RESULT.size()))
-        .mergeSearchEntities(any(), enrichmentResultCaptor.capture(), any(SearchTermContext.class));
+        .mergeEntities(any(), enrichmentResultCaptor.capture(), any(SearchTermContext.class));
     // Note that the captor returns a linked list, so we don't want to use indices.
     // But the interface gives a generic type List, so we don't want to depend on the
     // linked list functionality either.
@@ -356,9 +354,9 @@ class EnricherImplTest {
   }
 
   private void verifyMergeNullFlow(EntityMergeEngine entityMergeEngine) {
-    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), eq(Collections.emptyList()),
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), eq(Collections.emptyList()),
         any(ReferenceTermContext.class));
-    verify(entityMergeEngine, times(0)).mergeReferenceEntities(any(), any(), any(ReferenceTermContext.class));
+    verify(entityMergeEngine, times(0)).mergeEntities(any(), any(), any(ReferenceTermContext.class));
   }
 
   private HashSet<Report> getExpectedReportMessagesHappyFlow() {

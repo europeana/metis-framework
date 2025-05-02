@@ -1,8 +1,7 @@
 package eu.europeana.enrichment.utils;
 
 import static eu.europeana.enrichment.utils.RdfEntityUtils.appendLinkToEuropeanaProxy;
-import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceReferenceWithLinkInAggregation;
-import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueWithLinkInAggregation;
+import static eu.europeana.enrichment.utils.RdfEntityUtils.replaceValueOfTermInAggregation;
 
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.Concept;
@@ -14,14 +13,10 @@ import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
-import eu.europeana.enrichment.api.internal.ReferenceTermContext;
-import eu.europeana.enrichment.api.internal.SearchTermContext;
+import eu.europeana.enrichment.api.internal.TermContext;
 import eu.europeana.enrichment.rest.client.dereference.DereferencedEntities;
 import eu.europeana.metis.schema.jibx.AboutType;
-import eu.europeana.metis.schema.jibx.AgentType;
-import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.metis.schema.jibx.TimeSpanType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +27,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 
 /**
@@ -40,11 +36,12 @@ import java.util.stream.Collectors;
  */
 public class EntityMergeEngine {
 
-  private static final Map<EntityType, Class<? extends AboutType>> ENTITY_TYPE_MAP = Map.of(
-      EntityType.AGENT, AgentType.class,
-      EntityType.CONCEPT, eu.europeana.metis.schema.jibx.Concept.class,
-      EntityType.PLACE, PlaceType.class,
-      EntityType.TIMESPAN, TimeSpanType.class
+  private static final Map<EntityType, Class<? extends EnrichmentBase>> ENTITY_TYPE_MAP = Map.of(
+      EntityType.AGENT, Agent.class,
+      EntityType.CONCEPT, Concept.class,
+      EntityType.PLACE, Place.class,
+      EntityType.TIMESPAN, TimeSpan.class,
+      EntityType.ORGANIZATION, Organization.class
   );
 
   private static <I extends EnrichmentBase, T extends AboutType> T convertAndAddEntity(
@@ -53,9 +50,9 @@ public class EntityMergeEngine {
 
     // Check if Entity already exists in the list. If so, return it. We don't overwrite.
     final T existingEntity = Optional.ofNullable(listGetter.get()).stream()
-                                     .flatMap(Collection::stream)
-                                     .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
-                                     .orElse(null);
+        .flatMap(Collection::stream)
+        .filter(candidate -> inputEntity.getAbout().equals(candidate.getAbout())).findAny()
+        .orElse(null);
     if (existingEntity != null) {
       return existingEntity;
     }
@@ -94,42 +91,27 @@ public class EntityMergeEngine {
   /**
    * Filters the list of fields to include only those whose entity type matches that of the given
    * entity. The idea is that links should not be created to entities of the wrong type for the
-   * field.
+   * field. This method also splits the fields into proxy fields and aggregation fields.
    *
    * @param entity The entity to link
    * @param fields The fields to link from.
    * @return The fields appropriate for linking to this entity.
    */
-  private static Set<ProxyFieldType> filterFieldTypesForLinking(AboutType entity,
-      Set<FieldType<?>> fields) {
-    return fields.stream()
-        .filter(field -> Optional
-            .ofNullable(ENTITY_TYPE_MAP.get(field.getEntityType()))
-            .map(type -> type.isAssignableFrom(entity.getClass()))
-            .orElse(false))
-        .map(ProxyFieldType.class::cast).collect(Collectors.toSet());
-  }
-
-  /**
-   * Merge entities in a record.
-   *
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   * @param searchTermContext the search term context
-   */
-  public void mergeSearchEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      SearchTermContext searchTermContext) {
-    for (EnrichmentBase base : enrichmentBaseList) {
-      final AboutType entity = convertAndAddEntity(rdf, base);
-      if (isProxyFieldType(searchTermContext.getFieldTypes())) {
-        // Filter the fields. We know at least one of the fields is of the correct type.
-        appendLinkToEuropeanaProxy(rdf, entity.getAbout(),
-            filterFieldTypesForLinking(entity, searchTermContext.getFieldTypes()));
-      } else {
-        // In Aggregation replace search term with reference
-        replaceValueWithLinkInAggregation(rdf, entity.getAbout(), searchTermContext);
-      }
+  private static Pair<Set<ProxyFieldType>, Set<AggregationFieldType>> filterFieldTypesForLinking(
+      EnrichmentBase entity, Set<FieldType<?>> fields) {
+    final List<EntityType> entityTypes = ENTITY_TYPE_MAP.entrySet().stream()
+        .filter(entry -> entry.getValue().isAssignableFrom(entity.getClass()))
+        .map(Map.Entry::getKey).distinct().toList();
+    if (entityTypes.size() != 1) {
+      throw new IllegalArgumentException("Unknown entity type: " + entity.getClass());
     }
+    final Set<FieldType<?>> result = fields.stream()
+        .filter(field -> field.getEntityType() == entityTypes.getFirst())
+        .collect(Collectors.toSet());
+    return ImmutablePair.of(result.stream().filter(ProxyFieldType.class::isInstance)
+            .map(ProxyFieldType.class::cast).collect(Collectors.toSet()),
+        result.stream().filter(AggregationFieldType.class::isInstance)
+            .map(AggregationFieldType.class::cast).collect(Collectors.toSet()));
   }
 
   /**
@@ -139,19 +121,29 @@ public class EntityMergeEngine {
    *
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
-   * @param referenceTermContext the reference term context
+   * @param termContext the reference/search term context
    */
-  public void mergeReferenceEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      ReferenceTermContext referenceTermContext) {
+  public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+      TermContext termContext) {
     for (EnrichmentBase base : enrichmentBaseList) {
+
+      // Filter the fields into those suitable for the type of the entity to add.
+      final Pair<Set<ProxyFieldType>, Set<AggregationFieldType>> fields =
+          filterFieldTypesForLinking(base, termContext.getFieldTypes());
+      if (fields.getLeft().isEmpty() && fields.getRight().isEmpty()) {
+        continue;
+      }
+
+      // Convert and add the entity to the record.
       final AboutType entity = convertAndAddEntity(rdf, base);
-      if (isProxyFieldType(referenceTermContext.getFieldTypes())) {
-        // Filter the fields. We know at least one of the fields is of the correct type.
-        appendLinkToEuropeanaProxy(rdf, entity.getAbout(),
-            filterFieldTypesForLinking(entity, referenceTermContext.getFieldTypes()));
-      } else if (!referenceTermContext.referenceEquals(entity.getAbout())) {
-        // In aggregation replace reference with updated reference
-        replaceReferenceWithLinkInAggregation(rdf, entity.getAbout(), referenceTermContext);
+
+      // Append or update the references to the entity in the record.
+      if (!fields.getLeft().isEmpty()) {
+        appendLinkToEuropeanaProxy(rdf, entity.getAbout(), fields.getLeft());
+      }
+      if (!fields.getRight().isEmpty()) {
+        replaceValueOfTermInAggregation(rdf, entity.getAbout(), fields.getRight(),
+            termContext::valueEquals);
       }
     }
   }
@@ -166,21 +158,5 @@ public class EntityMergeEngine {
     for (Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
       entry.getValue().forEach(base -> convertAndAddEntity(rdf, base));
     }
-  }
-
-  private static <T extends FieldType<? extends AboutType>> boolean isProxyFieldType(Set<T> set) {
-    //This shouldn't happen normally
-    if (set == null || set.isEmpty()) {
-      throw new IllegalArgumentException("Set cannot be empty");
-    }
-    final boolean allProxyFieldTypes = set.stream().allMatch(ProxyFieldType.class::isInstance);
-    final boolean allAggregationFieldTypes = set.stream()
-                                                .allMatch(AggregationFieldType.class::isInstance);
-
-    if (!allProxyFieldTypes && !allAggregationFieldTypes) {
-      throw new IllegalArgumentException("Invalid set");
-    }
-
-    return allProxyFieldTypes;
   }
 }

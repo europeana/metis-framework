@@ -103,12 +103,12 @@ public class EnricherImpl implements Enricher {
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues.getLeft() != null) {
       for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.getLeft().entrySet()) {
-        entityMergeEngine.mergeSearchEntities(rdf, entry.getValue(), entry.getKey());
+        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
     if (enrichedReferences.getLeft() != null) {
       for (Entry<ReferenceTermContext, List<EnrichmentBase>> entry : enrichedReferences.getLeft().entrySet()) {
-        entityMergeEngine.mergeReferenceEntities(rdf, entry.getValue(), entry.getKey());
+        entityMergeEngine.mergeEntities(rdf, entry.getValue(), entry.getKey());
       }
     }
 
@@ -207,10 +207,10 @@ public class EnricherImpl implements Enricher {
     final ProxyType europeanaProxy = RdfEntityUtils.getEuropeanaProxy(rdf);
     //Find the correct links
     final Set<String> matchingLinks = Arrays.stream(ProxyFieldType.values())
-                                            .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
-                                            .flatMap(Collection::stream)
-                                            .filter(europeanaLinkPattern.asPredicate().or(semiumLinkPattern.asPredicate()))
-                                            .collect(Collectors.toSet());
+        .map(proxyFieldType -> proxyFieldType.extractFieldLinksForEnrichment(europeanaProxy))
+        .flatMap(Collection::stream)
+        .filter(europeanaLinkPattern.asPredicate().or(semiumLinkPattern.asPredicate()))
+        .collect(Collectors.toSet());
     RdfEntityUtils.removeMatchingEntities(rdf, matchingLinks);
   }
 
