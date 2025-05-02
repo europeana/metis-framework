@@ -522,6 +522,7 @@ class EntityMergeEngineTest {
       assertNotNull(rdf.getTimeSpanList());
       assertEquals(timeSpanCount, rdf.getTimeSpanList().size());
     }
+      assertTrue(CollectionUtils.isEmpty(rdf.getOrganizationList()));
     assertTrue(CollectionUtils.isEmpty(rdf.getOrganizationList()));
 
     // Other lists should be empty (except the Europeana proxy).

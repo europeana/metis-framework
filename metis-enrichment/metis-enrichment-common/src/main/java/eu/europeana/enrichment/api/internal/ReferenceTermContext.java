@@ -2,6 +2,7 @@ package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import java.lang.invoke.MethodHandles;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,11 +18,16 @@ import org.slf4j.LoggerFactory;
  * This is an implementation of {@link ReferenceTerm} that provides context in the sense that it is
  * aware of the field type(s) in which the reference term was found.
  */
-public class ReferenceTermContext extends AbstractReferenceTerm implements TermContext {
+public final class ReferenceTermContext extends AbstractReferenceTerm implements TermContext {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ReferenceTermContext.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private final Set<FieldType<?>> fieldTypes;
+
+  private ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
+    super(reference);
+    this.fieldTypes = Set.copyOf(fieldTypes);
+  }
 
   /**
    * Create an instance of this class.
@@ -54,6 +60,7 @@ public class ReferenceTermContext extends AbstractReferenceTerm implements TermC
       }
       return uri.toURL();
     } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
+      LOGGER.debug("Error converting reference to URL: {}", reference, e);
       return null;
     }
   }
@@ -68,11 +75,6 @@ public class ReferenceTermContext extends AbstractReferenceTerm implements TermC
    */
   public boolean referenceEquals(String toCompare) {
     return Objects.equals(urlToString(convertToURL(toCompare)), urlToString(getReference()));
-  }
-
-  private ReferenceTermContext(URL reference, Set<FieldType<?>> fieldTypes) {
-    super(reference);
-    this.fieldTypes = Set.copyOf(fieldTypes);
   }
 
   @Override
