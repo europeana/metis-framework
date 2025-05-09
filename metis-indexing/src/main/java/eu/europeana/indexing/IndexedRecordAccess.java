@@ -251,7 +251,7 @@ public class IndexedRecordAccess {
   private Query<FullBeanImpl> createMongoQuery(String datasetId, Date maxRecordDate) {
     final Pattern pattern = Pattern.compile("^" + Pattern.quote(getRecordIdPrefix(datasetId)));
     final Query<FullBeanImpl> query = recordDao.getDatastore().find(FullBeanImpl.class);
-    query.filter(Filters.regex(ABOUT_FIELD).pattern(pattern));
+    query.filter(Filters.regex(ABOUT_FIELD, pattern));
     if (maxRecordDate != null) {
       query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }

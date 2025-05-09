@@ -142,18 +142,24 @@ public class IndexerImpl implements Indexer {
     if (depublicationReason == DepublicationReason.LEGACY) {
       throw new IndexerRelatedIndexingException(
           format("Depublication reason %s, is not allowed", depublicationReason));
-    }
-    final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
-    if (publishedFullbean != null) {
-      final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-      final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
-      try {
-        publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
-      } catch (IndexingException e) {
-        throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
+    } else if (!(depublicationReason == DepublicationReason.GDPR
+    || depublicationReason == DepublicationReason.PERMISSION_ISSUES
+    || depublicationReason == DepublicationReason.SENSITIVE_CONTENT)) {
+      final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
+      if (publishedFullbean != null) {
+        final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
+        final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
+        try {
+          publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
+        } catch (IndexingException e) {
+          throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
+        }
       }
+      return publishedFullbean != null;
+    } else {
+      LOGGER.warn("Record {} Depublication reason {} disabled temporarily for tombstone indexing.", rdfAbout, depublicationReason);
+      return false;
     }
-    return publishedFullbean != null;
   }
 
   @Override
