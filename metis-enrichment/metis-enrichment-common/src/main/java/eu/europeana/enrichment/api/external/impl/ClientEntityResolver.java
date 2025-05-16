@@ -24,6 +24,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,14 +37,20 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
  *
- * @author Srishti.singh@europeana.eu
+ * @author Srishti.singh @europeana.eu
  */
 public class ClientEntityResolver implements EntityResolver {
 
+  private static final int CACHE_TTL_MILLIS = 5 * 60 * 1000; // 5 minutes * 60 seconds * 1000 ms => 300000ms
+  private static final int INITIAL_DELAY_TIME_MINUTES = 30;
+  private static final int PERIOD_CLEANUP_MINUTES = 30;
+
   private final LanguageCodeConverter languageCodeConverter;
   private final EntityApiClient entityClientApi;
-
-
+  private final OperationMode operationMode;
+  private final ClientEntityResolverCache<String, Entity> entityResolverCache;
+  private final ClientEntityResolverCache<String, List<Entity>> referenceTermResolverCache;
+  private final ClientEntityResolverCache<SearchTerm, List<Entity>> searchTermResolverCache;
   /**
    * Constructor with required parameters.
    *
@@ -50,6 +59,48 @@ public class ClientEntityResolver implements EntityResolver {
   public ClientEntityResolver(EntityApiClient entityClientApi) {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
+    this.operationMode = OperationMode.NON_CACHED;
+    this.entityResolverCache = null;
+    this.referenceTermResolverCache = null;
+    this.searchTermResolverCache = null;
+  }
+
+  /**
+   * Constructor with required parameters.
+   *
+   * @param entityClientApi the entity client api
+   * @param mode the mode
+   */
+  public ClientEntityResolver(EntityApiClient entityClientApi, OperationMode mode) {
+    this.languageCodeConverter = new LanguageCodeConverter();
+    this.entityClientApi = entityClientApi;
+    this.operationMode = mode;
+    this.entityResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
+    this.referenceTermResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
+    this.searchTermResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
+
+    // add a periodical cleanup
+    try (ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor()) {
+      executor.scheduleAtFixedRate(() -> {
+        entityResolverCache.cleanup();
+        referenceTermResolverCache.cleanup();
+        searchTermResolverCache.cleanup();
+      }, INITIAL_DELAY_TIME_MINUTES, PERIOD_CLEANUP_MINUTES, TimeUnit.MINUTES);
+    }
+  }
+
+  /**
+   * The enum Operation mode.
+   */
+  public enum OperationMode {
+    /**
+     * Normal operation mode.
+     */
+    NON_CACHED,
+    /**
+     * Cached operation mode.
+     */
+    CACHED
   }
 
   @Override
@@ -79,17 +130,26 @@ public class ClientEntityResolver implements EntityResolver {
   private EnrichmentBase resolveId(ReferenceTerm referenceTerm) {
     final String referenceValue = referenceTerm.getReference().toString();
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      final Entity entity;
-      try {
-        entity = retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.getEntity(referenceValue));
-      } catch (EntityClientException e) {
-        throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
-      }
+      final Entity entity = switch (operationMode) {
+        case NON_CACHED -> getResolveId(referenceValue);
+        case CACHED -> entityResolverCache.computeIfAbsent(referenceValue, key-> getResolveId(referenceValue));
+        case null -> throw new EntityApiException("Operation mode not defined", null);
+      };
+
       return (entity.getEntityId().equals(referenceValue))
           ? EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entity) : null;
     }
     return null;
+  }
+
+  private Entity getResolveId(String referenceValue) {
+    final Entity entity;
+    try {
+      entity = retryableExternalRequestForNetworkExceptionsThrowing(() -> entityClientApi.getEntity(referenceValue));
+    } catch (EntityClientException e) {
+      throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
+    }
+    return entity;
   }
 
   /**
@@ -104,19 +164,39 @@ public class ClientEntityResolver implements EntityResolver {
   private List<EnrichmentBase> resolveEquivalency(ReferenceTerm referenceTerm) {
     final String referenceValue = referenceTerm.getReference().toString();
     final List<Entity> entities;
-    try {
-      if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-                () -> entityClientApi.getEntity(referenceValue))).map(List::of)
-            .orElse(Collections.emptyList());
-      } else {
-        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
+
+    switch (operationMode) {
+      case NON_CACHED -> {
+        try {
+          entities = getResolveEquivalency(referenceValue);
+        } catch (EntityClientException e) {
+          throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+        }
       }
-    } catch (EntityClientException e) {
-      throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+      case CACHED -> entities = referenceTermResolverCache.computeIfAbsent(referenceValue, reference -> {
+        try {
+          return getResolveEquivalency(referenceValue);
+        } catch (EntityClientException e) {
+          throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+        }
+      });
+      case null -> throw new EntityApiException("Operation mode not defined", null);
     }
+
     return convertToEnrichmentBase(extendEntitiesWithParents(entities));
+  }
+
+  private List<Entity> getResolveEquivalency(String referenceValue) throws EntityClientException {
+    final List<Entity> entities;
+    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+              () -> entityClientApi.getEntity(referenceValue))).map(List::of)
+                         .orElse(Collections.emptyList());
+    } else {
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
+    }
+    return entities;
   }
 
   /**
@@ -140,6 +220,17 @@ public class ClientEntityResolver implements EntityResolver {
                                                      .collect(Collectors.joining(","));
     final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
     final List<Entity> result;
+    switch (operationMode) {
+      case NON_CACHED -> result = getResolveTextSearch(searchTerm, language, entityTypesConcatenated);
+      case CACHED -> result = searchTermResolverCache.computeIfAbsent(searchTerm, term -> getResolveTextSearch(searchTerm, language, entityTypesConcatenated));
+      case null -> throw new EntityApiException("Operation mode not defined", null);
+    }
+    final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
+    return convertToEnrichmentBase(extendEntitiesWithParents(singleResult));
+  }
+
+  private List<Entity> getResolveTextSearch(SearchTerm searchTerm, String language, String entityTypesConcatenated) {
+    final List<Entity> result;
     try {
       result = retryableExternalRequestForNetworkExceptionsThrowing(
           () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
@@ -147,8 +238,7 @@ public class ClientEntityResolver implements EntityResolver {
       throw new EntityApiException(format("Enrichment request failed for textValue: %s, language: %s, entityTypes: %s.",
           searchTerm.getTextValue(), searchTerm.getLanguage(), entityTypesConcatenated), e);
     }
-    final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
-    return convertToEnrichmentBase(extendEntitiesWithParents(singleResult));
+    return result;
   }
 
   /**
@@ -190,12 +280,13 @@ public class ClientEntityResolver implements EntityResolver {
               .filter(StringUtils::isNotBlank)
               .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
               .map(parentEntityId -> {
-                try {
-                  return retryableExternalRequestForNetworkExceptionsThrowing(
-                      () -> entityClientApi.getEntity(parentEntityId));
-                } catch (EntityClientException e) {
-                  throw new EntityApiException("Issue trying to get parent entity with ID" + parentEntityId, e);
+                Entity parentEntity;
+                switch (operationMode) {
+                  case NON_CACHED -> parentEntity = getResolveId(parentEntityId);
+                  case CACHED -> parentEntity = entityResolverCache.computeIfAbsent(parentEntityId, key-> getResolveId(parentEntityId));
+                  case null -> throw new EntityApiException("Operation mode not defined", null);
                 }
+                return parentEntity;
               })
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
