@@ -11,6 +11,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver.OperationMode;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
@@ -34,8 +35,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 class ClientEntityResolverTest {
 
@@ -51,10 +52,10 @@ class ClientEntityResolverTest {
                                             int enrichmentBasesExpectedResults) {
   }
 
-  @BeforeAll
-  static void prepare() {
+
+  static void prepare(OperationMode mode) {
     entityClientApi = mock(EntityApiClient.class);
-    clientEntityResolver = new ClientEntityResolver(entityClientApi);
+    clientEntityResolver = new ClientEntityResolver(entityClientApi, mode);
   }
 
   @AfterEach
@@ -62,9 +63,11 @@ class ClientEntityResolverTest {
     reset(entityClientApi);
   }
 
-  @Test
-  void resolveByText_Entity_Without_Parents() throws EntityClientException {
-    SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
+    SearchTermImpl searchTerm = new SearchTermImpl("Netherlands", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
@@ -76,8 +79,10 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_Multiple_Entities_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_Multiple_Entities_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTermImpl searchTerm = new SearchTermImpl("Greece", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -90,8 +95,10 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_Entity_With_One_Parent() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_Entity_With_One_Parent(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -108,8 +115,10 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_Entity_With_One_Parent_Circular_OK() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_Entity_With_One_Parent_Circular_OK(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTerm searchTerm = new SearchTermImpl("Crete", "en");
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -127,28 +136,38 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_3LetterLanguage_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_3LetterLanguage_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     test_not_null("eng", "en");
   }
 
-  @Test
-  void resolveByText_InvalidLanguage_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_InvalidLanguage_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     test_not_null("invalidLanguage", null);
   }
 
-  @Test
-  void resolveByText_1LetterLanguage_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_1LetterLanguage_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     test_not_null("e", null);
   }
 
-  @Test
-  void resolveByText_EmptyLanguage_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_EmptyLanguage_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     test_not_null("", null);
   }
 
-  @Test
-  void resolveByText_NullLanguage_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_NullLanguage_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     test_not_null(null, null);
   }
 
@@ -163,8 +182,10 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_CorrectEntityType_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_CorrectEntityType_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.PLACE));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -177,8 +198,10 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_IncorrectEntityType_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_IncorrectEntityType_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -189,8 +212,10 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_MultipleEntityTypes_Entity_Without_Parents() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_MultipleEntityTypes_Entity_Without_Parents(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     SearchTerm searchTerm = new SearchTermImpl("Greece", "eng", Set.of(EntityType.TIMESPAN, EntityType.PLACE));
     String expectedConvertedLanguage = "en";
     Entity placeEntity = new Place();
@@ -203,10 +228,12 @@ class ClientEntityResolverTest {
             enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByText_JsonProcessingException() throws EntityClientException {
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByText_JsonProcessingException(OperationMode operationMode) throws EntityClientException {
+    prepare(operationMode);
     when(entityClientApi.enrichEntity(anyString(), anyString(), anyString(), isNull())).thenThrow(EntityClientException.class);
-    final Set<SearchTermImpl> searchTerms = Set.of(new SearchTermImpl("Greece", "en"));
+    final Set<SearchTermImpl> searchTerms = Set.of(new SearchTermImpl("Italy", "it"));
     assertThrows(EntityApiException.class, () -> clientEntityResolver.resolveByText(searchTerms));
   }
 
@@ -230,9 +257,11 @@ class ClientEntityResolverTest {
     resultAssertions(searchTermsEntitiesMap, searchTermEnrichmentBasesMap);
   }
 
-  @Test
-  void resolveById_For_equivalency()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveById_For_equivalency(OperationMode operationMode)
       throws URISyntaxException, MalformedURLException, EntityClientException {
+    prepare(operationMode);
     final ReferenceTerm referenceTermId = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     final ReferenceTerm referenceTermEquivalence = new ReferenceTermImpl(new URI(CHILD_SAME_AS_URI).toURL());
     final Entity placeEntity = new Place();
@@ -247,9 +276,11 @@ class ClientEntityResolverTest {
     assertEquals(0, resultEquivalence.size());
   }
 
-  @Test
-  void resolveById_Entity_Without_Parents()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveById_Entity_Without_Parents(OperationMode operationMode)
       throws MalformedURLException, URISyntaxException, EntityClientException {
+    prepare(operationMode);
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
@@ -283,9 +314,11 @@ class ClientEntityResolverTest {
     resultAssertions(referenceTermsEntitiesMap, referenceTermEnrichmentBasesMap);
   }
 
-  @Test
-  void resolveByUri_Entity_Without_Parents()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByUri_Entity_Without_Parents(OperationMode operationMode)
       throws MalformedURLException, URISyntaxException, EntityClientException {
+    prepare(operationMode);
     Entity placeEntity = new Place();
     placeEntity.setEntityId(PARENT_URI);
     final ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(PARENT_URI).toURL());
@@ -296,9 +329,11 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByUri_Entity_With_One_Parent()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByUri_Entity_With_One_Parent(OperationMode operationMode)
       throws MalformedURLException, URISyntaxException, EntityClientException {
+    prepare(operationMode);
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -313,9 +348,11 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByUri_SameAsCheck_Entity_With_One_Parent_Circular_OK(OperationMode operationMode)
       throws URISyntaxException, MalformedURLException, EntityClientException {
+    prepare(operationMode);
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_SAME_AS_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
@@ -331,9 +368,11 @@ class ClientEntityResolverTest {
         enrichmentBasesExpectedResults)));
   }
 
-  @Test
-  void resolveByUri_Entity_With_One_Parent_Circular_OK()
+  @ParameterizedTest
+  @EnumSource(OperationMode.class)
+  void resolveByUri_Entity_With_One_Parent_Circular_OK(OperationMode operationMode)
       throws URISyntaxException, MalformedURLException, EntityClientException {
+    prepare(operationMode);
     ReferenceTerm referenceTerm = new ReferenceTermImpl(new URI(CHILD_URI).toURL());
     Entity placeEntity = new Place();
     placeEntity.setEntityId(CHILD_URI);
