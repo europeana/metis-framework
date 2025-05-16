@@ -1,8 +1,8 @@
 package eu.europeana.indexing.mongo.property;
 
-import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequest;
 
-import com.mongodb.DuplicateKeyException;
+import com.mongodb.MongoWriteException;
 import dev.morphia.UpdateOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.updates.UpdateOperator;
@@ -15,10 +15,12 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.mongo.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.mongo.WebResourceInformation;
 import eu.europeana.metis.mongo.dao.RecordDao;
+import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,8 +32,6 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class provides the base implementation of {@link MongoPropertyUpdater}.
@@ -40,19 +40,24 @@ import org.slf4j.LoggerFactory;
  */
 class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MongoPropertyUpdaterImpl.class);
-
   private static final UnaryOperator<String[]> STRING_ARRAY_PREPROCESSING = array -> Stream
       .of(array).filter(StringUtils::isNotBlank).map(String::trim).toArray(String[]::new);
 
   private static final Comparator<AbstractEdmEntity> ENTITY_COMPARATOR = Comparator
       .comparing(AbstractEdmEntity::getAbout);
 
+  private static final Map<Class<?>, String> retryExceptions;
+
   private final T current;
   private final T updated;
   private final RecordDao mongoServer;
   private final List<UpdateOperator> updateOperators;
   private final Supplier<Query<T>> queryCreator;
+
+  static {
+    retryExceptions = new HashMap<>(ExternalRequestUtil.UNMODIFIABLE_MAP_WITH_NETWORK_EXCEPTIONS);
+    retryExceptions.put(MongoWriteException.class, "E11000 duplicate key error collection");
+  }
 
   MongoPropertyUpdaterImpl(T current, T updated, RecordDao mongoServer,
       List<UpdateOperator> updateOperators, Supplier<Query<T>> queryCreator) {
@@ -280,12 +285,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
     final UpdateOperator[] extraUpdateOperators = this.updateOperators.toArray(UpdateOperator[]::new);
     final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
     final Query<T> update = queryCreator.get();
-    try {
-      retryableExternalRequestForNetworkExceptions(() -> update.update(updateOptions, extraUpdateOperators));
-    } catch (DuplicateKeyException e) {
-      LOGGER.debug("Received duplicate key exception, trying again once more.", e);
-      update.update(updateOptions, extraUpdateOperators);
-    }
+    retryableExternalRequest(() -> update.update(updateOptions, extraUpdateOperators), retryExceptions);
     return queryCreator.get().first();
   }
 }
