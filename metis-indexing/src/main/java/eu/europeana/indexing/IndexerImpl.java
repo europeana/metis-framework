@@ -142,9 +142,9 @@ public class IndexerImpl implements Indexer {
     if (depublicationReason == DepublicationReason.LEGACY) {
       throw new IndexerRelatedIndexingException(
           format("Depublication reason %s, is not allowed", depublicationReason));
-    } else if (!(depublicationReason == DepublicationReason.GDPR
-    || depublicationReason == DepublicationReason.PERMISSION_ISSUES
-    || depublicationReason == DepublicationReason.SENSITIVE_CONTENT)) {
+    } else if (depublicationReason == DepublicationReason.BROKEN_MEDIA_LINKS
+    || depublicationReason == DepublicationReason.GENERIC
+    || depublicationReason == DepublicationReason.REMOVED_DATA_AT_SOURCE) {
       final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
       if (publishedFullbean != null) {
         final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);

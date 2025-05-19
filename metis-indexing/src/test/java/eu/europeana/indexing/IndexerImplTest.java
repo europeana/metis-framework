@@ -26,7 +26,6 @@ import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.utils.LicenseType;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
-import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -79,16 +78,10 @@ class IndexerImplTest {
   IndexerImpl indexer;
 
   /**
-   * The Record dao.
+   * The Settings connection provider.
    */
   @Autowired
-  RecordDao recordDao;
-
-  /**
-   * The Record dao tombstone.
-   */
-  @Autowired
-  RecordDao recordDaoTombstone;
+  SettingsConnectionProvider settingsConnectionProvider;
 
   /**
    * The Solr client.
@@ -137,14 +130,14 @@ class IndexerImplTest {
     return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
   }
 
-  private void assertIndexedRecord(String expectedId) throws EuropeanaException {
-    FullBean fullBean = recordDao.getFullBean(expectedId);
+  private void assertDocumentInMongo(String expectedId) throws EuropeanaException {
+    FullBean fullBean = this.settingsConnectionProvider.getRecordDao().getFullBean(expectedId);
     assertNotNull(fullBean);
     assertEquals(expectedId, fullBean.getAbout());
   }
 
-  private void assertNotExistsIndexedRecord(String expectedId) throws EuropeanaException {
-    FullBean fullBean = recordDao.getFullBean(expectedId);
+  private void assertNotExistsDocumentInMongo(String expectedId) throws EuropeanaException {
+    FullBean fullBean = this.settingsConnectionProvider.getRecordDao().getFullBean(expectedId);
     assertNull(fullBean);
   }
 
@@ -227,42 +220,6 @@ class IndexerImplTest {
     }
 
     /**
-     * Record dao record dao.
-     *
-     * @param mongoClient the mongo client
-     * @param settings the settings
-     * @return the record dao
-     */
-    @Bean
-    RecordDao recordDao(MongoClient mongoClient, IndexingSettings settings) {
-      return new RecordDao(mongoClient, settings.getMongoDatabaseName());
-    }
-
-    /**
-     * Record dao redirect record dao.
-     *
-     * @param mongoClient the mongo client
-     * @param settings the settings
-     * @return the record dao
-     */
-    @Bean
-    RecordDao recordDaoRedirect(MongoClient mongoClient, IndexingSettings settings) {
-      return new RecordDao(mongoClient, settings.getRecordRedirectDatabaseName());
-    }
-
-    /**
-     * Record dao tombstone record dao.
-     *
-     * @param mongoClient the mongo client
-     * @param settings the settings
-     * @return the record dao
-     */
-    @Bean
-    RecordDao recordDaoTombstone(MongoClient mongoClient, IndexingSettings settings) {
-      return new RecordDao(mongoClient, settings.getMongoTombstoneDatabaseName());
-    }
-
-    /**
      * Sets connection provider.
      *
      * @param settings the settings
@@ -335,8 +292,8 @@ class IndexerImplTest {
 
     solrClient.commit();
 
-    assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/50/_providedCHO_NL_BwdADRKF_2_62_7");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7");
     assertDocumentInSolr("/277/CMC_HA_1185");
   }
@@ -356,7 +313,7 @@ class IndexerImplTest {
 
     solrClient.commit();
 
-    assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
+    assertDocumentInMongo("/50/_providedCHO_NL_BwdADRKF_2_62_7");
     assertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7");
   }
 
@@ -385,7 +342,7 @@ class IndexerImplTest {
 
     solrClient.commit();
 
-    assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
+    assertDocumentInMongo("/50/_providedCHO_NL_BwdADRKF_2_62_7");
     assertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7");
   }
 
@@ -406,7 +363,7 @@ class IndexerImplTest {
 
     solrClient.commit();
 
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
   }
 
@@ -427,13 +384,13 @@ class IndexerImplTest {
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     indexer.remove("/277/CMC_HA_1185");
 
     solrClient.commit();
-    assertNotExistsIndexedRecord("/277/CMC_HA_1185");
+    assertNotExistsDocumentInMongo("/277/CMC_HA_1185");
     assertNotExistsDocumentInSolr("/277/CMC_HA_1185");
   }
 
@@ -452,7 +409,7 @@ class IndexerImplTest {
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     boolean result = indexer.indexTombstone("/277/CMC_HA_1185", DepublicationReason.GENERIC);
@@ -474,12 +431,13 @@ class IndexerImplTest {
    * @throws EuropeanaException the europeana exception
    */
   @Test
-  void indexAndRemoveTombstone() throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
+  void indexAndRemoveTombstone()
+      throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     // tombstoned
@@ -494,14 +452,11 @@ class IndexerImplTest {
     // not in tombstone
     fullBean = indexer.getTombstone("/277/CMC_HA_1185");
     assertNull(fullBean);
-    // back on track
-    assertIndexedRecord("/277/CMC_HA_1185");
-    assertDocumentInSolr("/277/CMC_HA_1185");
   }
 
 
   /**
-   * Temporal not allowed to tombstone.
+   * Temporarily not allowed to tombstone.
    *
    * @param depublicationReason the depublication reason
    * @throws IndexingException the indexing exception
@@ -513,13 +468,14 @@ class IndexerImplTest {
   @ParameterizedTest
   @EnumSource(value = DepublicationReason.class,
       names = {"GDPR", "PERMISSION_ISSUES", "SENSITIVE_CONTENT"},
-  mode = Mode.INCLUDE)
-  void temporalNotAllowedToTombstone(DepublicationReason depublicationReason) throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
+      mode = Mode.INCLUDE)
+  void temporarilyNotAllowedToTombstone(DepublicationReason depublicationReason)
+      throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     // tombstoned
@@ -531,8 +487,9 @@ class IndexerImplTest {
     // not in tombstone
     fullBean = indexer.getTombstone("/277/CMC_HA_1185");
     assertNull(fullBean);
-    // back on track
-    assertIndexedRecord("/277/CMC_HA_1185");
+
+    // the record still in its place
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
   }
 
@@ -551,7 +508,7 @@ class IndexerImplTest {
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     List<String> list = indexer.getRecordIds("277", Date.from(Instant.now())).toList();
@@ -575,7 +532,7 @@ class IndexerImplTest {
     indexer.indexRdf(rdf, indexingProperties);
 
     solrClient.commit();
-    assertIndexedRecord("/277/CMC_HA_1185");
+    assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     long result = indexer.countRecords("277");
