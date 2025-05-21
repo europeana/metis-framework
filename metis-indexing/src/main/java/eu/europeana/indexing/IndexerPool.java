@@ -107,6 +107,17 @@ public class IndexerPool implements Closeable {
   }
 
   /**
+   * Remove tombstone boolean.
+   *
+   * @param rdfAbout the rdf about
+   * @return the boolean
+   * @throws IndexingException the indexing exception
+   */
+  public boolean removeTombstone(String rdfAbout) throws IndexingException {
+    return indexRecord(indexer -> indexer.removeTombstone(rdfAbout));
+  }
+
+  /**
    * <p>
    * This method indexes a single record, using a free indexer in the pool.
    * </p>
