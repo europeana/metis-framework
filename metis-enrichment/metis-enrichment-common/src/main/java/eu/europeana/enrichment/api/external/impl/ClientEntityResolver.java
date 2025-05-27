@@ -41,13 +41,12 @@ import org.apache.commons.lang3.tuple.Pair;
 public class ClientEntityResolver implements EntityResolver {
 
   private static final int CACHE_MAX_ENTRIES = 5000;
-
-  private final LanguageCodeConverter languageCodeConverter;
-  private final EntityApiClient entityClientApi;
-  private final OperationMode operationMode;
   private static final ClientEntityResolverCache<String, Entity> entityResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
   private static final ClientEntityResolverCache<String, List<Entity>> referenceTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
   private static final ClientEntityResolverCache<SearchTerm, List<Entity>> searchTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+  private final LanguageCodeConverter languageCodeConverter;
+  private final EntityApiClient entityClientApi;
+  private final OperationMode operationMode;
 
   /**
    * Constructor with required parameters.
@@ -58,6 +57,29 @@ public class ClientEntityResolver implements EntityResolver {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
     this.operationMode = OperationMode.NON_CACHED;
+  }
+
+  /**
+   * Constructor with required parameters.
+   *
+   * @param entityClientApi the entity client api
+   * @param mode the mode
+   */
+  public ClientEntityResolver(EntityApiClient entityClientApi, OperationMode mode) {
+    this.languageCodeConverter = new LanguageCodeConverter();
+    this.entityClientApi = entityClientApi;
+    this.operationMode = mode;
+  }
+
+  /**
+   * Checks if an entity identifier matches an identifier of the entities provided.
+   *
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
+   */
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
 
   /**
@@ -87,32 +109,6 @@ public class ClientEntityResolver implements EntityResolver {
     return searchTermResolverCache.stats();
   }
 
-  /**
-   * Constructor with required parameters.
-   *
-   * @param entityClientApi the entity client api
-   * @param mode the mode
-   */
-  public ClientEntityResolver(EntityApiClient entityClientApi, OperationMode mode) {
-    this.languageCodeConverter = new LanguageCodeConverter();
-    this.entityClientApi = entityClientApi;
-    this.operationMode = mode;
-  }
-
-  /**
-   * The enum Operation mode.
-   */
-  public enum OperationMode {
-    /**
-     * Normal operation mode.
-     */
-    NON_CACHED,
-    /**
-     * Cached operation mode.
-     */
-    CACHED
-  }
-
   @Override
   public <T extends SearchTerm> Map<T, List<EnrichmentBase>> resolveByText(Set<T> searchTerms) {
     return searchTerms.stream().collect(Collectors.toMap(Function.identity(), this::resolveTextSearch));
@@ -126,14 +122,14 @@ public class ClientEntityResolver implements EntityResolver {
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
     return referenceTerms.stream()
-        .map(term -> new ImmutablePair<>(term, this.resolveId(term)))
-        .filter(pair -> pair.getValue() != null)
-        .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+                         .map(term -> new ImmutablePair<>(term, this.resolveId(term)))
+                         .filter(pair -> pair.getValue() != null)
+                         .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
   }
 
   /**
-   * Get entity by ID. Only supported for Europeana IDs, and no equivalences (e.g. old IDs)
-   * are honored.
+   * Get entity by ID. Only supported for Europeana IDs, and no equivalences (e.g. old IDs) are honored.
+   *
    * @param referenceTerm the reference term
    * @return The entity with the given ID, or null.
    */
@@ -142,7 +138,7 @@ public class ClientEntityResolver implements EntityResolver {
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
       final Entity entity = switch (operationMode) {
         case NON_CACHED -> getResolveId(referenceValue);
-        case CACHED -> entityResolverCache.computeIfAbsent(referenceValue, key-> getResolveId(referenceValue));
+        case CACHED -> entityResolverCache.computeIfAbsent(referenceValue, key -> getResolveId(referenceValue));
         case null -> throw new EntityApiException("Operation mode not defined", null);
       };
 
@@ -163,10 +159,9 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Get equivalent entities based on a reference. If the reference is to a Europeana entity
-   * identifier, we search for an entity with this Europeana id or equivalent to this Europeana
-   * id (i.e. in case of an ID change). Else, if we have a remote URI (e.g. wikidata, VIAF, ...)
-   * we search for an equivalence with the remote URI.
+   * Get equivalent entities based on a reference. If the reference is to a Europeana entity identifier, we search for an entity
+   * with this Europeana id or equivalent to this Europeana id (i.e. in case of an ID change). Else, if we have a remote URI (e.g.
+   * wikidata, VIAF, ...) we search for an equivalence with the remote URI.
    *
    * @param referenceTerm the reference term
    * @return the list of entities
@@ -200,7 +195,7 @@ public class ClientEntityResolver implements EntityResolver {
     final List<Entity> entities;
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
       entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-              () -> entityClientApi.getEntity(referenceValue))).map(List::of)
+                             () -> entityClientApi.getEntity(referenceValue))).map(List::of)
                          .orElse(Collections.emptyList());
     } else {
       entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
@@ -232,7 +227,8 @@ public class ClientEntityResolver implements EntityResolver {
     final List<Entity> result;
     switch (operationMode) {
       case NON_CACHED -> result = getResolveTextSearch(searchTerm, language, entityTypesConcatenated);
-      case CACHED -> result = searchTermResolverCache.computeIfAbsent(searchTerm, term -> getResolveTextSearch(searchTerm, language, entityTypesConcatenated));
+      case CACHED -> result = searchTermResolverCache.computeIfAbsent(searchTerm,
+          term -> getResolveTextSearch(searchTerm, language, entityTypesConcatenated));
       case null -> throw new EntityApiException("Operation mode not defined", null);
     }
     final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
@@ -293,7 +289,8 @@ public class ClientEntityResolver implements EntityResolver {
                 Entity parentEntity;
                 switch (operationMode) {
                   case NON_CACHED -> parentEntity = getResolveId(parentEntityId);
-                  case CACHED -> parentEntity = entityResolverCache.computeIfAbsent(parentEntityId, key-> getResolveId(parentEntityId));
+                  case CACHED ->
+                      parentEntity = entityResolverCache.computeIfAbsent(parentEntityId, key -> getResolveId(parentEntityId));
                   case null -> throw new EntityApiException("Operation mode not defined", null);
                 }
                 return parentEntity;
@@ -310,13 +307,16 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Checks if an entity identifier matches an identifier of the entities provided.
-   *
-   * @param entityIdToCheck the entity identifier to check
-   * @param entities the entity list
-   * @return true if it matches otherwise false
+   * The enum Operation mode.
    */
-  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
-    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
+  public enum OperationMode {
+    /**
+     * Normal operation mode.
+     */
+    NON_CACHED,
+    /**
+     * Cached operation mode.
+     */
+    CACHED
   }
 }
