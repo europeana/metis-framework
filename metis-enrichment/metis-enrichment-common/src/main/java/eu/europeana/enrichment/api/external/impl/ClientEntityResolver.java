@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -24,15 +25,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+
 
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
@@ -41,16 +40,15 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class ClientEntityResolver implements EntityResolver {
 
-  private static final int CACHE_TTL_MILLIS = 5 * 60 * 1000; // 5 minutes * 60 seconds * 1000 ms => 300000ms
-  private static final int INITIAL_DELAY_TIME_MINUTES = 30;
-  private static final int PERIOD_CLEANUP_MINUTES = 30;
+  private static final int CACHE_MAX_ENTRIES = 5000;
 
   private final LanguageCodeConverter languageCodeConverter;
   private final EntityApiClient entityClientApi;
   private final OperationMode operationMode;
-  private final ClientEntityResolverCache<String, Entity> entityResolverCache;
-  private final ClientEntityResolverCache<String, List<Entity>> referenceTermResolverCache;
-  private final ClientEntityResolverCache<SearchTerm, List<Entity>> searchTermResolverCache;
+  private static final ClientEntityResolverCache<String, Entity> entityResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+  private static final ClientEntityResolverCache<String, List<Entity>> referenceTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+  private static final ClientEntityResolverCache<SearchTerm, List<Entity>> searchTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+
   /**
    * Constructor with required parameters.
    *
@@ -60,9 +58,33 @@ public class ClientEntityResolver implements EntityResolver {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
     this.operationMode = OperationMode.NON_CACHED;
-    this.entityResolverCache = null;
-    this.referenceTermResolverCache = null;
-    this.searchTermResolverCache = null;
+  }
+
+  /**
+   * Cache entity stats .
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheEntityStats() {
+    return entityResolverCache.stats();
+  }
+
+  /**
+   * Cache reference term stats.
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheReferenceTermStats() {
+    return referenceTermResolverCache.stats();
+  }
+
+  /**
+   * Cache search term stats.
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheSearchTermStats() {
+    return searchTermResolverCache.stats();
   }
 
   /**
@@ -75,18 +97,6 @@ public class ClientEntityResolver implements EntityResolver {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
     this.operationMode = mode;
-    this.entityResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
-    this.referenceTermResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
-    this.searchTermResolverCache= new ClientEntityResolverCache<>(CACHE_TTL_MILLIS);
-
-    // add a periodical cleanup
-    try (ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor()) {
-      executor.scheduleAtFixedRate(() -> {
-        entityResolverCache.cleanup();
-        referenceTermResolverCache.cleanup();
-        searchTermResolverCache.cleanup();
-      }, INITIAL_DELAY_TIME_MINUTES, PERIOD_CLEANUP_MINUTES, TimeUnit.MINUTES);
-    }
   }
 
   /**
@@ -309,5 +319,4 @@ public class ClientEntityResolver implements EntityResolver {
   private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
     return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
   }
-
 }

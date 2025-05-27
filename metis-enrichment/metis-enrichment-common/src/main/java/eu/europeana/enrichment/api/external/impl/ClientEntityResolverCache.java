@@ -1,7 +1,8 @@
 package eu.europeana.enrichment.api.external.impl;
 
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import java.util.function.Function;
 
 /**
@@ -12,16 +13,18 @@ import java.util.function.Function;
  */
 public class ClientEntityResolverCache<K, V> {
 
-  private final long ttlMillis;
-  private final ConcurrentHashMap<K, CacheEntry<V>> cacheMap = new ConcurrentHashMap<>();
+  private final Cache<K, V> cacheMap;
 
   /**
    * Instantiates a new Client entity resolver cache.
    *
-   * @param ttlMillis the ttl millis
+   * @param maxEntries the max entries
    */
-  public ClientEntityResolverCache(long ttlMillis) {
-    this.ttlMillis = ttlMillis;
+  public ClientEntityResolverCache(int maxEntries) {
+    cacheMap = Caffeine.newBuilder()
+                       .maximumSize(maxEntries)
+                       .recordStats()
+                       .build();
   }
 
   /**
@@ -31,8 +34,7 @@ public class ClientEntityResolverCache<K, V> {
    * @param value the value
    */
   public void put(K key, V value) {
-    long expiryTime = System.currentTimeMillis() + ttlMillis;
-    cacheMap.put(key, new CacheEntry<>(value, expiryTime));
+    cacheMap.put(key, value);
   }
 
   /**
@@ -42,12 +44,7 @@ public class ClientEntityResolverCache<K, V> {
    * @return the v
    */
   public V get(K key) {
-    CacheEntry<V> entry = cacheMap.get(key);
-    if (entry == null || entry.isExpired()) {
-      cacheMap.remove(key); // remove expired entry
-      return null;
-    }
-    return entry.value;
+    return cacheMap.getIfPresent(key);
   }
 
   /**
@@ -58,82 +55,15 @@ public class ClientEntityResolverCache<K, V> {
    * @return the v
    */
   public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
-    /*
-     * Instead of using synchronized
-     * Suppose two threads (A and B) call computeIfAbsent("key") at the same time:
-     *   a) Both check and see that "key" is missing or expired.
-     *   b) Both compute a new value (say, from a database).
-     *   c) Now both try to put their computed value into the cache.
-     * Only one will succeed in putIfAbsent. The other gets back the existing value.
-     * But — what if the existing value just got replaced by another thread while this thread was still computing?
-     * That’s why we re-check the result of putIfAbsent.
-     */
-    while (true) {
-      CacheEntry<V> entry = cacheMap.get(key);
-      if (entry != null && !entry.isExpired()) {
-        return entry.value; // valid cache hit
-      }
-
-      // missing or expired, compute a new value
-      V newValue = mappingFunction.apply(key);
-      CacheEntry<V> newEntry = new CacheEntry<>(newValue, System.currentTimeMillis() + ttlMillis);
-      CacheEntry<V> existing = cacheMap.putIfAbsent(key, newEntry);
-
-      // If another thread inserted a non-expired value, use it
-      if (existing == null || existing.isExpired()) {
-        // Either we inserted it, or the existing one is expired
-        return newValue;
-      } else {
-        // Another thread already inserted a valid entry — use that
-        return existing.value;
-      }
-    }
+    return cacheMap.get(key, mappingFunction);
   }
 
   /**
-   * Remove.
+   * Stats cache stats.
    *
-   * @param key the key
+   * @return the cache stats
    */
-  public void remove(K key) {
-    cacheMap.remove(key);
+  public CacheStats stats() {
+    return cacheMap.stats();
   }
-
-  /**
-   * Size int.
-   *
-   * @return the int
-   */
-  public int size() {
-    return cacheMap.size();
-  }
-
-  /**
-   * Cleanup.
-   */
-  public void cleanup() {
-    final long now = System.currentTimeMillis();
-    for (Entry<K, CacheEntry<V>> entry : cacheMap.entrySet()) {
-      if (entry != null && entry.getValue().expiryTime <= now) {
-        cacheMap.remove(entry.getKey());
-      }
-    }
-  }
-
-  /**
-   * @param value The Value.
-   * @param expiryTime The Expiry time.
-   */
-  private record CacheEntry<V>(V value, long expiryTime) {
-
-    /**
-     * Is expired boolean.
-     *
-     * @return the boolean
-     */
-    boolean isExpired() {
-      return System.currentTimeMillis() > expiryTime;
-    }
-  }
-
 }

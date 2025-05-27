@@ -14,29 +14,18 @@ import org.junit.jupiter.api.Test;
  */
 class ClientEntityResolverCacheTest {
 
-  final long ttlMillis = 1000;
+  final int maxEntries = 3;
   ClientEntityResolverCache<String, String> cache;
 
   @BeforeEach
   void setUp() {
-    cache = new ClientEntityResolverCache<>(ttlMillis);
+    cache = new ClientEntityResolverCache<>(maxEntries);
   }
 
   @Test
   void testPutAndGet() {
     cache.put("key1", "value1");
     assertEquals("value1", cache.get("key1"));
-  }
-
-  @Test
-  void testTTLExpiration() {
-    cache.put("key2", "value2");
-    // Wait until the entry is expired
-    await().atMost(Duration.ofSeconds(2))
-           .pollInterval(Duration.ofMillis(100))
-           .until(() -> cache.get("key2") == null);
-
-    assertNull(cache.get("key2"), "Expected entry to expire");
   }
 
   @Test
@@ -61,44 +50,38 @@ class ClientEntityResolverCacheTest {
   }
 
   @Test
-  void testComputeIfAbsent_RecomputesAfterTTL() {
+  void testStats() {
     AtomicInteger counter = new AtomicInteger(0);
-    String result = cache.computeIfAbsent("k2", key -> {
+    String result1 = cache.computeIfAbsent("k1", key -> {
       counter.incrementAndGet();
-      return "value1";
+      return "computed1";
     });
 
-    assertEquals("value1", result);
-    assertEquals(1, counter.get());
-
-    await().atMost(Duration.ofSeconds(2))
-           .pollInterval(Duration.ofMillis(100))
-           .until(() -> cache.get("k2") == null);
-
-    result = cache.computeIfAbsent("k2", key -> {
+    String result2 = cache.computeIfAbsent("k2", key -> {
       counter.incrementAndGet();
-      return "value2";
+      return "computed2";
     });
 
-    assertEquals("value2", result); // should return new value
-    assertEquals(2, counter.get());
-  }
+    String result3 = cache.computeIfAbsent("k3", key -> {
+      counter.incrementAndGet();
+      return "computed3";
+    });
 
-  @Test
-  void testRemove() {
-    cache.put("key3", "value3");
-    assertEquals("value3", cache.get("key3"));
-    cache.remove("key3");
-    assertNull(cache.get("key3"));
-  }
+    assertEquals("computed1", result1);
+    assertEquals("computed2", result2);
+    assertEquals("computed3", result3);
+    assertEquals(3, counter.get());
 
-  @Test
-  void testSize() {
-    cache.put("a", "1");
-    cache.put("b", "2");
-    assertEquals(2, cache.size());
-    cache.remove("a");
-    assertEquals(1, cache.size());
-  }
+    result1 = cache.computeIfAbsent("k1", key -> {
+      counter.incrementAndGet();
+      return "new-computed";
+    });
 
+    assertEquals("computed1", result1); // should still return original
+    assertEquals(3, counter.get());
+
+    assertEquals(1, cache.stats().hitCount());
+    assertEquals(3, cache.stats().missCount());
+
+  }
 }
