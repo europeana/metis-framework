@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
@@ -38,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -50,11 +56,13 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.EnumSource.Mode;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -112,6 +120,11 @@ class IndexerImplTest {
     solrContainerIT.dynamicProperties(registry);
     TestContainer mongoContainerIT = TestContainerFactoryIT.getContainer(TestContainerType.MONGO);
     mongoContainerIT.dynamicProperties(registry);
+  }
+
+  @BeforeEach
+  void beforeEach() {
+    reset(settingsConnectionProvider);
   }
 
   /**
@@ -230,7 +243,7 @@ class IndexerImplTest {
     @Bean
     SettingsConnectionProvider settingsConnectionProvider(IndexingSettings settings)
         throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
-      return new SettingsConnectionProvider(settings);
+      return Mockito.spy(new SettingsConnectionProvider(settings));
     }
 
     /**
@@ -367,31 +380,26 @@ class IndexerImplTest {
     assertDocumentInSolr("/277/CMC_HA_1185");
   }
 
-
-  /**
-   * Remove.
-   *
-   * @throws IndexingException the indexing exception
-   * @throws IOException the io exception
-   * @throws SerializationException the serialization exception
-   * @throws SolrServerException the solr server exception
-   * @throws EuropeanaException the europeana exception
-   */
   @Test
   void remove() throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
 
     indexer.indexRdf(rdf, indexingProperties);
-
     solrClient.commit();
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
-    indexer.remove("/277/CMC_HA_1185");
+    IndexedRecordAccess realAccess = settingsConnectionProvider.getIndexedRecordAccess();
+    IndexedRecordAccess spyAccess = Mockito.spy(realAccess);
+    doThrow(new IndexerRelatedIndexingException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).removeRecord("/277/CMC_HA_1185");
+    when(settingsConnectionProvider.getIndexedRecordAccess()).thenReturn(spyAccess);
 
+    indexer.remove("/277/CMC_HA_1185");
     solrClient.commit();
     assertNotExistsDocumentInMongo("/277/CMC_HA_1185");
     assertNotExistsDocumentInSolr("/277/CMC_HA_1185");
+    verify(spyAccess, times(2)).removeRecord("/277/CMC_HA_1185");
   }
 
   /**
@@ -407,7 +415,6 @@ class IndexerImplTest {
   void getTombstone() throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
-
     solrClient.commit();
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
@@ -415,10 +422,16 @@ class IndexerImplTest {
     boolean result = indexer.indexTombstone("/277/CMC_HA_1185", DepublicationReason.GENERIC);
     assertTrue(result);
 
+    IndexedRecordAccess realAccess = settingsConnectionProvider.getIndexedRecordAccess();
+    IndexedRecordAccess spyAccess = Mockito.spy(realAccess);
+    doThrow(new RuntimeException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).getTombstoneFullbean("/277/CMC_HA_1185");
+    when(settingsConnectionProvider.getIndexedRecordAccess()).thenReturn(spyAccess);
     FullBean fullBean = indexer.getTombstone("/277/CMC_HA_1185");
 
     assertNotNull(fullBean);
     assertEquals("/277/CMC_HA_1185", fullBean.getAbout());
+    verify(spyAccess, times(2)).getTombstoneFullbean("/277/CMC_HA_1185");
   }
 
   /**
@@ -435,7 +448,6 @@ class IndexerImplTest {
       throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
-
     solrClient.commit();
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
@@ -446,8 +458,14 @@ class IndexerImplTest {
     FullBean fullBean = indexer.getTombstone("/277/CMC_HA_1185");
     assertNotNull(fullBean);
 
+    IndexedRecordAccess realAccess = settingsConnectionProvider.getIndexedRecordAccess();
+    IndexedRecordAccess spyAccess = Mockito.spy(realAccess);
+    doThrow(new IndexerRelatedIndexingException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).removeTombstone("/277/CMC_HA_1185");
+    when(settingsConnectionProvider.getIndexedRecordAccess()).thenReturn(spyAccess);
     // removed from the tombstone
     result = indexer.removeTombstone("/277/CMC_HA_1185");
+    verify(spyAccess, times(2)).removeTombstone("/277/CMC_HA_1185");
     assertTrue(result);
     // not in tombstone
     fullBean = indexer.getTombstone("/277/CMC_HA_1185");
@@ -473,7 +491,6 @@ class IndexerImplTest {
       throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
-
     solrClient.commit();
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
@@ -511,7 +528,14 @@ class IndexerImplTest {
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
-    List<String> list = indexer.getRecordIds("277", Date.from(Instant.now())).toList();
+    Date now = Date.from(Instant.now());
+    IndexedRecordAccess realAccess = settingsConnectionProvider.getIndexedRecordAccess();
+    IndexedRecordAccess spyAccess = Mockito.spy(realAccess);
+    doThrow(new RuntimeException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).getRecordIds("277", now);
+    when(settingsConnectionProvider.getIndexedRecordAccess()).thenReturn(spyAccess);
+    List<String> list = indexer.getRecordIds("277", now).toList();
+    verify(spyAccess, times(2)).getRecordIds("277", now);
 
     assertEquals(1, list.size());
     assertEquals("/277/CMC_HA_1185", list.getFirst());
@@ -530,12 +554,17 @@ class IndexerImplTest {
   void countRecords() throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
     indexer.indexRdf(rdf, indexingProperties);
-
     solrClient.commit();
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
+    IndexedRecordAccess realAccess = settingsConnectionProvider.getIndexedRecordAccess();
+    IndexedRecordAccess spyAccess = Mockito.spy(realAccess);
+    doThrow(new RuntimeException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).countRecords("277");
+    when(settingsConnectionProvider.getIndexedRecordAccess()).thenReturn(spyAccess);
     long result = indexer.countRecords("277");
+    verify(spyAccess, times(2)).countRecords("277");
     assertEquals(1, result);
   }
 
