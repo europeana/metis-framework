@@ -160,7 +160,7 @@ public class IndexerImpl implements Indexer {
       default -> {
         LOGGER.warn("Record {} Depublication reason {} disabled temporarily for tombstone indexing.", rdfAbout,
             depublicationReason);
-        return false;
+        return true;
       }
     }
   }
