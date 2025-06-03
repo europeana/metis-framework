@@ -1,7 +1,6 @@
 package eu.europeana.indexing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -495,9 +494,9 @@ class IndexerImplTest {
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
-    // tombstoned
+    // not tombstoned just warning
     boolean result = indexer.indexTombstone("/277/CMC_HA_1185", depublicationReason);
-    assertFalse(result);
+    assertTrue(result);
     FullBean fullBean = indexer.getTombstone("/277/CMC_HA_1185");
     assertNull(fullBean);
 
