@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 import static java.lang.String.format;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
@@ -124,59 +125,74 @@ public class IndexerImpl implements Indexer {
 
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout));
   }
 
   @Override
   public FullBeanImpl getTombstone(String rdfAbout) {
-    return this.connectionProvider.getIndexedRecordAccess().getTombstoneFullbean(rdfAbout);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().getTombstoneFullbean(rdfAbout));
   }
 
   @Override
   public boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
-    return this.connectionProvider.getIndexedRecordAccess().removeTombstone(rdfAbout);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().removeTombstone(rdfAbout));
   }
 
   @Override
   public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
-    if (depublicationReason == DepublicationReason.LEGACY) {
-      throw new IndexerRelatedIndexingException(
+    switch (depublicationReason) {
+      case DepublicationReason.LEGACY -> throw new IndexerRelatedIndexingException(
           format("Depublication reason %s, is not allowed", depublicationReason));
-    }
-    final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
-    if (publishedFullbean != null) {
-      final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-      final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
-      try {
-        publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
-      } catch (IndexingException e) {
-        throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
+
+      case DepublicationReason.BROKEN_MEDIA_LINKS, DepublicationReason.GENERIC, DepublicationReason.REMOVED_DATA_AT_SOURCE -> {
+        final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
+        if (publishedFullbean != null) {
+          final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
+          final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
+          try {
+            publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
+          } catch (IndexingException e) {
+            throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
+          }
+        }
+        return publishedFullbean != null;
+      }
+      default -> {
+        LOGGER.warn("Record {} Depublication reason {} disabled temporarily for tombstone indexing.", rdfAbout,
+            depublicationReason);
+        return false;
       }
     }
-    return publishedFullbean != null;
   }
 
   @Override
   public int removeAll(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
     // TODO: 8/26/20 Update removeAll method to return long instead of int, it will affect clients
-    return Math.toIntExact(
-        this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate));
+    Long totalRemoved = retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate));
+    return Math.toIntExact(totalRemoved);
   }
 
   @Override
   public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) {
-    return this.connectionProvider.getIndexedRecordAccess().getRecordIds(datasetId, maxRecordDate);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().getRecordIds(datasetId, maxRecordDate));
   }
 
   @Override
   public long countRecords(String datasetId, Date maxRecordDate) {
-    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId, maxRecordDate);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId, maxRecordDate));
   }
 
   @Override
   public long countRecords(String datasetId) {
-    return this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId);
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId));
   }
 
   private void indexRecords(List<RDF> records, IndexingProperties properties,

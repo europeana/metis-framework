@@ -1,6 +1,7 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 
 import com.mongodb.MongoClientException;
 import com.mongodb.MongoConfigurationException;
@@ -64,7 +65,7 @@ public class FullBeanPublisher {
 
   private final RecordDao recordDao;
   private final RecordDao tombstoneRecordDao;
-  private final SolrClient solrServer;
+  private final SolrClient solrClient;
   private final boolean preserveUpdateAndCreateTimesFromRdf;
   private final RecordRedirectDao recordRedirectDao;
 
@@ -74,13 +75,13 @@ public class FullBeanPublisher {
    * @param recordDao The Mongo persistence.
    * @param tombstoneRecordDao The mongo tombstone persistence.
    * @param recordRedirectDao The record redirect dao
-   * @param solrServer The searchable persistence.
+   * @param solrClient The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
    * the incoming RDFs, or whether it computes its own.
    */
   FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
-      SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf) {
-    this(recordDao, tombstoneRecordDao, recordRedirectDao, solrServer, preserveUpdateAndCreateTimesFromRdf,
+      SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf) {
+    this(recordDao, tombstoneRecordDao, recordRedirectDao, solrClient, preserveUpdateAndCreateTimesFromRdf,
         RdfToFullBeanConverter::new);
   }
 
@@ -90,19 +91,19 @@ public class FullBeanPublisher {
    * @param recordDao The Mongo persistence.
    * @param tombstoneRecordDao The Mongo persistence.
    * @param recordRedirectDao The record redirect dao
-   * @param solrServer The searchable persistence.
+   * @param solrClient The searchable persistence.
    * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
    * the incoming RDFs, or whether it computes its own.
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to parse strings to instances of
    * {@link FullBeanImpl}. Will be called once during every publish.
    */
   FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
-      SolrClient solrServer, boolean preserveUpdateAndCreateTimesFromRdf,
+      SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.recordDao = recordDao;
     this.tombstoneRecordDao = tombstoneRecordDao;
     this.recordRedirectDao = recordRedirectDao;
-    this.solrServer = solrServer;
+    this.solrClient = solrClient;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
@@ -264,7 +265,7 @@ public class FullBeanPublisher {
   }
 
   private SolrDocumentList getExistingDocuments(Map<String, String> queryParamMap)
-      throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+      throws IndexerRelatedIndexingException {
     SolrDocumentList solrDocuments;
     try {
       // Found
@@ -362,7 +363,7 @@ public class FullBeanPublisher {
 
     // Save Solr document.
     try {
-      solrServer.add(document);
+      solrClient.add(document);
     } catch (IOException e) {
       throw new IndexerRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     } catch (SolrServerException | RuntimeException e) {
@@ -371,15 +372,13 @@ public class FullBeanPublisher {
   }
 
   private SolrDocumentList getSolrDocuments(Map<String, String> queryParamMap)
-      throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
+      throws IndexerRelatedIndexingException {
     MapSolrParams queryParams = new MapSolrParams(queryParamMap);
     QueryResponse response;
     try {
-      response = solrServer.query(queryParams);
-    } catch (SolrServerException e) {
+      response = retryableExternalRequestForNetworkExceptionsThrowing(() -> solrClient.query(queryParams));
+    } catch (Exception e) {
       throw new IndexerRelatedIndexingException(SOLR_SERVER_SEARCH_ERROR, e);
-    } catch (IOException e) {
-      throw new RecordRelatedIndexingException(SOLR_SERVER_SEARCH_ERROR, e);
     }
     return response.getResults();
   }
