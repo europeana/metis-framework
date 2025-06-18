@@ -9,7 +9,7 @@
   <artifactId>metis-enrichment-common</artifactId>
 
   <properties>
-    <version.entity-api-client>2.1.1-SNAPSHOT</version.entity-api-client>
+    <version.entity-api-client>2.2</version.entity-api-client>
   </properties>
 
   <dependencies>
