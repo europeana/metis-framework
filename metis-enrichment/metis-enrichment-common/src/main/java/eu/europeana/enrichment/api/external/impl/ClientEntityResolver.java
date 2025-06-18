@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
+import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -31,16 +32,21 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+
 /**
  * An entity resolver that works by accessing a service via Entity Client API and obtains entities from Entity Management API
  *
- * @author Srishti.singh@europeana.eu
+ * @author Srishti.singh @europeana.eu
  */
 public class ClientEntityResolver implements EntityResolver {
 
+  private static final int CACHE_MAX_ENTRIES = 5000;
+  private static final ClientEntityResolverCache<String, Entity> entityResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+  private static final ClientEntityResolverCache<String, List<Entity>> referenceTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
+  private static final ClientEntityResolverCache<SearchTerm, List<Entity>> searchTermResolverCache = new ClientEntityResolverCache<>(CACHE_MAX_ENTRIES);
   private final LanguageCodeConverter languageCodeConverter;
   private final EntityApiClient entityClientApi;
-
+  private final OperationMode operationMode;
 
   /**
    * Constructor with required parameters.
@@ -50,6 +56,57 @@ public class ClientEntityResolver implements EntityResolver {
   public ClientEntityResolver(EntityApiClient entityClientApi) {
     this.languageCodeConverter = new LanguageCodeConverter();
     this.entityClientApi = entityClientApi;
+    this.operationMode = OperationMode.NON_CACHED;
+  }
+
+  /**
+   * Constructor with required parameters.
+   *
+   * @param entityClientApi the entity client api
+   * @param mode the mode
+   */
+  public ClientEntityResolver(EntityApiClient entityClientApi, OperationMode mode) {
+    this.languageCodeConverter = new LanguageCodeConverter();
+    this.entityClientApi = entityClientApi;
+    this.operationMode = mode;
+  }
+
+  /**
+   * Checks if an entity identifier matches an identifier of the entities provided.
+   *
+   * @param entityIdToCheck the entity identifier to check
+   * @param entities the entity list
+   * @return true if it matches otherwise false
+   */
+  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
+    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
+  }
+
+  /**
+   * Cache entity stats .
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheEntityStats() {
+    return entityResolverCache.stats();
+  }
+
+  /**
+   * Cache reference term stats.
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheReferenceTermStats() {
+    return referenceTermResolverCache.stats();
+  }
+
+  /**
+   * Cache search term stats.
+   *
+   * @return the cache stats
+   */
+  public CacheStats cacheSearchTermStats() {
+    return searchTermResolverCache.stats();
   }
 
   @Override
@@ -65,38 +122,46 @@ public class ClientEntityResolver implements EntityResolver {
   @Override
   public <T extends ReferenceTerm> Map<T, EnrichmentBase> resolveById(Set<T> referenceTerms) {
     return referenceTerms.stream()
-        .map(term -> new ImmutablePair<>(term, this.resolveId(term)))
-        .filter(pair -> pair.getValue() != null)
-        .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+                         .map(term -> new ImmutablePair<>(term, this.resolveId(term)))
+                         .filter(pair -> pair.getValue() != null)
+                         .collect(Collectors.toMap(Pair::getKey, Pair::getValue));
   }
 
   /**
-   * Get entity by ID. Only supported for Europeana IDs, and no equivalences (e.g. old IDs)
-   * are honored.
+   * Get entity by ID. Only supported for Europeana IDs, and no equivalences (e.g. old IDs) are honored.
+   *
    * @param referenceTerm the reference term
    * @return The entity with the given ID, or null.
    */
   private EnrichmentBase resolveId(ReferenceTerm referenceTerm) {
     final String referenceValue = referenceTerm.getReference().toString();
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      final Entity entity;
-      try {
-        entity = retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.getEntity(referenceValue));
-      } catch (EntityClientException e) {
-        throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
-      }
+      final Entity entity = switch (operationMode) {
+        case NON_CACHED -> getResolveId(referenceValue);
+        case CACHED -> entityResolverCache.computeIfAbsent(referenceValue, key -> getResolveId(referenceValue));
+        case null -> throw new EntityApiException("Operation mode not defined", null);
+      };
+
       return (entity.getEntityId().equals(referenceValue))
           ? EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entity) : null;
     }
     return null;
   }
 
+  private Entity getResolveId(String referenceValue) {
+    final Entity entity;
+    try {
+      entity = retryableExternalRequestForNetworkExceptionsThrowing(() -> entityClientApi.getEntity(referenceValue));
+    } catch (EntityClientException e) {
+      throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
+    }
+    return entity;
+  }
+
   /**
-   * Get equivalent entities based on a reference. If the reference is to a Europeana entity
-   * identifier, we search for an entity with this Europeana id or equivalent to this Europeana
-   * id (i.e. in case of an ID change). Else, if we have a remote URI (e.g. wikidata, VIAF, ...)
-   * we search for an equivalence with the remote URI.
+   * Get equivalent entities based on a reference. If the reference is to a Europeana entity identifier, we search for an entity
+   * with this Europeana id or equivalent to this Europeana id (i.e. in case of an ID change). Else, if we have a remote URI (e.g.
+   * wikidata, VIAF, ...) we search for an equivalence with the remote URI.
    *
    * @param referenceTerm the reference term
    * @return the list of entities
@@ -104,19 +169,39 @@ public class ClientEntityResolver implements EntityResolver {
   private List<EnrichmentBase> resolveEquivalency(ReferenceTerm referenceTerm) {
     final String referenceValue = referenceTerm.getReference().toString();
     final List<Entity> entities;
-    try {
-      if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-                () -> entityClientApi.getEntity(referenceValue))).map(List::of)
-            .orElse(Collections.emptyList());
-      } else {
-        entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
-            () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
+
+    switch (operationMode) {
+      case NON_CACHED -> {
+        try {
+          entities = getResolveEquivalency(referenceValue);
+        } catch (EntityClientException e) {
+          throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+        }
       }
-    } catch (EntityClientException e) {
-      throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+      case CACHED -> entities = referenceTermResolverCache.computeIfAbsent(referenceValue, reference -> {
+        try {
+          return getResolveEquivalency(referenceValue);
+        } catch (EntityClientException e) {
+          throw new EntityApiException("Issue trying to get/resolve entity for URL " + referenceValue, e);
+        }
+      });
+      case null -> throw new EntityApiException("Operation mode not defined", null);
     }
+
     return convertToEnrichmentBase(extendEntitiesWithParents(entities));
+  }
+
+  private List<Entity> getResolveEquivalency(String referenceValue) throws EntityClientException {
+    final List<Entity> entities;
+    if (europeanaLinkPattern.matcher(referenceValue).matches()) {
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+                             () -> entityClientApi.getEntity(referenceValue))).map(List::of)
+                         .orElse(Collections.emptyList());
+    } else {
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
+    }
+    return entities;
   }
 
   /**
@@ -140,6 +225,18 @@ public class ClientEntityResolver implements EntityResolver {
                                                      .collect(Collectors.joining(","));
     final String language = languageCodeConverter.convertLanguageCode(searchTerm.getLanguage());
     final List<Entity> result;
+    switch (operationMode) {
+      case NON_CACHED -> result = getResolveTextSearch(searchTerm, language, entityTypesConcatenated);
+      case CACHED -> result = searchTermResolverCache.computeIfAbsent(searchTerm,
+          term -> getResolveTextSearch(searchTerm, language, entityTypesConcatenated));
+      case null -> throw new EntityApiException("Operation mode not defined", null);
+    }
+    final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
+    return convertToEnrichmentBase(extendEntitiesWithParents(singleResult));
+  }
+
+  private List<Entity> getResolveTextSearch(SearchTerm searchTerm, String language, String entityTypesConcatenated) {
+    final List<Entity> result;
     try {
       result = retryableExternalRequestForNetworkExceptionsThrowing(
           () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
@@ -147,8 +244,7 @@ public class ClientEntityResolver implements EntityResolver {
       throw new EntityApiException(format("Enrichment request failed for textValue: %s, language: %s, entityTypes: %s.",
           searchTerm.getTextValue(), searchTerm.getLanguage(), entityTypesConcatenated), e);
     }
-    final List<Entity> singleResult = result.size() == 1 ? result : Collections.emptyList();
-    return convertToEnrichmentBase(extendEntitiesWithParents(singleResult));
+    return result;
   }
 
   /**
@@ -190,12 +286,14 @@ public class ClientEntityResolver implements EntityResolver {
               .filter(StringUtils::isNotBlank)
               .filter(not(parentEntityId -> doesEntityExist(parentEntityId, collectedEntities)))
               .map(parentEntityId -> {
-                try {
-                  return retryableExternalRequestForNetworkExceptionsThrowing(
-                      () -> entityClientApi.getEntity(parentEntityId));
-                } catch (EntityClientException e) {
-                  throw new EntityApiException("Issue trying to get parent entity with ID" + parentEntityId, e);
+                Entity parentEntity;
+                switch (operationMode) {
+                  case NON_CACHED -> parentEntity = getResolveId(parentEntityId);
+                  case CACHED ->
+                      parentEntity = entityResolverCache.computeIfAbsent(parentEntityId, key -> getResolveId(parentEntityId));
+                  case null -> throw new EntityApiException("Operation mode not defined", null);
                 }
+                return parentEntity;
               })
               .filter(Objects::nonNull)
               .collect(Collectors.toCollection(ArrayList::new));
@@ -209,14 +307,16 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
-   * Checks if an entity identifier matches an identifier of the entities provided.
-   *
-   * @param entityIdToCheck the entity identifier to check
-   * @param entities the entity list
-   * @return true if it matches otherwise false
+   * The enum Operation mode.
    */
-  private static boolean doesEntityExist(String entityIdToCheck, List<Entity> entities) {
-    return entities.stream().anyMatch(entity -> entity.getEntityId().equals(entityIdToCheck));
+  public enum OperationMode {
+    /**
+     * Normal operation mode.
+     */
+    NON_CACHED,
+    /**
+     * Cached operation mode.
+     */
+    CACHED
   }
-
 }
