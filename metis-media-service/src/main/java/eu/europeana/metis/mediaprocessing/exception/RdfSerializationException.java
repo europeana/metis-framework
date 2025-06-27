@@ -17,4 +17,13 @@ public class RdfSerializationException extends Exception {
   public RdfSerializationException(String message, Throwable cause) {
     super(message, cause);
   }
+
+  /**
+   * Constructor.
+   *
+   * @param message The exception message.
+   */
+  public RdfSerializationException(String message) {
+    super(message);
+  }
 }
