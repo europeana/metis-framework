@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import eu.europeana.metis.mediaprocessing.RdfDeserializerImpl.ResourceInfo;
 import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.InputStream;
 import java.util.Collections;
@@ -195,9 +196,9 @@ class RdfDeserializerImplTest {
     // then check the oEmbedResources where successfully identified.
     assertEquals(2, resultAllTypes.size());
     assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultAllTypes.get(hasView).urlTypes());
-    assertTrue( resultAllTypes.get(hasView).configuredForOembed());
+    assertTrue(RdfResourceKind.OEMBEDDED.equals(resultAllTypes.get(hasView).rdfResourceKind()));
     assertEquals(Collections.singleton(UrlType.IS_SHOWN_BY), resultAllTypes.get(isShownBy).urlTypes());
-    assertTrue( resultAllTypes.get(isShownBy).configuredForOembed());
+    assertTrue(RdfResourceKind.OEMBEDDED.equals(resultAllTypes.get(isShownBy).rdfResourceKind()));
   }
 
   @Test
@@ -216,14 +217,14 @@ class RdfDeserializerImplTest {
         .anyMatch(
             r -> r.getResourceUrl().equals(
                 "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4")
-                && r.isResourceConfiguredForOembed()
+                && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
         )
         && rdfResourceEntry
         .stream()
         .anyMatch(
             r -> r.getResourceUrl().equals(
                 "http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&format=json")
-                && r.isResourceConfiguredForOembed()
+                && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
         )
     );
 
@@ -242,9 +243,73 @@ class RdfDeserializerImplTest {
     assertEquals(2, rdfResourceEntry.size());
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
         .equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250")
-        && !r.isResourceConfiguredForOembed()));
+        && !RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
         .equals("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_pano.html")
-        && !r.isResourceConfiguredForOembed()));
+        && !RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
+  }
+
+  @Test
+  void testGetIIIFObjectFromSample_MatchingService() throws RdfDeserializationException {
+    // given
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_iiif_sample.xml");
+
+    // when
+    final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
+        inputStream);
+
+    // then
+    assertEquals(3, rdfResourceEntry.size());
+    assertTrue(rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+                "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
+                && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
+                && RdfResourceKind.IIIF.equals(r.getResourceKind()))
+        && rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+                "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
+                && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+                && RdfResourceKind.IIIF.equals(r.getResourceKind()))
+        && rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+                "https://purl.stanford.edu/zw031pj2507")
+                && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
+                && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    );
+  }
+
+  @Test
+  void testGetIIIFObjectFromSample_NoMatchingService() throws RdfDeserializationException {
+    // given
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_iiif_sample_II.xml");
+
+    // when
+    final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
+        inputStream);
+
+    // then
+    assertEquals(3, rdfResourceEntry.size());
+    assertTrue(rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
+            && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
+            && RdfResourceKind.STANDARD.equals(r.getResourceKind())) // this is not detected due no matching service
+        && rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
+            && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+            && RdfResourceKind.IIIF.equals(r.getResourceKind()))
+        && rdfResourceEntry
+        .stream()
+        .anyMatch(r -> r.getResourceUrl().equals(
+            "https://purl.stanford.edu/zw031pj2507")
+            && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
+            && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    );
   }
 }

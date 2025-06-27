@@ -15,6 +15,7 @@ import static org.mockito.Mockito.spy;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
@@ -90,7 +91,7 @@ class ImageProcessorTest {
     final String url = "testUrl";
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), false);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
