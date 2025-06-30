@@ -25,6 +25,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
+import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -84,14 +85,15 @@ class MediaExtractorImplTest {
     textProcessor = mock(TextProcessor.class);
     media3dProcessor = mock(Media3dProcessor.class);
     oEmbedProcessor = mock(OEmbedProcessor.class);
+    iiifProcessor = mock(IIIFProcessor.class);
     mediaExtractor = spy(new MediaExtractorImpl(resourceDownloadClient, mimeTypeDetectHttpClient,
-        tika, List.of(imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor)));
+        tika, List.of(imageProcessor, audioVideoProcessor, textProcessor, media3dProcessor, oEmbedProcessor, iiifProcessor)));
   }
 
   @BeforeEach
   void resetMocks() {
     reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
-        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor);
+        audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor, iiifProcessor);
   }
 
   @Test
@@ -408,7 +410,7 @@ class MediaExtractorImplTest {
   void getIIIF() throws MediaExtractionException, IOException {
     final String resourceUrl = "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
 
-    final String detectedMimeType = "application/json+oembed";
+    final String detectedMimeType = "image/jpeg";
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
     final Resource resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
@@ -416,12 +418,12 @@ class MediaExtractorImplTest {
         .when(resource).hasContent();
     doReturn(detectedMimeType)
         .when(tika).detect(any(InputStream.class), any(Metadata.class));
-    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/iiif_info.json").getPath()))
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/iiif_info_v2.json").getPath()))
         .when(resource).getContentPath();
     doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
     ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
-        new VideoResourceMetadata(detectedMimeType, resourceUrl, 0L));
-    doReturn(extractionResult).when(oEmbedProcessor).extractMetadata(any(Resource.class), anyString(), anyBoolean());
+        new ImageResourceMetadata(detectedMimeType, resourceUrl, 0L));
+    doReturn(extractionResult).when(iiifProcessor).extractMetadata(any(Resource.class), anyString(), anyBoolean());
 
     ResourceExtractionResult resourceExtractionResult = mediaExtractor.performMediaExtraction(rdfResourceEntry, false);
     assertEquals(resourceUrl, resourceExtractionResult.getMetadata().getResourceUrl());
