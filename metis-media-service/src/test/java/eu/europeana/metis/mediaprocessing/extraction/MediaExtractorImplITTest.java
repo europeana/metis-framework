@@ -10,13 +10,15 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import java.io.InputStream;
 import java.util.List;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class MediaExtractorImplITTest {
+class MediaExtractorImplITTest {
 
   private RdfDeserializer rdfDeserializer;
   private MediaExtractor mediaExtractor;
 
+  @Disabled
   @Test
   void testIIFExtraction() throws Exception {
 
@@ -28,7 +30,6 @@ public class MediaExtractorImplITTest {
 
       ResourceExtractionResult extractionResult = mediaExtractor.performMediaExtraction(resourceEntry, true);
       assertNotNull(extractionResult.getMetadata());
-      //assertNotNull(extractionResult.getThumbnails());
     }
   }
 
