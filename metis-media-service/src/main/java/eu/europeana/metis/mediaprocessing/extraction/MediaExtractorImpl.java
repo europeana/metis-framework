@@ -57,6 +57,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
   private final OEmbedProcessor oEmbedProcessor;
+  private final IIIFProcessor iiifProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -79,6 +80,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = (TextProcessor) getMediaProcessor(mediaProcessorList, TextProcessor.class);
     this.media3dProcessor = (Media3dProcessor) getMediaProcessor(mediaProcessorList, Media3dProcessor.class);
     this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
+    this.iiifProcessor = (IIIFProcessor) getMediaProcessor(mediaProcessorList, IIIFProcessor.class);
   }
 
   /**
@@ -117,6 +119,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
+    this.iiifProcessor = new IIIFProcessor(thumbnailGenerator);
   }
 
   private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
@@ -232,9 +235,9 @@ public class MediaExtractorImpl implements MediaExtractor {
   List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,
       RdfResourceKind rdfResourceKind) {
     return switch (mediaType) {
-      case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType, rdfResourceKind); //todo: check to add here the processor
-      case AUDIO, VIDEO -> List.of(audioVideoProcessor); //todo: check to add here processor here or there
-      case IMAGE ->  List.of(imageProcessor);
+      case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType, rdfResourceKind);
+      case AUDIO, VIDEO -> List.of(audioVideoProcessor);
+      case IMAGE ->  RdfResourceKind.IIIF.equals(rdfResourceKind)? List.of(iiifProcessor): List.of(imageProcessor);
       case THREE_D -> List.of(media3dProcessor);
     };
   }

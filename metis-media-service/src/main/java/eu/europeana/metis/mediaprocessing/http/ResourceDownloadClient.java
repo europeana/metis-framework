@@ -1,6 +1,10 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJsonV3;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.network.AbstractHttpClient;
@@ -98,6 +102,14 @@ public class ResourceDownloadClient extends
    *         other than 2xx).
    */
   public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
+    if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
+      try {
+        RdfResourceEntry newIIIFSmallResourceEntry = IIIFValidation.fetchIIFSmallVersionOfResource(resourceEntry);
+        return download(new ImmutablePair<>(newIIIFSmallResourceEntry, DownloadMode.MIME_TYPE));
+      } catch (MediaExtractionException e) {
+        LOGGER.error("Error while downloading iiif small version of mime type, using normal instead", e);
+      }
+    }
     return download(new ImmutablePair<>(resourceEntry, DownloadMode.MIME_TYPE));
   }
 

@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The type IIIf info json model v3.
@@ -240,6 +241,36 @@ public class IIIFInfoJsonV3 {
     this.maxArea = maxArea;
   }
 
+  @Override
+  public final boolean equals(Object o) {
+    if (!(o instanceof IIIFInfoJsonV3 that)) {
+      return false;
+    }
+
+    return width == that.width && height == that.height && maxWidth == that.maxWidth && maxHeight == that.maxHeight
+        && maxArea == that.maxArea && Objects.equals(context, that.context) && Objects.equals(id, that.id)
+        && Objects.equals(type, that.type) && Objects.equals(protocol, that.protocol)
+        && Objects.equals(sizes, that.sizes) && Objects.equals(tiles, that.tiles) && Objects.equals(
+        profile, that.profile);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Objects.hashCode(context);
+    result = 31 * result + Objects.hashCode(id);
+    result = 31 * result + Objects.hashCode(type);
+    result = 31 * result + Objects.hashCode(protocol);
+    result = 31 * result + width;
+    result = 31 * result + height;
+    result = 31 * result + maxWidth;
+    result = 31 * result + maxHeight;
+    result = 31 * result + maxArea;
+    result = 31 * result + Objects.hashCode(sizes);
+    result = 31 * result + Objects.hashCode(tiles);
+    result = 31 * result + Objects.hashCode(profile);
+    return result;
+  }
+
   /**
    * The type Size.
    */
@@ -249,6 +280,23 @@ public class IIIFInfoJsonV3 {
     private int width;
     private int height;
 
+    /**
+     * Instantiates a new Size.
+     */
+    public Size() {
+      // constructor
+    }
+
+    /**
+     * Instantiates a new Size.
+     *
+     * @param width the width
+     * @param height the height
+     */
+    public Size(int width, int height) {
+      this.width = width;
+      this.height = height;
+    }
     /**
      * Gets width.
      *
@@ -284,6 +332,22 @@ public class IIIFInfoJsonV3 {
     public void setHeight(int height) {
       this.height = height;
     }
+
+    @Override
+    public final boolean equals(Object o) {
+      if (!(o instanceof Size size)) {
+        return false;
+      }
+
+      return width == size.width && height == size.height;
+    }
+
+    @Override
+    public int hashCode() {
+      int result = width;
+      result = 31 * result + height;
+      return result;
+    }
   }
 
   /**
@@ -295,6 +359,25 @@ public class IIIFInfoJsonV3 {
     private int height;
     private List<Integer> scaleFactors;
 
+    /**
+     * Instantiates a new Tile.
+     */
+    public Tile() {
+      // constructor
+    }
+
+    /**
+     * Instantiates a new Tile.
+     *
+     * @param width the width
+     * @param height the height
+     * @param scaleFactors the scale factors
+     */
+    public Tile(int width, int height, List<Integer> scaleFactors) {
+      this.width = width;
+      this.height = height;
+      this.scaleFactors = Collections.unmodifiableList(scaleFactors);
+    }
     /**
      * Gets width.
      *
@@ -347,6 +430,23 @@ public class IIIFInfoJsonV3 {
      */
     public void setScaleFactors(List<Integer> scaleFactors) {
       this.scaleFactors = Collections.unmodifiableList(scaleFactors);
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+      if (!(o instanceof Tile tile)) {
+        return false;
+      }
+
+      return width == tile.width && height == tile.height && Objects.equals(scaleFactors, tile.scaleFactors);
+    }
+
+    @Override
+    public int hashCode() {
+      int result = width;
+      result = 31 * result + height;
+      result = 31 * result + Objects.hashCode(scaleFactors);
+      return result;
     }
   }
 }
