@@ -1,7 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJsonV3;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
@@ -49,7 +49,7 @@ public class IIIFProcessor extends ImageProcessor {
                 .map(name -> (Thumbnail) new ThumbnailImpl(resource.getResourceUrl(), detectedMimeType, name))
                 .toList();
 
-    IIIFInfoJsonV3 infoJson = IIIFValidation.fetchInfoJson(resource.getResourceUrl());
+    IIIFInfoJson infoJson = IIIFValidation.fetchInfoJson(resource.getResourceUrl());
 
     ImageResourceMetadata imageMetadata = new ImageResourceMetadata(metadata.getMimeType(),
         resource.getResourceUrl(),

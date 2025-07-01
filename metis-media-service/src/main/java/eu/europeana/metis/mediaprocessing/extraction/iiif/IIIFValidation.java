@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -42,7 +43,7 @@ public final class IIIFValidation {
       + ")\\.(" + IIIF_FORMAT + ")$";
 
   private static final Pattern IIIF_URL_PATTERN = Pattern.compile("^https?://.+"+IIIF_PARAMS_URI_REGEX+"$");
-
+  private static final Pattern IIIF_URL_EXTENSION_FORMAT = Pattern.compile("\\.([^.]+)$");
   private static final int IIIF_INFO_JSON_MAX_SIZE_BYTES = 49_152;
   private static final int IIIF_INFO_JSON_BUFFER_READ_BYTES = 4096;
 
@@ -67,7 +68,7 @@ public final class IIIFValidation {
    * @return the iiif info json model
    * @throws MediaExtractionException the media extraction exception
    */
-  public static IIIFInfoJsonV3 fetchInfoJson(String iiifUrl) throws MediaExtractionException {
+  public static IIIFInfoJson fetchInfoJson(String iiifUrl) throws MediaExtractionException {
     try {
       final HttpURLConnection connection = getIIIFInfoJsonHttpURLConnection(iiifUrl);
       ByteArrayOutputStream jsonResource = new ByteArrayOutputStream();
@@ -84,7 +85,7 @@ public final class IIIFValidation {
       }
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-      return objectMapper.readValue(jsonResource.toByteArray(), IIIFInfoJsonV3.class);
+      return objectMapper.readValue(jsonResource.toByteArray(), IIIFInfoJson.class);
     } catch (IOException | URISyntaxException e) {
       throw new MediaExtractionException(e.getMessage(), e);
     }
@@ -103,10 +104,24 @@ public final class IIIFValidation {
     return connection;
   }
 
+  /**
+   * Fetch iif small version of resource rdf resource entry.
+   *
+   * @param resourceEntry the resource entry
+   * @return the rdf resource entry
+   * @throws MediaExtractionException the media extraction exception
+   */
   public static RdfResourceEntry fetchIIFSmallVersionOfResource(RdfResourceEntry resourceEntry) throws MediaExtractionException {
-    IIIFInfoJsonV3 infoJsonV3 = IIIFValidation.fetchInfoJson(resourceEntry.getResourceUrl());
+    final IIIFInfoJson infoJsonV3 = IIIFValidation.fetchInfoJson(resourceEntry.getResourceUrl());
+    final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
+    final String extensionFormat;
+    if (matcher.find()) {
+      extensionFormat = "."+matcher.group(1);
+    } else {
+      extensionFormat = ".jpg";
+    }
     if (infoJsonV3 != null) {
-      String newUrl = infoJsonV3.getId() + "/full/!400,400/0/default.jpg";
+      final String newUrl = infoJsonV3.getId() + "/full/!400,400/0/default"+extensionFormat;
       return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind());
     }
     return resourceEntry;

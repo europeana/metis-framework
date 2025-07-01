@@ -51,12 +51,13 @@ import org.xml.sax.SAXException;
 class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String IIIF_NAMESPACE = "http://iiif.io/api/image";
+  private static final String XPATH_RDF_ABOUT = "rdf:about";
   private static final String XPATH_IIIF_SERVICES =
       SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + IIIF_NAMESPACE + "\"]";
   private static final String XPATH_IIIF_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[svcs:has_service/@rdf:resource = " + XPATH_IIIF_SERVICES + "/@rdf:about]";
+      + "[svcs:has_service/@rdf:resource = " + XPATH_IIIF_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String XPATH_IS_IIIF_RESOURCE_CONDITION = "[. = "
-      + XPATH_IIIF_WEB_RESOURCES + "/@rdf:about]";
+      + XPATH_IIIF_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String IIIF_XPATH_CONDITION_IS_SHOWN_BY =
       EDM_IS_SHOWN_BY + XPATH_IS_IIIF_RESOURCE_CONDITION;
   private static final String IIIF_XPATH_CONDITION_HAS_VIEW =
@@ -66,9 +67,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_OEMBED_SERVICES =
       SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + OEMBED_NAMESPACE + "\"]";
   private static final String XPATH_OEMBED_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[svcs:has_service/@rdf:resource = " + XPATH_OEMBED_SERVICES + "/@rdf:about]";
+      + "[svcs:has_service/@rdf:resource = " + XPATH_OEMBED_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String XPATH_IS_OEMBED_RESOURCE_CONDITION = "[. = "
-      + XPATH_OEMBED_WEB_RESOURCES + "/@rdf:about]";
+      + XPATH_OEMBED_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
       EDM_IS_SHOWN_BY + XPATH_IS_OEMBED_RESOURCE_CONDITION;
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =

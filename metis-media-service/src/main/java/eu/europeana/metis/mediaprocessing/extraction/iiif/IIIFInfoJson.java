@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The type IIIf info json model v3.
+ * The type IIIf info json model v3 base on the following
+ * <a href="https://iiif.io/api/image/3.0/#52-technical-properties">technical properties</a>
  */
-public class IIIFInfoJsonV3 {
+public class IIIFInfoJson {
 
   @JsonProperty("@context")
   private String context;
@@ -243,7 +244,7 @@ public class IIIFInfoJsonV3 {
 
   @Override
   public final boolean equals(Object o) {
-    if (!(o instanceof IIIFInfoJsonV3 that)) {
+    if (!(o instanceof IIIFInfoJson that)) {
       return false;
     }
 
@@ -297,6 +298,7 @@ public class IIIFInfoJsonV3 {
       this.width = width;
       this.height = height;
     }
+
     /**
      * Gets width.
      *
@@ -378,6 +380,7 @@ public class IIIFInfoJsonV3 {
       this.height = height;
       this.scaleFactors = Collections.unmodifiableList(scaleFactors);
     }
+
     /**
      * Gets width.
      *

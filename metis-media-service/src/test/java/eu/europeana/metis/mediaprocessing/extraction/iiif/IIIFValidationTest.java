@@ -14,7 +14,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJsonV3.Size;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson.Size;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -110,7 +110,7 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    IIIFInfoJsonV3 model = IIIFValidation.fetchInfoJson(
+    IIIFInfoJson model = IIIFValidation.fetchInfoJson(
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg");
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
@@ -119,7 +119,7 @@ class IIIFValidationTest {
     assertNull( model.getType());
     assertEquals(3088, model.getHeight());
     assertEquals(3710, model.getWidth());
-    assertIterableEquals(List.of(new IIIFInfoJsonV3.Tile(1024,1024,List.of(1,2,4,8,16,32))),model.getTiles());
+    assertIterableEquals(List.of(new IIIFInfoJson.Tile(1024,1024,List.of(1,2,4,8,16,32))),model.getTiles());
     assertIterableEquals(List.of(new Size(116,97), new Size(232,193),
         new Size(464,386), new Size(928,772),
         new Size(1855,1544), new Size(3710,3088),

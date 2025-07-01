@@ -196,9 +196,9 @@ class RdfDeserializerImplTest {
     // then check the oEmbedResources where successfully identified.
     assertEquals(2, resultAllTypes.size());
     assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultAllTypes.get(hasView).urlTypes());
-    assertTrue(RdfResourceKind.OEMBEDDED.equals(resultAllTypes.get(hasView).rdfResourceKind()));
+    assertEquals(RdfResourceKind.OEMBEDDED, resultAllTypes.get(hasView).rdfResourceKind());
     assertEquals(Collections.singleton(UrlType.IS_SHOWN_BY), resultAllTypes.get(isShownBy).urlTypes());
-    assertTrue(RdfResourceKind.OEMBEDDED.equals(resultAllTypes.get(isShownBy).rdfResourceKind()));
+    assertEquals(RdfResourceKind.OEMBEDDED, resultAllTypes.get(isShownBy).rdfResourceKind());
   }
 
   @Test

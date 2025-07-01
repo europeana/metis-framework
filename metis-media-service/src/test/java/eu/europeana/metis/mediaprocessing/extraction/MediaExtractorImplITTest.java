@@ -18,7 +18,7 @@ class MediaExtractorImplITTest {
   private RdfDeserializer rdfDeserializer;
   private MediaExtractor mediaExtractor;
 
-  @Disabled
+  @Disabled("enable imagemagick first on metis-actions for the build.")
   @Test
   void testIIFExtraction() throws Exception {
 
