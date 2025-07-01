@@ -15,9 +15,13 @@ import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson.Size;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
+import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -93,6 +97,7 @@ class IIIFValidationTest {
   static void tearDownWireMock() {
     wireMockServer.stop();
   }
+
   @ParameterizedTest
   @MethodSource("providedIIIFUrls")
   void isIIIFUrl(String url, boolean expectedResult) {
@@ -127,4 +132,19 @@ class IIIFValidationTest {
     assertArrayEquals(new String[]{"http://iiif.io/api/image/2/level2.json"},model.getProfile().toArray());
   }
 
+  @Test
+  void fetchIIFSmallVersionOfResource() throws IOException, MediaExtractionException {
+    final InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    final String infoJson = new String(inputStreamInfoJson.readAllBytes());
+
+    wireMockServer.stubFor(get(urlEqualTo("/image/iiif/zw031pj2507/zw031pj2507_0001/info.json"))
+        .willReturn(aResponse()
+            .withHeader("Content-Type", "application/json")
+            .withBody(infoJson)
+            .withStatus(HttpStatus.OK.value())));
+    final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
+    RdfResourceEntry resourceEntry = IIIFValidation.fetchIIFSmallVersionOfResource(rdfResourceEntry);
+    assertNotNull(resourceEntry);
+  }
 }
