@@ -4,7 +4,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,7 +13,6 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson.Size;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -33,15 +31,21 @@ import org.springframework.http.HttpStatus;
 
 class IIIFValidationTest {
 
+  private static WireMockServer wireMockServer;
+
   private static Stream<Arguments> providedIIIFUrls() {
     return Stream.of(
         // valid
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/square/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,120,140/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,40,70/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,200,200/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,66.6,100/max/0/default.jpg", true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,120,140/max/0/default.jpg",
+            true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,40,70/max/0/default.jpg",
+            true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,200,200/max/0/default.jpg",
+            true),
+        Arguments.of(
+            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,66.6,100/max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/150,/0/default.jpg", true),
@@ -75,13 +79,13 @@ class IIIFValidationTest {
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/max/90/20/gray.jpg", false),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,80,250/90,90/20/gray.jpg", false),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/3^60,360/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg", false),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg",
+            false),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:80/max/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg", false)
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg",
+            false)
     );
   }
-
-  private static WireMockServer wireMockServer;
 
   @BeforeAll
   static void createWireMock() {
@@ -101,11 +105,11 @@ class IIIFValidationTest {
   @ParameterizedTest
   @MethodSource("providedIIIFUrls")
   void isIIIFUrl(String url, boolean expectedResult) {
-        assertEquals(expectedResult, IIIFValidation.isIIIFUrl(url));
+    assertEquals(expectedResult, IIIFValidation.isIIIFUrl(url));
   }
 
   @Test
-  void fetchInfoJson() throws MediaExtractionException, IOException {
+  void fetchInfoJsonV2() throws MediaExtractionException, IOException {
     InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -115,21 +119,88 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    IIIFInfoJson model = IIIFValidation.fetchInfoJson(
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) IIIFValidation.fetchInfoJson(
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg");
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
-    assertNull( model.getType());
+    assertNull(model.getType());
     assertEquals(3088, model.getHeight());
     assertEquals(3710, model.getWidth());
-    assertIterableEquals(List.of(new IIIFInfoJson.Tile(1024,1024,List.of(1,2,4,8,16,32))),model.getTiles());
-    assertIterableEquals(List.of(new Size(116,97), new Size(232,193),
-        new Size(464,386), new Size(928,772),
-        new Size(1855,1544), new Size(3710,3088),
-        new Size(3710,3088)),model.getSizes());
-    assertArrayEquals(new String[]{"http://iiif.io/api/image/2/level2.json"},model.getProfile().toArray());
+    assertIterableEquals(List.of(new Tile(1024, 1024, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
+    assertIterableEquals(List.of(new Size(116, 97), new Size(232, 193),
+        new Size(464, 386), new Size(928, 772),
+        new Size(1855, 1544), new Size(3710, 3088),
+        new Size(3710, 3088)), model.getSizes());
+    assertEquals("http://iiif.io/api/image/2/level2.json", model.getProfile().getUrl());
+  }
+
+  @Test
+  void fetchInfoJsonV2WithProfile() throws MediaExtractionException, IOException {
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2_with_profile.json");
+    String infoJson = new String(inputStreamInfoJson.readAllBytes());
+
+    wireMockServer.stubFor(get(urlEqualTo("/image/b20432033_B0008608.JP2/info.json"))
+        .willReturn(aResponse()
+            .withHeader("Content-Type", "application/json")
+            .withBody(infoJson)
+            .withStatus(HttpStatus.OK.value())));
+
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) IIIFValidation.fetchInfoJson(
+        "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg");
+    assertNotNull(model);
+    assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
+    assertEquals("https://iiif.wellcomecollection.org/image/b20432033_B0008608.JP2", model.getId());
+    assertEquals("http://iiif.io/api/image", model.getProtocol());
+    assertNull(model.getType());
+    assertEquals(2480, model.getHeight());
+    assertEquals(3543, model.getWidth());
+    assertIterableEquals(List.of(new Tile(1024, 1024, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
+    assertIterableEquals(List.of(new Size(1024, 717), new Size(400, 280),
+        new Size(200, 140), new Size(100, 70)), model.getSizes());
+    assertEquals("http://iiif.io/api/image/2/level2.json", model.getProfile().getUrl());
+    assertIterableEquals(List.of("jpg","tif","gif","png"),model.getProfile().getDetail().getFormats());
+    assertIterableEquals(List.of("bitonal","default","gray","color"),model.getProfile().getDetail().getQualities());
+    assertIterableEquals(List.of("regionByPx", "sizeByW", "sizeByWhListed","cors", "regionSquare", "sizeByDistortedWh",
+        "canonicalLinkHeader", "sizeByConfinedWh", "sizeByPct", "jsonldMediaType", "regionByPct",
+        "rotationArbitrary", "sizeByH", "baseUriRedirect", "rotationBy90s", "profileLinkHeader",
+        "sizeByForcedWh", "sizeByWh", "mirroring"),model.getProfile().getDetail().getSupports());
+  }
+
+  @Test
+  void fetchInfoJsonV3() throws MediaExtractionException, IOException {
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v3.json");
+    String infoJson = new String(inputStreamInfoJson.readAllBytes());
+
+    wireMockServer.stubFor(get(urlEqualTo("/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/info.json"))
+        .willReturn(aResponse()
+            .withHeader("Content-Type", "application/json")
+            .withBody(infoJson)
+            .withStatus(HttpStatus.OK.value())));
+
+    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) IIIFValidation.fetchInfoJson(
+        "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg");
+    assertNotNull(model);
+    assertEquals(List.of("http://example.org/extension/context1.json","http://iiif.io/api/image/3/context.json"), model.getContext());
+    assertEquals("https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a", model.getId());
+    assertEquals("ImageService3", model.getType());
+    assertEquals("http://iiif.io/api/image", model.getProtocol());
+
+    assertEquals(5788, model.getWidth());
+    assertEquals(8208, model.getHeight());
+    assertEquals(5788, model.getMaxWidth());
+    assertEquals(8208, model.getMaxHeight());
+    assertEquals(47507904, model.getMaxArea());
+    assertIterableEquals(List.of(new Tile(256, 256, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
+    assertIterableEquals(List.of(new Size(180, 256), new Size(361, 513),
+        new Size(723, 1026), new Size(1447, 2052), new Size(2894,4104)), model.getSizes());
+    assertEquals("level2", model.getProfile());
+    assertIterableEquals(List.of("png","gif"),model.getPreferredFormats());
+    assertEquals("http://rightsstatements.org/vocab/InC-EDU/1.0/", model.getRights());
+    assertIterableEquals(List.of("png","gif","pdf"),model.getExtraFormats());
+    assertIterableEquals(List.of("native", "color","gray","bitonal"),model.getExtraQualities());
+    assertIterableEquals(List.of("canonicalLinkHeader", "rotationArbitrary",  "profileLinkHeader"),model.getExtraFeatures());
   }
 
   @Test
@@ -142,7 +213,8 @@ class IIIFValidationTest {
             .withHeader("Content-Type", "application/json")
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
-    final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+    final String url =
+        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
     RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
     RdfResourceEntry resourceEntry = IIIFValidation.fetchIIFSmallVersionOfResource(rdfResourceEntry);
     assertNotNull(resourceEntry);

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
@@ -46,6 +47,8 @@ public final class IIIFValidation {
   private static final Pattern IIIF_URL_EXTENSION_FORMAT = Pattern.compile("\\.([^.]+)$");
   private static final int IIIF_INFO_JSON_MAX_SIZE_BYTES = 49_152;
   private static final int IIIF_INFO_JSON_BUFFER_READ_BYTES = 4096;
+  private static final String IIIF_INFO_JSON_V2 = "http://iiif.io/api/image/2/context.json";
+  private static final String IIIF_INFO_JSON_V3 = "http://iiif.io/api/image/3/context.json";
 
   private IIIFValidation() {
     // validation class
@@ -83,9 +86,20 @@ public final class IIIFValidation {
       } finally {
         connection.disconnect();
       }
+      final String fieldContext = "@context";
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-      return objectMapper.readValue(jsonResource.toByteArray(), IIIFInfoJson.class);
+      JsonNode jsonNode = objectMapper.readTree(jsonResource.toByteArray());
+      if (jsonNode.get(fieldContext).isArray()
+          && IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).get(jsonNode.get(fieldContext).size() - 1).asText())) {
+          return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
+      } else if ( IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).asText())) {
+        return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
+      }else if ( IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asText())) {
+        return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV2.class);
+      } else {
+        throw new MediaExtractionException("info.json not detected", null);
+      }
     } catch (IOException | URISyntaxException e) {
       throw new MediaExtractionException(e.getMessage(), e);
     }
