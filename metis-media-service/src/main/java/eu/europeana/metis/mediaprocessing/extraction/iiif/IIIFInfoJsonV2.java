@@ -2,29 +2,18 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * The type IIIf info json model v2 base on the following
  * <a href="https://iiif.io/api/image/2.0/#image-information">technical properties</a>
  */
-public class IIIFInfoJsonV2 implements IIIFInfoJson {
+public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @JsonProperty("@context")
   private String context;
   @JsonProperty("@id")
   private String id;
-  private String type;
-  private String protocol;
-  private int width;
-  private int height;
-  private int maxWidth;
-  private int maxHeight;
-  private int maxArea;
-  private List<Size> sizes;
-  private List<Tile> tiles;
+
   @JsonProperty("profile")
   @JsonDeserialize(using = IIIFInfoJsonProfileDeserializer.class)
   private IIIFProfile profile;
@@ -45,24 +34,6 @@ public class IIIFInfoJsonV2 implements IIIFInfoJson {
    */
   public void setProfile(IIIFProfile profile) {
     this.profile = profile;
-  }
-
-  /**
-   * Gets type.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Sets type.
-   *
-   * @param type the type
-   */
-  public void setType(String type) {
-    this.type = type;
   }
 
   /**
@@ -101,177 +72,24 @@ public class IIIFInfoJsonV2 implements IIIFInfoJson {
     this.id = id;
   }
 
-  /**
-   * Gets protocol.
-   *
-   * @return the protocol
-   */
-  public String getProtocol() {
-    return protocol;
-  }
-
-  /**
-   * Sets protocol.
-   *
-   * @param protocol the protocol
-   */
-  public void setProtocol(String protocol) {
-    this.protocol = protocol;
-  }
-
-  /**
-   * Gets width.
-   *
-   * @return the width
-   */
-  public int getWidth() {
-    return width;
-  }
-
-  /**
-   * Sets width.
-   *
-   * @param width the width
-   */
-  public void setWidth(int width) {
-    this.width = width;
-  }
-
-  /**
-   * Gets height.
-   *
-   * @return the height
-   */
-  public int getHeight() {
-    return height;
-  }
-
-  /**
-   * Sets height.
-   *
-   * @param height the height
-   */
-  public void setHeight(int height) {
-    this.height = height;
-  }
-
-  /**
-   * Gets sizes.
-   *
-   * @return the sizes
-   */
-  public List<Size> getSizes() {
-    return Collections.unmodifiableList(sizes);
-  }
-
-  /**
-   * Sets sizes.
-   *
-   * @param sizes the sizes
-   */
-  public void setSizes(List<Size> sizes) {
-    this.sizes = Collections.unmodifiableList(sizes);
-  }
-
-  /**
-   * Gets tiles.
-   *
-   * @return the tiles
-   */
-  public List<Tile> getTiles() {
-    return Collections.unmodifiableList(tiles);
-  }
-
-  /**
-   * Sets tiles.
-   *
-   * @param tiles the tiles
-   */
-  public void setTiles(List<Tile> tiles) {
-    this.tiles = Collections.unmodifiableList(tiles);
-  }
-
-  /**
-   * Gets max width.
-   *
-   * @return the max width
-   */
-  public int getMaxWidth() {
-    return maxWidth;
-  }
-
-  /**
-   * Sets max width.
-   *
-   * @param maxWidth the max width
-   */
-  public void setMaxWidth(int maxWidth) {
-    this.maxWidth = maxWidth;
-  }
-
-  /**
-   * Gets max height.
-   *
-   * @return the max height
-   */
-  public int getMaxHeight() {
-    return maxHeight;
-  }
-
-  /**
-   * Sets max height.
-   *
-   * @param maxHeight the max height
-   */
-  public void setMaxHeight(int maxHeight) {
-    this.maxHeight = maxHeight;
-  }
-
-  /**
-   * Gets max area.
-   *
-   * @return the max area
-   */
-  public int getMaxArea() {
-    return maxArea;
-  }
-
-  /**
-   * Sets max area.
-   *
-   * @param maxArea the max area
-   */
-  public void setMaxArea(int maxArea) {
-    this.maxArea = maxArea;
-  }
-
   @Override
   public final boolean equals(Object o) {
     if (!(o instanceof IIIFInfoJsonV2 that)) {
       return false;
     }
+    if (!super.equals(o)) {
+      return false;
+    }
 
-    return width == that.width && height == that.height && maxWidth == that.maxWidth && maxHeight == that.maxHeight
-        && maxArea == that.maxArea && Objects.equals(context, that.context) && Objects.equals(id, that.id)
-        && Objects.equals(type, that.type) && Objects.equals(protocol, that.protocol)
-        && Objects.equals(sizes, that.sizes) && Objects.equals(tiles, that.tiles) && Objects.equals(
-        profile, that.profile);
+    return context.equals(that.context) && id.equals(that.id) && profile.equals(that.profile);
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hashCode(context);
-    result = 31 * result + Objects.hashCode(id);
-    result = 31 * result + Objects.hashCode(type);
-    result = 31 * result + Objects.hashCode(protocol);
-    result = 31 * result + width;
-    result = 31 * result + height;
-    result = 31 * result + maxWidth;
-    result = 31 * result + maxHeight;
-    result = 31 * result + maxArea;
-    result = 31 * result + Objects.hashCode(sizes);
-    result = 31 * result + Objects.hashCode(tiles);
-    result = 31 * result + Objects.hashCode(profile);
+    int result = super.hashCode();
+    result = 31 * result + context.hashCode();
+    result = 31 * result + id.hashCode();
+    result = 31 * result + profile.hashCode();
     return result;
   }
 }

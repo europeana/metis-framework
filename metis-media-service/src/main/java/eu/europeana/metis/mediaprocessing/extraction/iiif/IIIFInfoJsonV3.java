@@ -10,36 +10,46 @@ import java.util.Objects;
  * The type IIIf info json model v3 base on the following
  * <a href="https://iiif.io/api/image/3.0/#52-technical-properties">technical properties</a>
  */
-public class IIIFInfoJsonV3 implements IIIFInfoJson {
+public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @JsonProperty("@context")
   private List<String> context;
   @JsonProperty("id")
   private String id;
   private String type;
-  private String protocol;
   private String profile;
-  private int width;
-  private int height;
   private int maxWidth;
   private int maxHeight;
   private int maxArea;
-  private List<Size> sizes;
-  private List<Tile> tiles;
   private List<String> preferredFormats;
   private String rights;
   private List<String> extraQualities;
   private List<String> extraFormats;
   private List<String> extraFeatures;
-  //@JsonProperty("partOf")
   @JsonDeserialize(using = IIIFInfoJsonLinkDeserializer.class)
   private List<IIIFLink> partOf;
-  //@JsonProperty("seeAlso")
   @JsonDeserialize(using = IIIFInfoJsonLinkDeserializer.class)
   private List<IIIFLink> seeAlso;
-  //@JsonProperty("service")
   @JsonDeserialize(using = IIIFInfoJsonLinkDeserializer.class)
   private List<IIIFLink> service;
+
+  /**
+   * Gets type.
+   *
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * Sets type.
+   *
+   * @param type the type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
 
   /**
    * Gets preferred formats.
@@ -186,24 +196,6 @@ public class IIIFInfoJsonV3 implements IIIFInfoJson {
   }
 
   /**
-   * Gets type.
-   *
-   * @return the type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Sets type.
-   *
-   * @param type the type
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  /**
    * Gets context.
    *
    * @return the context
@@ -237,96 +229,6 @@ public class IIIFInfoJsonV3 implements IIIFInfoJson {
    */
   public void setId(String id) {
     this.id = id;
-  }
-
-  /**
-   * Gets protocol.
-   *
-   * @return the protocol
-   */
-  public String getProtocol() {
-    return protocol;
-  }
-
-  /**
-   * Sets protocol.
-   *
-   * @param protocol the protocol
-   */
-  public void setProtocol(String protocol) {
-    this.protocol = protocol;
-  }
-
-  /**
-   * Gets width.
-   *
-   * @return the width
-   */
-  public int getWidth() {
-    return width;
-  }
-
-  /**
-   * Sets width.
-   *
-   * @param width the width
-   */
-  public void setWidth(int width) {
-    this.width = width;
-  }
-
-  /**
-   * Gets height.
-   *
-   * @return the height
-   */
-  public int getHeight() {
-    return height;
-  }
-
-  /**
-   * Sets height.
-   *
-   * @param height the height
-   */
-  public void setHeight(int height) {
-    this.height = height;
-  }
-
-  /**
-   * Gets sizes.
-   *
-   * @return the sizes
-   */
-  public List<Size> getSizes() {
-    return Collections.unmodifiableList(sizes);
-  }
-
-  /**
-   * Sets sizes.
-   *
-   * @param sizes the sizes
-   */
-  public void setSizes(List<Size> sizes) {
-    this.sizes = Collections.unmodifiableList(sizes);
-  }
-
-  /**
-   * Gets tiles.
-   *
-   * @return the tiles
-   */
-  public List<Tile> getTiles() {
-    return Collections.unmodifiableList(tiles);
-  }
-
-  /**
-   * Sets tiles.
-   *
-   * @param tiles the tiles
-   */
-  public void setTiles(List<Tile> tiles) {
-    this.tiles = Collections.unmodifiableList(tiles);
   }
 
   /**
@@ -406,28 +308,36 @@ public class IIIFInfoJsonV3 implements IIIFInfoJson {
     if (!(o instanceof IIIFInfoJsonV3 that)) {
       return false;
     }
+    if (!super.equals(o)) {
+      return false;
+    }
 
-    return width == that.width && height == that.height && maxWidth == that.maxWidth && maxHeight == that.maxHeight
-        && maxArea == that.maxArea && Objects.equals(context, that.context) && Objects.equals(id, that.id)
-        && Objects.equals(type, that.type) && Objects.equals(protocol, that.protocol)
-        && Objects.equals(sizes, that.sizes) && Objects.equals(tiles, that.tiles) && Objects.equals(
-        profile, that.profile);
+    return maxWidth == that.maxWidth && maxHeight == that.maxHeight && maxArea == that.maxArea && context.equals(that.context)
+        && id.equals(that.id) && type.equals(that.type) && profile.equals(that.profile) && Objects.equals(
+        preferredFormats, that.preferredFormats) && Objects.equals(rights, that.rights) && Objects.equals(
+        extraQualities, that.extraQualities) && Objects.equals(extraFormats, that.extraFormats)
+        && Objects.equals(extraFeatures, that.extraFeatures) && Objects.equals(partOf, that.partOf)
+        && Objects.equals(seeAlso, that.seeAlso) && Objects.equals(service, that.service);
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hashCode(context);
-    result = 31 * result + Objects.hashCode(id);
-    result = 31 * result + Objects.hashCode(type);
-    result = 31 * result + Objects.hashCode(protocol);
-    result = 31 * result + width;
-    result = 31 * result + height;
+    int result = super.hashCode();
+    result = 31 * result + context.hashCode();
+    result = 31 * result + id.hashCode();
+    result = 31 * result + type.hashCode();
+    result = 31 * result + profile.hashCode();
     result = 31 * result + maxWidth;
     result = 31 * result + maxHeight;
     result = 31 * result + maxArea;
-    result = 31 * result + Objects.hashCode(sizes);
-    result = 31 * result + Objects.hashCode(tiles);
-    result = 31 * result + Objects.hashCode(profile);
+    result = 31 * result + Objects.hashCode(preferredFormats);
+    result = 31 * result + Objects.hashCode(rights);
+    result = 31 * result + Objects.hashCode(extraQualities);
+    result = 31 * result + Objects.hashCode(extraFormats);
+    result = 31 * result + Objects.hashCode(extraFeatures);
+    result = 31 * result + Objects.hashCode(partOf);
+    result = 31 * result + Objects.hashCode(seeAlso);
+    result = 31 * result + Objects.hashCode(service);
     return result;
   }
 }

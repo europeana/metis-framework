@@ -7,7 +7,6 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
@@ -126,7 +125,6 @@ class IIIFValidationTest {
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
-    assertNull(model.getType());
     assertEquals(3088, model.getHeight());
     assertEquals(3710, model.getWidth());
     assertIterableEquals(List.of(new Tile(1024, 1024, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
@@ -154,7 +152,6 @@ class IIIFValidationTest {
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://iiif.wellcomecollection.org/image/b20432033_B0008608.JP2", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
-    assertNull(model.getType());
     assertEquals(2480, model.getHeight());
     assertEquals(3543, model.getWidth());
     assertIterableEquals(List.of(new Tile(1024, 1024, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
