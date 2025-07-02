@@ -103,7 +103,7 @@ public class ResourceDownloadClient extends
   public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
     if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
       try {
-        RdfResourceEntry newIIIFSmallResourceEntry = IIIFValidation.fetchIIFSmallVersionOfResource(resourceEntry);
+        RdfResourceEntry newIIIFSmallResourceEntry = IIIFValidation.fetchIIIFSmallVersionOfResource(resourceEntry);
         return download(new ImmutablePair<>(newIIIFSmallResourceEntry, DownloadMode.MIME_TYPE));
       } catch (MediaExtractionException e) {
         LOGGER.error("Error while downloading iiif small version of mime type, using normal instead", e);

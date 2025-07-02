@@ -208,7 +208,7 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchIIFSmallVersionOfResource() throws IOException, MediaExtractionException {
+  void fetchIIIFSmallVersionOfResource() throws IOException, MediaExtractionException {
     final InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
     final String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -220,7 +220,7 @@ class IIIFValidationTest {
     final String url =
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
     RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
-    RdfResourceEntry resourceEntry = IIIFValidation.fetchIIFSmallVersionOfResource(rdfResourceEntry);
+    RdfResourceEntry resourceEntry = IIIFValidation.fetchIIIFSmallVersionOfResource(rdfResourceEntry);
     assertNotNull(resourceEntry);
   }
 }

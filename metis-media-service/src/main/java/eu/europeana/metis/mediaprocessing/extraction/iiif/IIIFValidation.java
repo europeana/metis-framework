@@ -125,7 +125,7 @@ public final class IIIFValidation {
    * @return the rdf resource entry
    * @throws MediaExtractionException the media extraction exception
    */
-  public static RdfResourceEntry fetchIIFSmallVersionOfResource(RdfResourceEntry resourceEntry) throws MediaExtractionException {
+  public static RdfResourceEntry fetchIIIFSmallVersionOfResource(RdfResourceEntry resourceEntry) throws MediaExtractionException {
     final IIIFInfoJson infoJsonV3 = IIIFValidation.fetchInfoJson(resourceEntry.getResourceUrl());
     final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
     final String extensionFormat;
