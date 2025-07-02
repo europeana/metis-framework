@@ -19,6 +19,7 @@ import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
@@ -201,6 +202,12 @@ class IIIFValidationTest {
     assertIterableEquals(List.of("png","gif","pdf"),model.getExtraFormats());
     assertIterableEquals(List.of("native", "color","gray","bitonal"),model.getExtraQualities());
     assertIterableEquals(List.of("canonicalLinkHeader", "rotationArbitrary",  "profileLinkHeader"),model.getExtraFeatures());
+    assertIterableEquals(List.of(new IIIFLink("https://example.org/image1.xml",
+        "Dataset", Map.of("en", List.of("Technical image metadata")),"text/xml","https://example.org/profiles/imagedata")), model.getSeeAlso());
+    assertIterableEquals(List.of(new IIIFLink("https://example.org/manifest/1",
+        "Manifest", Map.of("en", List.of("A Book")),null,null)), model.getPartOf());
+    assertIterableEquals(List.of(new IIIFLink("https://example.org/service/example",
+        "Service",null,null,"https://example.org/docs/example-service.html")), model.getService());
   }
 
   @Test

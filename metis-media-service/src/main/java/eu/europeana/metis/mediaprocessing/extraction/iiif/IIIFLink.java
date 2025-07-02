@@ -21,6 +21,30 @@ public class IIIFLink {
   private String profile;
 
   /**
+   * Instantiates a new Iiif link.
+   */
+  public IIIFLink() {
+    // constructor
+  }
+
+  /**
+   * Instantiates a new Iiif link.
+   *
+   * @param id the id
+   * @param type the type
+   * @param label the label
+   * @param format the format
+   * @param profile the profile
+   */
+  public IIIFLink(String id, String type, Map<String, List<String>> label, String format, String profile) {
+    this.id = id;
+    this.type = type;
+    this.label = label;
+    this.format = format;
+    this.profile = profile;
+  }
+
+  /**
    * Gets profile.
    *
    * @return the profile
