@@ -234,9 +234,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
   }
 
   private Set<String> getIIFUrls(Document document) throws RdfDeserializationException {
-    final NodeList oEmbedNodes = getIIIFExpression.evaluate(document);
-    return IntStream.range(0, oEmbedNodes.getLength())
-                    .mapToObj(oEmbedNodes::item)
+    final NodeList iiifNodes = getIIIFExpression.evaluate(document);
+    return IntStream.range(0, iiifNodes.getLength())
+                    .mapToObj(iiifNodes::item)
                     .map(Node::getNodeValue)
                     .collect(Collectors.toSet());
   }
