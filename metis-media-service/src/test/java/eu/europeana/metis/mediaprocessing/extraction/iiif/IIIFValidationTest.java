@@ -39,14 +39,10 @@ class IIIFValidationTest {
         // valid
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/square/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,120,140/max/0/default.jpg",
-            true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,40,70/max/0/default.jpg",
-            true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,200,200/max/0/default.jpg",
-            true),
-        Arguments.of(
-            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,66.6,100/max/0/default.jpg", true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,120,140/max/0/default.jpg", true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,40,70/max/0/default.jpg", true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,200,200/max/0/default.jpg", true),
+        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,66.6,100/max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^max/0/default.jpg", true),
         Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/150,/0/default.jpg", true),
