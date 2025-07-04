@@ -3,9 +3,13 @@ package eu.europeana.metis.mediaprocessing.model;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import java.net.URI;
 
+/**
+ * The type Resource with iiif info.json.
+ */
 public class ResourceIIIFImpl extends ResourceImpl {
 
-  private IIIFInfoJson iiifInfoJson;
+  private final IIIFInfoJson iiifInfoJson;
+
   /**
    * Constructor.
    *
@@ -16,6 +20,7 @@ public class ResourceIIIFImpl extends ResourceImpl {
    * file size.
    * @param actualLocation The actual location where the resource was obtained (as opposed from the resource URL given by
    * {@link ResourceImpl#getResourceUrl()}).
+   * @param iiifInfoJson the iiif info json of the iiif resource
    */
   public ResourceIIIFImpl(RdfResourceEntry rdfResourceEntry, String providedMimeType, Long providedFileSize,
       URI actualLocation, IIIFInfoJson iiifInfoJson) {

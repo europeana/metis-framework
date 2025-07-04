@@ -7,6 +7,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
@@ -131,7 +132,7 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg",
         Set.of(),
         RdfResourceKind.IIIF);
-    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
@@ -162,7 +163,7 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg",
         Set.of(),
         RdfResourceKind.IIIF);
-    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
@@ -198,7 +199,7 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg",
         Set.of(),
         RdfResourceKind.IIIF);
-    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
+    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
     assertEquals(List.of("http://example.org/extension/context1.json","http://iiif.io/api/image/3/context.json"), model.getContext());
@@ -243,9 +244,10 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
 
     RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
-    rdfResourceEntry = iiifValidation.fetchInfoJson(rdfResourceEntry);
-    RdfResourceEntry resourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry);
+    IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
+    RdfResourceEntry resourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry, iiifInfoJson);
     assertNotNull(resourceEntry);
-    assertNotNull(resourceEntry.getIIIFInfoJson());
+    assertTrue(resourceEntry.getResourceUrl().contains("/full/!400,400/0/default.jpg"));
+    assertNotNull(iiifInfoJson);
   }
 }

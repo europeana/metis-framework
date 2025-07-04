@@ -67,18 +67,17 @@ public final class IIIFValidation {
    * @param rdfResourceEntry the rdf resource entry
    * @return the iiif info json
    */
-  public RdfResourceEntry fetchInfoJson(RdfResourceEntry rdfResourceEntry) {
+  public IIIFInfoJson fetchInfoJson(RdfResourceEntry rdfResourceEntry) {
+    IIIFInfoJson iiifInfoJson = null;
     try {
       final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
       final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
           rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind());
       Resource resource = resourceDownloadClient.download(new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE));
-
       final String fieldContext = "@context";
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
       JsonNode jsonNode = objectMapper.readTree(resource.getContentStream().readAllBytes());
-      IIIFInfoJson iiifInfoJson;
       if (jsonNode.get(fieldContext).isArray()
           // according to documentation
           // the context is at last position on info.json v3
@@ -89,25 +88,22 @@ public final class IIIFValidation {
       } else if (IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asText())) {
         iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV2.class);
       } else {
-        iiifInfoJson = null;
-        LOGGER.warn("info.json not detected");
+        LOGGER.warn("No info json found for IIIF resource entry. {} ", rdfResourceEntry.getResourceUrl());
       }
-      rdfResourceEntry = new RdfResourceEntry(rdfResourceEntry.getResourceUrl(), rdfResourceEntry.getUrlTypes(),
-          rdfResourceEntry.getResourceKind(), iiifInfoJson);
     } catch (IOException e) {
       LOGGER.error("error while trying to fetch info json", e);
     }
-    return rdfResourceEntry;
+    return iiifInfoJson;
   }
 
   /**
    * Adjust resource entry to small iiif rdf resource entry.
    *
    * @param resourceEntry the resource entry
+   * @param infoJson the info json
    * @return the rdf resource entry
    */
-  public RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry)  {
-    final IIIFInfoJson infoJson = resourceEntry.getIIIFInfoJson();
+  public RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry, IIIFInfoJson infoJson)  {
     final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
     final String extensionFormat;
     if (matcher.find()) {
@@ -117,7 +113,7 @@ public final class IIIFValidation {
     }
     if (infoJson != null) {
       final String newUrl = infoJson.getId() + "/full/!400,400/0/default" + extensionFormat;
-      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind(), infoJson);
+      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind());
     }
     return resourceEntry;
   }

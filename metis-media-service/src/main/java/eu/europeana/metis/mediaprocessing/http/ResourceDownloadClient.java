@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.http;
 
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
@@ -102,13 +103,13 @@ public class ResourceDownloadClient extends
    */
   public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
     if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
-      IIIFValidation iiifValidation = new IIIFValidation(this);
-      RdfResourceEntry resourceEntryWithInfoJson = iiifValidation.fetchInfoJson(resourceEntry);
-      RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntryWithInfoJson);
-      try (Resource resource = download(new ImmutablePair<>(newIIIFSmallResourceEntry, DownloadMode.MIME_TYPE))) {
-        return new ResourceIIIFImpl(resourceEntry,
-            resource.getProvidedMimeType(), resource.getProvidedFileSize(), resource.getActualLocation(),
-            resourceEntryWithInfoJson.getIIIFInfoJson());
+      final IIIFValidation iiifValidation = new IIIFValidation(this);
+      final IIIFInfoJson infoJson = iiifValidation.fetchInfoJson(resourceEntry);
+      if (infoJson != null) {
+        final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);
+        final Resource resource = download(new ImmutablePair<>(newIIIFSmallResourceEntry, DownloadMode.MIME_TYPE));
+        return new ResourceIIIFImpl(resourceEntry, resource.getProvidedMimeType(),
+            resource.getProvidedFileSize(), resource.getActualLocation(), infoJson);
       }
     }
     return download(new ImmutablePair<>(resourceEntry, DownloadMode.MIME_TYPE));

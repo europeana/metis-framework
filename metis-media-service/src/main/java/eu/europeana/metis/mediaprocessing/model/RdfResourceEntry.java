@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * This object represents a resource entry in an RDF file. It contains the resource URL, and a list of reference types: the way
- * this resource is referenced from within the RDF.
+ * This object represents a resource entry in an RDF file. It contains the resource URL,
+ * and a list of reference types: the way this resource is referenced from within the RDF.
  */
 public class RdfResourceEntry implements Serializable {
 
@@ -21,7 +20,6 @@ public class RdfResourceEntry implements Serializable {
   private String resourceUrl;
   private Set<UrlType> urlTypes;
   private RdfResourceKind resourceKind;
-  private IIIFInfoJson iiifInfoJson;
 
   /**
    * Instantiates a new Rdf resource entry.
@@ -37,26 +35,8 @@ public class RdfResourceEntry implements Serializable {
     this.resourceUrl = resourceUrl;
     this.urlTypes = new HashSet<>(urlTypes);
     this.resourceKind = rdfResourceKind;
-    this.iiifInfoJson = null;
   }
 
-  /**
-   * Instantiates a new Rdf resource entry.
-   *
-   * @param resourceUrl the resource url
-   * @param urlTypes the url types
-   * @param rdfResourceKind the rdf resource kind
-   * @param iiifInfoJson the iiif info json
-   */
-  public RdfResourceEntry(String resourceUrl,
-      Collection<UrlType> urlTypes,
-      RdfResourceKind rdfResourceKind,
-      IIIFInfoJson iiifInfoJson) {
-    this.resourceUrl = resourceUrl;
-    this.urlTypes = new HashSet<>(urlTypes);
-    this.resourceKind = rdfResourceKind;
-    this.iiifInfoJson = iiifInfoJson;
-  }
   /**
    * Constructor. Don't use this: it's required for deserialization.
    */
@@ -90,18 +70,9 @@ public class RdfResourceEntry implements Serializable {
     return resourceKind;
   }
 
-  /**
-   * Gets iiif info json.
-   *
-   * @return the iiif info json
-   */
-  public IIIFInfoJson getIIIFInfoJson() {
-    return iiifInfoJson;
-  }
-
   @Override
   public String toString() {
-    return String.format("%s{resourceUrl=%s, urlTypes=%s, resourceKind=%s, infoJson=%s}",
-        RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes, resourceKind, iiifInfoJson);
+    return String.format("%s{resourceUrl=%s, urlTypes=%s, resourceKind=%s}",
+        RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes, resourceKind);
   }
 }

@@ -16,8 +16,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
@@ -31,7 +29,6 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
-import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -100,7 +97,7 @@ class IIIFProcessorTest {
     // Verify
     assertNotNull(result);
     assertNotNull(result.getOriginalMetadata());
-    assertTrue(result.getOriginalMetadata() instanceof ImageResourceMetadata);
+    assertInstanceOf(ImageResourceMetadata.class, result.getOriginalMetadata());
     assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
     assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
     assertEquals(url, result.getOriginalMetadata().getResourceUrl());
@@ -129,11 +126,11 @@ class IIIFProcessorTest {
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
-    final RdfResourceEntry rdfResourceEntryInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
+    final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     final ResourceIIIFImpl resource = spy(
         new ResourceIIIFImpl(rdfResourceEntry, null, null,
             URI.create(url),
-            rdfResourceEntryInfoJson.getIIIFInfoJson()));
+            iiifInfoJson));
     final String detectedMimeType = "image/jpeg";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
