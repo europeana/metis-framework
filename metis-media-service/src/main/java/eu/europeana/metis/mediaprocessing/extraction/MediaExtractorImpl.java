@@ -6,12 +6,15 @@ import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -163,9 +166,24 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Determine the download method to use (full download vs. quick ping)
     final ResourceDownloadClient client = getResourceDownloadClient(rdfResourceKind);
-    return (mode == ProcessingMode.FULL)
-        ? client.downloadBasedOnMimeType(resourceEntry)
-        : client.downloadWithoutContent(resourceEntry);
+    Resource resource = null;
+    if (mode == ProcessingMode.FULL) {
+      if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
+        final IIIFValidation iiifValidation = new IIIFValidation();
+        final IIIFInfoJson infoJson = iiifValidation.fetchInfoJson(resourceEntry);
+        if (infoJson != null) {
+          final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);
+          resource = client.downloadBasedOnMimeType(newIIIFSmallResourceEntry);
+          resource = new ResourceIIIFImpl(resourceEntry, resource.getProvidedMimeType(),
+              resource.getProvidedFileSize(), resource.getActualLocation(), infoJson);
+        }
+      } else {
+        resource = client.downloadBasedOnMimeType(resourceEntry);
+      }
+    } else {
+      resource = client.downloadWithoutContent(resourceEntry);
+    }
+    return resource;
   }
 
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {

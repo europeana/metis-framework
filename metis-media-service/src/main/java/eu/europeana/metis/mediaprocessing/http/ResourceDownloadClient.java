@@ -1,11 +1,7 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
-import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.network.AbstractHttpClient;
 import java.io.IOException;
@@ -102,16 +98,6 @@ public class ResourceDownloadClient extends
    *         other than 2xx).
    */
   public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
-    if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
-      final IIIFValidation iiifValidation = new IIIFValidation();
-      final IIIFInfoJson infoJson = iiifValidation.fetchInfoJson(resourceEntry);
-      if (infoJson != null) {
-        final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);
-        final Resource resource = download(new ImmutablePair<>(newIIIFSmallResourceEntry, DownloadMode.MIME_TYPE));
-        return new ResourceIIIFImpl(resourceEntry, resource.getProvidedMimeType(),
-            resource.getProvidedFileSize(), resource.getActualLocation(), infoJson);
-      }
-    }
     return download(new ImmutablePair<>(resourceEntry, DownloadMode.MIME_TYPE));
   }
 

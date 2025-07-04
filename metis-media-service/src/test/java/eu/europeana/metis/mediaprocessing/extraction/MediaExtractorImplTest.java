@@ -20,6 +20,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.ProcessingMode;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -417,10 +419,15 @@ class MediaExtractorImplTest {
     doReturn(true)
         .when(resource).hasContent();
     doReturn(detectedMimeType)
+        .when(mimeTypeDetectHttpClient).download(any(URL.class));
+    doReturn(detectedMimeType)
+        .when(resource).getProvidedMimeType();
+    doReturn(detectedMimeType)
         .when(tika).detect(any(InputStream.class), any(Metadata.class));
     doReturn(Paths.get(getClass().getClassLoader().getResource("__files/iiif_info_v2.json").getPath()))
         .when(resource).getContentPath();
-    doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
+    when(resourceDownloadClient.downloadBasedOnMimeType(any(RdfResourceEntry.class))).thenReturn(resource);
+
     ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
         new ImageResourceMetadata(detectedMimeType, resourceUrl, 0L));
     doReturn(extractionResult).when(iiifProcessor).extractMetadata(any(Resource.class), anyString(), anyBoolean());
