@@ -103,7 +103,7 @@ public class ResourceDownloadClient extends
    */
   public Resource downloadBasedOnMimeType(RdfResourceEntry resourceEntry) throws IOException {
     if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
-      final IIIFValidation iiifValidation = new IIIFValidation(this);
+      final IIIFValidation iiifValidation = new IIIFValidation();
       final IIIFInfoJson infoJson = iiifValidation.fetchInfoJson(resourceEntry);
       if (infoJson != null) {
         final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);

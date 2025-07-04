@@ -1,5 +1,10 @@
 package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
+import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_MAX_REDIRECT_COUNT;
+import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_RESOURCE_CONNECT_TIMEOUT;
+import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT;
+import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_RESOURCE_RESPONSE_TIMEOUT;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,10 +50,12 @@ public final class IIIFValidation {
   /**
    * Instantiates a new Iiif validation.
    *
-   * @param resourceDownloadClient the resource download client
    */
-  public IIIFValidation(ResourceDownloadClient resourceDownloadClient) {
-    this.resourceDownloadClient = resourceDownloadClient;
+  public IIIFValidation() {
+    this.resourceDownloadClient = new ResourceDownloadClient(DEFAULT_MAX_REDIRECT_COUNT,
+        value -> true, DEFAULT_RESOURCE_CONNECT_TIMEOUT,
+        DEFAULT_RESOURCE_RESPONSE_TIMEOUT,
+        DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT);
   }
 
   /**

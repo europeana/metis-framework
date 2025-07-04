@@ -121,8 +121,7 @@ class IIIFProcessorTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
     final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
-    ResourceDownloadClient resourceDownloadClient = new ResourceDownloadClient(1, download-> true,200, 200,200);
-    IIIFValidation iiifValidation = new IIIFValidation(resourceDownloadClient);
+    IIIFValidation iiifValidation = new IIIFValidation();
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
