@@ -174,8 +174,12 @@ public class MediaExtractorImpl implements MediaExtractor {
         if (infoJson != null) {
           final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);
           resource = client.downloadBasedOnMimeType(newIIIFSmallResourceEntry);
-          resource = new ResourceIIIFImpl(resourceEntry, resource.getProvidedMimeType(),
-              resource.getProvidedFileSize(), resource.getActualLocation(), infoJson);
+          resource = new ResourceIIIFImpl(resourceEntry,
+              resource.getProvidedMimeType(),
+              resource.getProvidedFileSize(),
+              resource.getActualLocation(),
+              resource.getContentStream(),
+              infoJson);
         }
       } else {
         resource = client.downloadBasedOnMimeType(resourceEntry);

@@ -127,7 +127,7 @@ class IIIFProcessorTest {
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     final ResourceIIIFImpl resource = spy(
         new ResourceIIIFImpl(rdfResourceEntry, null, null,
-            URI.create(url),
+            URI.create(url), inputStreamInfoJson,
             iiifInfoJson));
     final String detectedMimeType = "image/jpeg";
     doReturn(true).when(resource).hasContent();

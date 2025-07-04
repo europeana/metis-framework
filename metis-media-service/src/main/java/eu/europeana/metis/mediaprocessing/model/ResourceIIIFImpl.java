@@ -1,6 +1,8 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 /**
@@ -14,17 +16,20 @@ public class ResourceIIIFImpl extends ResourceImpl {
    * Constructor.
    *
    * @param rdfResourceEntry The resource entry for which this file contains the content.
-   * @param providedMimeType The mime type of this content, as provided by the source. Can be null if the source didn't specify a
-   * mime type.
-   * @param providedFileSize The file size of this content, as provided by the source. Can be null if the source didn't specify a
-   * file size.
+   * @param providedMimeType The mime type of this content, as provided by the source.
+   * Can be null if the source didn't specify a mime type.
+   * @param providedFileSize The file size of this content, as provided by the source.
+   * Can be null if the source didn't specify a file size.
    * @param actualLocation The actual location where the resource was obtained (as opposed from the resource URL given by
    * {@link ResourceImpl#getResourceUrl()}).
+   * @param contentStream the content stream of the resource.
    * @param iiifInfoJson the iiif info json of the iiif resource
+   * @throws IOException the io exception
    */
   public ResourceIIIFImpl(RdfResourceEntry rdfResourceEntry, String providedMimeType, Long providedFileSize,
-      URI actualLocation, IIIFInfoJson iiifInfoJson) {
+      URI actualLocation, InputStream contentStream, IIIFInfoJson iiifInfoJson) throws IOException {
     super(rdfResourceEntry, providedMimeType, providedFileSize, actualLocation);
+    super.markAsWithContent(contentStream);
     this.iiifInfoJson = iiifInfoJson;
   }
 
