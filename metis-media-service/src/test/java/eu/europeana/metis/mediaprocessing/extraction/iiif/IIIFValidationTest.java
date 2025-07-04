@@ -12,8 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
-import eu.europeana.metis.mediaprocessing.MediaProcessorFactory;
-import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -35,6 +33,7 @@ class IIIFValidationTest {
 
   private static WireMockServer wireMockServer;
   private static IIIFValidation iiifValidation;
+
   private static Stream<Arguments> providedIIIFUrls() {
     return Stream.of(
         // valid
@@ -91,12 +90,7 @@ class IIIFValidationTest {
 
   @BeforeAll
   static void createWireMock() {
-    ResourceDownloadClient resourceDownloadClient = new ResourceDownloadClient(MediaProcessorFactory.DEFAULT_MAX_REDIRECT_COUNT,
-        download -> true,
-        MediaProcessorFactory.DEFAULT_RESOURCE_CONNECT_TIMEOUT,
-        MediaProcessorFactory.DEFAULT_RESOURCE_RESPONSE_TIMEOUT,
-        MediaProcessorFactory.DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT);
-    iiifValidation = new IIIFValidation(resourceDownloadClient);
+    iiifValidation = new IIIFValidation();
     wireMockServer = new WireMockServer(wireMockConfig()
         .dynamicPort()
         .enableBrowserProxying(true)
@@ -175,12 +169,12 @@ class IIIFValidationTest {
     assertIterableEquals(List.of(new Size(1024, 717), new Size(400, 280),
         new Size(200, 140), new Size(100, 70)), model.getSizes());
     assertEquals("http://iiif.io/api/image/2/level2.json", model.getProfile().getUrl());
-    assertIterableEquals(List.of("jpg","tif","gif","png"),model.getProfile().getDetail().getFormats());
-    assertIterableEquals(List.of("bitonal","default","gray","color"),model.getProfile().getDetail().getQualities());
-    assertIterableEquals(List.of("regionByPx", "sizeByW", "sizeByWhListed","cors", "regionSquare", "sizeByDistortedWh",
+    assertIterableEquals(List.of("jpg", "tif", "gif", "png"), model.getProfile().getDetail().getFormats());
+    assertIterableEquals(List.of("bitonal", "default", "gray", "color"), model.getProfile().getDetail().getQualities());
+    assertIterableEquals(List.of("regionByPx", "sizeByW", "sizeByWhListed", "cors", "regionSquare", "sizeByDistortedWh",
         "canonicalLinkHeader", "sizeByConfinedWh", "sizeByPct", "jsonldMediaType", "regionByPct",
         "rotationArbitrary", "sizeByH", "baseUriRedirect", "rotationBy90s", "profileLinkHeader",
-        "sizeByForcedWh", "sizeByWh", "mirroring"),model.getProfile().getDetail().getSupports());
+        "sizeByForcedWh", "sizeByWh", "mirroring"), model.getProfile().getDetail().getSupports());
   }
 
   @Test
@@ -202,7 +196,8 @@ class IIIFValidationTest {
     IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
-    assertEquals(List.of("http://example.org/extension/context1.json","http://iiif.io/api/image/3/context.json"), model.getContext());
+    assertEquals(List.of("http://example.org/extension/context1.json", "http://iiif.io/api/image/3/context.json"),
+        model.getContext());
     assertEquals("https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a", model.getId());
     assertEquals("ImageService3", model.getType());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
@@ -214,19 +209,20 @@ class IIIFValidationTest {
     assertEquals(47507904, model.getMaxArea());
     assertIterableEquals(List.of(new Tile(256, 256, List.of(1, 2, 4, 8, 16, 32))), model.getTiles());
     assertIterableEquals(List.of(new Size(180, 256), new Size(361, 513),
-        new Size(723, 1026), new Size(1447, 2052), new Size(2894,4104)), model.getSizes());
+        new Size(723, 1026), new Size(1447, 2052), new Size(2894, 4104)), model.getSizes());
     assertEquals("level2", model.getProfile());
-    assertIterableEquals(List.of("png","gif"),model.getPreferredFormats());
+    assertIterableEquals(List.of("png", "gif"), model.getPreferredFormats());
     assertEquals("http://rightsstatements.org/vocab/InC-EDU/1.0/", model.getRights());
-    assertIterableEquals(List.of("png","gif","pdf"),model.getExtraFormats());
-    assertIterableEquals(List.of("native", "color","gray","bitonal"),model.getExtraQualities());
-    assertIterableEquals(List.of("canonicalLinkHeader", "rotationArbitrary",  "profileLinkHeader"),model.getExtraFeatures());
+    assertIterableEquals(List.of("png", "gif", "pdf"), model.getExtraFormats());
+    assertIterableEquals(List.of("native", "color", "gray", "bitonal"), model.getExtraQualities());
+    assertIterableEquals(List.of("canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader"), model.getExtraFeatures());
     assertIterableEquals(List.of(new IIIFLink("https://example.org/image1.xml",
-        "Dataset", Map.of("en", List.of("Technical image metadata")),"text/xml","https://example.org/profiles/imagedata")), model.getSeeAlso());
+            "Dataset", Map.of("en", List.of("Technical image metadata")), "text/xml", "https://example.org/profiles/imagedata")),
+        model.getSeeAlso());
     assertIterableEquals(List.of(new IIIFLink("https://example.org/manifest/1",
-        "Manifest", Map.of("en", List.of("A Book")),null,null)), model.getPartOf());
+        "Manifest", Map.of("en", List.of("A Book")), null, null)), model.getPartOf());
     assertIterableEquals(List.of(new IIIFLink("https://example.org/service/example",
-        "Service",null,null,"https://example.org/docs/example-service.html")), model.getService());
+        "Service", null, null, "https://example.org/docs/example-service.html")), model.getService());
   }
 
   @Test
