@@ -62,6 +62,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
       EDM_IS_SHOWN_BY + XPATH_IS_IIIF_RESOURCE_CONDITION;
   private static final String IIIF_XPATH_CONDITION_HAS_VIEW =
       EDM_HAS_VIEW + XPATH_IS_IIIF_RESOURCE_CONDITION;
+  private static final String IIIF_XPATH_CONDITION_EDM_OBJECT =
+      EDM_OBJECT + XPATH_IS_IIIF_RESOURCE_CONDITION;
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_OEMBED_SERVICES =
@@ -87,7 +89,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
   private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY));
+      xPath -> xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY +
+          " | "+ IIIF_XPATH_CONDITION_EDM_OBJECT));
 
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 

@@ -63,11 +63,4 @@ public class IIIFProcessor extends ImageProcessor {
     return new ResourceExtractionResultImpl(imageMetadata, thumbnailList);
   }
 
-  /**
-   * @return Whether the processor needs the downloaded resource for full processing.
-   */
-  @Override
-  public boolean downloadResourceForFullProcessing() {
-    return true;
-  }
 }
