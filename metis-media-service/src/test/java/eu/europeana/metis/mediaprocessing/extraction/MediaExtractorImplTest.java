@@ -424,8 +424,10 @@ class MediaExtractorImplTest {
         .when(resource).getProvidedMimeType();
     doReturn(detectedMimeType)
         .when(tika).detect(any(InputStream.class), any(Metadata.class));
-    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/iiif_info_v2.json").getPath()))
+    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/default.jpg").getPath()))
         .when(resource).getContentPath();
+    doReturn(getClass().getClassLoader().getResourceAsStream("__files/default.jpg"))
+        .when(resource).getContentStream();
     when(resourceDownloadClient.downloadBasedOnMimeType(any(RdfResourceEntry.class))).thenReturn(resource);
 
     ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
