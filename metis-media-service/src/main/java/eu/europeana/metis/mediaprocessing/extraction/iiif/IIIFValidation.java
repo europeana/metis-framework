@@ -3,55 +3,52 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient.DownloadMode;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
-import java.io.ByteArrayOutputStream;
+import eu.europeana.metis.mediaprocessing.model.Resource;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The type Iiif validation.
  */
 public final class IIIFValidation {
 
-  /**
-   * properties based on <a href="https://iiif.io/api/image/3.0/#4-image-requests">IIIF Image requests</a>
-   * 4.1 Region
-   * 4.2 Size
-   * 4.3 Rotation
-   * 4.4 Quality
-   * 4.5 Format
-   * 4.7 Floating point values
-   * */
+  private static final Logger LOGGER = LoggerFactory.getLogger(IIIFValidation.class);
   private static final String IIIF_FLOATING_NUMBER = "(?:0|[1-9]\\d*)(?:\\.\\d*[1-9])?";
   private static final String IIIF_DIMENSION = "(\\^?!?" + IIIF_FLOATING_NUMBER + ")?";
-  private static final String IIIF_PERCENTAGE_REGION = "(pct:" + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ","
-      + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ")";
-  private static final String IIIF_PERCENTAGE_SIZE = "(\\^?pct:" + IIIF_FLOATING_NUMBER + ")";
   private static final String IIIF_DIMENSION_REGION = "(" + IIIF_DIMENSION + "," + IIIF_DIMENSION + "," + IIIF_DIMENSION + "," + IIIF_DIMENSION + ")";
   private static final String IIIF_DIMENSION_SIZE = "(" + IIIF_DIMENSION + ",)|(," + IIIF_DIMENSION + ")|(" + IIIF_DIMENSION + "," + IIIF_DIMENSION + ")";
+  private static final String IIIF_PERCENTAGE_REGION = "(pct:" + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ","
+      + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ")";
   private static final String IIIF_REGION = "full|(\\^?max)|square|" + IIIF_PERCENTAGE_REGION + "|" + IIIF_DIMENSION_REGION;
+  private static final String IIIF_PERCENTAGE_SIZE = "(\\^?pct:" + IIIF_FLOATING_NUMBER + ")";
   private static final String IIIF_SIZE = "full|(\\^?max)|square|" + IIIF_PERCENTAGE_SIZE + "|" + IIIF_DIMENSION_SIZE;
   private static final String IIIF_ROTATION = "!?" + IIIF_FLOATING_NUMBER;
   private static final String IIIF_QUALITY = "color|gray|bitonal|default";
   private static final String IIIF_FORMAT = "jpg|tif|png|gif|jp2|pdf|webp";
-  private static final String IIIF_PARAMS_URI_REGEX = "/(" + IIIF_REGION + ")/(" + IIIF_SIZE + ")/(" + IIIF_ROTATION + ")/(" + IIIF_QUALITY
-      + ")\\.(" + IIIF_FORMAT + ")$";
-
-  private static final Pattern IIIF_URL_PATTERN = Pattern.compile("^https?://.+"+IIIF_PARAMS_URI_REGEX+"$");
+  private static final String IIIF_PARAMS_URI_REGEX =
+      "/(" + IIIF_REGION + ")/(" + IIIF_SIZE + ")/(" + IIIF_ROTATION + ")/(" + IIIF_QUALITY + ")\\.(" + IIIF_FORMAT + ")$";
+  private static final Pattern IIIF_URL_PATTERN = Pattern.compile("^https?://.+" + IIIF_PARAMS_URI_REGEX + "$");
   private static final Pattern IIIF_URL_EXTENSION_FORMAT = Pattern.compile("\\.([^.]+)$");
-  private static final int IIIF_INFO_JSON_MAX_SIZE_BYTES = 49_152;
-  private static final int IIIF_INFO_JSON_BUFFER_READ_BYTES = 4096;
+
   private static final String IIIF_INFO_JSON_V2 = "http://iiif.io/api/image/2/context.json";
   private static final String IIIF_INFO_JSON_V3 = "http://iiif.io/api/image/3/context.json";
 
-  private IIIFValidation() {
-    // validation class
+  private final ResourceDownloadClient resourceDownloadClient;
+
+  /**
+   * Instantiates a new Iiif validation.
+   *
+   * @param resourceDownloadClient the resource download client
+   */
+  public IIIFValidation(ResourceDownloadClient resourceDownloadClient) {
+    this.resourceDownloadClient = resourceDownloadClient;
   }
 
   /**
@@ -65,78 +62,62 @@ public final class IIIFValidation {
   }
 
   /**
-   * Fetch info json iiif info json model.
+   * Fetch info json iiif info json.
    *
-   * @param iiifUrl the iiif url
-   * @return the iiif info json model
-   * @throws MediaExtractionException the media extraction exception
+   * @param rdfResourceEntry the rdf resource entry
+   * @return the iiif info json
    */
-  public static IIIFInfoJson fetchInfoJson(String iiifUrl) throws MediaExtractionException {
+  public RdfResourceEntry fetchInfoJson(RdfResourceEntry rdfResourceEntry) {
     try {
-      final HttpURLConnection connection = getIIIFInfoJsonHttpURLConnection(iiifUrl);
-      ByteArrayOutputStream jsonResource = new ByteArrayOutputStream();
-      try (InputStream input = connection.getInputStream()) {
-        byte[] data = new byte[IIIF_INFO_JSON_BUFFER_READ_BYTES];
-        int bytesRead;
-        int totalBytesRead = 0;
-        while ((bytesRead = input.read(data)) != -1 && totalBytesRead <= IIIF_INFO_JSON_MAX_SIZE_BYTES) {
-          jsonResource.write(data, 0, bytesRead);
-          totalBytesRead += bytesRead;
-        }
-      } finally {
-        connection.disconnect();
-      }
+      final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
+      final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
+          rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind());
+      Resource resource = resourceDownloadClient.download(new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE));
+
       final String fieldContext = "@context";
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-      JsonNode jsonNode = objectMapper.readTree(jsonResource.toByteArray());
+      JsonNode jsonNode = objectMapper.readTree(resource.getContentStream().readAllBytes());
+      IIIFInfoJson iiifInfoJson;
       if (jsonNode.get(fieldContext).isArray()
+          // according to documentation
+          // the context is at last position on info.json v3
           && IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).get(jsonNode.get(fieldContext).size() - 1).asText())) {
-          return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
-      } else if ( IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).asText())) {
-        return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
-      }else if ( IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asText())) {
-        return objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV2.class);
+        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
+      } else if (IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).asText())) {
+        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
+      } else if (IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asText())) {
+        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV2.class);
       } else {
-        throw new MediaExtractionException("info.json not detected", null);
+        iiifInfoJson = null;
+        LOGGER.warn("info.json not detected");
       }
-    } catch (IOException | URISyntaxException e) {
-      throw new MediaExtractionException(e.getMessage(), e);
+      rdfResourceEntry = new RdfResourceEntry(rdfResourceEntry.getResourceUrl(), rdfResourceEntry.getUrlTypes(),
+          rdfResourceEntry.getResourceKind(), iiifInfoJson);
+    } catch (IOException e) {
+      LOGGER.error("error while trying to fetch info json", e);
     }
-  }
-
-  private static HttpURLConnection getIIIFInfoJsonHttpURLConnection(String iiifUrl)
-      throws URISyntaxException, IOException, MediaExtractionException {
-    final String baseUrl = iiifUrl.replaceAll(IIIF_PARAMS_URI_REGEX, "");
-    final URI infoUrl = new URI(baseUrl + "/info.json");
-    final HttpURLConnection connection = (HttpURLConnection) infoUrl.toURL().openConnection();
-    connection.setRequestMethod("GET");
-    connection.setRequestProperty("Accept", "application/json");
-    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-      throw new MediaExtractionException(String.format("Failed to fetch JSON. HTTP Status %d", connection.getResponseCode()));
-    }
-    return connection;
+    return rdfResourceEntry;
   }
 
   /**
-   * Fetch iif small version of resource rdf resource entry.
+   * Adjust resource entry to small iiif rdf resource entry.
    *
    * @param resourceEntry the resource entry
    * @return the rdf resource entry
-   * @throws MediaExtractionException the media extraction exception
    */
-  public static RdfResourceEntry fetchIIIFSmallVersionOfResource(RdfResourceEntry resourceEntry) throws MediaExtractionException {
-    final IIIFInfoJson infoJsonV3 = IIIFValidation.fetchInfoJson(resourceEntry.getResourceUrl());
+  public RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry)  {
+    final IIIFInfoJson infoJson = resourceEntry.getIIIFInfoJson();
     final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
     final String extensionFormat;
     if (matcher.find()) {
-      extensionFormat = "."+matcher.group(1);
+      extensionFormat = "." + matcher.group(1);
     } else {
       extensionFormat = ".jpg";
     }
-    if (infoJsonV3 != null) {
-      final String newUrl = infoJsonV3.getId() + "/full/!400,400/0/default"+extensionFormat;
-      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind());
+    if (infoJson != null) {
+      final String newUrl = infoJson.getId() + "/full/!400,400/0/default" + extensionFormat;
+      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind(), infoJson);
     }
     return resourceEntry;
   }

@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.Objects;
 
 /**
  * The type IIIf info json model v2 base on the following
@@ -86,10 +87,6 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @Override
   public int hashCode() {
-    int result = super.hashCode();
-    result = 31 * result + context.hashCode();
-    result = 31 * result + id.hashCode();
-    result = 31 * result + profile.hashCode();
-    return result;
+    return Objects.hash(super.hashCode(), context, id, profile);
   }
 }

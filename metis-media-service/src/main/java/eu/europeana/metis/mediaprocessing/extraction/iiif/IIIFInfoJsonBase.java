@@ -117,11 +117,6 @@ public class IIIFInfoJsonBase {
 
   @Override
   public int hashCode() {
-    int result = protocol.hashCode();
-    result = 31 * result + width;
-    result = 31 * result + height;
-    result = 31 * result + Objects.hashCode(sizes);
-    result = 31 * result + Objects.hashCode(tiles);
-    return result;
+    return Objects.hash(protocol, width, height, Objects.hashCode(sizes), Objects.hashCode(tiles));
   }
 }

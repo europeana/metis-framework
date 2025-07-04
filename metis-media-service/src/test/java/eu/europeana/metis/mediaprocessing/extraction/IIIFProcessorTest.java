@@ -16,15 +16,21 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.spy;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
+import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
@@ -118,11 +124,16 @@ class IIIFProcessorTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
     final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+    ResourceDownloadClient resourceDownloadClient = new ResourceDownloadClient(1, download-> true,200, 200,200);
+    IIIFValidation iiifValidation = new IIIFValidation(resourceDownloadClient);
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
-    final ResourceImpl resource = spy(
-        new ResourceImpl(rdfResourceEntry, null, null, URI.create(url)));
+    final RdfResourceEntry rdfResourceEntryInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
+    final ResourceIIIFImpl resource = spy(
+        new ResourceIIIFImpl(rdfResourceEntry, null, null,
+            URI.create(url),
+            rdfResourceEntryInfoJson.getIIIFInfoJson()));
     final String detectedMimeType = "image/jpeg";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();

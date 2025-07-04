@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
+import java.util.Objects;
+
 /**
  * The type Size.
  */
@@ -73,8 +75,6 @@ public class Size {
 
   @Override
   public int hashCode() {
-    int result = width;
-    result = 31 * result + height;
-    return result;
+    return Objects.hash(width, height);
   }
 }

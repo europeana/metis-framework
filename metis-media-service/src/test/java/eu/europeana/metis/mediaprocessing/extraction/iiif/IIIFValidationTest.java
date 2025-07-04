@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
-import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.MediaProcessorFactory;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -32,7 +33,7 @@ import org.springframework.http.HttpStatus;
 class IIIFValidationTest {
 
   private static WireMockServer wireMockServer;
-
+  private static IIIFValidation iiifValidation;
   private static Stream<Arguments> providedIIIFUrls() {
     return Stream.of(
         // valid
@@ -89,6 +90,12 @@ class IIIFValidationTest {
 
   @BeforeAll
   static void createWireMock() {
+    ResourceDownloadClient resourceDownloadClient = new ResourceDownloadClient(MediaProcessorFactory.DEFAULT_MAX_REDIRECT_COUNT,
+        download -> true,
+        MediaProcessorFactory.DEFAULT_RESOURCE_CONNECT_TIMEOUT,
+        MediaProcessorFactory.DEFAULT_RESOURCE_RESPONSE_TIMEOUT,
+        MediaProcessorFactory.DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT);
+    iiifValidation = new IIIFValidation(resourceDownloadClient);
     wireMockServer = new WireMockServer(wireMockConfig()
         .dynamicPort()
         .enableBrowserProxying(true)
@@ -109,8 +116,9 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchInfoJsonV2() throws MediaExtractionException, IOException {
+  void fetchInfoJsonV2() throws IOException {
     InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
     wireMockServer.stubFor(get(urlEqualTo("/image/iiif/zw031pj2507/zw031pj2507_0001/info.json"))
@@ -119,8 +127,11 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) IIIFValidation.fetchInfoJson(
-        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry(
+        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg",
+        Set.of(),
+        RdfResourceKind.IIIF);
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
@@ -136,8 +147,9 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchInfoJsonV2WithProfile() throws MediaExtractionException, IOException {
+  void fetchInfoJsonV2WithProfile() throws IOException {
     InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2_with_profile.json");
+    assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
     wireMockServer.stubFor(get(urlEqualTo("/image/b20432033_B0008608.JP2/info.json"))
@@ -146,8 +158,12 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) IIIFValidation.fetchInfoJson(
-        "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry(
+        "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg",
+        Set.of(),
+        RdfResourceKind.IIIF);
+    IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
+
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://iiif.wellcomecollection.org/image/b20432033_B0008608.JP2", model.getId());
@@ -167,8 +183,9 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchInfoJsonV3() throws MediaExtractionException, IOException {
+  void fetchInfoJsonV3() throws IOException {
     InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v3.json");
+    assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
     wireMockServer.stubFor(get(urlEqualTo("/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/info.json"))
@@ -177,8 +194,12 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) IIIFValidation.fetchInfoJson(
-        "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry(
+        "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg",
+        Set.of(),
+        RdfResourceKind.IIIF);
+    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry).getIIIFInfoJson();
+
     assertNotNull(model);
     assertEquals(List.of("http://example.org/extension/context1.json","http://iiif.io/api/image/3/context.json"), model.getContext());
     assertEquals("https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a", model.getId());
@@ -208,8 +229,9 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchIIIFSmallVersionOfResource() throws IOException, MediaExtractionException {
+  void adjustResourceEntryToSmallIIIF() throws IOException {
     final InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    assertNotNull(inputStreamInfoJson);
     final String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
     wireMockServer.stubFor(get(urlEqualTo("/image/iiif/zw031pj2507/zw031pj2507_0001/info.json"))
@@ -219,8 +241,11 @@ class IIIFValidationTest {
             .withStatus(HttpStatus.OK.value())));
     final String url =
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+
     RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
-    RdfResourceEntry resourceEntry = IIIFValidation.fetchIIIFSmallVersionOfResource(rdfResourceEntry);
+    rdfResourceEntry = iiifValidation.fetchInfoJson(rdfResourceEntry);
+    RdfResourceEntry resourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry);
     assertNotNull(resourceEntry);
+    assertNotNull(resourceEntry.getIIIFInfoJson());
   }
 }

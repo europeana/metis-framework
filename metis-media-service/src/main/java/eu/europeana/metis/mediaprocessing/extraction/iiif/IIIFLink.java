@@ -147,11 +147,9 @@ public class IIIFLink {
 
   @Override
   public int hashCode() {
-    int result = Objects.hashCode(id);
-    result = 31 * result + Objects.hashCode(type);
-    result = 31 * result + Objects.hashCode(label);
-    result = 31 * result + Objects.hashCode(format);
-    result = 31 * result + Objects.hashCode(profile);
-    return result;
+    return Objects.hash(Objects.hashCode(id),
+        Objects.hashCode(type),
+        Objects.hashCode(label), Objects.hashCode(format),
+        Objects.hashCode(profile));
   }
 }

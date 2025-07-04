@@ -36,10 +36,7 @@ public class IIIFProfileDetail {
 
   @Override
   public int hashCode() {
-    int result = Objects.hashCode(formats);
-    result = 31 * result + Objects.hashCode(qualities);
-    result = 31 * result + Objects.hashCode(supports);
-    return result;
+    return Objects.hash(Objects.hashCode(formats), Objects.hashCode(qualities), Objects.hashCode(supports));
   }
 
   /**

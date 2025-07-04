@@ -237,7 +237,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     return switch (mediaType) {
       case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType, rdfResourceKind);
       case AUDIO, VIDEO -> List.of(audioVideoProcessor);
-      case IMAGE ->  RdfResourceKind.IIIF.equals(rdfResourceKind)? List.of(iiifProcessor): List.of(imageProcessor);
+      case IMAGE ->  RdfResourceKind.IIIF.equals(rdfResourceKind)? List.of(iiifProcessor, imageProcessor): List.of(imageProcessor);
       case THREE_D -> List.of(media3dProcessor);
     };
   }
@@ -260,7 +260,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       String detectedMimeType, RdfResourceKind rdfResourceKind)
       throws MediaExtractionException, IOException {
 
-    // If the mime type changed and we need the content after all, we download it.
+    // If the mime type changed, and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
       final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
