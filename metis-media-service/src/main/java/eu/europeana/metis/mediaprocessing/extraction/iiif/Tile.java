@@ -98,6 +98,6 @@ public class Tile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(width, height, Objects.hashCode(scaleFactors));
+    return Objects.hash(width, height, scaleFactors);
   }
 }

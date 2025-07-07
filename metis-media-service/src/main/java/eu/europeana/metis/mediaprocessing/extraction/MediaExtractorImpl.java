@@ -14,7 +14,7 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
+import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -166,21 +166,22 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Determine the download method to use (full download vs. quick ping)
     final ResourceDownloadClient client = getResourceDownloadClient(rdfResourceKind);
-    Resource resource = null;
+    final Resource resource;
     if (mode == ProcessingMode.FULL) {
+
+      // Try to find info JSON content.
+      final IIIFInfoJson infoJson;
       if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
         final IIIFValidation iiifValidation = new IIIFValidation();
-        final IIIFInfoJson infoJson = iiifValidation.fetchInfoJson(resourceEntry);
-        if (infoJson != null) {
-          final RdfResourceEntry newIIIFSmallResourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson);
-          resource = client.downloadBasedOnMimeType(newIIIFSmallResourceEntry);
-          resource = new ResourceIIIFImpl(resourceEntry,
-              resource.getProvidedMimeType(),
-              resource.getProvidedFileSize(),
-              resource.getActualLocation(),
-              resource.getContentStream(),
-              infoJson);
-        }
+        infoJson = iiifValidation.fetchInfoJson(resourceEntry);
+      } else {
+        infoJson = null;
+      }
+
+      // Create the resource depending on whether there is info JSON content.
+      if (infoJson != null) {
+        resource = new IIIFResourceImpl(client.downloadBasedOnMimeType(
+            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson);
       } else {
         resource = client.downloadBasedOnMimeType(resourceEntry);
       }

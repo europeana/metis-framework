@@ -21,7 +21,7 @@ public class IIIFProfile {
 
   @Override
   public int hashCode() {
-    return Objects.hash(Objects.hashCode(url), Objects.hashCode(detail));
+    return Objects.hash(url, detail);
   }
 
   /**

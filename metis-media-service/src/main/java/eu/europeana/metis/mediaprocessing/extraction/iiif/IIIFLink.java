@@ -147,9 +147,6 @@ public class IIIFLink {
 
   @Override
   public int hashCode() {
-    return Objects.hash(Objects.hashCode(id),
-        Objects.hashCode(type),
-        Objects.hashCode(label), Objects.hashCode(format),
-        Objects.hashCode(profile));
+    return Objects.hash(id, type, label, format, profile);
   }
 }

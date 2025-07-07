@@ -2,10 +2,10 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import eu.europeana.metis.mediaprocessing.model.IIIFResource;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
-import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import java.util.List;
@@ -41,6 +41,13 @@ public class IIIFProcessor extends ImageProcessor {
   public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType, boolean mainThumbnailAvailable)
       throws MediaExtractionException {
 
+    // Check: if this is not a IIIF resource, we can't process it.
+    if (!(resource instanceof IIIFResource) || ((IIIFResource) resource).getIIIFInfoJson() == null) {
+      return null;
+    }
+    final IIIFInfoJson infoJson = ((IIIFResource) resource).getIIIFInfoJson();
+
+    // Process the smaller thumbnail resource as if it were the real image.
     ResourceExtractionResultImpl extractionResult = super.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
     ImageResourceMetadata metadata = (ImageResourceMetadata) extractionResult.getOriginalMetadata();
     List<Thumbnail> thumbnailList =
@@ -49,23 +56,15 @@ public class IIIFProcessor extends ImageProcessor {
                 .map(name -> (Thumbnail) new ThumbnailImpl(resource.getResourceUrl(), detectedMimeType, name))
                 .toList();
 
-      IIIFInfoJson infoJson = ((ResourceIIIFImpl) resource).getIiifInfoJson();
-
-      if (infoJson != null) {
-        ImageResourceMetadata imageMetadata = new ImageResourceMetadata(metadata.getMimeType(),
-            resource.getResourceUrl(),
-            metadata.getContentSize(),
-            infoJson.getWidth(),
-            infoJson.getHeight(),
-            metadata.getColorSpace(),
-            metadata.getDominantColors().stream().map(item -> item.replace("#", "")).toList(),
-            thumbnailList);
-
-        return new ResourceExtractionResultImpl(imageMetadata, thumbnailList);
-      } else {
-        return null;
-      }
-
+    // Then adjust with the information from the info.json.
+    ImageResourceMetadata imageMetadata = new ImageResourceMetadata(metadata.getMimeType(),
+        resource.getResourceUrl(),
+        metadata.getContentSize(),
+        infoJson.getWidth(),
+        infoJson.getHeight(),
+        metadata.getColorSpace(),
+        metadata.getDominantColors().stream().map(item -> item.replace("#", "")).toList(),
+        thumbnailList);
+    return new ResourceExtractionResultImpl(imageMetadata, thumbnailList);
   }
-
 }

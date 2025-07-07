@@ -323,13 +323,7 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
   @Override
   public int hashCode() {
     return Objects.hash(super.hashCode(), context, id, type, profile, maxWidth, maxHeight, maxArea,
-        Objects.hashCode(preferredFormats),
-        Objects.hashCode(rights),
-        Objects.hashCode(extraQualities),
-        Objects.hashCode(extraFormats),
-        Objects.hashCode(extraFeatures),
-        Objects.hashCode(partOf),
-        Objects.hashCode(seeAlso),
-        Objects.hashCode(service));
+        preferredFormats, rights, extraQualities, extraFormats, extraFeatures, partOf, seeAlso,
+        service);
   }
 }

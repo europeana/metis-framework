@@ -27,7 +27,8 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
-import eu.europeana.metis.mediaprocessing.model.ResourceIIIFImpl;
+import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
+import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -125,10 +126,9 @@ class IIIFProcessorTest {
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
-    final ResourceIIIFImpl resource = spy(
-        new ResourceIIIFImpl(rdfResourceEntry, null, null,
-            URI.create(url), inputStreamInfoJson,
-            iiifInfoJson));
+    final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, URI.create(url));
+    innerResource.markAsWithContent(inputStreamInfoJson);
+    final IIIFResourceImpl resource = spy(new IIIFResourceImpl(innerResource, iiifInfoJson));
     final String detectedMimeType = "image/jpeg";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();

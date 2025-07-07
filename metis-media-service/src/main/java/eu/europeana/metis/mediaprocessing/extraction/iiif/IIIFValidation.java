@@ -49,7 +49,8 @@ public final class IIIFValidation {
 
   /**
    * Instantiates a new Iiif validation.
-   *
+   * TODO JV: Ensure that the timeout and redirect parameters are not the default ones, but come
+   *  from the configuration.
    */
   public IIIFValidation() {
     this.resourceDownloadClient = new ResourceDownloadClient(DEFAULT_MAX_REDIRECT_COUNT,
@@ -110,7 +111,7 @@ public final class IIIFValidation {
    * @param infoJson the info json
    * @return the rdf resource entry
    */
-  public RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry, IIIFInfoJson infoJson)  {
+  public static RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry, IIIFInfoJson infoJson)  {
     final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
     final String extensionFormat;
     if (matcher.find()) {
