@@ -48,9 +48,8 @@ public final class IIIFValidation {
   private final ResourceDownloadClient resourceDownloadClient;
 
   /**
-   * Instantiates a new Iiif validation.
-   * TODO JV: Ensure that the timeout and redirect parameters are not the default ones, but come
-   *  from the configuration.
+   * Instantiates a new IIIF validation.
+   *
    */
   public IIIFValidation() {
     this.resourceDownloadClient = new ResourceDownloadClient(DEFAULT_MAX_REDIRECT_COUNT,
