@@ -54,6 +54,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   private final ResourceDownloadClient resourceDownloadClientStandard;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final TikaWrapper tika;
+  private final IIIFValidation iiifValidation = new IIIFValidation();
 
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
@@ -172,7 +173,6 @@ public class MediaExtractorImpl implements MediaExtractor {
       // Try to find info JSON content.
       final IIIFInfoJson infoJson;
       if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
-        final IIIFValidation iiifValidation = new IIIFValidation();
         infoJson = iiifValidation.fetchInfoJson(resourceEntry);
       } else {
         infoJson = null;
