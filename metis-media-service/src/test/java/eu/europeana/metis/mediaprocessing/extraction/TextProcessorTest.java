@@ -30,6 +30,7 @@ import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.OpenPdfFile;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfCharacteristics;
 import eu.europeana.metis.mediaprocessing.extraction.TextProcessor.PdfListener;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
@@ -106,7 +107,7 @@ class TextProcessorTest {
 
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), false);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
@@ -160,7 +161,7 @@ class TextProcessorTest {
     final File contentFile = new File("content");
     doReturn(contentFile).when(contentPath).toFile();
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), false);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "application/pdf";

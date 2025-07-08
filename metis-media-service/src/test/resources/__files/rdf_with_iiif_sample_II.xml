@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:cc="http://creativecommons.org/ns#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:xalan="http://xml.apache.org/xalan">
+  <edm:ProvidedCHO rdf:about="H-0614">
+    <dc:title xml:lang="en">[Official Court Transcript, 12 July 1946]</dc:title>
+    <dc:description>The contents are missing. (Apparently the contents of folder should have been 12 July 1946 Transcript, French text.)</dc:description>
+    <dc:identifier>Item H-614</dc:identifier>
+    <dc:description xml:lang="en">PRELIMINARY NOTES TO FRENCH TRANSCRIPTS: 1) The majority of the French transcripts are typewritten (with frequent manuscript notes). An occasional transcript session or portion of session is mimeographed. 2) It will be noted that the pagination is haphazard: sometimes pages are numbered session by session, sometimes merely identified according to each Court Reporter's "take". For purpose of this inventory, unnumbered pages were counted manually. This of course does not always establish what pages, if any, may be missing.</dc:description>
+    <dcterms:extent xml:lang="en">2 pages</dcterms:extent>
+    <dc:language>fra</dc:language>
+    <dc:date>1946-07-12</dc:date>
+    <dc:format xml:lang="en">Folder</dc:format>
+    <dc:type xml:lang="en">Empty folder</dc:type>
+    <edm:type>TEXT</edm:type>
+    <dc:subject rdf:resource="http://www.wikidata.org/entity/Q80130" />
+    <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85093307" />
+    <dcterms:isPartOf xml:lang="en">International Military Tribunal at Nuremberg, Trial Archives</dcterms:isPartOf>
+    <owl:sameAs rdf:resource="https://purl.stanford.edu/zw031pj2507" />
+  </edm:ProvidedCHO>
+  <ore:Aggregation rdf:about="H-0614_AGG">
+    <edm:aggregatedCHO rdf:resource="H-0614" />
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/CNE/1.0/" />
+    <edm:provider>International Court of Justice</edm:provider>
+    <edm:dataProvider>International Military Tribunal at Nuremberg</edm:dataProvider>
+    <edm:isShownBy rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg" />
+    <edm:isShownAt rdf:resource="https://purl.stanford.edu/zw031pj2507" />
+    <edm:object rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/400,/0/default.jpg" />
+    <edm:hasView rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg" />
+  </ore:Aggregation>
+  <edm:WebResource rdf:about="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg">
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/CNE/1.0/" />
+    <svcs:has_service rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001" />
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg">
+    <dc:description xml:lang="en">Page 2</dc:description>
+    <svcs:has_service rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002" />
+    <dcterms:isPartOf rdf:resource="https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507.pdf" />
+    <dcterms:isFormatOf rdf:resource="https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507_0002.xml" />
+  </edm:WebResource>
+  <svcs:Service rdf:about="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002">
+    <dcterms:conformsTo rdf:resource="http://iiif.io/api/image" />
+    <doap:implements rdf:resource="http://iiif.io/api/image/2/level2.json" />
+  </svcs:Service>
+  <svcs:Service rdf:about="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001">
+    <dcterms:conformsTo rdf:resource="http://another.iiif.io/api/image" />
+    <doap:implements rdf:resource="http://iiif.io/api/image/2/level2.json" />
+  </svcs:Service>
+</rdf:RDF>

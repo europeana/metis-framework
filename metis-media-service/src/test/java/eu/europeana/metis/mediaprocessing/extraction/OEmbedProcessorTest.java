@@ -13,6 +13,7 @@ import eu.europeana.metis.mediaprocessing.MediaProcessorFactory;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -45,7 +46,7 @@ class OEmbedProcessorTest {
     final String resourceUrl = String.format("http://localhost:%d/api/resource?url=https://vimeo.com/24416915",
         wireMockExtension.getPort());
 
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), false);
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
     final Resource resource = resourceDownloadClient.downloadBasedOnMimeType(rdfResourceEntry);
     return new OEmbedResourceTest(resourceUrl, detectedMimeType, resource);
   }

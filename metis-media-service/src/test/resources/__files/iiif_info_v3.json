@@ -1,0 +1,103 @@
+{
+  "@context": [
+    "http://example.org/extension/context1.json",
+    "http://iiif.io/api/image/3/context.json"
+  ],
+  "id": "https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "width": 5788,
+  "height": 8208,
+  "maxWidth": 5788,
+  "maxHeight": 8208,
+  "maxArea": 47507904,
+  "sizes": [
+    {
+      "width": 180,
+      "height": 256
+    },
+    {
+      "width": 361,
+      "height": 513
+    },
+    {
+      "width": 723,
+      "height": 1026
+    },
+    {
+      "width": 1447,
+      "height": 2052
+    },
+    {
+      "width": 2894,
+      "height": 4104
+    }
+  ],
+  "tiles": [
+    {
+      "width": 256,
+      "height": 256,
+      "scaleFactors": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32
+      ]
+    }
+  ],
+  "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "preferredFormats": [
+    "png",
+    "gif"
+  ],
+  "extraFormats": [
+    "png",
+    "gif",
+    "pdf"
+  ],
+  "extraQualities": [
+    "native",
+    "color",
+    "gray",
+    "bitonal"
+  ],
+  "extraFeatures": [
+    "canonicalLinkHeader",
+    "rotationArbitrary",
+    "profileLinkHeader"
+  ],
+  "seeAlso": [
+    {
+      "id": "https://example.org/image1.xml",
+      "label": {
+        "en": [
+          "Technical image metadata"
+        ]
+      },
+      "type": "Dataset",
+      "format": "text/xml",
+      "profile": "https://example.org/profiles/imagedata"
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/manifest/1",
+      "type": "Manifest",
+      "label": {
+        "en": [
+          "A Book"
+        ]
+      }
+    }
+  ],
+  "service": [
+    {
+      "id": "https://example.org/service/example",
+      "type": "Service",
+      "profile": "https://example.org/docs/example-service.html"
+    }
+  ]
+}
