@@ -1,30 +1,18 @@
 package eu.europeana.metis.transformation.service;
 
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import net.sf.saxon.TransformerFactoryImpl;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-
-import net.sf.saxon.TransformerFactoryImpl;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>. For each thread a new instance
@@ -60,7 +48,6 @@ public class XsltTransformer implements Closeable {
     this(xsltUrl, xsltInputStream, null, null, null);
   }
 
-
   /**
    * Constructor.
    *
@@ -71,7 +58,6 @@ public class XsltTransformer implements Closeable {
    * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the transformation.
    */
-
   public XsltTransformer(String xsltKey, InputStream xsltInputStream, String datasetName,
       String edmCountry, String edmLanguage) throws TransformationException {
     try {
