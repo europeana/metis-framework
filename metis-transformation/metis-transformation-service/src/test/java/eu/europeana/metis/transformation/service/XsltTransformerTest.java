@@ -67,11 +67,30 @@ class XsltTransformerTest {
     @Test
     void reorderEDM() throws Exception {
         final InputStream xsltFileInputStream = readFileToInputStream("edm_sorter.xsl");
-        final String fileToTransform = readFileToString("europeana_record_unsorted.xml");
+        final String fileToTransform = readFileToString("europeana_record_edm_external_unsorted.xml");
         final StringWriter stringWriter = new XsltTransformer("edm_sorter.xsl", xsltFileInputStream)
                 .transform(fileToTransform.getBytes(), null);
         final String transformed = stringWriter.toString();
-        final String expected = readFileToString("europeana_record_sorted_expected.xml");
+        final String expected = readFileToString("europeana_record_edm_external_sorted.xml");
+
+        Diff diff = DiffBuilder.compare(expected)
+                .withTest(transformed)
+                .ignoreWhitespace()
+                .ignoreComments()
+                .checkForIdentical()
+                .build();
+
+        assertFalse(diff.hasDifferences(), () -> "XMLs differ: " + diff);
+    }
+
+    @Test
+    void transformToEDMInternal() throws Exception {
+        final InputStream xsltFileInputStream = readFileToInputStream("default_transformation.xslt");
+        final String fileToTransform = readFileToString("europeana_record_edm_external_sorted.xml");
+        final StringWriter stringWriter = new XsltTransformer("default_transformation.xslt", xsltFileInputStream)
+                .transform(fileToTransform.getBytes(), null);
+        final String transformed = stringWriter.toString();
+        final String expected = readFileToString("europeana_record_edm_internal.xml");
 
         Diff diff = DiffBuilder.compare(expected)
                 .withTest(transformed)

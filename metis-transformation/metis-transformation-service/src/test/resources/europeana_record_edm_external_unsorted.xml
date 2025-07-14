@@ -29,13 +29,13 @@
         <dc:subject rdf:resource=" http://vocab.getty.edu/aat/300005433/XXXXXXXXX"/>
         <dc:subject xml:lang="en">Settlement</dc:subject>
         <dc:title xml:lang="en">Panoramic Photography of link path 7-8 at Skara Brae</dc:title>
-        <dc:type>3D</dc:type>
         <dcterms:isPartOf xml:lang="en">3D ICONS</dcterms:isPartOf>
         <dcterms:medium rdf:resource=" http://vocab.getty.edu/aat/300070971"/>
         <dcterms:medium xml:lang="en">Dry Stone</dcterms:medium>
         <dcterms:spatial rdf:resource="iid:4387/SP.1"/>
         <dcterms:temporal xml:lang="en">Neolithic</dcterms:temporal>
         <dcterms:temporal rdf:resource="HA/936#timespan"/>
+        <dc:type>3D</dc:type>
         <edm:type>3D</edm:type>
         <edm:pid>ark:/12148/cb12031244g</edm:pid>
         <edm:pid>https://ark.bnf.fr/ark:/12148/bpt6k279983</edm:pid>
