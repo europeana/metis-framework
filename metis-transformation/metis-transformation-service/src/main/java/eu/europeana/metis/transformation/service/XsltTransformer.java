@@ -1,18 +1,29 @@
 package eu.europeana.metis.transformation.service;
 
 import eu.europeana.metis.transformation.service.CacheValueSupplier.CacheValueSupplierException;
-import net.sf.saxon.TransformerFactoryImpl;
-import org.apache.commons.lang3.StringUtils;
-
-import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+import net.sf.saxon.TransformerFactoryImpl;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class performs XSL transforms (XSLT). Instances of this class are <b>not thread-safe</b>. For each thread a new instance
@@ -124,9 +135,9 @@ public class XsltTransformer implements Closeable {
       throws CacheValueSupplierException {
 
     HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .uri(URI.create(xsltUrl))
-        .build();
+                                         .GET()
+                                         .uri(URI.create(xsltUrl))
+                                         .build();
 
     // We know where the xslt files are coming from, we consider them safe.
     try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())
