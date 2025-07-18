@@ -132,17 +132,6 @@ public class IndexerPool implements Closeable {
 
   /**
    * This method removes a single record, using a free indexer in the pool
-   * @deprecated use removeRecord instead
-   * @param stringRdfRecord The record to be removed.
-   * @throws IndexingException In case something went wrong.
-   */
-  @Deprecated
-  public void remove(String stringRdfRecord) throws IndexingException {
-    indexRecord(indexer -> indexer.remove(stringRdfRecord));
-  }
-
-  /**
-   * This method removes a single record, using a free indexer in the pool
    *
    * @param stringRdfRecord The record to be removed.
    * @return the boolean result of the record removal.
