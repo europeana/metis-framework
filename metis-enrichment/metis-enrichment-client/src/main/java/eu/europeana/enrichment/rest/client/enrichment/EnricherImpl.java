@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -16,6 +17,9 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
+import eu.europeana.entity.client.EntityApiClient;
+import eu.europeana.entity.client.config.EntityClientConfiguration;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -26,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -50,6 +55,7 @@ public class EnricherImpl implements Enricher {
                                                                  .toList();
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
+  private final EntityClientConfiguration entityApiClientConfiguration;
   private final EntityMergeEngine entityMergeEngine;
 
   /**
@@ -62,6 +68,21 @@ public class EnricherImpl implements Enricher {
   public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver, EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = entityResolver;
+    this.entityApiClientConfiguration = null;
+    this.entityMergeEngine = entityMergeEngine;
+  }
+
+  /**
+   * Constructor with required parameters.
+   *
+   * @param recordParser the record parser
+   * @param entityApiClientConfiguration the configuration to create entity resolvers
+   * @param entityMergeEngine the entity merge engine
+   */
+  public EnricherImpl(RecordParser recordParser, EntityClientConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
+    this.recordParser = recordParser;
+    this.entityResolver = null;
+    this.entityApiClientConfiguration = entityApiClientConfiguration;
     this.entityMergeEngine = entityMergeEngine;
   }
 
@@ -121,9 +142,24 @@ public class EnricherImpl implements Enricher {
     return reports;
   }
 
+  private EntityResolver getEntityResolver() {
+    return Optional.ofNullable(this.entityResolver).orElseGet(()-> {
+      try {
+        return new ClientEntityResolver(new EntityApiClient(this.entityApiClientConfiguration));
+      } catch (EntityClientException e) {
+        throw new RuntimeException(e);
+      }
+    });
+  }
+
   @Override
   public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
       Set<SearchTermContext> searchTerms) {
+    return enrichValues(searchTerms, getEntityResolver());
+  }
+
+  private Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
+      Set<SearchTermContext> searchTerms, EntityResolver entityResolverToUse) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
       reports.add(Report
@@ -134,7 +170,7 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
-      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException runtimeException) {
       reports.add(Report
@@ -153,6 +189,11 @@ public class EnricherImpl implements Enricher {
   @Override
   public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
       Set<ReferenceTermContext> references) {
+    return this.enrichReferences(references, getEntityResolver());
+  }
+
+  private Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
+      Set<ReferenceTermContext> references, EntityResolver entityResolverToUse) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
       reports.add(Report
@@ -163,7 +204,7 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
-      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException runtimeException) {
