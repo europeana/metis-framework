@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.impl;
 
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -150,7 +151,7 @@ public class ClientEntityResolver implements EntityResolver {
   private Entity getResolveId(String referenceValue) {
     final Entity entity;
     try {
-      entity = entityClientApi.getEntity(referenceValue);
+      entity = retryableExternalRequestForNetworkExceptionsThrowing(() -> entityClientApi.getEntity(referenceValue));
     } catch (EntityClientException e) {
       throw new EntityApiException("Issue trying to get entity with ID" + referenceValue, e);
     }
@@ -193,10 +194,12 @@ public class ClientEntityResolver implements EntityResolver {
   private List<Entity> getResolveEquivalency(String referenceValue) throws EntityClientException {
     final List<Entity> entities;
     if (europeanaLinkPattern.matcher(referenceValue).matches()) {
-      entities = Optional.ofNullable(entityClientApi.getEntity(referenceValue)).map(List::of)
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+                             () -> entityClientApi.getEntity(referenceValue))).map(List::of)
                          .orElse(Collections.emptyList());
     } else {
-      entities = Optional.ofNullable(entityClientApi.resolveEntity(referenceValue)).orElse(Collections.emptyList());
+      entities = Optional.ofNullable(retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.resolveEntity(referenceValue))).orElse(Collections.emptyList());
     }
     return entities;
   }
@@ -235,7 +238,8 @@ public class ClientEntityResolver implements EntityResolver {
   private List<Entity> getResolveTextSearch(SearchTerm searchTerm, String language, String entityTypesConcatenated) {
     final List<Entity> result;
     try {
-      result = entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null);
+      result = retryableExternalRequestForNetworkExceptionsThrowing(
+          () -> entityClientApi.enrichEntity(searchTerm.getTextValue(), language, entityTypesConcatenated, null));
     } catch (EntityClientException e) {
       throw new EntityApiException(format("Enrichment request failed for textValue: %s, language: %s, entityTypes: %s.",
           searchTerm.getTextValue(), searchTerm.getLanguage(), entityTypesConcatenated), e);
