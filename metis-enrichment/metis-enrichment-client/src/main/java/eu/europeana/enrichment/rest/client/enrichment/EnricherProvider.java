@@ -1,14 +1,11 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 public class EnricherProvider extends ConnectionProvider {
 
     private RecordParser recordParser;
-    private EntityResolverCreator entityResolverCreator;
     private String entityManagementUrl;
     private String entityApiUrl;
     private String entityApiTokenEndpoint;
@@ -40,30 +36,7 @@ public class EnricherProvider extends ConnectionProvider {
     }
 
     /**
-     * Convenience method for {@link #setEntityResolverCreator(EntityResolverCreator)} that uses the
-     * passed entity resolver instead of creating one on demand. Calling this method counts as calling
-     * {@link #setEntityResolverCreator(EntityResolverCreator)} with a non-null creator.
-     *
-     * @param entityResolver The entity resolver to use.
-     */
-    public void setEntityResolver(EntityResolver entityResolver) {
-        setEntityResolverCreator(() -> entityResolver);
-    }
-
-    /**
-     * Set the entity resolver creator to use. The default is null, in which case a {@link
-     * ClientEntityResolver} will be used with the connection settings in this class, and {@link
-     * #setEnrichmentPropertiesValues(String, String, String, String)} will need to have been called.
-     *
-     * @param entityResolverCreator A creator for the entity resolver.
-     */
-    public void setEntityResolverCreator(EntityResolverCreator entityResolverCreator) {
-        this.entityResolverCreator = entityResolverCreator;
-    }
-
-    /**
-     * Set the properties values of the enrichment service. The default is null, in which case
-     * {@link #setEntityResolverCreator(EntityResolverCreator)}* will need to have been called.
+     * Set the properties values of the enrichment service.
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
@@ -90,21 +63,12 @@ public class EnricherProvider extends ConnectionProvider {
     public Enricher create() throws EnrichmentException {
 
         // Create the entity resolver
-        final EntityResolver entityResolver;
-        if (entityResolverCreator != null) {
-            entityResolver = entityResolverCreator.createEntityResolver();
-            if (entityResolver == null) {
-                throw new EnrichmentException("Entity resolver creator returned a null object.", null);
-            }
-        } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
+        final EntityClientConfiguration entityClientConfiguration;
+        if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
                 && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
                 entityApiTokenEndpoint, entityApiGrantParams);
-            try {
-                entityResolver = new ClientEntityResolver(new EntityApiClient(new EntityClientConfiguration(properties)));
-            } catch (EntityClientException e) {
-                throw new EnrichmentException("Could not create entity resolver", e);
-            }
+            entityClientConfiguration = new EntityClientConfiguration(properties);
         } else {
             throw new EnrichmentException("We must have either a non-null entity resolver creator,"
                     + " or a non-blank enrichment URL.", null);
@@ -112,7 +76,7 @@ public class EnricherProvider extends ConnectionProvider {
 
         // Done.
         return new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
-                entityResolver, new EntityMergeEngine());
+            entityClientConfiguration, new EntityMergeEngine());
     }
 
     /**
