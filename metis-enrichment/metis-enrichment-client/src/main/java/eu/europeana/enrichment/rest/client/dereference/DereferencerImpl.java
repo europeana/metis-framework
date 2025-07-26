@@ -208,7 +208,7 @@ public class DereferencerImpl implements Dereferencer {
           try {
             return new ClientEntityResolver(new EntityApiClient(this.entityApiClientConfiguration));
           } catch (EntityClientException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
           }
         });
 
