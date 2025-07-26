@@ -82,7 +82,7 @@ public class EnricherImpl implements Enricher {
   public EnricherImpl(RecordParser recordParser, EntityClientConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = null;
-    this.entityApiClientConfiguration = entityApiClientConfiguration;
+    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
     this.entityMergeEngine = entityMergeEngine;
   }
 
@@ -147,7 +147,7 @@ public class EnricherImpl implements Enricher {
       try {
         return new ClientEntityResolver(new EntityApiClient(this.entityApiClientConfiguration));
       } catch (EntityClientException e) {
-        throw new RuntimeException(e);
+        throw new IllegalArgumentException(e);
       }
     });
   }

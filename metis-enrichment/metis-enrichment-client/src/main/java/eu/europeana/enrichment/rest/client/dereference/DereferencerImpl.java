@@ -78,7 +78,7 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.entityResolver = null;
-    this.entityApiClientConfiguration = entityApiClientConfiguration;
+    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
     this.dereferenceClient = dereferenceClient;
   }
 
