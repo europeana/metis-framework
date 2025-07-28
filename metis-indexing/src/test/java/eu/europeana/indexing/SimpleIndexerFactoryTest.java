@@ -3,11 +3,11 @@ package eu.europeana.indexing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.mongo.MongoIndexer;
-import eu.europeana.indexing.mongo.MongoIndexingSettings;
-import eu.europeana.indexing.solr.SolrIndexer;
-import eu.europeana.indexing.solr.SolrIndexingSettings;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.record.v2.MongoIndexer;
+import eu.europeana.indexing.record.v2.MongoIndexingSettings;
+import eu.europeana.indexing.search.v2.SolrIndexer;
+import eu.europeana.indexing.search.v2.SolrIndexingSettings;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.net.URI;

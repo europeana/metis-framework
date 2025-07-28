@@ -9,7 +9,7 @@ import java.util.List;
 
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.common.exception.IndexingException;
 
 import java.util.function.Predicate;
 import java.util.stream.Stream;

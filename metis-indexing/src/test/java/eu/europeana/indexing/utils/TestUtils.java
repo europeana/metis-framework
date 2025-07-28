@@ -3,7 +3,7 @@ package eu.europeana.indexing.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.indexing.search.v2.EdmLabel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

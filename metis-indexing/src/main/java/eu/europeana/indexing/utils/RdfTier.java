@@ -1,6 +1,6 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.indexing.search.v2.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;

@@ -1,10 +1,10 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.mongo.MongoIndexer;
-import eu.europeana.indexing.mongo.MongoIndexingSettings;
-import eu.europeana.indexing.solr.SolrIndexer;
-import eu.europeana.indexing.solr.SolrIndexingSettings;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.record.v2.MongoIndexer;
+import eu.europeana.indexing.record.v2.MongoIndexingSettings;
+import eu.europeana.indexing.search.v2.SolrIndexer;
+import eu.europeana.indexing.search.v2.SolrIndexingSettings;
 import eu.europeana.metis.common.SettingsHolder;
 
 /**

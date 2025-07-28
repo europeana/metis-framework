@@ -1,9 +1,9 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;

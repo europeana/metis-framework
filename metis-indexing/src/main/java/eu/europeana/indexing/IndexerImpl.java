@@ -4,10 +4,10 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import static java.lang.String.format;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;

@@ -1,6 +1,6 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 
 /**
  * The type Indexing settings utils.
@@ -47,9 +47,8 @@ public class IndexingSettingsUtils {
    * @param value the value
    * @param message the message
    * @return the t
-   * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public static <T> T nonNullIllegal(T value, String message) throws SetupRelatedIndexingException {
+  public static <T> T nonNullIllegal(T value, String message) {
     if (value == null) {
       throw new IllegalArgumentException(message);
     }

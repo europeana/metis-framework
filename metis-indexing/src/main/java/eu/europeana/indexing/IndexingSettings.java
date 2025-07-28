@@ -3,7 +3,7 @@ package eu.europeana.indexing;
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
 
 import com.mongodb.ServerAddress;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.connection.MongoProperties.ReadPreferenceValue;
 import eu.europeana.metis.solr.connection.SolrProperties;

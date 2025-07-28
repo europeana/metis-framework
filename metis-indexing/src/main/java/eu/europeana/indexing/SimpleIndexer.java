@@ -1,6 +1,6 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
 
 /**

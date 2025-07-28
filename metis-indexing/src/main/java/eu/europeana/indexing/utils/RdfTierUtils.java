@@ -1,8 +1,8 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;

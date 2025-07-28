@@ -1,7 +1,7 @@
 package eu.europeana.indexing.base;
 
-import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import java.io.IOException;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
