@@ -52,28 +52,28 @@ public class RdfToFullBeanConverter {
 
   private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
     return Stream.concat(rdfWrappedRecord.getEuropeanaAggregation()
-                                         .stream()
-                                         .flatMap(qa -> {
-                                           if (qa.getHasQualityAnnotationList() == null) {
-                                             return null;
-                                           } else {
-                                             return qa.getHasQualityAnnotationList().stream();
-                                           }
-                                         })
-                                         .filter(Objects::nonNull)
-                                         .map(HasQualityAnnotation::getQualityAnnotation),
-                     rdfWrappedRecord.getAggregations()
-                                     .stream()
-                                     .flatMap(qa -> {
-                                       if (qa.getHasQualityAnnotationList() == null) {
-                                         return null;
-                                       } else {
-                                         return qa.getHasQualityAnnotationList().stream();
-                                       }
-                                     })
-                                     .filter(Objects::nonNull)
-                                     .map(HasQualityAnnotation::getQualityAnnotation))
-                 .toList();
+                .stream()
+                .flatMap(qa -> {
+                  if (qa.getHasQualityAnnotationList() == null) {
+                    return null;
+                  } else {
+                    return qa.getHasQualityAnnotationList().stream();
+                  }
+                })
+                .filter(Objects::nonNull)
+                .map(HasQualityAnnotation::getQualityAnnotation),
+            rdfWrappedRecord.getAggregations()
+                .stream()
+                .flatMap(qa -> {
+                  if (qa.getHasQualityAnnotationList() == null) {
+                    return null;
+                  } else {
+                    return qa.getHasQualityAnnotationList().stream();
+                  }
+                })
+                .filter(Objects::nonNull)
+                .map(HasQualityAnnotation::getQualityAnnotation))
+        .toList();
   }
 
   /**
@@ -127,7 +127,7 @@ public class RdfToFullBeanConverter {
         .get().stream().collect(Collectors.toMap(WebResourceImpl::getAbout, Function.identity(),
             (existing, replacement) -> existing));
     //The reference list is being extended every time a new web resource is referenced from an aggregator
-    final Set<String> referencedWebResourceAbouts = new HashSet<>(recordWebResourcesMap.size());
+    final Set<String> referencedWebResourceAbouts = HashSet.newHashSet(recordWebResourcesMap.size());
     //We first convert the provider aggregations because we want this aggregator to get first get matches of web resources
     final List<AggregationImpl> providerAggregations = convertList(rdfWrapper.getProviderAggregations(),
         new AggregationFieldInput(recordWebResourcesMap, referencedWebResourceAbouts), false);

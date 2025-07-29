@@ -65,7 +65,7 @@ class ProxySolrCreatorTest {
     verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_EDM_ISRELATEDTO, expectedProxy.getEdmIsRelatedTo());
   }
 
-  private ProxyImpl getTestProxy() {
+  private static ProxyImpl getTestProxy() {
     ProxyImpl proxy = new ProxyImpl();
     proxy.setAbout("proxy");
     proxy.setEdmCurrentLocation(Map.of("location", List.of("locationA", "locationB")));

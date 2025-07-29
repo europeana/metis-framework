@@ -136,8 +136,8 @@ class WebResourceFieldInputTest {
   private static void assertImageWebResourceImpl(WebResourceType webResourceType, WebResourceImpl webResourceImpl) {
     assertEquals(webResourceType.getHasMimeType().getHasMimeType(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getMimeType());
     assertEquals(webResourceType.getFileByteSize().getLong(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getFileSize());
-    assertEquals(Long.valueOf(webResourceType.getHeight().getLong()).intValue(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getHeight());
-    assertEquals(Long.valueOf(webResourceType.getWidth().getLong()).intValue(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getWidth());
+    assertEquals(Math.toIntExact(webResourceType.getHeight().getLong()), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getHeight());
+    assertEquals(Math.toIntExact(webResourceType.getWidth().getLong()), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getWidth());
     assertEquals(webResourceType.getHasColorSpace().getHasColorSpace().xmlValue(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getColorSpace());
     assertEquals(webResourceType.getOrientation().getString(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getOrientation().name());
     assertArrayEquals(webResourceType.getComponentColorList().stream().map(HexBinaryType::getString).toList().toArray(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getColorPalette());
@@ -146,8 +146,8 @@ class WebResourceFieldInputTest {
   private static void assertVideoWebResourceImpl(WebResourceType webResourceType, WebResourceImpl webResourceImpl) {
     assertEquals(webResourceType.getHasMimeType().getHasMimeType(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getMimeType());
     assertEquals(webResourceType.getFileByteSize().getLong(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getFileSize());
-    assertEquals(Long.valueOf(webResourceType.getHeight().getLong()).intValue(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getHeight());
-    assertEquals(Long.valueOf(webResourceType.getWidth().getLong()).intValue(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getWidth());
+    assertEquals(Math.toIntExact(webResourceType.getHeight().getLong()), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getHeight());
+    assertEquals(Math.toIntExact(webResourceType.getWidth().getLong()), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getWidth());
     assertEquals(webResourceType.getBitRate().getInteger().intValue(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getBitRate());
     assertEquals(webResourceType.getCodecName().getCodecName(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getCodec());
     assertEquals(webResourceType.getFrameRate().getDouble(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getFrameRate());

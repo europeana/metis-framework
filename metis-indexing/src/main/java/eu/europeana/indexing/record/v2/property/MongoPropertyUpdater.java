@@ -153,7 +153,7 @@ public interface MongoPropertyUpdater<T> {
    */
   void updateWebResources(String updateField, Function<T, List<? extends WebResource>> getter,
       RootAboutWrapper ancestorInformation,
-      AbstractEdmEntityUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater);
+      MongoObjectUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater);
 
   /**
    * <p>

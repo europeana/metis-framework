@@ -20,7 +20,7 @@ public abstract class IndexingException extends Exception {
    * @param message The message. Can be null.
    * @param cause The cause. Can be null.
    */
-  public IndexingException(String message, Exception cause) {
+  protected IndexingException(String message, Exception cause) {
     super(message, cause);
   }
 
@@ -29,7 +29,7 @@ public abstract class IndexingException extends Exception {
    * 
    * @param message The message. Can be null.
    */
-  public IndexingException(String message) {
+  protected IndexingException(String message) {
     super(message);
   }
 }

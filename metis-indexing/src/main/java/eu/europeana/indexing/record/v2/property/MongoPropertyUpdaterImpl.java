@@ -12,7 +12,6 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.record.v2.AbstractEdmEntityUpdater;
 import eu.europeana.indexing.record.v2.WebResourceInformation;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.network.ExternalRequestUtil;
@@ -166,7 +165,7 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
   @Override
   public void updateWebResources(String updateField,
       Function<T, List<? extends WebResource>> getter, RootAboutWrapper ancestorInformation,
-      AbstractEdmEntityUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater) {
+      MongoObjectUpdater<WebResourceImpl, RootAboutWrapper> webResourceUpdater) {
     final Function<T, List<WebResourceImpl>> castGetter = getter
         .andThen(MongoPropertyUpdaterImpl::castWebResourceList);
     updateReferencedEntities(updateField, castGetter, entity -> ancestorInformation,

@@ -11,6 +11,9 @@ import java.util.Optional;
  */
 public final class RecordDateUtils {
 
+  private RecordDateUtils() {
+  }
+
   /**
    * This is a helper method for updating the created and updated dates in a {@link FullBean}
    * instance as part of the indexing process. The updated date is taken from the

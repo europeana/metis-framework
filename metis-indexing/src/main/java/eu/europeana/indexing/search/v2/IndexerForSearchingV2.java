@@ -51,6 +51,7 @@ public class IndexerForSearchingV2 implements IndexerForSearching {
    * @param solrClientProvider The searchable persistence. Clients that are provided from this
    *                           object will be closed when this instance's {@link #close()}
    *                           method is called.
+   * @throws SetupRelatedIndexingException In the case of setup issues.
    */
   public IndexerForSearchingV2(SolrClientProvider<SetupRelatedIndexingException> solrClientProvider)
       throws SetupRelatedIndexingException {
@@ -75,15 +76,15 @@ public class IndexerForSearchingV2 implements IndexerForSearching {
   }
 
   @Override
-  public void indexForSearching(String record) throws IndexingException {
-    Objects.requireNonNull(record, "record is null");
-    indexForSearching(rdfDeserializer.convertToRdf(record));
+  public void indexForSearching(String rdfRecord) throws IndexingException {
+    Objects.requireNonNull(rdfRecord, "record is null");
+    indexForSearching(rdfDeserializer.convertToRdf(rdfRecord));
   }
 
   @Override
-  public void indexForSearching(RDF record) throws IndexingException {
-    Objects.requireNonNull(record, "record is null");
-    indexForSearching(new RdfWrapper(record), false, null);
+  public void indexForSearching(RDF rdfRecord) throws IndexingException {
+    Objects.requireNonNull(rdfRecord, "record is null");
+    indexForSearching(new RdfWrapper(rdfRecord), false, null);
   }
 
   @Override
@@ -131,7 +132,7 @@ public class IndexerForSearchingV2 implements IndexerForSearching {
         }
         return null;
       });
-    } catch (Exception e) {
+    } catch (RuntimeException e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_RETRY_ERROR, e);
     }
   }

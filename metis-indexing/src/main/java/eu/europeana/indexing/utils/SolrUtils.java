@@ -16,10 +16,21 @@ public final class SolrUtils {
 
   private static final String SOLR_SERVER_SEARCH_ERROR = "Could not search Solr server.";
 
+  private SolrUtils() {
+  }
+
+  /**
+   * Query for Solr documents using the given query parameters.
+   *
+   * @param solrClient    The Solr client.
+   * @param queryParamMap The key-value map containing the query.
+   * @return A list of matching documents.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
   public static SolrDocumentList getSolrDocuments(SolrClient solrClient,
       Map<String, String> queryParamMap) throws IndexerRelatedIndexingException {
-    MapSolrParams queryParams = new MapSolrParams(queryParamMap);
-    QueryResponse response;
+    final MapSolrParams queryParams = new MapSolrParams(queryParamMap);
+    final QueryResponse response;
     try {
       response = retryableExternalRequestForNetworkExceptionsThrowing(() -> solrClient.query(queryParams));
     } catch (Exception e) {

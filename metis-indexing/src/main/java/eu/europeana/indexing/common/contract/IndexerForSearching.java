@@ -8,6 +8,9 @@ import eu.europeana.metis.schema.jibx.RDF;
 import java.io.Closeable;
 import java.util.Date;
 
+/**
+ * Implementations of this interface index RDF records to a search database.
+ */
 public interface IndexerForSearching extends Closeable {
 
   /**
@@ -48,7 +51,7 @@ public interface IndexerForSearching extends Closeable {
    * This indexes for search according to the provided settings. Sets the current time as the
    * record updated date, and tries to compute the updatedDate from the current state in the DB.
    *
-   * @param record RDF to publish.
+   * @param rdfRecord RDF to publish.
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -56,13 +59,13 @@ public interface IndexerForSearching extends Closeable {
    * contents</li>
    * </ul>
    */
-  void indexForSearching(RDF record) throws IndexingException;
+  void indexForSearching(RDF rdfRecord) throws IndexingException;
 
   /**
    * This indexes for search according to the provided settings. Sets the current time as the
    * record updated date, and tries to compute the updatedDate from the current state in the DB.
    *
-   * @param record String representation of the RDF to publish.
+   * @param rdfRecord String representation of the RDF to publish.
    * @throws IndexingException which can be one of:
    * <ul>
    * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
@@ -70,6 +73,6 @@ public interface IndexerForSearching extends Closeable {
    * contents</li>
    * </ul>
    */
-  void indexForSearching(String record) throws IndexingException;
+  void indexForSearching(String rdfRecord) throws IndexingException;
 
 }

@@ -1,5 +1,6 @@
 package eu.europeana.indexing.common.fullbean;
 
+import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.definitions.edm.model.metainfo.ImageOrientation;
 import eu.europeana.corelib.edm.model.metainfo.AudioMetaInfoImpl;
 import eu.europeana.corelib.edm.model.metainfo.ImageMetaInfoImpl;
@@ -20,6 +21,7 @@ import eu.europeana.metis.schema.jibx.IntegerType;
 import eu.europeana.metis.schema.jibx.LongType;
 import eu.europeana.metis.schema.jibx.NonNegativeIntegerType;
 import eu.europeana.metis.schema.jibx.OrientationType;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.Type1;
 import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.metis.schema.jibx.WebResourceType;
@@ -37,8 +39,8 @@ import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Converts a {@link WebResourceType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
- * {@link WebResourceImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link WebResourceType} from an {@link RDF} to a
+ * {@link WebResourceImpl} for a {@link FullBean}.
  */
 final class WebResourceFieldInput implements Function<WebResourceType, WebResourceImpl> {
 
@@ -206,27 +208,23 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     metaInfo.setWidth(convertToInteger(source.getWidth()));
 
     metaInfo.setColorSpace(Optional.ofNullable(source.getHasColorSpace())
-                                   .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue).orElse(null));
+        .map(HasColorSpace::getHasColorSpace).map(ColorSpaceType::xmlValue).orElse(null));
 
-    final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList()).stream()
-                                                       .flatMap(Collection::stream);
+    final Stream<HexBinaryType> sourceColors = Optional.ofNullable(source.getComponentColorList())
+        .stream().flatMap(Collection::stream);
     final String[] targetColors = sourceColors.filter(Objects::nonNull)
-                                              .map(HexBinaryType::getString).filter(StringUtils::isNotBlank)
-                                              .toArray(String[]::new);
+        .map(HexBinaryType::getString).filter(StringUtils::isNotBlank)
+        .toArray(String[]::new);
     metaInfo.setColorPalette(targetColors.length == 0 ? null : targetColors);
 
     final Orientation sourceOrientation = Optional.ofNullable(source.getOrientation())
-                                                  .map(OrientationType::getString).map(Orientation::getFromNameCaseInsensitive)
-                                                  .orElse(null);
-    final ImageOrientation targetOrientation;
-    if (sourceOrientation == Orientation.LANDSCAPE) {
-      targetOrientation = ImageOrientation.LANDSCAPE;
-    } else if (sourceOrientation == Orientation.PORTRAIT) {
-      targetOrientation = ImageOrientation.PORTRAIT;
-    } else {
-      targetOrientation = null;
-    }
-    metaInfo.setOrientation(targetOrientation);
+        .map(OrientationType::getString).map(Orientation::getFromNameCaseInsensitive)
+        .orElse(null);
+    metaInfo.setOrientation(switch (sourceOrientation){
+      case PORTRAIT -> ImageOrientation.PORTRAIT;
+      case LANDSCAPE -> ImageOrientation.LANDSCAPE;
+      case null -> null;
+    });
 
     target.setImageMetaInfo(metaInfo);
   }

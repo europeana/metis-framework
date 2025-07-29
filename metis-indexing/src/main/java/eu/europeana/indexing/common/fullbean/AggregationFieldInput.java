@@ -5,6 +5,8 @@ import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -24,8 +26,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
 
   AggregationFieldInput(final Map<String, WebResourceImpl> recordWebResourcesMap,
       Set<String> referencedWebResourceAbouts) {
-    this.recordWebResourcesMap = recordWebResourcesMap;
-    this.referencedWebResourceAbouts = referencedWebResourceAbouts;
+    this.recordWebResourcesMap = new HashMap<>(recordWebResourcesMap);
+    this.referencedWebResourceAbouts = new HashSet<>(referencedWebResourceAbouts);
   }
 
   private String processResource(List<WebResourceImpl> aggregationWebResources,

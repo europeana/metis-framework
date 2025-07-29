@@ -46,12 +46,12 @@ public class RDFDeserializer {
   /**
    * Converts a string (XML of RDF) to an RDF object.
    *
-   * @param record The record as an XML string.
+   * @param rdfRecord The record as an XML string.
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public RDF convertToRdf(String record) throws IndexingException {
-    try (InputStream stream = IOUtils.toInputStream(record, DEFAULT_CHARSET)) {
+  public RDF convertToRdf(String rdfRecord) throws IndexingException {
+    try (InputStream stream = IOUtils.toInputStream(rdfRecord, DEFAULT_CHARSET)) {
       return convertToRdf(stream);
     } catch (IOException e) {
       throw new RecordRelatedIndexingException("Could not read string value.", e);
@@ -61,16 +61,16 @@ public class RDFDeserializer {
   /**
    * Converts an input stream (XML of RDF) to an RDF object.
    *
-   * @param record The record as an input stream. This stream is not closed.
+   * @param rdfRecord The record as an input stream. This stream is not closed.
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public RDF convertToRdf(InputStream record) throws IndexingException {
+  public RDF convertToRdf(InputStream rdfRecord) throws IndexingException {
 
     // Convert string to RDF
     final RDF rdf;
     try {
-      rdf = getRdfConversionUtils().convertInputStreamToRdf(record);
+      rdf = getRdfConversionUtils().convertInputStreamToRdf(rdfRecord);
     } catch (SerializationException e) {
       throw new RecordRelatedIndexingException("Could not convert record to RDF.", e);
     }
@@ -90,7 +90,7 @@ public class RDFDeserializer {
       if (this.rdfConversionUtils == null) {
         try {
           this.rdfConversionUtils = rdfConversionUtilsSupplier.get();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
           throw new IndexerRelatedIndexingException("Error creating the JibX factory.", e);
         }
       }
