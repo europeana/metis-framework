@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Place;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -46,19 +46,19 @@ class PlaceSolrCreatorTest {
     placeSolrCreator.addToDocument(solrInputDocument, place);
 
     // assertions
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_PLACE.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_PLACE.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
-    assertEquals("Netherlands", solrInputDocument.getFieldValue(EdmLabel.EDM_PLACE.toString()));
-    assertEquals("place", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertEquals("altLabel1", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertEquals(44.5f, solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertEquals(55.5f, solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertEquals(22.5f, solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertEquals("Netherlands", solrInputDocument.getFieldValue(SolrV2Field.EDM_PLACE.toString()));
+    assertEquals("place", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertEquals("altLabel1", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertEquals(44.5f, solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertEquals(55.5f, solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertEquals(22.5f, solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
   }
 
@@ -76,19 +76,19 @@ class PlaceSolrCreatorTest {
     placeSolrCreator.addToDocument(solrInputDocument, place);
 
     // assertions
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_PLACE.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_PLACE.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
-    assertEquals("Netherlands", solrInputDocument.getFieldValue(EdmLabel.EDM_PLACE.toString()));
-    assertEquals("place", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertEquals("altLabel1", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertEquals(44.5f, solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertEquals(55.5f, solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertEquals("Netherlands", solrInputDocument.getFieldValue(SolrV2Field.EDM_PLACE.toString()));
+    assertEquals("place", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertEquals("altLabel1", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertEquals(44.5f, solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertEquals(55.5f, solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
   }
 
@@ -107,19 +107,19 @@ class PlaceSolrCreatorTest {
     placeSolrCreator.addToDocument(solrInputDocument, place);
 
     // assertions
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_PLACE.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_PLACE.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
-    assertEquals("Netherlands", solrInputDocument.getFieldValue(EdmLabel.EDM_PLACE.toString()));
-    assertEquals("place", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertEquals("altLabel1", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertEquals("Netherlands", solrInputDocument.getFieldValue(SolrV2Field.EDM_PLACE.toString()));
+    assertEquals("place", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertEquals("altLabel1", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
   }
 
@@ -138,19 +138,19 @@ class PlaceSolrCreatorTest {
     placeSolrCreator.addToDocument(solrInputDocument, place);
 
     // assertions
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_PLACE.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_PLACE.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
-    assertEquals("Netherlands", solrInputDocument.getFieldValue(EdmLabel.EDM_PLACE.toString()));
-    assertEquals("place", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_PREF_LABEL + ".Municipalities"));
-    assertEquals("altLabel1", solrInputDocument.getFieldValue(EdmLabel.PL_SKOS_ALT_LABEL + ".Region"));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LAT.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_LONG.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.PL_WGS84_POS_ALT.toString()));
+    assertEquals("Netherlands", solrInputDocument.getFieldValue(SolrV2Field.EDM_PLACE.toString()));
+    assertEquals("place", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_PREF_LABEL + ".Municipalities"));
+    assertEquals("altLabel1", solrInputDocument.getFieldValue(SolrV2Field.PL_SKOS_ALT_LABEL + ".Region"));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LAT.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_LONG.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.PL_WGS84_POS_ALT.toString()));
 
   }
 

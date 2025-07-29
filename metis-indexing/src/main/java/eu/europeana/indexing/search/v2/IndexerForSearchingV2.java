@@ -3,19 +3,26 @@ package eu.europeana.indexing.search.v2;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.common.contract.IndexerForSearching;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.PublishToSolrIndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
+import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.RecordDateUtils;
 import eu.europeana.indexing.utils.SolrUtils;
+import eu.europeana.metis.schema.jibx.RDF;
+import eu.europeana.metis.solr.client.CompoundSolrClient;
+import eu.europeana.metis.solr.connection.SolrClientProvider;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -28,80 +35,93 @@ import org.apache.solr.common.SolrInputDocument;
  *
  * @author jochen
  */
-public class IndexerForSearchingV2 {
+public class IndexerForSearchingV2 implements IndexerForSearching {
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
   private static final String SOLR_SERVER_PUBLISH_RETRY_ERROR = "Could not publish to Solr server after retry.";
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
-
+  private final CompoundSolrClient solrClientToClose;
   private final SolrClient solrClient;
-  private final boolean preserveUpdateAndCreateTimesFromRdf;
+  private final RDFDeserializer rdfDeserializer = new RDFDeserializer();
 
   /**
    * Constructor.
    *
-   * @param solrClient The searchable persistence.
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
-   * the incoming RDFs, or whether it computes its own.
+   * @param solrClientProvider The searchable persistence. Clients that are provided from this
+   *                           object will be closed when this instance's {@link #close()}
+   *                           method is called.
    */
-  public IndexerForSearchingV2(SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf) {
-    this(solrClient, preserveUpdateAndCreateTimesFromRdf, RdfToFullBeanConverter::new);
+  public IndexerForSearchingV2(SolrClientProvider<SetupRelatedIndexingException> solrClientProvider)
+      throws SetupRelatedIndexingException {
+    this.solrClientToClose = solrClientProvider.createSolrClient();
+    this.solrClient = solrClientToClose.getSolrClient();
+    this.fullBeanConverterSupplier = RdfToFullBeanConverter::new;
   }
 
   /**
    * Constructor for testing purposes.
    *
-   * @param solrClient The searchable persistence.
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher will use the updated and created times from
-   * the incoming RDFs, or whether it computes its own.
-   * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to parse strings to instances of
-   * {@link FullBeanImpl}. Will be called once during every publish.
+   * @param solrClient The searchable persistence. This instance will not take responsibility for
+   *                   closing this client.
+   * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
+   * parse strings to instances of {@link FullBeanImpl}.
    */
-  public IndexerForSearchingV2(SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf,
+  public IndexerForSearchingV2(SolrClient solrClient,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
+    this.solrClientToClose = null;
     this.solrClient = solrClient;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
-    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
-  /**
-   * Publishes an RDF to solr server
-   *
-   * @param rdfWrapper RDF to publish.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @throws IndexingException which can be one of:
-   * <ul>
-   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
-   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
-   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
-   * contents</li>
-   * </ul>
-   */
-  public void publishSolr(RdfWrapper rdfWrapper, Date recordDate) throws IndexingException {
+  @Override
+  public void indexForSearching(String record) throws IndexingException {
+    Objects.requireNonNull(record, "record is null");
+    indexForSearching(rdfDeserializer.convertToRdf(record));
+  }
+
+  @Override
+  public void indexForSearching(RDF record) throws IndexingException {
+    Objects.requireNonNull(record, "record is null");
+    indexForSearching(new RdfWrapper(record), false, null);
+  }
+
+  @Override
+  public void indexForSearching(RdfWrapper rdfWrapper, boolean preserveUpdateAndCreateTimesFromRdf,
+      Date updatedDate) throws IndexingException {
+    Objects.requireNonNull(rdfWrapper, "rdfWrapper is null");
     final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
     if (!preserveUpdateAndCreateTimesFromRdf) {
       Date createdDate;
       if (rdfWrapper.getAbout() == null) {
-        createdDate = recordDate;
+        createdDate = updatedDate;
       } else {
-        final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID,
+        final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID,
             ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
         final Map<String, String> queryParamMap = new HashMap<>();
         queryParamMap.put("q", solrQuery);
-        queryParamMap.put("fl", EdmLabel.TIMESTAMP_CREATED + "," + EdmLabel.EUROPEANA_ID);
+        queryParamMap.put("fl", SolrV2Field.TIMESTAMP_CREATED + "," + SolrV2Field.EUROPEANA_ID);
         SolrDocumentList solrDocuments = SolrUtils.getSolrDocuments(solrClient, queryParamMap);
         createdDate = (Date) solrDocuments.stream()
-            .map(document -> document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()))
-            .toList().stream().findFirst().orElse(recordDate);
+            .map(document -> document.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString()))
+            .toList().stream().findFirst().orElse(updatedDate);
       }
-      RecordDateUtils.setUpdateAndCreateTime(null, fullBean, recordDate, createdDate);
+      RecordDateUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
     }
-    publishToSolrFinal(rdfWrapper, fullBean);
+    indexForSearching(rdfWrapper, fullBean);
   }
 
-  public void publishToSolrFinal(RdfWrapper rdf, FullBeanImpl savedFullBean) throws RecordRelatedIndexingException {
-    // Publish to Solr
+  @Override
+  public void indexForSearching(RdfWrapper rdfWrapper, Date updatedDate, Date createdDate)
+      throws IndexingException {
+    Objects.requireNonNull(rdfWrapper, "rdfWrapper is null");
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
+    RecordDateUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
+    indexForSearching(rdfWrapper, fullBean);
+  }
+
+  private void indexForSearching(RdfWrapper rdf, FullBeanImpl savedFullBean)
+      throws RecordRelatedIndexingException {
     try {
       retryableExternalRequestForNetworkExceptions(() -> {
         try {
@@ -138,6 +158,13 @@ public class IndexerForSearchingV2 {
       throw new IndexerRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     } catch (SolrServerException | RuntimeException e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
+    }
+  }
+
+  @Override
+  public void close() throws IOException {
+    if (this.solrClientToClose != null) {
+      this.solrClientToClose.close();
     }
   }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
@@ -13,6 +14,8 @@ import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.search.v2.SolrIndexerIT.SolrIndexerLocalConfigTest;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -56,10 +59,13 @@ class SolrIndexerIT {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Autowired
-  private SolrIndexer indexer;
+  private IndexerForSearchingV2 indexer;
 
   @Autowired
   private SolrClient solrClient;
+
+  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+      true, List.of(), true, true);
 
   /**
    * Dynamic properties.
@@ -75,7 +81,7 @@ class SolrIndexerIT {
   private SolrDocument flushAndAssertDocumentInSolr(String expectedId, int expectedSize)
       throws SolrServerException, IOException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
     solrClient.commit();
-    final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
+    final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
     SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, solrQuery);
     LOGGER.info("documents");
     documents.forEach(document -> {
@@ -160,23 +166,6 @@ class SolrIndexerIT {
     }
 
     /**
-     * Solr indexing settings solr indexing settings.
-     *
-     * @param properties the properties
-     * @return the solr indexing settings
-     * @throws SetupRelatedIndexingException the setup related indexing exception
-     */
-    @Bean
-    SolrIndexingSettings solrIndexingSettings(SolrProperties properties) throws SetupRelatedIndexingException {
-      SolrIndexingSettings solrIndexingSettings = new SolrIndexingSettings(properties);
-      IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
-          true,
-          List.of(), true, true);
-      solrIndexingSettings.setIndexingProperties(indexingProperties);
-      return solrIndexingSettings;
-    }
-
-    /**
      * Solr client solr client.
      *
      * @param properties the properties
@@ -191,13 +180,12 @@ class SolrIndexerIT {
     /**
      * Indexer solr indexer.
      *
-     * @param settings the settings
+     * @param solrClient the solr client
      * @return the solr indexer
-     * @throws SetupRelatedIndexingException the setup related indexing exception
      */
     @Bean
-    SolrIndexer indexer(SolrIndexingSettings settings) throws SetupRelatedIndexingException {
-      return new SolrIndexer(settings);
+    IndexerForSearchingV2 indexer(SolrClient solrClient) {
+      return new IndexerForSearchingV2(solrClient, RdfToFullBeanConverter::new);
     }
   }
 
@@ -206,8 +194,8 @@ class SolrIndexerIT {
    */
   @Test
   void IllegalArgumentExceptionTest() {
-    IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> indexer.indexRecord((RDF) null));
-    assertEquals("Input RDF cannot be null.", expected.getMessage());
+    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForSearching((RDF) null));
+    assertEquals("record is null", expected.getMessage());
   }
 
   /**
@@ -223,8 +211,8 @@ class SolrIndexerIT {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
-
-    indexer.indexRecord(inputRdf);
+    IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+    indexer.indexForSearching(inputRdf);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -256,17 +244,19 @@ class SolrIndexerIT {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
+    IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
     // add record
-    indexer.indexRecord(inputRdf);
+    indexer.indexForSearching(inputRdf);
 
     // commit changes
     solrClient.commit();
 
     final RDF inputRdf2 = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
+    IndexerPreprocessor.preprocessRecord(inputRdf2, indexingProperties);
 
     // add again same record to have created and update date
-    indexer.indexRecord(inputRdf2);
+    indexer.indexForSearching(inputRdf2);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -296,7 +286,7 @@ class SolrIndexerIT {
   void testIndexRecord() throws IndexingException, SolrServerException, IOException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
-    indexer.indexRecord(stringRdfRecord);
+    indexer.indexForSearching(stringRdfRecord);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_126_10", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -321,7 +311,7 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyRecord_ExpectException() {
     final RDF inputRdf = new RDF();
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexRecord(inputRdf));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearching(inputRdf));
   }
 
   /**
@@ -330,6 +320,6 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyStringRecord_ExpectException() {
     final String stringRdfRecord = "";
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexRecord(stringRdfRecord));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearching(stringRdfRecord));
   }
 }

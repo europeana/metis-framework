@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.definitions.edm.entity.Agent;
 import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -46,17 +46,17 @@ class AgentSolrCreatorTest {
     agentSolrCreator.addToDocument(solrInputDocument, agent);
 
     // assertions
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_AGENT.toString()));
-    assertEquals("About Agent", solrInputDocument.getFieldValue(EdmLabel.EDM_AGENT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_AGENT.toString()));
+    assertEquals("About Agent", solrInputDocument.getFieldValue(SolrV2Field.EDM_AGENT.toString()));
 
-    verifyMap(solrInputDocument, EdmLabel.AG_SKOS_PREF_LABEL, agent.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.AG_SKOS_ALT_LABEL, agent.getAltLabel());
-    verifyMap(solrInputDocument, EdmLabel.AG_FOAF_NAME, agent.getFoafName());
-    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_DATEOFBIRTH, agent.getRdaGr2DateOfBirth());
-    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_DATEOFDEATH, agent.getRdaGr2DateOfDeath());
-    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PLACEOFBIRTH, agent.getRdaGr2PlaceOfBirth());
-    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PLACEOFDEATH, agent.getRdaGr2PlaceOfDeath());
-    verifyMap(solrInputDocument, EdmLabel.AG_RDAGR2_PROFESSIONOROCCUPATION, agent.getRdaGr2ProfessionOrOccupation());
+    verifyMap(solrInputDocument, SolrV2Field.AG_SKOS_PREF_LABEL, agent.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.AG_SKOS_ALT_LABEL, agent.getAltLabel());
+    verifyMap(solrInputDocument, SolrV2Field.AG_FOAF_NAME, agent.getFoafName());
+    verifyMap(solrInputDocument, SolrV2Field.AG_RDAGR2_DATEOFBIRTH, agent.getRdaGr2DateOfBirth());
+    verifyMap(solrInputDocument, SolrV2Field.AG_RDAGR2_DATEOFDEATH, agent.getRdaGr2DateOfDeath());
+    verifyMap(solrInputDocument, SolrV2Field.AG_RDAGR2_PLACEOFBIRTH, agent.getRdaGr2PlaceOfBirth());
+    verifyMap(solrInputDocument, SolrV2Field.AG_RDAGR2_PLACEOFDEATH, agent.getRdaGr2PlaceOfDeath());
+    verifyMap(solrInputDocument, SolrV2Field.AG_RDAGR2_PROFESSIONOROCCUPATION, agent.getRdaGr2ProfessionOrOccupation());
 
     assertEquals(9, solrInputDocument.size());
   }

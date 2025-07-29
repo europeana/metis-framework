@@ -28,7 +28,9 @@ public class IndexingProperties {
    * Instantiates a new Indexing properties.
    *
    * @param recordDate the record date
-   * @param preserveUpdateAndCreateTimesFromRdf the preserve update and create times from rdf
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    * @param datasetIdsForRedirection the dataset ids for redirection
    * @param performRedirects the perform redirects
    * @param tierCalculationMode the tier calculation mode
@@ -43,7 +45,9 @@ public class IndexingProperties {
    * Instantiates a new Indexing properties.
    *
    * @param recordDate the record date
-   * @param preserveUpdateAndCreateTimesFromRdf the preserve update and create times from rdf
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    * @param datasetIdsForRedirection the dataset ids for redirection
    * @param performRedirects the perform redirects
    * @param tierCalculationMode the tier calculation mode
@@ -70,8 +74,9 @@ public class IndexingProperties {
    * Constructor.
    *
    * @param recordDate The date that would represent the created/updated date of a record. Can be null.
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the updated and created times from
-   * the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.
@@ -88,8 +93,9 @@ public class IndexingProperties {
    * Constructor allowing specific types for tier re-calculation.
    *
    * @param recordDate The date that would represent the created/updated date of a record. Can be null.
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this indexer should use the updated and created times from
-   * the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
    * @param performRedirects flag that indicates whether redirect should be performed.
    * @param performTierCalculation flag that indicates whether tier calculation should be performed.

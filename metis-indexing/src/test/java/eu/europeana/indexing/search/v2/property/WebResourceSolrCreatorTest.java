@@ -8,7 +8,7 @@ import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -48,14 +48,14 @@ class WebResourceSolrCreatorTest {
     webResourceSolrCreator.addToDocument(solrInputDocument, webResource);
 
     // Then
-    assertEquals(webResource.getAbout(), solrInputDocument.getFieldValue(EdmLabel.EDM_WEB_RESOURCE.toString()));
+    assertEquals(webResource.getAbout(), solrInputDocument.getFieldValue(SolrV2Field.EDM_WEB_RESOURCE.toString()));
     assertEquals(webResource.getIsNextInSequence(),
-        solrInputDocument.getFieldValue(EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE.toString()));
-    verifyMap(solrInputDocument, EdmLabel.WR_EDM_RIGHTS, webResource.getWebResourceEdmRights());
-    verifyMap(solrInputDocument, EdmLabel.WR_DC_RIGHTS, webResource.getWebResourceDcRights());
-    verifyCollection(solrInputDocument, EdmLabel.WR_SVCS_HAS_SERVICE, webResourceSvcsHasService);
-    verifyCollection(solrInputDocument, EdmLabel.WR_DCTERMS_ISREFERENCEDBY, webResourceDctermsIsReferencedBy);
-    verifyCollection(solrInputDocument, EdmLabel.WR_CC_ODRL_INHERITED_FROM,
+        solrInputDocument.getFieldValue(SolrV2Field.WR_EDM_IS_NEXT_IN_SEQUENCE.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.WR_EDM_RIGHTS, webResource.getWebResourceEdmRights());
+    verifyMap(solrInputDocument, SolrV2Field.WR_DC_RIGHTS, webResource.getWebResourceDcRights());
+    verifyCollection(solrInputDocument, SolrV2Field.WR_SVCS_HAS_SERVICE, webResourceSvcsHasService);
+    verifyCollection(solrInputDocument, SolrV2Field.WR_DCTERMS_ISREFERENCEDBY, webResourceDctermsIsReferencedBy);
+    verifyCollection(solrInputDocument, SolrV2Field.WR_CC_ODRL_INHERITED_FROM,
         List.of(license1.getOdrlInheritFrom(), license2.getOdrlInheritFrom()));
   }
 }

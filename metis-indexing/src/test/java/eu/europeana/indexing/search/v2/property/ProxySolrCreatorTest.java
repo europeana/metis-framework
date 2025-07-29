@@ -3,7 +3,7 @@ package eu.europeana.indexing.search.v2.property;
 import static eu.europeana.indexing.utils.TestUtils.verifyMap;
 
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -36,33 +36,33 @@ class ProxySolrCreatorTest {
   }
 
   private void assertDocumentContent(ProxyImpl expectedProxy, SolrInputDocument actualSolrInputDocument) {
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_CURRENT_LOCATION, expectedProxy.getEdmCurrentLocation());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_CONTRIBUTOR, expectedProxy.getDcContributor());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_COVERAGE, expectedProxy.getDcCoverage());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_CREATOR, expectedProxy.getDcCreator());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_DATE, expectedProxy.getDcDate());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_DESCRIPTION, expectedProxy.getDcDescription());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_FORMAT, expectedProxy.getDcFormat());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_IDENTIFIER, expectedProxy.getDcIdentifier());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_LANGUAGE, expectedProxy.getDcLanguage());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_PUBLISHER, expectedProxy.getDcPublisher());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_RIGHTS, expectedProxy.getDcRights());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_SOURCE, expectedProxy.getDcSource());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_SUBJECT, expectedProxy.getDcSubject());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_TITLE, expectedProxy.getDcTitle());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DC_TYPE, expectedProxy.getDcType());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_ALTERNATIVE, expectedProxy.getDctermsAlternative());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_CREATED, expectedProxy.getDctermsCreated());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_HAS_PART, expectedProxy.getDctermsHasPart());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_IS_PART_OF, expectedProxy.getDctermsIsPartOf());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_ISSUED, expectedProxy.getDctermsIssued());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_MEDIUM, expectedProxy.getDctermsMedium());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_PROVENANCE, expectedProxy.getDctermsProvenance());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_SPATIAL, expectedProxy.getDctermsSpatial());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_DCTERMS_TEMPORAL, expectedProxy.getDctermsTemporal());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_YEAR, expectedProxy.getYear());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_HAS_MET, expectedProxy.getEdmHasMet());
-    verifyMap(actualSolrInputDocument, EdmLabel.PROXY_EDM_ISRELATEDTO, expectedProxy.getEdmIsRelatedTo());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_EDM_CURRENT_LOCATION, expectedProxy.getEdmCurrentLocation());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_CONTRIBUTOR, expectedProxy.getDcContributor());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_COVERAGE, expectedProxy.getDcCoverage());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_CREATOR, expectedProxy.getDcCreator());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_DATE, expectedProxy.getDcDate());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_DESCRIPTION, expectedProxy.getDcDescription());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_FORMAT, expectedProxy.getDcFormat());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_IDENTIFIER, expectedProxy.getDcIdentifier());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_LANGUAGE, expectedProxy.getDcLanguage());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_PUBLISHER, expectedProxy.getDcPublisher());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_RIGHTS, expectedProxy.getDcRights());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_SOURCE, expectedProxy.getDcSource());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_SUBJECT, expectedProxy.getDcSubject());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_TITLE, expectedProxy.getDcTitle());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DC_TYPE, expectedProxy.getDcType());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_ALTERNATIVE, expectedProxy.getDctermsAlternative());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_CREATED, expectedProxy.getDctermsCreated());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_HAS_PART, expectedProxy.getDctermsHasPart());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_IS_PART_OF, expectedProxy.getDctermsIsPartOf());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_ISSUED, expectedProxy.getDctermsIssued());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_MEDIUM, expectedProxy.getDctermsMedium());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_PROVENANCE, expectedProxy.getDctermsProvenance());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_SPATIAL, expectedProxy.getDctermsSpatial());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_DCTERMS_TEMPORAL, expectedProxy.getDctermsTemporal());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_EDM_YEAR, expectedProxy.getYear());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_EDM_HAS_MET, expectedProxy.getEdmHasMet());
+    verifyMap(actualSolrInputDocument, SolrV2Field.PROXY_EDM_ISRELATEDTO, expectedProxy.getEdmIsRelatedTo());
   }
 
   private ProxyImpl getTestProxy() {

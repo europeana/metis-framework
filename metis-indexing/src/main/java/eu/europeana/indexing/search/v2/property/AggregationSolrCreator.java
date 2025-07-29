@@ -3,7 +3,7 @@ package eu.europeana.indexing.search.v2.property;
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -86,35 +86,35 @@ public class AggregationSolrCreator implements PropertySolrCreator<Aggregation> 
 
     //Single value, contains provider uri(in practice the list provided has one or no value)
     dataProviderPair.getLeft().stream().findFirst()
-                    .ifPresent(uri -> SolrPropertyUtils.addValue(doc, EdmLabel.DATA_PROVIDER, uri));
+                    .ifPresent(uri -> SolrPropertyUtils.addValue(doc, SolrV2Field.DATA_PROVIDER, uri));
     //Multivalued, contains provider and intermediate uris
-    SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER, combinedProviderAndIntermediateUris);
+    SolrPropertyUtils.addValues(doc, SolrV2Field.PROVIDER, combinedProviderAndIntermediateUris);
 
     //Literal fields
-    SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_DATA_PROVIDER,
+    SolrPropertyUtils.addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_DATA_PROVIDER,
         dataProviderPair.getRight());
     SolrPropertyUtils
-        .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_PROVIDER, providerPair.getRight());
-    SolrPropertyUtils.addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_INTERMEDIATE_PROVIDER,
+        .addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_PROVIDER, providerPair.getRight());
+    SolrPropertyUtils.addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_INTERMEDIATE_PROVIDER,
         intermediatePair.getRight());
 
     SolrPropertyUtils
-        .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_DC_RIGHTS, aggregation.getDcRights());
+        .addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_DC_RIGHTS, aggregation.getDcRights());
     if (!SolrPropertyUtils.hasLicenseForRights(aggregation.getEdmRights(),
         item -> licenses.stream().anyMatch(license -> license.getAbout().equals(item)))) {
       SolrPropertyUtils
-          .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_RIGHTS, aggregation.getEdmRights());
+          .addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_RIGHTS, aggregation.getEdmRights());
     }
     SolrPropertyUtils
-        .addValues(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_HASVIEW, aggregation.getHasView());
-    SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT,
+        .addValues(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_HASVIEW, aggregation.getHasView());
+    SolrPropertyUtils.addValue(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_AT,
         aggregation.getEdmIsShownAt());
-    SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY,
+    SolrPropertyUtils.addValue(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY,
         aggregation.getEdmIsShownBy());
     SolrPropertyUtils
-        .addValue(doc, EdmLabel.PROVIDER_AGGREGATION_EDM_OBJECT, aggregation.getEdmObject());
-    SolrPropertyUtils.addValue(doc, EdmLabel.EDM_UGC, aggregation.getEdmUgc());
-    doc.addField(EdmLabel.PREVIEW_NO_DISTRIBUTE.toString(),
+        .addValue(doc, SolrV2Field.PROVIDER_AGGREGATION_EDM_OBJECT, aggregation.getEdmObject());
+    SolrPropertyUtils.addValue(doc, SolrV2Field.EDM_UGC, aggregation.getEdmUgc());
+    doc.addField(SolrV2Field.PREVIEW_NO_DISTRIBUTE.toString(),
         aggregation.getEdmPreviewNoDistribute());
     new WebResourceSolrCreator(licenses).addAllToDocument(doc, aggregation.getWebResources());
   }

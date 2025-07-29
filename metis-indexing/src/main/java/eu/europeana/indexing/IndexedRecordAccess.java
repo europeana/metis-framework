@@ -8,7 +8,7 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.metis.utils.CommonStringValues;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -103,7 +103,7 @@ public class IndexedRecordAccess {
 
       // Remove Solr record
       final String queryValue = ClientUtils.escapeQueryChars(rdfAbout);
-      solrServer.deleteByQuery(EdmLabel.EUROPEANA_ID + ":" + queryValue);
+      solrServer.deleteByQuery(SolrV2Field.EUROPEANA_ID + ":" + queryValue);
 
       // Obtain the Mongo record
       final Datastore datastore = recordDao.getDatastore();
@@ -231,13 +231,13 @@ public class IndexedRecordAccess {
 
     final String datasetIdRegexEscaped =
         ClientUtils.escapeQueryChars(getRecordIdPrefix(datasetId)) + "*";
-    solrQuery.append(EdmLabel.EUROPEANA_ID).append(':').append(datasetIdRegexEscaped);
+    solrQuery.append(SolrV2Field.EUROPEANA_ID).append(':').append(datasetIdRegexEscaped);
 
     if (maxRecordDate != null) {
       //Set date format properly for Solr, the timezone has to be added
       DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
       dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-      solrQuery.append(" AND ").append(EdmLabel.TIMESTAMP_UPDATED).append(":[* TO ")
+      solrQuery.append(" AND ").append(SolrV2Field.TIMESTAMP_UPDATED).append(":[* TO ")
                .append(dateFormat.format(maxRecordDate)).append('}');
     }
     solrServer.deleteByQuery(solrQuery.toString());

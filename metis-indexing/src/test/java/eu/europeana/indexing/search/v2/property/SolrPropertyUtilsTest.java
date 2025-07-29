@@ -9,7 +9,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,37 +35,37 @@ class SolrPropertyUtilsTest {
     assertTrue(document.getFieldNames().isEmpty());
 
     // Add single value for first field
-    SolrPropertyUtils.addValue(document, EdmLabel.PL_WGS84_POS_LAT, "A");
+    SolrPropertyUtils.addValue(document, SolrV2Field.PL_WGS84_POS_LAT, "A");
     assertEquals(1, document.getFieldNames().size());
-    assertEquals(1, document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).size());
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).contains("A"));
+    assertEquals(1, document.getFieldValues(SolrV2Field.PL_WGS84_POS_LAT.toString()).size());
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_LAT.toString()).contains("A"));
 
     // Add value to already existing first field
-    SolrPropertyUtils.addValue(document, EdmLabel.PL_WGS84_POS_LAT, 0.0F);
+    SolrPropertyUtils.addValue(document, SolrV2Field.PL_WGS84_POS_LAT, 0.0F);
     assertEquals(1, document.getFieldNames().size());
-    assertEquals(2, document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).size());
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString()).contains("A"));
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LAT.toString())
+    assertEquals(2, document.getFieldValues(SolrV2Field.PL_WGS84_POS_LAT.toString()).size());
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_LAT.toString()).contains("A"));
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_LAT.toString())
                        .contains(Float.valueOf("0.0")));
 
     // Add multiple values to second field
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_LONG, new String[]{"C", "D"});
+    SolrPropertyUtils.addValues(document, SolrV2Field.PL_WGS84_POS_LONG, new String[]{"C", "D"});
     assertEquals(2, document.getFieldNames().size());
-    assertEquals(2, document.getFieldValues(EdmLabel.PL_WGS84_POS_LONG.toString()).size());
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LONG.toString()).contains("C"));
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_LONG.toString()).contains("D"));
+    assertEquals(2, document.getFieldValues(SolrV2Field.PL_WGS84_POS_LONG.toString()).size());
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_LONG.toString()).contains("C"));
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_LONG.toString()).contains("D"));
 
     // Add map of values
     Map<String, List<String>> inputMap = new HashMap<>();
     inputMap.put("1", List.of("Q"));
     inputMap.put("2", Arrays.asList("X", "Y"));
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_ALT, inputMap);
+    SolrPropertyUtils.addValues(document, SolrV2Field.PL_WGS84_POS_ALT, inputMap);
     assertEquals(4, document.getFieldNames().size());
-    assertEquals(1, document.getFieldValues(EdmLabel.PL_WGS84_POS_ALT + ".1").size());
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_ALT + ".1").contains("Q"));
-    assertEquals(2, document.getFieldValues(EdmLabel.PL_WGS84_POS_ALT + ".2").size());
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_ALT + ".2").contains("X"));
-    assertTrue(document.getFieldValues(EdmLabel.PL_WGS84_POS_ALT + ".2").contains("Y"));
+    assertEquals(1, document.getFieldValues(SolrV2Field.PL_WGS84_POS_ALT + ".1").size());
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_ALT + ".1").contains("Q"));
+    assertEquals(2, document.getFieldValues(SolrV2Field.PL_WGS84_POS_ALT + ".2").size());
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_ALT + ".2").contains("X"));
+    assertTrue(document.getFieldValues(SolrV2Field.PL_WGS84_POS_ALT + ".2").contains("Y"));
 
   }
 
@@ -77,15 +77,15 @@ class SolrPropertyUtilsTest {
     assertTrue(document.getFieldNames().isEmpty());
 
     // Add null values
-    SolrPropertyUtils.addValue(document, EdmLabel.PL_WGS84_POS_ALT, (Float) null);
-    SolrPropertyUtils.addValue(document, EdmLabel.PL_WGS84_POS_ALT, (String) null);
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_ALT, (String[]) null);
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_ALT, (Map<String, List<String>>) null);
+    SolrPropertyUtils.addValue(document, SolrV2Field.PL_WGS84_POS_ALT, (Float) null);
+    SolrPropertyUtils.addValue(document, SolrV2Field.PL_WGS84_POS_ALT, (String) null);
+    SolrPropertyUtils.addValues(document, SolrV2Field.PL_WGS84_POS_ALT, (String[]) null);
+    SolrPropertyUtils.addValues(document, SolrV2Field.PL_WGS84_POS_ALT, (Map<String, List<String>>) null);
 
     // Add map with null values
     Map<String, List<String>> input = new HashMap<>();
     input.put("A", null);
-    SolrPropertyUtils.addValues(document, EdmLabel.PL_WGS84_POS_ALT, input);
+    SolrPropertyUtils.addValues(document, SolrV2Field.PL_WGS84_POS_ALT, input);
 
     // Verify that document is still empty.
     assertTrue(document.getFieldNames().isEmpty());

@@ -1,14 +1,14 @@
 package eu.europeana.indexing.search.v2.property;
 
-import static eu.europeana.indexing.search.v2.EdmLabel.COVERAGE_LOCATION_WGS;
-import static eu.europeana.indexing.search.v2.EdmLabel.CURRENT_LOCATION_WGS;
-import static eu.europeana.indexing.search.v2.EdmLabel.LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.COVERAGE_LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.CURRENT_LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.LOCATION_WGS;
 import static java.lang.String.format;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.utils.GeoUriWGS84Parser;
 import eu.europeana.metis.utils.GeoUriWGS84Parser.GeoCoordinates;
@@ -48,14 +48,14 @@ public class FullBeanSolrProperties {
     final String[] types = Optional.ofNullable(fullBean.getProxies()).stream().flatMap(List::stream)
                                    .filter(Objects::nonNull).map(ProxyImpl::getEdmType).filter(Objects::nonNull).distinct()
                                    .toArray(String[]::new);
-    SolrPropertyUtils.addValues(document, EdmLabel.PROVIDER_EDM_TYPE, types);
+    SolrPropertyUtils.addValues(document, SolrV2Field.PROVIDER_EDM_TYPE, types);
 
     setGeospatialFields(document, fullBean);
 
-    document.addField(EdmLabel.EUROPEANA_COMPLETENESS.toString(), fullBean.getEuropeanaCompleteness());
-    document.addField(EdmLabel.EUROPEANA_COLLECTIONNAME.toString(), fullBean.getEuropeanaCollectionName()[0]);
-    document.addField(EdmLabel.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
-    document.addField(EdmLabel.TIMESTAMP_UPDATED.toString(), fullBean.getTimestampUpdated());
+    document.addField(SolrV2Field.EUROPEANA_COMPLETENESS.toString(), fullBean.getEuropeanaCompleteness());
+    document.addField(SolrV2Field.EUROPEANA_COLLECTIONNAME.toString(), fullBean.getEuropeanaCollectionName()[0]);
+    document.addField(SolrV2Field.TIMESTAMP_CREATED.toString(), fullBean.getTimestampCreated());
+    document.addField(SolrV2Field.TIMESTAMP_UPDATED.toString(), fullBean.getTimestampUpdated());
   }
 
   private void setGeospatialFields(SolrInputDocument document, FullBeanImpl fullBean) {

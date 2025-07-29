@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.solr.common.SolrInputDocument;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 
 /**
  * Set of utility methods for creating Solr documents.
@@ -46,7 +46,7 @@ public final class SolrPropertyUtils {
    * @param label The label of the values to be added.
    * @param values The values to be added.
    */
-  public static void addValues(SolrInputDocument document, EdmLabel label, String[] values) {
+  public static void addValues(SolrInputDocument document, SolrV2Field label, String[] values) {
     addValues(document, label.toString(), values);
   }
 
@@ -57,7 +57,7 @@ public final class SolrPropertyUtils {
    * @param label The label of the value to be added.
    * @param value The value to be added.
    */
-  public static void addValue(SolrInputDocument document, EdmLabel label, String value) {
+  public static void addValue(SolrInputDocument document, SolrV2Field label, String value) {
     if (value != null) {
       addValues(document, label.toString(), new String[] {value});
     }
@@ -70,7 +70,7 @@ public final class SolrPropertyUtils {
    * @param label The label of the value to be added.
    * @param value The value to be added.
    */
-  public static void addValue(SolrInputDocument document, EdmLabel label, Float value) {
+  public static void addValue(SolrInputDocument document, SolrV2Field label, Float value) {
     if (value != null) {
       addValues(document, label.toString(), new Float[] {value});
     }
@@ -84,7 +84,7 @@ public final class SolrPropertyUtils {
    * @param label The base label of the values to be added (to be qualified with the map key).
    * @param values The values to be added.
    */
-  public static void addValues(SolrInputDocument document, EdmLabel label,
+  public static void addValues(SolrInputDocument document, SolrV2Field label,
       Map<String, List<String>> values) {
     if (values == null) {
       return;

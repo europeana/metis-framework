@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import org.apache.solr.common.SolrInputDocument;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,8 +36,8 @@ class ProvidedChoSolrCreatorTest {
 
     providedChoSolrCreator.addToDocument(solrInputDocument, providedCHO);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EUROPEANA_ID.toString()));
-    assertEquals("about", solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_ID.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EUROPEANA_ID.toString()));
+    assertEquals("about", solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_ID.toString()));
     assertEquals(1, solrInputDocument.size());
   }
 
@@ -48,8 +48,8 @@ class ProvidedChoSolrCreatorTest {
 
     providedChoSolrCreator.addToDocument(solrInputDocument, providedCHO);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.EUROPEANA_ID.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_ID.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.EUROPEANA_ID.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_ID.toString()));
     assertEquals(0, solrInputDocument.size());
   }
 }

@@ -1,7 +1,7 @@
 package eu.europeana.indexing.redirect.v2;
 
 import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.mongo.model.RecordRedirect;
@@ -105,7 +105,7 @@ public final class RecordRedirectsUtil {
       // Query avoiding self-redirection. If the dataset already exists in the Solr it is likely that
       // our query so far would return the very record we're indexing, which should be prevented.
       final String queryPreventingFindingSameRecord = String
-          .format("-%s:%s", EdmLabel.EUROPEANA_ID,
+          .format("-%s:%s", SolrV2Field.EUROPEANA_ID,
               ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
 
       // Assemble final query.
@@ -118,9 +118,9 @@ public final class RecordRedirectsUtil {
       final Map<String, String> queryParamMap = new HashMap<>();
       queryParamMap.put("q", finalQuery);
       queryParamMap.put("fl",
-          String.format("%s,%s,%s,%s,%s,%s", EdmLabel.EUROPEANA_ID, EdmLabel.TIMESTAMP_CREATED,
-              EdmLabel.PROXY_DC_IDENTIFIER, EdmLabel.PROXY_DC_TITLE, EdmLabel.PROXY_DC_DESCRIPTION,
-              EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
+          String.format("%s,%s,%s,%s,%s,%s", SolrV2Field.EUROPEANA_ID, SolrV2Field.TIMESTAMP_CREATED,
+              SolrV2Field.PROXY_DC_IDENTIFIER, SolrV2Field.PROXY_DC_TITLE, SolrV2Field.PROXY_DC_DESCRIPTION,
+              SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
 
       //Preprocess sub-query and replace documents based on the result
       SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
@@ -132,8 +132,8 @@ public final class RecordRedirectsUtil {
 
       //Return all identifiers found and their creationDates
       return solrDocuments.stream().map(document -> ImmutablePair
-                              .of((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()),
-                                  (Date) document.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString())))
+                              .of((String) document.getFieldValue(SolrV2Field.EUROPEANA_ID.toString()),
+                                  (Date) document.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString())))
                           .collect(Collectors.toList());
     }
     return new ArrayList<>();
@@ -167,7 +167,7 @@ public final class RecordRedirectsUtil {
 
   private static Predicate<SolrDocument> doExactIdsMatch(List<String> concatenatedIds) {
     return document -> concatenatedIds.stream()
-                                      .anyMatch(((String) document.getFieldValue(EdmLabel.EUROPEANA_ID.toString()))::equals);
+                                      .anyMatch(((String) document.getFieldValue(SolrV2Field.EUROPEANA_ID.toString()))::equals);
   }
 
   private static Predicate<SolrDocument> doesGroupMatch(Map<String, List<String>> queryGroup) {
@@ -227,11 +227,11 @@ public final class RecordRedirectsUtil {
     final HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
     if (!CollectionUtils.isEmpty(identifiers)) {
       if (!CollectionUtils.isEmpty(titles)) {
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_TITLE.toString(), titles);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_IDENTIFIER.toString(), identifiers);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_TITLE.toString(), titles);
       } else if (!CollectionUtils.isEmpty(descriptions)) {
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_DESCRIPTION.toString(), descriptions);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_IDENTIFIER.toString(), identifiers);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_DESCRIPTION.toString(), descriptions);
       }
     }
     return listsToCombineMaps;
@@ -244,12 +244,12 @@ public final class RecordRedirectsUtil {
     if (!CollectionUtils.isEmpty(isShownByList)) {
       if (!CollectionUtils.isEmpty(titles)) {
         listsToCombineMaps
-            .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_TITLE.toString(), titles);
+            .put(SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_TITLE.toString(), titles);
       } else if (!CollectionUtils.isEmpty(descriptions)) {
         listsToCombineMaps
-            .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
-        listsToCombineMaps.put(EdmLabel.PROXY_DC_DESCRIPTION.toString(), descriptions);
+            .put(SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+        listsToCombineMaps.put(SolrV2Field.PROXY_DC_DESCRIPTION.toString(), descriptions);
       }
     }
     return listsToCombineMaps;
@@ -260,8 +260,8 @@ public final class RecordRedirectsUtil {
     HashMap<String, List<String>> listsToCombineMaps = new HashMap<>();
     if (!CollectionUtils.isEmpty(isShownByList) && !CollectionUtils.isEmpty(identifiers)) {
       listsToCombineMaps
-          .put(EdmLabel.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
-      listsToCombineMaps.put(EdmLabel.PROXY_DC_IDENTIFIER.toString(), identifiers);
+          .put(SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY.toString(), isShownByList);
+      listsToCombineMaps.put(SolrV2Field.PROXY_DC_IDENTIFIER.toString(), identifiers);
     }
     return listsToCombineMaps;
   }
@@ -285,7 +285,7 @@ public final class RecordRedirectsUtil {
     final List<String> filteredItems = getFilteredItems(datasetIds);
     return computeJoiningQuery(filteredItems,
         datasetId -> String.format("%s_*", ClientUtils.escapeQueryChars(datasetId)),
-        Collectors.joining(" OR ", String.format("%s:(", EdmLabel.EDM_DATASETNAME), ")"));
+        Collectors.joining(" OR ", String.format("%s:(", SolrV2Field.EDM_DATASETNAME), ")"));
   }
 
   private static String computeJoiningQuery(List<String> filteredItems,
@@ -315,7 +315,7 @@ public final class RecordRedirectsUtil {
 
       combinedQueryForRedirectedDatasetIds = computeJoiningQuery(concatenatedDatasetRecordIds,
           UnaryOperator.identity(),
-          Collectors.joining(" OR ", String.format("%s:(\"", EdmLabel.EUROPEANA_ID), "\")"));
+          Collectors.joining(" OR ", String.format("%s:(\"", SolrV2Field.EUROPEANA_ID), "\")"));
     }
     return ImmutablePair.of(combinedQueryForRedirectedDatasetIds, concatenatedDatasetRecordIds);
   }

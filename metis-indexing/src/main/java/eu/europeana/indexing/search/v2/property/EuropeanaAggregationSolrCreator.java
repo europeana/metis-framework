@@ -2,7 +2,7 @@ package eu.europeana.indexing.search.v2.property;
 
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.License;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.solr.common.SolrInputDocument;
@@ -25,11 +25,11 @@ public class EuropeanaAggregationSolrCreator implements PropertySolrCreator<Euro
 
   @Override
   public void addToDocument(SolrInputDocument doc, EuropeanaAggregation europeanaAggregation) {
-    SolrPropertyUtils.addValues(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_COUNTRY,
+    SolrPropertyUtils.addValues(doc, SolrV2Field.EUROPEANA_AGGREGATION_EDM_COUNTRY,
         europeanaAggregation.getEdmCountry());
-    SolrPropertyUtils.addValues(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_LANGUAGE,
+    SolrPropertyUtils.addValues(doc, SolrV2Field.EUROPEANA_AGGREGATION_EDM_LANGUAGE,
         europeanaAggregation.getEdmLanguage());
-    SolrPropertyUtils.addValue(doc, EdmLabel.EUROPEANA_AGGREGATION_EDM_PREVIEW,
+    SolrPropertyUtils.addValue(doc, SolrV2Field.EUROPEANA_AGGREGATION_EDM_PREVIEW,
         europeanaAggregation.getEdmPreview());
     new WebResourceSolrCreator(licenses)
         .addAllToDocument(doc, europeanaAggregation.getWebResources());

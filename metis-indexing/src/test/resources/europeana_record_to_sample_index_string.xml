@@ -181,6 +181,20 @@
     <edm:object rdf:resource="https://archivesspace-ed.nl/digital_objects/270/292/126-010.pdf"/>
     <edm:provider rdf:resource="http://data.europeana.eu/organization/1482250000004671077"></edm:provider>
     <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2025-07-29T15:12:53.047094255Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_126_10"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/contentTier4"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2025-07-29T15:12:53.053550762Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/provider/50/_providedCHO_NL_BwdADRKF_2_126_10"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/metadataTierB"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
   </ore:Aggregation>
   <ore:Proxy rdf:about="/proxy/europeana/50/_providedCHO_NL_BwdADRKF_2_126_10">
     <dc:date rdf:resource="#1920"></dc:date>
@@ -223,6 +237,20 @@
     <edm:preview rdf:resource="https://archivesspace-ed.nl/digital_objects/270/292/126-010.pdf"/>
     <edm:language>nl</edm:language>
     <edm:completeness>10</edm:completeness>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2025-07-29T15:12:53.054903066Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_126_10"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/contentTier4"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
+    <dqv:hasQualityAnnotation>
+      <dqv:QualityAnnotation>
+        <dcterms:created>2025-07-29T15:12:53.055077725Z</dcterms:created>
+        <oa:hasTarget rdf:resource="/aggregation/europeana/50/_providedCHO_NL_BwdADRKF_2_126_10"/>
+        <oa:hasBody rdf:resource="http://www.europeana.eu/schemas/epf/metadataTierB"/>
+      </dqv:QualityAnnotation>
+    </dqv:hasQualityAnnotation>
   </edm:EuropeanaAggregation>
   <foaf:Organization rdf:about="http://data.europeana.eu/organization/1482250000046543016">
     <skos:prefLabel xml:lang="en">Archive and Documentation Center for RK Friesland</skos:prefLabel>

@@ -3,11 +3,10 @@ package eu.europeana.indexing;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
+import eu.europeana.indexing.common.contract.IndexerForSearching;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.record.v2.MongoIndexer;
 import eu.europeana.indexing.record.v2.MongoIndexingSettings;
-import eu.europeana.indexing.search.v2.SolrIndexer;
-import eu.europeana.indexing.search.v2.SolrIndexingSettings;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.net.URI;
@@ -16,15 +15,13 @@ import org.junit.jupiter.api.Test;
 
 class SimpleIndexerFactoryTest {
 
-  private final SimpleIndexerFactory simpleIndexerFactory = new SimpleIndexerFactory();
+  private final IndexingJobFactory indexingJobFactory = new IndexingJobFactory();
 
   @Test
   void getSolrIndexer() throws SetupRelatedIndexingException, URISyntaxException {
     SolrProperties<SetupRelatedIndexingException> solrProperties = new SolrProperties<>(SetupRelatedIndexingException::new);
     solrProperties.addSolrHost(new URI("http://localhost:8983"));
-    SolrIndexingSettings settings = new SolrIndexingSettings(solrProperties);
-
-    assertInstanceOf(SolrIndexer.class, simpleIndexerFactory.getIndexer(settings));
+    assertInstanceOf(IndexerForSearching.class, indexingJobFactory.createIndexerForSearching(solrProperties));
   }
 
   @Test
@@ -36,7 +33,7 @@ class SimpleIndexerFactoryTest {
     settings.setMongoTombstoneDatabaseName("tombstoneRecordDB");
     settings.setRecordRedirectDatabaseName("recordRedirectDB");
 
-    assertInstanceOf(MongoIndexer.class, simpleIndexerFactory.getIndexer(settings));
+    assertInstanceOf(MongoIndexer.class, indexingJobFactory.getIndexer(settings));
     assertEquals("recordDB", settings.getMongoDatabaseName());
     assertEquals("tombstoneRecordDB", settings.getMongoTombstoneDatabaseName());
     assertEquals("recordRedirectDB", settings.getRecordRedirectDatabaseName());

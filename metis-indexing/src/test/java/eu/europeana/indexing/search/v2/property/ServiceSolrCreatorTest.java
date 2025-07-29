@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.entity.ServiceImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import org.apache.solr.common.SolrInputDocument;
 import org.bson.types.ObjectId;
@@ -37,10 +37,10 @@ class ServiceSolrCreatorTest {
 
     serviceSolrCreator.addToDocument(solrInputDocument, service);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SV_SERVICE.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
-    assertEquals("service", solrInputDocument.getFieldValue(EdmLabel.SV_SERVICE.toString()));
-    assertEquals(List.of("data1", "data2"), solrInputDocument.getFieldValues(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SV_SERVICE.toString()) &&
+        solrInputDocument.containsKey(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertEquals("service", solrInputDocument.getFieldValue(SolrV2Field.SV_SERVICE.toString()));
+    assertEquals(List.of("data1", "data2"), solrInputDocument.getFieldValues(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -51,10 +51,10 @@ class ServiceSolrCreatorTest {
 
     serviceSolrCreator.addToDocument(solrInputDocument, service);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SV_SERVICE.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
-    assertEquals("service", solrInputDocument.getFieldValue(EdmLabel.SV_SERVICE.toString()));
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SV_SERVICE.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertEquals("service", solrInputDocument.getFieldValue(SolrV2Field.SV_SERVICE.toString()));
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
     assertEquals(1, solrInputDocument.size());
   }
 
@@ -65,10 +65,10 @@ class ServiceSolrCreatorTest {
 
     serviceSolrCreator.addToDocument(solrInputDocument, service);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.SV_SERVICE.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.SV_SERVICE.toString()));
-    assertEquals(List.of("data1", "data2"), solrInputDocument.getFieldValues(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.SV_SERVICE.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.SV_SERVICE.toString()));
+    assertEquals(List.of("data1", "data2"), solrInputDocument.getFieldValues(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
     assertEquals(1, solrInputDocument.size());
   }
 
@@ -78,10 +78,10 @@ class ServiceSolrCreatorTest {
 
     serviceSolrCreator.addToDocument(solrInputDocument, service);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.SV_SERVICE.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.SV_SERVICE.toString()));
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.SV_SERVICE.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.SV_SERVICE.toString()));
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.SV_DCTERMS_CONFORMS_TO.toString()));
     assertEquals(0, solrInputDocument.size());
   }
 }

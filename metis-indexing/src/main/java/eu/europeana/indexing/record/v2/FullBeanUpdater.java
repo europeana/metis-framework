@@ -24,9 +24,9 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
   /**
    * Constructor.
    *
-   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve the
-   * updated and created dates that are in the current version of the record (if it exists) or if
-   * they should be recomputed.
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    */
   public FullBeanUpdater(boolean preserveUpdateAndCreateTimesFromRdf) {
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;

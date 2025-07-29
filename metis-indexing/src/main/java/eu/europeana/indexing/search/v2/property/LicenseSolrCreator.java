@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import org.apache.solr.common.SolrInputDocument;
 
 import eu.europeana.corelib.definitions.edm.entity.License;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 
 /**
  * Property Solr Creator for 'cc:License' tags.
@@ -30,19 +30,19 @@ public class LicenseSolrCreator implements PropertySolrCreator<License> {
 
     final boolean isAggregation = isAggregationResolver.test(license);
 
-    final EdmLabel licenseLabel =
-        isAggregation ? EdmLabel.PROVIDER_AGGREGATION_CC_LICENSE : EdmLabel.WR_CC_LICENSE;
+    final SolrV2Field licenseLabel =
+        isAggregation ? SolrV2Field.PROVIDER_AGGREGATION_CC_LICENSE : SolrV2Field.WR_CC_LICENSE;
     SolrPropertyUtils.addValue(doc, licenseLabel, license.getAbout());
 
     if (license.getCcDeprecatedOn() != null) {
-      final EdmLabel deprecatedLabel = isAggregation ?
-              EdmLabel.PROVIDER_AGGREGATION_CC_DEPRECATED_ON : EdmLabel.WR_CC_DEPRECATED_ON;
+      final SolrV2Field deprecatedLabel = isAggregation ?
+              SolrV2Field.PROVIDER_AGGREGATION_CC_DEPRECATED_ON : SolrV2Field.WR_CC_DEPRECATED_ON;
       final Date ccDeprecatedOnDate = new Date(license.getCcDeprecatedOn().getTime());
       doc.addField(deprecatedLabel.toString(), ccDeprecatedOnDate);
     }
 
     if (isAggregation) {
-      SolrPropertyUtils.addValue(doc, EdmLabel.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM,
+      SolrPropertyUtils.addValue(doc, SolrV2Field.PROVIDER_AGGREGATION_ODRL_INHERITED_FROM,
           license.getOdrlInheritFrom());
     }
   }

@@ -12,7 +12,7 @@ import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.lang.invoke.MethodHandles;
@@ -27,7 +27,7 @@ public class MongoIndexer implements SimpleIndexer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final AbstractConnectionProvider connectionProvider;
-  private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  private final IndexingSupplier<RDFDeserializer> stringToRdfConverterSupplier;
 
   private final IndexingProperties indexingProperties;
 
@@ -39,7 +39,7 @@ public class MongoIndexer implements SimpleIndexer {
    */
   public MongoIndexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
     this.connectionProvider = new MongoConnectionProvider(settings);
-    this.stringToRdfConverterSupplier = StringToFullBeanConverter::new;
+    this.stringToRdfConverterSupplier = RDFDeserializer::new;
     this.indexingProperties = settings.getIndexingProperties();
   }
 
@@ -82,7 +82,7 @@ public class MongoIndexer implements SimpleIndexer {
    */
   @Override
   public void indexRecord(String stringRdfRecord) throws IndexingException {
-    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertStringToRdf(stringRdfRecord);
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(stringRdfRecord);
     indexRecord(rdfRecord);
   }
 }

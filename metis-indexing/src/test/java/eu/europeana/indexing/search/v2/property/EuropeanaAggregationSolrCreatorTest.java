@@ -11,7 +11,7 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.solr.entity.EuropeanaAggregationImpl;
 import eu.europeana.corelib.solr.entity.LicenseImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -69,27 +69,27 @@ class EuropeanaAggregationSolrCreatorTest {
     europeanaAggregationSolrCreator.addToDocument(solrInputDocument, europeanaAggregation);
 
     //Verify Europeana Aggregation fields
-    verifyMap(solrInputDocument, EdmLabel.EUROPEANA_AGGREGATION_EDM_COUNTRY, europeanaAggregation.getEdmCountry());
-    verifyMap(solrInputDocument, EdmLabel.EUROPEANA_AGGREGATION_EDM_LANGUAGE, europeanaAggregation.getEdmLanguage());
+    verifyMap(solrInputDocument, SolrV2Field.EUROPEANA_AGGREGATION_EDM_COUNTRY, europeanaAggregation.getEdmCountry());
+    verifyMap(solrInputDocument, SolrV2Field.EUROPEANA_AGGREGATION_EDM_LANGUAGE, europeanaAggregation.getEdmLanguage());
     assertEquals(europeanaAggregation.getEdmPreview(),
-        solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_AGGREGATION_EDM_PREVIEW.toString()));
+        solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_AGGREGATION_EDM_PREVIEW.toString()));
 
     //Verify web resources fields
-    verifyCollection(solrInputDocument, EdmLabel.EDM_WEB_RESOURCE, List.of(webResource1.getAbout(), webResource2.getAbout()));
-    verifyCollection(solrInputDocument, EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE,
+    verifyCollection(solrInputDocument, SolrV2Field.EDM_WEB_RESOURCE, List.of(webResource1.getAbout(), webResource2.getAbout()));
+    verifyCollection(solrInputDocument, SolrV2Field.WR_EDM_IS_NEXT_IN_SEQUENCE,
         List.of(webResource1.getIsNextInSequence(), webResource2.getIsNextInSequence()));
-    verifyCollection(solrInputDocument, EdmLabel.WR_SVCS_HAS_SERVICE,
+    verifyCollection(solrInputDocument, SolrV2Field.WR_SVCS_HAS_SERVICE,
         union(webResource1SvcsHasService, webResource2SvcsHasService));
-    verifyCollection(solrInputDocument, EdmLabel.WR_DCTERMS_ISREFERENCEDBY,
+    verifyCollection(solrInputDocument, SolrV2Field.WR_DCTERMS_ISREFERENCEDBY,
         union(webResource1DctermsIsReferencedBy, webResource2DctermsIsReferencedBy));
-    verifyCollection(solrInputDocument, EdmLabel.WR_CC_ODRL_INHERITED_FROM,
+    verifyCollection(solrInputDocument, SolrV2Field.WR_CC_ODRL_INHERITED_FROM,
         List.of(license1.getOdrlInheritFrom(), license2.getOdrlInheritFrom()));
 
     //Verify webResource1
-    verifyMap(solrInputDocument, EdmLabel.WR_EDM_RIGHTS, webResource1.getWebResourceEdmRights());
-    verifyMap(solrInputDocument, EdmLabel.WR_DC_RIGHTS, webResource1.getWebResourceDcRights());
+    verifyMap(solrInputDocument, SolrV2Field.WR_EDM_RIGHTS, webResource1.getWebResourceEdmRights());
+    verifyMap(solrInputDocument, SolrV2Field.WR_DC_RIGHTS, webResource1.getWebResourceDcRights());
     //Verify webResource2
-    verifyMap(solrInputDocument, EdmLabel.WR_EDM_RIGHTS, webResource2.getWebResourceEdmRights());
-    verifyMap(solrInputDocument, EdmLabel.WR_DC_RIGHTS, webResource2.getWebResourceDcRights());
+    verifyMap(solrInputDocument, SolrV2Field.WR_EDM_RIGHTS, webResource2.getWebResourceEdmRights());
+    verifyMap(solrInputDocument, SolrV2Field.WR_DC_RIGHTS, webResource2.getWebResourceDcRights());
   }
 }

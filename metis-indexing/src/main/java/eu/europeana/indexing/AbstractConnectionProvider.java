@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.search.v2.IndexerForSearchingV2;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.io.Closeable;
@@ -24,21 +23,11 @@ import org.apache.solr.client.solrj.SolrServerException;
 public interface AbstractConnectionProvider extends Closeable {
 
   /**
-   * Provides an object for indexing for searching.
-   *
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher should use
-   * the updated and created times from the incoming RDFs, or whether it computes its own.
-   * @return An indexer.
-   */
-  default IndexerForSearchingV2 getIndexerForSearchingV2(boolean preserveUpdateAndCreateTimesFromRdf) {
-    return new IndexerForSearchingV2(getSolrClient(), preserveUpdateAndCreateTimesFromRdf);
-  }
-
-  /**
    * Provides a Publisher object for publishing Full Beans so that they may be found by users.
    *
-   * @param preserveUpdateAndCreateTimesFromRdf This determines whether this publisher should use
-   * the updated and created times from the incoming RDFs, or whether it computes its own.
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
+   * updated and created dates that are set in the input record or if they should be recomputed
+   * using any equivalent record that is currently in the database.
    * @return A publisher.
    */
   default FullBeanPublisher getFullBeanPublisher(boolean preserveUpdateAndCreateTimesFromRdf) {

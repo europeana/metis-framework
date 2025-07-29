@@ -2,7 +2,7 @@ package eu.europeana.indexing.search.v2.property;
 
 import eu.europeana.corelib.definitions.edm.entity.License;
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,14 +35,14 @@ public class WebResourceSolrCreator implements PropertySolrCreator<WebResource> 
 
   @Override
   public void addToDocument(SolrInputDocument doc, WebResource wr) {
-    SolrPropertyUtils.addValue(doc, EdmLabel.EDM_WEB_RESOURCE, wr.getAbout());
-    SolrPropertyUtils.addValue(doc, EdmLabel.WR_EDM_IS_NEXT_IN_SEQUENCE, wr.getIsNextInSequence());
-    SolrPropertyUtils.addValues(doc, EdmLabel.WR_EDM_RIGHTS, wr.getWebResourceEdmRights());
-    SolrPropertyUtils.addValues(doc, EdmLabel.WR_DC_RIGHTS, wr.getWebResourceDcRights());
-    SolrPropertyUtils.addValues(doc, EdmLabel.WR_SVCS_HAS_SERVICE, wr.getSvcsHasService());
-    SolrPropertyUtils.addValues(doc, EdmLabel.WR_DCTERMS_ISREFERENCEDBY,
+    SolrPropertyUtils.addValue(doc, SolrV2Field.EDM_WEB_RESOURCE, wr.getAbout());
+    SolrPropertyUtils.addValue(doc, SolrV2Field.WR_EDM_IS_NEXT_IN_SEQUENCE, wr.getIsNextInSequence());
+    SolrPropertyUtils.addValues(doc, SolrV2Field.WR_EDM_RIGHTS, wr.getWebResourceEdmRights());
+    SolrPropertyUtils.addValues(doc, SolrV2Field.WR_DC_RIGHTS, wr.getWebResourceDcRights());
+    SolrPropertyUtils.addValues(doc, SolrV2Field.WR_SVCS_HAS_SERVICE, wr.getSvcsHasService());
+    SolrPropertyUtils.addValues(doc, SolrV2Field.WR_DCTERMS_ISREFERENCEDBY,
         wr.getDctermsIsReferencedBy());
-    SolrPropertyUtils.addValues(doc, EdmLabel.WR_CC_ODRL_INHERITED_FROM,
+    SolrPropertyUtils.addValues(doc, SolrV2Field.WR_CC_ODRL_INHERITED_FROM,
         getArrayOfOdrlInheritFromMatches(wr));
   }
 

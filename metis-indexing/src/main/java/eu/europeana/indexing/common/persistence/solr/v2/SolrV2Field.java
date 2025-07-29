@@ -1,4 +1,4 @@
-package eu.europeana.indexing.search.v2;
+package eu.europeana.indexing.common.persistence.solr.v2;
 
 /**
  * Enumeration holding the Solr field definitions
@@ -6,7 +6,7 @@ package eu.europeana.indexing.search.v2;
  * @author Yorgos.Mamakis@ kb.nl
  * 
  */
-public enum EdmLabel {
+public enum SolrV2Field {
 
   // GENERAL
   EUROPEANA_COMPLETENESS("europeana_completeness"),
@@ -140,7 +140,7 @@ public enum EdmLabel {
   
   private final String label;
 
-  EdmLabel(String label) {
+  SolrV2Field(String label) {
     this.label = label;
   }
 

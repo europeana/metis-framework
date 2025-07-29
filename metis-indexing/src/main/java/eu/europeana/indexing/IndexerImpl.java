@@ -7,7 +7,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.fullbean.StringToFullBeanConverter;
+import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -33,7 +33,7 @@ public class IndexerImpl implements Indexer {
 
   private final AbstractConnectionProvider connectionProvider;
 
-  private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  private final IndexingSupplier<RDFDeserializer> stringToRdfConverterSupplier;
 
   /**
    * Constructor.
@@ -41,18 +41,18 @@ public class IndexerImpl implements Indexer {
    * @param connectionProvider The connection provider for this indexer.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider) {
-    this(connectionProvider, StringToFullBeanConverter::new);
+    this(connectionProvider, RDFDeserializer::new);
   }
 
   /**
    * Constructor for testing purposes.
    *
    * @param connectionProvider The connection provider for this indexer.
-   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter} used to convert a string to an
+   * @param stringToRdfConverterSupplier Supplies an instance of {@link RDFDeserializer} used to convert a string to an
    * instance of {@link RDF}. Will be called once during every index.
    */
   IndexerImpl(AbstractConnectionProvider connectionProvider,
-      IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
+      IndexingSupplier<RDFDeserializer> stringToRdfConverterSupplier) {
     this.connectionProvider = connectionProvider;
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
@@ -67,10 +67,10 @@ public class IndexerImpl implements Indexer {
   public void index(List<String> records, IndexingProperties indexingProperties)
       throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    final RDFDeserializer stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());
     for (String stringRdfRecord : records) {
-      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
+      wrappedRecords.add(stringToRdfConverter.convertToRdf(stringRdfRecord));
     }
     indexRecords(wrappedRecords, indexingProperties, tiers -> true);
   }
@@ -78,7 +78,7 @@ public class IndexerImpl implements Indexer {
   @Override
   public void index(InputStream rdfInputStream, IndexingProperties indexingProperties)
       throws IndexingException {
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    final RDFDeserializer stringToRdfConverter = stringToRdfConverterSupplier.get();
     indexRdf(stringToRdfConverter.convertToRdf(rdfInputStream), indexingProperties);
   }
 
@@ -104,7 +104,7 @@ public class IndexerImpl implements Indexer {
   @Override
   public void index(String stringRdfRecord, IndexingProperties indexingProperties,
       Predicate<TierResults> tierResultsConsumer) throws IndexingException {
-    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertStringToRdf(stringRdfRecord);
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(stringRdfRecord);
     indexRecords(List.of(rdfRecord), indexingProperties, tierResultsConsumer);
   }
 

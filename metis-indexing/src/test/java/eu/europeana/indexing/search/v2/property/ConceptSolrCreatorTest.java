@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -40,12 +40,12 @@ class ConceptSolrCreatorTest {
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SKOS_CONCEPT.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.CC_SKOS_PREF_LABEL + ".keyPref") &&
-        solrInputDocument.containsKey(EdmLabel.CC_SKOS_ALT_LABEL + ".keyAlt"));
-    assertEquals("concept", solrInputDocument.getFieldValue(EdmLabel.SKOS_CONCEPT.toString()));
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_ALT_LABEL, concept.getAltLabel());
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SKOS_CONCEPT.toString()) &&
+        solrInputDocument.containsKey(SolrV2Field.CC_SKOS_PREF_LABEL + ".keyPref") &&
+        solrInputDocument.containsKey(SolrV2Field.CC_SKOS_ALT_LABEL + ".keyAlt"));
+    assertEquals("concept", solrInputDocument.getFieldValue(SolrV2Field.SKOS_CONCEPT.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_ALT_LABEL, concept.getAltLabel());
     assertEquals(3, solrInputDocument.size());
   }
 
@@ -57,12 +57,12 @@ class ConceptSolrCreatorTest {
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.SKOS_CONCEPT.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.CC_SKOS_PREF_LABEL + ".keyPref") &&
-        solrInputDocument.containsKey(EdmLabel.CC_SKOS_ALT_LABEL + ".keyAlt"));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.SKOS_CONCEPT.toString()));
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_ALT_LABEL, concept.getAltLabel());
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.SKOS_CONCEPT.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.CC_SKOS_PREF_LABEL + ".keyPref") &&
+        solrInputDocument.containsKey(SolrV2Field.CC_SKOS_ALT_LABEL + ".keyAlt"));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.SKOS_CONCEPT.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_ALT_LABEL, concept.getAltLabel());
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -74,12 +74,12 @@ class ConceptSolrCreatorTest {
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.CC_SKOS_PREF_LABEL + ".keyPref"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SKOS_CONCEPT.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.CC_SKOS_ALT_LABEL + ".keyAlt"));
-    assertEquals("concept", solrInputDocument.getFieldValue(EdmLabel.SKOS_CONCEPT.toString()));
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.CC_SKOS_PREF_LABEL + ".keyPref"));
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_ALT_LABEL, concept.getAltLabel());
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.CC_SKOS_PREF_LABEL + ".keyPref"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SKOS_CONCEPT.toString()) &&
+        solrInputDocument.containsKey(SolrV2Field.CC_SKOS_ALT_LABEL + ".keyAlt"));
+    assertEquals("concept", solrInputDocument.getFieldValue(SolrV2Field.SKOS_CONCEPT.toString()));
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.CC_SKOS_PREF_LABEL + ".keyPref"));
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_ALT_LABEL, concept.getAltLabel());
     assertEquals(2, solrInputDocument.size());
   }
 
@@ -91,12 +91,12 @@ class ConceptSolrCreatorTest {
 
     conceptSolrCreator.addToDocument(solrInputDocument, concept);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.CC_SKOS_ALT_LABEL + ".keyAlt"));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.SKOS_CONCEPT.toString()) &&
-        solrInputDocument.containsKey(EdmLabel.CC_SKOS_PREF_LABEL + ".keyPref"));
-    assertEquals("concept", solrInputDocument.getFieldValue(EdmLabel.SKOS_CONCEPT.toString()));
-    verifyMap(solrInputDocument, EdmLabel.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.CC_SKOS_ALT_LABEL + ".keyAlt"));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.CC_SKOS_ALT_LABEL + ".keyAlt"));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.SKOS_CONCEPT.toString()) &&
+        solrInputDocument.containsKey(SolrV2Field.CC_SKOS_PREF_LABEL + ".keyPref"));
+    assertEquals("concept", solrInputDocument.getFieldValue(SolrV2Field.SKOS_CONCEPT.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.CC_SKOS_PREF_LABEL, concept.getPrefLabel());
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.CC_SKOS_ALT_LABEL + ".keyAlt"));
     assertEquals(2, solrInputDocument.size());
   }
 }

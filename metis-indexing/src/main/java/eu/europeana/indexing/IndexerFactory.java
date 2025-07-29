@@ -7,7 +7,7 @@ import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 
 /**
- * This class creates instances of {@link Indexer}.
+ * This is a factory class for integrated indexers. It creates instances of {@link Indexer}.
  */
 public class IndexerFactory {
 

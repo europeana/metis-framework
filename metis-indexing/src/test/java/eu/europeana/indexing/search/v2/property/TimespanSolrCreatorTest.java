@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.util.List;
 import java.util.Map;
 import org.apache.solr.common.SolrInputDocument;
@@ -39,12 +39,13 @@ class TimespanSolrCreatorTest {
 
     timespanSolrCreator.addToDocument(solrInputDocument, timespan);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
-        EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt")
-        && solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
-    assertEquals("timespan", solrInputDocument.getFieldValue(EdmLabel.EDM_TIMESPAN.toString()));
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt")
+        && solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
+    assertEquals("timespan", solrInputDocument.getFieldValue(SolrV2Field.EDM_TIMESPAN.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
     assertEquals(4, solrInputDocument.size());
   }
 
@@ -56,13 +57,13 @@ class TimespanSolrCreatorTest {
 
     timespanSolrCreator.addToDocument(solrInputDocument, timespan);
 
-    assertFalse(solrInputDocument.containsKey(EdmLabel.EDM_TIMESPAN.toString()));
-    assertTrue(solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(
-        EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt") && solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
-    assertNull(solrInputDocument.getFieldValue(EdmLabel.EDM_TIMESPAN.toString()));
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
-    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.EDM_TIMESPAN.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt") && solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
+    assertNull(solrInputDocument.getFieldValue(SolrV2Field.EDM_TIMESPAN.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
+    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
     assertEquals(3, solrInputDocument.size());
   }
 
@@ -74,13 +75,13 @@ class TimespanSolrCreatorTest {
 
     timespanSolrCreator.addToDocument(solrInputDocument, timespan);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
-        EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt") && solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref"));
-    assertEquals("timespan", solrInputDocument.getFieldValue(EdmLabel.EDM_TIMESPAN.toString()));
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref"));
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
-    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt") && solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref"));
+    assertEquals("timespan", solrInputDocument.getFieldValue(SolrV2Field.EDM_TIMESPAN.toString()));
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref"));
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
+    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
     assertEquals(3, solrInputDocument.size());
   }
 
@@ -92,13 +93,13 @@ class TimespanSolrCreatorTest {
 
     timespanSolrCreator.addToDocument(solrInputDocument, timespan);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
-        EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt"));
-    assertEquals("timespan", solrInputDocument.getFieldValue(EdmLabel.EDM_TIMESPAN.toString()));
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt"));
-    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt"));
+    assertEquals("timespan", solrInputDocument.getFieldValue(SolrV2Field.EDM_TIMESPAN.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt"));
+    assertEquals(List.of("value1", "value2"), solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
     assertEquals(3, solrInputDocument.size());
   }
 
@@ -110,13 +111,14 @@ class TimespanSolrCreatorTest {
 
     timespanSolrCreator.addToDocument(solrInputDocument, timespan);
 
-    assertTrue(solrInputDocument.containsKey(EdmLabel.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
-        EdmLabel.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(EdmLabel.TS_SKOS_ALT_LABEL + ".keyAlt"));
-    assertFalse(solrInputDocument.containsKey(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
-    assertEquals("timespan", solrInputDocument.getFieldValue(EdmLabel.EDM_TIMESPAN.toString()));
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
-    verifyMap(solrInputDocument, EdmLabel.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
-    assertNull(solrInputDocument.getFieldValues(EdmLabel.TS_SKOS_PREF_LABEL.toString()));
+    assertTrue(solrInputDocument.containsKey(SolrV2Field.EDM_TIMESPAN.toString()) && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_PREF_LABEL + ".keyPref") && solrInputDocument.containsKey(
+        SolrV2Field.TS_SKOS_ALT_LABEL + ".keyAlt"));
+    assertFalse(solrInputDocument.containsKey(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
+    assertEquals("timespan", solrInputDocument.getFieldValue(SolrV2Field.EDM_TIMESPAN.toString()));
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_PREF_LABEL, timespan.getPrefLabel());
+    verifyMap(solrInputDocument, SolrV2Field.TS_SKOS_ALT_LABEL, timespan.getAltLabel());
+    assertNull(solrInputDocument.getFieldValues(SolrV2Field.TS_SKOS_PREF_LABEL.toString()));
     assertEquals(3, solrInputDocument.size());
   }
 }

@@ -1,20 +1,21 @@
 package eu.europeana.indexing.search.v2;
 
-import static eu.europeana.indexing.search.v2.EdmLabel.COVERAGE_LOCATION_WGS;
-import static eu.europeana.indexing.search.v2.EdmLabel.CREATED_DATE;
-import static eu.europeana.indexing.search.v2.EdmLabel.CREATED_DATE_BEGIN;
-import static eu.europeana.indexing.search.v2.EdmLabel.CREATED_DATE_END;
-import static eu.europeana.indexing.search.v2.EdmLabel.CURRENT_LOCATION_WGS;
-import static eu.europeana.indexing.search.v2.EdmLabel.EUROPEANA_ID;
-import static eu.europeana.indexing.search.v2.EdmLabel.ISSUED_DATE;
-import static eu.europeana.indexing.search.v2.EdmLabel.ISSUED_DATE_BEGIN;
-import static eu.europeana.indexing.search.v2.EdmLabel.ISSUED_DATE_END;
-import static eu.europeana.indexing.search.v2.EdmLabel.LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.COVERAGE_LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.CREATED_DATE;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.CREATED_DATE_BEGIN;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.CREATED_DATE_END;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.CURRENT_LOCATION_WGS;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.EUROPEANA_ID;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.ISSUED_DATE;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.ISSUED_DATE_BEGIN;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.ISSUED_DATE_END;
+import static eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field.LOCATION_WGS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.utils.RdfTierUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -55,8 +56,8 @@ class SolrDocumentPopulatorTest {
     documentPopulator.populateWithDateRanges(document, rdfWrapper);
 
     assertTrue(document.get(EUROPEANA_ID.toString()).getValues().contains(fullBean.getAbout()));
-    assertEquals( "2", document.getFieldValue(EdmLabel.CONTENT_TIER.toString()));
-    assertEquals( "A", document.getFieldValue(EdmLabel.METADATA_TIER.toString()));
+    assertEquals( "2", document.getFieldValue(SolrV2Field.CONTENT_TIER.toString()));
+    assertEquals( "A", document.getFieldValue(SolrV2Field.METADATA_TIER.toString()));
     assertTrue(CollectionUtils.isEqualCollection(document.get(CURRENT_LOCATION_WGS.toString()).getValues(),
         List.of("50.75,4.5")));
     assertTrue(CollectionUtils.isEqualCollection(document.get(COVERAGE_LOCATION_WGS.toString()).getValues(),

@@ -9,7 +9,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.metis.schema.jibx.EdmType;
 import java.sql.Date;
 import java.time.Instant;
@@ -74,15 +74,15 @@ class FullBeanSolrPropertiesTest {
     fullBeanSolrProperties.setProperties(solrInputDocument, fullBean);
 
     // assertions
-    verifyCollection(solrInputDocument, EdmLabel.PROVIDER_EDM_TYPE, List.of(EdmType.TEXT.toString()));
-    verifyCollection(solrInputDocument, EdmLabel.CURRENT_LOCATION_WGS, List.of("10,33"));
-    verifyCollection(solrInputDocument, EdmLabel.COVERAGE_LOCATION_WGS, List.of("10,33"));
-    verifyCollection(solrInputDocument, EdmLabel.LOCATION_WGS, List.of("10,33"));
-    assertEquals(0, solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COMPLETENESS.toString()));
-    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()));
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()),
+    verifyCollection(solrInputDocument, SolrV2Field.PROVIDER_EDM_TYPE, List.of(EdmType.TEXT.toString()));
+    verifyCollection(solrInputDocument, SolrV2Field.CURRENT_LOCATION_WGS, List.of("10,33"));
+    verifyCollection(solrInputDocument, SolrV2Field.COVERAGE_LOCATION_WGS, List.of("10,33"));
+    verifyCollection(solrInputDocument, SolrV2Field.LOCATION_WGS, List.of("10,33"));
+    assertEquals(0, solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_COMPLETENESS.toString()));
+    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_COLLECTIONNAME.toString()));
+    assertEquals(solrInputDocument.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS)));
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
+    assertEquals(solrInputDocument.getFieldValue(SolrV2Field.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
   }
@@ -116,18 +116,18 @@ class FullBeanSolrPropertiesTest {
     proxy1.setAbout("About Proxy1");
     proxy1.setEuropeanaProxy(true);
     proxy1.setEdmType(EdmType.IMAGE.name());
-    proxy1.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place1.getAbout())));
-    proxy1.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place1.getAbout())));
-    proxy1.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place1.getAbout())));
+    proxy1.setEdmCurrentLocation(Map.of(SolrV2Field.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place1.getAbout())));
+    proxy1.setDctermsSpatial(Map.of(SolrV2Field.PROXY_DCTERMS_SPATIAL.name(), List.of(place1.getAbout())));
+    proxy1.setDcCoverage(Map.of(SolrV2Field.PROXY_DC_COVERAGE.name(), List.of(place1.getAbout())));
     proxy1.setEdmHasType(Map.of(EdmType.IMAGE.name(), List.of(EdmType.IMAGE.name())));
 
     ProxyImpl proxy2 = new ProxyImpl();
     proxy2.setAbout("About Proxy2");
     proxy2.setEuropeanaProxy(true);
     proxy2.setEdmType(EdmType.SOUND.name());
-    proxy2.setEdmCurrentLocation(Map.of(EdmLabel.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place2.getAbout())));
-    proxy2.setDctermsSpatial(Map.of(EdmLabel.PROXY_DCTERMS_SPATIAL.name(), List.of(place2.getAbout())));
-    proxy2.setDcCoverage(Map.of(EdmLabel.PROXY_DC_COVERAGE.name(), List.of(place2.getAbout())));
+    proxy2.setEdmCurrentLocation(Map.of(SolrV2Field.PROXY_EDM_CURRENT_LOCATION.name(), List.of(place2.getAbout())));
+    proxy2.setDctermsSpatial(Map.of(SolrV2Field.PROXY_DCTERMS_SPATIAL.name(), List.of(place2.getAbout())));
+    proxy2.setDcCoverage(Map.of(SolrV2Field.PROXY_DC_COVERAGE.name(), List.of(place2.getAbout())));
     proxy2.setEdmHasType(Map.of(EdmType.SOUND.name(), List.of(EdmType.SOUND.name())));
 
     List<ProxyImpl> proxies = new ArrayList<>();
@@ -145,15 +145,15 @@ class FullBeanSolrPropertiesTest {
     fullBeanSolrProperties.setProperties(solrInputDocument, fullBean);
 
     // assertions
-    verifyCollection(solrInputDocument, EdmLabel.PROVIDER_EDM_TYPE, List.of(EdmType.IMAGE.name(), EdmType.SOUND.name()));
-    verifyCollection(solrInputDocument, EdmLabel.CURRENT_LOCATION_WGS, List.of("10,33", "40,53"));
-    verifyCollection(solrInputDocument, EdmLabel.COVERAGE_LOCATION_WGS, List.of("10,33", "40,53"));
-    verifyCollection(solrInputDocument, EdmLabel.LOCATION_WGS, List.of("10,33", "40,53"));
-    assertEquals(0, solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COMPLETENESS.toString()));
-    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(EdmLabel.EUROPEANA_COLLECTIONNAME.toString()));
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_CREATED.toString()),
+    verifyCollection(solrInputDocument, SolrV2Field.PROVIDER_EDM_TYPE, List.of(EdmType.IMAGE.name(), EdmType.SOUND.name()));
+    verifyCollection(solrInputDocument, SolrV2Field.CURRENT_LOCATION_WGS, List.of("10,33", "40,53"));
+    verifyCollection(solrInputDocument, SolrV2Field.COVERAGE_LOCATION_WGS, List.of("10,33", "40,53"));
+    verifyCollection(solrInputDocument, SolrV2Field.LOCATION_WGS, List.of("10,33", "40,53"));
+    assertEquals(0, solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_COMPLETENESS.toString()));
+    assertEquals("Europeana Collection Name", solrInputDocument.getFieldValue(SolrV2Field.EUROPEANA_COLLECTIONNAME.toString()));
+    assertEquals(solrInputDocument.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS)));
-    assertEquals(solrInputDocument.getFieldValue(EdmLabel.TIMESTAMP_UPDATED.toString()),
+    assertEquals(solrInputDocument.getFieldValue(SolrV2Field.TIMESTAMP_UPDATED.toString()),
         Date.from(Instant.now().truncatedTo(DAYS).plus(1, DAYS)));
     assertEquals(8, solrInputDocument.size());
   }

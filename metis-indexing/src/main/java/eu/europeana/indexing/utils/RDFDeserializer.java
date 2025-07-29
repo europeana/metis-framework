@@ -1,10 +1,8 @@
-package eu.europeana.indexing.common.fullbean;
+package eu.europeana.indexing.utils;
 
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -16,23 +14,22 @@ import java.util.function.Supplier;
 import org.apache.commons.io.IOUtils;
 
 /**
- * This class converts String representations of RDF (XML) to instances of {@link FullBeanImpl}.
+ * This class deserializes String representations of RDF (XML) to instances of {@link RDF}.
  *
  * @author jochen
  */
-public class StringToFullBeanConverter extends RdfToFullBeanConverter {
-
-  private static RdfConversionUtils globalRdfConversionUtils;
+public class RDFDeserializer {
 
   private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-  private final IndexingSupplier<RdfConversionUtils> rdfConversionUtilsSupplier;
+  private RdfConversionUtils rdfConversionUtils;
+  private final Supplier<RdfConversionUtils> rdfConversionUtilsSupplier;
 
   /**
    * Constructor.
    */
-  public StringToFullBeanConverter() {
-    this(StringToFullBeanConverter::getRdfConversionUtils);
+  public RDFDeserializer() {
+    this(RdfConversionUtils::new);
   }
 
   /**
@@ -42,19 +39,8 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * used to deserialize strings to instances of {@link RDF}. Will be called once during every
    * call to convert a string.
    */
-  StringToFullBeanConverter(IndexingSupplier<RdfConversionUtils> rdfConversionUtilsSupplier) {
+  RDFDeserializer(Supplier<RdfConversionUtils> rdfConversionUtilsSupplier) {
     this.rdfConversionUtilsSupplier = rdfConversionUtilsSupplier;
-  }
-
-  /**
-   * Converts a string (XML of RDF) to Full Bean.
-   *
-   * @param record The record as an XML string.
-   * @return The Full Bean.
-   * @throws IndexingException In case there was a problem with the parsing or conversion.
-   */
-  public FullBeanImpl convertStringToFullBean(String record) throws IndexingException {
-    return convertRdfToFullBean(new RdfWrapper(convertStringToRdf(record)));
   }
 
   /**
@@ -64,7 +50,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
    * @return The RDF instance.
    * @throws IndexingException In case there was a problem with the parsing or conversion.
    */
-  public RDF convertStringToRdf(String record) throws IndexingException {
+  public RDF convertToRdf(String record) throws IndexingException {
     try (InputStream stream = IOUtils.toInputStream(record, DEFAULT_CHARSET)) {
       return convertToRdf(stream);
     } catch (IOException e) {
@@ -84,7 +70,7 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     // Convert string to RDF
     final RDF rdf;
     try {
-      rdf = rdfConversionUtilsSupplier.get().convertInputStreamToRdf(record);
+      rdf = getRdfConversionUtils().convertInputStreamToRdf(record);
     } catch (SerializationException e) {
       throw new RecordRelatedIndexingException("Could not convert record to RDF.", e);
     }
@@ -99,36 +85,16 @@ public class StringToFullBeanConverter extends RdfToFullBeanConverter {
     return rdf;
   }
 
-  private static RdfConversionUtils getRdfConversionUtils() throws IndexerRelatedIndexingException {
-    synchronized (StringToFullBeanConverter.class) {
-      if (globalRdfConversionUtils == null) {
+  private RdfConversionUtils getRdfConversionUtils() throws IndexerRelatedIndexingException {
+    synchronized (this) {
+      if (this.rdfConversionUtils == null) {
         try {
-          globalRdfConversionUtils = new RdfConversionUtils();
+          this.rdfConversionUtils = rdfConversionUtilsSupplier.get();
         } catch (Exception e) {
           throw new IndexerRelatedIndexingException("Error creating the JibX factory.", e);
         }
       }
-      return globalRdfConversionUtils;
+      return this.rdfConversionUtils;
     }
-  }
-
-  /**
-   * Similar to the Java interface {@link Supplier}, but one that may throw an {@link
-   * IndexerRelatedIndexingException}.
-   *
-   * @param <T> The type of the object to be supplied.
-   * @author jochen
-   */
-  @FunctionalInterface
-  interface IndexingSupplier<T> {
-
-    /**
-     * Gets a result.
-     *
-     * @return A result.
-     * @throws IndexerRelatedIndexingException In case something went wrong while getting the
-     * result.
-     */
-    T get() throws IndexerRelatedIndexingException;
   }
 }

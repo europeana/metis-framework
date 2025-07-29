@@ -22,7 +22,7 @@ import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.search.v2.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -155,7 +155,7 @@ class IndexerImplTest {
 
   private SolrDocument assertDocumentInSolr(String expectedId)
       throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
+    final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
     SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, solrQuery);
     assertEquals(expectedId, documents.getFirst().get("europeana_id"));
     return documents.stream().findFirst().orElse(null);
@@ -163,7 +163,7 @@ class IndexerImplTest {
 
   private void assertNotExistsDocumentInSolr(String expectedId)
       throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    final String solrQuery = String.format("%s:\"%s\"", EdmLabel.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
+    final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
     SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, solrQuery);
     assertEquals(0, documents.size());
   }
