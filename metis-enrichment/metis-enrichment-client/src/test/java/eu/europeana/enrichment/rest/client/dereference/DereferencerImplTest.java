@@ -31,7 +31,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
-import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -300,7 +299,7 @@ class DereferencerImplTest {
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
         final Dereferencer dereferencer = spy(
-            new DereferencerImpl(entityMergeEngine, (EntityResolver) null, dereferenceClient));
+            new DereferencerImpl(entityMergeEngine, null, dereferenceClient));
 
         DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), HashSet.newHashSet(0));
 

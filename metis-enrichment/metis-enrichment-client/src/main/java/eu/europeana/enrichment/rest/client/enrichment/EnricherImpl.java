@@ -3,8 +3,6 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
-import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -18,9 +16,6 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
-import eu.europeana.entity.client.EntityApiClient;
-import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -31,21 +26,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.hc.client5.http.config.ConnectionConfig;
-import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
-import org.apache.hc.core5.reactor.IOReactorConfig;
-import org.apache.hc.core5.util.TimeValue;
-import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -64,7 +50,6 @@ public class EnricherImpl implements Enricher {
                                                                  .toList();
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
-  private final EntityClientConfiguration entityApiClientConfiguration;
   private final EntityMergeEngine entityMergeEngine;
 
   /**
@@ -77,21 +62,6 @@ public class EnricherImpl implements Enricher {
   public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver, EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = entityResolver;
-    this.entityApiClientConfiguration = null;
-    this.entityMergeEngine = entityMergeEngine;
-  }
-
-  /**
-   * Constructor with required parameters.
-   *
-   * @param recordParser the record parser
-   * @param entityApiClientConfiguration the configuration to create entity resolvers
-   * @param entityMergeEngine the entity merge engine
-   */
-  public EnricherImpl(RecordParser recordParser, EntityClientConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
-    this.recordParser = recordParser;
-    this.entityResolver = null;
-    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
     this.entityMergeEngine = entityMergeEngine;
   }
 
@@ -151,44 +121,9 @@ public class EnricherImpl implements Enricher {
     return reports;
   }
 
-  private EntityResolver getEntityResolver() {
-    return Optional.ofNullable(this.entityResolver).orElseGet(()-> {
-      try {
-        return new ClientEntityResolver(
-            new EntityApiClient(
-                this.entityApiClientConfiguration.getEntityApiUrl(),
-                this.entityApiClientConfiguration.getEntityManagementUrl(),
-                AuthenticationBuilder.newAuthentication(this.entityApiClientConfiguration),
-                PoolingAsyncClientConnectionManagerBuilder.create()
-                                                          .setMaxConnTotal(200)
-                                                          .setMaxConnPerRoute(50)
-                                                          .setDefaultConnectionConfig(
-                                                              ConnectionConfig.custom()
-                                                                              .setValidateAfterInactivity(TimeValue.ofSeconds(5))
-                                                                              .build())
-                                                          .build(),
-                IOReactorConfig.custom()
-                               .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                               .build(),
-                RequestConfig.custom()
-                             .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                             .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                             .build()
-            ));
-      } catch (EntityClientException e) {
-        throw new IllegalArgumentException(e);
-      }
-    });
-  }
-
   @Override
   public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
       Set<SearchTermContext> searchTerms) {
-    return enrichValues(searchTerms, getEntityResolver());
-  }
-
-  private Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
-      Set<SearchTermContext> searchTerms, EntityResolver entityResolverToUse) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
       reports.add(Report
@@ -199,7 +134,7 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
-      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException runtimeException) {
       reports.add(Report
@@ -218,11 +153,6 @@ public class EnricherImpl implements Enricher {
   @Override
   public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
       Set<ReferenceTermContext> references) {
-    return this.enrichReferences(references, getEntityResolver());
-  }
-
-  private Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
-      Set<ReferenceTermContext> references, EntityResolver entityResolverToUse) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
       reports.add(Report
@@ -233,7 +163,7 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
     try {
-      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException runtimeException) {
