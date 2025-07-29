@@ -326,8 +326,7 @@ public class ClientEntityResolver implements EntityResolver {
   @NotNull
   public static ClientEntityResolver create(EntityClientConfiguration entityApiClientConfiguration)
       throws EntityClientException {
-    ClientEntityResolver entityResolver;
-    entityResolver = new ClientEntityResolver(
+    return new ClientEntityResolver(
         new EntityApiClient(
             entityApiClientConfiguration.getEntityApiUrl(),
             entityApiClientConfiguration.getEntityManagementUrl(),
@@ -348,7 +347,6 @@ public class ClientEntityResolver implements EntityResolver {
                          .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
                          .build()
         ));
-    return entityResolver;
   }
   /**
    * The enum Operation mode.
