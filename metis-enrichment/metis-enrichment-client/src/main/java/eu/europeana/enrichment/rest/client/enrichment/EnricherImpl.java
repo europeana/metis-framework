@@ -39,6 +39,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
@@ -161,8 +162,10 @@ public class EnricherImpl implements Enricher {
                 PoolingAsyncClientConnectionManagerBuilder.create()
                                                           .setMaxConnTotal(200)
                                                           .setMaxConnPerRoute(50)
-                                                          .setValidateAfterInactivity(
-                                                              TimeValue.ofSeconds(5)) // Prevent reuse of stale connections
+                                                          .setDefaultConnectionConfig(
+                                                              ConnectionConfig.custom()
+                                                                              .setValidateAfterInactivity(TimeValue.ofSeconds(5))
+                                                                              .build())
                                                           .build(),
                 IOReactorConfig.custom()
                                .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))

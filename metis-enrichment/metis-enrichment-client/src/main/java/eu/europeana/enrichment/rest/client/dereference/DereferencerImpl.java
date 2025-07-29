@@ -35,6 +35,7 @@ import java.util.Set;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
 import org.apache.hc.core5.reactor.IOReactorConfig;
@@ -221,8 +222,10 @@ public class DereferencerImpl implements Dereferencer {
                     PoolingAsyncClientConnectionManagerBuilder.create()
                                                               .setMaxConnTotal(200)
                                                               .setMaxConnPerRoute(50)
-                                                              .setValidateAfterInactivity(
-                                                                  TimeValue.ofSeconds(5))
+                                                              .setDefaultConnectionConfig(
+                                                                  ConnectionConfig.custom()
+                                                                      .setValidateAfterInactivity(TimeValue.ofSeconds(5))
+                                                                      .build())
                                                               .build(),
                     IOReactorConfig.custom()
                                    .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
