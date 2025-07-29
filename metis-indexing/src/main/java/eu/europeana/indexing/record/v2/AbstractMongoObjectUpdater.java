@@ -32,8 +32,7 @@ public abstract class AbstractMongoObjectUpdater<R, A> implements MongoObjectUpd
    * @return The property updater for the given entity.
    */
   protected abstract MongoPropertyUpdater<R> createPropertyUpdater(R newEntity,
-      A ancestorInformation, Date recordDate, Date recordCreationDate,
-      RecordDao mongoServer);
+      A ancestorInformation, Date recordDate, Date recordCreationDate, RecordDao mongoServer);
 
   /**
    * This method allows subclasses to perform preprocessing on the entity before saving it to the

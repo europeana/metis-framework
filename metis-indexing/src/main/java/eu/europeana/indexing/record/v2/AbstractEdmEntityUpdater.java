@@ -20,7 +20,7 @@ public abstract class AbstractEdmEntityUpdater<R extends AbstractEdmEntity, A>
   protected final MongoPropertyUpdater<R> createPropertyUpdater(R newEntity, A ancestorInformation,
       Date recordDate, Date recordCreationDate, RecordDao mongoServer) {
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
-        getObjectClass(), AbstractEdmEntity::getAbout, null, null, null);
+        getObjectClass(), AbstractEdmEntity::getAbout, null);
   }
 
   /**

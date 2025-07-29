@@ -8,30 +8,28 @@ import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.record.v2.property.RootAboutWrapper;
-import eu.europeana.indexing.utils.TriConsumer;
+import eu.europeana.indexing.utils.RecordDateUtils;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.ArrayList;
 import java.util.Date;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.function.BiConsumer;
 
 /**
  * Field updater for instances of {@link FullBeanImpl}.
  */
 public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Void> {
 
-  private final TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor;
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
   /**
    * Constructor.
    *
-   * @param fullBeanPreprocessor This is functionality that will be executed as soon as we have
-   * retrieved the current version of the full bean from the database. It will be called once. It's
-   * first parameter is the current full bean (as retrieved from the database) and its second
-   * parameter is the updated full bean (as passed to {@link AbstractMongoObjectUpdater#createPropertyUpdater(Object,
-   * Object, Date, Date, RecordDao)}).
+   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve the
+   * updated and created dates that are in the current version of the record (if it exists) or if
+   * they should be recomputed.
    */
-  public FullBeanUpdater(TriConsumer<FullBeanImpl, FullBeanImpl, Pair<Date, Date>> fullBeanPreprocessor) {
-    this.fullBeanPreprocessor = fullBeanPreprocessor;
+  public FullBeanUpdater(boolean preserveUpdateAndCreateTimesFromRdf) {
+    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
   }
 
   /**
@@ -53,9 +51,13 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
   protected MongoPropertyUpdater<FullBeanImpl> createPropertyUpdater(FullBeanImpl newEntity,
       Void ancestorInformation, Date recordDate, Date recordCreationDate,
       RecordDao mongoServer) {
+    final BiConsumer<FullBeanImpl, FullBeanImpl> preProcessor = (source, destination) -> {
+      if (!this.preserveUpdateAndCreateTimesFromRdf) {
+        RecordDateUtils.setUpdateAndCreateTime(source, destination, recordDate, recordCreationDate);
+      }
+    };
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,
-        FullBeanImpl.class, FullBeanImpl::getAbout, fullBeanPreprocessor, recordDate,
-        recordCreationDate);
+        FullBeanImpl.class, FullBeanImpl::getAbout, preProcessor);
   }
 
   @Override

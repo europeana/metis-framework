@@ -51,7 +51,7 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
   void testUpdate() {
 
     // Craete objects for execution
-    final FullBeanUpdater updater = new FullBeanUpdater(null);
+    final FullBeanUpdater updater = new FullBeanUpdater(true);
     @SuppressWarnings("unchecked") final MongoPropertyUpdater<FullBeanImpl> propertyUpdater = mock(
         MongoPropertyUpdater.class);
 

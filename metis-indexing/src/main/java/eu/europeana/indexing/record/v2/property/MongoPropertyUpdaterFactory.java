@@ -4,16 +4,13 @@ import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
 import dev.morphia.query.updates.UpdateOperator;
 import dev.morphia.query.updates.UpdateOperators;
-import eu.europeana.indexing.utils.TriConsumer;
 import eu.europeana.metis.mongo.dao.RecordDao;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * This class is a factory class for instances of {@link MongoPropertyUpdater}.
@@ -26,9 +23,8 @@ public final class MongoPropertyUpdaterFactory {
   }
 
   private static <T> MongoPropertyUpdater<T> create(T updated, RecordDao mongoServer,
-      Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, Pair<Date, Date>> dataPreprocessor, Date recordDate,
-      Date recordCreationDate, List<UpdateOperator> updateOperators) {
+      Supplier<Query<T>> queryCreator, BiConsumer<T, T> dataPreprocessor,
+      List<UpdateOperator> updateOperators) {
 
     // Sanity checks.
     if (updated == null || mongoServer == null || queryCreator == null) {
@@ -38,7 +34,7 @@ public final class MongoPropertyUpdaterFactory {
     // Obtain the current state from the database and perform preprocessing on it.
     final T current = queryCreator.get().first();
     if (dataPreprocessor != null) {
-      dataPreprocessor.accept(current, updated, ImmutablePair.of(recordDate, recordCreationDate));
+      dataPreprocessor.accept(current, updated);
     }
 
     // Done
@@ -55,15 +51,14 @@ public final class MongoPropertyUpdaterFactory {
    * @param queryCreator The function that creates the mongo query that can retrieve the object from
    * Mongo.
    * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its three parameters are first the
-   * current bean (found in the database) and second the updated (as passed to this method) and a
-   * pair of dates, the record date and creation date(e.g. in case of a redirection). Can be null.
+   * and/or the new object before applying the operations. Its parameters are first the
+   * current bean (found in the database) and second the updated (as passed to this method). This
+   * parameter can be null, in which no preprocessing takes place.
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
-      RecordDao mongoServer, Supplier<Query<T>> queryCreator,
-      TriConsumer<T, T, Pair<Date, Date>> preprocessor) {
-    return create(updated, mongoServer, queryCreator, preprocessor, null, null, null);
+      RecordDao mongoServer, Supplier<Query<T>> queryCreator, BiConsumer<T, T> preprocessor) {
+    return create(updated, mongoServer, queryCreator, preprocessor, null);
   }
 
   /**
@@ -76,17 +71,14 @@ public final class MongoPropertyUpdaterFactory {
    * Query}.
    * @param aboutGetter The function that obtains the about value from the object.
    * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its three parameters are first the
-   * current bean (found in the database) and second the updated (as passed to this method) and a
-   * pair of dates, the record date and creation date(e.g. in case of a redirection). Can be null.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @param recordCreationDate The date that would represent the created date if it already existed,
-   * e.g. from a redirected record
+   * and/or the new object before applying the operations. Its parameters are first the
+   * current bean (found in the database) and second the updated (as passed to this method). This
+   * parameter can be null, in which no preprocessing takes place.
    * @return The property updater.
    */
   public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
       RecordDao mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      TriConsumer<T, T, Pair<Date, Date>> preprocessor, Date recordDate, Date recordCreationDate) {
+      BiConsumer<T, T> preprocessor) {
 
     // Sanity checks.
     if (aboutGetter == null) {
@@ -105,7 +97,6 @@ public final class MongoPropertyUpdaterFactory {
         .setOnInsert(Map.of(ABOUT_FIELD, aboutGetter.apply(updated))));
 
     // Done
-    return create(updated, mongoServer, queryCreator, preprocessor, recordDate, recordCreationDate,
-        updateOperators);
+    return create(updated, mongoServer, queryCreator, preprocessor, updateOperators);
   }
 }

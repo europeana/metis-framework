@@ -3,7 +3,6 @@ package eu.europeana.indexing.search.v2;
 import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullIllegal;
 
 import eu.europeana.indexing.AbstractConnectionProvider;
-import eu.europeana.indexing.FullBeanPublisher;
 import eu.europeana.indexing.IndexerImpl.IndexingSupplier;
 import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
@@ -61,7 +60,7 @@ public class SolrIndexer implements SimpleIndexer {
     rdfRecord = nonNullIllegal(rdfRecord, "Input RDF cannot be null.");
 
     LOGGER.info("Processing {} record...", rdfRecord);
-    final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(false);
+    final IndexerForSearchingV2 publisher = connectionProvider.getIndexerForSearchingV2(false);
     IndexerPreprocessor.preprocessRecord(rdfRecord, indexingProperties);
     publisher.publishSolr(new RdfWrapper(rdfRecord), Date.from(Instant.now()));
   }
