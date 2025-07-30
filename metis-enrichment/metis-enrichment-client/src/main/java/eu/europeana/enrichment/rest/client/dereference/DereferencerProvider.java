@@ -1,11 +1,9 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -87,22 +85,17 @@ public class DereferencerProvider extends ConnectionProvider {
         }
 
         // Create the enrichment client if needed
-        final ClientEntityResolver entityResolver;
+        final EntityClientConfiguration entityClientConfiguration;
         if (hasEntityApiClientProperties()) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl,
                 entityApiUrl, entityApiTokenEndpoint, entityApiGrantParams);
-            final EntityClientConfiguration entityApiClientConfiguration = new EntityClientConfiguration(properties);
-            try {
-                entityResolver = ClientEntityResolver.create(entityApiClientConfiguration);
-            } catch (EntityClientException e) {
-                throw new DereferenceException("Could not create entity resolver", e);
-            }
+            entityClientConfiguration = new EntityClientConfiguration(properties);
         } else {
-            entityResolver = null;
+            entityClientConfiguration = null;
         }
 
         // Done.
-        return new DereferencerImpl(new EntityMergeEngine(), entityResolver, dereferenceClient);
+        return new DereferencerImpl(new EntityMergeEngine(), entityClientConfiguration, dereferenceClient);
     }
 
     private boolean hasEntityApiClientProperties() {
