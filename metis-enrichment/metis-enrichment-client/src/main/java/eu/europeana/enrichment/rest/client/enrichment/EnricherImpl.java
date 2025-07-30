@@ -170,6 +170,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
+      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException runtimeException) {
       reports.add(Report
@@ -204,6 +205,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
+      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException runtimeException) {

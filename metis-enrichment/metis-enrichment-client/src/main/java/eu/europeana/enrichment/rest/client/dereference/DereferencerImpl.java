@@ -225,6 +225,7 @@ public class DereferencerImpl implements Dereferencer {
                        reports, DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY);
                    result.putIfAbsent(notFoundOwnId, Collections.emptyList());
                  });
+      entityResolverToUse.close();
       return new DereferencedEntities(result, reports);
     } catch (CancellationException e){
       LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);

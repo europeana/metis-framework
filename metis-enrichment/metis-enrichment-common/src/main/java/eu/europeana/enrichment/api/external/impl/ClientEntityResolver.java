@@ -351,6 +351,18 @@ public class ClientEntityResolver implements EntityResolver {
   }
 
   /**
+   * Close.
+   *
+   */
+  @Override
+  public void close() {
+    try {
+      this.entityClientApi.close();
+    } catch (EntityClientException e) {
+      throw new EntityApiException(e.getMessage(), e);
+    }
+  }
+  /**
    * The enum Operation mode.
    */
   public enum OperationMode {
