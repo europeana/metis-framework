@@ -3,7 +3,6 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
-import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
@@ -18,7 +17,6 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
-import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -33,19 +31,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.hc.client5.http.config.ConnectionConfig;
-import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
-import org.apache.hc.core5.reactor.IOReactorConfig;
-import org.apache.hc.core5.util.TimeValue;
-import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -154,27 +144,7 @@ public class EnricherImpl implements Enricher {
   private EntityResolver getEntityResolver() {
     return Optional.ofNullable(this.entityResolver).orElseGet(()-> {
       try {
-        return new ClientEntityResolver(
-            new EntityApiClient(
-                this.entityApiClientConfiguration.getEntityApiUrl(),
-                this.entityApiClientConfiguration.getEntityManagementUrl(),
-                AuthenticationBuilder.newAuthentication(this.entityApiClientConfiguration),
-                PoolingAsyncClientConnectionManagerBuilder.create()
-                                                          .setMaxConnTotal(200)
-                                                          .setMaxConnPerRoute(50)
-                                                          .setDefaultConnectionConfig(
-                                                              ConnectionConfig.custom()
-                                                                              .setValidateAfterInactivity(TimeValue.ofSeconds(5))
-                                                                              .build())
-                                                          .build(),
-                IOReactorConfig.custom()
-                               .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                               .build(),
-                RequestConfig.custom()
-                             .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                             .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                             .build()
-            ));
+        return ClientEntityResolver.create(entityApiClientConfiguration);
       } catch (EntityClientException e) {
         throw new IllegalArgumentException(e);
       }

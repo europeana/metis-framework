@@ -2,7 +2,6 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
-import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -15,7 +14,6 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -33,14 +31,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CancellationException;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.apache.hc.client5.http.config.ConnectionConfig;
-import org.apache.hc.client5.http.config.RequestConfig;
-import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
-import org.apache.hc.core5.reactor.IOReactorConfig;
-import org.apache.hc.core5.util.TimeValue;
-import org.apache.hc.core5.util.Timeout;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -214,27 +205,7 @@ public class DereferencerImpl implements Dereferencer {
     final EntityResolver entityResolverToUse = Optional.ofNullable(this.entityResolver)
         .orElseGet(() -> {
           try {
-            return new ClientEntityResolver(
-                new EntityApiClient(
-                    this.entityApiClientConfiguration.getEntityApiUrl(),
-                    this.entityApiClientConfiguration.getEntityManagementUrl(),
-                    AuthenticationBuilder.newAuthentication(this.entityApiClientConfiguration),
-                    PoolingAsyncClientConnectionManagerBuilder.create()
-                                                              .setMaxConnTotal(200)
-                                                              .setMaxConnPerRoute(50)
-                                                              .setDefaultConnectionConfig(
-                                                                  ConnectionConfig.custom()
-                                                                      .setValidateAfterInactivity(TimeValue.ofSeconds(5))
-                                                                      .build())
-                                                              .build(),
-                    IOReactorConfig.custom()
-                                   .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                                   .build(),
-                    RequestConfig.custom()
-                                 .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                                 .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                                 .build()
-                ));
+            return ClientEntityResolver.create(entityApiClientConfiguration);
           } catch (EntityClientException e) {
             throw new IllegalArgumentException(e);
           }
