@@ -2,7 +2,9 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -13,6 +15,9 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.entity.client.EntityApiClient;
+import eu.europeana.entity.client.config.EntityClientConfiguration;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -28,7 +33,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CancellationException;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.core5.reactor.IOReactorConfig;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +57,7 @@ public class DereferencerImpl implements Dereferencer {
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
+  private final EntityClientConfiguration entityApiClientConfiguration;
   private final DereferenceClient dereferenceClient;
 
   /**
@@ -58,6 +71,22 @@ public class DereferencerImpl implements Dereferencer {
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.entityResolver = entityResolver;
+    this.entityApiClientConfiguration = null;
+    this.dereferenceClient = dereferenceClient;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param entityMergeEngine The entity merge engine. Cannot be null.
+   * @param entityApiClientConfiguration the configuration to create entity resolvers
+   * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
+   */
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityClientConfiguration entityApiClientConfiguration,
+      DereferenceClient dereferenceClient) {
+    this.entityMergeEngine = entityMergeEngine;
+    this.entityResolver = null;
+    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
     this.dereferenceClient = dereferenceClient;
   }
 
@@ -178,16 +207,46 @@ public class DereferencerImpl implements Dereferencer {
   @Override
   public DereferencedEntities dereferenceEuropeanaEntities(Set<ReferenceTerm> resourceIds,
       HashSet<Report> reports) {
-    if (entityResolver == null) {
+
+    if (this.entityResolver == null && this.entityApiClientConfiguration == null) {
       return DereferencedEntities.emptyInstance();
     }
+    final EntityResolver entityResolverToUse = Optional.ofNullable(this.entityResolver)
+        .orElseGet(() -> {
+          try {
+            return new ClientEntityResolver(
+                new EntityApiClient(
+                    this.entityApiClientConfiguration.getEntityApiUrl(),
+                    this.entityApiClientConfiguration.getEntityManagementUrl(),
+                    AuthenticationBuilder.newAuthentication(this.entityApiClientConfiguration),
+                    PoolingAsyncClientConnectionManagerBuilder.create()
+                                                              .setMaxConnTotal(200)
+                                                              .setMaxConnPerRoute(50)
+                                                              .setDefaultConnectionConfig(
+                                                                  ConnectionConfig.custom()
+                                                                      .setValidateAfterInactivity(TimeValue.ofSeconds(5))
+                                                                      .build())
+                                                              .build(),
+                    IOReactorConfig.custom()
+                                   .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                                   .build(),
+                    RequestConfig.custom()
+                                 .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                                 .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                                 .build()
+                ));
+          } catch (EntityClientException e) {
+            throw new IllegalArgumentException(e);
+          }
+        });
+
     try {
       Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
       Set<ReferenceTerm> ownEntities = resourceIds.stream()
                                                   .filter(id -> EntityResolver.europeanaLinkPattern.matcher(
                                                       id.getReference().toString()).matches())
                                                   .collect(Collectors.toSet());
-      entityResolver.resolveById(ownEntities)
+      entityResolverToUse.resolveById(ownEntities)
                     .forEach((key, value) -> result.put(key, List.of(value)));
       ownEntities.stream().filter(id -> result.get(id) == null || result.get(id).isEmpty())
                  .forEach(notFoundOwnId -> {
