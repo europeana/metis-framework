@@ -40,8 +40,8 @@
     <version.maven.release.plugin>2.5.3</version.maven.release.plugin>
 
     <!--Internal-->
-    <version.metis-common>16-SNAPSHOT</version.metis-common>
-    <version.metis-schema>11-SNAPSHOT</version.metis-schema>
+    <version.metis-common>16</version.metis-common>
+    <version.metis-schema>11</version.metis-schema>
 
     <!--External-->
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
