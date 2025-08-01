@@ -53,4 +53,14 @@ public interface HttpHarvester {
   FullRecordHarvestingIterator<FullRecord, Path> createFullRecordHarvestIterator(InputStream input,
       CompressedFileExtension compressedFileType) throws HarvesterException;
 
+  /**
+   * Download the file from the url to directory.
+   *
+   * @param archiveUrlString - url to archive file
+   * @param downloadDirectory - the directory where the file will be downloaded
+   * @return - path to the downloaded file
+   * @throws HarvesterException - when there is problem with downloading the file
+   */
+  Path downloadFile(String archiveUrlString, Path downloadDirectory) throws HarvesterException;
+
 }

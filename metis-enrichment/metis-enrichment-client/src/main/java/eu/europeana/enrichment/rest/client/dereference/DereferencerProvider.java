@@ -1,14 +1,10 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-
-import java.util.Properties;
-
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.web.EntityClientApiImpl;
+import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +20,8 @@ public class DereferencerProvider extends ConnectionProvider {
     private String dereferenceUrl;
     private String entityManagementUrl;
     private String entityApiUrl;
-    private String entityApiKey;
+    private String entityApiTokenEndpoint;
+    private String entityApiGrantParams;
 
     /**
      * Set the URL of the dereferencing service. The default is null. If set to a blank value, the
@@ -34,22 +31,25 @@ public class DereferencerProvider extends ConnectionProvider {
      */
     public void setDereferenceUrl(String dereferenceUrl) {
         this.dereferenceUrl = dereferenceUrl;
-
     }
 
     /**
-     * Set the properties values of the enrichment API. The default is null. If set to a blank value, the
-     * dereferencer will not be configured to perform dereferencing.
+     * Set the properties values of the enrichment API. The default is null. If set to a blank value,
+     * the dereferencer will not be configured to perform dereferencing.
      *
      * @param entityManagementUrl The url of the entity management service
      * @param entityApiUrl The url of the entity API service
-     * @param entityApiKey The key for the entity service
+     * @param entityApiTokenEndpoint the entity api token endpoint
+     * @param entityApiGrantParams the entity api grant params
      */
-    public void setEnrichmentPropertiesValues(String entityManagementUrl, String entityApiUrl, String entityApiKey) {
+    public void setEnrichmentPropertiesValues(String entityManagementUrl,
+        String entityApiUrl,
+        String entityApiTokenEndpoint,
+        String entityApiGrantParams) {
       this.entityManagementUrl = entityManagementUrl;
       this.entityApiUrl = entityApiUrl;
-      this.entityApiKey = entityApiKey;
-
+      this.entityApiTokenEndpoint = entityApiTokenEndpoint;
+      this.entityApiGrantParams = entityApiGrantParams;
     }
 
     /**
@@ -63,16 +63,14 @@ public class DereferencerProvider extends ConnectionProvider {
     public Dereferencer create() throws DereferenceException {
 
         // Make sure that the worker can do something.
-        if (StringUtils.isBlank(dereferenceUrl) && StringUtils.isBlank(entityManagementUrl)
-                && StringUtils.isBlank(entityApiUrl) && StringUtils.isBlank(entityApiKey)) {
-            throw new IllegalStateException(
-                    "Dereferencing must be enabled.");
+        if (StringUtils.isBlank(dereferenceUrl) && !hasEntityApiClientProperties()) {
+            throw new IllegalStateException("Dereferencing must be enabled.");
         }
 
         // Do some logging.
         if (dereferenceUrl == null) {
             LOGGER.warn("Creating dereferencer for Europeana entities only.");
-        } else if (entityManagementUrl == null || entityApiUrl == null || entityApiKey == null) {
+        } else if (!hasEntityApiClientProperties()) {
             LOGGER.warn("Creating dereferencer for non-Europeana entities only.");
         } else {
             LOGGER.info("Creating dereferencer for both Europeana and non-Europeana entities.");
@@ -86,24 +84,24 @@ public class DereferencerProvider extends ConnectionProvider {
             dereferenceClient = null;
         }
 
-
         // Create the enrichment client if needed
-        final ClientEntityResolver entityResolver;
-        if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl) &&
-                StringUtils.isNotBlank(entityApiKey)) {
-
-            final Properties properties = new Properties();
-            properties.put("entity.management.url", entityManagementUrl);
-            properties.put("entity.api.url", entityApiUrl);
-            properties.put("entity.api.key", entityApiKey);
-            entityResolver = new ClientEntityResolver(new EntityClientApiImpl(new EntityClientConfiguration(properties)),
-                    batchSizeEnrichment);
-
+        final EntityClientConfiguration entityClientConfiguration;
+        if (hasEntityApiClientProperties()) {
+            final Properties properties = buildEntityApiClientProperties(entityManagementUrl,
+                entityApiUrl, entityApiTokenEndpoint, entityApiGrantParams);
+            entityClientConfiguration = new EntityClientConfiguration(properties);
         } else {
-            entityResolver = null;
+            entityClientConfiguration = null;
         }
 
         // Done.
-        return new DereferencerImpl(new EntityMergeEngine(), entityResolver, dereferenceClient);
+        return new DereferencerImpl(new EntityMergeEngine(), entityClientConfiguration, dereferenceClient);
+    }
+
+    private boolean hasEntityApiClientProperties() {
+        return StringUtils.isNotBlank(entityManagementUrl)
+            && StringUtils.isNotBlank(entityApiUrl)
+            && StringUtils.isNotBlank(entityApiTokenEndpoint)
+            && StringUtils.isNotBlank(entityApiGrantParams);
     }
 }

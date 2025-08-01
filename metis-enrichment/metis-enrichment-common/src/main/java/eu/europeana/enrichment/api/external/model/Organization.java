@@ -151,9 +151,7 @@ public class Organization extends AgentBase {
     if (organization.getPhone() != null) {
       this.phone = String.valueOf(organization.getPhone());
     }
-    if (organization.getMbox() != null) {
-      this.mbox = String.valueOf(organization.getMbox());
-    }
+
     this.hasAddress = getVcardAddresses(organization.getAddress());
     this.hasAddress = getVcardAddresses(organization.getAddress());
     setHiddenLabel(convertListToLabel(organization.getHiddenLabel()));

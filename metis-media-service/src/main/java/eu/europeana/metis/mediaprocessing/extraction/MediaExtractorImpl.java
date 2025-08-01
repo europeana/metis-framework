@@ -6,11 +6,15 @@ import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
+import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -46,15 +50,18 @@ public class MediaExtractorImpl implements MediaExtractor {
       .singleton(UrlType.IS_SHOWN_AT);
 
   private final ResourceDownloadClient resourceDownloadClientOembed;
-  private final ResourceDownloadClient resourceDownloadClientNonOembed;
+  private final ResourceDownloadClient resourceDownloadClientIIIF;
+  private final ResourceDownloadClient resourceDownloadClientStandard;
   private final MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
   private final TikaWrapper tika;
+  private final IIIFValidation iiifValidation = new IIIFValidation();
 
   private final ImageProcessor imageProcessor;
   private final AudioVideoProcessor audioVideoProcessor;
   private final TextProcessor textProcessor;
   private final Media3dProcessor media3dProcessor;
   private final OEmbedProcessor oEmbedProcessor;
+  private final IIIFProcessor iiifProcessor;
 
   /**
    * Constructor meant for testing purposes.
@@ -67,8 +74,9 @@ public class MediaExtractorImpl implements MediaExtractor {
   MediaExtractorImpl(ResourceDownloadClient resourceDownloadClient,
       MimeTypeDetectHttpClient mimeTypeDetectHttpClient, TikaWrapper tika,
       List<MediaProcessor> mediaProcessorList) {
-    this.resourceDownloadClientNonOembed = resourceDownloadClient;
+    this.resourceDownloadClientStandard = resourceDownloadClient;
     this.resourceDownloadClientOembed = resourceDownloadClient;
+    this.resourceDownloadClientIIIF = resourceDownloadClient;
     this.mimeTypeDetectHttpClient = mimeTypeDetectHttpClient;
     this.tika = tika;
     this.imageProcessor = (ImageProcessor) getMediaProcessor(mediaProcessorList, ImageProcessor.class);
@@ -76,6 +84,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.textProcessor = (TextProcessor) getMediaProcessor(mediaProcessorList, TextProcessor.class);
     this.media3dProcessor = (Media3dProcessor) getMediaProcessor(mediaProcessorList, Media3dProcessor.class);
     this.oEmbedProcessor = (OEmbedProcessor) getMediaProcessor(mediaProcessorList, OEmbedProcessor.class);
+    this.iiifProcessor = (IIIFProcessor) getMediaProcessor(mediaProcessorList, IIIFProcessor.class);
   }
 
   /**
@@ -97,10 +106,13 @@ public class MediaExtractorImpl implements MediaExtractor {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
         new CommandExecutor(thumbnailGenerateTimeout));
     this.resourceDownloadClientOembed = new ResourceDownloadClient(redirectCount,
-        type -> this.shouldDownloadForFullProcessing(type, true),
+        type -> this.shouldDownloadForFullProcessing(type, RdfResourceKind.OEMBEDDED),
         connectTimeout, responseTimeout, downloadTimeout);
-    this.resourceDownloadClientNonOembed = new ResourceDownloadClient(redirectCount,
-        type -> this.shouldDownloadForFullProcessing(type, false),
+    this.resourceDownloadClientIIIF = new ResourceDownloadClient(redirectCount,
+        type -> this.shouldDownloadForFullProcessing(type, RdfResourceKind.IIIF),
+        connectTimeout, responseTimeout, downloadTimeout);
+    this.resourceDownloadClientStandard = new ResourceDownloadClient(redirectCount,
+        type -> this.shouldDownloadForFullProcessing(type, RdfResourceKind.STANDARD),
         connectTimeout, responseTimeout, downloadTimeout);
     this.mimeTypeDetectHttpClient = new MimeTypeDetectHttpClient(connectTimeout, responseTimeout,
         downloadTimeout);
@@ -111,6 +123,7 @@ public class MediaExtractorImpl implements MediaExtractor {
         new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
+    this.iiifProcessor = new IIIFProcessor(thumbnailGenerator);
   }
 
   private <T> Object getMediaProcessor(List<?> mediaProcessorList, Class<T> type) {
@@ -133,34 +146,55 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Download resource and then perform media extraction on it.
-    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode,
-        resourceEntry.isResourceConfiguredForOembed())) {
-      return performProcessing(resource, mode, mainThumbnailAvailable,
-          resourceEntry.isResourceConfiguredForOembed());
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode, resourceEntry.getResourceKind())) {
+      return performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry.getResourceKind());
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
   }
 
-  private ResourceDownloadClient getResourceDownloadClient(boolean potentialOembedResource) {
-    return potentialOembedResource ? this.resourceDownloadClientOembed
-        : this.resourceDownloadClientNonOembed;
+  private ResourceDownloadClient getResourceDownloadClient(RdfResourceKind rdfResourceKind) {
+    return switch (rdfResourceKind) {
+      case OEMBEDDED -> this.resourceDownloadClientOembed;
+      case IIIF -> this.resourceDownloadClientIIIF;
+      case null, default -> this.resourceDownloadClientStandard;
+    };
   }
 
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
-      ProcessingMode mode, boolean potentialOembedResource) throws IOException {
+      ProcessingMode mode, RdfResourceKind rdfResourceKind) throws IOException {
 
     // Determine the download method to use (full download vs. quick ping)
-    final ResourceDownloadClient client = getResourceDownloadClient(potentialOembedResource);
-    return (mode == ProcessingMode.FULL)
-        ? client.downloadBasedOnMimeType(resourceEntry)
-        : client.downloadWithoutContent(resourceEntry);
+    final ResourceDownloadClient client = getResourceDownloadClient(rdfResourceKind);
+    final Resource resource;
+    if (mode == ProcessingMode.FULL) {
+
+      // Try to find info JSON content.
+      final IIIFInfoJson infoJson;
+      if (RdfResourceKind.IIIF.equals(resourceEntry.getResourceKind())) {
+        infoJson = iiifValidation.fetchInfoJson(resourceEntry);
+      } else {
+        infoJson = null;
+      }
+
+      // Create the resource depending on whether there is info JSON content.
+      if (infoJson != null) {
+        resource = new IIIFResourceImpl(client.downloadBasedOnMimeType(
+            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson);
+      } else {
+        resource = client.downloadBasedOnMimeType(resourceEntry);
+      }
+    } else {
+      resource = client.downloadWithoutContent(resourceEntry);
+    }
+    return resource;
   }
 
   ProcessingMode getMode(RdfResourceEntry resourceEntry) {
     final ProcessingMode result;
-    if (resourceEntry.isResourceConfiguredForOembed()) {
+    if (resourceEntry.getResourceKind().equals(RdfResourceKind.OEMBEDDED)
+        || resourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
       result = ProcessingMode.FULL;
     } else if (URL_TYPES_FOR_FULL_PROCESSING.stream().anyMatch(resourceEntry.getUrlTypes()::contains)) {
       result = ProcessingMode.FULL;
@@ -222,21 +256,20 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,
-      boolean potentialOembedResource) {
+      RdfResourceKind rdfResourceKind) {
     return switch (mediaType) {
-      case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType,
-          potentialOembedResource);
+      case TEXT, OTHER -> chooseMediaProcessorTextAndOther(mediaType, detectedMimeType, rdfResourceKind);
       case AUDIO, VIDEO -> List.of(audioVideoProcessor);
-      case IMAGE ->  List.of(imageProcessor);
+      case IMAGE ->  RdfResourceKind.IIIF.equals(rdfResourceKind)? List.of(iiifProcessor, imageProcessor): List.of(imageProcessor);
       case THREE_D -> List.of(media3dProcessor);
     };
   }
 
   private List<MediaProcessor> chooseMediaProcessorTextAndOther(MediaType mediaType,
-      String detectedMimeType, boolean potentialOembedResource) {
+      String detectedMimeType, RdfResourceKind rdfResourceKind) {
     if (detectedMimeType == null) {
       return Collections.emptyList();
-    } else if (potentialOembedResource && (detectedMimeType.startsWith("text/xml")
+    } else if (RdfResourceKind.OEMBEDDED.equals(rdfResourceKind) && (detectedMimeType.startsWith("text/xml")
         || detectedMimeType.startsWith("application/xml") || detectedMimeType.startsWith("application/json"))) {
       return List.of(oEmbedProcessor, textProcessor);
     } else if (mediaType == MediaType.TEXT) {
@@ -247,14 +280,14 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
-      String detectedMimeType, boolean potentialOembedResource)
+      String detectedMimeType, RdfResourceKind rdfResourceKind)
       throws MediaExtractionException, IOException {
 
-    // If the mime type changed and we need the content after all, we download it.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, potentialOembedResource)
-        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), potentialOembedResource)) {
+    // If the mime type changed, and we need the content after all, we download it.
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
+        && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
       final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
-          new ArrayList<>(resource.getUrlTypes()), potentialOembedResource);
+          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind);
 
       ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
         if (resourceWithContent.hasContent()) {
@@ -263,14 +296,14 @@ public class MediaExtractorImpl implements MediaExtractor {
           }
         }
       };
-      try (final Resource resourceWithContent = getResourceDownloadClient(potentialOembedResource)
+      try (final Resource resourceWithContent = getResourceDownloadClient(rdfResourceKind)
           .downloadWithContent(downloadInput)) {
         performThrowingAction(resourceWithContent, action);
       }
     }
 
     // Verify that we have content when we need to.
-    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, potentialOembedResource)
+    if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !resource.hasContent()) {
       throw new MediaExtractionException(
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
@@ -278,7 +311,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
-      boolean mainThumbnailAvailable, boolean potentialOembedResource) throws MediaExtractionException {
+      boolean mainThumbnailAvailable, RdfResourceKind rdfResourceKind) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -291,14 +324,14 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {
-      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType, potentialOembedResource);
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType, rdfResourceKind);
     } catch (IOException e) {
       throw new MediaExtractionException("Content availability verification error.", e);
     }
 
     // Choose the right media processor.
     final List<MediaProcessor> processors = chooseMediaProcessor(
-        MediaType.getMediaType(detectedMimeType), detectedMimeType, potentialOembedResource);
+        MediaType.getMediaType(detectedMimeType), detectedMimeType, rdfResourceKind);
 
     // Go in order, the first result we get, we accept.
     for (MediaProcessor processor: processors) {
@@ -327,16 +360,17 @@ public class MediaExtractorImpl implements MediaExtractor {
   @Override
   public void close() throws IOException {
     resourceDownloadClientOembed.close();
-    resourceDownloadClientNonOembed.close();
+    resourceDownloadClientIIIF.close();
+    resourceDownloadClientStandard.close();
     mimeTypeDetectHttpClient.close();
   }
 
   /**
    * @return true if and only if resources of the given type need to be downloaded before performing full processing.
    */
-  boolean shouldDownloadForFullProcessing(String mimeType, boolean potentialOembedResource) {
+  boolean shouldDownloadForFullProcessing(String mimeType, RdfResourceKind rdfResourceKind) {
     return Optional.of(MediaType.getMediaType(mimeType))
-        .map(mediaType -> chooseMediaProcessor(mediaType, mimeType, potentialOembedResource))
+        .map(mediaType -> chooseMediaProcessor(mediaType, mimeType, rdfResourceKind))
         .stream().flatMap(Collection::stream)
         .anyMatch(MediaProcessor::downloadResourceForFullProcessing);
   }

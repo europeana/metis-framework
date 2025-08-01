@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.rest.client;
 
 import java.util.Arrays;
+import java.util.Properties;
 import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
@@ -26,14 +27,8 @@ public class ConnectionProvider {
    */
   public static final int DEFAULT_RESPONSE_TIMEOUT = 60_000;
 
-  /**
-   * The default value of the batch size with which we query the enrichment service.
-   */
-  public static final int DEFAULT_BATCH_SIZE_ENRICHMENT = 20;
-
   private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
   private int responseTimeout = DEFAULT_RESPONSE_TIMEOUT;
-  protected int batchSizeEnrichment = DEFAULT_BATCH_SIZE_ENRICHMENT;
 
   /**
    * Set the maximum amount of time, in milliseconds, we wait for a connection before timing out. The default (when not calling
@@ -58,19 +53,6 @@ public class ConnectionProvider {
   }
 
   /**
-   * Set the batch size with which we query the enrichment service. The default (when not calling this method) is
-   * {@value ConnectionProvider#DEFAULT_BATCH_SIZE_ENRICHMENT} values.
-   *
-   * @param batchSizeEnrichment The batch size. Must be strictly positive.
-   */
-  public void setBatchSizeEnrichment(int batchSizeEnrichment) {
-    if (batchSizeEnrichment < 1) {
-      throw new IllegalArgumentException("Batch size cannot be 0 or negative.");
-    }
-    this.batchSizeEnrichment = batchSizeEnrichment;
-  }
-
-  /**
    * Creates a new Http connection using the values set up previously for the connection timeout and response time out
    *
    * @return a {@link RestTemplate} instance with all the information set up previously
@@ -87,5 +69,26 @@ public class ConnectionProvider {
     restTemplate.setMessageConverters(Arrays.asList(new Jaxb2RootElementHttpMessageConverter(),
         new MappingJackson2HttpMessageConverter()));
     return restTemplate;
+  }
+
+  /**
+   * Build entity api client properties properties.
+   *
+   * @param entityManagementUrl the entity management url
+   * @param entityApiUrl the entity api url
+   * @param entityApiTokenEndpoint the entity api token endpoint
+   * @param entityApiGrantParams the entity api grant params
+   * @return the properties
+   */
+  protected static Properties buildEntityApiClientProperties(String entityManagementUrl,
+      String entityApiUrl,
+      String entityApiTokenEndpoint,
+      String entityApiGrantParams) {
+    final Properties properties = new Properties();
+    properties.put("entity.management.url", entityManagementUrl);
+    properties.put("entity.api.url", entityApiUrl);
+    properties.put("token_endpoint", entityApiTokenEndpoint);
+    properties.put("grant_params", entityApiGrantParams);
+    return properties;
   }
 }

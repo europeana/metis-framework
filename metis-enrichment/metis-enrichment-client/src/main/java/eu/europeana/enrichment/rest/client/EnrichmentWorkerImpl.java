@@ -196,13 +196,15 @@ public class EnrichmentWorkerImpl implements EnrichmentWorker {
 
   ProcessedResult<String> convertRdfToString(ProcessedResult<RDF> rdfProcessedResult) throws SerializationException {
     return new ProcessedResult<>(
-        this.convertRdfToString(rdfProcessedResult.getProcessedRecord()),
+        rdfProcessedResult.getProcessedRecord() == null ? null :
+            this.convertRdfToString(rdfProcessedResult.getProcessedRecord()),
         rdfProcessedResult.getReport());
   }
 
   ProcessedResult<byte[]> convertRdfToBytes(ProcessedResult<RDF> rdfProcessedResult) throws SerializationException {
     return new ProcessedResult<>(
-        rdfConversionUtils.convertRdfToBytes(rdfProcessedResult.getProcessedRecord()),
+        rdfProcessedResult.getProcessedRecord() == null ? null :
+            rdfConversionUtils.convertRdfToBytes(rdfProcessedResult.getProcessedRecord()),
         rdfProcessedResult.getReport());
   }
 

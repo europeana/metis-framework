@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdf;
 import eu.europeana.metis.mediaprocessing.model.EnrichedRdfImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -49,13 +50,28 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
+  private static final String IIIF_NAMESPACE = "http://iiif.io/api/image";
+  private static final String XPATH_RDF_ABOUT = "rdf:about";
+  private static final String XPATH_IIIF_SERVICES =
+      SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + IIIF_NAMESPACE + "\"]";
+  private static final String XPATH_IIIF_WEB_RESOURCES = EDM_WEBRESOURCE
+      + "[svcs:has_service/@rdf:resource = " + XPATH_IIIF_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
+  private static final String XPATH_IS_IIIF_RESOURCE_CONDITION = "[. = "
+      + XPATH_IIIF_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
+  private static final String IIIF_XPATH_CONDITION_IS_SHOWN_BY =
+      EDM_IS_SHOWN_BY + XPATH_IS_IIIF_RESOURCE_CONDITION;
+  private static final String IIIF_XPATH_CONDITION_HAS_VIEW =
+      EDM_HAS_VIEW + XPATH_IS_IIIF_RESOURCE_CONDITION;
+  private static final String IIIF_XPATH_CONDITION_EDM_OBJECT =
+      EDM_OBJECT + XPATH_IS_IIIF_RESOURCE_CONDITION;
+
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_OEMBED_SERVICES =
       SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + OEMBED_NAMESPACE + "\"]";
   private static final String XPATH_OEMBED_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[svcs:has_service/@rdf:resource = " + XPATH_OEMBED_SERVICES + "/@rdf:about]";
+      + "[svcs:has_service/@rdf:resource = " + XPATH_OEMBED_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String XPATH_IS_OEMBED_RESOURCE_CONDITION = "[. = "
-      + XPATH_OEMBED_WEB_RESOURCES + "/@rdf:about]";
+      + XPATH_OEMBED_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
       EDM_IS_SHOWN_BY + XPATH_IS_OEMBED_RESOURCE_CONDITION;
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
@@ -72,17 +88,24 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
+  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(
+      xPath -> xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY +
+          " | "+ IIIF_XPATH_CONDITION_EDM_OBJECT));
+
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
   private static List<RdfResourceEntry> convertToResourceEntries(
       Map<String, ResourceInfo> urlWithTypes) {
-    return urlWithTypes.entrySet().stream().map(RdfDeserializerImpl::convertToResourceEntry)
+    return urlWithTypes.entrySet()
+                       .stream()
+                       .map(RdfDeserializerImpl::convertToResourceEntry)
                        .toList();
   }
 
   private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, ResourceInfo> entry) {
-    return new RdfResourceEntry(entry.getKey(), entry.getValue().urlTypes(),
-        entry.getValue().configuredForOembed());
+    return new RdfResourceEntry(entry.getKey(),
+        entry.getValue().urlTypes(),
+        entry.getValue().rdfResourceKind());
   }
 
   private static <R> R performDeserialization(byte[] input, DeserializationOperation<R> operation)
@@ -213,6 +236,14 @@ class RdfDeserializerImpl implements RdfDeserializer {
                     .collect(Collectors.toSet());
   }
 
+  private Set<String> getIIFUrls(Document document) throws RdfDeserializationException {
+    final NodeList iiifNodes = getIIIFExpression.evaluate(document);
+    return IntStream.range(0, iiifNodes.getLength())
+                    .mapToObj(iiifNodes::item)
+                    .map(Node::getNodeValue)
+                    .collect(Collectors.toSet());
+  }
+
   @FunctionalInterface
   private interface DeserializationOperation<R> {
 
@@ -291,15 +322,26 @@ class RdfDeserializerImpl implements RdfDeserializer {
     // For each resource, check whether they are configured for oEmbed.
     final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
     final Set<String> oEmbedUrls = getOEmbedUrls(document);
+    final Set<String> iiifUrls = getIIFUrls(document);
     for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
-      boolean isConfiguredForOembed = oEmbedUrls.contains(entry.getKey());
-      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), isConfiguredForOembed));
+
+      RdfResourceKind rdfResourceKind;
+      if (oEmbedUrls.contains(entry.getKey())) {
+        rdfResourceKind = RdfResourceKind.OEMBEDDED;
+      } else {
+        if (iiifUrls.contains(entry.getKey())) {
+          rdfResourceKind = RdfResourceKind.IIIF;
+        } else {
+          rdfResourceKind = RdfResourceKind.STANDARD;
+        }
+      }
+      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), rdfResourceKind));
     }
 
     // Done
     return result;
   }
 
-  record ResourceInfo(Set<UrlType> urlTypes, boolean configuredForOembed) {
+  record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind) {
   }
 }

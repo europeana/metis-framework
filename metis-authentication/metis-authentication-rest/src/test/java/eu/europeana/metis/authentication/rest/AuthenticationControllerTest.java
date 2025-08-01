@@ -23,6 +23,7 @@ import eu.europeana.metis.authentication.rest.utils.TestUtils;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.EmailParameter;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.authentication.user.MetisUserView;
 import eu.europeana.metis.authentication.user.OldNewPasswordParameters;
 import eu.europeana.metis.exception.BadContentException;
@@ -30,6 +31,7 @@ import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyRegisteredException;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.ArrayList;
+import java.util.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -39,10 +41,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-/**
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-11-08
- */
 class AuthenticationControllerTest {
 
   private static final String EXAMPLE_EMAIL = "example@example.com";
@@ -73,8 +71,8 @@ class AuthenticationControllerTest {
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
 
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.CREATED.value()));
+                                    HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.CREATED.value()));
 
     verify(authenticationService).registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
   }
@@ -85,8 +83,8 @@ class AuthenticationControllerTest {
         .thenThrow(new BadContentException(""));
 
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
+                                    HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
 
     verify(authenticationService, times(0)).registerUser(anyString(), anyString());
   }
@@ -96,10 +94,10 @@ class AuthenticationControllerTest {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     doThrow(new NoUserFoundException("")).when(authenticationService)
-        .registerUser(anyString(), anyString());
+                                         .registerUser(anyString(), anyString());
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+                                    HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
   }
 
   @Test
@@ -109,32 +107,38 @@ class AuthenticationControllerTest {
     doThrow(new UserAlreadyRegisteredException("")).when(authenticationService)
                                                    .registerUser(anyString(), anyString());
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.CONFLICT.value()));
+                                    HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.CONFLICT.value()));
   }
 
   @Test
   void loginUser() throws Exception {
+    MetisUserAccessToken accessToken = new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date());
     MetisUserView metisUserView = spy(new MetisUserView());
+
     doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
+    doReturn(accessToken).when(metisUserView).getMetisUserAccessToken();
+
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
+
     when(authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD)).thenReturn(metisUserView);
 
-    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.OK.value()))
-        .andExpect(jsonPath("$.email", is(EXAMPLE_EMAIL)))
-        .andExpect(jsonPath("$.metisUserAccessToken.accessToken", is(EXAMPLE_ACCESS_TOKEN)));
+    authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN)
+                                    .header(HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.OK.value()))
+                                .andExpect(jsonPath("$.email", is(EXAMPLE_EMAIL)))
+                                .andExpect(jsonPath("$.metisUserAccessToken.accessToken", is(EXAMPLE_ACCESS_TOKEN)));
   }
+
 
   @Test
   void loginUserBadContentException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
         .thenThrow(new BadContentException(""));
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN).header(
-        HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
+                                    HttpHeaders.AUTHORIZATION, ""))
+                                .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
     verify(authenticationService, times(0)).loginUser(anyString(), anyString());
   }
 
@@ -283,7 +287,7 @@ class AuthenticationControllerTest {
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.isUserAdmin(EXAMPLE_ACCESS_TOKEN)).thenReturn(true);
     doThrow(new NoUserFoundException("")).when(authenticationService)
-        .updateUserMakeAdmin(EXAMPLE_EMAIL);
+                                         .updateUserMakeAdmin(EXAMPLE_EMAIL);
 
     final EmailParameter emailParameter = new EmailParameter(EXAMPLE_EMAIL);
     authenticationControllerMock
@@ -315,13 +319,16 @@ class AuthenticationControllerTest {
   void getUserByAccessToken() throws Exception {
     MetisUserView metisUserView = spy(new MetisUserView());
     doReturn(EXAMPLE_EMAIL).when(metisUserView).getEmail();
+    doReturn(new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()))
+        .when(metisUserView).getMetisUserAccessToken();
+
     when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
         .thenReturn(EXAMPLE_ACCESS_TOKEN);
     when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUserView);
 
     authenticationControllerMock
         .perform(get(RestEndpoints.AUTHENTICATION_USER_BY_TOKEN)
-            .header(HttpHeaders.AUTHORIZATION, ""))
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + EXAMPLE_ACCESS_TOKEN)) // optional improvement
         .andExpect(status().is(HttpStatus.OK.value()))
         .andExpect(jsonPath("$.metisUserAccessToken.accessToken", is(EXAMPLE_ACCESS_TOKEN)));
   }
@@ -359,8 +366,8 @@ class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(get(RestEndpoints.AUTHENTICATION_USERS).header(HttpHeaders.AUTHORIZATION, ""))
         .andExpect(status().is(HttpStatus.OK.value()))
-        .andExpect(jsonPath("$[0].email", is("0" + EXAMPLE_EMAIL)))
-        .andExpect(jsonPath("$[1].email", is("1" + EXAMPLE_EMAIL)));
+        .andExpect(jsonPath("$[0].email", is(EXAMPLE_EMAIL)))
+        .andExpect(jsonPath("$[1].email", is(EXAMPLE_EMAIL)));
   }
 
   @Test

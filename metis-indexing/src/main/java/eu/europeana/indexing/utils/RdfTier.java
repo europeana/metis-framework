@@ -4,42 +4,136 @@ import eu.europeana.indexing.solr.EdmLabel;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;
+import java.util.Arrays;
 
 /**
  * This enum lists the content and metadata tiers that exist.
  */
 public enum RdfTier {
 
-  METADATA_TIER_0("http://www.europeana.eu/schemas/epf/metadataTier0", MetadataTier.T0, EdmLabel.METADATA_TIER),
-  METADATA_TIER_A("http://www.europeana.eu/schemas/epf/metadataTierA", MetadataTier.TA, EdmLabel.METADATA_TIER),
-  METADATA_TIER_B("http://www.europeana.eu/schemas/epf/metadataTierB", MetadataTier.TB, EdmLabel.METADATA_TIER),
-  METADATA_TIER_C("http://www.europeana.eu/schemas/epf/metadataTierC", MetadataTier.TC, EdmLabel.METADATA_TIER),
+  /**
+   * Metadata tier 0 rdf tier.
+   */
+  METADATA_TIER_0(MetadataTier.T0, EdmLabel.METADATA_TIER),
+  /**
+   * Metadata tier A rdf tier.
+   */
+  METADATA_TIER_A(MetadataTier.TA, EdmLabel.METADATA_TIER),
+  /**
+   * Metadata tier B rdf tier.
+   */
+  METADATA_TIER_B(MetadataTier.TB, EdmLabel.METADATA_TIER),
+  /**
+   * Metadata tier C rdf tier.
+   */
+  METADATA_TIER_C(MetadataTier.TC, EdmLabel.METADATA_TIER),
 
-  CONTENT_TIER_0("http://www.europeana.eu/schemas/epf/contentTier0", MediaTier.T0, EdmLabel.CONTENT_TIER),
-  CONTENT_TIER_1("http://www.europeana.eu/schemas/epf/contentTier1", MediaTier.T1, EdmLabel.CONTENT_TIER),
-  CONTENT_TIER_2("http://www.europeana.eu/schemas/epf/contentTier2", MediaTier.T2, EdmLabel.CONTENT_TIER),
-  CONTENT_TIER_3("http://www.europeana.eu/schemas/epf/contentTier3", MediaTier.T3, EdmLabel.CONTENT_TIER),
-  CONTENT_TIER_4("http://www.europeana.eu/schemas/epf/contentTier4", MediaTier.T4, EdmLabel.CONTENT_TIER);
+  /**
+   * Content tier 0 rdf tier.
+   */
+  CONTENT_TIER_0(MediaTier.T0, EdmLabel.CONTENT_TIER),
+  /**
+   * Content tier 1 rdf tier.
+   */
+  CONTENT_TIER_1(MediaTier.T1, EdmLabel.CONTENT_TIER),
+  /**
+   * Content tier 2 rdf tier.
+   */
+  CONTENT_TIER_2(MediaTier.T2, EdmLabel.CONTENT_TIER),
+  /**
+   * Content tier 3 rdf tier.
+   */
+  CONTENT_TIER_3(MediaTier.T3, EdmLabel.CONTENT_TIER),
+  /**
+   * Content tier 4 rdf tier.
+   */
+  CONTENT_TIER_4(MediaTier.T4, EdmLabel.CONTENT_TIER);
+
+  private static final String BASE_URI = "http://www.europeana.eu/schemas/epf/";
+
+  /**
+   * The constant METADATA_TIER_BASE_URI.
+   */
+  public static final String METADATA_TIER_BASE_URI = BASE_URI + "metadataTier";
+
+  /**
+   * The constant CONTENT_TIER_BASE_URI.
+   */
+  public static final String CONTENT_TIER_BASE_URI = BASE_URI + "contentTier";
 
   private final String uri;
   private final Tier tier;
   private final EdmLabel edmLabel;
 
-  RdfTier(String uri, Tier tier, EdmLabel edmLabel) {
-    this.uri = uri;
+  /**
+   * Instantiates a new Rdf tier.
+   *
+   * @param tier the tier
+   * @param edmLabel the edm label
+   */
+  RdfTier(Tier tier, EdmLabel edmLabel) {
     this.tier = tier;
     this.edmLabel = edmLabel;
+    this.uri = generateUri(tier);
   }
 
+  /**
+   * Gets tier base uri.
+   *
+   * @param tier the tier
+   * @return the tier base uri
+   */
+  public static String getTierBaseUri(Tier tier) {
+    if (tier instanceof MediaTier) {
+      return CONTENT_TIER_BASE_URI;
+    } else if (tier instanceof MetadataTier) {
+      return METADATA_TIER_BASE_URI;
+    } else {
+      throw new IllegalArgumentException("Unknown tier type: " + tier.getClass());
+    }
+  }
+
+  private static String generateUri(Tier tier) {
+    return getTierBaseUri(tier) + tier;
+  }
+
+  /**
+   * Gets uri.
+   *
+   * @return the uri
+   */
   public String getUri() {
     return uri;
   }
 
+  /**
+   * Gets tier.
+   *
+   * @return the tier
+   */
   public Tier getTier() {
     return tier;
   }
 
+  /**
+   * Gets edm label.
+   *
+   * @return the edm label
+   */
   public EdmLabel getEdmLabel() {
     return edmLabel;
+  }
+
+  /**
+   * From uri to rdf tier.
+   *
+   * @param uri the uri
+   * @return the rdf tier
+   */
+  public static RdfTier fromUri(String uri) {
+    return Arrays.stream(RdfTier.values())
+                 .filter( rdfTier -> rdfTier.uri.equals(uri))
+                 .findFirst()
+                 .orElse(null);
   }
 }

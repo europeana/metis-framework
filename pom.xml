@@ -5,7 +5,7 @@
 
   <groupId>eu.europeana.metis</groupId>
   <artifactId>metis-framework</artifactId>
-  <version>14</version>
+  <version>15</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -22,62 +22,28 @@
     <module>metis-debias</module>
   </modules>
 
-  <!-- GitHub connection -->
   <scm>
-    <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <url>https://github.com/europeana/metis-framework</url>
-    <tag>HEAD</tag>
+    <connection>scm:git:https://github.com/europeana/metis-framework</connection>
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
+    <tag>HEAD</tag>
   </scm>
-
-  <distributionManagement>
-    <repository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-releases</name>
-      <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
-    </repository>
-    <snapshotRepository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-snapshots</name>
-      <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${version.maven.compiler.plugin}</version>
-          <configuration>
-            <release>21</release>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${version.surefire.plugin}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${version.maven.release}</version>
-      </plugin>
-    </plugins>
-  </build>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.metis-schema>10</version.metis-schema>
+    <maven.compiler.release>21</maven.compiler.release>
 
+    <!--Plugins-->
+    <version.maven.compiler.plugin>3.14.0</version.maven.compiler.plugin>
+    <version.surefire.plugin>3.5.3</version.surefire.plugin>
+    <version.failsafe.plugin>3.5.3</version.failsafe.plugin>
+    <version.maven.release.plugin>2.5.3</version.maven.release.plugin>
+
+    <!--Internal-->
+    <version.metis-common>16</version.metis-common>
+    <version.metis-schema>11</version.metis-schema>
+
+    <!--External-->
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient>5.3.1</version.apache.httpclient>
     <version.commons-fileupload>1.4</version.commons-fileupload>
@@ -86,13 +52,12 @@
     <version.commons-collections4>4.4</version.commons-collections4>
     <version.awaitability>4.2.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
-    <version.build.helper.maven.plugin>1.4</version.build.helper.maven.plugin>
     <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
     <version.commons-compress>1.26.0</version.commons-compress>
-    <version.corelib>2.16.10-SNAPSHOT</version.corelib>
+    <version.corelib>2.17.5-SNAPSHOT</version.corelib>
     <version.gdcc.xoai>5.2.0</version.gdcc.xoai>
-    <version.embedded.mongo>4.17.0</version.embedded.mongo>
+    <version.embedded.mongo>4.18.1</version.embedded.mongo>
     <version.hamcrest>1.3</version.hamcrest>
     <version.hibernate.core>6.4.4.Final</version.hibernate.core>
     <version.postgresql>42.7.2</version.postgresql>
@@ -114,21 +79,16 @@
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
-    <version.maven.compiler.plugin>3.13.0</version.maven.compiler.plugin>
-    <version.maven.deploy.plugin>2.8.2</version.maven.deploy.plugin>
-    <version.maven.release>2.5.3</version.maven.release>
-    <version.maven.resources.plugin>3.2.0</version.maven.resources.plugin>
-    <version.mockito.core>4.3.1</version.mockito.core>
-    <version.morphia.core>2.4.5</version.morphia.core>
+    <version.mockito.core>5.17.0</version.mockito.core>
+    <version.morphia.core>2.5.0</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.powermock>2.0.9</version.powermock>
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
     <version.spring>6.1.5</version.spring>
-    <version.spring.boot>3.2.3</version.spring.boot>
+    <version.spring.boot>3.2.12</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
-    <version.surefire.plugin>2.22.1</version.surefire.plugin>
     <version.springdoc-openapi-starter-webmvc-ui>2.3.0</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.2</version.swagger.annotations>
@@ -155,27 +115,32 @@
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-base</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-mongo</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-network</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-solr</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
       </dependency>
       <dependency>
         <groupId>eu.europeana.metis</groupId>
         <artifactId>metis-common-utils</artifactId>
-        <version>${project.version}</version>
+        <version>${version.metis-common}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.metis</groupId>
+        <artifactId>metis-common-spring-properties</artifactId>
+        <version>${version.metis-common}</version>
       </dependency>
 
       <dependency>
@@ -475,8 +440,8 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <scope>test</scope>
         <version>${version.junit}</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <artifactId>junit-jupiter-params</artifactId>
@@ -601,6 +566,7 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
+    <!--Snapshot repositories-->
     <repository>
       <id>libs-snapshot</id>
       <name>libs-snapshot</name>
@@ -614,4 +580,73 @@
     </repository>
   </repositories>
 
+  <distributionManagement>
+    <repository>
+      <id>artifactory.eanadev.org</id>
+      <name>artifactory.eanadev.org-releases</name>
+      <url>https://artifactory.eanadev.org/artifactory/libs-release-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>artifactory.eanadev.org</id>
+      <name>artifactory.eanadev.org-snapshots</name>
+      <url>https://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${version.maven.compiler.plugin}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${version.surefire.plugin}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${version.failsafe.plugin}</version>
+          <configuration>
+            <failIfNoTests>false</failIfNoTests>
+            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${version.maven.release.plugin}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

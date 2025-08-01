@@ -28,11 +28,12 @@ public enum ImageColorSpace implements FacetValue {
    * @return The category, or null if none of the categories apply.
    */
   public static ImageColorSpace categorizeImageColorSpace(final ColorSpace colorSpace) {
-    return switch (colorSpace) {
-      case ColorSpace.COLOR -> ImageColorSpace.COLOR;
-      case ColorSpace.GRAYSCALE -> ImageColorSpace.GRAYSCALE;
-      case ColorSpace.OTHER -> ImageColorSpace.OTHER;
-    };
+      return switch (colorSpace) {
+        case null -> null;
+        case ColorSpace.COLOR -> ImageColorSpace.COLOR;
+        case ColorSpace.GRAYSCALE -> ImageColorSpace.GRAYSCALE;
+        case ColorSpace.OTHER -> ImageColorSpace.OTHER;
+      };
   }
 
   /**

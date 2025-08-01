@@ -10,15 +10,13 @@ import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.AgentType;
+import eu.europeana.metis.schema.jibx.Aggregation;
 import eu.europeana.metis.schema.jibx.Concept;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,11 +26,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This is the Metis implementation of record parsing. When extracting references from an RDF file, it returns both the references
@@ -41,19 +39,14 @@ import org.slf4j.LoggerFactory;
  */
 public class MetisRecordParser implements RecordParser {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MetisRecordParser.class);
-
   @Override
   public Set<SearchTermContext> parseSearchTerms(RDF rdf) {
-    //Proxy search terms
+    // Proxy search terms.
     final Set<SearchTermContext> resultSearchTermsSet = getFieldValueSet(ProxyFieldType.values(),
         RdfEntityUtils.getProviderProxies(rdf));
-    resultSearchTermsSet.addAll(getAggregationSearchTerms(rdf));
+    // Aggregation search terms.
+    resultSearchTermsSet.addAll(getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList()));
     return resultSearchTermsSet;
-  }
-
-  public Set<SearchTermContext> getAggregationSearchTerms(RDF rdf) {
-    return getFieldValueSet(AggregationFieldType.values(), rdf.getAggregationList());
   }
 
   private <T extends AboutType> Set<SearchTermContext> getFieldValueSet(FieldType<T>[] fieldTypes,
@@ -73,23 +66,44 @@ public class MetisRecordParser implements RecordParser {
   @Override
   public Set<ReferenceTermContext> parseReferences(RDF rdf) {
 
-    // Get all direct references (also look in Europeana proxy as it may have been dereferenced - we
-    // use this below to follow sameAs links).
+    // Get all direct references from proxies. Also look in Europeana proxy as it may have been
+    // dereferenced - we use this below to follow sameAs links. Note that links to entities that are
+    // already present in the record need to stay. It is possible that a different field (type)
+    // refers to an alias (sameAs) for the entity, in which case a new field needs to be created in
+    // the Europeana proxy.
+    final Map<String, Set<FieldType<?>>> directReferences = new HashMap<>();
+    final BiConsumer<Set<String>, FieldType<?>> directReferenceCollector = (links, field) -> links.stream()
+        .map(link -> directReferences.computeIfAbsent(link, key -> new HashSet<>()))
+        .forEach(fieldTypes -> fieldTypes.add(field));
     final List<ProxyType> proxies = Optional.ofNullable(rdf.getProxyList()).stream()
-                                            .flatMap(Collection::stream).filter(Objects::nonNull).toList();
-    final Map<String, Set<ProxyFieldType>> directReferences = new HashMap<>();
+        .flatMap(Collection::stream).filter(Objects::nonNull).toList();
     for (ProxyFieldType field : ProxyFieldType.values()) {
-      final Set<String> directLinks = proxies.stream().map(field::extractFieldLinksForEnrichment)
-                                             .flatMap(Set::stream).collect(Collectors.toSet());
-      for (String directLink : directLinks) {
-        directReferences.computeIfAbsent(directLink, key -> new HashSet<>()).add(field);
-      }
+      proxies.stream().map(field::extractFieldLinksForEnrichment)
+          .forEach(links -> directReferenceCollector.accept(links, field));
     }
 
-    // Get all sameAs links from the directly referenced contextual entities.
-    final Map<String, Set<ProxyFieldType>> indirectReferences = new HashMap<>();
-    final Consumer<AboutType> contextualTypeProcessor = contextualClass -> {
-      final Set<ProxyFieldType> linkTypes = Optional
+    // Add all direct references from aggregations. We don't have to look in the Europeana
+    // aggregation as for aggregations dereferencing happens in place (in the aggregation).
+    // Also, we can remove known entities as we don't want to change an existing reference
+    // and orphan any entity (contrary to proxy links, aggregation links are updated in place).
+    final Set<String> allEntityIds = Stream.of(rdf.getAgentList(), rdf.getConceptList(),
+            rdf.getOrganizationList(), rdf.getPlaceList(), rdf.getTimeSpanList())
+        .filter(Objects::nonNull).flatMap(Collection::stream)
+        .filter(Objects::nonNull).map(AboutType::getAbout)
+        .filter(Objects::nonNull).collect(Collectors.toSet());
+    final List<Aggregation> aggregations = Optional.ofNullable(rdf.getAggregationList()).stream()
+        .flatMap(Collection::stream).filter(Objects::nonNull).toList();
+    for (AggregationFieldType field : AggregationFieldType.values()) {
+      aggregations.stream().map(field::extractFieldLinksForEnrichment)
+          .peek(link -> link.removeAll(allEntityIds))
+          .forEach(links -> directReferenceCollector.accept(links, field));
+    }
+
+    // Get all sameAs links from the directly referenced contextual entities. Only for
+    // proxy-referenced entities.
+    final Map<String, Set<FieldType<?>>> indirectReferences = new HashMap<>();
+    final Consumer<AboutType> contextualTypeCollector = contextualClass -> {
+      final Set<FieldType<?>> linkTypes = Optional
           .ofNullable(directReferences.get(contextualClass.getAbout()))
           .orElseGet(Collections::emptySet);
       if (!linkTypes.isEmpty()) {
@@ -99,39 +113,23 @@ public class MetisRecordParser implements RecordParser {
       }
     };
     Optional.ofNullable(rdf.getAgentList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeCollector);
     Optional.ofNullable(rdf.getConceptList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeCollector);
     Optional.ofNullable(rdf.getPlaceList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeCollector);
     Optional.ofNullable(rdf.getTimeSpanList()).orElseGet(Collections::emptyList)
-            .forEach(contextualTypeProcessor);
+            .forEach(contextualTypeCollector);
 
     // Merge the two maps.
-    final Map<String, Set<ProxyFieldType>> resultMap = mergeMapInto(directReferences,
+    final Map<String, Set<FieldType<?>>> resultMap = mergeMapInto(directReferences,
         indirectReferences);
-
-    // Clean up the result: no null values. But objects we already have need to
-    // stay: maybe they are matched using a sameAs link.
     resultMap.remove(null);
 
     // Convert and done
-    final Set<ReferenceTermContext> result = new HashSet<>();
-    for (Map.Entry<String, Set<ProxyFieldType>> entry : resultMap.entrySet()) {
-      ReferenceTermContext value;
-      try {
-        final URI uri = new URI(entry.getKey());
-        if (!uri.isAbsolute()) {
-          throw new MalformedURLException("URL is not absolute");
-        }
-
-        value = new ReferenceTermContext(uri.toURL(), entry.getValue());
-        result.add(value);
-      } catch (MalformedURLException | URISyntaxException | IllegalArgumentException e) {
-        LOGGER.debug("Invalid enrichment reference found: {}", entry.getKey());
-      }
-    }
-    return result;
+    return resultMap.entrySet().stream()
+        .map(entry -> ReferenceTermContext.createFromString(entry.getKey(), entry.getValue()))
+        .filter(Objects::nonNull).collect(Collectors.toSet());
   }
 
   private static Set<String> getSameAsLinks(AboutType contextualClass) {

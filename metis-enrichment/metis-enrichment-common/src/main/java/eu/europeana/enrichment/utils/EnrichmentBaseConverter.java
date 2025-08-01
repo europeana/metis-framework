@@ -37,10 +37,10 @@ public final class EnrichmentBaseConverter {
   }
 
   /**
-   * Converts a list of {@link Entity} class to {@link EnrichmentBase}
+   * Converts a list of {@link Entity} class to {@link EnrichmentBase}.
    *
    * @param entities the entities
-   * @return the enrichment bases
+   * @return the enrichment bases. List is not null, not containing null values.
    */
   public static List<EnrichmentBase> convertEntitiesToEnrichmentBase(List<Entity> entities) {
     return entities.stream().map(EnrichmentBaseConverter::convertEntitiesToEnrichmentBase)
@@ -60,6 +60,7 @@ public final class EnrichmentBaseConverter {
       case Concept -> new Concept((eu.europeana.entitymanagement.definitions.model.Concept) entity);
       case TimeSpan -> new TimeSpan((eu.europeana.entitymanagement.definitions.model.TimeSpan) entity);
       case Organization -> new Organization((eu.europeana.entitymanagement.definitions.model.Organization) entity);
+      case Aggregator -> new Organization((eu.europeana.entitymanagement.definitions.model.Aggregator) entity);
       default -> null;
     };
   }

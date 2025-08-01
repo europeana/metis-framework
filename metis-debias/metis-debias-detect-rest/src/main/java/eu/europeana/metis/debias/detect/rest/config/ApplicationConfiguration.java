@@ -6,7 +6,7 @@ import eu.europeana.metis.utils.CustomTruststoreAppender;
 import eu.europeana.metis.utils.CustomTruststoreAppender.TrustStoreConfigurationException;
 import eu.europeana.metis.utils.apm.ElasticAPMConfiguration;
 import java.lang.invoke.MethodHandles;
-import metis.common.config.properties.TruststoreConfigurationProperties;
+import eu.europeana.metis.common.config.properties.TruststoreConfigurationProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

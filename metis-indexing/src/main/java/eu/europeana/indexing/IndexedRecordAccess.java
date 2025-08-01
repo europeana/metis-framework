@@ -128,6 +128,45 @@ public class IndexedRecordAccess {
   }
 
   /**
+   * Removes the tombstone of the record with the given rdf:about value. Also removes any associated entities (i.e. those entities
+   * that are always part of only one record and the removal of which can not invalidate references from other records):
+   * <ul>
+   * <li>Aggregation</li>
+   * <li>EuropeanaAggregation</li>
+   * <li>ProvidedCHO</li>
+   * <li>Proxy (both provider and Europeana proxies)</li>
+   * </ul>
+   * However, entities that are potentially shared are not removed.
+   *
+   * @param rdfAbout The about value of the record to remove. Is not null.
+   * @return Whether the record was removed.
+   * @throws IndexerRelatedIndexingException In case something went wrong.
+   */
+  public boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+    try {
+      // Obtain the Mongo record
+      final Datastore datastore = tombstoneDao.getDatastore();
+      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
+                                                   .filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
+
+      // Remove mongo record and dependencies
+      if (recordToDelete != null) {
+        datastore.delete(recordToDelete);
+        recordToDelete.getAggregations().forEach(datastore::delete);
+        datastore.delete(recordToDelete.getEuropeanaAggregation());
+        recordToDelete.getProvidedCHOs().forEach(datastore::delete);
+        recordToDelete.getProxies().forEach(datastore::delete);
+      }
+
+      // Done
+      return recordToDelete != null;
+
+    } catch (RuntimeException e) {
+      throw new IndexerRelatedIndexingException("Could not remove tombstone '" + rdfAbout + "'.", e);
+    }
+  }
+
+  /**
    * <p>Removes all records that belong to a given dataset. For details on what parts of the record
    * are removed, see the documentation of {@link #removeRecord(String)}.</p>
    * <p><b>NOTE</b> that the rdf:about is
@@ -212,7 +251,7 @@ public class IndexedRecordAccess {
   private Query<FullBeanImpl> createMongoQuery(String datasetId, Date maxRecordDate) {
     final Pattern pattern = Pattern.compile("^" + Pattern.quote(getRecordIdPrefix(datasetId)));
     final Query<FullBeanImpl> query = recordDao.getDatastore().find(FullBeanImpl.class);
-    query.filter(Filters.regex(ABOUT_FIELD).pattern(pattern));
+    query.filter(Filters.regex(ABOUT_FIELD, pattern));
     if (maxRecordDate != null) {
       query.filter(Filters.lt("timestampUpdated", maxRecordDate));
     }

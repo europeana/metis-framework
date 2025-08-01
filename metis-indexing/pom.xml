@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>14</version>
+    <version>15</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <properties>
@@ -14,22 +14,18 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-base</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-utils</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-mongo</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-solr</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

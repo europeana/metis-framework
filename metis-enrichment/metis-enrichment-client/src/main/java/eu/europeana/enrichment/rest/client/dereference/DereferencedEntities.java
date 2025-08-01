@@ -3,9 +3,12 @@ package eu.europeana.enrichment.rest.client.dereference;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.rest.client.report.Report;
-import eu.europeana.metis.schema.jibx.AboutType;
-
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Dereferenced Entity
@@ -14,7 +17,6 @@ public class DereferencedEntities {
 
   private final Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListMap;
   private final Set<Report> reports;
-  private final Class<? extends AboutType> classType;
 
   /**
    * Constructor with an enrichment base a report of messages
@@ -23,32 +25,32 @@ public class DereferencedEntities {
    * @param reports report messages
    */
   public DereferencedEntities(Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListMap, Set<Report> reports) {
-    this(referenceTermListMap, reports, null);
+    this.referenceTermListMap = new HashMap<>(referenceTermListMap);
+    this.reports = new HashSet<>(reports);
   }
 
   /**
-   * Constructor with an enrichment base a report of messages
-   *
-   * @param referenceTermListMap enrichment base list mapped to a referenceterm
-   * @param reports report messages
-   * @param classType the class type associated with these reference terms
+   * Creates an instance of this object without content.
+   * @return An empty instance.
    */
-  public DereferencedEntities(Map<ReferenceTerm, List<EnrichmentBase>> referenceTermListMap, Set<Report> reports,
-      Class<? extends AboutType> classType) {
-    this.referenceTermListMap = new HashMap<>(referenceTermListMap);
-    this.reports = new HashSet<>(reports);
-    this.classType = classType;
+  public static DereferencedEntities emptyInstance() {
+    return new DereferencedEntities(new HashMap<>(), new HashSet<>());
+  }
+
+  /**
+   * Merge the other entities into this one.
+   * @param otherEntities the other entities to add.
+   */
+  public void addAll(DereferencedEntities otherEntities) {
+    this.referenceTermListMap.putAll(otherEntities.getReferenceTermListMap());
+    this.reports.addAll(otherEntities.getReportMessages());
   }
 
   public Map<ReferenceTerm, List<EnrichmentBase>> getReferenceTermListMap() {
-    return referenceTermListMap;
+    return Collections.unmodifiableMap(referenceTermListMap);
   }
 
   public Set<Report> getReportMessages() {
-    return reports;
-  }
-
-  public Class<? extends AboutType> getClassType() {
-    return classType;
+    return Collections.unmodifiableSet(reports);
   }
 }

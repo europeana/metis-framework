@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>eu.europeana.metis</groupId>
-    <version>14</version>
+    <version>15</version>
     <artifactId>metis-framework</artifactId>
   </parent>
 
@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>metis-debias-detect-rest</module>
     <module>metis-debias-detect-service</module>
+    <module>metis-debias-detect-rest</module>
   </modules>
 </project>
