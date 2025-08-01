@@ -9,7 +9,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>metis-common</module>
     <module>metis-indexing</module>
     <module>metis-dereference</module>
     <module>metis-validation</module>
