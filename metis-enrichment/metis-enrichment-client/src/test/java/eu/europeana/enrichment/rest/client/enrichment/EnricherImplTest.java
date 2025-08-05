@@ -16,6 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolverFactory;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
@@ -27,6 +28,7 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermContext;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -93,75 +95,83 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnricherHappyFlow() {
+  void testEnricherHappyFlow() throws EntityClientException {
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
-    doReturn(ENRICHMENT_RESULT).when(entityResolver).resolveByText(any());
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
+    doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // Create enricher.
     final Enricher enricher = spy(
-        new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+        new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
     doReturn(ENRICHMENT_EXTRACT_RESULT).when(recordParser).parseSearchTerms(any());
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = enricher.enrichment(inputRdf);
 
-    verifyEnricherHappyFlow(recordParser, entityResolver, inputRdf, reports);
+    verifyEnricherHappyFlow(recordParser, clientEntityResolver, inputRdf, reports);
     verifyMergeHappyFlow(entityMergeEngine);
   }
 
   @Test
-  void testEnricherNullFlow() {
+  void testEnricherNullFlow() throws EntityClientException {
     // Create mocks of the dependencies
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
 
     //Create enricher
     final Enricher enricher = spy(
-        new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+        new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
     doReturn(Collections.emptySet()).when(recordParser).parseSearchTerms(any());
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = enricher.enrichment(inputRdf);
 
-    verifyEnricherNullFlow(entityResolver, recordParser, inputRdf, reports);
+    verifyEnricherNullFlow(clientEntityResolver, recordParser, inputRdf, reports);
     verifyMergeNullFlow(entityMergeEngine);
   }
 
   @Test
-  void testEnricherHttpExceptionFlow() {
+  void testEnricherHttpExceptionFlow() throws EntityClientException {
     // Create mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
-    doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(entityResolver).resolveByText(any());
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
+    doThrow(new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR)).when(clientEntityResolver).resolveByText(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // Create enricher.
     final Enricher enricher = spy(
-        new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+        new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
     doReturn(ENRICHMENT_EXTRACT_RESULT).when(recordParser).parseSearchTerms(any());
     doReturn(Collections.emptySet()).when(recordParser).parseReferences(any());
 
     final RDF inputRdf = new RDF();
     Set<Report> reports = enricher.enrichment(inputRdf);
-    verifyEnricherExeptionFlow(recordParser, entityResolver, inputRdf, reports);
+    verifyEnricherExeptionFlow(recordParser, clientEntityResolver, inputRdf, reports);
   }
 
   @Test
-  void testEnrichReferencesHappyFlow() {
+  void testEnrichReferencesHappyFlow() throws EntityClientException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
-    doReturn(REFERENCE_ENRICHMENT_RESULT).when(entityResolver).resolveByUri(any());
+    doReturn(REFERENCE_ENRICHMENT_RESULT).when(clientEntityResolver).resolveByUri(any());
 
     // When the enricher
-    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+    final Enricher enricher = spy(new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
     ReferenceTermContext referenceTermContext = createReferenceTermContext("http://urlValue",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
     Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichReferences(
@@ -173,18 +183,20 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlow() {
+  void testEnrichReferenceWarnFlow() throws EntityClientException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
     doThrow(new RuntimeException("Error", new HttpClientErrorException(HttpStatus.MOVED_PERMANENTLY)),
         new HttpClientErrorException(HttpStatus.BAD_REQUEST))
-        .when(entityResolver)
+        .when(clientEntityResolver)
         .resolveByUri(any());
 
     // When the enricher a 301
-    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+    final Enricher enricher = spy(new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
 
     ReferenceTermContext referenceTermContext1 = createReferenceTermContext("http://urlValue1",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
@@ -208,19 +220,21 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceWarnFlowForOrganization() {
+  void testEnrichReferenceWarnFlowForOrganization() throws EntityClientException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // When the enricher a 301
-    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+    final Enricher enricher = spy(new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
 
     SearchTermContext searchTermContext = new SearchTermContext("organization1", "language1", Set.of(
         AggregationFieldType.DATA_PROVIDER));
 
-    when(entityResolver.resolveByText(anySet())).thenReturn(Map.of(searchTermContext, Collections.emptyList()));
+    when(clientEntityResolver.resolveByText(anySet())).thenReturn(Map.of(searchTermContext, Collections.emptyList()));
 
     Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences = enricher.enrichValues(
         Set.of(searchTermContext));
@@ -231,10 +245,12 @@ class EnricherImplTest {
   }
 
   @Test
-  void testEnrichReferenceExceptionFlow() {
+  void testEnrichReferenceExceptionFlow() throws EntityClientException {
     // Given the mocks
     final RecordParser recordParser = Mockito.mock(RecordParser.class);
-    final ClientEntityResolver entityResolver = Mockito.mock(ClientEntityResolver.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+    doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
     final Exception nullCause = new RuntimeException();
     nullCause.initCause(null);
@@ -242,11 +258,11 @@ class EnricherImplTest {
         new RuntimeException("Error", new HttpClientErrorException(HttpStatus.TEMPORARY_REDIRECT)),
         new NullPointerException(),
         nullCause)
-        .when(entityResolver)
+        .when(clientEntityResolver)
         .resolveByUri(any());
 
     // When the enricher a null nested exception
-    final Enricher enricher = spy(new EnricherImpl(recordParser, entityResolver, entityMergeEngine));
+    final Enricher enricher = spy(new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
 
     ReferenceTermContext referenceTermContext1 = createReferenceTermContext("http://urlValue1",
         Set.of(ProxyFieldType.DCTERMS_SPATIAL));
