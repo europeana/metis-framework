@@ -59,7 +59,7 @@ class SolrIndexerIT {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Autowired
-  private IndexerForSearchingV2 indexer;
+  private IndexerForSearchV2 indexer;
 
   @Autowired
   private SolrClient solrClient;
@@ -184,8 +184,8 @@ class SolrIndexerIT {
      * @return the solr indexer
      */
     @Bean
-    IndexerForSearchingV2 indexer(SolrClient solrClient) {
-      return new IndexerForSearchingV2(solrClient, RdfToFullBeanConverter::new);
+    IndexerForSearchV2 indexer(SolrClient solrClient) {
+      return new IndexerForSearchV2(solrClient, RdfToFullBeanConverter::new);
     }
   }
 
@@ -194,7 +194,7 @@ class SolrIndexerIT {
    */
   @Test
   void IllegalArgumentExceptionTest() {
-    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForSearching((RDF) null));
+    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForSearch((RDF) null));
     assertEquals("record is null", expected.getMessage());
   }
 
@@ -212,7 +212,7 @@ class SolrIndexerIT {
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
     IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
-    indexer.indexForSearching(inputRdf);
+    indexer.indexForSearch(inputRdf);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -246,7 +246,7 @@ class SolrIndexerIT {
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
     IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
     // add record
-    indexer.indexForSearching(inputRdf);
+    indexer.indexForSearch(inputRdf);
 
     // commit changes
     solrClient.commit();
@@ -256,7 +256,7 @@ class SolrIndexerIT {
     IndexerPreprocessor.preprocessRecord(inputRdf2, indexingProperties);
 
     // add again same record to have created and update date
-    indexer.indexForSearching(inputRdf2);
+    indexer.indexForSearch(inputRdf2);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -286,7 +286,7 @@ class SolrIndexerIT {
   void testIndexRecord() throws IndexingException, SolrServerException, IOException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
-    indexer.indexForSearching(stringRdfRecord);
+    indexer.indexForSearch(stringRdfRecord);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_126_10", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -311,7 +311,7 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyRecord_ExpectException() {
     final RDF inputRdf = new RDF();
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearching(inputRdf));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearch(inputRdf));
   }
 
   /**
@@ -320,6 +320,6 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyStringRecord_ExpectException() {
     final String stringRdfRecord = "";
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearching(stringRdfRecord));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearch(stringRdfRecord));
   }
 }

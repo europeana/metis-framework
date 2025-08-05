@@ -19,6 +19,7 @@ import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.indexing.utils.TombstoneUtil;
 import eu.europeana.metis.utils.DepublicationReason;
 import java.util.Date;
 import java.util.List;

@@ -1,26 +1,24 @@
 package eu.europeana.indexing;
 
-import com.mongodb.MongoClientException;
-import com.mongodb.MongoConfigurationException;
-import com.mongodb.MongoIncompatibleDriverException;
-import com.mongodb.MongoInternalException;
-import com.mongodb.MongoInterruptedException;
-import com.mongodb.MongoSecurityException;
-import com.mongodb.MongoSocketException;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.common.contract.IndexerForPersistence;
+import eu.europeana.indexing.common.contract.IndexerForPersistence.ComputedDates;
+import eu.europeana.indexing.common.contract.IndexerForSearch;
+import eu.europeana.indexing.common.contract.IndexerForTombstones;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.record.v2.FullBeanUpdater;
+import eu.europeana.indexing.record.v2.IndexerForPersistenceV2;
+import eu.europeana.indexing.record.v2.IndexerForTombstonesV2;
 import eu.europeana.indexing.redirect.v2.RecordRedirectsUtil;
-import eu.europeana.indexing.search.v2.IndexerForSearchingV2;
+import eu.europeana.indexing.search.v2.IndexerForSearchV2;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.SolrUtils;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
-import java.util.Collections;
+import eu.europeana.metis.utils.DepublicationReason;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -37,19 +35,16 @@ public class FullBeanPublisher {
 
   private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
 
-  private static final String MONGO_SERVER_PUBLISH_ERROR = "Could not publish to Mongo server.";
-
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
 
-  private final RecordDao recordDao;
-  private final RecordDao tombstoneRecordDao;
   private final SolrClient solrClient;
-  private final boolean preserveUpdateAndCreateTimesFromRdf;
   private final RecordRedirectDao recordRedirectDao;
 
-  private final IndexerForSearchingV2 indexerForSearchingV2;
+  private final boolean preserveUpdateAndCreateTimesFromRdf;
 
-  private record ComputedDates(Date updatedDate, Date createdDate) { }
+  private final IndexerForPersistence indexerForPersistence;
+  private final IndexerForTombstones indexerForTombstones;
+  private final IndexerForSearch indexerForSearch;
 
   /**
    * Constructor.
@@ -84,13 +79,13 @@ public class FullBeanPublisher {
   FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
-    this.recordDao = recordDao;
-    this.tombstoneRecordDao = tombstoneRecordDao;
     this.recordRedirectDao = recordRedirectDao;
     this.solrClient = solrClient;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
-    this.indexerForSearchingV2 = new IndexerForSearchingV2(solrClient, fullBeanConverterSupplier);
+    this.indexerForPersistence = new IndexerForPersistenceV2(recordDao);
+    this.indexerForTombstones = new IndexerForTombstonesV2(recordDao, tombstoneRecordDao);
+    this.indexerForSearch = new IndexerForSearchV2(solrClient, fullBeanConverterSupplier);
   }
 
   /**
@@ -149,84 +144,20 @@ public class FullBeanPublisher {
   private void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
       boolean performRedirects) throws IndexingException {
 
-    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
-
     final List<Pair<String, Date>> recordsForRedirection = performRedirection(rdf,
         recordDate, datasetIdsToRedirectFrom, performRedirects);
+    final Date createdDate = recordsForRedirection.stream().map(Pair::getValue)
+        .min(Comparator.naturalOrder()).orElse(null);
 
-    final ComputedDates computedDates = publishToRecordMongo(recordDate, fullBean,
-        recordsForRedirection);
+    final ComputedDates computedDates = this.indexerForPersistence.indexForPersistence(rdf,
+        this.preserveUpdateAndCreateTimesFromRdf, recordDate, createdDate);
 
-    this.indexerForSearchingV2.indexForSearching(rdf, computedDates.updatedDate,
-        computedDates.createdDate);
+    this.indexerForSearch.indexForSearch(rdf, computedDates.updatedDate(),
+        computedDates.createdDate());
   }
 
-  /**
-   * Publishes an RDF only to mongo server
-   *
-   * @param rdf RDF to publish.
-   * @param recordDate The date that would represent the created/updated date of a record
-   * @throws IndexingException which can be one of:
-   * <ul>
-   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
-   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
-   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
-   * contents</li>
-   * </ul>
-   */
-  public void publishMongo(RdfWrapper rdf, Date recordDate) throws IndexingException {
-    final FullBeanImpl fullBean = convertRDFToFullBean(rdf);
-
-    publishToRecordMongo(recordDate, fullBean, Collections.emptyList());
-  }
-
-  /**
-   * Publishes an RDF only to tombstone mongo.
-   * @param fullBean Fullbean to publish.
-   * @param recordDate the data that would represent the created/updated date of a record
-   * @throws IndexingException which can be one of:
-   * <ul>
-   * <li>{@link IndexerRelatedIndexingException} In case an error occurred during publication.</li>
-   * <li>{@link SetupRelatedIndexingException} in case an error occurred during indexing setup</li>
-   * <li>{@link RecordRelatedIndexingException} in case an error occurred related to record
-   * contents</li>
-   * </ul>
-   */
-  public void publishTombstone(FullBeanImpl fullBean, Date recordDate) throws IndexingException {
-    publishToTombstoneMongo(recordDate, fullBean, Collections.emptyList());
-  }
-
-  private ComputedDates publishToRecordMongo(Date recordDate, FullBeanImpl fullBean,
-      List<Pair<String, Date>> recordsForRedirection)
-      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    return publishToMongo(recordDate, fullBean, recordsForRedirection, recordDao);
-  }
-
-  private void publishToTombstoneMongo(Date recordDate, FullBeanImpl fullBean,
-      List<Pair<String, Date>> recordsForRedirection)
-      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    publishToMongo(recordDate, fullBean, recordsForRedirection, tombstoneRecordDao);
-  }
-
-  private ComputedDates publishToMongo(Date recordDate, FullBeanImpl fullBean,
-      List<Pair<String, Date>> recordsForRedirection, RecordDao tombstoneRecordDao)
-      throws SetupRelatedIndexingException, IndexerRelatedIndexingException, RecordRelatedIndexingException {
-    final ComputedDates computedDates;
-    try {
-      final Date recordCreationDate = recordsForRedirection.stream().map(Pair::getValue)
-          .min(Comparator.naturalOrder()).orElse(null);
-      final FullBeanImpl savedFullBean = new FullBeanUpdater(this.preserveUpdateAndCreateTimesFromRdf)
-          .update(fullBean, recordDate, recordCreationDate, tombstoneRecordDao);
-      computedDates = new ComputedDates(savedFullBean.getTimestampUpdated(),
-          savedFullBean.getTimestampCreated());
-    } catch (MongoIncompatibleDriverException | MongoConfigurationException | MongoSecurityException e) {
-      throw new SetupRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    } catch (MongoSocketException | MongoClientException | MongoInternalException | MongoInterruptedException e) {
-      throw new IndexerRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    } catch (RuntimeException e) {
-      throw new RecordRelatedIndexingException(MONGO_SERVER_PUBLISH_ERROR, e);
-    }
-    return computedDates;
+  public boolean publishTombstone(String rdfAbout, DepublicationReason reason) throws IndexingException {
+    return this.indexerForTombstones.indexTombstoneForLiveRecord(rdfAbout, reason);
   }
 
   private List<Pair<String, Date>> performRedirection(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
@@ -241,11 +172,5 @@ public class FullBeanPublisher {
       throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
     }
     return recordsForRedirection;
-  }
-
-  private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
-    // Convert RDF to Full Bean.
-    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
-    return fullBeanConverter.convertRdfToFullBean(rdf);
   }
 }

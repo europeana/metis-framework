@@ -1,14 +1,13 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
-import static java.lang.String.format;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.tiers.model.TierResults;
+import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
@@ -143,29 +142,7 @@ public class IndexerImpl implements Indexer {
 
   @Override
   public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
-    switch (depublicationReason) {
-      case DepublicationReason.LEGACY -> throw new IndexerRelatedIndexingException(
-          format("Depublication reason %s, is not allowed", depublicationReason));
-
-      case DepublicationReason.BROKEN_MEDIA_LINKS, DepublicationReason.GENERIC, DepublicationReason.REMOVED_DATA_AT_SOURCE -> {
-        final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
-        if (publishedFullbean != null) {
-          final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-          final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
-          try {
-            publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
-          } catch (IndexingException e) {
-            throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
-          }
-        }
-        return publishedFullbean != null;
-      }
-      default -> {
-        LOGGER.warn("Record {} Depublication reason {} disabled temporarily for tombstone indexing.", rdfAbout,
-            depublicationReason);
-        return true;
-      }
-    }
+    return connectionProvider.getFullBeanPublisher(true).publishTombstone(rdfAbout, depublicationReason);
   }
 
   @Override

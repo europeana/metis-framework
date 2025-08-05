@@ -12,7 +12,7 @@ import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
-import eu.europeana.indexing.record.v2.WebResourceInformation;
+import eu.europeana.indexing.record.v2.entity.WebResourceInformation;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.network.ExternalRequestUtil;
 import java.util.ArrayList;

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.web.exception.EuropeanaException;
+import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
@@ -43,10 +44,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class MongoIndexerIT {
 
   @Autowired
-  private MongoIndexer indexer;
+  private IndexerForPersistenceV2 indexer;
 
   @Autowired
   private RecordDao recordDao;
+
+  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+      true, List.of(), true, true);
 
   /**
    * Dynamic properties.
@@ -63,9 +67,9 @@ class MongoIndexerIT {
    * Illegal argument exception test.
    */
   @Test
-  void IllegalArgumentExceptionTest() {
-    IllegalArgumentException expected = assertThrows(IllegalArgumentException.class, () -> indexer.indexRecord((RDF) null));
-    assertEquals("Input RDF cannot be null.", expected.getMessage());
+  void NullPointerExceptionTest() {
+    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForPersistence((RDF) null));
+    assertEquals("record is null", expected.getMessage());
   }
 
   /**
@@ -80,7 +84,8 @@ class MongoIndexerIT {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
-    indexer.indexRecord(inputRdf);
+    IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
+    indexer.indexForPersistence(inputRdf);
 
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
   }
@@ -95,7 +100,7 @@ class MongoIndexerIT {
   void testIndexRecord() throws IndexingException, EuropeanaException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
-    indexer.indexRecord(stringRdfRecord);
+    indexer.indexForPersistence(stringRdfRecord);
 
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_126_10");
   }
@@ -141,50 +146,26 @@ class MongoIndexerIT {
     }
 
     /**
-     * Mongo indexing settings mongo indexing settings.
-     *
-     * @param mongoProperties the mongo properties
-     * @param mongoDatabase the mongo database
-     * @param mongoRedirectDatabase the mongo redirect database
-     * @return the mongo indexing settings
-     * @throws SetupRelatedIndexingException the setup related indexing exception
-     */
-    @Bean
-    MongoIndexingSettings mongoIndexingSettings(MongoProperties mongoProperties, @Value("${mongo.db}") String mongoDatabase,
-        @Value("${mongo.tombstone.db}") String mongoTombstoneDatabase, @Value("${mongo.redirect.db}") String mongoRedirectDatabase) throws SetupRelatedIndexingException {
-      MongoIndexingSettings mongoIndexingSettings = new MongoIndexingSettings(mongoProperties);
-      mongoIndexingSettings.setMongoDatabaseName(mongoDatabase);
-      mongoIndexingSettings.setMongoTombstoneDatabaseName(mongoTombstoneDatabase);
-      mongoIndexingSettings.setRecordRedirectDatabaseName(mongoRedirectDatabase);
-      IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
-          true,
-          List.of(), true, true);
-      mongoIndexingSettings.setIndexingProperties(indexingProperties);
-      return mongoIndexingSettings;
-    }
-
-    /**
      * Record dao record dao.
      *
      * @param mongoClient the mongo client
-     * @param settings the settings
+     * @param mongoDatabase the mongo database
      * @return the record dao
      */
     @Bean
-    RecordDao recordDao(MongoClient mongoClient, MongoIndexingSettings settings) {
-      return new RecordDao(mongoClient, settings.getMongoDatabaseName());
+    RecordDao recordDao(MongoClient mongoClient, @Value("${mongo.db}") String mongoDatabase) {
+      return new RecordDao(mongoClient, mongoDatabase);
     }
 
     /**
      * Indexer mongo indexer.
      *
-     * @param settings the settings
+     * @param recordDao the RecordDao
      * @return the mongo indexer
-     * @throws SetupRelatedIndexingException the setup related indexing exception
      */
     @Bean
-    MongoIndexer indexer(MongoIndexingSettings settings) throws SetupRelatedIndexingException {
-      return new MongoIndexer(settings);
+    IndexerForPersistenceV2 indexer(RecordDao recordDao) {
+      return new IndexerForPersistenceV2(recordDao);
     }
   }
 }
