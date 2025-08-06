@@ -5,7 +5,6 @@ import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.concurrent.TimeUnit;
-import javax.validation.constraints.NotNull;
 import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
@@ -26,7 +25,7 @@ public class ClientEntityResolverFactory {
    * @param entityApiClientConfiguration the entity api client configuration
    */
   public ClientEntityResolverFactory(EntityClientConfiguration entityApiClientConfiguration) {
-    this.entityApiClientConfiguration = entityApiClientConfiguration;
+    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
   }
 
   /**
