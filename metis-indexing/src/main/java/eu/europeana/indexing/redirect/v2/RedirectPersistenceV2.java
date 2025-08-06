@@ -1,6 +1,9 @@
 package eu.europeana.indexing.redirect.v2;
 
+import eu.europeana.indexing.common.contract.RedirectPersistence;
+import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
@@ -11,7 +14,7 @@ import eu.europeana.metis.schema.jibx.Title;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,46 +37,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
-/**
- * Utilities class to assist record redirects logic.
- * <p>Not to be instantiated</p>
- */
-public final class RecordRedirectsUtil {
+public final class RedirectPersistenceV2 implements RedirectPersistence {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(RecordRedirectsUtil.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RedirectPersistenceV2.class);
 
-  private RecordRedirectsUtil() {
+  private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
+
+  private final RecordRedirectDao recordRedirectDao;
+  private final SearchPersistence<SolrDocument, ?> searchPersistence;
+
+  public RedirectPersistenceV2(RecordRedirectDao recordRedirectDao,
+      SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence) {
+    this.recordRedirectDao = recordRedirectDao;
+    this.searchPersistence = searchPersistence;
   }
 
-  public static List<Pair<String, Date>> checkAndApplyRedirects(
-      RecordRedirectDao recordRedirectDao, RdfWrapper rdf, Date recordDate,
-      List<String> datasetIdsToRedirectFrom, boolean performRedirects,
-      ThrowingFunction<Map<String, String>, SolrDocumentList, IndexingException> solrDocumentRetriever)
-      throws IndexingException {
-
-    // If no redirects are to be performed, we're done.
-    if (!performRedirects) {
-      return Collections.emptyList();
+  @Override
+  public Date performRedirection(RdfWrapper rdf, Date redirectDate,
+      List<String> datasetIdsToRedirectFrom) throws IndexingException {
+    try {
+      return performRedirectionInternal(rdf, redirectDate, datasetIdsToRedirectFrom);
+    } catch (RuntimeException e) {
+      throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
     }
+  }
+
+  private Date performRedirectionInternal(RdfWrapper rdf, Date redirectDate,
+      List<String> datasetIdsToRedirectFrom) throws IndexingException {
 
     // Search Solr to find matching record for redirection
     final List<Pair<String, Date>> recordsForRedirection = searchMatchingRecordForRedirection(rdf,
-        datasetIdsToRedirectFrom, solrDocumentRetriever);
+        datasetIdsToRedirectFrom);
 
     // Create redirection
     for (Pair<String, Date> recordForRedirection : recordsForRedirection) {
-      introduceRedirection(recordRedirectDao, rdf.getAbout(), recordForRedirection.getLeft(),
-          recordDate);
+      introduceRedirection(rdf.getAbout(), recordForRedirection.getLeft(), redirectDate);
     }
 
     // Done.
-    return recordsForRedirection;
+    return recordsForRedirection.stream().map(Pair::getValue).min(Comparator.naturalOrder())
+        .orElse(null);
   }
 
-  private static List<Pair<String, Date>> searchMatchingRecordForRedirection(RdfWrapper rdfWrapper,
-      List<String> datasetIdsToRedirectFrom,
-      ThrowingFunction<Map<String, String>, SolrDocumentList, IndexingException> solrDocumentRetriever)
-      throws IndexingException {
+  private List<Pair<String, Date>> searchMatchingRecordForRedirection(RdfWrapper rdfWrapper,
+      List<String> datasetIdsToRedirectFrom) throws IndexingException {
+
     //The incoming structure of the identifier is /datasetId/recordId
     final String[] splitRecordIdentifier = rdfWrapper.getAbout().split("/");
     String datasetId = splitRecordIdentifier[1];
@@ -123,7 +131,7 @@ public final class RecordRedirectsUtil {
               SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
 
       //Preprocess sub-query and replace documents based on the result
-      SolrDocumentList solrDocuments = solrDocumentRetriever.apply(queryParamMap);
+      List<SolrDocument> solrDocuments = searchPersistence.search(queryParamMap);
 
       //Check exact ids match first
       modifyDocumentListIfMatchesFound(solrDocuments,
@@ -139,7 +147,7 @@ public final class RecordRedirectsUtil {
     return new ArrayList<>();
   }
 
-  private static void modifyDocumentListIfMatchesFound(SolrDocumentList solrDocuments,
+  private static void modifyDocumentListIfMatchesFound(List<SolrDocument> solrDocuments,
       List<String> concatenatedIds, Map<String, List<String>> firstMap,
       Map<String, List<String>> secondMap, Map<String, List<String>> thirdMap) {
     //We check in the following order only if the previous result was empty. Exact Ids, first group, second group
@@ -159,7 +167,7 @@ public final class RecordRedirectsUtil {
     solrDocuments.addAll(matchedResults);
   }
 
-  private static SolrDocumentList getMatchingSolrDocuments(SolrDocumentList solrDocuments,
+  private static SolrDocumentList getMatchingSolrDocuments(List<SolrDocument> solrDocuments,
       Predicate<SolrDocument> solrDocumentPredicate) {
     return solrDocuments.stream().filter(solrDocumentPredicate)
                         .collect(Collectors.toCollection(SolrDocumentList::new));
@@ -343,13 +351,11 @@ public final class RecordRedirectsUtil {
    * source of a redirect, and then only as part of redirect X -> Y, whereas Y should occur only as
    * destination of a redirect. Neither of them can therefore be part of a redirection cycle.
    *
-   * @param recordRedirectDao The DAO object to manage redirects.
    * @param newIdentifier The new identifier (value Y).
    * @param oldIdentifier The old identifier (value X).
-   * @param recordRedirectDate The date (timestamp) for any new redirects.
+   * @param redirectDate The date (timestamp) for any new redirects.
    */
-  private static void introduceRedirection(RecordRedirectDao recordRedirectDao,
-      String newIdentifier, String oldIdentifier, Date recordRedirectDate) {
+  private void introduceRedirection(String newIdentifier, String oldIdentifier, Date redirectDate) {
 
     // Sanity check: if old and new identifier are equal, do nothing.
     if (oldIdentifier.equals(newIdentifier)) {
@@ -375,7 +381,7 @@ public final class RecordRedirectsUtil {
                                                                            .anyMatch(newIdentifier::equals);
     if (!mappingAlreadyExists) {
       recordRedirectDao
-          .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, recordRedirectDate));
+          .createUpdate(new RecordRedirect(newIdentifier, oldIdentifier, redirectDate));
     }
 
     // Update the redirects ? -> X to point to Y instead, becoming ? -> Y.
@@ -383,26 +389,5 @@ public final class RecordRedirectsUtil {
       redirect.setNewId(newIdentifier);
       recordRedirectDao.createUpdate(redirect);
     });
-  }
-
-  /**
-   * Represents a function that accepts one argument and produces a result with the possibility of an {@link IndexingException}
-   * thrown.
-   *
-   * @param <T> the type of the input to the function
-   * @param <R> the type of the result of the function
-   * @param <E> the type of the possible exception thrown
-   */
-  @FunctionalInterface
-  public interface ThrowingFunction<T, R, E extends IndexingException> {
-
-    /**
-     * Applies this function to the given argument.
-     *
-     * @param t the function argument
-     * @return the function result
-     * @throws E the function exception
-     */
-    R apply(T t) throws E;
   }
 }

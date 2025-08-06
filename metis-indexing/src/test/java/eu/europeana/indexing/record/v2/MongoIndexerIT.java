@@ -44,7 +44,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class MongoIndexerIT {
 
   @Autowired
-  private IndexerForPersistenceV2 indexer;
+  private RecordPersistenceV2 indexer;
 
   @Autowired
   private RecordDao recordDao;
@@ -164,8 +164,8 @@ class MongoIndexerIT {
      * @return the mongo indexer
      */
     @Bean
-    IndexerForPersistenceV2 indexer(RecordDao recordDao) {
-      return new IndexerForPersistenceV2(recordDao);
+    RecordPersistenceV2 indexer(RecordDao recordDao) {
+      return new RecordPersistenceV2(recordDao);
     }
   }
 }

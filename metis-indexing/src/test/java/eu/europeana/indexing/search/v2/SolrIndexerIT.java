@@ -59,7 +59,7 @@ class SolrIndexerIT {
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   @Autowired
-  private IndexerForSearchV2 indexer;
+  private SearchPersistenceV2 indexer;
 
   @Autowired
   private SolrClient solrClient;
@@ -184,8 +184,8 @@ class SolrIndexerIT {
      * @return the solr indexer
      */
     @Bean
-    IndexerForSearchV2 indexer(SolrClient solrClient) {
-      return new IndexerForSearchV2(solrClient, RdfToFullBeanConverter::new);
+    SearchPersistenceV2 indexer(SolrClient solrClient) {
+      return new SearchPersistenceV2(solrClient, RdfToFullBeanConverter::new);
     }
   }
 

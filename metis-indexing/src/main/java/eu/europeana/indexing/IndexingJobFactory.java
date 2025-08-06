@@ -1,13 +1,13 @@
 package eu.europeana.indexing;
 
 import com.mongodb.client.MongoClient;
-import eu.europeana.indexing.common.contract.IndexerForPersistence;
-import eu.europeana.indexing.common.contract.IndexerForSearch;
-import eu.europeana.indexing.common.contract.IndexerForTombstones;
+import eu.europeana.indexing.common.contract.RecordPersistence;
+import eu.europeana.indexing.common.contract.SearchPersistence;
+import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.record.v2.IndexerForPersistenceV2;
-import eu.europeana.indexing.record.v2.IndexerForTombstonesV2;
-import eu.europeana.indexing.search.v2.IndexerForSearchV2;
+import eu.europeana.indexing.record.v2.RecordPersistenceV2;
+import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
+import eu.europeana.indexing.search.v2.SearchPersistenceV2;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.dao.RecordDao;
@@ -26,11 +26,11 @@ public class IndexingJobFactory {
    * @return the indexer.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public IndexerForSearch createIndexerForSearch(
+  public SearchPersistence<?, ?> createIndexerForSearch(
       SolrProperties<SetupRelatedIndexingException> solrProperties)
       throws SetupRelatedIndexingException {
     Objects.requireNonNull(solrProperties, "solrProperties must not be null");
-    return new IndexerForSearchV2(new SolrClientProvider<>(solrProperties));
+    return new SearchPersistenceV2(new SolrClientProvider<>(solrProperties));
   }
 
   /**
@@ -40,11 +40,11 @@ public class IndexingJobFactory {
    * @return the indexer.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public IndexerForPersistence createIndexerForPersistence(
+  public RecordPersistence<?> createIndexerForPersistence(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
     final MongoClient client = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new IndexerForPersistenceV2(new RecordDao(client, mongoDatabaseName));
+    return new RecordPersistenceV2(new RecordDao(client, mongoDatabaseName));
   }
 
   /**
@@ -55,10 +55,10 @@ public class IndexingJobFactory {
    * @return the indexer.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public IndexerForTombstones createIndexerForTombstones(
+  public TombstonePersistence createIndexerForTombstones(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
     final MongoClient client = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new IndexerForTombstonesV2(null, new RecordDao(client, mongoDatabaseName));
+    return new TombstonePersistenceV2(new RecordDao(client, mongoDatabaseName), null);
   }
 }

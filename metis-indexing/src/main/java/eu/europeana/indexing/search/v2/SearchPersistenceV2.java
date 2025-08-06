@@ -1,9 +1,10 @@
 package eu.europeana.indexing.search.v2;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
+import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.IndexerForSearch;
+import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.PublishToSolrIndexingException;
@@ -14,7 +15,6 @@ import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.RecordDateUtils;
-import eu.europeana.indexing.utils.SolrUtils;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
@@ -26,19 +26,23 @@ import java.util.Objects;
 import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.util.ClientUtils;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.common.params.MapSolrParams;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and searchable for external agents.
  *
  * @author jochen
  */
-public class IndexerForSearchV2 implements IndexerForSearch {
+public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, SolrDocumentList> {
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
   private static final String SOLR_SERVER_PUBLISH_RETRY_ERROR = "Could not publish to Solr server after retry.";
+  private static final String SOLR_SERVER_SEARCH_ERROR = "Could not search Solr server.";
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
   private final CompoundSolrClient solrClientToClose;
@@ -53,7 +57,7 @@ public class IndexerForSearchV2 implements IndexerForSearch {
    *                           method is called.
    * @throws SetupRelatedIndexingException In the case of setup issues.
    */
-  public IndexerForSearchV2(SolrClientProvider<SetupRelatedIndexingException> solrClientProvider)
+  public SearchPersistenceV2(SolrClientProvider<SetupRelatedIndexingException> solrClientProvider)
       throws SetupRelatedIndexingException {
     this.solrClientToClose = solrClientProvider.createSolrClient();
     this.solrClient = solrClientToClose.getSolrClient();
@@ -68,11 +72,24 @@ public class IndexerForSearchV2 implements IndexerForSearch {
    * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
    * parse strings to instances of {@link FullBeanImpl}.
    */
-  public IndexerForSearchV2(SolrClient solrClient,
+  public SearchPersistenceV2(SolrClient solrClient,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.solrClientToClose = null;
     this.solrClient = solrClient;
     this.fullBeanConverterSupplier = fullBeanConverterSupplier;
+  }
+
+  @Override
+  public SolrDocumentList search(Map<String, String> queryParamMap)
+      throws IndexerRelatedIndexingException {
+    final MapSolrParams queryParams = new MapSolrParams(queryParamMap);
+    final QueryResponse response;
+    try {
+      response = retryableExternalRequestForNetworkExceptionsThrowing(() -> solrClient.query(queryParams));
+    } catch (Exception e) {
+      throw new IndexerRelatedIndexingException(SOLR_SERVER_SEARCH_ERROR, e);
+    }
+    return response.getResults();
   }
 
   @Override
@@ -102,7 +119,7 @@ public class IndexerForSearchV2 implements IndexerForSearch {
         final Map<String, String> queryParamMap = new HashMap<>();
         queryParamMap.put("q", solrQuery);
         queryParamMap.put("fl", SolrV2Field.TIMESTAMP_CREATED + "," + SolrV2Field.EUROPEANA_ID);
-        SolrDocumentList solrDocuments = SolrUtils.getSolrDocuments(solrClient, queryParamMap);
+        SolrDocumentList solrDocuments = search(queryParamMap);
         createdDate = (Date) solrDocuments.stream()
             .map(document -> document.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString()))
             .toList().stream().findFirst().orElse(updatedDate);

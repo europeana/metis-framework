@@ -1,7 +1,8 @@
 package eu.europeana.indexing.record.v2;
 
+import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.IndexerForPersistence;
+import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.utils.RDFDeserializer;
@@ -12,7 +13,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class IndexerForPersistenceV2 implements IndexerForPersistence {
+public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
+
+  private static final String ABOUT_FIELD = "about";
 
   private final RecordDao liveRecordDao;
 
@@ -24,7 +27,7 @@ public class IndexerForPersistenceV2 implements IndexerForPersistence {
    *
    * @param liveRecordDao The Mongo persistence for live records.
    */
-  public IndexerForPersistenceV2(RecordDao liveRecordDao) {
+  public RecordPersistenceV2(RecordDao liveRecordDao) {
     this.liveRecordDao = liveRecordDao;
     this.fullBeanConverterSupplier = RdfToFullBeanConverter::new;
   }
@@ -32,6 +35,12 @@ public class IndexerForPersistenceV2 implements IndexerForPersistence {
   private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
     final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
     return fullBeanConverter.convertRdfToFullBean(rdf);
+  }
+
+  @Override
+  public FullBeanImpl getRecord(String rdfAbout) {
+    return liveRecordDao.getDatastore().find(FullBeanImpl.class)
+        .filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
   }
 
   @Override

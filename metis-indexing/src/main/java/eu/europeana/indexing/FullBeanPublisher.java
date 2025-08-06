@@ -1,30 +1,30 @@
 package eu.europeana.indexing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.IndexerForPersistence;
-import eu.europeana.indexing.common.contract.IndexerForPersistence.ComputedDates;
-import eu.europeana.indexing.common.contract.IndexerForSearch;
-import eu.europeana.indexing.common.contract.IndexerForTombstones;
+import eu.europeana.indexing.common.contract.RecordPersistence;
+import eu.europeana.indexing.common.contract.RecordPersistence.ComputedDates;
+import eu.europeana.indexing.common.contract.RedirectPersistence;
+import eu.europeana.indexing.common.contract.SearchPersistence;
+import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
-import eu.europeana.indexing.record.v2.IndexerForPersistenceV2;
-import eu.europeana.indexing.record.v2.IndexerForTombstonesV2;
-import eu.europeana.indexing.redirect.v2.RecordRedirectsUtil;
-import eu.europeana.indexing.search.v2.IndexerForSearchV2;
+import eu.europeana.indexing.record.v2.RecordPersistenceV2;
+import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
+import eu.europeana.indexing.redirect.v2.RedirectPersistenceV2;
+import eu.europeana.indexing.search.v2.SearchPersistenceV2;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.SolrUtils;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.utils.DepublicationReason;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Supplier;
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 
 /**
  * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and searchable for external agents.
@@ -33,18 +33,12 @@ import org.apache.solr.client.solrj.SolrClient;
  */
 public class FullBeanPublisher {
 
-  private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
-
-  private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
-
-  private final SolrClient solrClient;
-  private final RecordRedirectDao recordRedirectDao;
-
   private final boolean preserveUpdateAndCreateTimesFromRdf;
 
-  private final IndexerForPersistence indexerForPersistence;
-  private final IndexerForTombstones indexerForTombstones;
-  private final IndexerForSearch indexerForSearch;
+  private final RecordPersistence<FullBeanImpl> recordPersistence;
+  private final TombstonePersistence tombstonePersistence;
+  private final SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence;
+  private final RedirectPersistence redirectPersistence;
 
   /**
    * Constructor.
@@ -79,13 +73,11 @@ public class FullBeanPublisher {
   FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf,
       Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
-    this.recordRedirectDao = recordRedirectDao;
-    this.solrClient = solrClient;
-    this.fullBeanConverterSupplier = fullBeanConverterSupplier;
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
-    this.indexerForPersistence = new IndexerForPersistenceV2(recordDao);
-    this.indexerForTombstones = new IndexerForTombstonesV2(recordDao, tombstoneRecordDao);
-    this.indexerForSearch = new IndexerForSearchV2(solrClient, fullBeanConverterSupplier);
+    this.recordPersistence = new RecordPersistenceV2(recordDao);
+    this.tombstonePersistence = new TombstonePersistenceV2(tombstoneRecordDao, this.recordPersistence);
+    this.searchPersistence = new SearchPersistenceV2(solrClient, fullBeanConverterSupplier);
+    this.redirectPersistence = new RedirectPersistenceV2(recordRedirectDao, this.searchPersistence);
   }
 
   /**
@@ -144,33 +136,17 @@ public class FullBeanPublisher {
   private void publish(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
       boolean performRedirects) throws IndexingException {
 
-    final List<Pair<String, Date>> recordsForRedirection = performRedirection(rdf,
-        recordDate, datasetIdsToRedirectFrom, performRedirects);
-    final Date createdDate = recordsForRedirection.stream().map(Pair::getValue)
-        .min(Comparator.naturalOrder()).orElse(null);
+    final Date createdDate = performRedirects ? this.redirectPersistence
+        .performRedirection(rdf, recordDate, datasetIdsToRedirectFrom) : null;
 
-    final ComputedDates computedDates = this.indexerForPersistence.indexForPersistence(rdf,
+    final ComputedDates computedDates = this.recordPersistence.indexForPersistence(rdf,
         this.preserveUpdateAndCreateTimesFromRdf, recordDate, createdDate);
 
-    this.indexerForSearch.indexForSearch(rdf, computedDates.updatedDate(),
+    this.searchPersistence.indexForSearch(rdf, computedDates.updatedDate(),
         computedDates.createdDate());
   }
 
   public boolean publishTombstone(String rdfAbout, DepublicationReason reason) throws IndexingException {
-    return this.indexerForTombstones.indexTombstoneForLiveRecord(rdfAbout, reason);
-  }
-
-  private List<Pair<String, Date>> performRedirection(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
-      boolean performRedirects) throws IndexingException {
-    // Perform redirection
-    final List<Pair<String, Date>> recordsForRedirection;
-    try {
-      recordsForRedirection = RecordRedirectsUtil.checkAndApplyRedirects(recordRedirectDao, rdf,
-          recordDate, datasetIdsToRedirectFrom, performRedirects,
-          queryParams -> SolrUtils.getSolrDocuments(solrClient, queryParams));
-    } catch (RuntimeException e) {
-      throw new RecordRelatedIndexingException(REDIRECT_PUBLISH_ERROR, e);
-    }
-    return recordsForRedirection;
+    return this.tombstonePersistence.indexTombstoneForLiveRecord(rdfAbout, reason);
   }
 }
