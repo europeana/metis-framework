@@ -35,6 +35,7 @@ public class DereferencerProvider extends ConnectionProvider {
     }
 
     /**
+     * @deprecated in favor of setEntityApiClientConfiguration
      * Set the properties values of the enrichment API. The default is null. If set to a blank value,
      * the dereferencer will not be configured to perform dereferencing.
      *
@@ -43,6 +44,7 @@ public class DereferencerProvider extends ConnectionProvider {
      * @param entityApiTokenEndpoint the entity api token endpoint
      * @param entityApiGrantParams the entity api grant params
      */
+    @Deprecated(forRemoval = true)
     public void setEnrichmentPropertiesValues(String entityManagementUrl,
         String entityApiUrl,
         String entityApiTokenEndpoint,
@@ -87,7 +89,9 @@ public class DereferencerProvider extends ConnectionProvider {
 
         // Create the enrichment client if needed
         final EntityClientExtendedConfiguration entityClientConfiguration;
-        if (hasEntityApiClientProperties()) {
+        if (hasEntityClientConfiguration()) {
+            entityClientConfiguration = this.getEntityApiClientConfiguration();
+        } else if (hasEntityApiClientProperties()) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl,
                 entityApiUrl, entityApiTokenEndpoint, entityApiGrantParams);
             entityClientConfiguration = new EntityClientExtendedConfiguration(properties);

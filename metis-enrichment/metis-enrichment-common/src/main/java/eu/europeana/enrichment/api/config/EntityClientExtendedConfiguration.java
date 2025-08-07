@@ -70,7 +70,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the seconds validate after inactivity
    */
   public int getSecondsValidateAfterInactivity() {
-    return Integer.parseInt(this.getProperty("secondsValidateAfterInactivity", String.valueOf(VALIDATE_AFTER_INACTIVITY)));
+    return Integer.parseInt(this.getProperty("validateAfterInactivitySeconds", String.valueOf(VALIDATE_AFTER_INACTIVITY)));
   }
 
   /**
@@ -79,7 +79,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param secondsValidateAfterInactivity the seconds validate after inactivity
    */
   public void setSecondsValidateAfterInactivity(int secondsValidateAfterInactivity) {
-    this.put("secondsValidateAfterInactivity", secondsValidateAfterInactivity);
+    this.put("validateAfterInactivitySeconds", secondsValidateAfterInactivity);
   }
 
   /**

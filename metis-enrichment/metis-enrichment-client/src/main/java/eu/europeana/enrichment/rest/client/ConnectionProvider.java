@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client;
 
+import eu.europeana.enrichment.api.config.EntityClientExtendedConfiguration;
 import java.util.Arrays;
 import java.util.Properties;
 import org.apache.hc.client5.http.classic.HttpClient;
@@ -52,6 +53,8 @@ public class ConnectionProvider {
     this.responseTimeout = responseTimeout;
   }
 
+  private EntityClientExtendedConfiguration entityApiClientConfiguration;
+
   /**
    * Creates a new Http connection using the values set up previously for the connection timeout and response time out
    *
@@ -90,5 +93,55 @@ public class ConnectionProvider {
     properties.put("token_endpoint", entityApiTokenEndpoint);
     properties.put("grant_params", entityApiGrantParams);
     return properties;
+  }
+
+  /**
+   * Sets entity client configuration.
+   *
+   * List of available properties
+   *     entity.management.url
+   *     entity.api.url
+   *     token_endpoint
+   *     grant_params
+   *     maxConnectionsTotal
+   *     maxConnectionsPerRoute
+   *     validateAfterInactivitySeconds
+   *     timeToLiveSeconds
+   *     reactorSocketTimeout
+   *     requestConnectionTimeout
+   *     responseConnectionTimeout
+   *
+   * @param configuration the entity client configuration
+   */
+  protected void setEntityApiClientConfiguration(EntityClientExtendedConfiguration configuration) {
+    this.entityApiClientConfiguration = configuration;
+  }
+
+  /**
+   * Gets entity api client configuration.
+   *
+   * @return the entity api client configuration
+   */
+  protected EntityClientExtendedConfiguration getEntityApiClientConfiguration() {
+    return entityApiClientConfiguration;
+  }
+
+  /**
+   * Has entity client configuration boolean.
+   *
+   * @return the boolean
+   */
+  protected boolean hasEntityClientConfiguration() {
+    return this.entityApiClientConfiguration.containsKey("entity.management.url")
+        && this.entityApiClientConfiguration.containsKey("entity.api.url")
+        && this.entityApiClientConfiguration.containsKey("token_endpoint")
+        && this.entityApiClientConfiguration.containsKey("grant_params")
+        && this.entityApiClientConfiguration.containsKey("maxConnectionsTotal")
+        && this.entityApiClientConfiguration.containsKey("maxConnectionsPerRoute")
+        && this.entityApiClientConfiguration.containsKey("validateAfterInactivitySeconds")
+        && this.entityApiClientConfiguration.containsKey("timeToLiveSeconds")
+        && this.entityApiClientConfiguration.containsKey("reactorSocketTimeout")
+        && this.entityApiClientConfiguration.containsKey("requestConnectionTimeout")
+        && this.entityApiClientConfiguration.containsKey("responseConnectionTimeout");
   }
 }

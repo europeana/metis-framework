@@ -37,6 +37,7 @@ public class EnricherProvider extends ConnectionProvider {
     }
 
     /**
+     * @deprecated in favor of setEntityApiClientConfiguration
      * Set the properties values of the enrichment service.
      *
      * @param entityManagementUrl The url of the entity management service
@@ -44,6 +45,7 @@ public class EnricherProvider extends ConnectionProvider {
      * @param entityApiTokenEndpoint the entity api token endpoint
      * @param entityApiGrantParams the entity api grant params
      */
+    @Deprecated(forRemoval = true)
     public void setEnrichmentPropertiesValues(String entityManagementUrl,
         String entityApiUrl,
         String entityApiTokenEndpoint,
@@ -65,7 +67,9 @@ public class EnricherProvider extends ConnectionProvider {
 
         // Create the entity resolver
         final EntityClientExtendedConfiguration entityClientConfiguration;
-        if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
+        if (hasEntityClientConfiguration()) {
+            entityClientConfiguration = this.getEntityApiClientConfiguration();
+        } else if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
                 && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
                 entityApiTokenEndpoint, entityApiGrantParams);
