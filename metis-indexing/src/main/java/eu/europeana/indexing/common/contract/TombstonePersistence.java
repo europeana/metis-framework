@@ -8,7 +8,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
 
 /**
- * Implementations of this interface index RDF records to a persistence database.
+ * Implementations of this interface access and index EDM tombstone records to a persistence database.
  */
 public interface TombstonePersistence {
 

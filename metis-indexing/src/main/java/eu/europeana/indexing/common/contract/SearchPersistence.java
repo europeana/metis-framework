@@ -6,14 +6,17 @@ import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.io.Closeable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Implementations of this interface index RDF records to a search database.
+ * Implementations of this interface access and index EDM records to a search database.
+ *
+ * @param <S> A search match object as returned by searching using this persistence access.
+ * @param <L> A collection of search match objects as returned by using this persistence access.
  */
-public interface SearchPersistence<S, L extends List<S>> extends Closeable {
+public interface SearchPersistence<S, L extends Collection<S>> extends Closeable {
 
   /**
    * Perform a search using the given query parameters.

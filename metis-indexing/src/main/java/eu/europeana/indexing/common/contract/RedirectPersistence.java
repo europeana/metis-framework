@@ -5,6 +5,9 @@ import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Implementations of this interface find and persist redirections between EDM records.
+ */
 public interface RedirectPersistence {
 
   /**

@@ -34,15 +34,15 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.MapSolrParams;
 
 /**
- * Publisher for Full Beans (instances of {@link FullBeanImpl}) that makes them accessible and searchable for external agents.
- *
- * @author jochen
+ * This class implements search persistence using the record Solr V2.
  */
 public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, SolrDocumentList> {
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
   private static final String SOLR_SERVER_PUBLISH_RETRY_ERROR = "Could not publish to Solr server after retry.";
   private static final String SOLR_SERVER_SEARCH_ERROR = "Could not search Solr server.";
+
+  private static final String NULL_RECORD_MESSAGE = "record is null";
 
   private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
   private final CompoundSolrClient solrClientToClose;
@@ -94,28 +94,28 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
 
   @Override
   public void indexForSearch(String rdfRecord) throws IndexingException {
-    Objects.requireNonNull(rdfRecord, "record is null");
+    Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     indexForSearch(rdfDeserializer.convertToRdf(rdfRecord));
   }
 
   @Override
   public void indexForSearch(RDF rdfRecord) throws IndexingException {
-    Objects.requireNonNull(rdfRecord, "record is null");
+    Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     indexForSearch(new RdfWrapper(rdfRecord), false, null);
   }
 
   @Override
-  public void indexForSearch(RdfWrapper rdfWrapper, boolean preserveUpdateAndCreateTimesFromRdf,
+  public void indexForSearch(RdfWrapper rdfRecord, boolean preserveUpdateAndCreateTimesFromRdf,
       Date updatedDate) throws IndexingException {
-    Objects.requireNonNull(rdfWrapper, "rdfWrapper is null");
-    final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
+    Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
+    final FullBeanImpl fullBean = convertRDFToFullBean(rdfRecord);
     if (!preserveUpdateAndCreateTimesFromRdf) {
       Date createdDate;
-      if (rdfWrapper.getAbout() == null) {
+      if (rdfRecord.getAbout() == null) {
         createdDate = updatedDate;
       } else {
         final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID,
-            ClientUtils.escapeQueryChars(rdfWrapper.getAbout()));
+            ClientUtils.escapeQueryChars(rdfRecord.getAbout()));
         final Map<String, String> queryParamMap = new HashMap<>();
         queryParamMap.put("q", solrQuery);
         queryParamMap.put("fl", SolrV2Field.TIMESTAMP_CREATED + "," + SolrV2Field.EUROPEANA_ID);
@@ -126,7 +126,7 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
       }
       RecordDateUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
     }
-    indexForSearch(rdfWrapper, fullBean);
+    indexForSearch(rdfRecord, fullBean);
   }
 
   @Override

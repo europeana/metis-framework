@@ -9,11 +9,17 @@ import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Date;
 
 /**
- * Implementations of this interface index RDF records to a persistence database.
+ * Implementations of this interface access and index EDM records in a persistence database.
  * @param <R> The type of the record that this persistence returns.
  */
 public interface RecordPersistence<R> {
 
+  /**
+   * A wrapper for the dates computed while persisting records.
+   *
+   * @param updatedDate The updated date that is computed for the record.
+   * @param createdDate The created date that is computed for the record.
+   */
   record ComputedDates(Date updatedDate, Date createdDate) { }
 
   /**

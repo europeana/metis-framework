@@ -13,9 +13,14 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+/**
+ * This class implements record persistence using the record MongoDB V2.
+ */
 public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
 
   private static final String ABOUT_FIELD = "about";
+
+  private static final String NULL_RECORD_MESSAGE = "record is null";
 
   private final RecordDao liveRecordDao;
 
@@ -45,7 +50,7 @@ public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
 
   @Override
   public ComputedDates indexForPersistence(String rdfRecord) throws IndexingException {
-    Objects.requireNonNull(rdfRecord, "record is null");
+    Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     if (liveRecordDao == null) {
       throw new UnsupportedOperationException();
     }
@@ -54,7 +59,7 @@ public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
 
   @Override
   public ComputedDates indexForPersistence(RDF rdfRecord) throws IndexingException {
-    Objects.requireNonNull(rdfRecord, "record is null");
+    Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     if (liveRecordDao == null) {
       throw new UnsupportedOperationException();
     }
@@ -64,7 +69,7 @@ public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
   @Override
   public ComputedDates indexForPersistence(RdfWrapper rdf, boolean preserveUpdateAndCreateTimesFromRdf,
       Date recordDate, Date createdDate) throws IndexingException {
-    Objects.requireNonNull(rdf, "record is null");
+    Objects.requireNonNull(rdf, NULL_RECORD_MESSAGE);
     if (liveRecordDao == null) {
       throw new UnsupportedOperationException();
     }

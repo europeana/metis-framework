@@ -19,6 +19,9 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class implements tombstone persistence using the tombstone MongoDB V2.
+ */
 public class TombstonePersistenceV2 implements TombstonePersistence {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TombstonePersistenceV2.class);
@@ -33,7 +36,7 @@ public class TombstonePersistenceV2 implements TombstonePersistence {
    * Constructor.
    *
    * @param tombstoneRecordDao The Mongo persistence for tombstone records.
-   * @param recordPersistence  The Persistence for live records. Can be null, in which case this
+   * @param recordPersistence  Persistence access for live records. Can be null, in which case this
    *                           object will not be suitable for creating tombstones for live
    *                           records.
    */

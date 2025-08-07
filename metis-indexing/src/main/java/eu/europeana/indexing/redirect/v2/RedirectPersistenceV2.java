@@ -8,6 +8,7 @@ import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.mongo.model.RecordRedirect;
+import eu.europeana.metis.schema.jibx.Description;
 import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.IsShownBy;
 import eu.europeana.metis.schema.jibx.Title;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collector;
@@ -37,6 +39,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
+/**
+ * This class implements record redirect persistence using the redirect MongoDB V2.
+ */
 public final class RedirectPersistenceV2 implements RedirectPersistence {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RedirectPersistenceV2.class);
@@ -46,6 +51,12 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
   private final RecordRedirectDao recordRedirectDao;
   private final SearchPersistence<SolrDocument, ?> searchPersistence;
 
+  /**
+   * Constructor.
+   *
+   * @param recordRedirectDao DAO access to the record redirect DB.
+   * @param searchPersistence Search persistence access.
+   */
   public RedirectPersistenceV2(RecordRedirectDao recordRedirectDao,
       SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence) {
     this.recordRedirectDao = recordRedirectDao;
@@ -131,7 +142,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
               SolrV2Field.PROVIDER_AGGREGATION_EDM_IS_SHOWN_BY));
 
       //Preprocess sub-query and replace documents based on the result
-      List<SolrDocument> solrDocuments = searchPersistence.search(queryParamMap);
+      Collection<SolrDocument> solrDocuments = searchPersistence.search(queryParamMap);
 
       //Check exact ids match first
       modifyDocumentListIfMatchesFound(solrDocuments,
@@ -147,7 +158,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
     return new ArrayList<>();
   }
 
-  private static void modifyDocumentListIfMatchesFound(List<SolrDocument> solrDocuments,
+  private static void modifyDocumentListIfMatchesFound(Collection<SolrDocument> solrDocuments,
       List<String> concatenatedIds, Map<String, List<String>> firstMap,
       Map<String, List<String>> secondMap, Map<String, List<String>> thirdMap) {
     //We check in the following order only if the previous result was empty. Exact Ids, first group, second group
@@ -167,7 +178,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
     solrDocuments.addAll(matchedResults);
   }
 
-  private static SolrDocumentList getMatchingSolrDocuments(List<SolrDocument> solrDocuments,
+  private static SolrDocumentList getMatchingSolrDocuments(Collection<SolrDocument> solrDocuments,
       Predicate<SolrDocument> solrDocumentPredicate) {
     return solrDocuments.stream().filter(solrDocumentPredicate)
                         .collect(Collectors.toCollection(SolrDocumentList::new));
@@ -196,23 +207,23 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
       Map<String, List<String>> firstMapOfLists, Map<String, List<String>> secondMapOfLists,
       Map<String, List<String>> thirdMapOfLists) {
     //Collect all required information for heuristics
+    final Function<Description, String> descriptionToString = description -> {
+      if (StringUtils.isNotBlank(description.getString())) {
+        return description.getString();
+      } else if (description.getResource() != null && StringUtils
+          .isNotBlank(description.getResource().getResource())) {
+        return description.getResource().getResource();
+      }
+      return null;
+    };
     final List<String> identifiers = rdfWrapper.getProviderProxyIdentifiers().stream()
-                                               .map(Identifier::getString).filter(StringUtils::isNotBlank).toList();
-    final List<String> titles = rdfWrapper.getProviderProxyTitles().stream().map(Title::getString)
-                                          .filter(StringUtils::isNotBlank).toList();
+        .map(Identifier::getString).filter(StringUtils::isNotBlank).toList();
+    final List<String> titles = rdfWrapper.getProviderProxyTitles().stream()
+        .map(Title::getString).filter(StringUtils::isNotBlank).toList();
     final List<String> descriptions = rdfWrapper.getProviderProxyDescriptions().stream()
-                                                .map(description -> {
-                                                  if (StringUtils.isNotBlank(description.getString())) {
-                                                    return description.getString();
-                                                  } else if (description.getResource() != null && StringUtils
-                                                      .isNotBlank(description.getResource().getResource())) {
-                                                    return description.getResource().getResource();
-                                                  }
-                                                  return null;
-                                                }).filter(Objects::nonNull).toList();
+        .map(descriptionToString).filter(Objects::nonNull).toList();
     final List<String> isShownByList = rdfWrapper.getIsShownByList().stream()
-                                                 .map(IsShownBy::getResource).filter(StringUtils::isNotBlank)
-                                                 .toList();
+        .map(IsShownBy::getResource).filter(StringUtils::isNotBlank).toList();
 
     //Create all lists that need to be combined
     firstMapOfLists.putAll(createFirstCombinationGroup(identifiers, titles, descriptions));
@@ -276,8 +287,8 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
 
   private static String generateQueryForFields(Map<String, List<String>> listsToCombine) {
     final List<String> items = listsToCombine.entrySet().stream()
-                                             .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
-                                             .filter(StringUtils::isNotBlank).toList();
+        .map(entry -> generateOrOperationFromList(entry.getKey(), entry.getValue()))
+        .filter(StringUtils::isNotBlank).toList();
     return computeJoiningQuery(items, UnaryOperator.identity(),
         Collectors.joining(" AND ", "(", ")"));
   }

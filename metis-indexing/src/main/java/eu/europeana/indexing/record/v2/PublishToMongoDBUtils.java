@@ -21,7 +21,7 @@ import java.util.Date;
  * This class provides utilities for publishing
  * {@link eu.europeana.corelib.definitions.edm.beans.FullBean} objects to a Mongo DB.
  */
-class PublishToMongoDBUtils {
+final class PublishToMongoDBUtils {
 
   private static final String MONGO_SERVER_PUBLISH_ERROR = "Could not publish to Mongo server.";
 
