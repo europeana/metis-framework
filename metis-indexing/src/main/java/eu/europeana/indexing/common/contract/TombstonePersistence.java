@@ -6,12 +6,12 @@ import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
-import java.io.Closeable;
 
 /**
  * Implementations of this interface access and index EDM tombstone records to a persistence database.
+ * @param <T> The type of the tombstone that this persistence returns.
  */
-public interface TombstonePersistence extends Closeable {
+public interface TombstonePersistence<T> extends Persistence {
 
   /**
    * This indexes a tombstone from a live record according to the provided settings. If no live
@@ -72,4 +72,18 @@ public interface TombstonePersistence extends Closeable {
    */
   void indexTombstone(String rdfRecord, DepublicationReason reason) throws IndexingException;
 
+  /**
+   * Get the tombstone with the given ID.
+   * @param rdfAbout The ID of the tombstone to retrieve.
+   * @return The tombstone. Can be null if no such tombstone exists.
+   */
+  T getTombstone(String rdfAbout);
+
+  /**
+   * Removes the tombstone record with the given ID.
+   * @param rdfAbout The ID of the record to remove.
+   * @return Whether the remove was successful.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException;
 }

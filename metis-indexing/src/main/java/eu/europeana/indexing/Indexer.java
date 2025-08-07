@@ -1,16 +1,13 @@
 package eu.europeana.indexing;
 
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.tiers.model.TierResults;
+import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
 import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-
-import eu.europeana.indexing.tiers.model.TierResults;
-import eu.europeana.metis.schema.jibx.RDF;
-import eu.europeana.indexing.common.exception.IndexingException;
-
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -23,10 +20,9 @@ import java.util.stream.Stream;
  * <b>NOTE:</b> Operations that are provided by this object are <b>not</b> done within a
  * transactions. More details are provided in the documentation for the individual methods.
  * </p>
- *
- * @author jochen
+ * @param <T> The type of the tombstone that is returned.
  */
-public interface Indexer extends Closeable {
+public interface Indexer<T> extends Closeable {
 
   /**
    * <p>
@@ -185,8 +181,9 @@ public interface Indexer extends Closeable {
    * Get a tombstone record given an rdf about.
    * @param rdfAbout the rdf about
    * @return the tombstone record or else null
+   * @throws IndexingException In case something went wrong.
    */
-  FullBeanImpl getTombstone(String rdfAbout);
+  T getTombstone(String rdfAbout) throws IndexingException;
 
   /**
    * Creates and indexes a tombstone record.
@@ -259,8 +256,9 @@ public interface Indexer extends Closeable {
    * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
    * date will be returned. If null is provided then all records from that dataset will be returned.
    * @return A stream with record IDs.
+   * @throws IndexingException In case something went wrong.
    */
-  Stream<String> getRecordIds(String datasetId, Date maxRecordDate);
+  Stream<String> getRecordIds(String datasetId, Date maxRecordDate) throws IndexingException ;
 
   /**
    * Counts the records in a given dataset. For details of the
@@ -272,8 +270,9 @@ public interface Indexer extends Closeable {
    * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
    * date will be counted. If null is provided then all records from that dataset will be counted.
    * @return A stream with record IDs.
+   * @throws IndexingException In case something went wrong.
    */
-  long countRecords(String datasetId, Date maxRecordDate);
+  long countRecords(String datasetId, Date maxRecordDate) throws IndexingException;
 
   /**
    * Counts the records in a given dataset. The criteria of whether a record belongs to a certain

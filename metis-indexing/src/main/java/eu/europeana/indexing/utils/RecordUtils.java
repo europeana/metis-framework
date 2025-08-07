@@ -6,12 +6,11 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * This class contains utilities in relation to setting and updating the various event dates in the
- * records we are about to save/index.
+ * This class contains utilities in relation to records.
  */
-public final class RecordDateUtils {
+public final class RecordUtils {
 
-  private RecordDateUtils() {
+  private RecordUtils() {
   }
 
   /**
@@ -61,5 +60,15 @@ public final class RecordDateUtils {
   public static void setUpdateAndCreateTime(FullBean destination,
       Date updatedDate, Date createdDate) {
     setUpdateAndCreateTime(null, destination, updatedDate, createdDate);
+  }
+
+  /**
+   * Compute the prefix to be added to the record to account for the dataset ID.
+   *
+   * @param datasetId The dataset ID.
+   * @return The record prefix
+   */
+  public static String getRecordIdPrefix(String datasetId) {
+    return "/" + datasetId + "/";
   }
 }

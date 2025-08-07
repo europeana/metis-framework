@@ -6,14 +6,14 @@ import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.io.Closeable;
 import java.util.Date;
+import java.util.stream.Stream;
 
 /**
  * Implementations of this interface access and index EDM records in a persistence database.
  * @param <R> The type of the record that this persistence returns.
  */
-public interface RecordPersistence<R> extends Closeable {
+public interface RecordPersistence<R> extends Persistence {
 
   /**
    * A wrapper for the dates computed while persisting records.
@@ -85,4 +85,44 @@ public interface RecordPersistence<R> extends Closeable {
    */
   ComputedDates indexForPersistence(String rdfRecord) throws IndexingException;
 
+  /**
+   * Counts the record in a dataset.
+   *
+   * @param datasetId      The ID of the dataset to count.
+   * @param maxUpdatedDate If not null, only counts records that have been updated strictly before
+   *                       this date.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  long countRecords(String datasetId, Date maxUpdatedDate) throws IndexerRelatedIndexingException;
+
+  /**
+   * Return all record IDs that belong to the given dataset.
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxUpdatedDate If not null, only include IDs for records that have been updated strictly
+   *                       before this date.
+   * @return The record IDs in a stream.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate)
+      throws IndexerRelatedIndexingException;
+
+    /**
+     * Removes the record with the given ID.
+     *
+     * @param rdfAbout The ID of the record to remove.
+     * @return Whether the remove was successful.
+     * @throws IndexerRelatedIndexingException In case of issues.
+     */
+  boolean removeRecord(String rdfAbout) throws IndexerRelatedIndexingException;
+
+  /**
+   * Removes a dataset.
+   *
+   * @param datasetId      The ID of the dataset to remove.
+   * @param maxUpdatedDate If not null, only removes records that have been updated strictly before
+   *                       this date.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  long removeDataset(String datasetId, Date maxUpdatedDate) throws IndexerRelatedIndexingException;
 }

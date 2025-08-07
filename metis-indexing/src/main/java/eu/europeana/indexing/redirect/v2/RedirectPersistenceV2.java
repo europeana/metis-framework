@@ -3,6 +3,7 @@ package eu.europeana.indexing.redirect.v2;
 import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
+import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
@@ -429,6 +430,12 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
       redirect.setNewId(newIdentifier);
       recordRedirectDao.createUpdate(redirect);
     });
+  }
+
+  @Override
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+      throws IndexerRelatedIndexingException {
+    // Nothing to do.
   }
 
   @Override

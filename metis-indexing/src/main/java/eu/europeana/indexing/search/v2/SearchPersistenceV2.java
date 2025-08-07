@@ -14,15 +14,20 @@ import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
-import eu.europeana.indexing.utils.RecordDateUtils;
+import eu.europeana.indexing.utils.RecordUtils;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.solr.client.CompoundSolrClient;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
+import eu.europeana.metis.utils.CommonStringValues;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimeZone;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -117,7 +122,7 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
             .map(document -> document.getFieldValue(SolrV2Field.TIMESTAMP_CREATED.toString()))
             .toList().stream().findFirst().orElse(updatedDate);
       }
-      RecordDateUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
+      RecordUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
     }
     indexForSearch(rdfRecord, fullBean);
   }
@@ -127,7 +132,7 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
       throws IndexingException {
     Objects.requireNonNull(rdfWrapper, "rdfWrapper is null");
     final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
-    RecordDateUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
+    RecordUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
     indexForSearch(rdfWrapper, fullBean);
   }
 
@@ -168,6 +173,48 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
       throw new IndexerRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
     } catch (SolrServerException | RuntimeException e) {
       throw new RecordRelatedIndexingException(SOLR_SERVER_PUBLISH_ERROR, e);
+    }
+  }
+
+  @Override
+  public void removeRecord(String rdfAbout) throws IndexerRelatedIndexingException {
+    final String queryValue = ClientUtils.escapeQueryChars(rdfAbout);
+    try {
+      this.solrClient.deleteByQuery(SolrV2Field.EUROPEANA_ID + ":" + queryValue);
+    } catch (SolrServerException | IOException e) {
+      throw new IndexerRelatedIndexingException("Removal of record failed: " + rdfAbout, e);
+    }
+  }
+
+  @Override
+  public void removeDataset(String datasetId, Date maxUpdatedDate)
+      throws IndexerRelatedIndexingException {
+    try {
+      final StringBuilder solrQuery = new StringBuilder();
+      final String datasetIdRegexEscaped =
+          ClientUtils.escapeQueryChars(RecordUtils.getRecordIdPrefix(datasetId)) + "*";
+      solrQuery.append(SolrV2Field.EUROPEANA_ID).append(':').append(datasetIdRegexEscaped);
+
+      if (maxUpdatedDate != null) {
+        //Set date format properly for Solr, the timezone has to be added
+        DateFormat dateFormat = new SimpleDateFormat(CommonStringValues.DATE_FORMAT_Z, Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        solrQuery.append(" AND ").append(SolrV2Field.TIMESTAMP_UPDATED).append(":[* TO ")
+            .append(dateFormat.format(maxUpdatedDate)).append('}');
+      }
+      this.solrClient.deleteByQuery(solrQuery.toString());
+    } catch (SolrServerException | IOException e) {
+      throw new IndexerRelatedIndexingException("Removal of record failed: " + datasetId, e);
+    }
+  }
+
+  @Override
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+      throws IndexerRelatedIndexingException {
+    try {
+      this.solrClient.commit(blockUntilComplete, blockUntilComplete);
+    } catch (SolrServerException | IOException e) {
+      throw new IndexerRelatedIndexingException("Error while flushing changes.", e);
     }
   }
 

@@ -3,6 +3,8 @@ package eu.europeana.indexing.record.v2;
 import static java.lang.String.format;
 
 import com.mongodb.client.MongoClient;
+import dev.morphia.Datastore;
+import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.TombstonePersistence;
@@ -25,9 +27,11 @@ import org.slf4j.LoggerFactory;
 /**
  * This class implements tombstone persistence using the tombstone MongoDB V2.
  */
-public class TombstonePersistenceV2 implements TombstonePersistence {
+public class TombstonePersistenceV2 implements TombstonePersistence<FullBeanImpl> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TombstonePersistenceV2.class);
+
+  private static final String ABOUT_FIELD = "about";
 
   private final MongoClient mongoClientToClose;
   private final RecordDao tombstoneRecordDao;
@@ -73,7 +77,7 @@ public class TombstonePersistenceV2 implements TombstonePersistence {
     this.recordPersistence = recordPersistence;
   }
 
-  private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
+  private static FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
     final RdfToFullBeanConverter fullBeanConverter = new RdfToFullBeanConverter();
     return fullBeanConverter.convertRdfToFullBean(rdf);
   }
@@ -142,6 +146,44 @@ public class TombstonePersistenceV2 implements TombstonePersistence {
         return true;
       }
     }
+  }
+
+  @Override
+  public FullBeanImpl getTombstone(String rdfAbout) {
+    final Datastore datastore = this.tombstoneRecordDao.getDatastore();
+    return datastore.find(FullBeanImpl.class).filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
+  }
+
+  @Override
+  public boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+    try {
+
+      // Obtain the Mongo record
+      final Datastore datastore = this.tombstoneRecordDao.getDatastore();
+      final FullBeanImpl recordToDelete = datastore.find(FullBeanImpl.class)
+          .filter(Filters.eq(ABOUT_FIELD, rdfAbout)).first();
+
+      // Remove mongo record and dependencies
+      if (recordToDelete != null) {
+        datastore.delete(recordToDelete);
+        recordToDelete.getAggregations().forEach(datastore::delete);
+        datastore.delete(recordToDelete.getEuropeanaAggregation());
+        recordToDelete.getProvidedCHOs().forEach(datastore::delete);
+        recordToDelete.getProxies().forEach(datastore::delete);
+      }
+
+      // Done
+      return recordToDelete != null;
+
+    } catch (RuntimeException e) {
+      throw new IndexerRelatedIndexingException("Could not remove tombstone '" + rdfAbout + "'.", e);
+    }
+  }
+
+  @Override
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
+      throws IndexerRelatedIndexingException {
+    // Nothing to do.
   }
 
   @Override

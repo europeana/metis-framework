@@ -9,7 +9,7 @@ import eu.europeana.indexing.record.v2.property.AbstractMongoObjectUpdater;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdaterFactory;
 import eu.europeana.indexing.record.v2.property.RootAboutWrapper;
-import eu.europeana.indexing.utils.RecordDateUtils;
+import eu.europeana.indexing.utils.RecordUtils;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,7 +54,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
       RecordDao mongoServer) {
     final BiConsumer<FullBeanImpl, FullBeanImpl> preProcessor = (source, destination) -> {
       if (!this.preserveUpdateAndCreateTimesFromRdf) {
-        RecordDateUtils.setUpdateAndCreateTime(source, destination, recordDate, recordCreationDate);
+        RecordUtils.setUpdateAndCreateTime(source, destination, recordDate, recordCreationDate);
       }
     };
     return MongoPropertyUpdaterFactory.createForObjectWithAbout(newEntity, mongoServer,

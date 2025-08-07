@@ -2,14 +2,13 @@ package eu.europeana.indexing.common.contract;
 
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
-import java.io.Closeable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Implementations of this interface find and persist redirections between EDM records.
  */
-public interface RedirectPersistence extends Closeable {
+public interface RedirectPersistence extends Persistence {
 
   /**
    * Perform redirection.

@@ -1,7 +1,5 @@
 package eu.europeana.indexing;
 
-import static eu.europeana.indexing.utils.IndexingSettingsUtils.nonNullFieldName;
-
 import com.mongodb.ServerAddress;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.connection.MongoProperties;
@@ -30,6 +28,14 @@ public final class IndexingSettings {
   private final SolrProperties<SetupRelatedIndexingException> solrProperties = new SolrProperties<>(
       SetupRelatedIndexingException::new);
 
+  private static <T> T nonNullFieldName(T value, String fieldName) throws SetupRelatedIndexingException {
+    if (value == null) {
+      throw new SetupRelatedIndexingException(
+          String.format("Value '%s' cannot be null.", fieldName));
+    }
+    return value;
+  }
+
   /**
    * Add a Mongo host. This method must be called at least once.
    *
@@ -50,10 +56,24 @@ public final class IndexingSettings {
     this.mongoDatabaseName = nonNullFieldName(mongoDatabaseName, "mongoDatabaseName");
   }
 
+  /**
+   * Set the tombstone database name. If this method is not called, an indexer will be created that
+   * will not support tombstone management.
+   *
+   * @param mongoTombstoneDatabaseName The tombstone database name.
+   * @throws SetupRelatedIndexingException In case the provided value is null.
+   */
   public void setMongoTombstoneDatabaseName(String mongoTombstoneDatabaseName) throws SetupRelatedIndexingException {
     this.mongoTombstoneDatabaseName = nonNullFieldName(mongoTombstoneDatabaseName, "mongoTombstoneDatabaseName");
   }
 
+  /**
+   * Set the record redirect database name. If this method is not called, an indexer will be created
+   * that will not support redirection.
+   *
+   * @param recordRedirectDatabaseName Record redirect database name.
+   * @throws SetupRelatedIndexingException In case the provided value is null.
+   */
   public void setRecordRedirectDatabaseName(String recordRedirectDatabaseName)
       throws SetupRelatedIndexingException {
     this.recordRedirectDatabaseName = nonNullFieldName(recordRedirectDatabaseName,

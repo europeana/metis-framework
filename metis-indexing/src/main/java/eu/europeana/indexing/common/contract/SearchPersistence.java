@@ -5,7 +5,6 @@ import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.io.Closeable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
  * @param <S> A search match object as returned by searching using this persistence access.
  * @param <L> A collection of search match objects as returned by using this persistence access.
  */
-public interface SearchPersistence<S, L extends Collection<S>> extends Closeable {
+public interface SearchPersistence<S, L extends Collection<S>> extends Persistence {
 
   /**
    * Perform a search using the given query parameters.
@@ -89,4 +88,19 @@ public interface SearchPersistence<S, L extends Collection<S>> extends Closeable
    */
   void indexForSearch(String rdfRecord) throws IndexingException;
 
+  /**
+   * Removes the record with the given ID.
+   * @param rdfAbout The ID of the record to remove.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  void removeRecord(String rdfAbout) throws IndexerRelatedIndexingException;
+
+  /**
+   * Removes a dataset.
+   * @param datasetId The ID of the dataset to remove.
+   * @param maxUpdatedDate If not null, only removes records that have been updated strictly before
+   *                       this date.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  void removeDataset(String datasetId, Date maxUpdatedDate) throws IndexerRelatedIndexingException;
 }
