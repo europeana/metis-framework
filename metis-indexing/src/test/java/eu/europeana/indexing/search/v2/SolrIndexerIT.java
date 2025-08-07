@@ -14,7 +14,6 @@ import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.search.v2.SolrIndexerIT.SolrIndexerLocalConfigTest;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
@@ -185,7 +184,7 @@ class SolrIndexerIT {
      */
     @Bean
     SearchPersistenceV2 indexer(SolrClient solrClient) {
-      return new SearchPersistenceV2(solrClient, RdfToFullBeanConverter::new);
+      return new SearchPersistenceV2(solrClient);
     }
   }
 

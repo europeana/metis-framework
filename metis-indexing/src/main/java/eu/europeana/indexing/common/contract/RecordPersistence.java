@@ -6,13 +6,14 @@ import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
+import java.io.Closeable;
 import java.util.Date;
 
 /**
  * Implementations of this interface access and index EDM records in a persistence database.
  * @param <R> The type of the record that this persistence returns.
  */
-public interface RecordPersistence<R> {
+public interface RecordPersistence<R> extends Closeable {
 
   /**
    * A wrapper for the dates computed while persisting records.

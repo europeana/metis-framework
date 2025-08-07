@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
@@ -44,7 +43,6 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
 
   private static final String NULL_RECORD_MESSAGE = "record is null";
 
-  private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
   private final CompoundSolrClient solrClientToClose;
   private final SolrClient solrClient;
   private final RDFDeserializer rdfDeserializer = new RDFDeserializer();
@@ -52,8 +50,8 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
   /**
    * Constructor.
    *
-   * @param solrClientProvider The searchable persistence. Clients that are provided from this
-   *                           object will be closed when this instance's {@link #close()}
+   * @param solrClientProvider Provider for searchable persistence. Clients that are provided from
+   *                           this object will be closed when this instance's {@link #close()}
    *                           method is called.
    * @throws SetupRelatedIndexingException In the case of setup issues.
    */
@@ -61,22 +59,17 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
       throws SetupRelatedIndexingException {
     this.solrClientToClose = solrClientProvider.createSolrClient();
     this.solrClient = solrClientToClose.getSolrClient();
-    this.fullBeanConverterSupplier = RdfToFullBeanConverter::new;
   }
 
   /**
-   * Constructor for testing purposes.
+   * Constructor.
    *
-   * @param solrClient The searchable persistence. This instance will not take responsibility for
-   *                   closing this client.
-   * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to
-   * parse strings to instances of {@link FullBeanImpl}.
+   * @param solrClient The searchable persistence. Note: this instance will not take responsibility
+   *                   for closing this client.
    */
-  public SearchPersistenceV2(SolrClient solrClient,
-      Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
+  public SearchPersistenceV2(SolrClient solrClient) {
     this.solrClientToClose = null;
     this.solrClient = solrClient;
-    this.fullBeanConverterSupplier = fullBeanConverterSupplier;
   }
 
   @Override
@@ -155,7 +148,7 @@ public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, Solr
   }
 
   private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
-    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
+    final RdfToFullBeanConverter fullBeanConverter = new RdfToFullBeanConverter();
     return fullBeanConverter.convertRdfToFullBean(rdf);
   }
 

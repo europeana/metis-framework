@@ -1,17 +1,21 @@
 package eu.europeana.indexing.redirect.v2;
 
+import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RdfWrapper;
+import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.mongo.model.RecordRedirect;
 import eu.europeana.metis.schema.jibx.Description;
 import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.IsShownBy;
 import eu.europeana.metis.schema.jibx.Title;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,17 +52,42 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
 
   private static final String REDIRECT_PUBLISH_ERROR = "Could not publish the redirection changes.";
 
+  private final MongoClient mongoClientToClose;
   private final RecordRedirectDao recordRedirectDao;
+
   private final SearchPersistence<SolrDocument, ?> searchPersistence;
 
   /**
    * Constructor.
    *
-   * @param recordRedirectDao DAO access to the record redirect DB.
-   * @param searchPersistence Search persistence access.
+   * @param mongoClientProvider Provider for record persistence. Clients that are provided from this
+   *                            object will be closed when this instance's {@link #close()} method
+   *                            is called.
+   * @param mongoRedirectDBName The specific Mongo database to connect to.
+   * @param searchPersistence   Search persistence access. Note: this instance will not take
+   *                            responsibility for closing this persistence object.
+   * @throws SetupRelatedIndexingException In the case of setup issues.
+   */
+  public RedirectPersistenceV2(
+      MongoClientProvider<SetupRelatedIndexingException> mongoClientProvider,
+      String mongoRedirectDBName, SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence)
+      throws SetupRelatedIndexingException {
+    this.mongoClientToClose = mongoClientProvider.createMongoClient();
+    this.recordRedirectDao = new RecordRedirectDao(this.mongoClientToClose, mongoRedirectDBName);
+    this.searchPersistence = searchPersistence;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param recordRedirectDao DAO object for record redirects. Note: this instance will not take
+   *                          responsibility for closing this client.
+   * @param searchPersistence Search persistence access. Note: this instance will not take
+   *                          responsibility for closing this persistence object.
    */
   public RedirectPersistenceV2(RecordRedirectDao recordRedirectDao,
       SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence) {
+    this.mongoClientToClose = null;
     this.recordRedirectDao = recordRedirectDao;
     this.searchPersistence = searchPersistence;
   }
@@ -400,5 +429,12 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
       redirect.setNewId(newIdentifier);
       recordRedirectDao.createUpdate(redirect);
     });
+  }
+
+  @Override
+  public void close() throws IOException {
+    if (mongoClientToClose != null) {
+      this.mongoClientToClose.close();
+    }
   }
 }

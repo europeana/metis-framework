@@ -1,6 +1,5 @@
 package eu.europeana.indexing;
 
-import com.mongodb.client.MongoClient;
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.contract.TombstonePersistence;
@@ -10,7 +9,6 @@ import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
 import eu.europeana.indexing.search.v2.SearchPersistenceV2;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
-import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.util.Objects;
@@ -43,8 +41,7 @@ public class IndexingJobFactory {
   public RecordPersistence<?> createIndexerForPersistence(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
-    final MongoClient client = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new RecordPersistenceV2(new RecordDao(client, mongoDatabaseName));
+    return new RecordPersistenceV2(new MongoClientProvider<>(mongoProperties), mongoDatabaseName);
   }
 
   /**
@@ -58,7 +55,7 @@ public class IndexingJobFactory {
   public TombstonePersistence createIndexerForTombstones(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
-    final MongoClient client = new MongoClientProvider<>(mongoProperties).createMongoClient();
-    return new TombstonePersistenceV2(new RecordDao(client, mongoDatabaseName), null);
+    return new TombstonePersistenceV2(new MongoClientProvider<>(mongoProperties),
+        mongoDatabaseName, null);
   }
 }

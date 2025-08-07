@@ -2,20 +2,23 @@ package eu.europeana.indexing.record.v2;
 
 import static java.lang.String.format;
 
+import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.indexing.utils.TombstoneUtil;
+import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
+import java.io.IOException;
 import java.util.Objects;
-import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,29 +29,52 @@ public class TombstonePersistenceV2 implements TombstonePersistence {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TombstonePersistenceV2.class);
 
+  private final MongoClient mongoClientToClose;
   private final RecordDao tombstoneRecordDao;
   private final RecordPersistence<FullBeanImpl> recordPersistence;
 
-  private final Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier;
   private final RDFDeserializer rdfDeserializer = new RDFDeserializer();
 
   /**
    * Constructor.
    *
-   * @param tombstoneRecordDao The Mongo persistence for tombstone records.
+   * @param mongoClientProvider  Provider for record persistence. Clients that are provided from
+   *                             this object will be closed when this instance's {@link #close()}
+   *                             method is called.
+   * @param mongoTombstoneDBName The specific Mongo database to connect to.
+   * @param recordPersistence    Persistence access for live records. Can be null, in which case
+   *                             this object will not be suitable for creating tombstones for live
+   *                             records. Note: this instance will not take responsibility for
+   *                             closing this persistence object.
+   * @throws SetupRelatedIndexingException In the case of setup issues.
+   */
+  public TombstonePersistenceV2(MongoClientProvider<SetupRelatedIndexingException> mongoClientProvider,
+      String mongoTombstoneDBName, RecordPersistence<FullBeanImpl> recordPersistence)
+      throws SetupRelatedIndexingException {
+    this.mongoClientToClose = mongoClientProvider.createMongoClient();
+    this.tombstoneRecordDao = new RecordDao(this.mongoClientToClose, mongoTombstoneDBName);
+    this.recordPersistence = recordPersistence;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param tombstoneRecordDao DAO object for record tombstones. Note: this instance will not take
+   *                           responsibility for closing this client.
    * @param recordPersistence  Persistence access for live records. Can be null, in which case this
-   *                           object will not be suitable for creating tombstones for live
-   *                           records.
+   *                           object will not be suitable for creating tombstones for live records.
+   *                           Note: this instance will not take responsibility for closing this
+   *                           persistence object.
    */
   public TombstonePersistenceV2(RecordDao tombstoneRecordDao,
       RecordPersistence<FullBeanImpl> recordPersistence) {
+    this.mongoClientToClose = null;
     this.tombstoneRecordDao = tombstoneRecordDao;
     this.recordPersistence = recordPersistence;
-    this.fullBeanConverterSupplier = RdfToFullBeanConverter::new;
   }
 
   private FullBeanImpl convertRDFToFullBean(RdfWrapper rdf) {
-    final RdfToFullBeanConverter fullBeanConverter = fullBeanConverterSupplier.get();
+    final RdfToFullBeanConverter fullBeanConverter = new RdfToFullBeanConverter();
     return fullBeanConverter.convertRdfToFullBean(rdf);
   }
 
@@ -115,6 +141,13 @@ public class TombstonePersistenceV2 implements TombstonePersistence {
       default -> {
         return true;
       }
+    }
+  }
+
+  @Override
+  public void close() throws IOException {
+    if (mongoClientToClose != null) {
+      this.mongoClientToClose.close();
     }
   }
 }

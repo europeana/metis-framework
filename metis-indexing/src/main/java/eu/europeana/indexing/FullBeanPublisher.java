@@ -10,7 +10,6 @@ import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.record.v2.RecordPersistenceV2;
 import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
 import eu.europeana.indexing.redirect.v2.RedirectPersistenceV2;
@@ -21,7 +20,6 @@ import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import eu.europeana.metis.utils.DepublicationReason;
 import java.util.Date;
 import java.util.List;
-import java.util.function.Supplier;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -53,30 +51,10 @@ public class FullBeanPublisher {
    */
   FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
       SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf) {
-    this(recordDao, tombstoneRecordDao, recordRedirectDao, solrClient, preserveUpdateAndCreateTimesFromRdf,
-        RdfToFullBeanConverter::new);
-  }
-
-  /**
-   * Constructor for testing purposes.
-   *
-   * @param recordDao The Mongo persistence.
-   * @param tombstoneRecordDao The Mongo persistence.
-   * @param recordRedirectDao The record redirect dao
-   * @param solrClient The searchable persistence.
-   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
-   * updated and created dates that are set in the input record or if they should be recomputed
-   * using any equivalent record that is currently in the database.
-   * @param fullBeanConverterSupplier Supplies an instance of {@link RdfToFullBeanConverter} used to parse strings to instances of
-   * {@link FullBeanImpl}. Will be called once during every publish.
-   */
-  FullBeanPublisher(RecordDao recordDao, RecordDao tombstoneRecordDao, RecordRedirectDao recordRedirectDao,
-      SolrClient solrClient, boolean preserveUpdateAndCreateTimesFromRdf,
-      Supplier<RdfToFullBeanConverter> fullBeanConverterSupplier) {
     this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
     this.recordPersistence = new RecordPersistenceV2(recordDao);
     this.tombstonePersistence = new TombstonePersistenceV2(tombstoneRecordDao, this.recordPersistence);
-    this.searchPersistence = new SearchPersistenceV2(solrClient, fullBeanConverterSupplier);
+    this.searchPersistence = new SearchPersistenceV2(solrClient);
     this.redirectPersistence = new RedirectPersistenceV2(recordRedirectDao, this.searchPersistence);
   }
 
