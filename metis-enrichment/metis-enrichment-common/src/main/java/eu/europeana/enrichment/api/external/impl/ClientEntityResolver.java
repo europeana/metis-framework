@@ -7,6 +7,7 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
+import eu.europeana.enrichment.api.config.EntityClientExtendedConfiguration;
 import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -319,33 +320,38 @@ public class ClientEntityResolver implements EntityResolver {
   /**
    * Create client entity resolver.
    *
-   * @param entityApiClientConfiguration the entity api client configuration
+   * @param config the entity api client configuration
    * @return the client entity resolver
    * @throws EntityClientException the entity client exception
    */
   @NotNull
-  public static ClientEntityResolver create(EntityClientConfiguration entityApiClientConfiguration)
+  public static ClientEntityResolver create(EntityClientExtendedConfiguration config)
       throws EntityClientException {
     return new ClientEntityResolver(
         new EntityApiClient(
-            entityApiClientConfiguration.getEntityApiUrl(),
-            entityApiClientConfiguration.getEntityManagementUrl(),
-            AuthenticationBuilder.newAuthentication(entityApiClientConfiguration),
-            PoolingAsyncClientConnectionManagerBuilder.create()
-                                                      .setMaxConnTotal(200)
-                                                      .setMaxConnPerRoute(50)
-                                                      .setDefaultConnectionConfig(
-                                                          ConnectionConfig.custom()
-                                                                          .setValidateAfterInactivity(TimeValue.ofSeconds(5))
-                                                                          .setTimeToLive(TimeValue.ofSeconds(60))
-                                                                          .build())
-                                                      .build(),
+            config.getEntityApiUrl(),
+            config.getEntityManagementUrl(),
+            AuthenticationBuilder.newAuthentication(config),
+            PoolingAsyncClientConnectionManagerBuilder
+                .create()
+                .setMaxConnTotal(config.getMaxConnectionsTotal())
+                .setMaxConnPerRoute(config.getMaxConnectionsPerRoute())
+                .setDefaultConnectionConfig(
+                    ConnectionConfig.custom()
+                                    .setValidateAfterInactivity(TimeValue
+                                        .ofSeconds(config.getSecondsValidateAfterInactivity()))
+                                    .setTimeToLive(TimeValue.ofSeconds(config.getTimeToLiveSeconds()))
+                                    .build())
+                .build(),
             IOReactorConfig.custom()
-                           .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                           .setSoTimeout(
+                               Timeout.ofSeconds(config.getReactorSocketTimeoutSeconds()))
                            .build(),
             RequestConfig.custom()
-                         .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
-                         .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                         .setConnectionRequestTimeout(
+                             Timeout.ofSeconds(config.getRequestConnectionTimeoutSeconds()))
+                         .setResponseTimeout(
+                             Timeout.ofSeconds(config.getRequestConnectionTimeoutSeconds()))
                          .build()
         ));
   }

@@ -2,6 +2,7 @@ package eu.europeana.enrichment.rest.client.dereference;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
+import eu.europeana.enrichment.api.config.EntityClientExtendedConfiguration;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -48,7 +49,7 @@ public class DereferencerImpl implements Dereferencer {
 
   private final EntityMergeEngine entityMergeEngine;
   private final EntityResolver entityResolver;
-  private final EntityClientConfiguration entityApiClientConfiguration;
+  private final EntityClientExtendedConfiguration entityApiClientConfiguration;
   private final DereferenceClient dereferenceClient;
 
   /**
@@ -73,11 +74,11 @@ public class DereferencerImpl implements Dereferencer {
    * @param entityApiClientConfiguration the configuration to create entity resolvers
    * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
    */
-  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityClientConfiguration entityApiClientConfiguration,
+  public DereferencerImpl(EntityMergeEngine entityMergeEngine, EntityClientExtendedConfiguration entityApiClientConfiguration,
       DereferenceClient dereferenceClient) {
     this.entityMergeEngine = entityMergeEngine;
     this.entityResolver = null;
-    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
+    this.entityApiClientConfiguration = new EntityClientExtendedConfiguration(entityApiClientConfiguration);
     this.dereferenceClient = dereferenceClient;
   }
 

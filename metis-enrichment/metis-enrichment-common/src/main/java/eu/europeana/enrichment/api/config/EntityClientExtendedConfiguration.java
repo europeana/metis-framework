@@ -8,6 +8,14 @@ import java.util.Properties;
  */
 public class EntityClientExtendedConfiguration extends EntityClientConfiguration {
 
+  private static final int MAX_CONNECTIONS_TOTAL = 200;
+  private static final int MAX_CONNECTIONS_PER_ROUTE = 50;
+  private static final int VALIDATE_AFTER_INACTIVITY = 5;
+  private static final int TIME_TO_LIVE = 5;
+  private static final int SOCKET_TIMEOUT = 30;
+  private static final int REQUEST_CONNECTION_TIMEOUT = 30;
+  private static final int RESPONSE_CONNECTION_TIMEOUT = 30;
+
   /**
    * Instantiates a new Entity client extended configuration.
    *
@@ -23,7 +31,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the max connections total
    */
   public int getMaxConnectionsTotal() {
-    return (int) super.get("maxConnectionsTotal");
+    return Integer.parseInt(super.getProperty("maxConnectionsTotal", String.valueOf(MAX_CONNECTIONS_TOTAL)));
   }
 
   /**
@@ -41,7 +49,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the max connections per route
    */
   public int getMaxConnectionsPerRoute() {
-    return (int) super.get("maxConnectionsPerRoute");
+    return Integer.parseInt(super.getProperty("maxConnectionsPerRoute", String.valueOf(MAX_CONNECTIONS_PER_ROUTE)));
   }
 
   /**
@@ -59,7 +67,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the seconds validate after inactivity
    */
   public int getSecondsValidateAfterInactivity() {
-    return (int) super.get("secondsValidateAfterInactivity");
+    return Integer.parseInt(super.getProperty("secondsValidateAfterInactivity", String.valueOf(VALIDATE_AFTER_INACTIVITY)));
   }
 
   /**
@@ -77,7 +85,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the time to live seconds
    */
   public int getTimeToLiveSeconds() {
-    return (int) super.get("timeToLiveSeconds");
+    return Integer.parseInt(super.getProperty("timeToLiveSeconds", String.valueOf(TIME_TO_LIVE)));
   }
 
   /**
@@ -95,7 +103,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the reactor socket timeout seconds
    */
   public int getReactorSocketTimeoutSeconds() {
-    return (int) super.get("reactorSocketTimeout");
+    return Integer.parseInt(super.getProperty("reactorSocketTimeout", String.valueOf(SOCKET_TIMEOUT)));
   }
 
   /**
@@ -113,7 +121,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the request connection timeout seconds
    */
   public int getRequestConnectionTimeoutSeconds() {
-    return (int) super.get("requestConnectionTimeout");
+    return Integer.parseInt(super.getProperty("requestConnectionTimeout", String.valueOf(REQUEST_CONNECTION_TIMEOUT)));
   }
 
   /**
@@ -131,7 +139,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the response connection timeout seconds
    */
   public int getResponseConnectionTimeoutSeconds() {
-    return (int) super.get("responseConnectionTimeout");
+    return Integer.parseInt(super.getProperty("responseConnectionTimeout", String.valueOf(RESPONSE_CONNECTION_TIMEOUT)));
   }
 
   /**

@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
+import eu.europeana.enrichment.api.config.EntityClientExtendedConfiguration;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
@@ -54,7 +55,7 @@ public class EnricherImpl implements Enricher {
                                                                  .toList();
   private final RecordParser recordParser;
   private final EntityResolver entityResolver;
-  private final EntityClientConfiguration entityApiClientConfiguration;
+  private final EntityClientExtendedConfiguration entityApiClientConfiguration;
   private final EntityMergeEngine entityMergeEngine;
 
   /**
@@ -78,10 +79,10 @@ public class EnricherImpl implements Enricher {
    * @param entityApiClientConfiguration the configuration to create entity resolvers
    * @param entityMergeEngine the entity merge engine
    */
-  public EnricherImpl(RecordParser recordParser, EntityClientConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
+  public EnricherImpl(RecordParser recordParser, EntityClientExtendedConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
     this.entityResolver = null;
-    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
+    this.entityApiClientConfiguration = new EntityClientExtendedConfiguration(entityApiClientConfiguration);
     this.entityMergeEngine = entityMergeEngine;
   }
 

@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client.dereference;
 
+import eu.europeana.enrichment.api.config.EntityClientExtendedConfiguration;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
@@ -85,11 +86,11 @@ public class DereferencerProvider extends ConnectionProvider {
         }
 
         // Create the enrichment client if needed
-        final EntityClientConfiguration entityClientConfiguration;
+        final EntityClientExtendedConfiguration entityClientConfiguration;
         if (hasEntityApiClientProperties()) {
             final Properties properties = buildEntityApiClientProperties(entityManagementUrl,
                 entityApiUrl, entityApiTokenEndpoint, entityApiGrantParams);
-            entityClientConfiguration = new EntityClientConfiguration(properties);
+            entityClientConfiguration = new EntityClientExtendedConfiguration(properties);
         } else {
             entityClientConfiguration = null;
         }
