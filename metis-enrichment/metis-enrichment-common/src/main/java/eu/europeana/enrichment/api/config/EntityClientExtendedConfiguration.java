@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.config;
 
 import eu.europeana.entity.client.config.EntityClientConfiguration;
+import java.io.Serial;
 import java.util.Properties;
 
 /**
@@ -8,6 +9,8 @@ import java.util.Properties;
  */
 public class EntityClientExtendedConfiguration extends EntityClientConfiguration {
 
+  @Serial
+  private static final long serialVersionUID = 7251498348801958021L;
   private static final int MAX_CONNECTIONS_TOTAL = 200;
   private static final int MAX_CONNECTIONS_PER_ROUTE = 50;
   private static final int VALIDATE_AFTER_INACTIVITY = 5;
@@ -31,7 +34,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the max connections total
    */
   public int getMaxConnectionsTotal() {
-    return Integer.parseInt(super.getProperty("maxConnectionsTotal", String.valueOf(MAX_CONNECTIONS_TOTAL)));
+    return Integer.parseInt(this.getProperty("maxConnectionsTotal", String.valueOf(MAX_CONNECTIONS_TOTAL)));
   }
 
   /**
@@ -40,7 +43,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param maxConnectionsTotal the max connections total
    */
   public void setMaxConnectionsTotal(int maxConnectionsTotal) {
-    super.put("maxConnectionsTotal", maxConnectionsTotal);
+    this.put("maxConnectionsTotal", maxConnectionsTotal);
   }
 
   /**
@@ -49,7 +52,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the max connections per route
    */
   public int getMaxConnectionsPerRoute() {
-    return Integer.parseInt(super.getProperty("maxConnectionsPerRoute", String.valueOf(MAX_CONNECTIONS_PER_ROUTE)));
+    return Integer.parseInt(this.getProperty("maxConnectionsPerRoute", String.valueOf(MAX_CONNECTIONS_PER_ROUTE)));
   }
 
   /**
@@ -58,7 +61,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param maxConnectionsPerRoute the max connections per route
    */
   public void setMaxConnectionsPerRoute(int maxConnectionsPerRoute) {
-    super.put("maxConnectionsPerRoute", maxConnectionsPerRoute);
+    this.put("maxConnectionsPerRoute", maxConnectionsPerRoute);
   }
 
   /**
@@ -67,7 +70,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the seconds validate after inactivity
    */
   public int getSecondsValidateAfterInactivity() {
-    return Integer.parseInt(super.getProperty("secondsValidateAfterInactivity", String.valueOf(VALIDATE_AFTER_INACTIVITY)));
+    return Integer.parseInt(this.getProperty("secondsValidateAfterInactivity", String.valueOf(VALIDATE_AFTER_INACTIVITY)));
   }
 
   /**
@@ -76,7 +79,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param secondsValidateAfterInactivity the seconds validate after inactivity
    */
   public void setSecondsValidateAfterInactivity(int secondsValidateAfterInactivity) {
-    super.put("secondsValidateAfterInactivity", secondsValidateAfterInactivity);
+    this.put("secondsValidateAfterInactivity", secondsValidateAfterInactivity);
   }
 
   /**
@@ -85,7 +88,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the time to live seconds
    */
   public int getTimeToLiveSeconds() {
-    return Integer.parseInt(super.getProperty("timeToLiveSeconds", String.valueOf(TIME_TO_LIVE)));
+    return Integer.parseInt(this.getProperty("timeToLiveSeconds", String.valueOf(TIME_TO_LIVE)));
   }
 
   /**
@@ -94,7 +97,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param timeToLiveSeconds the time to live seconds
    */
   public void setTimeToLiveSeconds(int timeToLiveSeconds) {
-    super.put("timeToLiveSeconds", timeToLiveSeconds);
+    this.put("timeToLiveSeconds", timeToLiveSeconds);
   }
 
   /**
@@ -103,7 +106,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the reactor socket timeout seconds
    */
   public int getReactorSocketTimeoutSeconds() {
-    return Integer.parseInt(super.getProperty("reactorSocketTimeout", String.valueOf(SOCKET_TIMEOUT)));
+    return Integer.parseInt(this.getProperty("reactorSocketTimeout", String.valueOf(SOCKET_TIMEOUT)));
   }
 
   /**
@@ -112,7 +115,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param reactorSocketTimeout the reactor socket timeout
    */
   public void setReactorSocketTimeoutSeconds(int reactorSocketTimeout) {
-    super.put("reactorSocketTimeout", reactorSocketTimeout);
+    this.put("reactorSocketTimeout", reactorSocketTimeout);
   }
 
   /**
@@ -121,7 +124,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the request connection timeout seconds
    */
   public int getRequestConnectionTimeoutSeconds() {
-    return Integer.parseInt(super.getProperty("requestConnectionTimeout", String.valueOf(REQUEST_CONNECTION_TIMEOUT)));
+    return Integer.parseInt(this.getProperty("requestConnectionTimeout", String.valueOf(REQUEST_CONNECTION_TIMEOUT)));
   }
 
   /**
@@ -130,7 +133,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param requestConnectionTimeout the request connection timeout
    */
   public void setRequestConnectionTimeoutSeconds(int requestConnectionTimeout) {
-    super.put("requestConnectionTimeout", requestConnectionTimeout);
+    this.put("requestConnectionTimeout", requestConnectionTimeout);
   }
 
   /**
@@ -139,7 +142,7 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @return the response connection timeout seconds
    */
   public int getResponseConnectionTimeoutSeconds() {
-    return Integer.parseInt(super.getProperty("responseConnectionTimeout", String.valueOf(RESPONSE_CONNECTION_TIMEOUT)));
+    return Integer.parseInt(this.getProperty("responseConnectionTimeout", String.valueOf(RESPONSE_CONNECTION_TIMEOUT)));
   }
 
   /**
@@ -148,6 +151,6 @@ public class EntityClientExtendedConfiguration extends EntityClientConfiguration
    * @param responseConnectionTimeout the response connection timeout
    */
   public void setResponseConnectionTimeoutSeconds(int responseConnectionTimeout) {
-    super.put("responseConnectionTimeout", responseConnectionTimeout);
+    this.put("responseConnectionTimeout", responseConnectionTimeout);
   }
 }
