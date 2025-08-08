@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:cc="http://creativecommons.org/ns#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <edm:ProvidedCHO rdf:about="/00000/some_record_id1"/>
+    <edm:WebResource rdf:about=" http://www.cmcassociates.co.uk/Skara_Brae/scandata/house10/sb10_scandata_th.jpg">
+        <edm:pid>ark:/12148/123</edm:pid>
+        <dc:description xml:lang="en">Leica scan of House 01Collection of 27 scans, totalling 166 million points.</dc:description>
+        <dc:format xml:lang="en">Leica PTX</dc:format>
+        <dc:rights xml:lang="en">CDDV</dc:rights>
+        <dc:source xml:lang="en">Scottish 10</dc:source>
+        <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    </edm:WebResource>
+    <edm:Place rdf:about="iid:4387/SP.1">
+        <wgs84_pos:lat>59.04861</wgs84_pos:lat>
+        <wgs84_pos:long>-3.343056</wgs84_pos:long>
+        <wgs84_pos:alt>7.0</wgs84_pos:alt>
+        <skos:prefLabel xml:lang="en">Skara Brae</skos:prefLabel>
+    </edm:Place>
+    <edm:TimeSpan rdf:about="HA/936#timespan">
+        <skos:prefLabel xml:lang="en">Neolithic</skos:prefLabel>
+        <edm:begin>-3180</edm:begin>
+        <edm:end>-2500</edm:end>
+        <owl:sameAs rdf:resource=" https://www.wikidata.org/wiki/Q2314807"/>
+        <owl:sameAs rdf:resource=" http://vocab.getty.edu/aat/300019272"/>
+    </edm:TimeSpan>
+    <ore:Aggregation rdf:about="/aggregation/provider/00000/some_record_id1">
+        <edm:aggregatedCHO rdf:resource="/00000/some_record_id1"/>
+        <edm:dataProvider xml:lang="en">Historic Scotland</edm:dataProvider>
+        <edm:isShownAt rdf:resource="  http://cmcassociates.co.uk/Skara_Brae/landing/sb_h10_lidar.html"/>
+        <edm:isShownBy rdf:resource="http://cmcassociates.co.uk/Skara_Brae/landing/sb_h10_lidar.html"/>
+        <edm:object rdf:resource=" http://www.cmcassociates.co.uk/Skara_Brae/scandata/house10/sb10_scandata_th.jpg"/>
+        <edm:provider>CARARE</edm:provider>
+        <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+    </ore:Aggregation>
+    <ore:Proxy rdf:about="/proxy/provider/00000/some_record_id1">
+        <dc:description xml:lang="en">Point cloud model derived from LiDAR survey of the monument.Skara Brae is an archaeological site with exceptionally well preserved remains that show the stone built furniture and internal structure of ten Neolithic houses and their narrow connecting passageways. Radio Carbon dates show that the village was occupied for around 600 years between 3200 and 2200 BC. There appear to be two main structural phases to the occupation.House 10 lies on the far south-eastern side of the village. Its entrance is not related to the other buildings and it does not appear to be part of the main complex. The internal features of House 10 are very damaged and while it is of a good size it may be part of an earlier phase of occupation.The monument is now managed by Historic Scotland and is a key element of the Heart of Neolithic Orkney World Heritage Site. The Lidar survey was conducted by Scottish10 and made available by Centre for Digital Documentation and Visualisation (CDDV).</dc:description>
+        <dc:format>Leica PTX</dc:format>
+        <dc:identifier>http://3dicons.dcu.gr/object/HA/936</dc:identifier>
+        <dc:language xml:lang="en">English</dc:language>
+        <dc:relation rdf:resource=" http://3dicons.dcu.gr/object/HA/936"/>
+        <dc:relation rdf:resource=" http://3dicons.dcu.gr/object/HA/206"/>
+        <dc:rights xml:lang="en">© Historic Scotland</dc:rights>
+        <dc:source xml:lang="en">Historic Scotland</dc:source>
+        <dc:subject rdf:resource=" http://vocab.getty.edu/aat/300008372"/>
+        <dc:subject rdf:resource=" http://vocab.getty.edu/aat/300000810"/>
+        <dc:subject rdf:resource=" http://vocab.getty.edu/aat/300005433"/>
+        <dc:subject rdf:resource=" http://vocab.getty.edu/aat/300005433/XXXXXXXXX"/>
+        <dc:subject xml:lang="en">Settlement</dc:subject>
+        <dc:title xml:lang="en">Panoramic Photography of link path 7-8 at Skara Brae</dc:title>
+        <dc:type>3D</dc:type>
+        <dcterms:isPartOf xml:lang="en">3D ICONS</dcterms:isPartOf>
+        <dcterms:medium rdf:resource=" http://vocab.getty.edu/aat/300070971"/>
+        <dcterms:medium xml:lang="en">Dry Stone</dcterms:medium>
+        <dcterms:spatial rdf:resource="iid:4387/SP.1"/>
+        <dcterms:temporal xml:lang="en">Neolithic</dcterms:temporal>
+        <dcterms:temporal rdf:resource="HA/936#timespan"/>
+        <edm:pid>ark:/12148/cb12031244g</edm:pid>
+        <edm:pid>https://ark.bnf.fr/ark:/12148/bpt6k279983</edm:pid>
+        <edm:europeanaProxy>false</edm:europeanaProxy>
+        <ore:proxyFor rdf:resource="/00000/some_record_id1"/>
+        <ore:proxyIn rdf:resource="/aggregation/provider/00000/some_record_id1"/>
+        <edm:type>3D</edm:type>
+    </ore:Proxy>
+    <ore:Proxy rdf:about="/proxy/europeana/00000/some_record_id1">
+        <dc:identifier>CMC_HA/936</dc:identifier>
+        <edm:europeanaProxy>true</edm:europeanaProxy>
+        <ore:proxyFor rdf:resource="/00000/some_record_id1"/>
+        <ore:proxyIn rdf:resource="/aggregation/europeana/00000/some_record_id1"/>
+        <ore:lineage rdf:resource="/proxy/provider/00000/some_record_id1"/>
+    </ore:Proxy>
+    <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/00000/some_record_id1">
+        <edm:aggregatedCHO rdf:resource="/00000/some_record_id1"/>
+        <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+        <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+        <edm:datasetName>exampleName</edm:datasetName>
+        <edm:country>France</edm:country>
+        <edm:language>fr</edm:language>
+    </edm:EuropeanaAggregation>
+</rdf:RDF>
