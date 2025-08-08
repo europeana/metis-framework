@@ -11,9 +11,8 @@ import java.util.stream.Stream;
 
 /**
  * Implementations of this interface access and index EDM records in a persistence database.
- * @param <R> The type of the record that this persistence returns.
  */
-public interface RecordPersistence<R> extends Persistence {
+public interface RecordPersistence extends Persistence {
 
   /**
    * A wrapper for the dates computed while persisting records.
@@ -22,13 +21,6 @@ public interface RecordPersistence<R> extends Persistence {
    * @param createdDate The created date that is computed for the record.
    */
   record ComputedDates(Date updatedDate, Date createdDate) { }
-
-  /**
-   * Get the record with the given ID.
-   * @param rdfAbout The ID of the record to retrieve.
-   * @return The record. Can be null if no such record exists.
-   */
-  R getRecord(String rdfAbout);
 
   /**
    * This indexes for persistence according to the provided settings.
@@ -92,6 +84,7 @@ public interface RecordPersistence<R> extends Persistence {
    * @param maxUpdatedDate If not null, only counts records that have been updated strictly before
    *                       this date.
    * @throws IndexerRelatedIndexingException In case of issues.
+   * @return The number of records in the dataset.
    */
   long countRecords(String datasetId, Date maxUpdatedDate) throws IndexerRelatedIndexingException;
 
@@ -123,6 +116,7 @@ public interface RecordPersistence<R> extends Persistence {
    * @param maxUpdatedDate If not null, only removes records that have been updated strictly before
    *                       this date.
    * @throws IndexerRelatedIndexingException In case of issues.
+   * @return The number of records that were removed.
    */
   long removeDataset(String datasetId, Date maxUpdatedDate) throws IndexerRelatedIndexingException;
 }

@@ -3,6 +3,9 @@ package eu.europeana.indexing.common.contract;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import java.io.Closeable;
 
+/**
+ * Implementations of this interface access and index data persistence database.
+ */
 public interface Persistence extends Closeable {
 
   /**

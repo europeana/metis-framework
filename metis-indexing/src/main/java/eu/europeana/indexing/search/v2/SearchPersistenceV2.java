@@ -4,7 +4,7 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.SearchPersistence;
+import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.PublishToSolrIndexingException;
@@ -40,7 +40,8 @@ import org.apache.solr.common.params.MapSolrParams;
 /**
  * This class implements search persistence using the record Solr V2.
  */
-public class SearchPersistenceV2 implements SearchPersistence<SolrDocument, SolrDocumentList> {
+public class SearchPersistenceV2
+    implements QueryableSearchPersistence<SolrDocument, SolrDocumentList> {
 
   private static final String SOLR_SERVER_PUBLISH_ERROR = "Could not publish to Solr server.";
   private static final String SOLR_SERVER_PUBLISH_RETRY_ERROR = "Could not publish to Solr server after retry.";

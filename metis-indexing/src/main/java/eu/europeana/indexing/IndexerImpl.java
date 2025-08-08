@@ -127,7 +127,6 @@ public class IndexerImpl<T> implements Indexer<T> {
 
   @Override
   public T getTombstone(String rdfAbout) throws IndexingException {
-    // TODO cast
     return retryableExternalRequestForNetworkExceptionsThrowing(
         () -> this.persistenceAccess.getTombstonePersistence().getTombstone(rdfAbout));
   }

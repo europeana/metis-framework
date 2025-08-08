@@ -1,8 +1,8 @@
 package eu.europeana.indexing.redirect.v2;
 
 import com.mongodb.client.MongoClient;
+import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
-import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
@@ -56,7 +56,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
   private final MongoClient mongoClientToClose;
   private final RecordRedirectDao recordRedirectDao;
 
-  private final SearchPersistence<SolrDocument, ?> searchPersistence;
+  private final QueryableSearchPersistence<SolrDocument, ?> searchPersistence;
 
   /**
    * Constructor.
@@ -71,7 +71,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
    */
   public RedirectPersistenceV2(
       MongoClientProvider<SetupRelatedIndexingException> mongoClientProvider,
-      String mongoRedirectDBName, SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence)
+      String mongoRedirectDBName, QueryableSearchPersistence<SolrDocument, ?> searchPersistence)
       throws SetupRelatedIndexingException {
     this.mongoClientToClose = mongoClientProvider.createMongoClient();
     this.recordRedirectDao = new RecordRedirectDao(this.mongoClientToClose, mongoRedirectDBName);
@@ -87,7 +87,7 @@ public final class RedirectPersistenceV2 implements RedirectPersistence {
    *                          responsibility for closing this persistence object.
    */
   public RedirectPersistenceV2(RecordRedirectDao recordRedirectDao,
-      SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence) {
+      QueryableSearchPersistence<SolrDocument, ?> searchPersistence) {
     this.mongoClientToClose = null;
     this.recordRedirectDao = recordRedirectDao;
     this.searchPersistence = searchPersistence;

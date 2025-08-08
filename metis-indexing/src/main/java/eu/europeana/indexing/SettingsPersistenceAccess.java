@@ -2,10 +2,10 @@ package eu.europeana.indexing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.Persistence;
-import eu.europeana.indexing.common.contract.RecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
+import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
-import eu.europeana.indexing.common.contract.SearchPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.RedirectionNotSupportedIndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
@@ -31,10 +31,10 @@ import org.apache.solr.common.SolrDocumentList;
 public final class SettingsPersistenceAccess implements
     PersistenceAccessForIndexing<FullBeanImpl> {
 
-  private final RecordPersistence<FullBeanImpl> recordPersistence;
+  private final QueryableRecordPersistence<FullBeanImpl> recordPersistence;
   private final RedirectPersistence redirectPersistence;
-  private final SearchPersistence<SolrDocument, SolrDocumentList> searchPersistence;
-  private final TombstonePersistence<FullBeanImpl> tombstonePersistence;
+  private final QueryableSearchPersistence<SolrDocument, SolrDocumentList> searchPersistence;
+  private final QueryableTombstonePersistence<FullBeanImpl> tombstonePersistence;
 
   /**
    * Constructor. Sets up the required connections using the supplied settings.
@@ -73,7 +73,7 @@ public final class SettingsPersistenceAccess implements
   }
 
   @Override
-  public RecordPersistence<FullBeanImpl> getRecordPersistence() {
+  public QueryableRecordPersistence<FullBeanImpl> getRecordPersistence() {
     return this.recordPersistence;
   }
 
@@ -87,12 +87,12 @@ public final class SettingsPersistenceAccess implements
   }
 
   @Override
-  public SearchPersistence<SolrDocument, SolrDocumentList> getSearchPersistence() {
+  public QueryableSearchPersistence<SolrDocument, SolrDocumentList> getSearchPersistence() {
     return this.searchPersistence;
   }
 
   @Override
-  public TombstonePersistence<FullBeanImpl> getTombstonePersistence()
+  public QueryableTombstonePersistence<FullBeanImpl> getTombstonePersistence()
       throws TombstoneHandlingNotSupportedIndexingException {
     if (this.tombstonePersistence == null) {
       throw new TombstoneHandlingNotSupportedIndexingException();

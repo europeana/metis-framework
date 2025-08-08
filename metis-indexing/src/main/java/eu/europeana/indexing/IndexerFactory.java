@@ -15,16 +15,30 @@ public class IndexerFactory<T> {
   private final IndexerConnectionSupplier<T> connectionProviderSupplier;
 
   /**
-   * Constructor for setting up a factory using an {@link IndexingSettings} object.
+   * Constructor for setting up a factory using an {@link IndexerConnectionSupplier}. For each
+   * indexer that's created using this factory, the method {@link IndexerConnectionSupplier#get()}
+   * will be called exactly once. Note: closing any indexer created using this object (i.e. calling
+   * {@link Indexer#close()}) will result in a call to {@link PersistenceAccessForIndexing#close()} on
+   * its connection provider.
+   *
+   * @param connectionProviderSupplier A supplier for connection providers.
+   */
+  public IndexerFactory(IndexerConnectionSupplier<T> connectionProviderSupplier) {
+    this.connectionProviderSupplier = connectionProviderSupplier;
+  }
+
+  /**
+   * Creator for setting up a factory using an {@link IndexingSettings} object.
    *
    * @param settings The settings to be applied to the indexer.
+   * @return A factory for indexer instances.
    */
   public static IndexerFactory<FullBeanImpl> create(IndexingSettings settings) {
     return new IndexerFactory<>(() -> new SettingsPersistenceAccess(settings));
   }
 
   /**
-   * Constructor for setting up a factory using already existing Mongo and Solr clients. Note: the
+   * Creator for setting up a factory using already existing Mongo and Solr clients. Note: the
    * caller is responsible for closing the clients. Any indexers created through the {@link
    * #getIndexer()} method will then no longer work and no new ones can be created. This method
    * facilitates creating indexer instances that don't support tombstone handling.
@@ -33,6 +47,7 @@ public class IndexerFactory<T> {
    * @param recordRedirectDao The record redirect dao. If null, an indexer will be created that
    *                          does not support redirection.
    * @param solrClient The Solr client to use.
+   * @return A factory for indexer instances.
    */
   public static IndexerFactory<FullBeanImpl> create(RecordDao recordDao,
       RecordRedirectDao recordRedirectDao, SolrClient solrClient) {
@@ -50,24 +65,12 @@ public class IndexerFactory<T> {
    * @param recordRedirectDao The record redirect dao. If null, indexer instances will be created
    *                          that don't support redirection.
    * @param solrClient The Solr client to use.
+   * @return A factory for indexer instances.
    */
   public static IndexerFactory<FullBeanImpl> create(RecordDao recordDao, RecordDao tombstoneRecordDao,
       RecordRedirectDao recordRedirectDao, SolrClient solrClient) {
     return new IndexerFactory<>(() -> new ClientsPersistenceAccess(recordDao, tombstoneRecordDao,
         recordRedirectDao, solrClient));
-  }
-
-  /**
-   * Constructor for setting up a factory using an {@link IndexerConnectionSupplier}. For each
-   * indexer that's created using this factory, the method {@link IndexerConnectionSupplier#get()}
-   * will be called exactly once. Note: closing any indexer created using this object (i.e. calling
-   * {@link Indexer#close()}) will result in a call to {@link PersistenceAccessForIndexing#close()} on
-   * its connection provider.
-   *
-   * @param connectionProviderSupplier A supplier for connection providers.
-   */
-  public IndexerFactory(IndexerConnectionSupplier<T> connectionProviderSupplier) {
-    this.connectionProviderSupplier = connectionProviderSupplier;
   }
 
   /**

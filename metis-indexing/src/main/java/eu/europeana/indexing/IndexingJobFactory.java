@@ -1,8 +1,9 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.common.contract.RecordPersistence;
-import eu.europeana.indexing.common.contract.SearchPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
+import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
+import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.record.v2.RecordPersistenceV2;
 import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
@@ -12,6 +13,8 @@ import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.solr.connection.SolrClientProvider;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.util.Objects;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 
 /**
  * A factory for specific indexing jobs (i.e., individual steps in the indexing process).
@@ -21,10 +24,10 @@ public class IndexingJobFactory {
   /**
    * Gets an indexer for search.
    * @param solrProperties The solr properties.
-   * @return the indexer.
+   * @return the indexer, instance of {@link eu.europeana.indexing.common.contract.SearchPersistence}.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public SearchPersistence<?, ?> createIndexerForSearch(
+  public QueryableSearchPersistence<SolrDocument, SolrDocumentList> createIndexerForSearch(
       SolrProperties<SetupRelatedIndexingException> solrProperties)
       throws SetupRelatedIndexingException {
     Objects.requireNonNull(solrProperties, "solrProperties must not be null");
@@ -35,10 +38,10 @@ public class IndexingJobFactory {
    * Gets an indexer for persistence.
    * @param mongoProperties The mongo properties.
    * @param mongoDatabaseName The database name for the Mongo database.
-   * @return the indexer.
+   * @return the indexer, instance of {@link eu.europeana.indexing.common.contract.RecordPersistence}.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public RecordPersistence<?> createIndexerForPersistence(
+  public QueryableRecordPersistence<FullBeanImpl> createIndexerForPersistence(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
     return new RecordPersistenceV2(new MongoClientProvider<>(mongoProperties), mongoDatabaseName);
@@ -49,10 +52,10 @@ public class IndexingJobFactory {
    * for a live record.
    * @param mongoProperties The mongo properties.
    * @param mongoDatabaseName The database name for the Mongo database.
-   * @return the indexer.
+   * @return the indexer, instance of {@link eu.europeana.indexing.common.contract.TombstonePersistence}.
    * @throws SetupRelatedIndexingException the setup related indexing exception
    */
-  public TombstonePersistence createIndexerForTombstones(
+  public QueryableTombstonePersistence<FullBeanImpl> createIndexerForTombstones(
       MongoProperties<SetupRelatedIndexingException> mongoProperties,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
     return new TombstonePersistenceV2(new MongoClientProvider<>(mongoProperties),

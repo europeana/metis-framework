@@ -11,6 +11,9 @@ public class RedirectionNotSupportedIndexingException extends IndexingException 
   @Serial
   private static final long serialVersionUID = -3700583844406879573L;
 
+  /**
+   * Constructor.
+   */
   public RedirectionNotSupportedIndexingException() {
     super("Redirection not supported.");
   }

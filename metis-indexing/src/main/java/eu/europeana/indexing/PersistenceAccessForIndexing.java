@@ -1,9 +1,9 @@
 package eu.europeana.indexing;
 
+import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.RedirectionNotSupportedIndexingException;
 import eu.europeana.indexing.common.exception.TombstoneHandlingNotSupportedIndexingException;
@@ -35,7 +35,7 @@ public interface PersistenceAccessForIndexing<T> extends Closeable {
    *
    * @return Record persistence access.
    */
-  RecordPersistence<?> getRecordPersistence();
+  RecordPersistence getRecordPersistence();
 
   /**
    * Provide redirect persistence access.
@@ -51,7 +51,7 @@ public interface PersistenceAccessForIndexing<T> extends Closeable {
    *
    * @return Search persistence access.
    */
-  SearchPersistence<?, ?> getSearchPersistence();
+  SearchPersistence getSearchPersistence();
 
   /**
    * Provide tombstone persistence access.
@@ -60,6 +60,6 @@ public interface PersistenceAccessForIndexing<T> extends Closeable {
    * @throws TombstoneHandlingNotSupportedIndexingException if this access provider does not support
    *                                                        tombstone handling.
    */
-  TombstonePersistence<T> getTombstonePersistence()
+  QueryableTombstonePersistence<T> getTombstonePersistence()
       throws TombstoneHandlingNotSupportedIndexingException;
 }

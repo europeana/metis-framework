@@ -7,7 +7,7 @@ import dev.morphia.query.FindOptions;
 import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.RecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
@@ -30,7 +30,7 @@ import java.util.stream.StreamSupport;
 /**
  * This class implements record persistence using the record MongoDB V2.
  */
-public class RecordPersistenceV2 implements RecordPersistence<FullBeanImpl> {
+public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanImpl> {
 
   private static final String ID_FIELD = "_id";
   private static final String ABOUT_FIELD = "about";

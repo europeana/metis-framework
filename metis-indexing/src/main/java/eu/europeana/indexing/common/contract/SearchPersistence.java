@@ -5,26 +5,12 @@ import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Map;
 
 /**
- * Implementations of this interface access and index EDM records to a search database.
- *
- * @param <S> A search match object as returned by searching using this persistence access.
- * @param <L> A collection of search match objects as returned by using this persistence access.
+ * Implementations of this interface access and index EDM records in a search database.
  */
-public interface SearchPersistence<S, L extends Collection<S>> extends Persistence {
-
-  /**
-   * Perform a search using the given query parameters.
-   *
-   * @param queryParamMap The key-value map containing the query.
-   * @return A search result.
-   * @throws IndexerRelatedIndexingException In case of issues.
-   */
-  L search(Map<String, String> queryParamMap) throws IndexerRelatedIndexingException;
+public interface SearchPersistence extends Persistence {
 
   /**
    * This indexes for search according to the provided settings.

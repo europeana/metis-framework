@@ -13,14 +13,13 @@ import static org.mockito.Mockito.when;
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.web.exception.EuropeanaException;
 import eu.europeana.indexing.IndexerImplTest.IndexerImplLocalConfigTest;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
-import eu.europeana.indexing.common.contract.RecordPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
+import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
@@ -56,7 +55,6 @@ import java.util.stream.Collectors;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
-import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -156,12 +154,11 @@ class IndexerImplTest {
     assertNull(fullBean);
   }
 
-  private SolrDocument assertDocumentInSolr(String expectedId)
+  private void assertDocumentInSolr(String expectedId)
       throws IndexerRelatedIndexingException, RecordRelatedIndexingException {
     final String solrQuery = String.format("%s:\"%s\"", SolrV2Field.EUROPEANA_ID, ClientUtils.escapeQueryChars(expectedId));
     SolrDocumentList documents = IndexingTestUtils.getSolrDocuments(solrClient, solrQuery);
     assertEquals(expectedId, documents.getFirst().get("europeana_id"));
-    return documents.stream().findFirst().orElse(null);
   }
 
   private void assertNotExistsDocumentInSolr(String expectedId)
@@ -379,7 +376,7 @@ class IndexerImplTest {
   }
 
   @Test
-  void remove() throws IndexingException, IOException, SerializationException, SolrServerException, EuropeanaException {
+  void remove() throws IndexingException, IOException, SerializationException, SolrServerException {
     final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
 
     indexer.indexRdf(rdf, indexingProperties);
@@ -387,8 +384,8 @@ class IndexerImplTest {
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
-    RecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
-    RecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
+    QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new IndexerRelatedIndexingException("", new SocketTimeoutException()))
         .doCallRealMethod().when(spyAccess).removeRecord("/277/CMC_HA_1185");
     when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);
@@ -419,8 +416,8 @@ class IndexerImplTest {
     boolean result = indexer.indexTombstone("/277/CMC_HA_1185", DepublicationReason.GENERIC);
     assertTrue(result);
 
-    TombstonePersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getTombstonePersistence();
-    TombstonePersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    QueryableTombstonePersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getTombstonePersistence();
+    QueryableTombstonePersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new RuntimeException("", new SocketTimeoutException()))
         .doCallRealMethod().when(spyAccess).getTombstone("/277/CMC_HA_1185");
     when(settingsPersistenceAccessProvider.getTombstonePersistence()).thenReturn(spyAccess);
@@ -454,8 +451,8 @@ class IndexerImplTest {
     FullBean fullBean = indexer.getTombstone("/277/CMC_HA_1185");
     assertNotNull(fullBean);
 
-    TombstonePersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getTombstonePersistence();
-    TombstonePersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    QueryableTombstonePersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getTombstonePersistence();
+    QueryableTombstonePersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new IndexerRelatedIndexingException("", new SocketTimeoutException()))
         .doCallRealMethod().when(spyAccess).removeTombstone("/277/CMC_HA_1185");
     when(settingsPersistenceAccessProvider.getTombstonePersistence()).thenReturn(spyAccess);
@@ -523,8 +520,8 @@ class IndexerImplTest {
     assertDocumentInSolr("/277/CMC_HA_1185");
 
     Date now = Date.from(Instant.now());
-    RecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
-    RecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
+    QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new RuntimeException("", new SocketTimeoutException()))
         .doCallRealMethod().when(spyAccess).getRecordIds("277", now);
     when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);
@@ -551,8 +548,8 @@ class IndexerImplTest {
     assertDocumentInMongo("/277/CMC_HA_1185");
     assertDocumentInSolr("/277/CMC_HA_1185");
 
-    RecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
-    RecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
+    QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new RuntimeException("", new SocketTimeoutException()))
         .doCallRealMethod().when(spyAccess).countRecords("277", null);
     when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);

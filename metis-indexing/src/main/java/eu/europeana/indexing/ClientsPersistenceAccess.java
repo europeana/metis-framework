@@ -1,10 +1,7 @@
 package eu.europeana.indexing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
-import eu.europeana.indexing.common.contract.SearchPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.RedirectionNotSupportedIndexingException;
 import eu.europeana.indexing.common.exception.TombstoneHandlingNotSupportedIndexingException;
@@ -16,8 +13,6 @@ import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import java.util.Objects;
 import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
 
 /**
  * This class is an implementation of {@link PersistenceAccessForIndexing} that sets up persistence
@@ -44,7 +39,7 @@ record ClientsPersistenceAccess(RecordDao recordDao, RecordDao tombstoneRecordDa
   }
 
   @Override
-  public RecordPersistence<FullBeanImpl> getRecordPersistence() {
+  public RecordPersistenceV2 getRecordPersistence() {
     return new RecordPersistenceV2(recordDao);
   }
 
@@ -58,12 +53,12 @@ record ClientsPersistenceAccess(RecordDao recordDao, RecordDao tombstoneRecordDa
   }
 
   @Override
-  public SearchPersistence<SolrDocument, SolrDocumentList> getSearchPersistence() {
+  public SearchPersistenceV2 getSearchPersistence() {
     return new SearchPersistenceV2(solrClient);
   }
 
   @Override
-  public TombstonePersistence<FullBeanImpl> getTombstonePersistence()
+  public TombstonePersistenceV2 getTombstonePersistence()
       throws TombstoneHandlingNotSupportedIndexingException {
     if (tombstoneRecordDao == null) {
       throw new TombstoneHandlingNotSupportedIndexingException();

@@ -11,6 +11,9 @@ public class TombstoneHandlingNotSupportedIndexingException extends IndexingExce
   @Serial
   private static final long serialVersionUID = 3582800817492105493L;
 
+  /**
+   * Constructor.
+   */
   public TombstoneHandlingNotSupportedIndexingException() {
     super("Tombstone handling not supported.");
   }

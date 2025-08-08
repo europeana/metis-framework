@@ -6,8 +6,8 @@ import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.contract.RecordPersistence;
-import eu.europeana.indexing.common.contract.TombstonePersistence;
+import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
+import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.common.exception.IndexingException;
 import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This class implements tombstone persistence using the tombstone MongoDB V2.
  */
-public class TombstonePersistenceV2 implements TombstonePersistence<FullBeanImpl> {
+public class TombstonePersistenceV2 implements QueryableTombstonePersistence<FullBeanImpl> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TombstonePersistenceV2.class);
 
@@ -35,7 +35,7 @@ public class TombstonePersistenceV2 implements TombstonePersistence<FullBeanImpl
 
   private final MongoClient mongoClientToClose;
   private final RecordDao tombstoneRecordDao;
-  private final RecordPersistence<FullBeanImpl> recordPersistence;
+  private final QueryableRecordPersistence<FullBeanImpl> recordPersistence;
 
   private final RDFDeserializer rdfDeserializer = new RDFDeserializer();
 
@@ -53,7 +53,7 @@ public class TombstonePersistenceV2 implements TombstonePersistence<FullBeanImpl
    * @throws SetupRelatedIndexingException In the case of setup issues.
    */
   public TombstonePersistenceV2(MongoClientProvider<SetupRelatedIndexingException> mongoClientProvider,
-      String mongoTombstoneDBName, RecordPersistence<FullBeanImpl> recordPersistence)
+      String mongoTombstoneDBName, QueryableRecordPersistence<FullBeanImpl> recordPersistence)
       throws SetupRelatedIndexingException {
     this.mongoClientToClose = mongoClientProvider.createMongoClient();
     this.tombstoneRecordDao = new RecordDao(this.mongoClientToClose, mongoTombstoneDBName);
@@ -71,7 +71,7 @@ public class TombstonePersistenceV2 implements TombstonePersistence<FullBeanImpl
    *                           persistence object.
    */
   public TombstonePersistenceV2(RecordDao tombstoneRecordDao,
-      RecordPersistence<FullBeanImpl> recordPersistence) {
+      QueryableRecordPersistence<FullBeanImpl> recordPersistence) {
     this.mongoClientToClose = null;
     this.tombstoneRecordDao = tombstoneRecordDao;
     this.recordPersistence = recordPersistence;
