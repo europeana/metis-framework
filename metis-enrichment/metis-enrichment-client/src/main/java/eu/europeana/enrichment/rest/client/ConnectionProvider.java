@@ -132,16 +132,20 @@ public class ConnectionProvider {
    * @return the boolean
    */
   protected boolean hasEntityClientConfiguration() {
-    return this.entityApiClientConfiguration.containsKey("entity.management.url")
-        && this.entityApiClientConfiguration.containsKey("entity.api.url")
-        && this.entityApiClientConfiguration.containsKey("token_endpoint")
-        && this.entityApiClientConfiguration.containsKey("grant_params")
-        && this.entityApiClientConfiguration.containsKey("maxConnectionsTotal")
-        && this.entityApiClientConfiguration.containsKey("maxConnectionsPerRoute")
-        && this.entityApiClientConfiguration.containsKey("validateAfterInactivitySeconds")
-        && this.entityApiClientConfiguration.containsKey("timeToLiveSeconds")
-        && this.entityApiClientConfiguration.containsKey("reactorSocketTimeout")
-        && this.entityApiClientConfiguration.containsKey("requestConnectionTimeout")
-        && this.entityApiClientConfiguration.containsKey("responseConnectionTimeout");
+    if (this.entityApiClientConfiguration == null || this.entityApiClientConfiguration.isEmpty()) {
+      return false;
+    } else {
+      return this.entityApiClientConfiguration.containsKey("entity.management.url")
+          && this.entityApiClientConfiguration.containsKey("entity.api.url")
+          && this.entityApiClientConfiguration.containsKey("token_endpoint")
+          && this.entityApiClientConfiguration.containsKey("grant_params")
+          && this.entityApiClientConfiguration.containsKey("maxConnectionsTotal")
+          && this.entityApiClientConfiguration.containsKey("maxConnectionsPerRoute")
+          && this.entityApiClientConfiguration.containsKey("validateAfterInactivitySeconds")
+          && this.entityApiClientConfiguration.containsKey("timeToLiveSeconds")
+          && this.entityApiClientConfiguration.containsKey("reactorSocketTimeout")
+          && this.entityApiClientConfiguration.containsKey("requestConnectionTimeout")
+          && this.entityApiClientConfiguration.containsKey("responseConnectionTimeout");
+    }
   }
 }
