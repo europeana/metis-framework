@@ -79,18 +79,4 @@ public class EnricherProvider extends ConnectionProvider {
             entityClientConfiguration, new EntityMergeEngine());
     }
 
-    /**
-     * Implementations of this interface create instances of {@link EntityResolver}.
-     */
-    @FunctionalInterface
-    public interface EntityResolverCreator {
-
-        /**
-         * Creates an instance of {@link EntityResolver}.
-         *
-         * @return An instance of {@link EntityResolver}.
-         * @throws EnrichmentException In case there was a problem creating the instance.
-         */
-        EntityResolver createEntityResolver() throws EnrichmentException;
-    }
 }

@@ -6,6 +6,7 @@ import static java.util.function.Predicate.not;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import com.github.benmanes.caffeine.cache.stats.CacheStats;
+import eu.europeana.api.commons_sb3.auth.AuthenticationBuilder;
 import eu.europeana.enrichment.api.external.exceptions.EntityApiException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -14,6 +15,7 @@ import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.enrichment.utils.LanguageCodeConverter;
 import eu.europeana.entity.client.EntityApiClient;
+import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.entitymanagement.definitions.model.Entity;
 import java.util.ArrayList;
@@ -25,12 +27,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.hc.client5.http.config.ConnectionConfig;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.core5.reactor.IOReactorConfig;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 
 
 /**
@@ -306,6 +316,52 @@ public class ClientEntityResolver implements EntityResolver {
     return collectedEntities;
   }
 
+  /**
+   * Create client entity resolver.
+   *
+   * @param entityApiClientConfiguration the entity api client configuration
+   * @return the client entity resolver
+   * @throws EntityClientException the entity client exception
+   */
+  @NotNull
+  public static ClientEntityResolver create(EntityClientConfiguration entityApiClientConfiguration)
+      throws EntityClientException {
+    return new ClientEntityResolver(
+        new EntityApiClient(
+            entityApiClientConfiguration.getEntityApiUrl(),
+            entityApiClientConfiguration.getEntityManagementUrl(),
+            AuthenticationBuilder.newAuthentication(entityApiClientConfiguration),
+            PoolingAsyncClientConnectionManagerBuilder.create()
+                                                      .setMaxConnTotal(200)
+                                                      .setMaxConnPerRoute(50)
+                                                      .setDefaultConnectionConfig(
+                                                          ConnectionConfig.custom()
+                                                                          .setValidateAfterInactivity(TimeValue.ofSeconds(5))
+                                                                          .setTimeToLive(TimeValue.ofSeconds(60))
+                                                                          .build())
+                                                      .build(),
+            IOReactorConfig.custom()
+                           .setSoTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                           .build(),
+            RequestConfig.custom()
+                         .setConnectionRequestTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                         .setResponseTimeout(Timeout.of(30, TimeUnit.SECONDS))
+                         .build()
+        ));
+  }
+
+  /**
+   * Close.
+   *
+   */
+  @Override
+  public void close() {
+    try {
+      this.entityClientApi.close();
+    } catch (EntityClientException e) {
+      throw new EntityApiException(e.getMessage(), e);
+    }
+  }
   /**
    * The enum Operation mode.
    */

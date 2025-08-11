@@ -17,7 +17,6 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
-import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -145,7 +144,7 @@ public class EnricherImpl implements Enricher {
   private EntityResolver getEntityResolver() {
     return Optional.ofNullable(this.entityResolver).orElseGet(()-> {
       try {
-        return new ClientEntityResolver(new EntityApiClient(this.entityApiClientConfiguration));
+        return ClientEntityResolver.create(entityApiClientConfiguration);
       } catch (EntityClientException e) {
         throw new IllegalArgumentException(e);
       }
@@ -171,6 +170,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
+      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (RuntimeException runtimeException) {
       reports.add(Report
@@ -205,6 +205,7 @@ public class EnricherImpl implements Enricher {
     }
     try {
       Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
+      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
 
     } catch (RuntimeException runtimeException) {

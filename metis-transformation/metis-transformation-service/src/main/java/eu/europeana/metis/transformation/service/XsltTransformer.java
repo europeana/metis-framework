@@ -22,7 +22,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.lang3.StringUtils;
 
@@ -60,7 +59,6 @@ public class XsltTransformer implements Closeable {
     this(xsltUrl, xsltInputStream, null, null, null);
   }
 
-
   /**
    * Constructor.
    *
@@ -71,7 +69,6 @@ public class XsltTransformer implements Closeable {
    * @param edmLanguage the language related to the dataset
    * @throws TransformationException In case there was a problem with setting up the transformation.
    */
-
   public XsltTransformer(String xsltKey, InputStream xsltInputStream, String datasetName,
       String edmCountry, String edmLanguage) throws TransformationException {
     try {
@@ -138,9 +135,9 @@ public class XsltTransformer implements Closeable {
       throws CacheValueSupplierException {
 
     HttpRequest httpRequest = HttpRequest.newBuilder()
-        .GET()
-        .uri(URI.create(xsltUrl))
-        .build();
+                                         .GET()
+                                         .uri(URI.create(xsltUrl))
+                                         .build();
 
     // We know where the xslt files are coming from, we consider them safe.
     try (final InputStream xsltStream = httpClient.send(httpRequest, BodyHandlers.ofInputStream())

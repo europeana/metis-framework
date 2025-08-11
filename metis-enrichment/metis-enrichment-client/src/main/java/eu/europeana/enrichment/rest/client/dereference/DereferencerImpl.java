@@ -14,7 +14,6 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
-import eu.europeana.entity.client.EntityApiClient;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
 import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -206,7 +205,7 @@ public class DereferencerImpl implements Dereferencer {
     final EntityResolver entityResolverToUse = Optional.ofNullable(this.entityResolver)
         .orElseGet(() -> {
           try {
-            return new ClientEntityResolver(new EntityApiClient(this.entityApiClientConfiguration));
+            return ClientEntityResolver.create(entityApiClientConfiguration);
           } catch (EntityClientException e) {
             throw new IllegalArgumentException(e);
           }
@@ -226,6 +225,7 @@ public class DereferencerImpl implements Dereferencer {
                        reports, DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY);
                    result.putIfAbsent(notFoundOwnId, Collections.emptyList());
                  });
+      entityResolverToUse.close();
       return new DereferencedEntities(result, reports);
     } catch (CancellationException e){
       LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);

@@ -41,4 +41,9 @@ public interface EntityResolver {
    * Note: not all provided references may be present (i.e. if the reference didn't resolve).
    */
   <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms);
+
+  /**
+   * Close.
+   */
+  void close();
 }

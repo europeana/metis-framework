@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-transformation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>15-SNAPSHOT</version>
+    <version>16-SNAPSHOT</version>
   </parent>
   <artifactId>metis-transformation-service</artifactId>
   <dependencies>
@@ -36,6 +36,12 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.xmlunit</groupId>
+      <artifactId>xmlunit-core</artifactId>
+      <version>${version.xmlunit-core}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
