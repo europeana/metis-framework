@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import org.junit.jupiter.api.Test;
 
-public class EnricherProviderTest {
+class EnricherProviderTest {
 
   @Test
   void testIllegalArgumentException() {
