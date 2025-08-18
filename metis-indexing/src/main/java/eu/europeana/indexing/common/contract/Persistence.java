@@ -1,6 +1,6 @@
 package eu.europeana.indexing.common.contract;
 
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import java.io.Closeable;
 
 /**

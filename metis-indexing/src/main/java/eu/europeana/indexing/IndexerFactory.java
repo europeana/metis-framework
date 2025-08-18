@@ -1,7 +1,7 @@
 package eu.europeana.indexing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.mongo.dao.RecordRedirectDao;
 import org.apache.solr.client.solrj.SolrClient;

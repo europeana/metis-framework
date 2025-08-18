@@ -3,8 +3,8 @@ package eu.europeana.indexing;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
 
 import eu.europeana.indexing.common.contract.RecordPersistence.ComputedDates;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -139,7 +139,7 @@ public class IndexerImpl<T> implements Indexer<T> {
 
   @Override
   public boolean indexTombstone(String rdfAbout, DepublicationReason reason) throws IndexingException {
-    return this.persistenceAccess.getTombstonePersistence().indexTombstoneForLiveRecord(rdfAbout, reason);
+    return this.persistenceAccess.getTombstonePersistence().saveTombstoneForLiveRecord(rdfAbout, reason);
   }
 
   @Override
@@ -176,8 +176,8 @@ public class IndexerImpl<T> implements Indexer<T> {
     final Date createdDate = performRedirects ? this.persistenceAccess.getRedirectPersistence()
         .performRedirection(rdf, recordDate, datasetIdsToRedirectFrom) : null;
     final ComputedDates computedDates = this.persistenceAccess.getRecordPersistence()
-        .indexForPersistence(rdf, preserveUpdateAndCreateTimesFromRdf, recordDate, createdDate);
-    this.persistenceAccess.getSearchPersistence().indexForSearch(rdf, computedDates.updatedDate(),
+        .saveRecord(rdf, preserveUpdateAndCreateTimesFromRdf, recordDate, createdDate);
+    this.persistenceAccess.getSearchPersistence().saveRecord(rdf, computedDates.updatedDate(),
         computedDates.createdDate());
   }
 

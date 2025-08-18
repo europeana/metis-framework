@@ -4,7 +4,7 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
 import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
 import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.record.v2.RecordPersistenceV2;
 import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
 import eu.europeana.indexing.search.v2.SearchPersistenceV2;
@@ -19,7 +19,7 @@ import org.apache.solr.common.SolrDocumentList;
 /**
  * A factory for specific indexing jobs (i.e., individual steps in the indexing process).
  */
-public class IndexingJobFactory {
+public class PersistenceFactory {
 
   /**
    * Gets an indexer for search.

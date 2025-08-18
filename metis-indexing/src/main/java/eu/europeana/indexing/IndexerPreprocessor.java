@@ -1,6 +1,6 @@
 package eu.europeana.indexing;
 
-import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.tiers.ClassifierFactory;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.metadata.ClassifierMode;

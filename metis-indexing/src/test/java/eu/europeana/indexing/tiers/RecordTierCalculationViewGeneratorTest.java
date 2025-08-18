@@ -3,7 +3,7 @@ package eu.europeana.indexing.tiers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import eu.europeana.indexing.common.exception.TierCalculationException;
+import eu.europeana.indexing.exception.TierCalculationException;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
 import eu.europeana.indexing.tiers.model.Tier;

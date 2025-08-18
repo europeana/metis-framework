@@ -1,8 +1,8 @@
 package eu.europeana.indexing.common.contract;
 
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Date;
@@ -28,7 +28,7 @@ public interface SearchPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  void indexForSearch(RdfWrapper rdfWrapper, boolean preserveUpdateAndCreateTimesFromRdf,
+  void saveRecord(RdfWrapper rdfWrapper, boolean preserveUpdateAndCreateTimesFromRdf,
       Date updatedDate) throws IndexingException;
 
   /**
@@ -43,7 +43,7 @@ public interface SearchPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  void indexForSearch(RdfWrapper rdfWrapper, Date updatedDate, Date createdDate)
+  void saveRecord(RdfWrapper rdfWrapper, Date updatedDate, Date createdDate)
       throws IndexingException;
 
   /**
@@ -58,7 +58,7 @@ public interface SearchPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  void indexForSearch(RDF rdfRecord) throws IndexingException;
+  void saveRecord(RDF rdfRecord) throws IndexingException;
 
   /**
    * This indexes for search according to the provided settings. Sets the current time as the
@@ -72,7 +72,7 @@ public interface SearchPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  void indexForSearch(String rdfRecord) throws IndexingException;
+  void saveRecord(String rdfRecord) throws IndexingException;
 
   /**
    * Removes the record with the given ID.

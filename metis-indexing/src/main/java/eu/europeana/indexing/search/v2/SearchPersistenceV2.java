@@ -5,11 +5,11 @@ import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRe
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.QueryableSearchPersistence;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.PublishToSolrIndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.PublishToSolrIndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.utils.RDFDeserializer;
@@ -92,19 +92,19 @@ public class SearchPersistenceV2
   }
 
   @Override
-  public void indexForSearch(String rdfRecord) throws IndexingException {
+  public void saveRecord(String rdfRecord) throws IndexingException {
     Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
-    indexForSearch(rdfDeserializer.convertToRdf(rdfRecord));
+    saveRecord(rdfDeserializer.convertToRdf(rdfRecord));
   }
 
   @Override
-  public void indexForSearch(RDF rdfRecord) throws IndexingException {
+  public void saveRecord(RDF rdfRecord) throws IndexingException {
     Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
-    indexForSearch(new RdfWrapper(rdfRecord), false, null);
+    saveRecord(new RdfWrapper(rdfRecord), false, null);
   }
 
   @Override
-  public void indexForSearch(RdfWrapper rdfRecord, boolean preserveUpdateAndCreateTimesFromRdf,
+  public void saveRecord(RdfWrapper rdfRecord, boolean preserveUpdateAndCreateTimesFromRdf,
       Date updatedDate) throws IndexingException {
     Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     final FullBeanImpl fullBean = convertRDFToFullBean(rdfRecord);
@@ -125,19 +125,19 @@ public class SearchPersistenceV2
       }
       RecordUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
     }
-    indexForSearch(rdfRecord, fullBean);
+    saveRecord(rdfRecord, fullBean);
   }
 
   @Override
-  public void indexForSearch(RdfWrapper rdfWrapper, Date updatedDate, Date createdDate)
+  public void saveRecord(RdfWrapper rdfWrapper, Date updatedDate, Date createdDate)
       throws IndexingException {
     Objects.requireNonNull(rdfWrapper, "rdfWrapper is null");
     final FullBeanImpl fullBean = convertRDFToFullBean(rdfWrapper);
     RecordUtils.setUpdateAndCreateTime(fullBean, updatedDate, createdDate);
-    indexForSearch(rdfWrapper, fullBean);
+    saveRecord(rdfWrapper, fullBean);
   }
 
-  private void indexForSearch(RdfWrapper rdf, FullBeanImpl savedFullBean)
+  private void saveRecord(RdfWrapper rdf, FullBeanImpl savedFullBean)
       throws RecordRelatedIndexingException {
     try {
       retryableExternalRequestForNetworkExceptions(() -> {

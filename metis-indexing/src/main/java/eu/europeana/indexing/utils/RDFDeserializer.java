@@ -1,8 +1,8 @@
 package eu.europeana.indexing.utils;
 
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;

@@ -1,4 +1,4 @@
-package eu.europeana.indexing.common.exception;
+package eu.europeana.indexing.exception;
 
 import java.io.Serial;
 

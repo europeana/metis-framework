@@ -10,10 +10,10 @@ import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.search.v2.SolrIndexerIT.SolrIndexerLocalConfigTest;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
@@ -193,7 +193,7 @@ class SolrIndexerIT {
    */
   @Test
   void IllegalArgumentExceptionTest() {
-    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForSearch((RDF) null));
+    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.saveRecord((RDF) null));
     assertEquals("record is null", expected.getMessage());
   }
 
@@ -211,7 +211,7 @@ class SolrIndexerIT {
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
     IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
-    indexer.indexForSearch(inputRdf);
+    indexer.saveRecord(inputRdf);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -245,7 +245,7 @@ class SolrIndexerIT {
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
     IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
     // add record
-    indexer.indexForSearch(inputRdf);
+    indexer.saveRecord(inputRdf);
 
     // commit changes
     solrClient.commit();
@@ -255,7 +255,7 @@ class SolrIndexerIT {
     IndexerPreprocessor.preprocessRecord(inputRdf2, indexingProperties);
 
     // add again same record to have created and update date
-    indexer.indexForSearch(inputRdf2);
+    indexer.saveRecord(inputRdf2);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_62_7", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -285,7 +285,7 @@ class SolrIndexerIT {
   void testIndexRecord() throws IndexingException, SolrServerException, IOException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
-    indexer.indexForSearch(stringRdfRecord);
+    indexer.saveRecord(stringRdfRecord);
 
     final SolrDocument document = flushAndAssertDocumentInSolr("/50/_providedCHO_NL_BwdADRKF_2_126_10", 1);
     assertEquals(Set.of("TEXT"), new HashSet<>(document.getFieldValues("proxy_edm_type")));
@@ -310,7 +310,7 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyRecord_ExpectException() {
     final RDF inputRdf = new RDF();
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearch(inputRdf));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.saveRecord(inputRdf));
   }
 
   /**
@@ -319,6 +319,6 @@ class SolrIndexerIT {
   @Test
   void indexRecordEmptyStringRecord_ExpectException() {
     final String stringRdfRecord = "";
-    assertThrows(RecordRelatedIndexingException.class, () -> indexer.indexForSearch(stringRdfRecord));
+    assertThrows(RecordRelatedIndexingException.class, () -> indexer.saveRecord(stringRdfRecord));
   }
 }

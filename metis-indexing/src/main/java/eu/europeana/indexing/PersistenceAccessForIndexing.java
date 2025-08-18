@@ -4,9 +4,9 @@ import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.RedirectionNotSupportedIndexingException;
-import eu.europeana.indexing.common.exception.TombstoneHandlingNotSupportedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.RedirectionNotSupportedIndexingException;
+import eu.europeana.indexing.exception.TombstoneHandlingNotSupportedIndexingException;
 import java.io.Closeable;
 
 /**

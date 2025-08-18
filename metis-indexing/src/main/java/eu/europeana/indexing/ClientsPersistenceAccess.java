@@ -2,9 +2,9 @@ package eu.europeana.indexing;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.RedirectPersistence;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.RedirectionNotSupportedIndexingException;
-import eu.europeana.indexing.common.exception.TombstoneHandlingNotSupportedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.RedirectionNotSupportedIndexingException;
+import eu.europeana.indexing.exception.TombstoneHandlingNotSupportedIndexingException;
 import eu.europeana.indexing.record.v2.RecordPersistenceV2;
 import eu.europeana.indexing.record.v2.TombstonePersistenceV2;
 import eu.europeana.indexing.redirect.v2.RedirectPersistenceV2;

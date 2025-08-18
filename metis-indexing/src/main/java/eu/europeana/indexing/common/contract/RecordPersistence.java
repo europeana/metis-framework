@@ -1,9 +1,9 @@
 package eu.europeana.indexing.common.contract;
 
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.util.Date;
@@ -23,7 +23,7 @@ public interface RecordPersistence extends Persistence {
   record ComputedDates(Date updatedDate, Date createdDate) { }
 
   /**
-   * This indexes for persistence according to the provided settings.
+   * This saves a record according to the provided settings.
    *
    * @param rdfWrapper RDF to publish.
    * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
@@ -41,12 +41,12 @@ public interface RecordPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  ComputedDates indexForPersistence(RdfWrapper rdfWrapper,
+  ComputedDates saveRecord(RdfWrapper rdfWrapper,
       boolean preserveUpdateAndCreateTimesFromRdf, Date recordDate, Date createdDate)
       throws IndexingException;
 
   /**
-   * This indexes for persistence according to the provided settings. Sets the current time as the
+   * This saves a record according to the provided settings. Sets the current time as the
    * record updated date, and tries to compute the updatedDate from the current state in the DB.
    *
    * @param rdfRecord RDF to publish.
@@ -59,10 +59,10 @@ public interface RecordPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  ComputedDates indexForPersistence(RDF rdfRecord) throws IndexingException;
+  ComputedDates saveRecord(RDF rdfRecord) throws IndexingException;
 
   /**
-   * This indexes for persistence according to the provided settings. Sets the current time as the
+   * This saves a record according to the provided settings. Sets the current time as the
    * record updated date, and tries to compute the updatedDate from the current state in the DB.
    *
    * @param rdfRecord String representation of the RDF to publish.
@@ -75,7 +75,7 @@ public interface RecordPersistence extends Persistence {
    * contents</li>
    * </ul>
    */
-  ComputedDates indexForPersistence(String rdfRecord) throws IndexingException;
+  ComputedDates saveRecord(String rdfRecord) throws IndexingException;
 
   /**
    * Counts the record in a dataset.

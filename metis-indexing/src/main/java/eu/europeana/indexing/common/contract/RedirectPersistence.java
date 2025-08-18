@@ -1,6 +1,6 @@
 package eu.europeana.indexing.common.contract;
 
-import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.utils.RdfWrapper;
 import java.util.Date;
 import java.util.List;

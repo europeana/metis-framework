@@ -8,9 +8,9 @@ import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -37,7 +37,7 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
 
   private static final String NULL_RECORD_MESSAGE = "record is null";
 
-  private final MongoClient mongoClientToClose;
+  private final MongoClient mongoClient;
   private final RecordDao recordDao;
 
   private final RDFDeserializer rdfDeserializer = new RDFDeserializer();
@@ -53,8 +53,8 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
    */
   public RecordPersistenceV2(MongoClientProvider<SetupRelatedIndexingException> mongoClientProvider,
       String mongoDatabaseName) throws SetupRelatedIndexingException {
-    this.mongoClientToClose = mongoClientProvider.createMongoClient();
-    this.recordDao = new RecordDao(this.mongoClientToClose, mongoDatabaseName);
+    this.mongoClient = mongoClientProvider.createMongoClient();
+    this.recordDao = new RecordDao(this.mongoClient, mongoDatabaseName);
   }
 
   /**
@@ -64,7 +64,7 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
    *                  responsibility for closing this client.
    */
   public RecordPersistenceV2(RecordDao recordDao) {
-    this.mongoClientToClose = null;
+    this.mongoClient = null;
     this.recordDao = recordDao;
   }
 
@@ -91,25 +91,25 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
   }
 
   @Override
-  public ComputedDates indexForPersistence(String rdfRecord) throws IndexingException {
+  public ComputedDates saveRecord(String rdfRecord) throws IndexingException {
     Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     if (recordDao == null) {
       throw new UnsupportedOperationException();
     }
-    return indexForPersistence(rdfDeserializer.convertToRdf(rdfRecord));
+    return saveRecord(rdfDeserializer.convertToRdf(rdfRecord));
   }
 
   @Override
-  public ComputedDates indexForPersistence(RDF rdfRecord) throws IndexingException {
+  public ComputedDates saveRecord(RDF rdfRecord) throws IndexingException {
     Objects.requireNonNull(rdfRecord, NULL_RECORD_MESSAGE);
     if (recordDao == null) {
       throw new UnsupportedOperationException();
     }
-    return indexForPersistence(new RdfWrapper(rdfRecord), false, new Date(), null);
+    return saveRecord(new RdfWrapper(rdfRecord), false, new Date(), null);
   }
 
   @Override
-  public ComputedDates indexForPersistence(RdfWrapper rdf, boolean preserveUpdateAndCreateTimesFromRdf,
+  public ComputedDates saveRecord(RdfWrapper rdf, boolean preserveUpdateAndCreateTimesFromRdf,
       Date recordDate, Date createdDate) throws IndexingException {
     Objects.requireNonNull(rdf, NULL_RECORD_MESSAGE);
     if (recordDao == null) {
@@ -190,8 +190,8 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
 
   @Override
   public void close() throws IOException {
-    if (mongoClientToClose != null) {
-      this.mongoClientToClose.close();
+    if (mongoClient != null) {
+      this.mongoClient.close();
     }
   }
 }

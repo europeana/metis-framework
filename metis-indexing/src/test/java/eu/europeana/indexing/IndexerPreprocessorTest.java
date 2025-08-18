@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.indexing.base.IndexingTestUtils;
-import eu.europeana.indexing.common.exception.IndexingException;
+import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.TierResults;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;

@@ -8,9 +8,9 @@ import dev.morphia.query.filters.Filters;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
 import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.fullbean.RdfToFullBeanConverter;
 import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
@@ -83,16 +83,16 @@ public class TombstonePersistenceV2 implements QueryableTombstonePersistence<Ful
   }
 
   @Override
-  public void indexTombstone(String rdfRecord, DepublicationReason reason) throws IndexingException {
+  public void saveTombstone(String rdfRecord, DepublicationReason reason) throws IndexingException {
     Objects.requireNonNull(rdfRecord, "record is null");
     if (tombstoneRecordDao == null) {
       throw new UnsupportedOperationException();
     }
-    indexTombstone(rdfDeserializer.convertToRdf(rdfRecord), reason);
+    saveTombstone(rdfDeserializer.convertToRdf(rdfRecord), reason);
   }
 
   @Override
-  public void indexTombstone(RDF rdfRecord, DepublicationReason reason) throws IndexingException {
+  public void saveTombstone(RDF rdfRecord, DepublicationReason reason) throws IndexingException {
     Objects.requireNonNull(rdfRecord, "record is null");
     if (tombstoneRecordDao == null) {
       throw new UnsupportedOperationException();
@@ -100,11 +100,11 @@ public class TombstonePersistenceV2 implements QueryableTombstonePersistence<Ful
     if (reasonUnsuitableForTombstoneCreation(reason)) {
       throw new IllegalArgumentException("Can't create tombstone for reason: " + reason);
     }
-    indexTombstone(convertRDFToFullBean(new RdfWrapper(rdfRecord)), reason);
+    saveTombstone(convertRDFToFullBean(new RdfWrapper(rdfRecord)), reason);
   }
 
   @Override
-  public boolean indexTombstoneForLiveRecord(String rdfAbout, DepublicationReason reason)
+  public boolean saveTombstoneForLiveRecord(String rdfAbout, DepublicationReason reason)
       throws IndexingException {
     Objects.requireNonNull(rdfAbout, "rdfAbout is null");
     if (tombstoneRecordDao == null) {
@@ -118,12 +118,12 @@ public class TombstonePersistenceV2 implements QueryableTombstonePersistence<Ful
     }
     final FullBeanImpl publishedFullBean = this.recordPersistence.getRecord(rdfAbout);
     if (publishedFullBean != null) {
-      indexTombstone(publishedFullBean, reason);
+      saveTombstone(publishedFullBean, reason);
     }
     return publishedFullBean != null;
   }
 
-  private void indexTombstone(FullBeanImpl fullBean, DepublicationReason reason)
+  private void saveTombstone(FullBeanImpl fullBean, DepublicationReason reason)
       throws IndexingException {
     final FullBeanImpl tombstone = TombstoneUtil.prepareTombstoneFullbean(fullBean, reason);
     try {

@@ -1,9 +1,9 @@
 package eu.europeana.indexing.common.contract;
 
-import eu.europeana.indexing.common.exception.IndexerRelatedIndexingException;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.RecordRelatedIndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.RecordRelatedIndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
 
@@ -33,7 +33,7 @@ public interface TombstonePersistence extends Persistence {
    * @throws UnsupportedOperationException if this indexer is not suitable to create tombstones
    * for existing live records.
    */
-  boolean indexTombstoneForLiveRecord(String rdfAbout, DepublicationReason reason)
+  boolean saveTombstoneForLiveRecord(String rdfAbout, DepublicationReason reason)
       throws IndexingException;
 
   /**
@@ -52,7 +52,7 @@ public interface TombstonePersistence extends Persistence {
    * @throws IllegalArgumentException if the depublication reason does not allow creating
    * tombstones.
    */
-  void indexTombstone(RDF rdfRecord, DepublicationReason reason) throws IndexingException;
+  void saveTombstone(RDF rdfRecord, DepublicationReason reason) throws IndexingException;
 
   /**
    * This indexes a tombstone according to the provided settings. Sets the current time as the
@@ -70,7 +70,7 @@ public interface TombstonePersistence extends Persistence {
    * @throws IllegalArgumentException if the depublication reason does not allow creating
    * tombstones.
    */
-  void indexTombstone(String rdfRecord, DepublicationReason reason) throws IndexingException;
+  void saveTombstone(String rdfRecord, DepublicationReason reason) throws IndexingException;
 
   /**
    * Removes the tombstone record with the given ID.

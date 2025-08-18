@@ -13,8 +13,8 @@ import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
-import eu.europeana.indexing.common.exception.IndexingException;
-import eu.europeana.indexing.common.exception.SetupRelatedIndexingException;
+import eu.europeana.indexing.exception.IndexingException;
+import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.record.v2.MongoIndexerIT.MongoIndexerLocalConfigTest;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
@@ -68,7 +68,7 @@ class MongoIndexerIT {
    */
   @Test
   void NullPointerExceptionTest() {
-    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.indexForPersistence((RDF) null));
+    NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.saveRecord((RDF) null));
     assertEquals("record is null", expected.getMessage());
   }
 
@@ -85,7 +85,7 @@ class MongoIndexerIT {
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
     IndexerPreprocessor.preprocessRecord(inputRdf, indexingProperties);
-    indexer.indexForPersistence(inputRdf);
+    indexer.saveRecord(inputRdf);
 
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
   }
@@ -100,7 +100,7 @@ class MongoIndexerIT {
   void testIndexRecord() throws IndexingException, EuropeanaException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
-    indexer.indexForPersistence(stringRdfRecord);
+    indexer.saveRecord(stringRdfRecord);
 
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_126_10");
   }
