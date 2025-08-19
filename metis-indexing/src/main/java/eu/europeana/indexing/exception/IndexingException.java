@@ -1,5 +1,7 @@
 package eu.europeana.indexing.exception;
 
+import java.io.Serial;
+
 /**
  * Exception that may occur during indexing.
  * 
@@ -9,6 +11,7 @@ package eu.europeana.indexing.exception;
 public abstract class IndexingException extends Exception {
 
   /** Required for implementations of {@link java.io.Serializable}. **/
+  @Serial
   private static final long serialVersionUID = 2323679119224398983L;
 
   /**
@@ -17,7 +20,7 @@ public abstract class IndexingException extends Exception {
    * @param message The message. Can be null.
    * @param cause The cause. Can be null.
    */
-  public IndexingException(String message, Exception cause) {
+  protected IndexingException(String message, Exception cause) {
     super(message, cause);
   }
 
@@ -26,7 +29,7 @@ public abstract class IndexingException extends Exception {
    * 
    * @param message The message. Can be null.
    */
-  public IndexingException(String message) {
+  protected IndexingException(String message) {
     super(message);
   }
 }

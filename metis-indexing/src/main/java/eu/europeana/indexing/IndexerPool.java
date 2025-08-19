@@ -34,7 +34,7 @@ public class IndexerPool implements Closeable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerPool.class);
 
-  private final GenericObjectPool<Indexer> pool;
+  private final GenericObjectPool<Indexer<?>> pool;
 
   /**
    * Constructor.
@@ -47,7 +47,7 @@ public class IndexerPool implements Closeable {
    */
   public IndexerPool(IndexingSettings indexingSettings, long maxIdleTimeForIndexerInSecs,
       long idleTimeCheckIntervalInSecs) {
-    this(new IndexerFactory(indexingSettings), maxIdleTimeForIndexerInSecs,
+    this(IndexerFactory.create(indexingSettings), maxIdleTimeForIndexerInSecs,
         idleTimeCheckIntervalInSecs);
   }
 
@@ -60,7 +60,7 @@ public class IndexerPool implements Closeable {
    * @param idleTimeCheckIntervalInSecs The interval with which we check the idle time of indexers
    * to decide whether to destroy them, in seconds.
    */
-  public IndexerPool(IndexerFactory indexerFactory, long maxIdleTimeForIndexerInSecs,
+  public IndexerPool(IndexerFactory<?> indexerFactory, long maxIdleTimeForIndexerInSecs,
       long idleTimeCheckIntervalInSecs) {
 
     // Create indexer pool with default options.
@@ -144,7 +144,7 @@ public class IndexerPool implements Closeable {
   private boolean indexRecord(IndexTask indexTask) throws IndexingException {
 
     // Obtain indexer from the pool.
-    final Indexer indexer;
+    final Indexer<?> indexer;
     try {
       indexer = pool.borrowObject();
     } catch (IndexingException e) {
@@ -175,7 +175,7 @@ public class IndexerPool implements Closeable {
     return taskResult;
   }
 
-  private void invalidateAndSwallowException(Indexer indexer) {
+  private void invalidateAndSwallowException(Indexer<?> indexer) {
     try {
       pool.invalidateObject(indexer);
     } catch (Exception e) {
@@ -190,29 +190,29 @@ public class IndexerPool implements Closeable {
 
   @FunctionalInterface
   private interface IndexTask {
-    boolean performTask(Indexer indexer) throws IndexingException;
+    boolean performTask(Indexer<?> indexer) throws IndexingException;
   }
 
-  private static class PooledIndexerFactory extends BasePooledObjectFactory<Indexer> {
+  private static class PooledIndexerFactory extends BasePooledObjectFactory<Indexer<?>> {
 
-    private final IndexerFactory indexerFactory;
+    private final IndexerFactory<?> indexerFactory;
 
-    public PooledIndexerFactory(IndexerFactory indexerFactory) {
+    public PooledIndexerFactory(IndexerFactory<?> indexerFactory) {
       this.indexerFactory = indexerFactory;
     }
 
     @Override
-    public Indexer create() throws SetupRelatedIndexingException, IndexerRelatedIndexingException {
+    public Indexer<?> create() throws SetupRelatedIndexingException {
       return indexerFactory.getIndexer();
     }
 
     @Override
-    public PooledObject<Indexer> wrap(Indexer indexer) {
-      return new DefaultPooledObject<>(indexer);
+    public PooledObject<Indexer<?>> wrap(Indexer indexer) {
+      return new DefaultPooledObject<Indexer<?>>(indexer);
     }
 
     @Override
-    public void destroyObject(PooledObject<Indexer> pooledIndexer) throws Exception {
+    public void destroyObject(PooledObject<Indexer<?>> pooledIndexer) throws Exception {
       pooledIndexer.getObject().close();
       super.destroyObject(pooledIndexer);
     }

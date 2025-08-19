@@ -1,5 +1,7 @@
 package eu.europeana.indexing.exception;
 
+import java.io.Serial;
+
 /**
  * This exception is one thrown by the indexer if there is a record related problem. This signifies
  * that the problem is likely not with the setup or the indexer, but rather is assumed to occur only
@@ -8,6 +10,7 @@ package eu.europeana.indexing.exception;
 public class RecordRelatedIndexingException extends IndexingException {
 
   /** Required for implementations of {@link java.io.Serializable}. **/
+  @Serial
   private static final long serialVersionUID = -8887552792600523436L;
 
   /**

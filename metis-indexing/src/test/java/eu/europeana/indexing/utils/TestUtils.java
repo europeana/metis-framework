@@ -3,7 +3,7 @@ package eu.europeana.indexing.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.indexing.solr.EdmLabel;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,16 +25,17 @@ public class TestUtils {
     return new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
   }
 
-  public static void verifyMap(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Map<String, List<String>> map) {
-    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(edmLabel, key)).containsAll(value)));
+  public static void verifyMap(SolrInputDocument solrInputDocument, SolrV2Field solrV2Field, Map<String, List<String>> map) {
+    map.forEach((key, value) -> assertTrue(solrInputDocument.getFieldValues(computeSolrField(
+        solrV2Field, key)).containsAll(value)));
   }
 
-  private static String computeSolrField(EdmLabel label, String value) {
+  private static String computeSolrField(SolrV2Field label, String value) {
     return label.toString() + "." + value;
   }
 
-  public static void verifyCollection(SolrInputDocument solrInputDocument, EdmLabel edmLabel, Collection<String> collection) {
-    final Collection<Object> fieldValues = solrInputDocument.getFieldValues(edmLabel.toString());
+  public static void verifyCollection(SolrInputDocument solrInputDocument, SolrV2Field solrV2Field, Collection<String> collection) {
+    final Collection<Object> fieldValues = solrInputDocument.getFieldValues(solrV2Field.toString());
     assertTrue(fieldValues.containsAll(collection));
     assertEquals(collection.size(), fieldValues.size());
   }
