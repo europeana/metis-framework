@@ -40,7 +40,7 @@
 
     <!--Internal-->
     <version.metis-common>16</version.metis-common>
-    <version.metis-schema>11</version.metis-schema>
+    <version.metis-schema>12-SNAPSHOT</version.metis-schema>
 
     <!--External-->
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
