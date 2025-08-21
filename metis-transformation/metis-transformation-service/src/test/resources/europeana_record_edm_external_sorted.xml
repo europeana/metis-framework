@@ -13,6 +13,7 @@
         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
         xmlns:svcs="http://rdfs.org/sioc/services#"
         xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+        xmlns:schema="https://schema.org/"
         xmlns:xalan="http://xml.apache.org/xalan">
     <edm:ProvidedCHO rdf:about="CMC_HA/936">
         <dc:description xml:lang="en">Point cloud model derived from LiDAR survey of the monument.Skara Brae is an archaeological site with exceptionally well preserved remains that show the stone built furniture and internal structure of ten Neolithic houses and their narrow connecting passageways. Radio Carbon dates show that the village was occupied for around 600 years between 3200 and 2200 BC. There appear to be two main structural phases to the occupation.House 10 lies on the far south-eastern side of the village. Its entrance is not related to the other buildings and it does not appear to be part of the main complex. The internal features of House 10 are very damaged and while it is of a good size it may be part of an earlier phase of occupation.The monument is now managed by Historic Scotland and is a key element of the Heart of Neolithic Orkney World Heritage Site. The Lidar survey was conducted by Scottish10 and made available by Centre for Digital Documentation and Visualisation (CDDV).</dc:description>
@@ -46,7 +47,16 @@
         <dc:format xml:lang="en">Leica PTX</dc:format>
         <dc:rights xml:lang="en">CDDV</dc:rights>
         <dc:source xml:lang="en">Scottish 10</dc:source>
+        <dc:title xml:lang="en">Scottish 10</dc:title>
+        <dc:language xml:lang="en">English</dc:language>
+        <dcterms:temporal xml:lang="en">Neolithic</dcterms:temporal>
         <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
+        <edm:pointCount>10</edm:pointCount>
+        <edm:polygonCount>10</edm:polygonCount>
+        <edm:verticeCount>10</edm:verticeCount>
+        <rdfs:seeAlso rdf:resource="linkToOtherWebResourceExample"/>
+        <schema:digitalSourceType rdf:resource="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"/>
+        <edm:intendedUsage rdf:resource="http://data.europeana.eu/vocabulary/usageArea/Knowledge"/>
     </edm:WebResource>
     <edm:Place rdf:about="iid:4387/SP.1">
         <wgs84_pos:lat>59.04861</wgs84_pos:lat>

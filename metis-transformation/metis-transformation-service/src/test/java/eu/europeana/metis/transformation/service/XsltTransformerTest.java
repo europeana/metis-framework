@@ -1,13 +1,10 @@
 package eu.europeana.metis.transformation.service;
 
-import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xmlunit.builder.DiffBuilder;
-import org.xmlunit.diff.Diff;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,11 +12,13 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.Diff;
 
 class XsltTransformerTest {
 
@@ -72,6 +71,7 @@ class XsltTransformerTest {
                 .transform(fileToTransform.getBytes(), null);
         final String transformed = stringWriter.toString();
         final String expected = readFileToString("europeana_record_edm_external_sorted.xml");
+      System.out.println(transformed);
 
         Diff diff = DiffBuilder.compare(expected)
                 .withTest(transformed)

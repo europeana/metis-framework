@@ -19,6 +19,7 @@
   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
   xmlns:svcs="http://rdfs.org/sioc/services#"
   xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+  xmlns:schema="https://schema.org/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -263,6 +264,8 @@
       <xsl:apply-templates select="dc:rights"/>
       <xsl:apply-templates select="dc:source"/>
       <xsl:apply-templates select="dc:type"/>
+      <xsl:apply-templates select="dc:title"/>
+      <xsl:apply-templates select="dc:language"/>
       <xsl:apply-templates select="dcterms:conformsTo"/>
       <xsl:apply-templates select="dcterms:created"/>
       <xsl:apply-templates select="dcterms:extent"/>
@@ -270,6 +273,7 @@
       <xsl:apply-templates select="dcterms:isFormatOf"/>
       <xsl:apply-templates select="dcterms:isPartOf"/>
       <xsl:apply-templates select="dcterms:issued"/>
+      <xsl:apply-templates select="dcterms:temporal"/>
       <xsl:apply-templates select="edm:isNextInSequence"/>
       <xsl:apply-templates select="edm:rights"/>
       <xsl:apply-templates select="owl:sameAs"/>
@@ -287,11 +291,18 @@
       <xsl:apply-templates select="ebucore:frameRate"/>
       <xsl:apply-templates select="edm:hasColorSpace"/>
       <xsl:apply-templates select="edm:componentColor"/>
+      <xsl:apply-templates select="edm:pointCount"/>
+      <xsl:apply-templates select="edm:polygonCount"/>
+      <xsl:apply-templates select="edm:verticeCount"/>
+      <xsl:apply-templates select="rdfs:seeAlso"/>
       <xsl:apply-templates select="ebucore:orientation"/>
       <xsl:apply-templates select="ebucore:audioChannelNumber"/>
       <xsl:apply-templates select="dcterms:isReferencedBy"/>
       <xsl:apply-templates select="edm:preview"/>
       <xsl:apply-templates select="svcs:has_service"/>
+      <xsl:apply-templates select="edm:type"/>
+      <xsl:apply-templates select="schema:digitalSourceType"/>
+      <xsl:apply-templates select="edm:intendedUsage"/>
     </xsl:element>
   </xsl:template>
   <xsl:template match="edm:Agent">
