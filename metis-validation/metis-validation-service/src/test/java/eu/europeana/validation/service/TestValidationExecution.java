@@ -153,6 +153,30 @@ class TestValidationExecution {
   }
 
   @Test
+  void shouldFailOnSchematronValidationInvalid3dValue() throws Exception {
+
+    String fileToValidate = IOUtils
+        .toString(new FileInputStream("src/test/resources/edm_external_invalid_schema_digitalSourceType.xml"),
+            StandardCharsets.UTF_8);
+    ValidationResult result = validationExecutionService
+        .singleValidation(EDM_EXTERNAL, "EDM-EXTERNAL.xsd", "schematron/schematron.xsl",
+            fileToValidate);
+    assertFalse(result.isSuccess());
+    assertTrue(result.getMessage().startsWith(
+        "Schematron error: Invalid edm:WebResource/schema:digitalSourceType: @rdf:resource must be one of"));
+
+    fileToValidate = IOUtils
+        .toString(new FileInputStream("src/test/resources/edm_external_invalid_edm_intendedUsage.xml"),
+            StandardCharsets.UTF_8);
+    result = validationExecutionService
+        .singleValidation(EDM_EXTERNAL, "EDM-EXTERNAL.xsd", "schematron/schematron.xsl",
+            fileToValidate);
+    assertFalse(result.isSuccess());
+    assertTrue(result.getMessage().startsWith(
+        "Schematron error: Invalid edm:WebResource/edm:intendedUsage: @rdf:resource must be one of"));
+  }
+
+  @Test
   void shouldFailOnSchematronValidation() throws Exception {
 
     String fileToValidate = IOUtils
@@ -312,7 +336,7 @@ class TestValidationExecution {
     predefinedSchemas.add("name", "location", "root", "schematronFile");
     predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");
     ValidationExecutionService validationExecutionServiceWithCustomConfig = new ValidationExecutionService(
-            () -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
+        () -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
     ExecutorService es = Whitebox.getInternalState(validationExecutionServiceWithCustomConfig, "es");
     assertNotNull(es);
     SchemaProvider schemaProvider = Whitebox
