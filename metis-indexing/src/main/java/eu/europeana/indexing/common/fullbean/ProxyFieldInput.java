@@ -13,6 +13,7 @@ import eu.europeana.metis.schema.jibx.Type2;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
@@ -69,13 +70,16 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
         applyToChoice(europeanaType, mongoProxy);
       }
     }
-    mongoProxy.setPID(proxy.getPidList()
-                           .stream()
-                           .map(jibxPID -> {
-                             PersistentIdentifierImpl pid = new PersistentIdentifierImpl();
-                             pid.setValue(jibxPID.getString());
-                             return pid;
-                           }).toList());
+    if (proxy.getPidList() != null) {
+      mongoProxy.setPID(proxy.getPidList()
+                             .stream()
+                             .filter(Objects::nonNull)
+                             .map(jibxPID -> {
+                               PersistentIdentifierImpl pid = new PersistentIdentifierImpl();
+                               pid.setValue(jibxPID.getString());
+                               return pid;
+                             }).toList());
+    }
     return mongoProxy;
   }
 
