@@ -37,6 +37,7 @@ import eu.europeana.metis.schema.jibx.IsVersionOf;
 import eu.europeana.metis.schema.jibx.Issued;
 import eu.europeana.metis.schema.jibx.Language;
 import eu.europeana.metis.schema.jibx.Medium;
+import eu.europeana.metis.schema.jibx.Pid;
 import eu.europeana.metis.schema.jibx.Provenance;
 import eu.europeana.metis.schema.jibx.ProxyFor;
 import eu.europeana.metis.schema.jibx.ProxyIn;
@@ -46,6 +47,10 @@ import eu.europeana.metis.schema.jibx.References;
 import eu.europeana.metis.schema.jibx.Relation;
 import eu.europeana.metis.schema.jibx.Replaces;
 import eu.europeana.metis.schema.jibx.Requires;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.ConfidenceLevel;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.Rights;
 import eu.europeana.metis.schema.jibx.Source;
 import eu.europeana.metis.schema.jibx.Spatial;
@@ -86,6 +91,7 @@ class ProxyFieldInputTest {
     assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType());
     assertEquals(proxy.getIsNextInSequenceList().size(),
         mongoProxy.getEdmIsNextInSequence().length);
+    assertEquals(proxy.getPidList().getFirst().getString(), mongoProxy.getPID().getFirst().getValue());
     // @TODO: Add actual content checking here
     List<EuropeanaType.Choice> dcterms = proxy.getChoiceList();
     for (EuropeanaType.Choice choice : dcterms) {
@@ -265,6 +271,14 @@ class ProxyFieldInputTest {
     ProxyIn pin = new ProxyIn();
     pin.setResource("test proxy in");
     proxy.setProxyInList(List.of(pin));
+    Pid pid = new Pid();
+    ResourceOrLiteralType.Resource resource = new Resource();
+    resource.setResource("resource");
+    pid.setResource(resource);
+    pid.setString("pid value");
+    pid.setLang(new Lang());
+    pid.setConfidenceLevel(new ConfidenceLevel());
+    proxy.setPidList(List.of(pid));
     return proxy;
   }
 

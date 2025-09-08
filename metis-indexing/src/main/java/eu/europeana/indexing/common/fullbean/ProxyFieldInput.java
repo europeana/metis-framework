@@ -1,5 +1,6 @@
 package eu.europeana.indexing.common.fullbean;
 
+import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
@@ -52,26 +53,29 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     mongoProxy.setLineage(FieldInputUtils.resourceListToArray(proxy.getLineageList()));
     mongoProxy.setEdmHasMet(FieldInputUtils.createResourceMapFromList(proxy.getHasMetList()));
     mongoProxy.setYear(FieldInputUtils.createLiteralMapFromList(proxy.getYearList()));
-    mongoProxy
-        .setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
+    mongoProxy.setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
     mongoProxy.setEdmIncorporates(FieldInputUtils.resourceListToArray(proxy.getIncorporateList()));
-    mongoProxy
-        .setEdmIsDerivativeOf(FieldInputUtils.resourceListToArray(proxy.getIsDerivativeOfList()));
-    mongoProxy.setEdmIsRelatedTo(
-        FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getIsRelatedToList()));
+    mongoProxy.setEdmIsDerivativeOf(FieldInputUtils.resourceListToArray(proxy.getIsDerivativeOfList()));
+    mongoProxy.setEdmIsRelatedTo(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getIsRelatedToList()));
     if (proxy.getIsRepresentationOf() != null) {
       mongoProxy.setEdmIsRepresentationOf(proxy.getIsRepresentationOf().getResource());
     }
     mongoProxy.setEdmIsSimilarTo(FieldInputUtils.resourceListToArray(proxy.getIsSimilarToList()));
     mongoProxy.setEdmRealizes(FieldInputUtils.resourceListToArray(proxy.getRealizeList()));
-    mongoProxy
-        .setEdmIsSuccessorOf(FieldInputUtils.resourceListToArray(proxy.getIsSuccessorOfList()));
+    mongoProxy.setEdmIsSuccessorOf(FieldInputUtils.resourceListToArray(proxy.getIsSuccessorOfList()));
     List<Choice> europeanaTypeList = proxy.getChoiceList();
     if (europeanaTypeList != null) {
       for (Choice europeanaType : europeanaTypeList) {
         applyToChoice(europeanaType, mongoProxy);
       }
     }
+    mongoProxy.setPID(proxy.getPidList()
+                           .stream()
+                           .map(jibxPID -> {
+                             PersistentIdentifierImpl pid = new PersistentIdentifierImpl();
+                             pid.setValue(jibxPID.getString());
+                             return pid;
+                           }).toList());
     return mongoProxy;
   }
 
