@@ -24,6 +24,7 @@ import java.util.stream.Stream;
  */
 public interface Indexer<T> extends Closeable {
 
+  int BATCH_LIMIT_NOT_SET = 0;
   /**
    * <p>
    * This method indexes a single rdf, publishing it to the provided data stores.
@@ -258,7 +259,30 @@ public interface Indexer<T> extends Closeable {
    * @return A stream with record IDs.
    * @throws IndexingException In case something went wrong.
    */
-  Stream<String> getRecordIds(String datasetId, Date maxRecordDate) throws IndexingException ;
+  default Stream<String> getRecordIds(String datasetId, Date maxRecordDate) throws IndexingException {
+    return getRecordIds(datasetId, maxRecordDate, BATCH_LIMIT_NOT_SET);
+  }
+
+  /**
+   * <p>This method returns the record IDs of all records belonging to a dataset. For details of
+   * the
+   * implementation and application of selection criteria see {@link #removeAll(String, Date)} as
+   * this method should work analogously. The method can therefore be used for instance to determine
+   * which records would be removed.</p>
+   * <p>Note that in case of problems, this would manifest when resolving the stream. Hence this
+   * method does not declare throwing an exception.</p>
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
+   * date will be returned. If null is provided then all records from that dataset will be returned.
+   * @param batchSize - size of the batch during traversing DB data. Default value is 0 which means
+   * no batch constraint. In this case  anyway DB returns data in constrained buffers which means
+   * in practice about 300-400 thousands of records in one batch.
+   * practice.
+   * @return A stream with record IDs.
+   * @throws IndexingException In case something went wrong.
+   */
+  Stream<String> getRecordIds(String datasetId, Date maxRecordDate, int batchSize) throws IndexingException;
 
   /**
    * Counts the records in a given dataset. For details of the

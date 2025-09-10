@@ -130,16 +130,18 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
   }
 
   @Override
-  public Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate)
+  public Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate, int batchSize)
       throws IndexerRelatedIndexingException {
     try {
       final FindOptions findOptions = new FindOptions()
           .projection().exclude(ID_FIELD)
-          .projection().include(ABOUT_FIELD);
+          .projection().include(ABOUT_FIELD)
+          .batchSize(batchSize);
+
       final Iterator<FullBeanImpl> resultIterator = createMongoQuery(datasetId, maxUpdatedDate)
           .iterator(findOptions);
       return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resultIterator, 0), false)
-          .map(FullBeanImpl::getAbout);
+                          .map(FullBeanImpl::getAbout);
     } catch (RuntimeException e) {
       throw new IndexerRelatedIndexingException("Could not get IDs for dataset '" + datasetId + "'.", e);
     }

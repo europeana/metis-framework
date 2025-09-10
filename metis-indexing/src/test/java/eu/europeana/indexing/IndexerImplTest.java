@@ -1,5 +1,6 @@
 package eu.europeana.indexing;
 
+import static eu.europeana.indexing.Indexer.BATCH_LIMIT_NOT_SET;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -523,10 +524,10 @@ class IndexerImplTest {
     QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
     QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
     doThrow(new RuntimeException("", new SocketTimeoutException()))
-        .doCallRealMethod().when(spyAccess).getRecordIds("277", now);
+        .doCallRealMethod().when(spyAccess).getRecordIds("277", now, BATCH_LIMIT_NOT_SET);
     when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);
     List<String> list = indexer.getRecordIds("277", now).toList();
-    verify(spyAccess, times(2)).getRecordIds("277", now);
+    verify(spyAccess, times(2)).getRecordIds("277", now, BATCH_LIMIT_NOT_SET);
 
     assertEquals(1, list.size());
     assertEquals("/277/CMC_HA_1185", list.getFirst());

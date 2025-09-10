@@ -97,7 +97,7 @@ public interface RecordPersistence extends Persistence {
    * @return The record IDs in a stream.
    * @throws IndexerRelatedIndexingException In case of issues.
    */
-  Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate)
+  Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate, int batchSize)
       throws IndexerRelatedIndexingException;
 
     /**
