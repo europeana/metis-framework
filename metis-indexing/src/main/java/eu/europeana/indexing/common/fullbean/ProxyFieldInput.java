@@ -1,16 +1,18 @@
 package eu.europeana.indexing.common.fullbean;
 
-import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.IsNextInSequence;
 import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.Pid;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.Type2;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -21,10 +23,28 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
- * {@link ProxyImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link ProxyImpl} for a
+ * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
+
+  private final List<? extends PersistentIdentifier> persistentIdentifiers;
+
+  /**
+   * Instantiates a new Proxy field input.
+   */
+  public ProxyFieldInput() {
+    this.persistentIdentifiers = Collections.emptyList();
+  }
+
+  /**
+   * Instantiates a new Proxy field input.
+   *
+   * @param persistentIdentifiers the persistent identifiers
+   */
+  public ProxyFieldInput(List<? extends PersistentIdentifier> persistentIdentifiers) {
+    this.persistentIdentifiers = persistentIdentifiers;
+  }
 
   @Override
   public ProxyImpl apply(ProxyType proxy) {
@@ -70,16 +90,18 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
         applyToChoice(europeanaType, mongoProxy);
       }
     }
-    if (proxy.getPidList() != null) {
-      mongoProxy.setPID(proxy.getPidList()
-                             .stream()
-                             .filter(Objects::nonNull)
-                             .map(jibxPID -> {
-                               PersistentIdentifierImpl pid = new PersistentIdentifierImpl();
-                               pid.setValue(jibxPID.getString());
-                               return pid;
-                             }).toList());
-    }
+
+    mongoProxy.setPID(Optional.of(proxy)
+                              .map(ProxyType::getPidList)
+                              .map(pids -> pids
+                                  .stream()
+                                  .filter(Objects::nonNull)
+                                  .map(this::getPIDFromPersistentidentifiers)
+                                  .filter(Objects::nonNull)
+                                  .toList())
+                              .orElse(null)
+    );
+
     return mongoProxy;
   }
 
@@ -178,5 +200,17 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
         proxy::setDcTitle);
     applyToResourceOrLiteralChoiceOption(choice::ifType, choice::getType, proxy::getDcType,
         proxy::setDcType);
+  }
+
+  private PersistentIdentifier getPIDFromPersistentidentifiers(Pid jibxPID) {
+    return this.persistentIdentifiers
+        .stream()
+        .filter(Objects::nonNull)
+        .filter(pid -> pid.getAbout().equals(Optional.of(jibxPID)
+            .map(Pid::getResource)
+            .map(ResourceOrLiteralType.Resource::getResource)
+            .orElse("")))
+        .findAny()
+        .orElse(null);
   }
 }

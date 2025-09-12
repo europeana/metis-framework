@@ -71,6 +71,6 @@ public class ProxyUpdater extends AbstractIsolatedEdmEntityUpdater<ProxyImpl> {
     propertyUpdater.updateArray("lineage", ProxyImpl::getLineage);
     propertyUpdater.updateString("edmIsRepresentationOf", ProxyImpl::getEdmIsRepresentationOf);
     propertyUpdater.updateObject("europeanaProxy", ProxyImpl::isEuropeanaProxy);
-    propertyUpdater.updateObject("pid", ProxyImpl::getPID);
+    propertyUpdater.updateObjectList("pid", ProxyImpl::getPID);
   }
 }

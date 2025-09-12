@@ -105,6 +105,15 @@ class MongoIndexerIT {
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_126_10");
   }
 
+  @Test
+  void indexRecordWithPersistentIdentifier() throws IndexingException, EuropeanaException {
+    final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_pid_index_rdf.xml");
+
+    indexer.saveRecord(stringRdfRecord);
+
+    assertIndexedRecord("/12148/ivrla:3827");
+  }
+
   private void assertIndexedRecord(String expectedId) throws EuropeanaException {
     FullBean fullBean = recordDao.getFullBean(expectedId);
     assertNotNull(fullBean);

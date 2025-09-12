@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
+import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.Alternative;
@@ -85,7 +87,8 @@ class ProxyFieldInputTest {
     when(queryMock.filter(Filters.eq("about", proxy.getAbout()))).thenReturn(queryMock);
     when(queryMock.first()).thenReturn(null);
 
-    ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
+    List<PersistentIdentifier> persistentIdentifiers = List.of(getPersistentIdentifier());
+    ProxyImpl mongoProxy = new ProxyFieldInput(persistentIdentifiers).apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);
     assertEquals(proxy.getAbout(), mongoProxy.getAbout());
     assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType());
@@ -246,6 +249,20 @@ class ProxyFieldInputTest {
     }
   }
 
+  private static PersistentIdentifierImpl getPersistentIdentifier() {
+    PersistentIdentifierImpl identifier = new PersistentIdentifierImpl();
+    identifier.setAbout("#pid_0");
+    identifier.setCreated("created");
+    identifier.setHasURL("hasURL");
+    identifier.setValue("pid value");
+    identifier.setNotation(List.of("notation"));
+    identifier.setReplacesPID(List.of("replacesPID"));
+    identifier.setEquivalentPID(List.of("equivalentPID"));
+    identifier.setHasPolicy("hasPolicy");
+    identifier.setInScheme("inScheme");
+    return identifier;
+  }
+
   private ProxyType createProxyFields() {
     ProxyType proxy = new ProxyType();
     proxy.setAbout("test about");
@@ -273,7 +290,7 @@ class ProxyFieldInputTest {
     proxy.setProxyInList(List.of(pin));
     Pid pid = new Pid();
     ResourceOrLiteralType.Resource resource = new Resource();
-    resource.setResource("resource");
+    resource.setResource("#pid_0");
     pid.setResource(resource);
     pid.setString("pid value");
     pid.setLang(new Lang());

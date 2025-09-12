@@ -97,7 +97,7 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
         ProxyImpl::setEdmIsRepresentationOf);
     testObjectPropertyUpdate(propertyUpdater, "europeanaProxy", ProxyImpl::setEuropeanaProxy,
         Boolean.TRUE);
-    testObjectPropertyUpdate(propertyUpdater, "pid", ProxyImpl::setPID, List.of(new PersistentIdentifierImpl()));
+    testObjectListPropertyUpdate(propertyUpdater, "pid", ProxyImpl::setPID, List.of(new PersistentIdentifierImpl()));
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }
