@@ -16,6 +16,9 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * The type Persistent identifier field input.
+ */
 public class PersistentIdentifierFieldInput implements Function<PersistentIdentifierType, PersistentIdentifierImpl> {
 
   /**

@@ -43,7 +43,7 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
    * @param persistentIdentifiers the persistent identifiers
    */
   public ProxyFieldInput(List<? extends PersistentIdentifier> persistentIdentifiers) {
-    this.persistentIdentifiers = persistentIdentifiers;
+    this.persistentIdentifiers = Collections.unmodifiableList(persistentIdentifiers);
   }
 
   @Override

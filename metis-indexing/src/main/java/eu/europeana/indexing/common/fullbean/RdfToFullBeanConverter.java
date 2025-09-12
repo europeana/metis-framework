@@ -88,7 +88,8 @@ public class RdfToFullBeanConverter {
     // Create full bean and set about value.
     final FullBeanImpl fullBean = new FullBeanImpl();
     fullBean.setAbout(rdfWrapper.getAbout());
-    List<? extends PersistentIdentifier> persistentIdentifierList = convertList(rdfWrapper.getPersistentIdentifiers(), new PersistentIdentifierFieldInput(), false);
+    List<? extends PersistentIdentifier> persistentIdentifierList =
+        convertList(rdfWrapper.getPersistentIdentifiers(), new PersistentIdentifierFieldInput(), false);
     // Set list properties.
     fullBean.setProvidedCHOs(convertList(rdfWrapper.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
     fullBean.setProxies(convertList(rdfWrapper.getProxies(), new ProxyFieldInput(persistentIdentifierList), false));
