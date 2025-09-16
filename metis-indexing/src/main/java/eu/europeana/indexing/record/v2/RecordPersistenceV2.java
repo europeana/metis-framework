@@ -1,5 +1,7 @@
 package eu.europeana.indexing.record.v2;
 
+import static eu.europeana.indexing.Indexer.BATCH_LIMIT_NOT_SET;
+
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
 import dev.morphia.DeleteOptions;
@@ -135,8 +137,11 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
     try {
       final FindOptions findOptions = new FindOptions()
           .projection().exclude(ID_FIELD)
-          .projection().include(ABOUT_FIELD)
-          .batchSize(batchSize);
+          .projection().include(ABOUT_FIELD);
+
+      if (batchSize != BATCH_LIMIT_NOT_SET) {
+        findOptions.batchSize(batchSize);
+      }
 
       final Iterator<FullBeanImpl> resultIterator = createMongoQuery(datasetId, maxUpdatedDate)
           .iterator(findOptions);

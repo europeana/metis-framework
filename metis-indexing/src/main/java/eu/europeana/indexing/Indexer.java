@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  */
 public interface Indexer<T> extends Closeable {
 
-  int BATCH_LIMIT_NOT_SET = 0;
+  int BATCH_LIMIT_NOT_SET = -1;
   /**
    * <p>
    * This method indexes a single rdf, publishing it to the provided data stores.
@@ -275,8 +275,8 @@ public interface Indexer<T> extends Closeable {
    * @param datasetId The ID of the dataset to search. Is not null.
    * @param maxRecordDate The cutoff date: all records that have a lower timestampUpdated than this
    * date will be returned. If null is provided then all records from that dataset will be returned.
-   * @param batchSize - size of the batch during traversing DB data. Default value is 0 which means
-   * no batch constraint. In this case  anyway DB returns data in constrained buffers which means
+   * @param batchSize - size of the batch during traversing DB data. Default value is BATCH_LIMIT_NOT_SET
+   * which means no batch constraint. In this case  anyway DB returns data in constrained buffers which means
    * in practice about 300-400 thousands of records in one batch.
    * practice.
    * @return A stream with record IDs.
