@@ -161,6 +161,12 @@ public class IndexerImpl<T> implements Indexer<T> {
   }
 
   @Override
+  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) throws IndexingException {
+    return retryableExternalRequestForNetworkExceptionsThrowing(
+        () -> this.persistenceAccess.getRecordPersistence().getRecordIds(datasetId, maxRecordDate));
+  }
+
+  @Override
   public long countRecords(String datasetId, Date maxRecordDate) throws IndexingException {
     return retryableExternalRequestForNetworkExceptionsThrowing(() ->
         this.persistenceAccess.getRecordPersistence().countRecords(datasetId, maxRecordDate));

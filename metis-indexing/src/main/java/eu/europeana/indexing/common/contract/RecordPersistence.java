@@ -94,14 +94,27 @@ public interface RecordPersistence extends Persistence {
    * @param datasetId The ID of the dataset to search. Is not null.
    * @param maxUpdatedDate If not null, only include IDs for records that have been updated strictly
    *                       before this date.
-   * @param batchSize - size of the batch during traversing DB data. Default value is Indexer.BATCH_LIMIT_NOT_SET
-   * which means no batch constraint. In this case anyway DB returns data in constrained buffers which means
-   * in practice about 300-400 thousands of records in one batch.
+   * @param batchSize - size of the batch during traversing DB data. To not set it use overloaded
+   * method without this parameter. Anyway DB returns data in constrained buffers which means
+   * in practice about 300-400 thousands of records in one batch max.
    *
    * @return The record IDs in a stream.
    * @throws IndexerRelatedIndexingException In case of issues.
    */
   Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate, int batchSize)
+      throws IndexerRelatedIndexingException;
+
+  /**
+   * Return all record IDs that belong to the given dataset.
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxUpdatedDate If not null, only include IDs for records that have been updated strictly
+   *                       before this date.
+   *
+   * @return The record IDs in a stream.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate)
       throws IndexerRelatedIndexingException;
 
     /**
