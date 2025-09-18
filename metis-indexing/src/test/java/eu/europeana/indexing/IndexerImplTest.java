@@ -532,6 +532,27 @@ class IndexerImplTest {
     assertEquals("/277/CMC_HA_1185", list.getFirst());
   }
 
+  @Test
+  void getRecordIdsWithBatchSizeSet() throws IndexingException, IOException, SerializationException, SolrServerException {
+    final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
+    indexer.indexRdf(rdf, indexingProperties);
+    solrClient.commit();
+    assertDocumentInMongo("/277/CMC_HA_1185");
+    assertDocumentInSolr("/277/CMC_HA_1185");
+    Date now = Date.from(Instant.now());
+    QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
+    QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    doThrow(new RuntimeException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).getRecordIds("277", now, 1000);
+    when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);
+
+    List<String> list = indexer.getRecordIds("277", now, 1000).toList();
+
+    verify(spyAccess, times(2)).getRecordIds("277", now, 1000);
+    assertEquals(1, list.size());
+    assertEquals("/277/CMC_HA_1185", list.getFirst());
+  }
+
   /**
    * Count records.
    *
