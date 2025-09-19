@@ -119,7 +119,6 @@ public class RdfToFullBeanConverter {
         europeanaAggregation.map(EuropeanaAggregationType::getModified).map(Modified::getString)
                             .map(RdfToFullBeanConverter::convertToDate).orElse(null));
 
-    //List<PersistentIdentifierImpl> persistentIdentifierList = convertList()
     // Done.
     return fullBean;
   }

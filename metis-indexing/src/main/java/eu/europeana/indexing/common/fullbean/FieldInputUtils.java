@@ -56,7 +56,7 @@ final class FieldInputUtils {
 
     // Sanity check
     if (list == null || list.isEmpty()) {
-      return null;
+      return Collections.emptyMap();
     }
 
     // Go by all objects in input list
@@ -118,6 +118,29 @@ final class FieldInputUtils {
    */
   static <T extends LiteralType> Map<String, List<String>> createLiteralMapFromString(T obj) {
     return createLiteralMapFromList(Collections.singletonList(obj));
+  }
+
+  /**
+   * Method that converts a ResourceOrLiteralType.class object to a multilingual map of strings
+   *
+   * @param obj The ResourceOrLiteralType object
+   * @return A Map of strings. The keys are the languages and the values is a string for
+   * the corresponding language. If the object is null, the method returns empty map.
+   */
+  static <T extends ResourceOrLiteralType> Map<String, String> createResourceOrLiteralMapSingleFromString(T obj) {
+    // Sanity check
+    if (obj == null ) {
+      return Collections.emptyMap();
+    } else {
+      final String key = Optional.of(obj).map(RESOURCE_OR_LITERAL_TYPE_KEY_GETTER)
+                                 .filter(StringUtils::isNotBlank).orElse(DEFAULT_LANG_KEY);
+      final String value = Optional.of(obj)
+                                   .map(ResourceOrLiteralType::getResource)
+                                   .map(Resource::getResource)
+                                   .orElse("");
+
+      return Map.of(key, value);
+    }
   }
 
   /**
@@ -188,6 +211,52 @@ final class FieldInputUtils {
   static String getResourceString(ResourceType obj) {
     final String[] array = resourceListToArray(Collections.singletonList(obj));
     return array.length > 0 ? array[0] : null;
+  }
+
+  /**
+   * Gets literal value string.
+   *
+   * @param obj the LiteralType object
+   * @return a string from the LiteralType object
+   */
+  static String getLiteralValueString(LiteralType obj) {
+    return Optional.ofNullable(obj)
+                   .map(LiteralType::getString)
+                   .orElse(null);
+  }
+
+  /**
+   * Gets resource literal value string.
+   *
+   * @param obj the ResourceOrLiteralType
+   * @return the ResourceLiteralType object
+   */
+  static String getResourceOrLiteralValueString(ResourceOrLiteralType obj) {
+    return Optional.ofNullable(obj)
+                   .map(ResourceOrLiteralType::getResource)
+                   .map(Resource::getResource)
+                   .orElse(Optional.ofNullable(obj)
+                       .map(ResourceOrLiteralType::getString)
+                       .orElse(null));
+  }
+
+  /**
+   * Create string list from type list list.
+   *
+   * @param <T> the type parameter
+   * @param list the list
+   * @param valuesGetter the values getter
+   * @return the list
+   */
+  public static <T> List<String> createStringListFromTypeList(List<T> list,
+      Function<T, String> valuesGetter) {
+
+    return Optional.ofNullable(list)
+                   .orElse(Collections.emptyList())
+                   .stream()
+                   .filter(Objects::nonNull)
+                   .map(valuesGetter)
+                   .toList();
   }
 
   static Map<String, List<String>> mergeMaps(Map<String, List<String>> map1,

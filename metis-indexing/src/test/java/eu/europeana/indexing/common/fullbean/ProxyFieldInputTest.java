@@ -253,7 +253,7 @@ class ProxyFieldInputTest {
     PersistentIdentifierImpl identifier = new PersistentIdentifierImpl();
     identifier.setAbout("#pid_0");
     identifier.setCreated("created");
-    identifier.setHasURL("hasURL");
+    identifier.setHasURL(List.of("hasURL"));
     identifier.setValue("pid value");
     identifier.setNotation(List.of("notation"));
     identifier.setReplacesPID(List.of("replacesPID"));

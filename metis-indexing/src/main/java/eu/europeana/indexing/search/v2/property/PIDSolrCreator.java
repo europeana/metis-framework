@@ -25,14 +25,4 @@ public class PIDSolrCreator {
                     .toArray(String[]::new));
     }
   }
-
-  /**
-   * Add to document.
-   *
-   * @param doc the doc
-   * @param persistentIdentifier the persistent identifier
-   */
-  public void addToDocument(SolrInputDocument doc, PersistentIdentifier persistentIdentifier) {
-    SolrPropertyUtils.addValue(doc, SolrV2Field.PID, persistentIdentifier.getValue());
-  }
 }

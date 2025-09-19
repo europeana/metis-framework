@@ -10,6 +10,7 @@ import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.Pid;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.Type2;
 import java.util.Collections;
@@ -21,6 +22,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link ProxyImpl} for a
@@ -28,13 +30,13 @@ import java.util.function.Supplier;
  */
 final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
 
-  private final List<? extends PersistentIdentifier> persistentIdentifiers;
+  private final Map<String, ? extends PersistentIdentifier> persistentIdentifierMap;
 
   /**
    * Instantiates a new Proxy field input.
    */
   public ProxyFieldInput() {
-    this.persistentIdentifiers = Collections.emptyList();
+    this.persistentIdentifierMap = Collections.emptyMap();
   }
 
   /**
@@ -43,7 +45,9 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
    * @param persistentIdentifiers the persistent identifiers
    */
   public ProxyFieldInput(List<? extends PersistentIdentifier> persistentIdentifiers) {
-    this.persistentIdentifiers = Collections.unmodifiableList(persistentIdentifiers);
+    this.persistentIdentifierMap = persistentIdentifiers
+        .stream()
+        .collect(Collectors.toMap(PersistentIdentifier::getAbout, identity -> identity));
   }
 
   @Override
@@ -91,16 +95,7 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
       }
     }
 
-    mongoProxy.setPID(Optional.of(proxy)
-                              .map(ProxyType::getPidList)
-                              .map(pids -> pids
-                                  .stream()
-                                  .filter(Objects::nonNull)
-                                  .map(this::getPIDFromPersistentidentifiers)
-                                  .filter(Objects::nonNull)
-                                  .toList())
-                              .orElse(null)
-    );
+    mongoProxy.setPID(getPersistentIdentifiers(proxy));
 
     return mongoProxy;
   }
@@ -202,15 +197,20 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
         proxy::setDcType);
   }
 
-  private PersistentIdentifier getPIDFromPersistentidentifiers(Pid jibxPID) {
-    return this.persistentIdentifiers
-        .stream()
-        .filter(Objects::nonNull)
-        .filter(pid -> pid.getAbout().equals(Optional.of(jibxPID)
-            .map(Pid::getResource)
-            .map(ResourceOrLiteralType.Resource::getResource)
-            .orElse("")))
-        .findAny()
-        .orElse(null);
+  private List<? extends PersistentIdentifier> getPersistentIdentifiers(ProxyType proxy) {
+    return Optional.of(proxy)
+                   .map(ProxyType::getPidList)
+                   .map(pids -> pids
+                       .stream()
+                       .filter(jibxPID -> jibxPID != null && jibxPID.getResource()!= null)
+                       .map(jibxPID -> this.persistentIdentifierMap
+                           .getOrDefault(Optional.of(jibxPID)
+                                                 .map(Pid::getResource)
+                                                 .map(Resource::getResource)
+                                                 .orElse(null),
+                               null))
+                       .filter(Objects::nonNull)
+                       .toList())
+                   .orElse(null);
   }
 }

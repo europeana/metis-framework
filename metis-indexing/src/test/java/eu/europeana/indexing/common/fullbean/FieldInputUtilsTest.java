@@ -145,8 +145,8 @@ class FieldInputUtilsTest {
     assertEquals("strE", mapC.get("def").get(0));
     assertEquals("strF", mapC.get("def").get(1));
 
-    assertNull(FieldInputUtils.createLiteralMapFromList(null));
-    assertNull(FieldInputUtils.createLiteralMapFromList(Collections.emptyList()));
+    assertEquals(Collections.emptyMap(), FieldInputUtils.createLiteralMapFromList(null));
+    assertEquals(Collections.emptyMap(), FieldInputUtils.createLiteralMapFromList(Collections.emptyList()));
   }
 
   @Test
@@ -201,8 +201,8 @@ class FieldInputUtilsTest {
     assertEquals("strE", mapC.get("def").get(0));
     assertEquals("strF", mapC.get("def").get(1));
 
-    assertNull(FieldInputUtils.createResourceOrLiteralMapFromList(null));
-    assertNull(FieldInputUtils.createResourceOrLiteralMapFromList(Collections.emptyList()));
+    assertEquals(Collections.emptyMap(), FieldInputUtils.createResourceOrLiteralMapFromList(null));
+    assertEquals(Collections.emptyMap(), FieldInputUtils.createResourceOrLiteralMapFromList(Collections.emptyList()));
   }
 
   @Test
