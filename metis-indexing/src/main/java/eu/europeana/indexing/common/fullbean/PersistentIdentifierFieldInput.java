@@ -1,8 +1,8 @@
 package eu.europeana.indexing.common.fullbean;
 
 
-import static eu.europeana.indexing.common.fullbean.FieldInputUtils.createStringListFromTypeList;
 import static eu.europeana.indexing.common.fullbean.FieldInputUtils.createResourceOrLiteralMapSingleFromString;
+import static eu.europeana.indexing.common.fullbean.FieldInputUtils.createStringListFromTypeList;
 import static eu.europeana.indexing.common.fullbean.FieldInputUtils.getLiteralValueString;
 import static eu.europeana.indexing.common.fullbean.FieldInputUtils.getResourceOrLiteralValueString;
 import static eu.europeana.indexing.common.fullbean.FieldInputUtils.getResourceString;
@@ -11,7 +11,6 @@ import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.metis.schema.jibx.LiteralType;
 import eu.europeana.metis.schema.jibx.PersistentIdentifierType;
 import eu.europeana.metis.schema.jibx.ResourceType;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
