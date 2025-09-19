@@ -32,21 +32,11 @@ public class PersistentIdentifierFieldInput implements Function<PersistentIdenti
     persistentIdentifier.setValue(getLiteralValueString(persistentIdentifierType.getValue()));
     persistentIdentifier.setCreator(createResourceOrLiteralMapSingleFromString(persistentIdentifierType.getCreator()));
     persistentIdentifier.setCreated(getResourceOrLiteralValueString(persistentIdentifierType.getCreated()));
-
-    persistentIdentifier.setNotation(Optional.of(persistentIdentifierType)
-                                             .map(PersistentIdentifierType::getNotationList)
-                                             .map(notations -> notations
-                                                 .stream()
-                                                 .map(LiteralType::getString)
-                                                 .toList())
-                                             .orElse(null));
+    persistentIdentifier.setNotation(createStringListFromTypeList(persistentIdentifierType.getNotationList(), LiteralType::getString));
     persistentIdentifier.setHasPolicy(getResourceString(persistentIdentifierType.getHasPolicy()));
-
     persistentIdentifier.setHasURL(createStringListFromTypeList(persistentIdentifierType.getHasURLList(), ResourceType::getResource));
-    persistentIdentifier.setEquivalentPID(
-        createStringListFromTypeList(persistentIdentifierType.getEquivalentPIDList(), LiteralType::getString));
+    persistentIdentifier.setEquivalentPID(createStringListFromTypeList(persistentIdentifierType.getEquivalentPIDList(), LiteralType::getString));
     persistentIdentifier.setReplacesPID(createStringListFromTypeList(persistentIdentifierType.getReplacesPIDList(), LiteralType::getString));
-
     persistentIdentifier.setInScheme(getResourceString(persistentIdentifierType.getInScheme()));
     return persistentIdentifier;
   }
