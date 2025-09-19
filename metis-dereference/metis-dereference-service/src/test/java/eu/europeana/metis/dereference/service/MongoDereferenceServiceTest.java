@@ -92,7 +92,7 @@ class MongoDereferenceServiceTest {
 
     // Add support for the place in the mocks.
     doReturn(placeSourceEntity).when(retriever)
-        .retrieve(eq(PLACE_ID), eq(geonames.getSuffix()), eq(geonames.getUserAgent()));
+        .retrieve(PLACE_ID, geonames.getSuffix(), geonames.getUserAgent());
 
     // Clear cache and build the cache functionality
     CACHE.clear();

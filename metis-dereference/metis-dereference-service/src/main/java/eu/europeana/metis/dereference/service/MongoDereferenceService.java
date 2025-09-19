@@ -277,7 +277,7 @@ public class MongoDereferenceService implements DereferenceService {
         final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
                 return retriever.retrieve(resourceId, vocabulary.getSuffix(), vocabulary.getUserAgent());
-            } catch (IOException | URISyntaxException e) {
+            } catch (IOException e) {
                 LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
                 LOGGER.debug("Problem retrieving resource.", e);
                 return null;

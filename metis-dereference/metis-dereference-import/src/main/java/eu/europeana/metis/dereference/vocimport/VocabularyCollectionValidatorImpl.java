@@ -163,7 +163,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     final String exampleContent;
     try {
       exampleContent = new RdfRetriever().retrieve(example, suffix, userAgent);
-    } catch (IOException | URISyntaxException e) {
+    } catch (IOException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
           readableMetadataLocation, "could not be retrieved", e);
       processTestError(message, lenientOnExampleRetrievalFailures, warningReceiver, e);

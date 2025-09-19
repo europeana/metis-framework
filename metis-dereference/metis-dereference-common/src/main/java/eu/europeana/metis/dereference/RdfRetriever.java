@@ -30,26 +30,23 @@ public class RdfRetriever {
    * @param userAgent  The custom user agent to use. If null, the default user agent will be set.
    * @return The original entity containing a string representation of the remote entity. This
    * method does not return null.
-   * @throws IOException        If there was an issue retrieving the resource.
-   * @throws URISyntaxException If the provided resource ID - suffix combination does not form a
-   *                            valid URI.
+   * @throws IOException If there was an issue retrieving the resource or if the provided resource
+   *                     ID - suffix combination does not form a valid URI.
    */
-  public String retrieve(String resourceId, String suffix, String userAgent)
-      throws IOException, URISyntaxException {
-    return retrieveFromSource(resourceId, suffix == null ? "" : suffix,
-        userAgent == null ? DEFAULT_USER_AGENT : userAgent);
-  }
-
-  private static String retrieveFromSource(String resourceId, String suffix, String userAgent)
-          throws IOException, URISyntaxException {
-
-    // Check the input
+  public String retrieve(String resourceId, String suffix, String userAgent) throws IOException {
     if (resourceId == null) {
       throw new IllegalArgumentException("Parameter resourceId cannot be null.");
     }
-    if (suffix == null) {
-      throw new IllegalArgumentException("Parameter suffix cannot be null.");
+    final URI resourceUri;
+    try {
+      resourceUri = new URI(resourceId + (suffix == null ? "" : suffix));
+    } catch (URISyntaxException e) {
+      throw new IOException(e.getMessage(), e);
     }
+    return retrieveFromSource(resourceUri, userAgent == null ? DEFAULT_USER_AGENT : userAgent);
+  }
+
+  private static String retrieveFromSource(URI resourceUri, String userAgent) throws IOException {
 
     // Obtain the response.
     final Map<String, String> headers = Map.of(
@@ -58,7 +55,7 @@ public class RdfRetriever {
     final StringContent result;
     try (final StringHttpClient client = new StringHttpClient(MAX_NUMBER_OF_REDIRECTS,
         CONNECT_TIMEOUT, RESPONSE_TIMEOUT, REQUEST_TIMEOUT)) {
-      result = client.download(new URI(resourceId + suffix), headers);
+      result = client.download(resourceUri, headers);
     }
 
     // Process the response.
