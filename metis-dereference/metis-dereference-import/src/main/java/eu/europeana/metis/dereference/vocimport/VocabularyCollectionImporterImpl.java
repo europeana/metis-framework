@@ -79,17 +79,18 @@ record VocabularyCollectionImporterImpl(Location directoryLocation) implements V
 
     // Compile the vocabulary.
     return Vocabulary.builder()
-                     .setName(metadata.getName())
-                     .setTypes(metadata.getTypes())
-                     .setPaths(metadata.getPaths())
-                     .setParentIterations(metadata.getParentIterations())
-                     .setSuffix(metadata.getSuffix())
-                     .setExamples(metadata.getExamples())
-                     .setCounterExamples(metadata.getCounterExamples())
-                     .setTransformation(mapping)
-                     .setReadableMetadataLocation(metadataLocation.toString())
-                     .setReadableMappingLocation(mappingLocation.toString())
-                     .build();
+        .setName(metadata.getName())
+        .setTypes(metadata.getTypes())
+        .setPaths(metadata.getPaths())
+        .setParentIterations(metadata.getParentIterations())
+        .setSuffix(metadata.getSuffix())
+        .setUserAgent(metadata.getUserAgent())
+        .setExamples(metadata.getExamples())
+        .setCounterExamples(metadata.getCounterExamples())
+        .setTransformation(mapping)
+        .setReadableMetadataLocation(metadataLocation.toString())
+        .setReadableMappingLocation(mappingLocation.toString())
+        .build();
   }
 
   public Location getDirectoryLocation() {

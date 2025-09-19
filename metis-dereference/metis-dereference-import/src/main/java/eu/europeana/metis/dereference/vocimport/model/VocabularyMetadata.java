@@ -19,6 +19,7 @@ public class VocabularyMetadata {
   private List<String> paths;
   private Integer parentIterations;
   private String suffix;
+  private String userAgent;
   private List<String> examples;
   private List<String> counterExamples;
 
@@ -42,6 +43,10 @@ public class VocabularyMetadata {
 
   public String getSuffix() {
     return suffix;
+  }
+
+  public String getUserAgent() {
+    return userAgent;
   }
 
   public List<String> getExamples() {
@@ -72,6 +77,10 @@ public class VocabularyMetadata {
 
   public void setSuffix(String suffix) {
     this.suffix = suffix;
+  }
+
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
   }
 
   public void setExamples(List<String> examples) {

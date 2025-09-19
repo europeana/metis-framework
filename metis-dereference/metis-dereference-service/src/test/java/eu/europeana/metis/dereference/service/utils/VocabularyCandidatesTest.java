@@ -89,41 +89,6 @@ class VocabularyCandidatesTest {
     assertFalse(new VocabularyCandidates(Collections.singletonList(vocabulary)).isEmpty());
   }
 
-  @Test
-  void testGetSuffixes() {
-
-    // Creat vocabularies with suffixes
-    final String suffixA = "sa";
-    final String suffixB = "sb";
-    final Vocabulary vocabulary1 = new Vocabulary();
-    vocabulary1.setId(new ObjectId());
-    vocabulary1.setSuffix(suffixA);
-    final Vocabulary vocabulary2 = new Vocabulary();
-    vocabulary2.setId(new ObjectId());
-    vocabulary2.setSuffix(suffixB);
-    final Vocabulary vocabulary3 = new Vocabulary();
-    vocabulary3.setId(new ObjectId());
-    vocabulary3.setSuffix(suffixA);
-
-    // Try with all vocabularies
-    final Set<String> suffixes1 = new VocabularyCandidates(
-        Arrays.asList(vocabulary1, vocabulary2, vocabulary3)).getVocabulariesSuffixes();
-    assertEquals(2, suffixes1.size());
-    assertTrue(suffixes1.contains(suffixA));
-    assertTrue(suffixes1.contains(suffixB));
-
-    // Try with one vocabulary
-    final Set<String> suffixes2 = new VocabularyCandidates(Collections.singletonList(vocabulary1))
-        .getVocabulariesSuffixes();
-    assertEquals(1, suffixes2.size());
-    assertTrue(suffixes2.contains(suffixA));
-
-    // Try with no vocabularies
-    final Set<String> suffixes3 = new VocabularyCandidates(Collections.emptyList())
-        .getVocabulariesSuffixes();
-    assertTrue(suffixes3.isEmpty());
-  }
-
   private static class VocabularyProvider implements Function<String, List<Vocabulary>> {
 
     private final List<Vocabulary> result;

@@ -194,7 +194,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // If there are vocabularies, we attempt to obtain the original entity from source.
         final OriginalEntity originalEntity = retrieveOriginalEntity(resourceId,
-            vocabularyCandidates.candidates.getVocabulariesSuffixes());
+            vocabularyCandidates.candidates);
         if (originalEntity.resultStatus() != DereferenceResultStatus.SUCCESS) {
             return new TransformedEntity(null, null, originalEntity.resultStatus());
         }
@@ -264,17 +264,19 @@ public class MongoDereferenceService implements DereferenceService {
         }
     }
 
-    private OriginalEntity retrieveOriginalEntity(String resourceId, Set<String> potentialSuffixes) {
+    private OriginalEntity retrieveOriginalEntity(String resourceId,
+        VocabularyCandidates vocabularyCandidateList) {
 
         // Sanity check: this should not happen.
-        if (potentialSuffixes.isEmpty()) {
+        final List<Vocabulary> candidates = vocabularyCandidateList.getVocabularies();
+        if (candidates.isEmpty()) {
             throw new IllegalArgumentException();
         }
 
         // Compute the result (a URI syntax issue is considered a problem with the suffix).
-        final String originalEntity = potentialSuffixes.stream().map(suffix -> {
+        final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
-                return retriever.retrieve(resourceId, suffix);
+                return retriever.retrieve(resourceId, vocabulary.getSuffix(), vocabulary.getUserAgent());
             } catch (IOException | URISyntaxException e) {
                 LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
                 LOGGER.debug("Problem retrieving resource.", e);

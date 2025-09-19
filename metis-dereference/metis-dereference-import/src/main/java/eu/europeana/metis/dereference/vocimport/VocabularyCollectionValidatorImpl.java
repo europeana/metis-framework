@@ -126,13 +126,13 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
       }
     }
     for (String example : vocabulary.getExamples()) {
-      testExample(converter, example, vocabulary.getSuffix(), false,
+      testExample(converter, example, vocabulary.getSuffix(), vocabulary.getUserAgent(), false,
           vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
 
     // Testing the counter examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
-      testExample(converter, example, vocabulary.getSuffix(), true,
+      testExample(converter, example, vocabulary.getSuffix(), vocabulary.getUserAgent(), true,
           vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
   }
@@ -154,14 +154,15 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     }
   }
 
-  private void testExample(IncomingRecordToEdmTransformer incomingRecordToEdmTransformer, String example, String suffix,
+  private void testExample(IncomingRecordToEdmTransformer incomingRecordToEdmTransformer,
+      String example, String suffix, String userAgent,
       boolean isCounterExample, String readableMetadataLocation,
       Consumer<String> warningReceiver) throws VocabularyImportException {
 
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
-      exampleContent = new RdfRetriever().retrieve(example, suffix);
+      exampleContent = new RdfRetriever().retrieve(example, suffix, userAgent);
     } catch (IOException | URISyntaxException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
           readableMetadataLocation, "could not be retrieved", e);
