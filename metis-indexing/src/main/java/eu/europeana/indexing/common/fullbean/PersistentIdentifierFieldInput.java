@@ -10,7 +10,7 @@ import static eu.europeana.indexing.common.fullbean.FieldInputUtils.resourceList
 
 import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.metis.schema.jibx.PersistentIdentifierType;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Function;
 
 /**
@@ -31,11 +31,11 @@ public class PersistentIdentifierFieldInput implements Function<PersistentIdenti
     persistentIdentifier.setValue(getLiteralValueString(persistentIdentifierType.getValue()));
     persistentIdentifier.setCreator(createResourceOrLiteralMapSingleFromString(persistentIdentifierType.getCreator()));
     persistentIdentifier.setCreated(getResourceOrLiteralValueString(persistentIdentifierType.getCreated()));
-    persistentIdentifier.setNotation(List.of(literalListToArray(persistentIdentifierType.getNotationList())));
+    persistentIdentifier.setNotation(Arrays.asList(literalListToArray(persistentIdentifierType.getNotationList())));
     persistentIdentifier.setHasPolicy(getResourceString(persistentIdentifierType.getHasPolicy()));
-    persistentIdentifier.setHasURL(List.of(resourceListToArray(persistentIdentifierType.getHasURLList())));
-    persistentIdentifier.setEquivalentPID(List.of(literalListToArray(persistentIdentifierType.getEquivalentPIDList())));
-    persistentIdentifier.setReplacesPID(List.of(literalListToArray(persistentIdentifierType.getReplacesPIDList())));
+    persistentIdentifier.setHasURL(Arrays.asList(resourceListToArray(persistentIdentifierType.getHasURLList())));
+    persistentIdentifier.setEquivalentPID(Arrays.asList(literalListToArray(persistentIdentifierType.getEquivalentPIDList())));
+    persistentIdentifier.setReplacesPID(Arrays.asList(literalListToArray(persistentIdentifierType.getReplacesPIDList())));
     persistentIdentifier.setInScheme(getResourceString(persistentIdentifierType.getInScheme()));
     return persistentIdentifier;
   }
