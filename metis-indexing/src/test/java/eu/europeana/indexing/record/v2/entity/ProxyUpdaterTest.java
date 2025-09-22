@@ -5,8 +5,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.definitions.solr.DocType;
+import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
@@ -95,7 +97,7 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
         ProxyImpl::setEdmIsRepresentationOf);
     testObjectPropertyUpdate(propertyUpdater, "europeanaProxy", ProxyImpl::setEuropeanaProxy,
         Boolean.TRUE);
-
+    testObjectListPropertyUpdate(propertyUpdater, "pid", ProxyImpl::setPID, List.of(new PersistentIdentifierImpl()));
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }

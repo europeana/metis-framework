@@ -20,11 +20,11 @@ import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
 import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
 import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -579,4 +579,15 @@ class IndexerImplTest {
     assertEquals(1, result);
   }
 
+  @Test
+  void indexPersistentIdentifierRdf() throws IndexingException, IOException, SerializationException, SolrServerException {
+    final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_to_sample_pid_index_rdf.xml"));
+
+    indexer.indexRdf(rdf, indexingProperties);
+
+    solrClient.commit();
+
+    assertDocumentInMongo("/12148/ivrla:3827");
+    assertDocumentInSolr("/12148/ivrla:3827");
+  }
 }

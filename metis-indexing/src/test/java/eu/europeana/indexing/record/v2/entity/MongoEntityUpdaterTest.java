@@ -90,6 +90,22 @@ abstract class MongoEntityUpdaterTest<T> {
     testObjectPropertyUpdate(propertyUpdater, fieldName, setter, testValue, null);
   }
 
+  <F> void testObjectListPropertyUpdate(MongoPropertyUpdater<T> propertyUpdater, String fieldName,
+      BiConsumer<T, List<F>> setter, List<F> testValue) {
+
+    // Create a test object with the right value
+    final T testEntity = createEmptyMongoEntity();
+    setter.accept(testEntity, testValue);
+
+    // Check that the updater was called with the field and a getter that returns the correct value.
+    @SuppressWarnings("unchecked") final ArgumentCaptor<Function<T, List<F>>> getterCaptor = ArgumentCaptor
+        .forClass(Function.class);
+
+    verify(propertyUpdater, times(1)).updateObjectList(eq(fieldName), getterCaptor.capture());
+
+    assertEquals(testValue, getterCaptor.getValue().apply(testEntity));
+  }
+
   <F> void testObjectPropertyUpdate(MongoPropertyUpdater<T> propertyUpdater, String fieldName,
         BiConsumer<T, F> setter, F testValue, UnaryOperator<F> preprocessing) {
 

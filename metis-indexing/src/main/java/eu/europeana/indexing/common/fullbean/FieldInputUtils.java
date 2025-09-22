@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
@@ -121,6 +122,23 @@ final class FieldInputUtils {
   }
 
   /**
+   * Method that converts a ResourceOrLiteralType.class object to a multilingual map of strings
+   *
+   * @param obj The ResourceOrLiteralType object
+   * @return A Map of strings. The keys are the languages and the values is a string for
+   * the corresponding language. If the object is null, the method returns empty map.
+   */
+  static <T extends ResourceOrLiteralType> Map<String, String> createResourceOrLiteralMapSingleFromString(T obj) {
+    final Map<String, String> stringMap = Optional.ofNullable(createResourceOrLiteralMapFromString(obj))
+                                               .stream()
+                                                  .map(Map::entrySet)
+                                                  .flatMap(Collection::stream)
+                                               .collect(Collectors.toMap(Entry::getKey,
+                                                   entry -> entry.getValue().getFirst()));
+    return stringMap.isEmpty() ? null : stringMap;
+  }
+
+  /**
    * Method that converts a LiteralType.class list to a multilingual map of strings
    *
    * @param list The LiteralType list
@@ -172,6 +190,18 @@ final class FieldInputUtils {
   }
 
   /**
+   * Returns an array of strings based on values from a LiteralType list. Since it is
+   * perfectly valid to have both an rdf:resource and a value on a field This method will return
+   * both in a String array
+   *
+   * @param list The LiteralType list
+   * @return An array of strings with the values of the list
+   */
+  static String[] literalListToArray(List<? extends LiteralType> list) {
+    return createArrayFromList(list, LITERAL_TYPE_VALUES_GETTER);
+  }
+
+  /**
    * Returns an array of strings based on values from a ResourceType list.
    *
    * @param list The ResourceType list
@@ -187,6 +217,28 @@ final class FieldInputUtils {
    */
   static String getResourceString(ResourceType obj) {
     final String[] array = resourceListToArray(Collections.singletonList(obj));
+    return array.length > 0 ? array[0] : null;
+  }
+
+  /**
+   * Gets literal value string.
+   *
+   * @param obj the LiteralType object
+   * @return a string from the LiteralType object
+   */
+  static String getLiteralValueString(LiteralType obj) {
+    final String[] array = literalListToArray(Collections.singletonList(obj));
+    return array.length > 0 ? array[0] : null;
+  }
+
+  /**
+   * Gets resource literal value string.
+   *
+   * @param obj the ResourceOrLiteralType
+   * @return a string from the ResourceLiteralType object
+   */
+  static String getResourceOrLiteralValueString(ResourceOrLiteralType obj) {
+    final String[] array = resourceOrLiteralListToArray(Collections.singletonList(obj));
     return array.length > 0 ? array[0] : null;
   }
 

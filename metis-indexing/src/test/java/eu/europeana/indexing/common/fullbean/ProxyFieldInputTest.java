@@ -7,6 +7,8 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
+import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.Alternative;
@@ -37,6 +39,7 @@ import eu.europeana.metis.schema.jibx.IsVersionOf;
 import eu.europeana.metis.schema.jibx.Issued;
 import eu.europeana.metis.schema.jibx.Language;
 import eu.europeana.metis.schema.jibx.Medium;
+import eu.europeana.metis.schema.jibx.Pid;
 import eu.europeana.metis.schema.jibx.Provenance;
 import eu.europeana.metis.schema.jibx.ProxyFor;
 import eu.europeana.metis.schema.jibx.ProxyIn;
@@ -46,6 +49,10 @@ import eu.europeana.metis.schema.jibx.References;
 import eu.europeana.metis.schema.jibx.Relation;
 import eu.europeana.metis.schema.jibx.Replaces;
 import eu.europeana.metis.schema.jibx.Requires;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.ConfidenceLevel;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.Rights;
 import eu.europeana.metis.schema.jibx.Source;
 import eu.europeana.metis.schema.jibx.Spatial;
@@ -80,12 +87,14 @@ class ProxyFieldInputTest {
     when(queryMock.filter(Filters.eq("about", proxy.getAbout()))).thenReturn(queryMock);
     when(queryMock.first()).thenReturn(null);
 
-    ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
+    List<PersistentIdentifier> persistentIdentifiers = List.of(getPersistentIdentifier());
+    ProxyImpl mongoProxy = new ProxyFieldInput(persistentIdentifiers).apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);
     assertEquals(proxy.getAbout(), mongoProxy.getAbout());
     assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType());
     assertEquals(proxy.getIsNextInSequenceList().size(),
         mongoProxy.getEdmIsNextInSequence().length);
+    assertEquals(proxy.getPidList().getFirst().getString(), mongoProxy.getPID().getFirst().getValue());
     // @TODO: Add actual content checking here
     List<EuropeanaType.Choice> dcterms = proxy.getChoiceList();
     for (EuropeanaType.Choice choice : dcterms) {
@@ -240,6 +249,20 @@ class ProxyFieldInputTest {
     }
   }
 
+  private static PersistentIdentifierImpl getPersistentIdentifier() {
+    PersistentIdentifierImpl identifier = new PersistentIdentifierImpl();
+    identifier.setAbout("#pid_0");
+    identifier.setCreated("created");
+    identifier.setHasURL(List.of("hasURL"));
+    identifier.setValue("pid value");
+    identifier.setNotation(List.of("notation"));
+    identifier.setReplacesPID(List.of("replacesPID"));
+    identifier.setEquivalentPID(List.of("equivalentPID"));
+    identifier.setHasPolicy("hasPolicy");
+    identifier.setInScheme("inScheme");
+    return identifier;
+  }
+
   private ProxyType createProxyFields() {
     ProxyType proxy = new ProxyType();
     proxy.setAbout("test about");
@@ -265,6 +288,14 @@ class ProxyFieldInputTest {
     ProxyIn pin = new ProxyIn();
     pin.setResource("test proxy in");
     proxy.setProxyInList(List.of(pin));
+    Pid pid = new Pid();
+    ResourceOrLiteralType.Resource resource = new Resource();
+    resource.setResource("#pid_0");
+    pid.setResource(resource);
+    pid.setString("pid value");
+    pid.setLang(new Lang());
+    pid.setConfidenceLevel(new ConfidenceLevel());
+    proxy.setPidList(List.of(pid));
     return proxy;
   }
 
