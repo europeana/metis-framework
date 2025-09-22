@@ -13,6 +13,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.Type2;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -198,19 +199,19 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
   }
 
   private List<? extends PersistentIdentifier> getPersistentIdentifiers(ProxyType proxy) {
-    return Optional.of(proxy)
-                   .map(ProxyType::getPidList)
-                   .map(pids -> pids
-                       .stream()
-                       .filter(jibxPID -> jibxPID != null && jibxPID.getResource()!= null)
-                       .map(jibxPID -> this.persistentIdentifierMap
-                           .getOrDefault(Optional.of(jibxPID)
-                                                 .map(Pid::getResource)
-                                                 .map(Resource::getResource)
-                                                 .orElse(null),
-                               null))
-                       .filter(Objects::nonNull)
-                       .toList())
-                   .orElse(null);
+    final Function<Pid, PersistentIdentifier> pidResolver = jibxPid ->
+        Optional.ofNullable(jibxPid)
+                .map(ResourceOrLiteralType::getResource)
+                .map(Resource::getResource)
+                .map(this.persistentIdentifierMap::get)
+                .orElse(null);
+    final List<PersistentIdentifier> resolvedPIDList = Optional.of(proxy)
+                                                      .map(ProxyType::getPidList)
+                                                      .stream()
+                                                      .flatMap(Collection::stream)
+                                                      .map(pidResolver)
+                                                      .filter(Objects::nonNull)
+                                                      .toList();
+    return resolvedPIDList.isEmpty() ? null : resolvedPIDList;
   }
 }

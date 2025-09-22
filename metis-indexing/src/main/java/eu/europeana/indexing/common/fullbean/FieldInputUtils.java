@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.StringUtils;
 
@@ -56,7 +57,7 @@ final class FieldInputUtils {
 
     // Sanity check
     if (list == null || list.isEmpty()) {
-      return Collections.emptyMap();
+      return null;
     }
 
     // Go by all objects in input list
@@ -128,19 +129,13 @@ final class FieldInputUtils {
    * the corresponding language. If the object is null, the method returns empty map.
    */
   static <T extends ResourceOrLiteralType> Map<String, String> createResourceOrLiteralMapSingleFromString(T obj) {
-    // Sanity check
-    if (obj == null ) {
-      return Collections.emptyMap();
-    } else {
-      final String key = Optional.of(obj).map(RESOURCE_OR_LITERAL_TYPE_KEY_GETTER)
-                                 .filter(StringUtils::isNotBlank).orElse(DEFAULT_LANG_KEY);
-      final String value = Optional.of(obj)
-                                   .map(ResourceOrLiteralType::getResource)
-                                   .map(Resource::getResource)
-                                   .orElse("");
-
-      return Map.of(key, value);
-    }
+    final Map<String, String> stringMap = Optional.ofNullable(createResourceOrLiteralMapFromString(obj))
+                                               .stream()
+                                                  .map(Map::entrySet)
+                                                  .flatMap(Collection::stream)
+                                               .collect(Collectors.toMap(Entry::getKey,
+                                                   entry -> entry.getValue().getFirst()));
+    return stringMap.isEmpty() ? null : stringMap;
   }
 
   /**
@@ -195,6 +190,18 @@ final class FieldInputUtils {
   }
 
   /**
+   * Returns an array of strings based on values from a LiteralType list. Since it is
+   * perfectly valid to have both an rdf:resource and a value on a field This method will return
+   * both in a String array
+   *
+   * @param list The LiteralType list
+   * @return An array of strings with the values of the list
+   */
+  static String[] literalListToArray(List<? extends LiteralType> list) {
+    return createArrayFromList(list, LITERAL_TYPE_VALUES_GETTER);
+  }
+
+  /**
    * Returns an array of strings based on values from a ResourceType list.
    *
    * @param list The ResourceType list
@@ -220,43 +227,19 @@ final class FieldInputUtils {
    * @return a string from the LiteralType object
    */
   static String getLiteralValueString(LiteralType obj) {
-    return Optional.ofNullable(obj)
-                   .map(LiteralType::getString)
-                   .orElse(null);
+    final String[] array = literalListToArray(Collections.singletonList(obj));
+    return array.length > 0 ? array[0] : null;
   }
 
   /**
    * Gets resource literal value string.
    *
    * @param obj the ResourceOrLiteralType
-   * @return the ResourceLiteralType object
+   * @return a string from the ResourceLiteralType object
    */
   static String getResourceOrLiteralValueString(ResourceOrLiteralType obj) {
-    return Optional.ofNullable(obj)
-                   .map(ResourceOrLiteralType::getResource)
-                   .map(Resource::getResource)
-                   .orElse(Optional.ofNullable(obj)
-                       .map(ResourceOrLiteralType::getString)
-                       .orElse(null));
-  }
-
-  /**
-   * Create string list from type list list.
-   *
-   * @param <T> the type parameter
-   * @param list the list
-   * @param valuesGetter the values getter
-   * @return the list
-   */
-  public static <T> List<String> createStringListFromTypeList(List<T> list,
-      Function<T, String> valuesGetter) {
-
-    return Optional.ofNullable(list)
-                   .orElse(Collections.emptyList())
-                   .stream()
-                   .filter(Objects::nonNull)
-                   .map(valuesGetter)
-                   .toList();
+    final String[] array = resourceOrLiteralListToArray(Collections.singletonList(obj));
+    return array.length > 0 ? array[0] : null;
   }
 
   static Map<String, List<String>> mergeMaps(Map<String, List<String>> map1,
