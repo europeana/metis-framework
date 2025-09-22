@@ -48,8 +48,9 @@ public class ProblemPatternAnalyzer {
   private static final int MAX_TITLE_LENGTH = 70;
   private static final int MIN_DESCRIPTION_LENGTH = 50;
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
-  private static final double LCS_CALCULATION_THRESHOLD = 0.9;
-  private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
+  private static final double LCS_THRESHOLD = 0.9;
+  private static final int TITLE_DESCRIPTION_LENGTH_OFFSET = 5;
+  private static final double TITLE_DESCRIPTION_LENGTH_TOLERANCE = 0.1;
   private static final int DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT = 50;
   // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
@@ -128,8 +129,8 @@ public class ProblemPatternAnalyzer {
   }
 
   /**
-   * Abbreviate(based on {@link StringUtils#abbreviate(String, int)}) an element up to a default max length {@link
-   * #DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT}.
+   * Abbreviate(based on {@link StringUtils#abbreviate(String, int)}) an element up to a default max length
+   * {@link #DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT}.
    * <p>Is used locally and can be used publicly for global problem patterns like P1.</p>
    *
    * @param element the string element
@@ -156,17 +157,6 @@ public class ProblemPatternAnalyzer {
     return equalTitlesAndDescriptions.stream().map(
         value -> new ProblemOccurrence(abbreviateElement(value))
     ).toList();
-  }
-
-  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
-    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
-    final Predicate<String> lcsPredicate = description ->
-        ((double) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
-            >= LCS_CALCULATION_THRESHOLD;
-    final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
-        <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
-    return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
-                       .filter(lcsPredicate.and(distancePredicate)).toList();
   }
 
   /**
@@ -196,6 +186,31 @@ public class ProblemPatternAnalyzer {
             value -> new ProblemOccurrence(format("%s <--> %s", abbreviateElement(entry.getKey()), abbreviateElement(value)))
         )
     ).toList();
+  }
+
+  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
+    return descriptions.stream()
+                       .filter(StringUtils::isNotBlank)
+                       .filter(not(title::equalsIgnoreCase))
+                       .filter(description -> nearIdentical(title, description))
+                       .toList();
+  }
+
+  private boolean nearIdentical(String title, String description) {
+    return passesLcsThreshold(title, description) && passesLengthTolerance(title, description);
+  }
+
+  private boolean passesLcsThreshold(String title, String description) {
+    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
+    int lcsLength = longestCommonSubsequence.apply(title, description);
+    double ratio = (double) lcsLength / Math.min(title.length(), description.length());
+    return ratio >= LCS_THRESHOLD;
+  }
+
+  private boolean passesLengthTolerance(String title, String description) {
+    int lengthDifference = Math.abs(title.length() - description.length());
+    double allowedDifference = TITLE_DESCRIPTION_LENGTH_OFFSET + (TITLE_DESCRIPTION_LENGTH_TOLERANCE * Math.min(title.length(), description.length()));
+    return lengthDifference <= allowedDifference;
   }
 
   /**

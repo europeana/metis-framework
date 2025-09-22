@@ -39,7 +39,7 @@ class ProblemPatternAnalyzerTest {
         //Should contain two provider proxies that each contain a pair of identical title and description. All four values are identical on the two proxies.
         Arguments.of(FILE_XML_P2_LOCATION, 1, ProblemPatternDescription.P2, 1),
         //Should contain identical titles, very similar ones and also completely different ones
-        Arguments.of(FILE_XML_P3_LOCATION, 2, ProblemPatternDescription.P3, 1),
+        Arguments.of(FILE_XML_P3_LOCATION, 2, ProblemPatternDescription.P3, 2),
         //Should contain valid titles in different languages and unrecognizable titles
         Arguments.of(FILE_XML_P5_LOCATION, 1, ProblemPatternDescription.P5, 3),
         //Should contain one title that is not meaningful(too short)
@@ -48,9 +48,9 @@ class ProblemPatternAnalyzerTest {
         Arguments.of(FILE_XML_P7_LOCATION, 1, ProblemPatternDescription.P7, 1),
         //Should contain multiple descriptions that are "empty"
         Arguments.of(FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION, 1, ProblemPatternDescription.P7, 1),
-        //Should contain a description with length less than threshold
+        //Should contain a description with length less than the threshold
         Arguments.of(FILE_XML_P9_LOCATION, 1, ProblemPatternDescription.P9, 2),
-        //Should contain a title with length more than threshold
+        //Should contain a title with length more than the threshold
         Arguments.of(FILE_XML_P12_LOCATION, 1, ProblemPatternDescription.P12, 1)
     );
   }
