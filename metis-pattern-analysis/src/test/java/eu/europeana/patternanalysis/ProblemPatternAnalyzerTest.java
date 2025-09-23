@@ -2,8 +2,9 @@ package eu.europeana.patternanalysis;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import eu.europeana.metis.schema.convert.SerializationException;
+import eu.europeana.patternanalysis.exception.PatternAnalysisException;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPatternDescription;
@@ -13,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Stream;
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -29,6 +31,20 @@ class ProblemPatternAnalyzerTest {
   public static final String FILE_XML_P7_DESCRIPTIONS_EMPTY_LOCATION = "src/test/resources/europeana_record_with_P7_descriptions_empty.xml";
   public static final String FILE_XML_P9_LOCATION = "src/test/resources/europeana_record_with_P9.xml";
   public static final String FILE_XML_P12_LOCATION = "src/test/resources/europeana_record_with_P12.xml";
+
+  @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2}, totalOccurrences:{3}")
+  @MethodSource
+  void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
+      int totalOccurrences) throws Exception {
+    final ProblemPatternAnalysis problemPatternAnalysis = analyzeProblemPatternsForFile(fileLocation);
+
+    assertNotNull(problemPatternAnalysis);
+    assertEquals(totalPatterns, problemPatternAnalysis.getProblemPatterns().size());
+    assertEquals(problemPatternDescription,
+        getRequestedProblemPattern(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+    assertEquals(totalOccurrences,
+        getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+  }
 
   private static Stream<Arguments> analyzeRecord() {
     return Stream.of(
@@ -62,7 +78,7 @@ class ProblemPatternAnalyzerTest {
                           .filter(patternDescription -> patternDescription == problemPatternDescription).findFirst().orElse(null);
   }
 
-  private ProblemPatternAnalysis analyzeProblemPatternsForFile(String fileLocation) throws IOException, SerializationException {
+  private ProblemPatternAnalysis analyzeProblemPatternsForFile(String fileLocation) throws IOException, PatternAnalysisException {
     String xml = IOUtils.toString(new FileInputStream(fileLocation), StandardCharsets.UTF_8);
 
     final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
@@ -74,21 +90,14 @@ class ProblemPatternAnalyzerTest {
     return problemPatterns.stream()
                           .filter(problemPattern -> problemPattern.getProblemPatternDescription()
                               == problemPatternDescription)
-                          .map(problemPattern -> problemPattern.getRecordAnalysisList().getFirst().getProblemOccurrenceList().size())
+                          .map(problemPattern -> problemPattern.getRecordAnalysisList().getFirst().getProblemOccurrenceList()
+                                                               .size())
                           .findFirst().orElse(0);
   }
 
-  @ParameterizedTest(name = "[{index}] - For file:{0}, totalPatterns:{1}, patternId:{2}, totalOccurrences:{3}")
-  @MethodSource
-  void analyzeRecord(String fileLocation, int totalPatterns, ProblemPatternDescription problemPatternDescription,
-      int totalOccurrences) throws Exception {
-    final ProblemPatternAnalysis problemPatternAnalysis = analyzeProblemPatternsForFile(fileLocation);
-
-    assertNotNull(problemPatternAnalysis);
-    assertEquals(totalPatterns, problemPatternAnalysis.getProblemPatterns().size());
-    assertEquals(problemPatternDescription,
-        getRequestedProblemPattern(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
-    assertEquals(totalOccurrences,
-        getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+  @Test
+  void analyzeRecord_UnparsableString_ShouldFail() {
+    final ProblemPatternAnalyzer problemPatternAnalyzer = new ProblemPatternAnalyzer();
+    assertThrows(PatternAnalysisException.class, () -> problemPatternAnalyzer.analyzeRecord("xml"));
   }
 }

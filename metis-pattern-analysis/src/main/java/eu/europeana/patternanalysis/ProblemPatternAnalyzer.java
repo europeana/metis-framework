@@ -16,6 +16,7 @@ import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.patternanalysis.exception.PatternAnalysisException;
 import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
@@ -66,10 +67,15 @@ public class ProblemPatternAnalyzer {
    *
    * @param rdfString the rdf record as a string
    * @return a list of problem patterns
-   * @throws SerializationException if the record could not be converted to {@link RDF}
+   * @throws PatternAnalysisException if the record could not be converted to {@link RDF}
    */
-  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws SerializationException {
-    return analyzeRecord(new RdfConversionUtils().convertStringToRdf(rdfString));
+  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws PatternAnalysisException {
+    try {
+      RDF rdf = new RdfConversionUtils().convertStringToRdf(rdfString);
+      return analyzeRecord(rdf);
+    } catch (SerializationException e) {
+      throw new PatternAnalysisException("Failed to deserialize given rdf string", e);
+    }
   }
 
   /**
@@ -166,11 +172,13 @@ public class ProblemPatternAnalyzer {
    * Common Subsequence</a>).
    * <p>
    * The formula chosen is:
-   * <p>
-   * LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 && |length(title)-length(desc)| <= 20
-   * <p>
-   * Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
-   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions.
+   * <ul>
+   *    <li>LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 &&
+   *    |length(title) - length(desc)| =< 5 + 0.1 * min(length(title), length(desc))</li>
+   *    <li>Blank values are filtered out.</li>
+   *    <li>Titles and descriptions that are identical, regardless of letter case, are filtered out.</li>
+   *    <li>Each title will be reported only once, and there will be no duplicates with the same or nearly identical descriptions.</li>
+   * </ul>
    *
    * @param titles the list of titles
    * @param descriptions the list of descriptions
@@ -209,7 +217,8 @@ public class ProblemPatternAnalyzer {
 
   private boolean passesLengthTolerance(String title, String description) {
     int lengthDifference = Math.abs(title.length() - description.length());
-    double allowedDifference = TITLE_DESCRIPTION_LENGTH_OFFSET + (TITLE_DESCRIPTION_LENGTH_TOLERANCE * Math.min(title.length(), description.length()));
+    double allowedDifference =
+        TITLE_DESCRIPTION_LENGTH_OFFSET + (TITLE_DESCRIPTION_LENGTH_TOLERANCE * Math.min(title.length(), description.length()));
     return lengthDifference <= allowedDifference;
   }
 
