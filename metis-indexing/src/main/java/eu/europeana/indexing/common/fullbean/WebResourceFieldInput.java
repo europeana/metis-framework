@@ -136,7 +136,7 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
       webResource.setEdmPreview(wResourceType.getPreview().getResource());
     }
 
-    if (wResourceType.getDigitalSourceType() !=null) {
+    if (wResourceType.getDigitalSourceType() != null) {
       webResource.setSchemaDigitalSourceType(wResourceType.getDigitalSourceType().getResource());
     }
 
