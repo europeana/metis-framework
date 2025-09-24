@@ -21,13 +21,13 @@ class ProblemPatternTest {
     final ProblemPattern problemPattern1 = new ProblemPattern(
         ProblemPatternDescription.P2, 2, List.of(recordAnalysis1, recordAnalysis2));
 
-    assertEquals(ProblemPatternDescription.P2, problemPattern1.getProblemPatternDescription());
-    assertEquals(2, problemPattern1.getRecordOccurrences());
+    assertEquals(ProblemPatternDescription.P2, problemPattern1.problemPatternDescription());
+    assertEquals(2, problemPattern1.recordOccurrences());
     assertTrue(
-        CollectionUtils.isEqualCollection(List.of(recordAnalysis1, recordAnalysis2), problemPattern1.getRecordAnalysisList()));
+        CollectionUtils.isEqualCollection(List.of(recordAnalysis1, recordAnalysis2), problemPattern1.recordAnalysisList()));
 
     final ProblemPattern problemPattern2 = new ProblemPattern(ProblemPatternDescription.P2, 2, null);
-    assertNotNull(problemPattern2.getRecordAnalysisList());
+    assertNotNull(problemPattern2.recordAnalysisList());
   }
 
 }

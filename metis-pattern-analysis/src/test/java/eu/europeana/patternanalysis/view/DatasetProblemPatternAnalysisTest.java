@@ -28,15 +28,15 @@ class DatasetProblemPatternAnalysisTest {
         "VALIDATION_EXTERNAL", currentDate
         , List.of(problemPattern1, problemPattern2));
 
-    assertEquals("datasetId1", datasetProblemPatternAnalysis1.getDatasetId());
-    assertEquals(0, currentDate.compareTo(datasetProblemPatternAnalysis1.getExecutionTimestamp()));
-    assertEquals("VALIDATION_EXTERNAL", datasetProblemPatternAnalysis1.getExecutionStep());
+    assertEquals("datasetId1", datasetProblemPatternAnalysis1.datasetId());
+    assertEquals(0, currentDate.compareTo(datasetProblemPatternAnalysis1.executionTimestamp()));
+    assertEquals("VALIDATION_EXTERNAL", datasetProblemPatternAnalysis1.executionStep());
     assertTrue(CollectionUtils.isEqualCollection(List.of(problemPattern1, problemPattern2),
-        datasetProblemPatternAnalysis1.getProblemPatternList()));
+        datasetProblemPatternAnalysis1.problemPatternList()));
 
     final DatasetProblemPatternAnalysis<String> datasetProblemPatternAnalysis2 = new DatasetProblemPatternAnalysis<>("datasetId1",
         "VALIDATION_EXTERNAL", currentDate, null);
-    assertNotNull(datasetProblemPatternAnalysis2.getProblemPatternList());
+    assertNotNull(datasetProblemPatternAnalysis2.problemPatternList());
   }
 
 }

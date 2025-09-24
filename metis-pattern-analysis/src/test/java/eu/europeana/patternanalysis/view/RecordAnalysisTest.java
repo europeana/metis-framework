@@ -16,12 +16,12 @@ class RecordAnalysisTest {
     final ProblemOccurrence problemOccurrence2 = new ProblemOccurrence("Duplicate titleB");
     final RecordAnalysis recordAnalysis1 = new RecordAnalysis("recordId1", List.of(problemOccurrence1, problemOccurrence2));
 
-    assertEquals("recordId1", recordAnalysis1.getRecordId());
+    assertEquals("recordId1", recordAnalysis1.recordId());
     assertTrue(CollectionUtils.isEqualCollection(List.of(problemOccurrence1, problemOccurrence2),
-        recordAnalysis1.getProblemOccurrenceList()));
+        recordAnalysis1.problemOccurrenceList()));
 
     final RecordAnalysis recordAnalysis2 = new RecordAnalysis("recordId1", null);
-    assertNotNull(recordAnalysis2.getProblemOccurrenceList());
+    assertNotNull(recordAnalysis2.problemOccurrenceList());
   }
 
 }
