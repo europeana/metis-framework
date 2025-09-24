@@ -99,7 +99,7 @@ public class ProblemPatternAnalyzer {
     final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
     final Map<String, List<String>> descriptionsWithLanguage = getChoicesWithLanguage(choices, Choice::ifDescription,
         Choice::getDescription, ResourceOrLiteralType::getString,
-        c -> Optional.ofNullable(c.getLang()).map(Lang::getLang).orElse("UNKNOWN"));
+        description -> Optional.ofNullable(description.getLang()).map(Lang::getLang).orElse("UNKNOWN"));
     final List<String> descriptions = descriptionsWithLanguage.values().stream().flatMap(Collection::stream).toList();
     final List<String> identifiers = getChoicesInStringList(choices, Choice::ifIdentifier, Choice::getIdentifier,
         LiteralType::getString);
