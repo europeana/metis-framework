@@ -151,7 +151,12 @@ public class WebResourceMetaInfoUpdater extends
           createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getMimeType));
       propertyUpdater.updateObject("threeDMetaInfo.fileSize",
           createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getFileSize));
-
+      propertyUpdater.updateObject("threeDMetaInfo.pointCount",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getPointCount));
+      propertyUpdater.updateObject("threeDMetaInfo.polygonCount",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getPolygonCount));
+      propertyUpdater.updateObject("threeDMetaInfo.verticeCount",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getVerticeCount));
     }
   }
 
