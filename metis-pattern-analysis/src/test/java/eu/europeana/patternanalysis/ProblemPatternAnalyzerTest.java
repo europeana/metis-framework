@@ -39,11 +39,11 @@ class ProblemPatternAnalyzerTest {
     final ProblemPatternAnalysis problemPatternAnalysis = analyzeProblemPatternsForFile(fileLocation);
 
     assertNotNull(problemPatternAnalysis);
-    assertEquals(totalPatterns, problemPatternAnalysis.getProblemPatterns().size());
+    assertEquals(totalPatterns, problemPatternAnalysis.problemPatterns().size());
     assertEquals(problemPatternDescription,
-        getRequestedProblemPattern(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+        getRequestedProblemPattern(problemPatternDescription, problemPatternAnalysis.problemPatterns()));
     assertEquals(totalOccurrences,
-        getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatternAnalysis.getProblemPatterns()));
+        getRequestedProblemOccurrencesSize(problemPatternDescription, problemPatternAnalysis.problemPatterns()));
   }
 
   private static Stream<Arguments> analyzeRecord() {
@@ -74,7 +74,7 @@ class ProblemPatternAnalyzerTest {
   private ProblemPatternDescription getRequestedProblemPattern(ProblemPatternDescription problemPatternDescription,
       List<ProblemPattern> problemPatterns) {
     return problemPatterns.stream()
-                          .map(ProblemPattern::getProblemPatternDescription)
+                          .map(ProblemPattern::problemPatternDescription)
                           .filter(patternDescription -> patternDescription == problemPatternDescription).findFirst().orElse(null);
   }
 
@@ -88,9 +88,9 @@ class ProblemPatternAnalyzerTest {
   private int getRequestedProblemOccurrencesSize(ProblemPatternDescription problemPatternDescription,
       List<ProblemPattern> problemPatterns) {
     return problemPatterns.stream()
-                          .filter(problemPattern -> problemPattern.getProblemPatternDescription()
+                          .filter(problemPattern -> problemPattern.problemPatternDescription()
                               == problemPatternDescription)
-                          .map(problemPattern -> problemPattern.getRecordAnalysisList().getFirst().getProblemOccurrenceList()
+                          .map(problemPattern -> problemPattern.recordAnalysisList().getFirst().problemOccurrenceList()
                                                                .size())
                           .findFirst().orElse(0);
   }
