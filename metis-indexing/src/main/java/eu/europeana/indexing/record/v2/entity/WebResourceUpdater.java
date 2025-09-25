@@ -38,6 +38,12 @@ public class WebResourceUpdater extends
     propertyUpdater.updateString("edmPreview", WebResource::getEdmPreview);
     propertyUpdater.updateArray("svcsHasService", WebResource::getSvcsHasService);
     propertyUpdater.updateArray("dctermsIsReferencedBy", WebResource::getDctermsIsReferencedBy);
+    propertyUpdater.updateString("schemaDigitalSourceType", WebResource::getSchemaDigitalSourceType);
+    propertyUpdater.updateArray("edmIntendedUsage", WebResource::getEdmIntendedUsage);
+    propertyUpdater.updateMap("dcTitle", WebResource::getDcTitle);
+    propertyUpdater.updateMap("dcLanguage", WebResource::getDcLanguage);
+    propertyUpdater.updateMap("dcTermsTemporal", WebResource::getDcTermsTemporal);
+    propertyUpdater.updateArray("rdfsSeeAlso", WebResource::getRdfsSeeAlso);
 
     propertyUpdater.updateWebResourceMetaInfo(WebResourceImpl::getWebResourceMetaInfo,
         webResource -> createWebResourceInfo(webResource, ancestorInformation),

@@ -20,6 +20,7 @@ import eu.europeana.metis.schema.jibx.HexBinaryType;
 import eu.europeana.metis.schema.jibx.IntegerType;
 import eu.europeana.metis.schema.jibx.LongType;
 import eu.europeana.metis.schema.jibx.NonNegativeIntegerType;
+import eu.europeana.metis.schema.jibx.NonNegativeIntegerWithoutDataTypeType;
 import eu.europeana.metis.schema.jibx.OrientationType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.Type1;
@@ -133,6 +134,33 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     }
     if (wResourceType.getPreview() != null) {
       webResource.setEdmPreview(wResourceType.getPreview().getResource());
+    }
+
+    if (wResourceType.getDigitalSourceType() != null) {
+      webResource.setSchemaDigitalSourceType(wResourceType.getDigitalSourceType().getResource());
+    }
+
+    if (wResourceType.getIntendedUsageList() != null) {
+      webResource.setEdmIntendedUsage(FieldInputUtils.resourceListToArray(wResourceType.getIntendedUsageList()));
+    }
+
+    Map<String, List<String>> titleMap =
+        FieldInputUtils.createLiteralMapFromList(wResourceType.getTitleList());
+
+    webResource.setDcTitle(titleMap);
+
+    Map<String, List<String>> languageMap =
+        FieldInputUtils.createLiteralMapFromList(wResourceType.getLanguageList());
+
+    webResource.setDcLanguage(languageMap);
+
+    Map<String, List<String>> termsTemporalMap =
+        FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getTemporalList());
+
+    webResource.setDcTermsTemporal(termsTemporalMap);
+
+    if (wResourceType.getSeeAlsoList() != null) {
+      webResource.setRdfsSeeAlso(FieldInputUtils.resourceListToArray(wResourceType.getSeeAlsoList()));
     }
 
     webResource.setWebResourceMetaInfo(createWebResourceMetaInfo(wResourceType));
@@ -260,7 +288,9 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
 
     metaInfo.setMimeType(convertToString(source.getHasMimeType()));
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
-
+    metaInfo.setPointCount(convertToLong(source.getPointCount()));
+    metaInfo.setPolygonCount(convertToLong(source.getPolygonCount()));
+    metaInfo.setVerticeCount(convertToLong(source.getVerticeCount()));
     target.setThreeDMetaInfo(metaInfo);
   }
 
@@ -294,6 +324,11 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
   private static Integer convertToInteger(NonNegativeIntegerType data) {
     return Optional.ofNullable(data).map(NonNegativeIntegerType::getInteger)
                    .map(BigInteger::intValue).orElse(null);
+  }
+
+  private static Long convertToLong(NonNegativeIntegerWithoutDataTypeType data) {
+    return Optional.ofNullable(data).map(NonNegativeIntegerWithoutDataTypeType::getInteger)
+                   .map(BigInteger::longValue).orElse(null);
   }
 
   private static String convertToString(CodecName data) {
