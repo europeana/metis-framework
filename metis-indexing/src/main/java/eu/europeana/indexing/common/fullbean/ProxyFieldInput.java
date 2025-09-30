@@ -1,28 +1,55 @@
 package eu.europeana.indexing.common.fullbean;
 
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.jibx.EuropeanaProxy;
 import eu.europeana.metis.schema.jibx.EuropeanaType.Choice;
 import eu.europeana.metis.schema.jibx.IsNextInSequence;
 import eu.europeana.metis.schema.jibx.LiteralType;
+import eu.europeana.metis.schema.jibx.Pid;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Resource;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.Type2;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
- * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a
- * {@link ProxyImpl} for a {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
+ * Converts a {@link ProxyType} from an {@link eu.europeana.metis.schema.jibx.RDF} to a {@link ProxyImpl} for a
+ * {@link eu.europeana.corelib.definitions.edm.beans.FullBean}.
  */
 final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
+
+  private final Map<String, ? extends PersistentIdentifier> persistentIdentifierMap;
+
+  /**
+   * Instantiates a new Proxy field input.
+   */
+  public ProxyFieldInput() {
+    this.persistentIdentifierMap = Collections.emptyMap();
+  }
+
+  /**
+   * Instantiates a new Proxy field input.
+   *
+   * @param persistentIdentifiers the persistent identifiers
+   */
+  public ProxyFieldInput(List<? extends PersistentIdentifier> persistentIdentifiers) {
+    this.persistentIdentifierMap = persistentIdentifiers
+        .stream()
+        .collect(Collectors.toMap(PersistentIdentifier::getAbout, identity -> identity));
+  }
 
   @Override
   public ProxyImpl apply(ProxyType proxy) {
@@ -52,26 +79,25 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
     mongoProxy.setLineage(FieldInputUtils.resourceListToArray(proxy.getLineageList()));
     mongoProxy.setEdmHasMet(FieldInputUtils.createResourceMapFromList(proxy.getHasMetList()));
     mongoProxy.setYear(FieldInputUtils.createLiteralMapFromList(proxy.getYearList()));
-    mongoProxy
-        .setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
+    mongoProxy.setEdmHasType(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getHasTypeList()));
     mongoProxy.setEdmIncorporates(FieldInputUtils.resourceListToArray(proxy.getIncorporateList()));
-    mongoProxy
-        .setEdmIsDerivativeOf(FieldInputUtils.resourceListToArray(proxy.getIsDerivativeOfList()));
-    mongoProxy.setEdmIsRelatedTo(
-        FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getIsRelatedToList()));
+    mongoProxy.setEdmIsDerivativeOf(FieldInputUtils.resourceListToArray(proxy.getIsDerivativeOfList()));
+    mongoProxy.setEdmIsRelatedTo(FieldInputUtils.createResourceOrLiteralMapFromList(proxy.getIsRelatedToList()));
     if (proxy.getIsRepresentationOf() != null) {
       mongoProxy.setEdmIsRepresentationOf(proxy.getIsRepresentationOf().getResource());
     }
     mongoProxy.setEdmIsSimilarTo(FieldInputUtils.resourceListToArray(proxy.getIsSimilarToList()));
     mongoProxy.setEdmRealizes(FieldInputUtils.resourceListToArray(proxy.getRealizeList()));
-    mongoProxy
-        .setEdmIsSuccessorOf(FieldInputUtils.resourceListToArray(proxy.getIsSuccessorOfList()));
+    mongoProxy.setEdmIsSuccessorOf(FieldInputUtils.resourceListToArray(proxy.getIsSuccessorOfList()));
     List<Choice> europeanaTypeList = proxy.getChoiceList();
     if (europeanaTypeList != null) {
       for (Choice europeanaType : europeanaTypeList) {
         applyToChoice(europeanaType, mongoProxy);
       }
     }
+
+    mongoProxy.setPID(getPersistentIdentifiers(proxy));
+
     return mongoProxy;
   }
 
@@ -170,5 +196,22 @@ final class ProxyFieldInput implements Function<ProxyType, ProxyImpl> {
         proxy::setDcTitle);
     applyToResourceOrLiteralChoiceOption(choice::ifType, choice::getType, proxy::getDcType,
         proxy::setDcType);
+  }
+
+  private List<? extends PersistentIdentifier> getPersistentIdentifiers(ProxyType proxy) {
+    final Function<Pid, PersistentIdentifier> pidResolver = jibxPid ->
+        Optional.ofNullable(jibxPid)
+                .map(ResourceOrLiteralType::getResource)
+                .map(Resource::getResource)
+                .map(this.persistentIdentifierMap::get)
+                .orElse(null);
+    final List<PersistentIdentifier> resolvedPIDList = Optional.of(proxy)
+                                                      .map(ProxyType::getPidList)
+                                                      .stream()
+                                                      .flatMap(Collection::stream)
+                                                      .map(pidResolver)
+                                                      .filter(Objects::nonNull)
+                                                      .toList();
+    return resolvedPIDList.isEmpty() ? null : resolvedPIDList;
   }
 }

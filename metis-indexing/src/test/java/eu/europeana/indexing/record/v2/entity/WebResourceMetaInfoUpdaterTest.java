@@ -137,8 +137,12 @@ class WebResourceMetaInfoUpdaterTest extends
         createSetterForThreeD(ThreeDMetaInfoImpl::setMimeType));
     testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.fileSize",
         createSetterForThreeD(ThreeDMetaInfoImpl::setFileSize), 30L);
-
-
+    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.pointCount",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setPointCount), 28L);
+    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.polygonCount",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setPolygonCount), 46L);
+    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.verticeCount",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setVerticeCount), 92L);
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }

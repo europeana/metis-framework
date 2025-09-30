@@ -44,28 +44,7 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
     updater.update(propertyUpdater, rootAbout);
 
     // Test all the values not in the web resource meta info.
-    testMapPropertyUpdate(propertyUpdater, "dcDescription", WebResource::setDcDescription);
-    testMapPropertyUpdate(propertyUpdater, "dcFormat", WebResource::setDcFormat);
-    testMapPropertyUpdate(propertyUpdater, "dcCreator", WebResource::setDcCreator);
-    testMapPropertyUpdate(propertyUpdater, "dcSource", WebResource::setDcSource);
-    testMapPropertyUpdate(propertyUpdater, "dctermsConformsTo", WebResource::setDctermsConformsTo);
-    testMapPropertyUpdate(propertyUpdater, "dctermsCreated", WebResource::setDctermsCreated);
-    testMapPropertyUpdate(propertyUpdater, "dctermsExtent", WebResource::setDctermsExtent);
-    testMapPropertyUpdate(propertyUpdater, "dctermsHasPart", WebResource::setDctermsHasPart);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIsFormatOf", WebResource::setDctermsIsFormatOf);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIsPartOf", WebResource::setDctermsIsPartOf);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIssued", WebResource::setDctermsIssued);
-    testStringPropertyUpdate(propertyUpdater, "isNextInSequence", WebResource::setIsNextInSequence);
-    testMapPropertyUpdate(propertyUpdater, "webResourceDcRights",
-        WebResource::setWebResourceDcRights);
-    testMapPropertyUpdate(propertyUpdater, "webResourceEdmRights",
-        WebResource::setWebResourceEdmRights);
-    testMapPropertyUpdate(propertyUpdater, "dcType", WebResource::setDcType);
-    testArrayPropertyUpdate(propertyUpdater, "owlSameAs", WebResource::setOwlSameAs);
-    testStringPropertyUpdate(propertyUpdater, "edmPreview", WebResource::setEdmPreview);
-    testArrayPropertyUpdate(propertyUpdater, "svcsHasService", WebResource::setSvcsHasService);
-    testArrayPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy",
-        WebResource::setDctermsIsReferencedBy);
+    assertProperties(propertyUpdater);
 
     // Create a test object with the right value for testing the web resource meta info.
     final WebResourceImpl testEntity = createEmptyMongoEntity();
@@ -89,5 +68,36 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
+  }
+
+  private void assertProperties(MongoPropertyUpdater<WebResourceImpl> propertyUpdater) {
+    testMapPropertyUpdate(propertyUpdater, "dcDescription", WebResource::setDcDescription);
+    testMapPropertyUpdate(propertyUpdater, "dcFormat", WebResource::setDcFormat);
+    testMapPropertyUpdate(propertyUpdater, "dcCreator", WebResource::setDcCreator);
+    testMapPropertyUpdate(propertyUpdater, "dcSource", WebResource::setDcSource);
+    testMapPropertyUpdate(propertyUpdater, "dctermsConformsTo", WebResource::setDctermsConformsTo);
+    testMapPropertyUpdate(propertyUpdater, "dctermsCreated", WebResource::setDctermsCreated);
+    testMapPropertyUpdate(propertyUpdater, "dctermsExtent", WebResource::setDctermsExtent);
+    testMapPropertyUpdate(propertyUpdater, "dctermsHasPart", WebResource::setDctermsHasPart);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIsFormatOf", WebResource::setDctermsIsFormatOf);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIsPartOf", WebResource::setDctermsIsPartOf);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIssued", WebResource::setDctermsIssued);
+    testStringPropertyUpdate(propertyUpdater, "isNextInSequence", WebResource::setIsNextInSequence);
+    testMapPropertyUpdate(propertyUpdater, "webResourceDcRights",
+        WebResource::setWebResourceDcRights);
+    testMapPropertyUpdate(propertyUpdater, "webResourceEdmRights",
+        WebResource::setWebResourceEdmRights);
+    testMapPropertyUpdate(propertyUpdater, "dcType", WebResource::setDcType);
+    testArrayPropertyUpdate(propertyUpdater, "owlSameAs", WebResource::setOwlSameAs);
+    testStringPropertyUpdate(propertyUpdater, "edmPreview", WebResource::setEdmPreview);
+    testArrayPropertyUpdate(propertyUpdater, "svcsHasService", WebResource::setSvcsHasService);
+    testArrayPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy",
+        WebResource::setDctermsIsReferencedBy);
+    testStringPropertyUpdate(propertyUpdater, "schemaDigitalSourceType", WebResource::setSchemaDigitalSourceType);
+    testArrayPropertyUpdate(propertyUpdater, "edmIntendedUsage", WebResource::setEdmIntendedUsage);
+    testMapPropertyUpdate(propertyUpdater, "dcTitle", WebResource::setDcTitle);
+    testMapPropertyUpdate(propertyUpdater, "dcLanguage", WebResource::setDcLanguage);
+    testMapPropertyUpdate(propertyUpdater, "dcTermsTemporal", WebResource::setDcTermsTemporal);
+    testArrayPropertyUpdate(propertyUpdater, "rdfsSeeAlso", WebResource::setRdfsSeeAlso);
   }
 }

@@ -4,20 +4,57 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 class RdfToFullBeanConverterTest {
+
+  @Test
+  void convertRdfToFullBeanWithPersistentIdentifiers() throws SerializationException {
+    RdfToFullBeanConverter rdfToFullBeanConverter = new RdfToFullBeanConverter();
+    final RdfConversionUtils conversionUtils = new RdfConversionUtils();
+    final RdfWrapper inputRdf = new RdfWrapper(
+        conversionUtils.convertStringToRdf(
+            IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_pid_index_rdf.xml")
+        )
+    );
+
+    FullBeanImpl fullBean = rdfToFullBeanConverter.convertRdfToFullBean(inputRdf);
+
+    assertNotNull(fullBean);
+    assertProxiesWithPid(fullBean);
+  }
+
+  private static void assertProxiesWithPid(FullBeanImpl fullBean) {
+    assertEquals(Set.of("/proxy/europeana/12148/ivrla:3827", "/proxy/provider/12148/ivrla:3827"),
+        fullBean.getProxies()
+                .stream()
+                .map(AbstractEdmEntityImpl::getAbout)
+                .collect(Collectors.toSet()));
+    assertEquals(Set.of("ark:/12148/bpt6k279983", "ark:/12148/bpt6k279984"),
+        fullBean.getProxies()
+                .stream()
+                .filter(Objects::nonNull)
+                .map(ProxyImpl::getPID)
+                .filter(Objects::nonNull)
+                .flatMap(Collection::stream)
+                .map(PersistentIdentifier::getValue)
+                .collect(Collectors.toSet()));
+  }
 
   @Test
   void convertRdfToFullBean() throws SerializationException {

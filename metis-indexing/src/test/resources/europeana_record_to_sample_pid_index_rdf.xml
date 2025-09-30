@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:ebucore="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:odrl="http://www.w3.org/ns/odrl/2/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:svcs="http://rdfs.org/sioc/services#" xmlns:oa="http://www.w3.org/ns/oa#" xmlns:dqv="http://www.w3.org/ns/dqv#" xmlns:schema="https://schema.org/">
+  <edm:ProvidedCHO rdf:about="/12148/ivrla:3827"/>
+  <edm:WebResource rdf:about="https://iiif.ucd.ie/loris/ivrla:3828/full/full/0/default.jpg">
+    <dc:format>image/jpeg</dc:format>
+    <dcterms:extent xml:lang="en">1 still image : digital</dcterms:extent>
+    <dcterms:extent>6070x3884 pixels</dcterms:extent>
+    <dcterms:extent>68 MB</dcterms:extent>
+    <dcterms:extent>21.5 x 33.5 (cm)</dcterms:extent>
+    <dcterms:isReferencedBy rdf:resource="https://data.ucd.ie/api/img/manifests/ivrla:3827"></dcterms:isReferencedBy>
+    <svcs:has_service rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828"/>
+  </edm:WebResource>
+  <edm:Agent rdf:about="http://viaf.org/viaf/22950329">
+    <skos:prefLabel xml:lang="lt-LT">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr-FR">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="no-NO">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl-PL">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="de-DE">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="it-VA">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs-CZ">RichardWhately</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl-NL">RichardWhately</skos:prefLabel>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/200809626"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/174154383"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/315650137"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/310430155"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/309259396"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/315654742"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/315683453"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/315008257"/>
+    <rdaGr2:dateOfBirth>1787-02-01</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1863-10-08</rdaGr2:dateOfDeath>
+    <owl:sameAs rdf:resource="http://id.ndl.go.jp/auth/entity/00766021"/>
+    <owl:sameAs rdf:resource="http://isni.org/isni/0000000108789390"/>
+    <owl:sameAs rdf:resource="http://d-nb.info/gnd/119391708"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb10741391d#foaf:Person"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n81033513"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q2997652"/>
+    <owl:sameAs rdf:resource="http://www.idref.fr/083416374/id"/>
+    <owl:sameAs rdf:resource="http://data.bibsys.no/data/notrbib/authorityentry/x3020160"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Richard_Whately"/>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://viaf.org/viaf/17227308">
+    <skos:prefLabel xml:lang="pl-PL">Jan Henryk Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="es-ES">Juan Enrique Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="it-IT">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr-FR">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt-LT">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr-HR">Iohannes HenricusNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="da-DK">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="de-DE">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="no-NO">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk-SK">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca-ES">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv-SE">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl-NL">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs-CZ">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="et-EE">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">John-HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv-LV">John-HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt-PT">John HenryNewman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru-RU">Д. Г.Ньюмен</skos:prefLabel>
+    <skos:note xml:lang="pl-PL">(święty ;</skos:note>
+    <skos:note xml:lang="es-ES">Santo</skos:note>
+    <skos:note xml:lang="hr-HR">sanctus</skos:note>
+    <skos:note xml:lang="de-DE">Heiliger</skos:note>
+    <skos:note xml:lang="sk-SK">blahoslavený</skos:note>
+    <skos:note xml:lang="fr-FR">saint</skos:note>
+    <skos:note xml:lang="ru-RU">кардинал</skos:note>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/7138159478081127990004"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/309269637"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/178983180"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/9037165326546516290004"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/316317016"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/219205865"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/315680546"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/1423145424684786830172"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/309262305"/>
+    <edm:hasMet rdf:resource="http://viaf.org/viaf/186037754"/>
+    <rdaGr2:dateOfBirth>1801-02-21</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1890-08-11</rdaGr2:dateOfDeath>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/#foaf:Person"/>
+    <owl:sameAs rdf:resource="http://d-nb.info/gnd/11858751X"/>
+    <owl:sameAs rdf:resource="http://isni.org/isni/0000000122769812"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500253096-agent"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n78095501"/>
+    <owl:sameAs rdf:resource="http://id.ndl.go.jp/auth/entity/00451232"/>
+    <owl:sameAs rdf:resource="http://libris.kb.se/resource/auth/79810"/>
+    <owl:sameAs rdf:resource="http://www.idref.fr/027046915/id"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q44490"/>
+    <owl:sameAs rdf:resource="http://data.bibsys.no/data/notrbib/authorityentry/x90139186"/>
+    <owl:sameAs rdf:resource="http://datos.bne.es/resource/981060861412908606"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/John_Henry_Newman"/>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://data.europeana.eu/agent/169757">
+    <skos:prefLabel xml:lang="de">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Ричард Уотли</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Richard Whately</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Richard Whately</skos:prefLabel>
+    <skos:altLabel xml:lang="ru">Уотли</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Уотли Р.</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Уотли Ричард</skos:altLabel>
+    <skos:note xml:lang="en">British rhetorician, logician, economist, and theologian (1787-1863)</skos:note>
+    <skos:note xml:lang="it">Arcivescovo anglicano, logico e teologo britannico</skos:note>
+    <skos:note xml:lang="fr">Théologien britannique</skos:note>
+    <skos:note xml:lang="nl">Brits econoom (1787-1863)</skos:note>
+    <rdaGr2:dateOfBirth>1787-02-01</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1863-10-08</rdaGr2:dateOfDeath>
+    <rdaGr2:placeOfBirth rdf:resource="http://data.europeana.eu/place/177208"></rdaGr2:placeOfBirth>
+    <rdaGr2:placeOfDeath rdf:resource="http://data.europeana.eu/place/21938"></rdaGr2:placeOfDeath>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2962"></rdaGr2:professionOrOccupation>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2966"></rdaGr2:professionOrOccupation>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/119"></rdaGr2:professionOrOccupation>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q2997652"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/22950329"/>
+    <owl:sameAs rdf:resource="https://d-nb.info/gnd/119391708"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n81033513"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb10741391d"/>
+    <owl:sameAs rdf:resource="http://www.idref.fr/083416374/id"/>
+    <owl:sameAs rdf:resource="http://id.ndl.go.jp/auth/ndlna/00766021"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/01dgqb"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/01dgqb"/>
+    <owl:sameAs rdf:resource="http://openlibrary.org/works/OL115271A"/>
+    <owl:sameAs rdf:resource="http://data.bibliotheken.nl/id/thes/p105057851"/>
+    <owl:sameAs rdf:resource="https://livedata.bibsys.no/authority/3020160"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/70099"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/Richard_Whately"/>
+  </edm:Agent>
+  <edm:Agent rdf:about="http://data.europeana.eu/agent/171219">
+    <skos:prefLabel xml:lang="de">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Ньюмен, Джон Генри</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">Džonas Henris Niumanas</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="mt">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Τζον Χένρι Νιούμαν</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">John Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">Jan Henryk Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">John Henry Newman</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">John Henry Newman</skos:prefLabel>
+    <skos:altLabel xml:lang="de">J. H. Newman</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Ньюмен, Джон</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Ньюмен Джон Генри</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Джон Генри Ньюмен</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Генри Джон Ньюмен</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Кардинал Ньюмен</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Джон Ньюмен</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Ньюман, Джон Генри</skos:altLabel>
+    <skos:altLabel xml:lang="ru">Ньюмэн, Джон Генри</skos:altLabel>
+    <skos:altLabel xml:lang="sv">Newman</skos:altLabel>
+    <skos:altLabel xml:lang="sv">Newman, John Henry</skos:altLabel>
+    <skos:altLabel xml:lang="sv">J.H. Newman</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Cardeal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="en">Cardinal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="en">Blessed John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="en">Catholicus</skos:altLabel>
+    <skos:altLabel xml:lang="en">John Henry, Cardinal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="en">Cardinal John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="en">Saint John Newman</skos:altLabel>
+    <skos:altLabel xml:lang="it">Cardinale Newman</skos:altLabel>
+    <skos:altLabel xml:lang="it">Beato John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="it">Cardinale John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="it">John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="fr">Cardinal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="fr">John Henry Cardinal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="fr">John Henri Newman</skos:altLabel>
+    <skos:altLabel xml:lang="fr">John Newman</skos:altLabel>
+    <skos:altLabel xml:lang="es">John Henry Cardinal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="es">Cardenal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">Kardinál Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">John kardinál Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">Henry kardinál Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">John Henry kardinál Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">John Newman</skos:altLabel>
+    <skos:altLabel xml:lang="cs">Kardinál Newman</skos:altLabel>
+    <skos:altLabel xml:lang="pl">John Henry Newman</skos:altLabel>
+    <skos:altLabel xml:lang="da">John Henry Newmann</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Cardenal Newman</skos:altLabel>
+    <skos:altLabel xml:lang="nl">Kardinaal Newman</skos:altLabel>
+    <skos:note xml:lang="de">Britischer Geistlicher (erst anglikanischer Pfarrer, dann römisch-katholischer Kardinal); Heiliger</skos:note>
+    <skos:note xml:lang="fi">Englantilainen pappi ja runoilija</skos:note>
+    <skos:note xml:lang="ru">Крупный религиозный деятель XIX века, богослов, святой</skos:note>
+    <skos:note xml:lang="sv">Engelsk kardinal</skos:note>
+    <skos:note xml:lang="pt">Santo da Igreja Católica</skos:note>
+    <skos:note xml:lang="en">English cleric, cardinal and saint (1801-1890)</skos:note>
+    <skos:note xml:lang="it">Santo, teologo, cardinale, scrittore, poeta e filosofo inglese</skos:note>
+    <skos:note xml:lang="fr">Saint et cardinal catholique</skos:note>
+    <skos:note xml:lang="cs">Teolog a filozof</skos:note>
+    <skos:note xml:lang="sk">Anglický teológ a rímskokatolícky kardinál</skos:note>
+    <skos:note xml:lang="sl">Angleški duhovnik, teolog, filozof, kardinal in svetnik</skos:note>
+    <skos:note xml:lang="pl">Angielski teolog katolicki, filozof, kardynał</skos:note>
+    <skos:note xml:lang="nl">Brits theoloog (1801-1890)</skos:note>
+    <rdaGr2:dateOfBirth>1801-02-21</rdaGr2:dateOfBirth>
+    <rdaGr2:dateOfDeath>1890-08-11</rdaGr2:dateOfDeath>
+    <rdaGr2:placeOfBirth rdf:resource="http://data.europeana.eu/place/177208"></rdaGr2:placeOfBirth>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2962"></rdaGr2:professionOrOccupation>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2954"></rdaGr2:professionOrOccupation>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2953"></rdaGr2:professionOrOccupation>
+    <rdaGr2:professionOrOccupation rdf:resource="http://data.europeana.eu/concept/2966"></rdaGr2:professionOrOccupation>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q44490"/>
+    <owl:sameAs rdf:resource="http://viaf.org/viaf/17227308"/>
+    <owl:sameAs rdf:resource="https://d-nb.info/gnd/11858751X"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n78095501"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/ulan/500253096"/>
+    <owl:sameAs rdf:resource="http://data.bnf.fr/ark:/12148/cb119176054"/>
+    <owl:sameAs rdf:resource="http://www.idref.fr/027046915/id"/>
+    <owl:sameAs rdf:resource="http://id.ndl.go.jp/auth/ndlna/00451232"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/0ldwg"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/0ldwg"/>
+    <owl:sameAs rdf:resource="http://openlibrary.org/works/OL116295A"/>
+    <owl:sameAs rdf:resource="http://libris.kb.se/resource/auth/79810"/>
+    <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX1024785"/>
+    <owl:sameAs rdf:resource="http://data.bibliotheken.nl/id/thes/p068422520"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/29099"/>
+    <owl:sameAs rdf:resource="http://nlg.okfn.gr/resource/authority/record229980"/>
+    <owl:sameAs rdf:resource="http://data.carnegiehall.org/names/1021530"/>
+    <owl:sameAs rdf:resource="http://lod.nl.go.kr/resource/KAC201513959"/>
+    <owl:sameAs rdf:resource="https://libris.kb.se/sq46280b4lgl5k7"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/John_Henry_Newman"/>
+  </edm:Agent>
+  <edm:Place rdf:about="http://id.loc.gov/authorities/subjects/sh85078106#concept">
+    <skos:prefLabel xml:lang="en">Logic</skos:prefLabel>
+  </edm:Place>
+  <edm:TimeSpan rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
+    <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#..%2F-5300">
+    <skos:prefLabel>Prehistoric Period</skos:prefLabel>
+    <edm:end>-5300-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">../-5300</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#1950%7E">
+    <skos:prefLabel xml:lang="zxx">1950~</skos:prefLabel>
+    <skos:note>approximate</skos:note>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1950-01-01</edm:begin>
+    <edm:end>1950-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1950~</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#1900%3F%2F1910%3F">
+    <skos:prefLabel xml:lang="zxx">1900?/1910?</skos:prefLabel>
+    <skos:note>uncertain</skos:note>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/19"></dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1900-01-01</edm:begin>
+    <edm:end>1910-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">1900?/1910?</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="#190X">
+    <skos:prefLabel xml:lang="zxx">190X</skos:prefLabel>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/19"></dcterms:isPartOf>
+    <dcterms:isPartOf rdf:resource="http://data.europeana.eu/timespan/20"></dcterms:isPartOf>
+    <edm:begin>1900-01-01</edm:begin>
+    <edm:end>1909-12-31</edm:end>
+    <skos:notation rdf:datatype="http://id.loc.gov/datatypes/edtf/EDTF-level1">190X</skos:notation>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/19">
+    <skos:prefLabel xml:lang="de">19. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1800-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XIX век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XIX</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">19 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XIX amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">19. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">19. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XIXᵉ siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">19. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">19. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">19. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">19ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XIX</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1800-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">19ος αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">19th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XIX secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XIX</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">19. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">19. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XIX. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XIX wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">19. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XIX-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">19e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="sv">19:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">19:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1800-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1800-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1800-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="ru">19 век</skos:altLabel>
+    <skos:altLabel xml:lang="en">19th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">19th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Nineteenth century</skos:altLabel>
+    <skos:altLabel xml:lang="en">19. century</skos:altLabel>
+    <skos:altLabel xml:lang="en">XIX Century</skos:altLabel>
+    <skos:altLabel xml:lang="it">Ottocento</skos:altLabel>
+    <skos:altLabel xml:lang="it">19° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">Secolo XIX</skos:altLabel>
+    <skos:altLabel xml:lang="it">XIX Secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">19esimo secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">Diciannovesimo secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">'800</skos:altLabel>
+    <skos:altLabel xml:lang="it">Ottocento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">19e siècle</skos:altLabel>
+    <skos:altLabel xml:lang="fr">XIXe siècle</skos:altLabel>
+    <skos:altLabel xml:lang="da">1800-tallet</skos:altLabel>
+    <skos:altLabel xml:lang="es">19. siglo</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo 19</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo diecinueve</skos:altLabel>
+    <skos:altLabel xml:lang="ca">XIX</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Segle dinou</skos:altLabel>
+    <skos:altLabel xml:lang="ca">Segle 19</skos:altLabel>
+    <edm:begin>1801-01-01</edm:begin>
+    <edm:end>1900-01-01</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/18"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q6955"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh2002012475"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85091984"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049672"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/08b3m"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/08b3m"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.937"/>
+    <owl:sameAs rdf:resource="http://datos.bne.es/resource/XX4343988"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404513"/>
+    <owl:sameAs rdf:resource="http://babelnet.org/rdf/s02210346n"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/19th_century"/>
+  </edm:TimeSpan>
+  <edm:TimeSpan rdf:about="http://data.europeana.eu/timespan/20">
+    <skos:prefLabel xml:lang="de">20. Jahrhundert</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">1900-luku</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">XX век</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Século XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="bg">20 век</skos:prefLabel>
+    <skos:prefLabel xml:lang="lt">XX amžius</skos:prefLabel>
+    <skos:prefLabel xml:lang="hr">20. stoljeće</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">20. gadsimts</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">XXe siècle</skos:prefLabel>
+    <skos:prefLabel xml:lang="hu">20. század</skos:prefLabel>
+    <skos:prefLabel xml:lang="sk">20. storočie</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">20. stoletje</skos:prefLabel>
+    <skos:prefLabel xml:lang="ga">20ú haois</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Segle XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">1900-talet</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">20ός αιώνας</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">20th century</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">XX secolo</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Siglo XX</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">20. sajand</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">20. století</skos:prefLabel>
+    <skos:prefLabel xml:lang="eu">XX. mendea</skos:prefLabel>
+    <skos:prefLabel xml:lang="pl">XX wiek</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">20. århundrede</skos:prefLabel>
+    <skos:prefLabel xml:lang="ro">Secolul al XX-lea</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">20e eeuw</skos:prefLabel>
+    <skos:altLabel xml:lang="sv">20:e århundradet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">20:e seklet</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-tal</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (århundrade)</skos:altLabel>
+    <skos:altLabel xml:lang="sv">1900-talet (sekel)</skos:altLabel>
+    <skos:altLabel xml:lang="ru">20 век</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século 20</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Século vinte</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Periodo 1901-2000</skos:altLabel>
+    <skos:altLabel xml:lang="pt">Ciclo (1901-2000)</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">20th-century</skos:altLabel>
+    <skos:altLabel xml:lang="en">Twentieth century</skos:altLabel>
+    <skos:altLabel xml:lang="en">The past century</skos:altLabel>
+    <skos:altLabel xml:lang="en">History, 20th Century</skos:altLabel>
+    <skos:altLabel xml:lang="en">XX Century</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="it">20° secolo</skos:altLabel>
+    <skos:altLabel xml:lang="it">'900</skos:altLabel>
+    <skos:altLabel xml:lang="it">Novecento</skos:altLabel>
+    <skos:altLabel xml:lang="fr">20e siècle</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo 20</skos:altLabel>
+    <skos:altLabel xml:lang="es">El siglo pasado</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo veinte</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX después de Cristo</skos:altLabel>
+    <skos:altLabel xml:lang="es">Siglo XX d. C.</skos:altLabel>
+    <edm:begin>1901-01-01</edm:begin>
+    <edm:end>2000-12-31</edm:end>
+    <edm:isNextInSequence rdf:resource="http://data.europeana.eu/timespan/19"/>
+    <owl:sameAs rdf:resource="http://www.wikidata.org/entity/Q6927"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh2002012476"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/sh85139020"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/D049673"/>
+    <owl:sameAs rdf:resource="https://www.freebase.com/m/089_x"/>
+    <owl:sameAs rdf:resource="https://g.co/kg/m/089_x"/>
+    <owl:sameAs rdf:resource="http://id.nlm.nih.gov/mesh/K01.400.504.968"/>
+    <owl:sameAs rdf:resource="http://vocab.getty.edu/aat/300404514"/>
+    <owl:sameAs rdf:resource="http://id.worldcat.org/fast/1159810"/>
+    <owl:sameAs rdf:resource="http://dbpedia.org/resource/20th_century"/>
+  </edm:TimeSpan>
+  <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85091626#concept">
+    <skos:prefLabel xml:lang="en">Newspapers Sections, columns, etc Reviews</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
+    <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+  </skos:Concept>
+  <skos:Concept rdf:about="http://data.europeana.eu/concept/2834">
+    <skos:exactMatch rdf:resource="http://www.wikidata.org/entity/Q1784733"/>
+    <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4180011-4"/>
+    <skos:exactMatch rdf:resource="http://id.loc.gov/authorities/names/sh99001488"/>
+    <skos:exactMatch rdf:resource="http://data.bnf.fr/ark:/12148/cb133187365"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D016422"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/D015709"/>
+    <skos:exactMatch rdf:resource="http://purl.org/bncf/tid/6119"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/V01.550"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/V02.355.374"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/V02.625"/>
+    <skos:exactMatch rdf:resource="http://id.nlm.nih.gov/mesh/L01.559.423.906.377"/>
+    <skos:exactMatch rdf:resource="http://datos.bne.es/resource/XX526105"/>
+    <skos:exactMatch rdf:resource="http://vocab.getty.edu/aat/300026877"/>
+    <skos:exactMatch rdf:resource="http://g.co/kg/g/1230jl_1"/>
+    <skos:note xml:lang="cs">Literární žánr</skos:note>
+    <skos:note xml:lang="de">Schriftverkehr</skos:note>
+    <skos:note xml:lang="ru">Процесс обмена письмами (как лит. жанр см. Q2250271)</skos:note>
+    <skos:note xml:lang="fi">Kirjallinen kommunikaatio (genre on Q2250271)</skos:note>
+    <skos:note xml:lang="pt">Gênero literário</skos:note>
+    <skos:note xml:lang="en">Literary genre</skos:note>
+    <skos:note xml:lang="it">Genere letterario</skos:note>
+    <skos:note xml:lang="fr">Genre littéraire</skos:note>
+    <skos:note xml:lang="es">Intercambio regular de correo</skos:note>
+    <skos:note xml:lang="nl">Literair genre</skos:note>
+    <skos:prefLabel xml:lang="de">Korrespondenz</skos:prefLabel>
+    <skos:prefLabel xml:lang="ru">Переписка</skos:prefLabel>
+    <skos:prefLabel xml:lang="sv">Brevväxling</skos:prefLabel>
+    <skos:prefLabel xml:lang="fi">Kirjeenvaihto</skos:prefLabel>
+    <skos:prefLabel xml:lang="pt">Correspondência</skos:prefLabel>
+    <skos:prefLabel xml:lang="el">Αλληλογραφία</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+    <skos:prefLabel xml:lang="lv">Sarakste</skos:prefLabel>
+    <skos:prefLabel xml:lang="it">Corrispondenza</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Correspondance</skos:prefLabel>
+    <skos:prefLabel xml:lang="es">Correspondencia</skos:prefLabel>
+    <skos:prefLabel xml:lang="et">Kiri</skos:prefLabel>
+    <skos:prefLabel xml:lang="cs">Korespondence</skos:prefLabel>
+    <skos:prefLabel xml:lang="sl">Korespondenca</skos:prefLabel>
+    <skos:prefLabel xml:lang="da">Korrespondance</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">Correspondentie</skos:prefLabel>
+    <skos:prefLabel xml:lang="ca">Correspondència</skos:prefLabel>
+  </skos:Concept>
+  <ore:Aggregation rdf:about="/aggregation/provider/12148/ivrla:3827">
+    <edm:aggregatedCHO rdf:resource="/12148/ivrla:3827"/>
+    <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/4568"></edm:dataProvider>
+    <edm:isShownAt rdf:resource="https://digital.ucd.ie/view/ivrla:3827"/>
+    <edm:isShownBy rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/full/0/default.jpg"/>
+    <edm:object rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/600,/0/default.jpg"/>
+    <edm:provider rdf:resource="http://data.europeana.eu/organization/4568"></edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy rdf:about="/proxy/europeana/12148/ivrla:3827">
+    <dc:date rdf:resource="#190X"></dc:date>
+    <dcterms:temporal rdf:resource="#1900%3F%2F1910%3F"></dcterms:temporal>
+    <dcterms:issued rdf:resource="#1950%7E"></dcterms:issued>
+    <dcterms:created rdf:resource="#..%2F-5300"></dcterms:created>
+    <dc:identifier>OB_1000000_SC</dc:identifier>
+    <dc:language>en</dc:language>
+    <dc:subject rdf:resource="http://data.europeana.eu/concept/2834"></dc:subject>
+    <dc:type rdf:resource="http://data.europeana.eu/concept/2834"></dc:type>
+    <dc:contributor rdf:resource="http://data.europeana.eu/agent/169757"></dc:contributor>
+    <dc:contributor rdf:resource="http://data.europeana.eu/agent/171219"></dc:contributor>
+    <edm:europeanaProxy>true</edm:europeanaProxy>
+  </ore:Proxy>
+  <ore:Proxy rdf:about="/proxy/provider/12148/ivrla:3827">
+    <dc:contributor rdf:resource="http://viaf.org/viaf/17227308"></dc:contributor>
+    <dc:contributor rdf:resource="http://viaf.org/viaf/22950329"></dc:contributor>
+    <dc:date>190X</dc:date>
+    <dc:description xml:lang="en">Physical location: UCD Library, UCD Library Special Collections,
+      UCD Letters, UCD L 1</dc:description>
+    <dc:format xml:lang="en">1 letter 21.5 x 33.5</dc:format>
+    <dc:format>image/jpeg</dc:format>
+    <dc:identifier>OB_1000000_SC</dc:identifier>
+    <dc:identifier>EADseries:IVRLA10-I:1</dc:identifier>
+    <dc:identifier>ivrla:3827</dc:identifier>
+    <dc:identifier>http://digital.ucd.ie/view/ivrla:3827</dc:identifier>
+    <dc:language>English</dc:language>
+    <dc:rights xml:lang="en">© University College Dublin, National University of Ireland, Dublin.
+      Copyright and reproduction rights for this digital resource are held by University College
+      Dublin and administered by UCD Archives, UCD James Joyce Library, Belfield, Dublin 4, Ireland.</dc:rights>
+    <dc:rights xml:lang="en">To use for commercial purposes, please contact the UCD Digital
+      Library</dc:rights>
+    <dc:rights xml:lang="en">Suggested credit: "[Letter from John Henry Newman (Oriel College) to Dr
+      Richard Whately, commenting on and enclosing notes on a review on 'Dr Whateley's Logic', in
+      the Edinburgh Review of April 1833 ]," held by UCD Archives. © University College Dublin.
+      Digital content: © University College Dublin, published by UCD Library, University College
+      Dublin &lt;http://digital.ucd.ie/view/ivrla:3827></dc:rights>
+    <dc:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/">Use of this resource
+      is governed by the Creative Commons - Attribution, Non-Commercial, ShareAlike (BY-NC-SA)
+      license.</dc:rights>
+    <dc:source xml:lang="en">UCD Library, University College Dublin UCD Library, University College
+      Dublin</dc:source>
+    <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85078106#concept"></dc:subject>
+    <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85091626#concept"></dc:subject>
+    <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85033035#concept"></dc:subject>
+    <dc:subject xml:lang="en">Whately, Richard, 1787-1863</dc:subject>
+    <dc:subject xml:lang="en">Newman, John Henry, 1801-1890--Correspondence</dc:subject>
+    <dc:subject xml:lang="en">Whately, Richard, 1787-1863--Correspondence</dc:subject>
+    <dc:subject xml:lang="en">Logic</dc:subject>
+    <dc:subject xml:lang="pt">Logic</dc:subject>
+    <dc:subject>Logic</dc:subject>
+    <dc:subject xml:lang="en">Newspapers--Sections, columns, etc--Reviews</dc:subject>
+    <dc:subject xml:lang="en">Correspondence</dc:subject>
+    <dc:title xml:lang="en">[Letter from John Henry Newman (Oriel College) to Dr. Richard Whately,
+      commenting on and enclosing notes on a review on 'Dr. Whateley's Logic', in the Edinburgh
+      Review of April 1833 .]</dc:title>
+    <dc:type xml:lang="en">text</dc:type>
+    <dc:type xml:lang="en">Correspondence</dc:type>
+    <dcterms:alternative xml:lang="en">[Letter from John Henry Newman (Oriel College) to Dr. Richard
+      Whately, commenting on and enclosing notes on a review on 'Dr. Whateley's Logic', in the
+      Edinburgh Review of April 1833 .]</dcterms:alternative>
+    <dcterms:created xml:lang="en">name=Prehistoric Period; end=-5300</dcterms:created>
+    <dcterms:issued xml:lang="en">ca. 1950</dcterms:issued>
+    <dcterms:temporal xml:lang="en">1900?-1910?</dcterms:temporal>
+    <dcterms:isPartOf rdf:resource="/12148/ivrla:3827"></dcterms:isPartOf>
+    <edm:pid>http://digital.ucd.ie/view/ivrla:3827</edm:pid>
+    <edm:pid>invalid pid test</edm:pid>
+    <edm:pid rdf:resource="#pid_0"></edm:pid>
+    <edm:pid rdf:resource="#pid_1"></edm:pid>
+    <edm:europeanaProxy>false</edm:europeanaProxy>
+    <ore:proxyFor rdf:resource="/12148/ivrla:3827"/>
+    <ore:proxyIn rdf:resource="/aggregation/provider/12148/ivrla:3827"/>
+    <edm:type>TEXT</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation rdf:about="/aggregation/europeana/12148/ivrla:3827">
+    <edm:aggregatedCHO rdf:resource="/12148/ivrla:3827"/>
+    <edm:dataProvider xml:lang="en">Europeana Foundation</edm:dataProvider>
+    <edm:provider xml:lang="en">Europeana Foundation</edm:provider>
+    <edm:country>Ireland</edm:country>
+    <edm:language>en</edm:language>
+    <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+    <edm:completeness>10</edm:completeness>
+  </edm:EuropeanaAggregation>
+  <foaf:Organization rdf:about="http://data.europeana.eu/organization/4568">
+    <skos:prefLabel xml:lang="en">University College Dublin</skos:prefLabel>
+  </foaf:Organization>
+  <edm:PersistentIdentifier rdf:about="#pid_0">
+    <rdf:value>ark:/12148/bpt6k279983</rdf:value>
+    <skos:notation>https://ark.bnf.fr/ark:/12148/bpt6k279983</skos:notation>
+    <edm:hasURL rdf:resource="https://n2t.net/ark:/12148/bpt6k279983"/>
+    <skos:inScheme rdf:resource="http://TODO/SchemeA"/>
+  </edm:PersistentIdentifier>
+  <edm:PersistentIdentifier rdf:about="#pid_1">
+    <rdf:value>ark:/12148/bpt6k279984</rdf:value>
+    <skos:notation>https://ark.bnf.fr/ark:/12148/bpt6k279984</skos:notation>
+    <edm:hasURL rdf:resource="https://n2t.net/ark:/12148/bpt6k279984"/>
+    <skos:inScheme rdf:resource="http://TODO/SchemeA"/>
+  </edm:PersistentIdentifier>
+</rdf:RDF>

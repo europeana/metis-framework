@@ -11,6 +11,7 @@ import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 import static java.util.function.Predicate.not;
 
+import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
 import eu.europeana.corelib.definitions.edm.entity.QualityAnnotation;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
@@ -24,6 +25,7 @@ import eu.europeana.indexing.search.v2.property.ConceptSolrCreator;
 import eu.europeana.indexing.search.v2.property.EuropeanaAggregationSolrCreator;
 import eu.europeana.indexing.search.v2.property.FullBeanSolrProperties;
 import eu.europeana.indexing.search.v2.property.LicenseSolrCreator;
+import eu.europeana.indexing.search.v2.property.PIDSolrCreator;
 import eu.europeana.indexing.search.v2.property.PlaceSolrCreator;
 import eu.europeana.indexing.search.v2.property.ProvidedChoSolrCreator;
 import eu.europeana.indexing.search.v2.property.ProxySolrCreator;
@@ -123,6 +125,16 @@ class SolrDocumentPopulator {
         .flatMap(SolrPropertyUtils::getRightsFromMap).collect(Collectors.toSet());
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
+
+    // Add the persistent identifiers
+    final List<? extends PersistentIdentifier> identifierList =
+        fullBean.getProxies()
+                .stream()
+                .filter(proxy -> proxy!=null && proxy.getPID() != null)
+                .flatMap(proxy -> proxy.getPID().stream())
+            .toList();
+
+    new PIDSolrCreator().addAllToDocument(document, identifierList);
   }
 
   /**

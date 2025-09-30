@@ -130,16 +130,45 @@ public class RecordPersistenceV2 implements QueryableRecordPersistence<FullBeanI
   }
 
   @Override
+  public Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate, int batchSize)
+      throws IndexerRelatedIndexingException {
+    return getRecordIdsInternal(datasetId, maxUpdatedDate, batchSize);
+  }
+
+  @Override
   public Stream<String> getRecordIds(String datasetId, Date maxUpdatedDate)
+      throws IndexerRelatedIndexingException {
+    return getRecordIdsInternal(datasetId, maxUpdatedDate, null);
+  }
+
+  /**
+   * Return all record IDs that belong to the given dataset.
+   *
+   * @param datasetId The ID of the dataset to search. Is not null.
+   * @param maxUpdatedDate If not null, only include IDs for records that have been updated strictly
+   *                       before this date.
+   * @param batchSize - size of the batch during traversing DB data. Null value is allowed and causes
+   * not setting this param. Anyway DB returns data in constrained buffers which means in practice
+   * about 300-400 thousands of records in one batch.
+   *
+   * @return The record IDs in a stream.
+   * @throws IndexerRelatedIndexingException In case of issues.
+   */
+  private Stream<String> getRecordIdsInternal(String datasetId, Date maxUpdatedDate, Integer batchSize)
       throws IndexerRelatedIndexingException {
     try {
       final FindOptions findOptions = new FindOptions()
           .projection().exclude(ID_FIELD)
           .projection().include(ABOUT_FIELD);
+
+      if (batchSize != null && batchSize > 0) {
+        findOptions.batchSize(batchSize);
+      }
+
       final Iterator<FullBeanImpl> resultIterator = createMongoQuery(datasetId, maxUpdatedDate)
           .iterator(findOptions);
       return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resultIterator, 0), false)
-          .map(FullBeanImpl::getAbout);
+                          .map(FullBeanImpl::getAbout);
     } catch (RuntimeException e) {
       throw new IndexerRelatedIndexingException("Could not get IDs for dataset '" + datasetId + "'.", e);
     }

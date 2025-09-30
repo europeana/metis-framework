@@ -136,8 +136,11 @@ public enum SolrV2Field {
   AG_RDAGR2_DATEOFDEATH("ag_rdagr2_dateOfDeath"),
   AG_RDAGR2_PLACEOFBIRTH("ag_rdagr2_placeOfBirth"),
   AG_RDAGR2_PLACEOFDEATH("ag_rdagr2_placeOfDeath"),
-  AG_RDAGR2_PROFESSIONOROCCUPATION("ag_rdagr2_professionOrOccupation");
-  
+  AG_RDAGR2_PROFESSIONOROCCUPATION("ag_rdagr2_professionOrOccupation"),
+
+  //PID Persistent Identifier
+  PID("pid");
+
   private final String label;
 
   SolrV2Field(String label) {

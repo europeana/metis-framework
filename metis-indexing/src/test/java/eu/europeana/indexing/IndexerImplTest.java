@@ -20,11 +20,11 @@ import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
 import eu.europeana.indexing.common.contract.QueryableRecordPersistence;
 import eu.europeana.indexing.common.contract.QueryableTombstonePersistence;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.indexing.tiers.model.MediaTier;
 import eu.europeana.indexing.tiers.model.MetadataTier;
@@ -532,6 +532,27 @@ class IndexerImplTest {
     assertEquals("/277/CMC_HA_1185", list.getFirst());
   }
 
+  @Test
+  void getRecordIdsWithBatchSizeSet() throws IndexingException, IOException, SerializationException, SolrServerException {
+    final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_rdf_conversion.xml"));
+    indexer.indexRdf(rdf, indexingProperties);
+    solrClient.commit();
+    assertDocumentInMongo("/277/CMC_HA_1185");
+    assertDocumentInSolr("/277/CMC_HA_1185");
+    Date now = Date.from(Instant.now());
+    QueryableRecordPersistence<FullBeanImpl> realAccess = settingsPersistenceAccessProvider.getRecordPersistence();
+    QueryableRecordPersistence<FullBeanImpl> spyAccess = Mockito.spy(realAccess);
+    doThrow(new RuntimeException("", new SocketTimeoutException()))
+        .doCallRealMethod().when(spyAccess).getRecordIds("277", now, 1000);
+    when(settingsPersistenceAccessProvider.getRecordPersistence()).thenReturn(spyAccess);
+
+    List<String> list = indexer.getRecordIds("277", now, 1000).toList();
+
+    verify(spyAccess, times(2)).getRecordIds("277", now, 1000);
+    assertEquals(1, list.size());
+    assertEquals("/277/CMC_HA_1185", list.getFirst());
+  }
+
   /**
    * Count records.
    *
@@ -558,4 +579,15 @@ class IndexerImplTest {
     assertEquals(1, result);
   }
 
+  @Test
+  void indexPersistentIdentifierRdf() throws IndexingException, IOException, SerializationException, SolrServerException {
+    final RDF rdf = rdfConversionUtils.convertStringToRdf(readFileToString("europeana_record_to_sample_pid_index_rdf.xml"));
+
+    indexer.indexRdf(rdf, indexingProperties);
+
+    solrClient.commit();
+
+    assertDocumentInMongo("/12148/ivrla:3827");
+    assertDocumentInSolr("/12148/ivrla:3827");
+  }
 }
