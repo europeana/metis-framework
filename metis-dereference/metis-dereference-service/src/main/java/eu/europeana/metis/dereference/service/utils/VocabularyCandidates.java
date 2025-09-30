@@ -8,7 +8,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -82,19 +81,6 @@ public final class VocabularyCandidates {
 
   private static boolean vocabularyMatchesUri(String resourceId, Vocabulary vocabulary) {
     return vocabulary.getUris().stream().anyMatch(resourceId::startsWith);
-  }
-
-  /**
-   * Collects the suffixes of all the vocabulary candidates. This method is useful for resolving the resource. Note that all the
-   * vocabulary candidates must at this point represent the same vocabulary, so the number of suffixes should be very limited (1,
-   * if all vocabularies are configured the same way).
-   *
-   * @return The collection of suffixes. Is not null.
-   */
-  public Set<String> getVocabulariesSuffixes() {
-    return vocabularies.stream()
-                       .map(vocabulary -> vocabulary.getSuffix() == null ? "" : vocabulary.getSuffix())
-                       .collect(Collectors.toSet());
   }
 
   /**

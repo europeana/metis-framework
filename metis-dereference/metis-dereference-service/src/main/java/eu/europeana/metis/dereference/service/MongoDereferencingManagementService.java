@@ -86,6 +86,7 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     vocabulary.setUris(input.getPaths());
     vocabulary.setIterations(input.getParentIterations());
     vocabulary.setSuffix(input.getSuffix());
+    vocabulary.setUserAgent(input.getUserAgent());
     vocabulary.setXslt(input.getTransformation());
     return vocabulary;
   }
