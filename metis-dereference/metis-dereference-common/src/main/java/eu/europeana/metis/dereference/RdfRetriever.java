@@ -2,6 +2,7 @@ package eu.europeana.metis.dereference;
 
 import eu.europeana.metis.network.StringHttpClient;
 import eu.europeana.metis.network.StringHttpClient.StringContent;
+import jakarta.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,6 +20,8 @@ public class RdfRetriever {
   private static final int CONNECT_TIMEOUT = 10_000;
   private static final int RESPONSE_TIMEOUT = 20_000;
   private static final int REQUEST_TIMEOUT = 60_000;
+
+  private static final String RDF_XML_CONTENT_TYPE = "application/rdf+xml";
   private static final String DEFAULT_USER_AGENT = "MetisDereferencer/1.0 (Europeana Foundation)";
 
   /**
@@ -49,9 +52,8 @@ public class RdfRetriever {
   private static String retrieveFromSource(URI resourceUri, String userAgent) throws IOException {
 
     // Obtain the response.
-    final Map<String, String> headers = Map.of(
-        "Accept", "application/rdf+xml",
-        "User-Agent", Optional.ofNullable(userAgent).orElse(DEFAULT_USER_AGENT));
+    final Map<String, String> headers = Map.of(HttpHeaders.ACCEPT, RDF_XML_CONTENT_TYPE,
+        HttpHeaders.USER_AGENT, Optional.ofNullable(userAgent).orElse(DEFAULT_USER_AGENT));
     final StringContent result;
     try (final StringHttpClient client = new StringHttpClient(MAX_NUMBER_OF_REDIRECTS,
         CONNECT_TIMEOUT, RESPONSE_TIMEOUT, REQUEST_TIMEOUT)) {
