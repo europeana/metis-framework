@@ -70,6 +70,8 @@ class MongoDereferenceServiceTest {
     geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
         .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));
     geonames.setName("Geonames");
+    geonames.setSuffix("suffix");
+    geonames.setUserAgent("user-agent");
     geonames.setIterations(0);
 
     // Create the place
@@ -89,7 +91,8 @@ class MongoDereferenceServiceTest {
     doReturn(geonames).when(vocabularyDao).get(geonames.getId().toString());
 
     // Add support for the place in the mocks.
-    doReturn(placeSourceEntity).when(retriever).retrieve(eq(PLACE_ID), anyString());
+    doReturn(placeSourceEntity).when(retriever)
+        .retrieve(PLACE_ID, geonames.getSuffix(), geonames.getUserAgent());
 
     // Clear cache and build the cache functionality
     CACHE.clear();
@@ -112,7 +115,7 @@ class MongoDereferenceServiceTest {
     assertEquals(PLACE_ID, result0.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -124,7 +127,7 @@ class MongoDereferenceServiceTest {
     assertEquals(PLACE_ID, result1.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
   }
 
   @Test
@@ -144,7 +147,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), anyString(), anyString());
     assertTrue(CACHE.containsKey(nonExistingVocabularyEntity));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingVocabularyEntity).getResultStatus());
 
@@ -155,7 +158,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(nonExistingVocabularyEntity), anyString());
+    verify(retriever, never()).retrieve(eq(nonExistingVocabularyEntity), anyString(), anyString());
   }
 
   @Test
@@ -168,7 +171,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(nonExistingId), anyString());
+    verify(retriever, times(1)).retrieve(eq(nonExistingId), anyString(), anyString());
     assertTrue(CACHE.containsKey(nonExistingId));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingId).getResultStatus());
 
@@ -179,7 +182,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(nonExistingId), anyString());
+    verify(retriever, never()).retrieve(eq(nonExistingId), anyString(), anyString());
   }
 
   @Test
@@ -194,7 +197,7 @@ class MongoDereferenceServiceTest {
     assertNotNull(result);
     assertTrue(result.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.INVALID_URL, result.getDereferenceStatus());
-    verify(retriever, never()).retrieve(anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), anyString(), anyString());
     assertFalse(CACHE.containsKey(entityId));
   }
 
@@ -202,13 +205,13 @@ class MongoDereferenceServiceTest {
   void testDereference_XmlXsltError() throws URISyntaxException, IOException {
 
     // First time: no cached item available
-    doReturn("THIS WILL BE AN ERROR").when(retriever).retrieve(eq(PLACE_ID), anyString());
+    doReturn("THIS WILL BE AN ERROR").when(retriever).retrieve(eq(PLACE_ID), anyString(), anyString());
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -219,20 +222,20 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
   }
 
   @Test
   void testDereference_XmlXsltProduceNoContextualClass() throws URISyntaxException, IOException {
 
     // First time: no cached item available
-    doReturn("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><empty/>").when(retriever).retrieve(eq(PLACE_ID), anyString());
+    doReturn("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><empty/>").when(retriever).retrieve(eq(PLACE_ID), anyString(), anyString());
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -243,6 +246,6 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString());
+    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
   }
 }

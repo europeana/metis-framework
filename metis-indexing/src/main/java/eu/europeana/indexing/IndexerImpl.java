@@ -1,14 +1,12 @@
 package eu.europeana.indexing;
 
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptionsThrowing;
-import static java.lang.String.format;
 
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
+import eu.europeana.indexing.common.contract.RecordPersistence.ComputedDates;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
-import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.fullbean.StringToFullBeanConverter;
 import eu.europeana.indexing.tiers.model.TierResults;
+import eu.europeana.indexing.utils.RDFDeserializer;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.utils.DepublicationReason;
@@ -20,40 +18,40 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link Indexer}.
+ * @param <T> The type of the tombstone that is returned.
  */
-public class IndexerImpl implements Indexer {
+public class IndexerImpl<T> implements Indexer<T> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IndexerImpl.class);
 
-  private final AbstractConnectionProvider connectionProvider;
+  private final PersistenceAccessForIndexing<T> persistenceAccess;
 
-  private final IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier;
+  private final IndexingSupplier<RDFDeserializer> stringToRdfConverterSupplier;
 
   /**
    * Constructor.
    *
-   * @param connectionProvider The connection provider for this indexer.
+   * @param persistenceAccess The connection provider for this indexer.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider) {
-    this(connectionProvider, StringToFullBeanConverter::new);
+  IndexerImpl(PersistenceAccessForIndexing<T> persistenceAccess) {
+    this(persistenceAccess, RDFDeserializer::new);
   }
 
   /**
    * Constructor for testing purposes.
    *
-   * @param connectionProvider The connection provider for this indexer.
-   * @param stringToRdfConverterSupplier Supplies an instance of {@link StringToFullBeanConverter} used to convert a string to an
+   * @param persistenceAccess The connection provider for this indexer.
+   * @param stringToRdfConverterSupplier Supplies an instance of {@link RDFDeserializer} used to convert a string to an
    * instance of {@link RDF}. Will be called once during every index.
    */
-  IndexerImpl(AbstractConnectionProvider connectionProvider,
-      IndexingSupplier<StringToFullBeanConverter> stringToRdfConverterSupplier) {
-    this.connectionProvider = connectionProvider;
+  IndexerImpl(PersistenceAccessForIndexing<T> persistenceAccess,
+      IndexingSupplier<RDFDeserializer> stringToRdfConverterSupplier) {
+    this.persistenceAccess = persistenceAccess;
     this.stringToRdfConverterSupplier = stringToRdfConverterSupplier;
   }
 
@@ -67,10 +65,10 @@ public class IndexerImpl implements Indexer {
   public void index(List<String> records, IndexingProperties indexingProperties)
       throws IndexingException {
     LOGGER.info("Parsing {} records...", records.size());
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    final RDFDeserializer stringToRdfConverter = stringToRdfConverterSupplier.get();
     final List<RDF> wrappedRecords = new ArrayList<>(records.size());
     for (String stringRdfRecord : records) {
-      wrappedRecords.add(stringToRdfConverter.convertStringToRdf(stringRdfRecord));
+      wrappedRecords.add(stringToRdfConverter.convertToRdf(stringRdfRecord));
     }
     indexRecords(wrappedRecords, indexingProperties, tiers -> true);
   }
@@ -78,7 +76,7 @@ public class IndexerImpl implements Indexer {
   @Override
   public void index(InputStream rdfInputStream, IndexingProperties indexingProperties)
       throws IndexingException {
-    final StringToFullBeanConverter stringToRdfConverter = stringToRdfConverterSupplier.get();
+    final RDFDeserializer stringToRdfConverter = stringToRdfConverterSupplier.get();
     indexRdf(stringToRdfConverter.convertToRdf(rdfInputStream), indexingProperties);
   }
 
@@ -104,119 +102,101 @@ public class IndexerImpl implements Indexer {
   @Override
   public void index(String stringRdfRecord, IndexingProperties indexingProperties,
       Predicate<TierResults> tierResultsConsumer) throws IndexingException {
-    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertStringToRdf(stringRdfRecord);
+    final RDF rdfRecord = stringToRdfConverterSupplier.get().convertToRdf(stringRdfRecord);
     indexRecords(List.of(rdfRecord), indexingProperties, tierResultsConsumer);
   }
 
   @Override
   public void close() throws IOException {
-    this.connectionProvider.close();
+    this.persistenceAccess.close();
   }
 
   @Override
   public void triggerFlushOfPendingChanges(boolean blockUntilComplete)
       throws IndexerRelatedIndexingException {
-    try {
-      this.connectionProvider.triggerFlushOfPendingChanges(blockUntilComplete);
-    } catch (SolrServerException | IOException e) {
-      throw new IndexerRelatedIndexingException("Error while flushing changes.", e);
-    }
+    this.persistenceAccess.triggerFlushOfPendingChanges(blockUntilComplete);
   }
 
   @Override
   public boolean remove(String rdfAbout) throws IndexerRelatedIndexingException {
-    return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().removeRecord(rdfAbout));
+    return retryableExternalRequestForNetworkExceptionsThrowing(() -> {
+      this.persistenceAccess.getSearchPersistence().removeRecord(rdfAbout);
+      return this.persistenceAccess.getRecordPersistence().removeRecord(rdfAbout);
+    });
   }
 
   @Override
-  public FullBeanImpl getTombstone(String rdfAbout) {
+  public T getTombstone(String rdfAbout) throws IndexingException {
     return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().getTombstoneFullbean(rdfAbout));
+        () -> this.persistenceAccess.getTombstonePersistence().getTombstone(rdfAbout));
   }
 
   @Override
-  public boolean removeTombstone(String rdfAbout) throws IndexerRelatedIndexingException {
+  public boolean removeTombstone(String rdfAbout) throws IndexingException {
     return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().removeTombstone(rdfAbout));
+        () -> this.persistenceAccess.getTombstonePersistence().removeTombstone(rdfAbout));
   }
 
   @Override
-  public boolean indexTombstone(String rdfAbout, DepublicationReason depublicationReason) throws IndexingException {
-    switch (depublicationReason) {
-      case DepublicationReason.LEGACY -> throw new IndexerRelatedIndexingException(
-          format("Depublication reason %s, is not allowed", depublicationReason));
-
-      case DepublicationReason.BROKEN_MEDIA_LINKS, DepublicationReason.GENERIC, DepublicationReason.REMOVED_DATA_AT_SOURCE -> {
-        final FullBeanImpl publishedFullbean = this.connectionProvider.getIndexedRecordAccess().getFullbean(rdfAbout);
-        if (publishedFullbean != null) {
-          final FullBeanPublisher publisher = connectionProvider.getFullBeanPublisher(true);
-          final FullBeanImpl tombstoneFullbean = TombstoneUtil.prepareTombstoneFullbean(publishedFullbean, depublicationReason);
-          try {
-            publisher.publishTombstone(tombstoneFullbean, tombstoneFullbean.getTimestampCreated());
-          } catch (IndexingException e) {
-            throw new IndexerRelatedIndexingException("Could not create tombstone record '" + rdfAbout + "'.", e);
-          }
-        }
-        return publishedFullbean != null;
-      }
-      default -> {
-        LOGGER.warn("Record {} Depublication reason {} disabled temporarily for tombstone indexing.", rdfAbout,
-            depublicationReason);
-        return true;
-      }
-    }
+  public boolean indexTombstone(String rdfAbout, DepublicationReason reason) throws IndexingException {
+    return this.persistenceAccess.getTombstonePersistence().saveTombstoneForLiveRecord(rdfAbout, reason);
   }
 
   @Override
   public int removeAll(String datasetId, Date maxRecordDate)
       throws IndexerRelatedIndexingException {
-    // TODO: 8/26/20 Update removeAll method to return long instead of int, it will affect clients
-    Long totalRemoved = retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().removeDataset(datasetId, maxRecordDate));
+    final Long totalRemoved = retryableExternalRequestForNetworkExceptionsThrowing(() -> {
+      final long count = this.persistenceAccess.getRecordPersistence()
+          .removeDataset(datasetId, maxRecordDate);
+      this.persistenceAccess.getSearchPersistence().removeDataset(datasetId, maxRecordDate);
+      return count;
+    });
     return Math.toIntExact(totalRemoved);
   }
 
   @Override
-  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) {
+  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate, int batchSize) throws IndexingException {
     return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().getRecordIds(datasetId, maxRecordDate));
+        () -> this.persistenceAccess.getRecordPersistence().getRecordIds(datasetId, maxRecordDate, batchSize));
   }
 
   @Override
-  public long countRecords(String datasetId, Date maxRecordDate) {
+  public Stream<String> getRecordIds(String datasetId, Date maxRecordDate) throws IndexingException {
     return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId, maxRecordDate));
+        () -> this.persistenceAccess.getRecordPersistence().getRecordIds(datasetId, maxRecordDate));
   }
 
   @Override
-  public long countRecords(String datasetId) {
-    return retryableExternalRequestForNetworkExceptionsThrowing(
-        () -> this.connectionProvider.getIndexedRecordAccess().countRecords(datasetId));
+  public long countRecords(String datasetId, Date maxRecordDate) throws IndexingException {
+    return retryableExternalRequestForNetworkExceptionsThrowing(() ->
+        this.persistenceAccess.getRecordPersistence().countRecords(datasetId, maxRecordDate));
+  }
+
+  @Override
+  public long countRecords(String datasetId) throws IndexingException {
+    return this.countRecords(datasetId, null);
+  }
+
+  private void indexRecord(RdfWrapper rdf, Date recordDate, List<String> datasetIdsToRedirectFrom,
+      boolean performRedirects, boolean preserveUpdateAndCreateTimesFromRdf) throws IndexingException {
+    final Date createdDate = performRedirects ? this.persistenceAccess.getRedirectPersistence()
+        .performRedirection(rdf, recordDate, datasetIdsToRedirectFrom) : null;
+    final ComputedDates computedDates = this.persistenceAccess.getRecordPersistence()
+        .saveRecord(rdf, preserveUpdateAndCreateTimesFromRdf, recordDate, createdDate);
+    this.persistenceAccess.getSearchPersistence().saveRecord(rdf, computedDates.updatedDate(),
+        computedDates.createdDate());
   }
 
   private void indexRecords(List<RDF> records, IndexingProperties properties,
       Predicate<TierResults> tierResultsConsumer) throws IndexingException {
-    if (properties.isPerformRedirects() && connectionProvider.getRecordRedirectDao() == null) {
-      throw new SetupRelatedIndexingException(
-          "Record redirect dao has not been initialized and performing redirects is requested");
-    }
     LOGGER.info("Processing {} records...", records.size());
-    final FullBeanPublisher publisher =
-        connectionProvider.getFullBeanPublisher(properties.isPreserveUpdateAndCreateTimesFromRdf());
-
     for (RDF rdfRecord : records) {
       if (tierResultsConsumer.test(IndexerPreprocessor.preprocessRecord(rdfRecord, properties))) {
-        if (properties.isPerformRedirects()) {
-          publisher.publishWithRedirects(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-              properties.getDatasetIdsForRedirection());
-        } else {
-          publisher.publish(new RdfWrapper(rdfRecord), properties.getRecordDate(),
-              properties.getDatasetIdsForRedirection());
-        }
+        indexRecord(new RdfWrapper(rdfRecord), properties.getRecordDate(),
+            properties.getDatasetIdsForRedirection(), properties.isPerformRedirects(),
+            properties.isPreserveUpdateAndCreateTimesFromRdf());
       }
     }
-
     LOGGER.info("Successfully processed {} records.", records.size());
   }
 

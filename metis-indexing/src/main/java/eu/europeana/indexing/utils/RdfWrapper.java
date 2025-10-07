@@ -16,6 +16,7 @@ import eu.europeana.metis.schema.jibx.Identifier;
 import eu.europeana.metis.schema.jibx.IsShownBy;
 import eu.europeana.metis.schema.jibx.License;
 import eu.europeana.metis.schema.jibx.Organization;
+import eu.europeana.metis.schema.jibx.PersistentIdentifierType;
 import eu.europeana.metis.schema.jibx.PlaceType;
 import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyIn;
@@ -389,6 +390,17 @@ public class RdfWrapper {
    */
   public List<Service> getServices() {
     return getFilteredPropertyList(rdfRecord.getServiceList());
+  }
+
+
+  /**
+   * Obtains the list of  persistent identifiers from an RDF record. This will filter the objects: it only returns those with a
+   * non-blank about value
+   *
+   * @return the persistent identifiers
+   */
+  public List<PersistentIdentifierType> getPersistentIdentifiers() {
+    return getFilteredPropertyList(rdfRecord.getPersistentIdentifierList());
   }
 
   /**

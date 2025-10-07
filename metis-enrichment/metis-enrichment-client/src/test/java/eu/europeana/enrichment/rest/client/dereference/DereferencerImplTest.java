@@ -25,13 +25,13 @@ import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolverFactory;
 import eu.europeana.enrichment.api.external.model.Agent;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.TimeSpan;
-import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
@@ -41,6 +41,7 @@ import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.ServiceUnavailableException;
@@ -69,6 +70,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -176,9 +178,11 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferencerHappyFlow() throws MalformedURLException, URISyntaxException {
+    void testDereferencerHappyFlow() throws MalformedURLException, URISyntaxException, EntityClientException {
         // Create mocks of the dependencies
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
         final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         doReturn(DEREFERENCE_RESULT.getFirst(),
@@ -187,7 +191,7 @@ class DereferencerImplTest {
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
         final Dereferencer dereferencer = spy(
-                new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+                new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
         wireMockServer.stubFor(get("/about")
@@ -208,16 +212,18 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferencerNullFlow() {
+    void testDereferencerNullFlow() throws EntityClientException {
         // Create mocks of the dependencies
-        final ClientEntityResolver entityResolver = mock(ClientEntityResolver.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
 
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
         // Create dereferencer.
         final Dereferencer dereferencer = spy(
-                new DereferencerImpl(entityMergeEngine, entityResolver, dereferenceClient));
+                new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doReturn(Collections.emptySet()).when(dereferencer).extractReferencesForDereferencing(any());
 
         final RDF inputRdf = new RDF();
@@ -228,9 +234,11 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceInvalidUrl() throws MalformedURLException, URISyntaxException {
+    void testDereferenceInvalidUrl() throws MalformedURLException, URISyntaxException, EntityClientException {
         // Create mocks of the dependencies
-        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         doReturn(DEREFERENCE_RESULT.getFirst(),
@@ -239,7 +247,7 @@ class DereferencerImplTest {
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
         final Dereferencer dereferencer = spy(
-                new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+                new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doReturn(DEREFERENCE_EXTRACT_RESULT_INVALID).when(dereferencer).extractReferencesForDereferencing(any());
 
         final RDF inputRdf = new RDF();
@@ -253,16 +261,18 @@ class DereferencerImplTest {
     @ParameterizedTest
     @MethodSource("providedExceptions")
     void testDereferenceNetworkException(Exception ex, Type expectedMessageType, String expectedMessage)
-        throws MalformedURLException, URISyntaxException {
+        throws MalformedURLException, URISyntaxException, EntityClientException {
         // Create mocks of the dependencies
-        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         doThrow(ex).when(dereferenceClient).dereference(any());
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
 
         final Dereferencer dereferencer = spy(
-                new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+                new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doReturn(DEREFERENCE_EXTRACT_RESULT_VALID).when(dereferencer).extractReferencesForDereferencing(any());
 
         final RDF inputRdf = new RDF();
@@ -273,17 +283,19 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceCancellationException() {
+    void testDereferenceCancellationException() throws EntityClientException {
         String cancellationExceptionMessage = "Cancellation exception occurred while trying to perform dereferencing.";
         CancellationException cancellationException = new CancellationException(cancellationExceptionMessage);
         // Create mocks of the dependencies
-        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         doReturn(ENRICHMENT_RESULT).when(clientEntityResolver).resolveByText(anySet());
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
         final RDF inputRdf = new RDF();
         final Dereferencer dereferencer = spy(
-                new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+                new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
 
         verifyCaseWithInternalEntities(cancellationException, clientEntityResolver, inputRdf,
                 dereferencer);
@@ -296,11 +308,13 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceWithNoEntityResolver() {
+    void testDereferenceWithNoEntityResolver() throws EntityClientException {
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        doReturn(null).when(clientEntityResolverFactory).create();
         final Dereferencer dereferencer = spy(
-            new DereferencerImpl(entityMergeEngine, (EntityResolver) null, dereferenceClient));
+            new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
 
         DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), HashSet.newHashSet(0));
 
@@ -309,17 +323,19 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceWithEntityResolverException() {
-        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+    void testDereferenceWithEntityResolverException() throws EntityClientException, MalformedURLException {
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
         final Dereferencer dereferencer = spy(
-            new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+            new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doThrow(new RuntimeException("Exception occurred while trying to resolve entities")).when(clientEntityResolver)
                                                                                             .resolveById(any());
         HashSet<Report> reports = HashSet.newHashSet(0);
 
-        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), reports);
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(new ReferenceTermImpl(URI.create("http://data.europeana.eu.host").toURL())), reports);
 
         assertEquals(1, reports.size());
         assertEquals("DereferenceException: Exception occurred while trying to perform dereferencing.",
@@ -328,12 +344,14 @@ class DereferencerImplTest {
     }
 
     @Test
-    void testDereferenceExternalEntitiesExceptions () {
-        final ClientEntityResolver clientEntityResolver = mock(ClientEntityResolver.class);
+    void testDereferenceExternalEntitiesExceptions () throws EntityClientException {
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);
+        doReturn(clientEntityResolver).when(clientEntityResolverFactory).create();
         final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
         final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
         final Dereferencer dereferencer = spy(
-            new DereferencerImpl(entityMergeEngine, clientEntityResolver, dereferenceClient));
+            new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doReturn(ENRICHMENT_RESULT_BY_ID)
             .when(clientEntityResolver)
             .resolveById(any());
@@ -453,10 +471,8 @@ class DereferencerImplTest {
 
         // Checking the report.
         assertEquals(3, reports.size());
-        for (Report report : reports) {
-            assertTrue(report.getMessage().contains(expectedMessage));
-            assertEquals(expectedType, report.getMessageType());
-        }
+        assertEquals(3, reports.stream().filter(report -> report.getMessageType() == expectedType
+            && report.getMessage().contains(expectedMessage)).count());
     }
 
     // Verify merge calls

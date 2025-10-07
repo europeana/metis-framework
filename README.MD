@@ -23,7 +23,7 @@ that the project can be easily re-cloned and to also avoid accidental submission
 
 The suggested alternative is to apply the configuration with an environment variable pointing to the appropriate
 .properties file
-`SPRING_CONFIG_LOCATION=file:///data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties`
+`SPRING_CONFIG_LOCATION=file:///data/metis-configuration/metis-core/metis-core-rest/k8s/overlays/local/resources/application.properties`
 It can be applied in Intellij from the:
 > Edit configurations -> Modify Options -> Environment Variables -> Add the SPRING_CONFIG_LOCATION variable
 
@@ -32,7 +32,7 @@ then an argument can be set up during execution of the command e.g. `mvn spring-
 Spring variables can be overwritten using environment variable, for example if local docker dbs are used we can
 overwrite the
 hosts(That can happen if we use Spring boot through the IDE instead of deploying in docker/minikube):
-> HIBERNATE_CONNECTION_URL: jdbc:postgresql://localhost:5432/metis-authentication_local
+> HIBERNATE_CONNECTION_URL: jdbc:postgresql://localhost:5432/metis-core_local
 
 ### Environment variables
 
@@ -72,9 +72,9 @@ To apply the files that are required for the application to be deployed we need 
 > - Fill in the Container name
 > - Fill in the Run options:  
     `-p 8080:8080`    
-    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks`      
-    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/application.properties:/application.properties`      
-    `-v /data/metis-configuration/metis-framework/metis-authentication/metis-authentication-rest/k8s/overlays/local/resources/log4j2.xml:/data/logging/log4j2.xml`  
+    `-v /data/metis-configuration/metis-core/metis-core-rest/k8s/overlays/local/resources/custom-truststore.jks:/data/certificates/custom-truststore.jks`      
+    `-v /data/metis-configuration/metis-core/metis-core-rest/k8s/overlays/local/resources/application.properties:/application.properties`      
+    `-v /data/metis-configuration/metis-core/metis-core-rest/k8s/overlays/local/resources/log4j2.xml:/data/logging/log4j2.xml`  
     They should point to the custom certificate file, the application properties and the log4j2.xml configuration file.
 
 ### Intellij Docker Compose

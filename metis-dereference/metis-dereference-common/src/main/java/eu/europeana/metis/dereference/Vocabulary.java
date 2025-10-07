@@ -8,6 +8,7 @@ import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class Vocabulary implements Serializable {
   /**
    * Required for implementations of {@link Serializable}.
    **/
+  @Serial
   private static final long serialVersionUID = 2946293185967000824L;
 
   @Id
@@ -45,6 +47,12 @@ public class Vocabulary implements Serializable {
    * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
    */
   private String suffix;
+
+  /**
+   * The value of the User Agent HTTP header to be used with the vocabulary. If null, the default
+   * user agent will be set.
+   */
+  private String userAgent;
 
   /**
    * The XSLT to convert an external entity to an internal entity
@@ -77,6 +85,15 @@ public class Vocabulary implements Serializable {
 
   public void setSuffix(String suffix) {
     this.suffix = suffix;
+  }
+
+  @XmlElement
+  public String getUserAgent() {
+    return userAgent;
+  }
+
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
   }
 
   @XmlElement

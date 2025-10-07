@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Implementations of this class have the ability to resolve entities based on the given input.
  */
-public interface EntityResolver {
+public interface EntityResolver extends AutoCloseable {
 
   Pattern europeanaLinkPattern = Pattern.compile("^https?://data.europeana.eu.*$");
   Pattern semiumLinkPattern = Pattern.compile("^https?://semium.org.*$");
@@ -42,8 +42,4 @@ public interface EntityResolver {
    */
   <T extends ReferenceTerm> Map<T, List<EnrichmentBase>> resolveByUri(Set<T> referenceTerms);
 
-  /**
-   * Close.
-   */
-  void close();
 }

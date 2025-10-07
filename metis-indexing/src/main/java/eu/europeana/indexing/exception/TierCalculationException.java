@@ -1,5 +1,7 @@
 package eu.europeana.indexing.exception;
 
+import java.io.Serial;
+
 /**
  * Exception that may occur during indexing.
  *
@@ -10,6 +12,7 @@ public class TierCalculationException extends RuntimeException {
   /**
    * Required for implementations of {@link java.io.Serializable}.
    **/
+  @Serial
   private static final long serialVersionUID = 6021595467219232390L;
 
   /**

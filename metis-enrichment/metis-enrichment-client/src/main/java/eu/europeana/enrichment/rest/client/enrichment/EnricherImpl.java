@@ -3,7 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static eu.europeana.enrichment.api.internal.EntityResolver.europeanaLinkPattern;
 import static eu.europeana.enrichment.api.internal.EntityResolver.semiumLinkPattern;
 
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolverFactory;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.internal.AbstractSearchTerm;
 import eu.europeana.enrichment.api.internal.EntityResolver;
@@ -17,8 +17,6 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
-import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -29,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
@@ -53,37 +50,24 @@ public class EnricherImpl implements Enricher {
                                                                          < HttpStatus.INTERNAL_SERVER_ERROR.value())
                                                                  .toList();
   private final RecordParser recordParser;
-  private final EntityResolver entityResolver;
-  private final EntityClientConfiguration entityApiClientConfiguration;
+  private final ClientEntityResolverFactory clientEntityResolverFactory;
   private final EntityMergeEngine entityMergeEngine;
 
   /**
-   * Constructor with required parameters.
+   * Instantiates a new Enricher.
    *
    * @param recordParser the record parser
-   * @param entityResolver the entity resolver
+   * @param entityResolverFactory the client entity resolver factory
    * @param entityMergeEngine the entity merge engine
    */
-  public EnricherImpl(RecordParser recordParser, EntityResolver entityResolver, EntityMergeEngine entityMergeEngine) {
+  public EnricherImpl(RecordParser recordParser,
+      ClientEntityResolverFactory entityResolverFactory,
+      EntityMergeEngine entityMergeEngine) {
     this.recordParser = recordParser;
-    this.entityResolver = entityResolver;
-    this.entityApiClientConfiguration = null;
+    this.clientEntityResolverFactory = entityResolverFactory;
     this.entityMergeEngine = entityMergeEngine;
   }
 
-  /**
-   * Constructor with required parameters.
-   *
-   * @param recordParser the record parser
-   * @param entityApiClientConfiguration the configuration to create entity resolvers
-   * @param entityMergeEngine the entity merge engine
-   */
-  public EnricherImpl(RecordParser recordParser, EntityClientConfiguration entityApiClientConfiguration, EntityMergeEngine entityMergeEngine) {
-    this.recordParser = recordParser;
-    this.entityResolver = null;
-    this.entityApiClientConfiguration = new EntityClientConfiguration(entityApiClientConfiguration);
-    this.entityMergeEngine = entityMergeEngine;
-  }
 
   private static HttpStatus containsWarningStatus(String message) {
     for (HttpStatus status : WARNING_STATUSES) {
@@ -141,24 +125,8 @@ public class EnricherImpl implements Enricher {
     return reports;
   }
 
-  private EntityResolver getEntityResolver() {
-    return Optional.ofNullable(this.entityResolver).orElseGet(()-> {
-      try {
-        return ClientEntityResolver.create(entityApiClientConfiguration);
-      } catch (EntityClientException e) {
-        throw new IllegalArgumentException(e);
-      }
-    });
-  }
-
   @Override
-  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
-      Set<SearchTermContext> searchTerms) {
-    return enrichValues(searchTerms, getEntityResolver());
-  }
-
-  private Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(
-      Set<SearchTermContext> searchTerms, EntityResolver entityResolverToUse) {
+  public Pair<Map<SearchTermContext, List<EnrichmentBase>>, Set<Report>> enrichValues(Set<SearchTermContext> searchTerms) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(searchTerms)) {
       reports.add(Report
@@ -168,11 +136,11 @@ public class EnricherImpl implements Enricher {
           .build());
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
-    try {
+
+    try (EntityResolver entityResolverToUse = clientEntityResolverFactory.create()) {
       Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
-      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
-    } catch (RuntimeException runtimeException) {
+    } catch (Exception runtimeException) {
       reports.add(Report
           .buildEnrichmentError()
           .withMessage("Error while resolving values by text when enriching values")
@@ -189,11 +157,6 @@ public class EnricherImpl implements Enricher {
   @Override
   public Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
       Set<ReferenceTermContext> references) {
-    return this.enrichReferences(references, getEntityResolver());
-  }
-
-  private Pair<Map<ReferenceTermContext, List<EnrichmentBase>>, Set<Report>> enrichReferences(
-      Set<ReferenceTermContext> references, EntityResolver entityResolverToUse) {
     HashSet<Report> reports = new HashSet<>();
     if (CollectionUtils.isEmpty(references)) {
       reports.add(Report
@@ -203,12 +166,10 @@ public class EnricherImpl implements Enricher {
           .build());
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
-    try {
+    try (EntityResolver entityResolverToUse = clientEntityResolverFactory.create()) {
       Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
-      entityResolverToUse.close();
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
-
-    } catch (RuntimeException runtimeException) {
+    } catch (Exception runtimeException) {
       String referenceValue = references.stream()
                                         .map(ReferenceTermContext::getReferenceAsString)
                                         .sorted(String::compareToIgnoreCase)

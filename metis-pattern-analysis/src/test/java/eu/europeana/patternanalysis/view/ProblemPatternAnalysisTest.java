@@ -16,12 +16,12 @@ class ProblemPatternAnalysisTest {
     final Set<String> titles = Set.of("titleA");
     final ProblemPatternAnalysis problemPatternAnalysis = new ProblemPatternAnalysis("rdfAbout", problemPatterns, titles);
 
-    assertEquals("rdfAbout", problemPatternAnalysis.getRdfAbout());
-    assertEquals(problemPatternAnalysis.getProblemPatterns().size(), problemPatterns.size());
-    assertEquals(problemPatternAnalysis.getTitles().size(), titles.size());
+    assertEquals("rdfAbout", problemPatternAnalysis.rdfAbout());
+    assertEquals(problemPatternAnalysis.problemPatterns().size(), problemPatterns.size());
+    assertEquals(problemPatternAnalysis.titles().size(), titles.size());
 
     assertThrows(NullPointerException.class, () -> new ProblemPatternAnalysis(null, problemPatterns, titles));
-    assertEquals(0, new ProblemPatternAnalysis("rdfAbout", null, titles).getProblemPatterns().size());
-    assertEquals(0, new ProblemPatternAnalysis("rdfAbout", problemPatterns, null).getTitles().size());
+    assertEquals(0, new ProblemPatternAnalysis("rdfAbout", null, titles).problemPatterns().size());
+    assertEquals(0, new ProblemPatternAnalysis("rdfAbout", problemPatterns, null).titles().size());
   }
 }

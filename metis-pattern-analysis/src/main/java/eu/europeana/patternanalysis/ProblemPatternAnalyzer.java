@@ -2,10 +2,13 @@ package eu.europeana.patternanalysis;
 
 import static java.lang.String.format;
 import static java.util.function.Predicate.not;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.BooleanUtils.isFalse;
 import static org.apache.commons.lang3.StringUtils.abbreviate;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
@@ -16,6 +19,8 @@ import eu.europeana.metis.schema.jibx.ProvidedCHOType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
+import eu.europeana.metis.schema.jibx.ResourceOrLiteralType.Lang;
+import eu.europeana.patternanalysis.exception.PatternAnalysisException;
 import eu.europeana.patternanalysis.view.ProblemOccurrence;
 import eu.europeana.patternanalysis.view.ProblemPattern;
 import eu.europeana.patternanalysis.view.ProblemPatternAnalysis;
@@ -35,6 +40,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.LongestCommonSubsequence;
@@ -46,10 +52,11 @@ public class ProblemPatternAnalyzer {
 
   private static final int MIN_TITLE_LENGTH = 2;
   private static final int MAX_TITLE_LENGTH = 70;
-  private static final int MIN_DESCRIPTION_LENGTH = 50;
+  private static final int MIN_DESCRIPTION_LENGTH = 51;
   private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
-  private static final double LCS_CALCULATION_THRESHOLD = 0.9;
-  private static final int TITLE_DESCRIPTION_LENGTH_DISTANCE = 20;
+  private static final double LCS_THRESHOLD = 0.9;
+  private static final int TITLE_DESCRIPTION_LENGTH_OFFSET = 5;
+  private static final double TITLE_DESCRIPTION_LENGTH_TOLERANCE = 0.1;
   private static final int DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT = 50;
   // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
   private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
@@ -65,10 +72,15 @@ public class ProblemPatternAnalyzer {
    *
    * @param rdfString the rdf record as a string
    * @return a list of problem patterns
-   * @throws SerializationException if the record could not be converted to {@link RDF}
+   * @throws PatternAnalysisException if the record could not be converted to {@link RDF}
    */
-  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws SerializationException {
-    return analyzeRecord(new RdfConversionUtils().convertStringToRdf(rdfString));
+  public ProblemPatternAnalysis analyzeRecord(String rdfString) throws PatternAnalysisException {
+    try {
+      RDF rdf = new RdfConversionUtils().convertStringToRdf(rdfString);
+      return analyzeRecord(rdf);
+    } catch (SerializationException e) {
+      throw new PatternAnalysisException("Failed to deserialize given rdf string", e);
+    }
   }
 
   /**
@@ -85,23 +97,35 @@ public class ProblemPatternAnalyzer {
                                                 .toList();
 
     final List<String> titles = getChoicesInStringList(choices, Choice::ifTitle, Choice::getTitle, LiteralType::getString);
-    final List<String> descriptions = getChoicesInStringList(choices, Choice::ifDescription, Choice::getDescription,
-        ResourceOrLiteralType::getString);
+    final Map<String, List<String>> descriptionsWithLanguage = getChoicesWithLanguage(choices, Choice::ifDescription,
+        Choice::getDescription, ResourceOrLiteralType::getString,
+        description -> Optional.ofNullable(description.getLang()).map(Lang::getLang).orElse("UNKNOWN"));
+    final List<String> descriptions = descriptionsWithLanguage.values().stream().flatMap(Collection::stream).toList();
     final List<String> identifiers = getChoicesInStringList(choices, Choice::ifIdentifier, Choice::getIdentifier,
         LiteralType::getString);
     final String rdfAbout = rdf.getProvidedCHOList().stream().filter(Objects::nonNull).findFirst()
                                .map(ProvidedCHOType::getAbout).orElse(null);
-    final ArrayList<ProblemPattern> problemPatterns = computeProblemPatterns(rdfAbout, titles, descriptions, identifiers);
+    final ArrayList<ProblemPattern> problemPatterns = computeProblemPatterns(rdfAbout, titles, descriptionsWithLanguage,
+        descriptions, identifiers);
     return new ProblemPatternAnalysis(rdfAbout, problemPatterns, Set.copyOf(titles));
   }
 
   private <T> List<String> getChoicesInStringList(List<Choice> choices, Predicate<Choice> choicePredicate,
-      Function<Choice, T> choiceGetter, Function<T, String> getString) {
-    return choices.stream().filter(Objects::nonNull).filter(choicePredicate).map(choiceGetter).map(getString).toList();
+      Function<Choice, T> choiceGetter, Function<T, String> getValue) {
+    return choices.stream().filter(Objects::nonNull).filter(choicePredicate).map(choiceGetter).map(getValue).toList();
   }
 
-  private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles, List<String> descriptions,
-      List<String> identifiers) {
+  private <T> Map<String, List<String>> getChoicesWithLanguage(List<Choice> choices, Predicate<Choice> choicePredicate,
+      Function<Choice, T> choiceGetter, Function<T, String> getValue, Function<T, String> getLanguage) {
+    return choices.stream()
+                  .filter(Objects::nonNull)
+                  .filter(choicePredicate)
+                  .map(choiceGetter)
+                  .collect(groupingBy(getLanguage, mapping(getValue, Collectors.toList())));
+  }
+
+  private ArrayList<ProblemPattern> computeProblemPatterns(String rdfAbout, List<String> titles,
+      Map<String, List<String>> descriptionsWithLanguage, List<String> descriptions, List<String> identifiers) {
     final ArrayList<ProblemPattern> problemPatterns = new ArrayList<>();
 
     //We can only compute non-global patterns here
@@ -112,7 +136,8 @@ public class ProblemPatternAnalyzer {
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P5, checkP5(titles, identifiers)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P6, checkP6(titles)).ifPresent(problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P7, checkP7(descriptions)).ifPresent(problemPatterns::add);
-    constructProblemPattern(rdfAbout, ProblemPatternDescription.P9, checkP9(descriptions)).ifPresent(problemPatterns::add);
+    constructProblemPattern(rdfAbout, ProblemPatternDescription.P9, checkP9(descriptionsWithLanguage)).ifPresent(
+        problemPatterns::add);
     constructProblemPattern(rdfAbout, ProblemPatternDescription.P12, checkP12(titles)).ifPresent(problemPatterns::add);
     return problemPatterns;
   }
@@ -128,8 +153,8 @@ public class ProblemPatternAnalyzer {
   }
 
   /**
-   * Abbreviate(based on {@link StringUtils#abbreviate(String, int)}) an element up to a default max length {@link
-   * #DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT}.
+   * Abbreviate(based on {@link StringUtils#abbreviate(String, int)}) an element up to a default max length
+   * {@link #DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT}.
    * <p>Is used locally and can be used publicly for global problem patterns like P1.</p>
    *
    * @param element the string element
@@ -158,17 +183,6 @@ public class ProblemPatternAnalyzer {
     ).toList();
   }
 
-  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
-    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
-    final Predicate<String> lcsPredicate = description ->
-        ((double) longestCommonSubsequence.apply(title, description) / Math.min(title.length(), description.length()))
-            >= LCS_CALCULATION_THRESHOLD;
-    final Predicate<String> distancePredicate = description -> Math.abs(title.length() - description.length())
-        <= TITLE_DESCRIPTION_LENGTH_DISTANCE;
-    return descriptions.stream().filter(StringUtils::isNotBlank).filter(not(title::equalsIgnoreCase))
-                       .filter(lcsPredicate.and(distancePredicate)).toList();
-  }
-
   /**
    * Check whether there is a title - description pair for which the values are too similar.
    * <p>
@@ -176,11 +190,13 @@ public class ProblemPatternAnalyzer {
    * Common Subsequence</a>).
    * <p>
    * The formula chosen is:
-   * <p>
-   * LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 && |length(title)-length(desc)| <= 20
-   * <p>
-   * Blank values are filtered out. Titles and descriptions that are equal, ignoring letter (upper or lower) case are filtered
-   * out. Same titles will be reported once and will not have a duplicate of it self with same near identical descriptions.
+   * <ul>
+   *    <li>LCS (title, description) / minimum(length(title), length(desc)) >= 0.9 &&
+   *    |length(title) - length(desc)| =< 5 + 0.1 * min(length(title), length(desc))</li>
+   *    <li>Blank values are filtered out.</li>
+   *    <li>Titles and descriptions that are identical, regardless of letter case, are filtered out.</li>
+   *    <li>Each title will be reported only once, and there will be no duplicates with the same or nearly identical descriptions.</li>
+   * </ul>
    *
    * @param titles the list of titles
    * @param descriptions the list of descriptions
@@ -196,6 +212,32 @@ public class ProblemPatternAnalyzer {
             value -> new ProblemOccurrence(format("%s <--> %s", abbreviateElement(entry.getKey()), abbreviateElement(value)))
         )
     ).toList();
+  }
+
+  private List<String> nearIdenticalDescriptions(String title, List<String> descriptions) {
+    return descriptions.stream()
+                       .filter(StringUtils::isNotBlank)
+                       .filter(not(title::equalsIgnoreCase))
+                       .filter(description -> nearIdentical(title, description))
+                       .toList();
+  }
+
+  private boolean nearIdentical(String title, String description) {
+    return passesLcsThreshold(title, description) && passesLengthTolerance(title, description);
+  }
+
+  private boolean passesLcsThreshold(String title, String description) {
+    final LongestCommonSubsequence longestCommonSubsequence = new LongestCommonSubsequence();
+    int lcsLength = longestCommonSubsequence.apply(title, description);
+    double ratio = (double) lcsLength / Math.min(title.length(), description.length());
+    return ratio >= LCS_THRESHOLD;
+  }
+
+  private boolean passesLengthTolerance(String title, String description) {
+    int lengthDifference = Math.abs(title.length() - description.length());
+    double allowedDifference =
+        TITLE_DESCRIPTION_LENGTH_OFFSET + (TITLE_DESCRIPTION_LENGTH_TOLERANCE * Math.min(title.length(), description.length()));
+    return lengthDifference <= allowedDifference;
   }
 
   /**
@@ -251,17 +293,38 @@ public class ProblemPatternAnalyzer {
   }
 
   /**
-   * Check whether the record has descriptions of {@link #MIN_DESCRIPTION_LENGTH} characters or fewer.
-   * <p>Blank values are filtered out</p>
+   * Check whether the record has descriptions of fewer than {@link #MIN_DESCRIPTION_LENGTH} characters per language.
+   * <ul>We check this by:
+   *  <li>Blank values are filtered out</li>
+   *  <li>
+   *  If at least one description has length equal or greater than {@link #MIN_DESCRIPTION_LENGTH},
+   *  no problems are reported for that language.
+   *  Otherwise, all descriptions that are too short are reported.</li>
+   * </ul>
    *
-   * @param descriptions the list of descriptions
+   * @param descriptionsWithLanguage the map of descriptions with language
    * @return the list of problem occurrences encountered
    */
-  private List<ProblemOccurrence> checkP9(List<String> descriptions) {
-    return descriptions.stream().filter(StringUtils::isNotBlank)
-                       .filter(description -> description.length() <= MIN_DESCRIPTION_LENGTH)
-                       .map(description -> new ProblemOccurrence(abbreviateElement(description)))
-                       .toList();
+  private List<ProblemOccurrence> checkP9(Map<String, List<String>> descriptionsWithLanguage) {
+    return descriptionsWithLanguage.entrySet().stream()
+                                   .flatMap(entry -> checkDescriptionsForLanguage(entry.getValue()).stream())
+                                   .toList();
+  }
+
+  private List<ProblemOccurrence> checkDescriptionsForLanguage(List<String> descriptions) {
+    List<ProblemOccurrence> result = new ArrayList<>();
+
+    for (String description : descriptions) {
+      if (isBlank(description)) {
+        continue;
+      }
+      if (description.length() >= MIN_DESCRIPTION_LENGTH) {
+        return List.of();
+      }
+      result.add(new ProblemOccurrence(abbreviateElement(description)));
+    }
+
+    return result;
   }
 
   /**

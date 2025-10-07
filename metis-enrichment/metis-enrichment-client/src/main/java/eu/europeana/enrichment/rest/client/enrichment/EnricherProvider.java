@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.rest.client.enrichment;
 
+import eu.europeana.enrichment.api.external.impl.ClientEntityResolverFactory;
 import eu.europeana.enrichment.api.internal.EntityResolver;
 import eu.europeana.enrichment.api.internal.RecordParser;
 import eu.europeana.enrichment.rest.client.ConnectionProvider;
@@ -76,7 +77,7 @@ public class EnricherProvider extends ConnectionProvider {
 
         // Done.
         return new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
-            entityClientConfiguration, new EntityMergeEngine());
+            new ClientEntityResolverFactory(entityClientConfiguration), new EntityMergeEngine());
     }
 
 }
