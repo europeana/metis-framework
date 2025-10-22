@@ -157,7 +157,7 @@ public class ClientEntityResolver implements EntityResolver {
         case null -> throw new EntityApiException("Operation mode not defined", null);
       };
 
-      return (entity.getEntityId().equals(referenceValue))
+      return (entity != null && entity.getEntityId().equals(referenceValue))
           ? EnrichmentBaseConverter.convertEntitiesToEnrichmentBase(entity) : null;
     }
     return null;
