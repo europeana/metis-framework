@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  * @param <R> The type of the record to harvest.
  * @param <C> The type of the object on which filtering is to be applied.
  */
-public interface HarvestingIterator<R, C> extends Closeable {
+public interface HarvestingIterator<R, C> extends Iterable<R>, Closeable {
 
   /**
    * Iterate through the records while applying a filter (potentially skipping some records).

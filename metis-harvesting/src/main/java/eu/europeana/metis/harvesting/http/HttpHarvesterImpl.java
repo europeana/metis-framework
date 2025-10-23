@@ -58,7 +58,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
     // Download the archive. Note that we allow any directory here (even on other file systems),
     // the calling code is responsible for providing this parameter and should do so properly.
-    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN") final Path downloadDirectoryPath = Paths.get(
+    @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
+    final Path downloadDirectoryPath = Paths.get(
         downloadDirectory);
     final Path downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
 
@@ -110,7 +111,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
 
   @Override
   public Path downloadFile(String archiveUrlString, Path downloadDirectory) throws HarvesterException {
-    try{
+    try {
       final URL archiveUrl = createUrl(archiveUrlString);
       final Path directory = Files.createDirectories(downloadDirectory);
       return downloadFileToExistingDirectory(archiveUrlString, directory, archiveUrl);
@@ -133,7 +134,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
     return archiveUrl;
   }
 
-  private static Path downloadFileToExistingDirectory(String archiveUrlString, Path directory, URL archiveUrl) throws IOException {
+  private static Path downloadFileToExistingDirectory(String archiveUrlString, Path directory, URL archiveUrl)
+      throws IOException {
     final Path file = directory.resolve(FilenameUtils.getName(archiveUrlString));
     // Note: we allow any download URL for http harvesting. This is the functionality we support.
     @SuppressWarnings("findsecbugs:URLCONNECTION_SSRF_FD")
@@ -183,6 +185,23 @@ public class HttpHarvesterImpl implements HttpHarvester {
     public void forEachFiltered(ReportingIteration<FullRecord> action, Predicate<Path> filter)
         throws HarvesterException {
       forEachFileFiltered(action, filter);
+    }
+
+    @Override
+    public Iterator<FullRecord> iterator() {
+      try {
+        return walkFilteredFiles()
+            .map(path -> {
+              try {
+                return getFullRecord(path);
+              } catch (Exception e) {
+                throw new RuntimeException(e);
+              }
+            })
+            .iterator();
+      } catch (IOException e) {
+        throw new RuntimeException("Error walking directory: " + getExtractedDirectory(), e);
+      }
     }
   }
 

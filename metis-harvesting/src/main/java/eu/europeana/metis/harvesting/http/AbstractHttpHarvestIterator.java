@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -77,13 +78,21 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
   public void forEachFileFiltered(ReportingIteration<FullRecord> action, Predicate<Path> filter)
       throws HarvesterException {
     forEachPathFiltered(path -> {
-      try (InputStream content = Files.newInputStream(path)) {
-        return action.process(new FullRecordImpl(extractedDirectory.relativize(path).toString(),
-            new ByteArrayInputStream(IOUtils.toByteArray(content))));
-      } catch (RuntimeException e) {
-        throw new IOException("Could not process path " + path + ".", e);
-      }
+      FullRecord fullRecord = getFullRecord(path);
+      return action.process(fullRecord);
     }, filter);
+  }
+
+  protected FullRecord getFullRecord(Path path) throws IOException {
+    FullRecord fullRecord;
+    try (InputStream content = Files.newInputStream(path)) {
+      fullRecord = new FullRecordImpl(
+          Path.of(getExtractedDirectory()).relativize(path).toString(),
+          new ByteArrayInputStream(IOUtils.toByteArray(content)));
+    } catch (RuntimeException e) {
+      throw new IOException("Could not process path " + path + ".", e);
+    }
+    return fullRecord;
   }
 
   @Override
@@ -100,6 +109,17 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
       return IterationResult.CONTINUE;
     }, path -> true);
     return counter.get();
+  }
+
+  protected Stream<Path> walkFilteredFiles() throws IOException {
+    return Files.walk(extractedDirectory)
+                .filter(Files::isRegularFile)
+                .filter(path -> {
+                  String fileName = path.getFileName().toString();
+                  if (".DS_Store".equals(fileName)) return false;
+                  if (path.toString().contains("__MACOSX")) return false;
+                  return CompressedFileExtension.forPath(path) == null;
+                });
   }
 
   private static class FileIteration extends SimpleFileVisitor<Path> {
@@ -145,7 +165,7 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
     }
   }
 
-  private record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
+  public record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
 
     @Override
     public String getHarvestingIdentifier() {

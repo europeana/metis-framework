@@ -144,6 +144,32 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
     this.oaiClient.close();
   }
 
+  @Override
+  public Iterator<R> iterator() {
+    try {
+      Iterator<Header> headerIterator = getOrCreateSource();
+      return new Iterator<>() {
+        @Override
+        public boolean hasNext() {
+          return headerIterator.hasNext();
+        }
+
+        @Override
+        public R next() {
+          Header header = headerIterator.next();
+          try {
+            OaiRecordHeader oaiHeader = OaiRecordHeader.convert(header);
+            return postProcessing.apply(oaiHeader, oaiClient, harvest);
+          } catch (HarvesterException e) {
+            throw new RuntimeException("Error during OAI iteration", e);
+          }
+        }
+      };
+    } catch (HarvesterException e) {
+      throw new RuntimeException("Cannot create iterator", e);
+    }
+  }
+
   private static Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
     final XPathExpression expr;
     try {

@@ -2,7 +2,9 @@ package eu.europeana.metis.harvesting.http;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
@@ -38,5 +40,14 @@ public class PathIterator extends AbstractHttpHarvestIterator<Path> {
   @Override
   public String getExtractedDirectory() {
     return super.getExtractedDirectory();
+  }
+
+  @Override
+  public Iterator<Path> iterator() {
+    try {
+      return walkFilteredFiles().iterator();
+    } catch (IOException e) {
+      throw new RuntimeException("Error walking directory: " + getExtractedDirectory(), e);
+    }
   }
 }
