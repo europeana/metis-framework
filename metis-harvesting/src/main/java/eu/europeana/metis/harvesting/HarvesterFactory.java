@@ -1,5 +1,7 @@
 package eu.europeana.metis.harvesting;
 
+import eu.europeana.metis.harvesting.file.FileHarvester;
+import eu.europeana.metis.harvesting.file.FileHarvesterImpl;
 import eu.europeana.metis.harvesting.http.HttpHarvester;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.harvesting.oaipmh.CloseableHttpOaiClient;
@@ -22,6 +24,10 @@ public final class HarvesterFactory {
    */
   public static HttpHarvester createHttpHarvester() {
     return new HttpHarvesterImpl();
+  }
+
+  public static FileHarvester createFileHarvester() {
+    return new FileHarvesterImpl();
   }
 
   /**

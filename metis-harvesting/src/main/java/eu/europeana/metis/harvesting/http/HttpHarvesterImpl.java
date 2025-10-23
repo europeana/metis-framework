@@ -92,7 +92,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
       throw new IllegalStateException("Downloaded file should have a parent.");
     }
     try {
-      CompressedFileHandler.extractFile(archiveFile.toAbsolutePath(), extractedDirectory);
+      new CompressedFileHandler().extract(archiveFile.toAbsolutePath(), extractedDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Problem extracting archive.", e);
     }
