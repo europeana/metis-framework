@@ -9,6 +9,8 @@ import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
+import eu.europeana.metis.harvesting.file.PathIterator;
+import eu.europeana.metis.harvesting.file.RecordIterator;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.CompressedFileHandler;
 import java.io.IOException;
@@ -25,7 +27,6 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -59,8 +60,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     // Download the archive. Note that we allow any directory here (even on other file systems),
     // the calling code is responsible for providing this parameter and should do so properly.
     @SuppressWarnings("findsecbugs:PATH_TRAVERSAL_IN")
-    final Path downloadDirectoryPath = Paths.get(
-        downloadDirectory);
+    final Path downloadDirectoryPath = Paths.get(downloadDirectory);
     final Path downloadedFile = downloadFile(archiveUrl, downloadDirectoryPath);
 
     // Perform the harvesting
@@ -171,37 +171,6 @@ public class HttpHarvesterImpl implements HttpHarvester {
     } catch (UnsupportedOperationException e) {
       LOGGER.info("Not a Posix system - no need to correct rights");
       LOGGER.debug("Exception ignored.", e);
-    }
-  }
-
-  private static class RecordIterator extends AbstractHttpHarvestIterator<FullRecord>
-      implements FullRecordHarvestingIterator<FullRecord, Path> {
-
-    public RecordIterator(Path extractedDirectory) {
-      super(extractedDirectory);
-    }
-
-    @Override
-    public void forEachFiltered(ReportingIteration<FullRecord> action, Predicate<Path> filter)
-        throws HarvesterException {
-      forEachFileFiltered(action, filter);
-    }
-
-    @Override
-    public Iterator<FullRecord> iterator() {
-      try {
-        return walkFilteredFiles()
-            .map(path -> {
-              try {
-                return getFullRecord(path);
-              } catch (Exception e) {
-                throw new RuntimeException(e);
-              }
-            })
-            .iterator();
-      } catch (IOException e) {
-        throw new RuntimeException("Error walking directory: " + getExtractedDirectory(), e);
-      }
     }
   }
 

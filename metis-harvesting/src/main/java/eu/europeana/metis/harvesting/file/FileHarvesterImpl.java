@@ -2,7 +2,6 @@ package eu.europeana.metis.harvesting.file;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
-import eu.europeana.metis.harvesting.http.PathIterator;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.CompressedFileHandler;
 import java.io.IOException;

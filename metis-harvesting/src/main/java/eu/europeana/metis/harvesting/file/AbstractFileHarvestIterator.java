@@ -1,6 +1,7 @@
-package eu.europeana.metis.harvesting.http;
+package eu.europeana.metis.harvesting.file;
 
 import eu.europeana.metis.harvesting.FullRecord;
+import eu.europeana.metis.harvesting.FullRecordImpl;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
@@ -9,14 +10,12 @@ import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.invoke.MethodHandles;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.time.Instant;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -29,18 +28,20 @@ import org.slf4j.LoggerFactory;
 /**
  * Iterator for harvesting
  */
-abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, Path> {
+public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final String MAC_TEMP_FILE = ".DS_Store";
+  private static final String MAC_TEMP_FOLDER = "__MACOSX";
   private final Path extractedDirectory;
 
-  protected AbstractHttpHarvestIterator(Path extractedDirectory) {
-    Objects.requireNonNull(extractedDirectory,"Extracted directory is null. This should not happen.");
+  protected AbstractFileHarvestIterator(Path extractedDirectory) {
+    Objects.requireNonNull(extractedDirectory, "Extracted directory is null. This should not happen.");
     this.extractedDirectory = extractedDirectory;
   }
 
-  protected String getExtractedDirectory() {
-    return extractedDirectory.toString();
+  public Path getExtractedDirectory() {
+    return extractedDirectory;
   }
 
   @Override
@@ -86,8 +87,7 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
   protected FullRecord getFullRecord(Path path) throws IOException {
     FullRecord fullRecord;
     try (InputStream content = Files.newInputStream(path)) {
-      fullRecord = new FullRecordImpl(
-          Path.of(getExtractedDirectory()).relativize(path).toString(),
+      fullRecord = new FullRecordImpl(getExtractedDirectory().relativize(path).toString(),
           new ByteArrayInputStream(IOUtils.toByteArray(content)));
     } catch (RuntimeException e) {
       throw new IOException("Could not process path " + path + ".", e);
@@ -114,18 +114,29 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
   protected Stream<Path> walkFilteredFiles() throws IOException {
     return Files.walk(extractedDirectory)
                 .filter(Files::isRegularFile)
-                .filter(path -> {
-                  String fileName = path.getFileName().toString();
-                  if (".DS_Store".equals(fileName)) return false;
-                  if (path.toString().contains("__MACOSX")) return false;
-                  return CompressedFileExtension.forPath(path) == null;
-                });
+                .filter(AbstractFileHarvestIterator::isAcceptableFile);
+  }
+
+  private static boolean isAcceptableFile(Path path) {
+    String fileName = path.getFileName().toString();
+    if (MAC_TEMP_FILE.equals(fileName)) {
+      return false;
+    }
+    if (path.toString().contains(MAC_TEMP_FOLDER)) {
+      return false;
+    }
+    if (CompressedFileExtension.forPath(path) != null) {
+      return false;
+    }
+    return Files.isRegularFile(path);
+  }
+
+  protected static boolean isSkippableDirectory(Path dir) {
+    final Path dirName = dir.getFileName();
+    return dirName != null && MAC_TEMP_FOLDER.equals(dirName.toString());
   }
 
   private static class FileIteration extends SimpleFileVisitor<Path> {
-
-    private static final String MAC_TEMP_FILE = ".DS_Store";
-    private static final String MAC_TEMP_FOLDER = "__MACOSX";
 
     private final ReportingIteration<Path> action;
     private final Predicate<Path> filter;
@@ -136,15 +147,20 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
     }
 
     @Override
+    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
+      if (isSkippableDirectory(dir)) {
+        return FileVisitResult.SKIP_SUBTREE;
+      }
+      return FileVisitResult.CONTINUE;
+    }
+
+    @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
       if (!filter.test(file)) {
         return FileVisitResult.CONTINUE;
       }
-      final Path fileName = file.getFileName();
-      if (fileName != null && MAC_TEMP_FILE.equals(fileName.toString())) {
-        return FileVisitResult.CONTINUE;
-      }
-      if (CompressedFileExtension.forPath(file) != null) {
+
+      if (!AbstractFileHarvestIterator.isAcceptableFile(file)) {
         return FileVisitResult.CONTINUE;
       }
       final IterationResult result = action.process(file);
@@ -153,43 +169,6 @@ abstract class AbstractHttpHarvestIterator<R> implements HarvestingIterator<R, P
       }
       return result == IterationResult.TERMINATE ? FileVisitResult.TERMINATE
           : FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-      final Path dirName = dir.getFileName();
-      if (dirName != null && MAC_TEMP_FOLDER.equals(dirName.toString())) {
-        return FileVisitResult.SKIP_SUBTREE;
-      }
-      return FileVisitResult.CONTINUE;
-    }
-  }
-
-  public record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
-
-    @Override
-    public String getHarvestingIdentifier() {
-      return relativeFilePath;
-    }
-
-    @Override
-    public void writeContent(OutputStream outputStream) throws IOException {
-      IOUtils.copy(entryContent, outputStream);
-    }
-
-    @Override
-    public ByteArrayInputStream getContent() {
-      return entryContent;
-    }
-
-    @Override
-    public boolean isDeleted() {
-      return false;
-    }
-
-    @Override
-    public Instant getTimeStamp() {
-      return null;
     }
   }
 }

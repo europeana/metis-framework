@@ -1,4 +1,4 @@
-package eu.europeana.metis.harvesting.http;
+package eu.europeana.metis.harvesting.file;
 
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.ReportingIteration;
@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 /**
  * Iterator over the files in the extracted archive directory.
  */
-public class PathIterator extends AbstractHttpHarvestIterator<Path> {
+public class PathIterator extends AbstractFileHarvestIterator<Path> {
 
   /**
    * Creates PathIterator
@@ -31,15 +31,6 @@ public class PathIterator extends AbstractHttpHarvestIterator<Path> {
   public void forEachFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
       throws HarvesterException {
     forEachPathFiltered(action, filter);
-  }
-
-  /**
-   *
-   * @return Path to the extracted directory on which iteration is done.
-   */
-  @Override
-  public String getExtractedDirectory() {
-    return super.getExtractedDirectory();
   }
 
   @Override
