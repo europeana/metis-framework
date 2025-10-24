@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
 public class MediaExtractorImpl implements MediaExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
+  public static final String PNG_FILE_EXTENSION = ".png";
+  public static final String JPEG_FILE_EXTENSION = ".jpeg";
 
   enum ProcessingMode {FULL, REDUCED, NONE}
 
