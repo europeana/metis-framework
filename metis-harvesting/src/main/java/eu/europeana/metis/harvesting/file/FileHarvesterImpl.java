@@ -7,13 +7,16 @@ import eu.europeana.metis.utils.CompressedFileHandler;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * Implementation of the {@link FileHarvester} interface.
+ */
 public class FileHarvesterImpl implements FileHarvester {
 
   @Override
-  public HarvestingIterator<Path, Path> createHarvestIterator(Path archivePath, Path downloadDirectory)
+  public HarvestingIterator<Path, Path> createHarvestIteratorFromArchive(Path archivePath, Path extractionDirectory)
       throws HarvesterException {
     try {
-      new CompressedFileHandler().extract(archivePath, downloadDirectory);
+      new CompressedFileHandler().extract(archivePath, extractionDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Failure while extracting file", e);
     }

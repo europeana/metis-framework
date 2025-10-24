@@ -6,6 +6,9 @@ import java.io.OutputStream;
 import java.time.Instant;
 import org.apache.commons.io.IOUtils;
 
+/**
+ * A record implementation providing functionality for harvested records.
+ */
 public record FullRecordImpl(String relativeFilePath, ByteArrayInputStream entryContent) implements FullRecord {
 
   @Override

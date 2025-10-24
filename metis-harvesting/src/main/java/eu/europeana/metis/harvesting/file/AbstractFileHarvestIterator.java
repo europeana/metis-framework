@@ -9,7 +9,6 @@ import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
@@ -17,19 +16,18 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Abstract base class for iterators over file records in an extracted directory.
  *
  * @param <R> The type of record handled by the iterator.
  */
+@Slf4j
 public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final String MAC_TEMP_FILE = ".DS_Store";
   private static final String MAC_TEMP_FOLDER = "__MACOSX";
   private final Path extractedDirectory;
@@ -48,7 +46,7 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
     try {
       FileUtils.deleteDirectory(extractedDirectory.toFile());
     } catch (IOException e) {
-      LOGGER.warn("Could not delete directory.", e);
+      log.warn("Could not delete directory.", e);
     }
   }
 

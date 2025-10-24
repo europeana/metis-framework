@@ -11,6 +11,10 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * An implementation of {@link FullRecordHarvestingIterator} that iterates over {@link FullRecord} entities located within a
+ * specific directory.
+ */
 public class RecordIterator extends AbstractFileHarvestIterator<FullRecord>
     implements FullRecordHarvestingIterator<FullRecord, Path> {
 

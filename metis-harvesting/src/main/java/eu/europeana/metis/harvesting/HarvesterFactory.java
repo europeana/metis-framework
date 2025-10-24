@@ -14,11 +14,11 @@ import eu.europeana.metis.harvesting.oaipmh.OaiHarvesterImpl;
 public final class HarvesterFactory {
 
   private HarvesterFactory() {
-    // Class not meant to be instantiated.
+    // Class isn't meant to be instantiated.
   }
 
   /**
-   * Create harvester for HTTP (compressed archive) harvesting.
+   * Create a harvester for HTTP (compressed archive) harvesting.
    *
    * @return A new instance of an HTTP harvester.
    */
@@ -26,6 +26,11 @@ public final class HarvesterFactory {
     return new HttpHarvesterImpl();
   }
 
+  /**
+   * Create a harvester for File (compressed archive) harvesting.
+   *
+   * @return A new instance of an File harvester.
+   */
   public static FileHarvester createFileHarvester() {
     return new FileHarvesterImpl();
   }

@@ -16,7 +16,6 @@ import eu.europeana.metis.utils.CompressedFileHandler;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -28,19 +27,17 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of the {@link HttpHarvester} functionality.
  */
+@Slf4j
 public class HttpHarvesterImpl implements HttpHarvester {
 
   private static final Set<String> SUPPORTED_PROTOCOLS = Set.of("http", "https", "file");
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(HttpHarvesterImpl.class);
 
   @Override
   public void harvestFullRecords(InputStream inputStream,
@@ -115,17 +112,17 @@ public class HttpHarvesterImpl implements HttpHarvester {
       final URL archiveUrl = createUrl(archiveUrlString);
       final Path directory = Files.createDirectories(downloadDirectory);
       return downloadFileToExistingDirectory(archiveUrlString, directory, archiveUrl);
-    } catch (IOException | URISyntaxException e) {
+    } catch (IOException e) {
       throw new HarvesterException("Problem downloading archive " + archiveUrlString + ".", e);
     }
   }
 
-  private static URL createUrl(String archiveUrlString) throws URISyntaxException, IOException {
+  private static URL createUrl(String archiveUrlString) throws IOException {
     final URL archiveUrl;
     try {
       archiveUrl = new URI(archiveUrlString).toURL();
-    } catch (IllegalArgumentException e) {
-      throw new MalformedURLException(e.getMessage());
+    } catch (URISyntaxException  e) {
+      throw new IOException(e);
     }
     if (!SUPPORTED_PROTOCOLS.contains(archiveUrl.getProtocol())) {
       throw new IOException("This functionality does not support this protocol ("
@@ -159,7 +156,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
    */
   private static void correctDirectoryRights(Path directory) throws IOException {
     if (directory.getParent() == null) {
-      LOGGER.info("No containing parent directory - no need to correct rights.");
+      log.info("No containing parent directory - no need to correct rights.");
       return;
     }
     try (Stream<Path> files = Files.walk(directory)) {
@@ -169,8 +166,8 @@ public class HttpHarvesterImpl implements HttpHarvester {
         Files.setPosixFilePermissions(i.next(), rights);
       }
     } catch (UnsupportedOperationException e) {
-      LOGGER.info("Not a Posix system - no need to correct rights");
-      LOGGER.debug("Exception ignored.", e);
+      log.info("Not a Posix system - no need to correct rights");
+      log.debug("Exception ignored.", e);
     }
   }
 
