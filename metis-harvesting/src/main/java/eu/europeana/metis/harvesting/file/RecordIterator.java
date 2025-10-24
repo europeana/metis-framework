@@ -3,11 +3,13 @@ package eu.europeana.metis.harvesting.file;
 import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.FullRecordHarvestingIterator;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvesterRuntimeException;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class RecordIterator extends AbstractFileHarvestIterator<FullRecord>
     implements FullRecordHarvestingIterator<FullRecord, Path> {
@@ -24,18 +26,20 @@ public class RecordIterator extends AbstractFileHarvestIterator<FullRecord>
 
   @Override
   public Iterator<FullRecord> iterator() {
+    Stream<Path> pathStream;
     try {
-      return walkFilteredFiles()
-          .map(path -> {
-            try {
-              return getFullRecord(path);
-            } catch (Exception e) {
-              throw new RuntimeException(e);
-            }
-          })
-          .iterator();
+      pathStream = walkFilteredFiles();
     } catch (IOException e) {
-      throw new RuntimeException("Error walking directory: " + getExtractedDirectory(), e);
+      throw new HarvesterRuntimeException("Error walking directory: " + getExtractedDirectory(), e);
     }
+    return pathStream
+        .map(path -> {
+          try {
+            return getFullRecord(path);
+          } catch (IOException e) {
+            throw new HarvesterRuntimeException(e);
+          }
+        })
+        .iterator();
   }
 }

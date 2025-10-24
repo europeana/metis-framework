@@ -5,17 +5,14 @@ import eu.europeana.metis.harvesting.FullRecordImpl;
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
-import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -26,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Iterator for harvesting
+ * Abstract base class for iterators over file records in an extracted directory.
+ *
+ * @param <R> The type of record handled by the iterator.
  */
 public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
@@ -62,8 +61,14 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
    */
   public void forEachPathFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
       throws HarvesterException {
-    try {
-      Files.walkFileTree(extractedDirectory, new FileIteration(action, filter));
+    try (Stream<Path> pathStream = walkFilteredFiles()) {
+      final Iterator<Path> iterator = pathStream.filter(filter).iterator();
+      while (iterator.hasNext()) {
+        Path path = iterator.next();
+        if (!action.process(path)) {
+          break;
+        }
+      }
     } catch (IOException e) {
       throw new HarvesterException("Exception while iterating through the extracted files.", e);
     }
@@ -106,69 +111,23 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
     final AtomicInteger counter = new AtomicInteger(0);
     forEachPathFiltered(path -> {
       counter.incrementAndGet();
-      return IterationResult.CONTINUE;
+      return true;
     }, path -> true);
     return counter.get();
   }
 
   protected Stream<Path> walkFilteredFiles() throws IOException {
-    return Files.walk(extractedDirectory)
-                .filter(Files::isRegularFile)
-                .filter(AbstractFileHarvestIterator::isAcceptableFile);
+    return Files.walk(extractedDirectory).filter(AbstractFileHarvestIterator::isAcceptablePath);
   }
 
-  private static boolean isAcceptableFile(Path path) {
-    String fileName = path.getFileName().toString();
-    if (MAC_TEMP_FILE.equals(fileName)) {
-      return false;
-    }
-    if (path.toString().contains(MAC_TEMP_FOLDER)) {
+  private static boolean isAcceptablePath(Path path) {
+    String pathString = path.toString();
+    if (pathString.contains(MAC_TEMP_FILE) || pathString.contains(MAC_TEMP_FOLDER)) {
       return false;
     }
     if (CompressedFileExtension.forPath(path) != null) {
       return false;
     }
     return Files.isRegularFile(path);
-  }
-
-  protected static boolean isSkippableDirectory(Path dir) {
-    final Path dirName = dir.getFileName();
-    return dirName != null && MAC_TEMP_FOLDER.equals(dirName.toString());
-  }
-
-  private static class FileIteration extends SimpleFileVisitor<Path> {
-
-    private final ReportingIteration<Path> action;
-    private final Predicate<Path> filter;
-
-    public FileIteration(ReportingIteration<Path> action, Predicate<Path> filter) {
-      this.action = action;
-      this.filter = filter;
-    }
-
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-      if (isSkippableDirectory(dir)) {
-        return FileVisitResult.SKIP_SUBTREE;
-      }
-      return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-      if (!filter.test(file)) {
-        return FileVisitResult.CONTINUE;
-      }
-
-      if (!AbstractFileHarvestIterator.isAcceptableFile(file)) {
-        return FileVisitResult.CONTINUE;
-      }
-      final IterationResult result = action.process(file);
-      if (result == null) {
-        throw new IllegalArgumentException("Iteration result cannot be null.");
-      }
-      return result == IterationResult.TERMINATE ? FileVisitResult.TERMINATE
-          : FileVisitResult.CONTINUE;
-    }
   }
 }
