@@ -1,11 +1,11 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.PNG_FILE_EXTENSION;
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempFile;
 import static java.util.Collections.emptyMap;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
-import eu.europeana.metis.utils.TempFileUtils;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -116,7 +116,7 @@ class PdfToImageConverter {
 
   Path createPdfImageFile() throws MediaExtractionException {
     try {
-      return createSecureTempFile("metis_pdf_image_", TempFileUtils.PNG_FILE_EXTENSION);
+      return createSecureTempFile("metis_pdf_image_", PNG_FILE_EXTENSION);
     } catch (IOException e) {
       throw new MediaExtractionException("Could not create temporary file.", e);
     }
