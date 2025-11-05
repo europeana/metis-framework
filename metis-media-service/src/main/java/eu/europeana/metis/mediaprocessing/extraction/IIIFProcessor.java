@@ -4,10 +4,14 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.model.IIIFResource;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
+import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
+import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -66,7 +70,33 @@ public class IIIFProcessor extends ImageProcessor {
     } else {
       return null;
     }
-
-
+  }
+  /**
+   * Resource iiif post processing.
+   *
+   * @param resultToPostProcess The result to post process.
+   * @param rdfResourceEntry The RDF resource entry.
+   * @return The post processed result.
+   * @throws MediaExtractionException In case something went wrong during the post processing.
+   */
+  public static ResourceExtractionResult resourcePostProcessing(ResourceExtractionResult resultToPostProcess,
+      RdfResourceEntry rdfResourceEntry) throws MediaExtractionException {
+    if (rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
+      ImageResourceMetadata thumbnailMetadata = (ImageResourceMetadata) ((ResourceExtractionResultImpl) resultToPostProcess).getOriginalMetadata();
+      ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(thumbnailMetadata.getMimeType(),
+          rdfResourceEntry.getResourceUrl(),
+          thumbnailMetadata.getContentSize(),
+          thumbnailMetadata.getWidth(),
+          thumbnailMetadata.getHeight(),
+          thumbnailMetadata.getColorSpace(),
+          thumbnailMetadata.getDominantColors()
+                           .stream()
+                           .map(colorName -> colorName.replace("#", ""))
+                           .toList(),
+          resultToPostProcess.getThumbnails());
+      return new ResourceExtractionResultImpl(imageResourceMetadata);
+    } else {
+      return resultToPostProcess;
+    }
   }
 }

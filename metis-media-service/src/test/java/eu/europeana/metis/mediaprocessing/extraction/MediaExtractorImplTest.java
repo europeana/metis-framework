@@ -246,32 +246,33 @@ class MediaExtractorImplTest {
     final String detectedMimeType = "detected mime type";
     doReturn(detectedMimeType).when(mediaExtractor).detectAndVerifyMimeType(eq(resource), any());
 
+    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resource.getResourceUrl(), Collections.emptyList(), RdfResourceKind.STANDARD);
     // Set processor.
     doReturn(List.of(audioVideoProcessor))
-        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType, RdfResourceKind.STANDARD);
+        .when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType, rdfResourceEntry.getResourceKind());
     final ResourceExtractionResultImpl result1 = new ResourceExtractionResultImpl(null, null);
     doReturn(result1).when(audioVideoProcessor).extractMetadata(resource, detectedMimeType, hasMainThumbnail);
     final ResourceExtractionResultImpl result2 = new ResourceExtractionResultImpl(null, null);
     doReturn(result2).when(audioVideoProcessor).copyMetadata(resource, detectedMimeType);
 
     // Make the call.
-    assertSame(result1, mediaExtractor.performProcessing(resource, ProcessingMode.FULL, hasMainThumbnail, RdfResourceKind.STANDARD));
+    assertSame(result1, mediaExtractor.performProcessing(resource, ProcessingMode.FULL, hasMainThumbnail, rdfResourceEntry));
     verify(mediaExtractor, times(1)).detectAndVerifyMimeType(resource, ProcessingMode.FULL);
     verify(mediaExtractor, times(1)).verifyAndCorrectContentAvailability(resource,
         ProcessingMode.FULL, detectedMimeType, RdfResourceKind.STANDARD);
-    assertSame(result2, mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED, hasMainThumbnail, RdfResourceKind.STANDARD));
+    assertSame(result2, mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED, hasMainThumbnail, rdfResourceEntry));
     verify(mediaExtractor, times(1)).detectAndVerifyMimeType(resource, ProcessingMode.REDUCED);
     verify(mediaExtractor, times(1)).verifyAndCorrectContentAvailability(resource,
         ProcessingMode.REDUCED, detectedMimeType, RdfResourceKind.STANDARD);
 
     // Check what happens if we are not supposed to process
     assertThrows(IllegalStateException.class,
-        () -> mediaExtractor.performProcessing(resource, ProcessingMode.NONE, hasMainThumbnail, RdfResourceKind.STANDARD));
+        () -> mediaExtractor.performProcessing(resource, ProcessingMode.NONE, hasMainThumbnail, rdfResourceEntry));
 
     // Check what happens if there is no processor
-    doReturn(Collections.emptyList()).when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType, RdfResourceKind.STANDARD);
-    assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.FULL, hasMainThumbnail, RdfResourceKind.STANDARD));
-    assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED, hasMainThumbnail, RdfResourceKind.STANDARD));
+    doReturn(Collections.emptyList()).when(mediaExtractor).chooseMediaProcessor(MediaType.getMediaType(detectedMimeType), detectedMimeType, rdfResourceEntry.getResourceKind());
+    assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.FULL, hasMainThumbnail, rdfResourceEntry));
+    assertNull(mediaExtractor.performProcessing(resource, ProcessingMode.REDUCED, hasMainThumbnail, rdfResourceEntry));
   }
 
   @Test
@@ -284,7 +285,7 @@ class MediaExtractorImplTest {
     doReturn(ProcessingMode.FULL).when(mediaExtractor).getMode(entry1);
     doReturn(resource1).when(resourceDownloadClient).downloadBasedOnMimeType(entry1);
     final ResourceExtractionResultImpl result1 = new ResourceExtractionResultImpl(null, null);
-    doReturn(result1).when(mediaExtractor).performProcessing(resource1, ProcessingMode.FULL, hasMainThumbnail, RdfResourceKind.OEMBEDDED);
+    doReturn(result1).when(mediaExtractor).performProcessing(resource1, ProcessingMode.FULL, hasMainThumbnail, entry1);
 
     // Make the call and verify that the resource is closed.
     assertSame(result1, mediaExtractor.performMediaExtraction(entry1, hasMainThumbnail));
@@ -296,7 +297,7 @@ class MediaExtractorImplTest {
     doReturn(ProcessingMode.REDUCED).when(mediaExtractor).getMode(entry2);
     doReturn(resource2).when(resourceDownloadClient).downloadWithoutContent(entry2);
     final ResourceExtractionResultImpl result2 = new ResourceExtractionResultImpl(null, null);
-    doReturn(result2).when(mediaExtractor).performProcessing(resource2, ProcessingMode.REDUCED, hasMainThumbnail, RdfResourceKind.OEMBEDDED);
+    doReturn(result2).when(mediaExtractor).performProcessing(resource2, ProcessingMode.REDUCED, hasMainThumbnail, entry2);
 
     // Make the call and verify that the resource is closed.
     assertSame(result2, mediaExtractor.performMediaExtraction(entry2, hasMainThumbnail));
