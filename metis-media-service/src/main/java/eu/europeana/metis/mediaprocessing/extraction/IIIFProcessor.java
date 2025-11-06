@@ -11,6 +11,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,24 +40,35 @@ public class IIIFProcessor extends ImageProcessor {
       RdfResourceEntry rdfResourceEntry) throws MediaExtractionException {
     if (resultToPostProcess != null && rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
       ImageResourceMetadata thumbnailMetadata = (ImageResourceMetadata) ((ResourceExtractionResultImpl) resultToPostProcess).getOriginalMetadata();
+
       ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(thumbnailMetadata.getMimeType(),
           rdfResourceEntry.getResourceUrl(),
           thumbnailMetadata.getContentSize(),
           thumbnailMetadata.getWidth(),
           thumbnailMetadata.getHeight(),
           thumbnailMetadata.getColorSpace(),
-          thumbnailMetadata.getDominantColors()
-                           .stream()
-                           .map(colorName -> colorName.replace("#", ""))
-                           .toList(),
-          thumbnailMetadata.getThumbnailTargetNames()
-                           .stream()
-                           .map(thumbnailName ->
-                               new ThumbnailImpl(thumbnailMetadata.getResourceUrl(),
-                                   thumbnailMetadata.getMimeType(),
-                                   thumbnailName))
-                           .toList());
-      return new ResourceExtractionResultImpl(imageResourceMetadata);
+          thumbnailMetadata.getDominantColors() != null ?
+              thumbnailMetadata.getDominantColors()
+                               .stream()
+                               .map(colorName -> colorName.replace("#", ""))
+                               .toList() : Collections.emptyList(),
+          thumbnailMetadata.getThumbnailTargetNames() != null ?
+              thumbnailMetadata.getThumbnailTargetNames()
+                               .stream()
+                               .map(thumbnailName ->
+                                   new ThumbnailImpl(
+                                       thumbnailMetadata.getResourceUrl(),
+                                       thumbnailMetadata.getMimeType(),
+                                       thumbnailName))
+                               .toList() : Collections.emptyList());
+      if (resultToPostProcess.getThumbnails() != null) {
+        return new ResourceExtractionResultImpl(imageResourceMetadata,
+            resultToPostProcess.getThumbnails()
+                               .stream()
+                               .toList());
+      } else {
+        return new ResourceExtractionResultImpl(imageResourceMetadata);
+      }
     } else {
       return resultToPostProcess;
     }
