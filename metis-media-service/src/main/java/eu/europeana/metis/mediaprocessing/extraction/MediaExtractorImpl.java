@@ -154,7 +154,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
-    return resourcePostProcessing(extractionResult, resourceEntry);
+    //return resourcePostProcessing(extractionResult, resourceEntry);
+    return extractionResult;
   }
 
   private ResourceDownloadClient getResourceDownloadClient(RdfResourceKind rdfResourceKind) {

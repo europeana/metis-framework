@@ -28,6 +28,41 @@ public class IIIFProcessor extends ImageProcessor {
   }
 
   /**
+   * Resource iiif post processing.
+   *
+   * @param resultToPostProcess The result to post process.
+   * @param rdfResourceEntry The RDF resource entry.
+   * @return The post processed result.
+   * @throws MediaExtractionException In case something went wrong during the post processing.
+   */
+  public static ResourceExtractionResult resourcePostProcessing(ResourceExtractionResult resultToPostProcess,
+      RdfResourceEntry rdfResourceEntry) throws MediaExtractionException {
+    if (resultToPostProcess != null && rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
+      ImageResourceMetadata thumbnailMetadata = (ImageResourceMetadata) ((ResourceExtractionResultImpl) resultToPostProcess).getOriginalMetadata();
+      ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(thumbnailMetadata.getMimeType(),
+          rdfResourceEntry.getResourceUrl(),
+          thumbnailMetadata.getContentSize(),
+          thumbnailMetadata.getWidth(),
+          thumbnailMetadata.getHeight(),
+          thumbnailMetadata.getColorSpace(),
+          thumbnailMetadata.getDominantColors()
+                           .stream()
+                           .map(colorName -> colorName.replace("#", ""))
+                           .toList(),
+          thumbnailMetadata.getThumbnailTargetNames()
+                           .stream()
+                           .map(thumbnailName ->
+                               new ThumbnailImpl(thumbnailMetadata.getResourceUrl(),
+                                   thumbnailMetadata.getMimeType(),
+                                   thumbnailName))
+                           .toList());
+      return new ResourceExtractionResultImpl(imageResourceMetadata);
+    } else {
+      return resultToPostProcess;
+    }
+  }
+
+  /**
    * Process a resource by extracting the metadata from the content.
    *
    * @param resource The resource to process. Note that the resource may not have content (see
@@ -45,7 +80,7 @@ public class IIIFProcessor extends ImageProcessor {
       throws MediaExtractionException {
 
     // Check: if this is not a IIIF resource, we can't process it, otherwise yes.
-    if ( resource instanceof  IIIFResource iiifResource && iiifResource.getIIIFInfoJson() != null) {
+    if (resource instanceof IIIFResource iiifResource && iiifResource.getIIIFInfoJson() != null) {
       final IIIFInfoJson infoJson = iiifResource.getIIIFInfoJson();
       // Process the smaller thumbnail resource as if it were the real image.
       ResourceExtractionResultImpl extractionResult = super.extractMetadata(resource, detectedMimeType, mainThumbnailAvailable);
@@ -68,34 +103,6 @@ public class IIIFProcessor extends ImageProcessor {
       return new ResourceExtractionResultImpl(imageMetadata, thumbnailList);
     } else {
       return null;
-    }
-  }
-  /**
-   * Resource iiif post processing.
-   *
-   * @param resultToPostProcess The result to post process.
-   * @param rdfResourceEntry The RDF resource entry.
-   * @return The post processed result.
-   * @throws MediaExtractionException In case something went wrong during the post processing.
-   */
-  public static ResourceExtractionResult resourcePostProcessing(ResourceExtractionResult resultToPostProcess,
-      RdfResourceEntry rdfResourceEntry) throws MediaExtractionException {
-    if (resultToPostProcess != null && rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
-      ImageResourceMetadata thumbnailMetadata = (ImageResourceMetadata) ((ResourceExtractionResultImpl) resultToPostProcess).getOriginalMetadata();
-      ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(thumbnailMetadata.getMimeType(),
-          rdfResourceEntry.getResourceUrl(),
-          thumbnailMetadata.getContentSize(),
-          thumbnailMetadata.getWidth(),
-          thumbnailMetadata.getHeight(),
-          thumbnailMetadata.getColorSpace(),
-          thumbnailMetadata.getDominantColors()
-                           .stream()
-                           .map(colorName -> colorName.replace("#", ""))
-                           .toList(),
-          resultToPostProcess.getThumbnails());
-      return new ResourceExtractionResultImpl(imageResourceMetadata);
-    } else {
-      return resultToPostProcess;
     }
   }
 }
