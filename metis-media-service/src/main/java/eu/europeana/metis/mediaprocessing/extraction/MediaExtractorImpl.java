@@ -147,12 +147,14 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Download resource and then perform media extraction on it.
+    ResourceExtractionResult extractionResult;
     try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode, resourceEntry.getResourceKind())) {
-      return performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry);
+      extractionResult = performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
+    return resourcePostProcessing(extractionResult, resourceEntry);
   }
 
   private ResourceDownloadClient getResourceDownloadClient(RdfResourceKind rdfResourceKind) {
@@ -339,7 +341,7 @@ public class MediaExtractorImpl implements MediaExtractor {
       final ResourceExtractionResult result = getResourceExtractionResult(resource, mode,
           mainThumbnailAvailable, processor, detectedMimeType);
       if (result != null) {
-        return resourcePostProcessing(result, originalRdfResourceEntry);
+        return result;
       }
     }
     return null;
