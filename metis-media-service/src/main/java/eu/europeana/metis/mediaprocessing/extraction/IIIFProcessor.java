@@ -80,7 +80,7 @@ public class IIIFProcessor extends ImageProcessor {
    */
   public static ResourceExtractionResult resourcePostProcessing(ResourceExtractionResult resultToPostProcess,
       RdfResourceEntry rdfResourceEntry) throws MediaExtractionException {
-    if (rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
+    if (resultToPostProcess != null && rdfResourceEntry.getResourceKind().equals(RdfResourceKind.IIIF)) {
       ImageResourceMetadata thumbnailMetadata = (ImageResourceMetadata) ((ResourceExtractionResultImpl) resultToPostProcess).getOriginalMetadata();
       ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(thumbnailMetadata.getMimeType(),
           rdfResourceEntry.getResourceUrl(),
