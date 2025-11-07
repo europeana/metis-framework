@@ -76,11 +76,11 @@ public final class IIIFValidation {
    */
   public IIIFInfoJson fetchInfoJson(RdfResourceEntry rdfResourceEntry) {
     IIIFInfoJson iiifInfoJson = null;
-    try {
-      final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
-      final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
-          rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind());
-      Resource resource = resourceDownloadClient.download(new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE));
+    final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
+    final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
+        rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind());
+    try (Resource resource = resourceDownloadClient.download(
+        new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE))) {
       final String fieldContext = "@context";
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
