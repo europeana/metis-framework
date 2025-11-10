@@ -1,5 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
+import static eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.JPEG_FILE_EXTENSION;
+import static eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.PNG_FILE_EXTENSION;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 
@@ -374,11 +376,11 @@ public class ThumbnailGenerator {
     if (PNG_MIME_TYPE.equals(detectedMimeType)) {
       imageMagickThumbnailTypePrefix = "png:";
       thumbnailMimeType = PNG_MIME_TYPE;
-      thumbnailFileSuffix = TempFileUtils.PNG_FILE_EXTENSION;
+      thumbnailFileSuffix = PNG_FILE_EXTENSION;
     } else {
       imageMagickThumbnailTypePrefix = "jpeg:";
       thumbnailMimeType = JPEG_MIME_TYPE;
-      thumbnailFileSuffix = TempFileUtils.JPEG_FILE_EXTENSION;
+      thumbnailFileSuffix = JPEG_FILE_EXTENSION;
     }
 
     // Create the thumbnails: one for each kind
@@ -388,7 +390,8 @@ public class ThumbnailGenerator {
       for (ThumbnailKind thumbnailKind : ThumbnailKind.values()) {
         final String targetName = md5 + thumbnailKind.getNameSuffix();
         // False positive - we don't want to close the thumbnail here.
-        @SuppressWarnings("squid:S2095") final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
+        @SuppressWarnings("squid:S2095")
+        final ThumbnailImpl thumbnail = new ThumbnailImpl(url, thumbnailMimeType, targetName);
         result.add(
             new ThumbnailWithSize(thumbnail, thumbnailKind.getImageSize(), imageMagickThumbnailTypePrefix, thumbnailFileSuffix));
       }
@@ -401,12 +404,22 @@ public class ThumbnailGenerator {
     return result;
   }
 
+  /**
+   * Calculates the MD5 hash of the provided string and returns it as a hexadecimal string.
+   * <p>
+   * Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
+   * <p>
+   * The data used are not private and are considered safe.
+   *
+   * @param s The input string for which the MD5 hash needs to be calculated.
+   * @return The calculated MD5 hash of the input string in hexadecimal format.
+   * @throws MediaExtractionException If an error occurs during hash computation, such as unsupported encoding or unavailability
+   * of the MD5 algorithm.
+   */
+  @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"})
   public static String md5Hex(String s) throws MediaExtractionException {
     try {
       byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
-      // Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
-      // The data used are not private and are considered safe
-      @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"})
       byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
       return String.format("%032x", new BigInteger(1, md5bytes));
     } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
