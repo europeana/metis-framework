@@ -37,7 +37,7 @@ public class PathIterator extends AbstractFileHarvestIterator<Path> {
   @Override
   public Iterator<Path> iterator() {
     try {
-      return walkFilteredFiles().iterator();
+      return walkFilteredPathsStream().iterator();
     } catch (IOException e) {
       throw new HarvesterRuntimeException("Error walking directory: " + getExtractedDirectory(), e);
     }

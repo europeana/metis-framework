@@ -59,7 +59,7 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
    */
   public void forEachPathFiltered(ReportingIteration<Path> action, Predicate<Path> filter)
       throws HarvesterException {
-    try (Stream<Path> pathStream = walkFilteredFiles()) {
+    try (Stream<Path> pathStream = walkFilteredPathsStream()) {
       final Iterator<Path> iterator = pathStream.filter(filter).iterator();
       while (iterator.hasNext()) {
         Path path = iterator.next();
@@ -114,7 +114,7 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
     return counter.get();
   }
 
-  protected Stream<Path> walkFilteredFiles() throws IOException {
+  protected Stream<Path> walkFilteredPathsStream() throws IOException {
     return Files.walk(extractedDirectory).filter(AbstractFileHarvestIterator::isAcceptablePath);
   }
 

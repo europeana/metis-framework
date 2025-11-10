@@ -11,12 +11,13 @@ import java.nio.file.Path;
  * Implementation of the {@link FileHarvester} interface.
  */
 public class FileHarvesterImpl implements FileHarvester {
+  private final CompressedFileHandler compressedFileHandler = new CompressedFileHandler();
 
   @Override
   public HarvestingIterator<Path, Path> createHarvestIteratorFromArchive(Path archivePath, Path extractionDirectory)
       throws HarvesterException {
     try {
-      new CompressedFileHandler().extract(archivePath, extractionDirectory);
+      compressedFileHandler.extract(archivePath, extractionDirectory);
     } catch (IOException e) {
       throw new HarvesterException("Failure while extracting file", e);
     }

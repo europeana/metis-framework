@@ -32,7 +32,7 @@ public class RecordIterator extends AbstractFileHarvestIterator<FullRecord>
   public Iterator<FullRecord> iterator() {
     Stream<Path> pathStream;
     try {
-      pathStream = walkFilteredFiles();
+      pathStream = walkFilteredPathsStream();
     } catch (IOException e) {
       throw new HarvesterRuntimeException("Error walking directory: " + getExtractedDirectory(), e);
     }
