@@ -1,16 +1,17 @@
 package eu.europeana.metis.harvesting;
 
+import eu.europeana.metis.harvesting.file.CloseableIterator;
 import java.io.Closeable;
 import java.util.function.Predicate;
 
 /**
- * Implementations of this interface allow iterative access to records as they are being harvested.
- * The iterator needs to be closed after use.
+ * Implementations of this interface allow iterative access to records as they are being harvested. The iterator needs to be
+ * closed after use.
  *
  * @param <R> The type of the record to harvest.
  * @param <C> The type of the object on which filtering is to be applied.
  */
-public interface HarvestingIterator<R, C> extends Iterable<R>, Closeable {
+public interface HarvestingIterator<R, C> extends Closeable {
 
   /**
    * Iterate through the records while applying a filter (potentially skipping some records).
@@ -32,9 +33,9 @@ public interface HarvestingIterator<R, C> extends Iterable<R>, Closeable {
   }
 
   /**
-   * Iterate through all non-deleted records. If the specific harvest type does not support
-   * identifying which records are deleted at source, this method will behave just like
-   * {@link #forEach(ReportingIteration)}. I.e. all records are assumed to not be deleted.
+   * Iterate through all non-deleted records. If the specific harvest type does not support identifying which records are deleted
+   * at source, this method will behave just like {@link #forEach(ReportingIteration)}. I.e. all records are assumed to not be
+   * deleted.
    *
    * @param action The iteration to perform. It needs to return a result.
    * @throws HarvesterException In case there was a problem while harvesting.
@@ -42,12 +43,17 @@ public interface HarvestingIterator<R, C> extends Iterable<R>, Closeable {
   void forEachNonDeleted(ReportingIteration<R> action) throws HarvesterException;
 
   /**
-   * Attempts to count the number of records. This method may make assumptions, and any result is
-   * only indicative. Server requests or other IO operations may be performed in order to perform
-   * this count, so this method is to be used sparingly.
+   * Attempts to count the number of records. This method may make assumptions, and any result is only indicative. Server requests
+   * or other IO operations may be performed to calculate this count, so this method is to be used sparingly.
    *
    * @return The number of records. Or null if the number could not be determined.
    * @throws HarvesterException In case something went wrong.
    */
   Integer countRecords() throws HarvesterException;
+
+  /**
+   * Provides a closeable iterator to traverse through the available records. The returned iterator must be explicitly closed
+   * after use to ensure proper resource management.
+   */
+  CloseableIterator<R> getCloseableIterator();
 }

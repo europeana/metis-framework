@@ -1,11 +1,8 @@
 package eu.europeana.metis.harvesting.file;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.HarvesterRuntimeException;
 import eu.europeana.metis.harvesting.ReportingIteration;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Iterator;
 import java.util.function.Predicate;
 
 /**
@@ -35,11 +32,7 @@ public class PathIterator extends AbstractFileHarvestIterator<Path> {
   }
 
   @Override
-  public Iterator<Path> iterator() {
-    try {
-      return walkFilteredPathsStream().iterator();
-    } catch (IOException e) {
-      throw new HarvesterRuntimeException("Error walking directory: " + getExtractedDirectory(), e);
-    }
+  public CloseableIterator<Path> getCloseableIterator() {
+    return closeableIteratorFor(openPathStreamOrThrow());
   }
 }

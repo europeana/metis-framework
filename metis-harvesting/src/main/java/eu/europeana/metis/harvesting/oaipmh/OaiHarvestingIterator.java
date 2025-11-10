@@ -6,6 +6,7 @@ import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvesterRuntimeException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
+import eu.europeana.metis.harvesting.file.CloseableIterator;
 import io.gdcc.xoai.model.oaipmh.results.record.Header;
 import io.gdcc.xoai.model.oaipmh.verbs.Verb;
 import io.gdcc.xoai.serviceprovider.ServiceProvider;
@@ -34,8 +35,10 @@ import org.xml.sax.InputSource;
 
 /**
  * Iterator for harvesting. It wraps a source iterator and provides additional closing functionality for the connection client.
+ *
+ * @param <R> The type of data returned by the iterator after post-processing the headers.
  */
-class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader> {
+public class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final String COMPLETE_LIST_SIZE_XPATH =
@@ -145,10 +148,10 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
   }
 
   @Override
-  public Iterator<R> iterator() {
+  public CloseableIterator<R> getCloseableIterator() {
     try {
       Iterator<Header> headerIterator = getOrCreateSource();
-      return new Iterator<>() {
+      return new CloseableIterator<>() {
         @Override
         public boolean hasNext() {
           return headerIterator.hasNext();
@@ -163,6 +166,11 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
           } catch (HarvesterException e) {
             throw new HarvesterRuntimeException("Error during OAI iteration", e);
           }
+        }
+
+        @Override
+        public void close() {
+          //Nothing to do.
         }
       };
     } catch (HarvesterException e) {

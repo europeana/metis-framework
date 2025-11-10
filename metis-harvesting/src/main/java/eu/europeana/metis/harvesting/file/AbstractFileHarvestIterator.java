@@ -3,6 +3,7 @@ package eu.europeana.metis.harvesting.file;
 import eu.europeana.metis.harvesting.FullRecord;
 import eu.europeana.metis.harvesting.FullRecordImpl;
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvesterRuntimeException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
 import eu.europeana.metis.utils.CompressedFileExtension;
@@ -25,6 +26,7 @@ import org.apache.commons.io.IOUtils;
  *
  * @param <R> The type of record handled by the iterator.
  */
+// todo:Perhaps the deletion of the directory should not be performed here and this class should become a true iterable/iterator over a stream?
 @Slf4j
 public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
@@ -114,8 +116,41 @@ public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterat
     return counter.get();
   }
 
-  protected Stream<Path> walkFilteredPathsStream() throws IOException {
+  private Stream<Path> walkFilteredPathsStream() throws IOException {
     return Files.walk(extractedDirectory).filter(AbstractFileHarvestIterator::isAcceptablePath);
+  }
+
+  protected Stream<Path> openPathStreamOrThrow() {
+    try {
+      return walkFilteredPathsStream();
+    } catch (IOException e) {
+      throw new HarvesterRuntimeException("Error walking directory: " + getExtractedDirectory(), e);
+    }
+  }
+
+  protected <X> CloseableIterator<X> closeableIteratorFor(Stream<X> stream) {
+    return new CloseableIterator<>() {
+      private final Iterator<X> iterator = stream.iterator();
+      private boolean closed;
+
+      @Override
+      public boolean hasNext() {
+        return iterator.hasNext();
+      }
+
+      @Override
+      public X next() {
+        return iterator.next();
+      }
+
+      @Override
+      public void close() {
+        if (!closed) {
+          closed = true;
+          stream.close();
+        }
+      }
+    };
   }
 
   private static boolean isAcceptablePath(Path path) {
