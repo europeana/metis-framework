@@ -26,7 +26,7 @@ import org.apache.commons.io.IOUtils;
  *
  * @param <R> The type of record handled by the iterator.
  */
-// todo:Perhaps the deletion of the directory should not be performed here and this class should become a true iterable/iterator over a stream?
+// todo:https://europeana.atlassian.net/browse/MET-6889. Perhaps the deletion of the directory should not be performed here and this class should become a true iterable/iterator over a stream?
 @Slf4j
 public abstract class AbstractFileHarvestIterator<R> implements HarvestingIterator<R, Path> {
 
