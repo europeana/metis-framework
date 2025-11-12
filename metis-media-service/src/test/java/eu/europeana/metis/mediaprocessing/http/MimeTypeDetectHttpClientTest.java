@@ -90,6 +90,8 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube_8_points.laz", "application/vnd.laszip", null),
         //E57
         of("__files/3d/cube_8_points.e57", "model/e57", null),
+        //DXF
+        of("__files/3d/cube_8_points.dxf", "image/vnd.dxf", null),
         //GLTF
         of("__files/3d/adamHead.gltf", "model/gltf+json", null),
         of("__files/3d/Duck.glb", "model/gltf-binary", null),
