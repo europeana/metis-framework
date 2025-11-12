@@ -25,8 +25,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class MimeTypeDetectHttpClientTest {
 
-  private static final String EXPECTED_AUDIO_MIME_TYPE = "audio/mpeg";
-
   @RegisterExtension
   static WireMockExtension wireMockExtension = WireMockExtension.newInstance()
                                                                 .options(wireMockConfig().dynamicPort().dynamicHttpsPort())
@@ -79,7 +77,7 @@ class MimeTypeDetectHttpClientTest {
   private static Stream<Arguments> download_detectMimeType() {
     return Stream.of(
         //MPEG
-        of("__files/audio_test.mp3", EXPECTED_AUDIO_MIME_TYPE, Map.of("Content-Type", "audio/mpeg")),
+        of("__files/audio_test.mp3", "audio/mpeg", Map.of("Content-Type", "audio/mpeg")),
         //STL
         of("__files/3d/block100.stl", "model/x.stl-ascii", null),
         of("__files/3d/cube.stl", "model/x.stl-binary", null),
