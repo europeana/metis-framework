@@ -78,7 +78,8 @@ public final class IIIFValidation {
     IIIFInfoJson iiifInfoJson = null;
     final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
     final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
-        rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind());
+        rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind(),
+        rdfResourceEntry.getServiceReference());
     try (Resource resource = resourceDownloadClient.download(
         new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE))) {
       final String fieldContext = "@context";
@@ -120,7 +121,8 @@ public final class IIIFValidation {
     }
     if (infoJson != null) {
       final String newUrl = infoJson.getId() + "/full/!400,400/0/default" + extensionFormat;
-      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(), resourceEntry.getResourceKind());
+      return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(),
+          resourceEntry.getResourceKind(), resourceEntry.getServiceReference());
     }
     return resourceEntry;
   }

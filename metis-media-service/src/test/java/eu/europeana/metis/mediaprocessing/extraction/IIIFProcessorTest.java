@@ -126,7 +126,7 @@ class IIIFProcessorTest {
     IIIFValidation iiifValidation = new IIIFValidation();
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, URI.create(url));
     innerResource.markAsWithContent(inputStreamInfoJson);
@@ -210,7 +210,7 @@ class IIIFProcessorTest {
 
     // Create RDF resource entry
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("original resource url",
-        Collections.emptyList(), RdfResourceKind.IIIF);
+        Collections.emptyList(), RdfResourceKind.IIIF, "service reference");
 
     // Call method
     final ResourceExtractionResult outputResult =

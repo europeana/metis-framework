@@ -285,14 +285,14 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
-      String detectedMimeType, RdfResourceKind rdfResourceKind)
+      String detectedMimeType, RdfResourceKind rdfResourceKind, String serviceReference)
       throws MediaExtractionException, IOException {
 
     // If the mime type changed, and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
       final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
-          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind);
+          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
 
       ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
         if (resourceWithContent.hasContent()) {
@@ -329,7 +329,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {
-      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType, originalRdfResourceEntry.getResourceKind());
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType,
+          originalRdfResourceEntry.getResourceKind(), originalRdfResourceEntry.getServiceReference());
     } catch (IOException e) {
       throw new MediaExtractionException("Content availability verification error.", e);
     }

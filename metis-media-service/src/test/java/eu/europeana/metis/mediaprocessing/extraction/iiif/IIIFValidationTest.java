@@ -120,8 +120,7 @@ class IIIFValidationTest {
 
     RdfResourceEntry resourceEntry = new RdfResourceEntry(
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg",
-        Set.of(),
-        RdfResourceKind.IIIF);
+        Set.of(), RdfResourceKind.IIIF, "resource reference");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
@@ -151,8 +150,7 @@ class IIIFValidationTest {
 
     RdfResourceEntry resourceEntry = new RdfResourceEntry(
         "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg",
-        Set.of(),
-        RdfResourceKind.IIIF);
+        Set.of(), RdfResourceKind.IIIF, "resource reference");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
@@ -187,8 +185,7 @@ class IIIFValidationTest {
 
     RdfResourceEntry resourceEntry = new RdfResourceEntry(
         "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg",
-        Set.of(),
-        RdfResourceKind.IIIF);
+        Set.of(), RdfResourceKind.IIIF, "resource reference");
     IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
@@ -235,9 +232,10 @@ class IIIFValidationTest {
     final String url =
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
 
-    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF);
+    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY),
+        RdfResourceKind.IIIF, "resource reference");
     IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
-    RdfResourceEntry resourceEntry = iiifValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry, iiifInfoJson);
+    RdfResourceEntry resourceEntry = IIIFValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry, iiifInfoJson);
     assertNotNull(resourceEntry);
     assertTrue(resourceEntry.getResourceUrl().contains("/full/!400,400/0/default.jpg"));
     assertNotNull(iiifInfoJson);
