@@ -1,7 +1,10 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
+import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 
@@ -29,6 +32,15 @@ public class TikaWrapper {
    */
   public String detect(InputStream inputStream, Metadata metadata) throws IOException {
     String detect = tika.detect(inputStream, metadata);
+
+    //LAS normalizationpa
+    if ("application/x-asprs".equals(detect)) {
+      if (metadata.get(RESOURCE_NAME_KEY).toLowerCase(Locale.ROOT).endsWith(".laz")) {
+        detect = "application/vnd.laszip";
+      } else {
+        detect = "application/vnd.las";
+      }
+    }
     return detect;
   }
 }

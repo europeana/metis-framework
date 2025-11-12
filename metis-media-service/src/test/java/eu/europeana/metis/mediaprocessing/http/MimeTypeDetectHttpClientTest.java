@@ -83,9 +83,9 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube.stl", "model/x.stl-binary", null),
         of("__files/3d/cube.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
         //LAS
-//        of("__files/3d/cube_8_points.las", "application/vnd.las", null),
+        of("__files/3d/cube_8_points.las", "application/vnd.las", null),
         //LAZ
-//        of("__files/3d/cube_8_points.laz", "application/vnd.laszip", null),
+        of("__files/3d/cube_8_points.laz", "application/vnd.laszip", null),
         //E57
         of("__files/3d/cube_8_points.e57", "model/e57", null),
         //DXF

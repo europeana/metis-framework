@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Tika mimetypes.xml https://raw.githubusercontent.com/apache/tika/master/tika-core/src/main/resources/org/apache/tika/mime/tika-mimetypes.xml -->
+<!-- Tika mimetypes.xml https://raw.githubusercontent.com/apache/tika/refs/heads/main/tika-core/src/main/resources/org/apache/tika/mime/tika-mimetypes.xml -->
 <mime-info>
   <mime-type type="model/obj">
     <sub-class-of type="text/plain"/>
