@@ -122,11 +122,12 @@ class IIIFProcessorTest {
             .withHeader("Content-Type", "application/json")
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
-    final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+    final String baseUrl = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001";
+    final String url = baseUrl + "/full/full/0/default.jpg";
     IIIFValidation iiifValidation = new IIIFValidation();
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF, baseUrl);
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, URI.create(url));
     innerResource.markAsWithContent(inputStreamInfoJson);

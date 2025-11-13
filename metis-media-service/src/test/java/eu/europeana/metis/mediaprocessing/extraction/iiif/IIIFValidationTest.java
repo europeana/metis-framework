@@ -20,69 +20,15 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.http.HttpStatus;
 
 class IIIFValidationTest {
 
   private static WireMockServer wireMockServer;
   private static IIIFValidation iiifValidation;
-
-  private static Stream<Arguments> providedIIIFUrls() {
-    return Stream.of(
-        // valid
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/square/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,120,140/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,40,70/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,15,200,200/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:41.6,7.5,66.6,100/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^max/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/150,/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^360,/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/,150/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/,^240/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:50/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:120/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/225,100/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^360,360/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^!360,360/0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/180/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/90/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/22.5/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/!0/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/max/!180/default.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/color.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/gray.jpg", true),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/bitonal.jpg", true),
-
-        // invalid
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/bitonal.exe", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/^0/color.gif", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/^,100/0/color.gif", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/400,400/full/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/,400/full/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/250,/full/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/abc/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/!max/full/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/max/full/-20/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/max/90/20/gray.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/125,80,250/90,90/20/gray.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/3^60,360/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg",
-            false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/pct:80/max/0/default.jpg", false),
-        Arguments.of("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/pct:10,10,10,10/0/default.jpg",
-            false)
-    );
-  }
 
   @BeforeAll
   static void createWireMock() {
@@ -100,12 +46,6 @@ class IIIFValidationTest {
     wireMockServer.stop();
   }
 
-  @ParameterizedTest
-  @MethodSource("providedIIIFUrls")
-  void isIIIFUrl(String url, boolean expectedResult) {
-    assertEquals(expectedResult, IIIFValidation.isIIIFUrl(url));
-  }
-
   @Test
   void fetchInfoJsonV2() throws IOException {
     InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
@@ -118,9 +58,9 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    RdfResourceEntry resourceEntry = new RdfResourceEntry(
-        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg",
-        Set.of(), RdfResourceKind.IIIF, "resource reference");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry("Resource URL", Set.of(),
+        RdfResourceKind.IIIF,
+        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
     assertNotNull(model);
     assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
@@ -148,9 +88,9 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    RdfResourceEntry resourceEntry = new RdfResourceEntry(
-        "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2/full/full/0/default.jpg",
-        Set.of(), RdfResourceKind.IIIF, "resource reference");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry("resource URL", Set.of(),
+        RdfResourceKind.IIIF,
+        "http://localhost:" + wireMockServer.port() + "/image/b20432033_B0008608.JP2");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
@@ -183,9 +123,9 @@ class IIIFValidationTest {
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
 
-    RdfResourceEntry resourceEntry = new RdfResourceEntry(
-        "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a/full/full/0/default.jpg",
-        Set.of(), RdfResourceKind.IIIF, "resource reference");
+    RdfResourceEntry resourceEntry = new RdfResourceEntry("Resource URL", Set.of(),
+        RdfResourceKind.IIIF,
+        "http://localhost:" + wireMockServer.port() + "/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a");
     IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
@@ -229,15 +169,14 @@ class IIIFValidationTest {
             .withHeader("Content-Type", "application/json")
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
-    final String url =
-        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
 
-    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url, Set.of(UrlType.IS_SHOWN_BY),
-        RdfResourceKind.IIIF, "resource reference");
+    RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("Resource URL",
+        Set.of(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF,
+        "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001");
     IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     RdfResourceEntry resourceEntry = IIIFValidation.adjustResourceEntryToSmallIIIF(rdfResourceEntry, iiifInfoJson);
     assertNotNull(resourceEntry);
-    assertTrue(resourceEntry.getResourceUrl().contains("/full/!400,400/0/default.jpg"));
+    assertTrue(resourceEntry.getResourceUrl().endsWith("/full/!400,400/0/default.jpg"));
     assertNotNull(iiifInfoJson);
   }
 }

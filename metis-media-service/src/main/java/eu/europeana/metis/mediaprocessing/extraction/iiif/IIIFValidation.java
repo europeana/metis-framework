@@ -8,13 +8,13 @@ import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_R
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson.SupportedFormats;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient.DownloadMode;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,22 +25,9 @@ import org.slf4j.LoggerFactory;
 public final class IIIFValidation {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IIIFValidation.class);
-  private static final String IIIF_FLOATING_NUMBER = "(?:0|[1-9]\\d*)(?:\\.\\d*[1-9])?";
-  private static final String IIIF_DIMENSION = "(\\^?!?" + IIIF_FLOATING_NUMBER + ")?";
-  private static final String IIIF_DIMENSION_REGION = "(" + IIIF_DIMENSION + "," + IIIF_DIMENSION + "," + IIIF_DIMENSION + "," + IIIF_DIMENSION + ")";
-  private static final String IIIF_DIMENSION_SIZE = "(" + IIIF_DIMENSION + ",)|(," + IIIF_DIMENSION + ")|(" + IIIF_DIMENSION + "," + IIIF_DIMENSION + ")";
-  private static final String IIIF_PERCENTAGE_REGION = "(pct:" + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ","
-      + IIIF_FLOATING_NUMBER + "," + IIIF_FLOATING_NUMBER + ")";
-  private static final String IIIF_REGION = "full|(\\^?max)|square|" + IIIF_PERCENTAGE_REGION + "|" + IIIF_DIMENSION_REGION;
-  private static final String IIIF_PERCENTAGE_SIZE = "(\\^?pct:" + IIIF_FLOATING_NUMBER + ")";
-  private static final String IIIF_SIZE = "full|(\\^?max)|square|" + IIIF_PERCENTAGE_SIZE + "|" + IIIF_DIMENSION_SIZE;
-  private static final String IIIF_ROTATION = "!?" + IIIF_FLOATING_NUMBER;
-  private static final String IIIF_QUALITY = "color|gray|bitonal|default";
-  private static final String IIIF_FORMAT = "jpg|tif|png|gif|jp2|pdf|webp";
-  private static final String IIIF_PARAMS_URI_REGEX =
-      "/(" + IIIF_REGION + ")/(" + IIIF_SIZE + ")/(" + IIIF_ROTATION + ")/(" + IIIF_QUALITY + ")\\.(" + IIIF_FORMAT + ")$";
-  private static final Pattern IIIF_URL_PATTERN = Pattern.compile("^https?://.+" + IIIF_PARAMS_URI_REGEX + "$");
-  private static final Pattern IIIF_URL_EXTENSION_FORMAT = Pattern.compile("\\.([^.]+)$");
+
+  private static final List<String> PRIORITIZED_ACCEPTABLE_IMAGE_FORMATS =
+      List.of("jpg", "png", "gif", "webp");
 
   private static final String IIIF_INFO_JSON_V2 = "http://iiif.io/api/image/2/context.json";
   private static final String IIIF_INFO_JSON_V3 = "http://iiif.io/api/image/3/context.json";
@@ -59,27 +46,20 @@ public final class IIIFValidation {
   }
 
   /**
-   * Is iiif url boolean.
-   *
-   * @param url the url
-   * @return the boolean
-   */
-  public static boolean isIIIFUrl(String url) {
-    return IIIF_URL_PATTERN.matcher(url).matches();
-  }
-
-  /**
    * Fetch info json iiif info json.
    *
    * @param rdfResourceEntry the rdf resource entry
    * @return the iiif info json
    */
   public IIIFInfoJson fetchInfoJson(RdfResourceEntry rdfResourceEntry) {
-    IIIFInfoJson iiifInfoJson = null;
-    final String baseUrl = rdfResourceEntry.getResourceUrl().replaceAll(IIIF_PARAMS_URI_REGEX, "");
-    final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(baseUrl + "/info.json",
+    if (rdfResourceEntry.getServiceReference() == null) {
+      return null;
+    }
+    final RdfResourceEntry infoJsonResourceEntry = new RdfResourceEntry(
+        rdfResourceEntry.getServiceReference() + "/info.json",
         rdfResourceEntry.getUrlTypes(), rdfResourceEntry.getResourceKind(),
         rdfResourceEntry.getServiceReference());
+    IIIFInfoJson iiifInfoJson = null;
     try (Resource resource = resourceDownloadClient.download(
         new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE))) {
       final String fieldContext = "@context";
@@ -104,6 +84,20 @@ public final class IIIFValidation {
     return iiifInfoJson;
   }
 
+  private static String getAcceptableImageFormat(SupportedFormats supportedFormats) {
+    for (String format : PRIORITIZED_ACCEPTABLE_IMAGE_FORMATS) {
+      if (supportedFormats.recommendedFormats().contains(format)) {
+        return format;
+      }
+    }
+    for (String format : PRIORITIZED_ACCEPTABLE_IMAGE_FORMATS) {
+      if (supportedFormats.additionalFormats().contains(format)) {
+        return format;
+      }
+    }
+    return "jpg";
+  }
+
   /**
    * Adjust resource entry to small iiif rdf resource entry.
    *
@@ -111,16 +105,12 @@ public final class IIIFValidation {
    * @param infoJson the info json
    * @return the rdf resource entry
    */
-  public static RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry, IIIFInfoJson infoJson)  {
-    final Matcher matcher = IIIF_URL_EXTENSION_FORMAT.matcher(resourceEntry.getResourceUrl());
-    final String extensionFormat;
-    if (matcher.find()) {
-      extensionFormat = "." + matcher.group(1);
-    } else {
-      extensionFormat = ".jpg";
-    }
+  public static RdfResourceEntry adjustResourceEntryToSmallIIIF(RdfResourceEntry resourceEntry,
+      IIIFInfoJson infoJson)  {
     if (infoJson != null) {
-      final String newUrl = infoJson.getId() + "/full/!400,400/0/default" + extensionFormat;
+      final SupportedFormats supportedFormats = infoJson.getSupportedFormats();
+      final String extensionFormat = getAcceptableImageFormat(supportedFormats);
+      final String newUrl = infoJson.getId() + "/full/!400,400/0/default." + extensionFormat;
       return new RdfResourceEntry(newUrl, resourceEntry.getUrlTypes(),
           resourceEntry.getResourceKind(), resourceEntry.getServiceReference());
     }
