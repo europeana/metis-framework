@@ -91,9 +91,9 @@ class MimeTypeDetectHttpClientTest {
         //DAE
         of("__files/3d/cube.dae", "model/vnd.collada+xml", null),
         //STL
-        of("__files/3d/block100.stl", "model/x.stl-ascii", null),
-        of("__files/3d/cube.stl", "model/x.stl-binary", null),
-        of("__files/3d/cube.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
+        of("__files/3d/cube-ascii.stl", "model/x.stl-ascii", null),
+        of("__files/3d/cube-binary.stl", "model/x.stl-binary", null),
+        of("__files/3d/cube-binary.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
         //IGES
         of("__files/3d/cube.iges", "model/iges", null),
         of("__files/3d/cube.igs", "model/iges", null),
