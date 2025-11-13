@@ -12,4 +12,8 @@
   <mime-type type="model/gltf-binary">
     <glob pattern="*.glb"/>
   </mime-type>
+  <mime-type type="image/vnd.dxf">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.dxf"/>
+  </mime-type>
 </mime-info>
