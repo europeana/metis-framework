@@ -91,7 +91,7 @@ class ImageProcessorTest {
     final String url = "testUrl";
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";

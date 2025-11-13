@@ -162,9 +162,8 @@ public class MediaProcessorFactory {
    * Create a link checker object that can be used to check links.
    *
    * @return A link checker.
-   * @throws MediaProcessorException In case there was a problem creating the link checker.
    */
-  public LinkChecker createLinkChecker() throws MediaProcessorException {
+  public LinkChecker createLinkChecker() {
     return new LinkCheckerImpl(maxRedirectCount);
   }
 }

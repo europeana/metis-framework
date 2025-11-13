@@ -3,8 +3,10 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The type IIIf info json model v3 base on the following
@@ -301,6 +303,13 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
    */
   public void setProfile(String profile) {
     this.profile = profile;
+  }
+
+  @Override
+  public SupportedFormats getSupportedFormats() {
+    return new SupportedFormats(
+        Optional.ofNullable(this.preferredFormats).map(HashSet::new).orElseGet(HashSet::new),
+        Optional.ofNullable(this.extraFormats).map(HashSet::new).orElseGet(HashSet::new));
   }
 
   @Override

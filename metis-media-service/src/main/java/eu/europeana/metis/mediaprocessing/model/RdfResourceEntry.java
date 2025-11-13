@@ -1,5 +1,6 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,29 +13,29 @@ import java.util.Set;
  */
 public class RdfResourceEntry implements Serializable {
 
-  /**
-   * Implements {@link java.io.Serializable}
-   **/
+  @Serial
   private static final long serialVersionUID = -5873067668837140080L;
 
   private String resourceUrl;
   private Set<UrlType> urlTypes;
   private RdfResourceKind resourceKind;
+  private String serviceReference;
 
   /**
    * Instantiates a new Rdf resource entry.
    *
-   * @param resourceUrl The URL of the resource.
-   * @param urlTypes The resource URL types with which this resource is referenced.
-   * @param rdfResourceKind the rdf resource kind If the resource is configured in the record as if it were a regular resource, an
-   * oEmbed resource or IIIF resource.
+   * @param resourceUrl      The URL of the resource.
+   * @param urlTypes         The resource URL types with which this resource is referenced.
+   * @param rdfResourceKind  The rdf resource kind.
+   * @param serviceReference The resource's reference to a svcs:Service object, if any such
+   *                         reference was present in the record. Is null otherwise.
    */
-  public RdfResourceEntry(String resourceUrl,
-      Collection<UrlType> urlTypes,
-      RdfResourceKind rdfResourceKind) {
+  public RdfResourceEntry(String resourceUrl, Collection<UrlType> urlTypes,
+      RdfResourceKind rdfResourceKind, String serviceReference) {
     this.resourceUrl = resourceUrl;
     this.urlTypes = new HashSet<>(urlTypes);
     this.resourceKind = rdfResourceKind;
+    this.serviceReference = serviceReference;
   }
 
   /**
@@ -70,9 +71,18 @@ public class RdfResourceEntry implements Serializable {
     return resourceKind;
   }
 
+  /**
+   * Gets service reference.
+   *
+   * @return the service reference
+   */
+  public String getServiceReference() {
+    return serviceReference;
+  }
+
   @Override
   public String toString() {
-    return String.format("%s{resourceUrl=%s, urlTypes=%s, resourceKind=%s}",
-        RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes, resourceKind);
+    return String.format("%s{resourceUrl=%s, urlTypes=%s, resourceKind=%s, serviceReference=%s}",
+        RdfResourceEntry.class.getSimpleName(), resourceUrl, urlTypes, resourceKind, serviceReference);
   }
 }

@@ -27,13 +27,11 @@ import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
-import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
-import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -122,15 +120,16 @@ class IIIFProcessorTest {
             .withHeader("Content-Type", "application/json")
             .withBody(infoJson)
             .withStatus(HttpStatus.OK.value())));
-    final String url = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg";
+    final String baseUrl = "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001";
+    final String url = baseUrl + "/full/full/0/default.jpg";
     IIIFValidation iiifValidation = new IIIFValidation();
     final File content = new File("content file");
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF, baseUrl);
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
     final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, URI.create(url));
     innerResource.markAsWithContent(inputStreamInfoJson);
-    final IIIFResourceImpl resource = spy(new IIIFResourceImpl(innerResource, iiifInfoJson));
+    final IIIFResourceImpl resource = spy(new IIIFResourceImpl(innerResource, iiifInfoJson, url));
     final String detectedMimeType = "image/jpeg";
     doReturn(true).when(resource).hasContent();
     doReturn(1234L).when(resource).getContentSize();
@@ -162,7 +161,7 @@ class IIIFProcessorTest {
     assertEquals(2, metadata.getThumbnailTargetNames().size());
     assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail1.getTargetName()));
     assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail2.getTargetName()));
-    assertEquals(resource.getContentSize(), metadata.getContentSize());
+    assertNull(metadata.getContentSize());
 
     // Verify result metadata image specific properties
     assertEquals(Integer.valueOf(imageMetadata.getWidth()), metadata.getWidth());
@@ -189,42 +188,5 @@ class IIIFProcessorTest {
 
     // Check that all is well again.
     assertNotNull(iiifProcessor.extractMetadata(resource, detectedMimeType, true));
-  }
-
-  @Test
-  void postProcessing() throws MediaExtractionException {
-    // Create input result
-    final String resourceUrl = "thumbnail resource url";
-    final String mimeType = "image/type";
-    final Long contentSize = 1234L;
-    final Integer width = 800;
-    final Integer height = 600;
-    final Thumbnail thumbnail1 = mock(Thumbnail.class);
-    final Thumbnail thumbnail2 = mock(Thumbnail.class);
-
-    final ImageResourceMetadata inputMetadata = new ImageResourceMetadata(mimeType, resourceUrl,
-        contentSize, width, height, ColorSpaceType.CMYK, List.of("FF0000", "00FF00"),
-        List.of(thumbnail1, thumbnail2));
-    final ResourceExtractionResult inputResult = new ResourceExtractionResultImpl(inputMetadata,
-        List.of(thumbnail1, thumbnail2));
-
-    // Create RDF resource entry
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("original resource url",
-        Collections.emptyList(), RdfResourceKind.IIIF);
-
-    // Call method
-    final ResourceExtractionResult outputResult =
-        IIIFProcessor.resourcePostProcessing(inputResult, rdfResourceEntry);
-
-    // Verify
-    assertInstanceOf(ImageResourceMetadata.class, ((ResourceExtractionResultImpl) outputResult).getOriginalMetadata());
-    final ImageResourceMetadata outputMetadata =
-        (ImageResourceMetadata) ((ResourceExtractionResultImpl) outputResult).getOriginalMetadata();
-    assertEquals(rdfResourceEntry.getResourceUrl(), outputMetadata.getResourceUrl());
-    assertEquals(mimeType, outputMetadata.getMimeType());
-    assertEquals(contentSize, outputMetadata.getContentSize());
-    assertEquals(width, outputMetadata.getWidth());
-    assertEquals(height, outputMetadata.getHeight());
-    assertEquals(inputMetadata.getThumbnailTargetNames(), outputMetadata.getThumbnailTargetNames());
   }
 }

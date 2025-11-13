@@ -4,6 +4,7 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.schema.jibx.EdmType;
 import eu.europeana.metis.schema.model.Orientation;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,7 @@ import java.util.Optional;
  */
 public class ImageResourceMetadata extends AbstractResourceMetadata {
 
-  /**
-   * Implements {@link java.io.Serializable}.
-   */
+  @Serial
   private static final long serialVersionUID = -1818426883878915580L;
 
   private Integer width;
@@ -67,12 +66,13 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     // Set dominant colors.
     if (dominantColors != null) {
       final Optional<String> badColor = dominantColors.stream()
-          .filter(color -> !color.matches("[0-9A-F]{6}")).findAny();
+          .filter(color -> !color.matches("#?[0-9A-F]{6}")).findAny();
       if (badColor.isPresent()) {
         throw new MediaExtractionException("Unrecognized hex String: " + badColor.get());
       }
       // TODO dominant colors start with '#' due to legacy systems
-      this.dominantColors = dominantColors.stream().map(c -> "#" + c).toList();
+      this.dominantColors = dominantColors.stream()
+          .map(color -> (color.startsWith("#") ? "" : "#") + color).toList();
     }
   }
 

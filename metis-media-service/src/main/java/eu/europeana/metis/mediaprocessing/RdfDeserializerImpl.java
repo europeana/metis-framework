@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -50,14 +51,17 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
+  private static final String XPATH_RDF_ABOUT = "@rdf:about";
+  private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo/@rdf:resource";
+  private static final String XPATH_SVCS_HAS_SERVICE = "svcs:has_service/@rdf:resource";
+
   private static final String IIIF_NAMESPACE = "http://iiif.io/api/image";
-  private static final String XPATH_RDF_ABOUT = "rdf:about";
   private static final String XPATH_IIIF_SERVICES =
-      SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + IIIF_NAMESPACE + "\"]";
+      SVCS_SERVICE + "[" + XPATH_DCTERMS_CONFORMS_TO + " = \"" + IIIF_NAMESPACE + "\"]";
   private static final String XPATH_IIIF_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[svcs:has_service/@rdf:resource = " + XPATH_IIIF_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
+      + "[" + XPATH_SVCS_HAS_SERVICE + " = " + XPATH_IIIF_SERVICES + "/" + XPATH_RDF_ABOUT + "]";
   private static final String XPATH_IS_IIIF_RESOURCE_CONDITION = "[. = "
-      + XPATH_IIIF_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
+      + XPATH_IIIF_WEB_RESOURCES +"/"+ XPATH_RDF_ABOUT+"]";
   private static final String IIIF_XPATH_CONDITION_IS_SHOWN_BY =
       EDM_IS_SHOWN_BY + XPATH_IS_IIIF_RESOURCE_CONDITION;
   private static final String IIIF_XPATH_CONDITION_HAS_VIEW =
@@ -67,11 +71,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_OEMBED_SERVICES =
-      SVCS_SERVICE + "[dcterms:conformsTo/@rdf:resource = \"" + OEMBED_NAMESPACE + "\"]";
+      SVCS_SERVICE + "[" + XPATH_DCTERMS_CONFORMS_TO + " = \"" + OEMBED_NAMESPACE + "\"]";
   private static final String XPATH_OEMBED_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[svcs:has_service/@rdf:resource = " + XPATH_OEMBED_SERVICES +"/@"+ XPATH_RDF_ABOUT+"]";
+      + "[" + XPATH_SVCS_HAS_SERVICE + " = " + XPATH_OEMBED_SERVICES + "/" + XPATH_RDF_ABOUT + "]";
   private static final String XPATH_IS_OEMBED_RESOURCE_CONDITION = "[. = "
-      + XPATH_OEMBED_WEB_RESOURCES +"/@"+ XPATH_RDF_ABOUT+"]";
+      + XPATH_OEMBED_WEB_RESOURCES +"/"+ XPATH_RDF_ABOUT+"]";
   private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
       EDM_IS_SHOWN_BY + XPATH_IS_OEMBED_RESOURCE_CONDITION;
   private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
@@ -85,12 +89,12 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
-  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
 
-  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(
-      xPath -> xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY +
-          " | "+ IIIF_XPATH_CONDITION_EDM_OBJECT));
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY +
+          " | " + IIIF_XPATH_CONDITION_EDM_OBJECT));
 
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -103,9 +107,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
   }
 
   private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, ResourceInfo> entry) {
-    return new RdfResourceEntry(entry.getKey(),
-        entry.getValue().urlTypes(),
-        entry.getValue().rdfResourceKind());
+    return new RdfResourceEntry(entry.getKey(), entry.getValue().urlTypes(),
+        entry.getValue().rdfResourceKind(), entry.getValue().hasServiceValue());
   }
 
   private static <R> R performDeserialization(byte[] input, DeserializationOperation<R> operation)
@@ -146,8 +149,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
         UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
 
     // Find the main thumbnail resource if it exists and remove it from the result.
-    getMainThumbnailResourceForMediaExtraction(deserializedDocument).map(RdfResourceEntry::getResourceUrl)
-                                                                    .ifPresent(allResources::remove);
+    getMainThumbnailResourceForMediaExtraction(deserializedDocument)
+        .map(RdfResourceEntry::getResourceUrl).ifPresent(allResources::remove);
 
     // Done.
     return convertToResourceEntries(allResources);
@@ -194,19 +197,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
 
     // So there is exactly one. Convert and return.
-    return Optional.of(convertToResourceEntries(resourceEntries).get(0));
+    return Optional.of(convertToResourceEntries(resourceEntries).getFirst());
   }
 
   private Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
 
     // Determine the right expression to apply.
-    final XPathExpressionWrapper expression =
-        switch (type) {
-          case OBJECT -> getObjectExpression;
-          case HAS_VIEW -> getHasViewExpression;
-          case IS_SHOWN_AT -> getIsShownAtExpression;
-          case IS_SHOWN_BY -> getIsShownByExpression;
-        };
+    final XPathExpressionWrapper expression = switch (type) {
+      case OBJECT -> getObjectExpression;
+      case HAS_VIEW -> getHasViewExpression;
+      case IS_SHOWN_AT -> getIsShownAtExpression;
+      case IS_SHOWN_BY -> getIsShownByExpression;
+    };
 
     // Evaluate the expression and convert the node list to a set of attribute values.
     final NodeList nodes = expression.evaluate(document);
@@ -228,20 +230,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
-  private Set<String> getOEmbedUrls(Document document) throws RdfDeserializationException {
-    final NodeList oEmbedNodes = getOEmbedExpression.evaluate(document);
-    return IntStream.range(0, oEmbedNodes.getLength())
-                    .mapToObj(oEmbedNodes::item)
-                    .map(Node::getNodeValue)
-                    .collect(Collectors.toSet());
-  }
-
-  private Set<String> getIIFUrls(Document document) throws RdfDeserializationException {
-    final NodeList iiifNodes = getIIIFExpression.evaluate(document);
-    return IntStream.range(0, iiifNodes.getLength())
-                    .mapToObj(iiifNodes::item)
-                    .map(Node::getNodeValue)
-                    .collect(Collectors.toSet());
+  private Map<String, CachedHasServiceValue> getResourceUrls(Document document,
+      XPathExpressionWrapper expression) throws RdfDeserializationException {
+    final NodeList resultNodes = expression.evaluate(document);
+    return IntStream.range(0, resultNodes.getLength())
+        .mapToObj(resultNodes::item).map(Node::getNodeValue).distinct()
+        .collect(Collectors.toMap(Function.identity(),
+            url -> new CachedHasServiceValue(document, url)));
   }
 
   @FunctionalInterface
@@ -321,27 +316,69 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // For each resource, check whether they are configured for oEmbed.
     final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
-    final Set<String> oEmbedUrls = getOEmbedUrls(document);
-    final Set<String> iiifUrls = getIIFUrls(document);
+    final Map<String, CachedHasServiceValue> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
+    final Map<String, CachedHasServiceValue> iiifUrls = getResourceUrls(document, getIIIFExpression);
     for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
-
-      RdfResourceKind rdfResourceKind;
-      if (oEmbedUrls.contains(entry.getKey())) {
+      final RdfResourceKind rdfResourceKind;
+      final String hasServiceValue;
+      if (oEmbedUrls.containsKey(entry.getKey())) {
         rdfResourceKind = RdfResourceKind.OEMBEDDED;
+        hasServiceValue = oEmbedUrls.get(entry.getKey()).getValue();
+      } else if (iiifUrls.containsKey(entry.getKey())) {
+        rdfResourceKind = RdfResourceKind.IIIF;
+        hasServiceValue = iiifUrls.get(entry.getKey()).getValue();
       } else {
-        if (iiifUrls.contains(entry.getKey())) {
-          rdfResourceKind = RdfResourceKind.IIIF;
-        } else {
-          rdfResourceKind = RdfResourceKind.STANDARD;
-        }
+        rdfResourceKind = RdfResourceKind.STANDARD;
+        hasServiceValue = null;
       }
-      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), rdfResourceKind));
+      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), rdfResourceKind, hasServiceValue));
     }
 
     // Done
     return result;
   }
 
-  record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind) {
+  static class CachedHasServiceValue {
+
+    boolean valueComputed = false;
+    String hasServiceValue = null;
+    final String resourceUrl;
+    final Document document;
+
+    public CachedHasServiceValue(Document document, String resourceUrl) {
+      this.document = document;
+      this.resourceUrl = resourceUrl;
+    }
+
+    public String getValue() throws RdfDeserializationException {
+
+      // If the value is already computed, return it. Otherwise, mark the value as computed even if
+      // errors occur later.
+      if (valueComputed) {
+        return hasServiceValue;
+      }
+      valueComputed = true;
+
+      // Execute the Xpath expression. No need to escape the url: it should be a valid XML string.
+      final XPathExpressionWrapper expression = new XPathExpressionWrapper(xPath ->
+          xPath.compile(EDM_WEBRESOURCE + "[" + XPATH_RDF_ABOUT + " = \"" + resourceUrl + "\"]/"
+              + XPATH_SVCS_HAS_SERVICE));
+      final NodeList result = expression.evaluate(document);
+
+      // If there are multiple results.
+      if (result.getLength() > 1) {
+        hasServiceValue = null;
+        throw new RdfDeserializationException("Multiple services linked from WebResource.", null);
+      }
+
+      // Find the result if it exists and return it.
+      if (result.getLength() == 1) {
+        hasServiceValue = result.item(0).getNodeValue();
+      }
+      return hasServiceValue;
+    }
+  }
+
+  record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind, String hasServiceValue) {
   }
 }
