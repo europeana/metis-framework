@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Tika mimetypes.xml https://raw.githubusercontent.com/apache/tika/refs/heads/main/tika-core/src/main/resources/org/apache/tika/mime/tika-mimetypes.xml -->
 <mime-info>
-  <mime-type type="model/obj">
-    <sub-class-of type="text/plain"/>
-      <glob pattern="*.obj"/>
-  </mime-type>
-  <mime-type type="model/gltf+json">
-    <sub-class-of type="text/plain"/>
-    <glob pattern="*.gltf"/>
-  </mime-type>
-  <mime-type type="model/gltf-binary">
-    <glob pattern="*.glb"/>
-  </mime-type>
   <mime-type type="image/vnd.dxf">
     <sub-class-of type="text/plain"/>
     <glob pattern="*.dxf"/>
+  </mime-type>
+  <mime-type type="model/obj">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.obj"/>
   </mime-type>
   <mime-type type="model/vnd.collada+xml">
     <_comment>COLLADA 3D Model (Khronos Group, XML-based)</_comment>
@@ -22,5 +15,12 @@
     <root-XML localName="COLLADA" namespaceURI="http://www.collada.org/2005/11/COLLADASchema"/>
     <root-XML localName="COLLADA" namespaceURI="http://www.collada.org/2008/03/COLLADASchema"/>
     <glob pattern="*.dae"/>
+  </mime-type>
+  <mime-type type="model/gltf+json">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.gltf"/>
+  </mime-type>
+  <mime-type type="model/gltf-binary">
+    <glob pattern="*.glb"/>
   </mime-type>
 </mime-info>
