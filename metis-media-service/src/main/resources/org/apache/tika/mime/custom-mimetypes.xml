@@ -50,4 +50,10 @@
     <sub-class-of type="application/gzip"/>
     <glob pattern="*.stpz"/>
   </mime-type>
+  <mime-type type="model/vrml">
+    <_comment>VRML file (ASCII). No magic; detected by extension.</_comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.vrml"/>
+    <glob pattern="*.wrl"/>
+  </mime-type>
 </mime-info>

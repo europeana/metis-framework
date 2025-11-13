@@ -1,0 +1,1492 @@
+#VRML V2.0 utf8
+
+
+Group {
+  children 
+    DEF o0 Group {
+      children 
+        DEF o1 Group {
+          children 
+            DEF o2 Transform {
+              translation -0 -0 -0
+              rotation 0 0 1  0
+              scale 1 1 1
+              scaleOrientation 0 0 1  0
+              center 0 0 0
+              children 
+                DEF o3 Group {
+                  children [ 
+                    DEF o4 Group {
+                      children 
+                        DEF o5 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+
+                        }
+
+                    },
+                      
+                    DEF o6 Group {
+                      children 
+                        DEF o7 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o8 Group {
+                              children [ 
+                                DEF o9 Group {
+                                  children 
+                                    DEF o10 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o11 Group {
+                                  children 
+                                    DEF o12 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o13 Group {
+                                  children 
+                                    DEF o14 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 1, 2, 0, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o15 Group {
+                      children 
+                        DEF o16 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o17 Group {
+                              children [ 
+                                DEF o18 Group {
+                                  children 
+                                    DEF o19 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o20 Group {
+                                  children 
+                                    DEF o21 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o22 Group {
+                                  children 
+                                    DEF o23 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5,
+                                              -0.5 -0.5 0.5,
+                                              0.5 -0.5 0.5,
+                                              0.5 0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 2, 0, 1, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o24 Group {
+                      children 
+                        DEF o25 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o26 Group {
+                              children [ 
+                                DEF o27 Group {
+                                  children 
+                                    DEF o28 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o29 Group {
+                                  children 
+                                    DEF o30 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o31 Group {
+                                  children 
+                                    DEF o32 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 -0.5 -0.49999997 ]
+
+                                        }
+                                        coordIndex [ 2, 0, 1, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o33 Group {
+                      children 
+                        DEF o34 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o35 Group {
+                              children [ 
+                                DEF o36 Group {
+                                  children 
+                                    DEF o37 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o38 Group {
+                                  children 
+                                    DEF o39 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o40 Group {
+                                  children 
+                                    DEF o41 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997,
+                                              -0.5 0.5 -0.50000006,
+                                              0.5 0.5 -0.50000006,
+                                              0.5 -0.5 -0.49999997 ]
+
+                                        }
+                                        coordIndex [ 2, 0, 1, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o42 Group {
+                      children 
+                        DEF o43 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o44 Group {
+                              children [ 
+                                DEF o45 Group {
+                                  children 
+                                    DEF o46 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o47 Group {
+                                  children 
+                                    DEF o48 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o49 Group {
+                                  children 
+                                    DEF o50 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o51 Group {
+                      children 
+                        DEF o52 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o53 Group {
+                              children [ 
+                                DEF o54 Group {
+                                  children 
+                                    DEF o55 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o56 Group {
+                                  children 
+                                    DEF o57 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o58 Group {
+                                  children 
+                                    DEF o59 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              -0.5 -0.49999997 0.5,
+                                              -0.5 0.49999997 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o60 Group {
+                      children 
+                        DEF o61 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o62 Group {
+                              children [ 
+                                DEF o63 Group {
+                                  children 
+                                    DEF o64 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o65 Group {
+                                  children 
+                                    DEF o66 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o67 Group {
+                                  children 
+                                    DEF o68 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 0.49999997 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o69 Group {
+                      children 
+                        DEF o70 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o71 Group {
+                              children [ 
+                                DEF o72 Group {
+                                  children 
+                                    DEF o73 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o74 Group {
+                                  children 
+                                    DEF o75 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o76 Group {
+                                  children 
+                                    DEF o77 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ 0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              0.5 -0.49999997 0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o78 Group {
+                      children 
+                        DEF o79 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o80 Group {
+                              children [ 
+                                DEF o81 Group {
+                                  children 
+                                    DEF o82 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o83 Group {
+                                  children 
+                                    DEF o84 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o85 Group {
+                                  children 
+                                    DEF o86 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o87 Group {
+                      children 
+                        DEF o88 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o89 Group {
+                              children [ 
+                                DEF o90 Group {
+                                  children 
+                                    DEF o91 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o92 Group {
+                                  children 
+                                    DEF o93 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o94 Group {
+                                  children 
+                                    DEF o95 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5,
+                                              -0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.49999997 -0.5,
+                                              0.49999997 -0.5 0.5 ]
+
+                                        }
+                                        coordIndex [ 1, 2, 0, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o96 Group {
+                      children 
+                        DEF o97 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o98 Group {
+                              children [ 
+                                DEF o99 Group {
+                                  children 
+                                    DEF o100 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o101 Group {
+                                  children 
+                                    DEF o102 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 2, 0,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o103 Group {
+                                  children 
+                                    DEF o104 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, 2, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    },
+                      
+                    DEF o105 Group {
+                      children 
+                        DEF o106 Transform {
+                          translation 0 0 0
+                          rotation 0 0 1  0
+                          scale 1 1 1
+                          scaleOrientation 0 0 1  0
+                          center 0 0 0
+                          children 
+                            DEF o107 Group {
+                              children [ 
+                                DEF o108 Group {
+                                  children 
+                                    DEF o109 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          emissiveColor 0.098039217 0.098039217 0.098039217
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      PointSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o110 Group {
+                                  children 
+                                    DEF o111 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.098039217 0.098039217 0.098039217
+                                          shininess 1
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedLineSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 0, 1, -1, 1, 2, -1, 0, 2,
+                                            -1 ]
+
+                                      }
+
+                                    }
+
+                                },
+                                  
+                                DEF o112 Group {
+                                  children 
+                                    DEF o113 Shape {
+                                      appearance 
+                                      Appearance {
+                                        material 
+                                        Material {
+                                          diffuseColor 0.67843097 0.709804 0.74117601
+                                          ambientIntensity 0.33333299
+                                          specularColor 0.533333 0.533333 0.533333
+                                          shininess 0.89999998
+
+                                        }
+
+                                      }
+                                      geometry 
+                                      IndexedFaceSet {
+                                        coord 
+                                        Coordinate {
+                                          point [ -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5,
+                                              -0.49999997 0.5 0.5,
+                                              0.49999997 0.5 0.5,
+                                              0.49999997 0.49999997 -0.5 ]
+
+                                        }
+                                        coordIndex [ 1, 2, 0, -1 ]
+                                        ccw TRUE
+                                        solid FALSE
+                                        convex TRUE
+                                        creaseAngle 0
+
+                                      }
+
+                                    }
+
+                                } ]
+
+                            }
+
+                        }
+
+                    } ]
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

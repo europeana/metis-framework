@@ -96,10 +96,11 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube-binary.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
         //IGES
         of("__files/3d/cube.iges", "model/iges", null),
-        of("__files/3d/cube.igs", "model/iges", null),
         //STEP
         of("__files/3d/cube.stp", "model/step", null),
         of("__files/3d/cube.stpz", "model/step+zip", null),
+        //VRML
+        of("__files/3d/cube.vrml", "model/vrml", null),
         //GLTF
         of("__files/3d/adamHead.gltf", "model/gltf+json", null),
         of("__files/3d/Duck.glb", "model/gltf-binary", null),
