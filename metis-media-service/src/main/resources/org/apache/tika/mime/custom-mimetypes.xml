@@ -23,4 +23,9 @@
   <mime-type type="model/gltf-binary">
     <glob pattern="*.glb"/>
   </mime-type>
+  <mime-type type="model/iges">
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.iges"/>
+    <glob pattern="*.igs"/>
+  </mime-type>
 </mime-info>
