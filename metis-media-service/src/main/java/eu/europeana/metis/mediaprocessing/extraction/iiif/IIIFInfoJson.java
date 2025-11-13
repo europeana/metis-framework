@@ -17,5 +17,11 @@ public interface IIIFInfoJson {
 
   SupportedFormats getSupportedFormats();
 
+  /**
+   * The image formats that are supported by this IIIF resource.
+   *
+   * @param recommendedFormats The preferred/recommended formats.
+   * @param additionalFormats  Additional supported formats.
+   */
   record SupportedFormats(Set<String> recommendedFormats, Set<String> additionalFormats) {}
 }

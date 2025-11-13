@@ -1,6 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.mediaprocessing.extraction.IIIFProcessor.resourcePostProcessing;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
 import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 
@@ -149,14 +148,12 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Download resource and then perform media extraction on it.
-    ResourceExtractionResult extractionResult;
-    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode, resourceEntry.getResourceKind())) {
-      extractionResult = performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry);
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
+      return performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
     }
-    return resourcePostProcessing(extractionResult, resourceEntry);
   }
 
   private ResourceDownloadClient getResourceDownloadClient(RdfResourceKind rdfResourceKind) {
@@ -168,10 +165,10 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
-      ProcessingMode mode, RdfResourceKind rdfResourceKind) throws IOException {
+      ProcessingMode mode) throws IOException {
 
     // Determine the download method to use (full download vs. quick ping)
-    final ResourceDownloadClient client = getResourceDownloadClient(rdfResourceKind);
+    final ResourceDownloadClient client = getResourceDownloadClient(resourceEntry.getResourceKind());
     final Resource resource;
     if (mode == ProcessingMode.FULL) {
 
@@ -186,7 +183,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       // Create the resource depending on whether there is info JSON content.
       if (infoJson != null) {
         resource = new IIIFResourceImpl(client.downloadBasedOnMimeType(
-            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson);
+            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson,
+            resourceEntry.getResourceUrl());
       } else {
         resource = client.downloadBasedOnMimeType(resourceEntry);
       }
