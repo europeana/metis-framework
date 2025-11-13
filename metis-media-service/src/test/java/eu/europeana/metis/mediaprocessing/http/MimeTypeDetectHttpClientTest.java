@@ -87,7 +87,9 @@ class MimeTypeDetectHttpClientTest {
         //DXF
         of("__files/3d/cube_8_points.dxf", "image/vnd.dxf", null),
         //OBJ
-        of("__files/3d/cube_8_points.obj", "model/obj", null),
+        of("__files/3d/cube.obj", "model/obj", null),
+        //DAE
+        of("__files/3d/cube.dae", "model/vnd.collada+xml", null),
         //STL
         of("__files/3d/block100.stl", "model/x.stl-ascii", null),
         of("__files/3d/cube.stl", "model/x.stl-binary", null),
