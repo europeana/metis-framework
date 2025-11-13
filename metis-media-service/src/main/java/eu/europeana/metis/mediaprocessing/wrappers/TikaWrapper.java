@@ -33,7 +33,7 @@ public class TikaWrapper {
   public String detect(InputStream inputStream, Metadata metadata) throws IOException {
     String detect = tika.detect(inputStream, metadata);
 
-    //LAS normalizationpa
+    //LAS normalization. We have to do a code matching since the glob matching already exists in tika.mimetypes.xml
     if ("application/x-asprs".equals(detect)) {
       if (metadata.get(RESOURCE_NAME_KEY).toLowerCase(Locale.ROOT).endsWith(".laz")) {
         detect = "application/vnd.laszip";
