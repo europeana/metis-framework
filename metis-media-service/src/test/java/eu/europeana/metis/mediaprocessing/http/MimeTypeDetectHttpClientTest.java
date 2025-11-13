@@ -78,10 +78,6 @@ class MimeTypeDetectHttpClientTest {
     return Stream.of(
         //MPEG
         of("__files/audio_test.mp3", "audio/mpeg", Map.of("Content-Type", "audio/mpeg")),
-        //STL
-        of("__files/3d/block100.stl", "model/x.stl-ascii", null),
-        of("__files/3d/cube.stl", "model/x.stl-binary", null),
-        of("__files/3d/cube.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
         //LAS
         of("__files/3d/cube_8_points.las", "application/vnd.las", null),
         //LAZ
@@ -90,6 +86,12 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube_8_points.e57", "model/e57", null),
         //DXF
         of("__files/3d/cube_8_points.dxf", "image/vnd.dxf", null),
+        //OBJ
+        of("__files/3d/cube_8_points.obj", "model/obj", null),
+        //STL
+        of("__files/3d/block100.stl", "model/x.stl-ascii", null),
+        of("__files/3d/cube.stl", "model/x.stl-binary", null),
+        of("__files/3d/cube.stl", "model/x.stl-binary", Map.of("Content-Type", "model/stl")),
         //GLTF
         of("__files/3d/adamHead.gltf", "model/gltf+json", null),
         of("__files/3d/Duck.glb", "model/gltf-binary", null),
