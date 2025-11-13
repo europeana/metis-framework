@@ -18,15 +18,6 @@
     <root-XML localName="COLLADA" namespaceURI="http://www.collada.org/2008/03/COLLADASchema"/>
     <glob pattern="*.dae"/>
   </mime-type>
-  <mime-type type="model/gltf+json">
-    <_comment>glTF 2.0 JSON model (.gltf). Detected by extension.</_comment>
-    <sub-class-of type="text/plain"/>
-    <glob pattern="*.gltf"/>
-  </mime-type>
-  <mime-type type="model/gltf-binary">
-    <_comment>glTF 2.0 binary model (.glb). Detected by extension.</_comment>
-    <glob pattern="*.glb"/>
-  </mime-type>
   <mime-type type="model/iges">
     <_comment>IGES CAD exchange file (ASCII). No magic; detected by extension.</_comment>
     <sub-class-of type="text/plain"/>
@@ -55,5 +46,14 @@
     <sub-class-of type="text/plain"/>
     <glob pattern="*.vrml"/>
     <glob pattern="*.wrl"/>
+  </mime-type>
+  <mime-type type="model/gltf+json">
+    <_comment>glTF 2.0 JSON model (.gltf). Detected by extension.</_comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.gltf"/>
+  </mime-type>
+  <mime-type type="model/gltf-binary">
+    <_comment>glTF 2.0 binary model (.glb). Detected by extension.</_comment>
+    <glob pattern="*.glb"/>
   </mime-type>
 </mime-info>

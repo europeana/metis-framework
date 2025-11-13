@@ -102,8 +102,8 @@ class MimeTypeDetectHttpClientTest {
         //VRML
         of("__files/3d/cube.vrml", "model/vrml", null),
         //GLTF
-        of("__files/3d/adamHead.gltf", "model/gltf+json", null),
-        of("__files/3d/Duck.glb", "model/gltf-binary", null),
+        of("__files/3d/cube.gltf", "model/gltf+json", null),
+        of("__files/3d/cube.glb", "model/gltf-binary", null),
         //OEMBED
         of("__files/oembed.json", "application/json", null),
         of("__files/oembed.xml", "application/xml", null)
