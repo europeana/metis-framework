@@ -43,6 +43,9 @@
   <mime-type type="model/vrml">
     <_comment>VRML file (ASCII). No magic; detected by extension.</_comment>
     <sub-class-of type="text/plain"/>
+    <magic priority="50">
+      <match value="#VRML V" type="string" offset="0"/>
+    </magic>
     <glob pattern="*.vrml"/>
     <glob pattern="*.wrl"/>
   </mime-type>
@@ -58,10 +61,7 @@
   <mime-type type="model/x3d-vrml">
     <_comment>X3D-VRML file (ASCII). Detected by magic starter.</_comment>
     <magic priority="50">
-      <match type="string" value="#X3D V3.2" offset="0"/>
-    </magic>
-    <magic priority="50">
-      <match type="string" value="#X3D V3.3" offset="0"/>
+      <match type="string" value="#X3D V" offset="0"/>
     </magic>
     <glob pattern="*.x3dv"/>
   </mime-type>
@@ -80,7 +80,7 @@
   <mime-type type="model/vnd.usda">
     <_comment>USDA file. Matching by magic starter.</_comment>
     <magic priority="50">
-      <match type="string" value="#usda 1.0" offset="0"/>
+      <match type="string" value="#usda" offset="0"/>
     </magic>
     <glob pattern="*.usda"/>
   </mime-type>
