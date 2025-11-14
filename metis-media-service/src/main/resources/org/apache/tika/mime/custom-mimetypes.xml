@@ -52,6 +52,7 @@
     <root-XML localName="X3D"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.2.xsd"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.3.xsd"/>
+    <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-4.0.xsd"/>
     <!-- "*.x3d" glob conflict in tika-mimetypes.xml -->
   </mime-type>
   <mime-type type="model/x3d-vrml">
@@ -71,6 +72,9 @@
   </mime-type>
   <mime-type type="model/gltf-binary">
     <_comment>glTF 2.0 binary model (.glb). Detected by extension.</_comment>
+    <magic priority="50">
+      <match type="string" value="glTF" offset="0"/>
+    </magic>
     <glob pattern="*.glb"/>
   </mime-type>
   <mime-type type="model/vnd.usda">
