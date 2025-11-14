@@ -37,7 +37,7 @@
   </mime-type>
   <mime-type type="model/step+zip">
     <_comment>Compressed STEP archive (.stpz). GZIP containing a .stp file.</_comment>
-    <sub-class-of type="application/gzip"/>
+    <sub-class-of type="application/zip"/>
     <glob pattern="*.stpz"/>
   </mime-type>
   <mime-type type="model/vrml">
@@ -52,8 +52,7 @@
     <root-XML localName="X3D"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.2.xsd"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.3.xsd"/>
-    <!-- glob conflict in tika-mimetypes.xml -->
-    <!--    <glob pattern="*.x3d"/>-->
+    <!-- "*.x3d" glob conflict in tika-mimetypes.xml -->
   </mime-type>
   <mime-type type="model/x3d-vrml">
     <_comment>X3D-VRML file (ASCII). Detected by magic starter.</_comment>
