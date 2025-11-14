@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<X3D profile="Immersive" version="3.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance" xsd:noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.2.xsd" width="1280px"  height="1024px">
+  <head>
+    <meta name="generator" content="FreeCAD"/>
+    <meta name="author" content=""/>
+    <meta name="company" content=""/>
+  </head>
+  <Scene>
+    <Group>
+      <Group DEF="o0">
+        <Group DEF="o1">
+          <Transform DEF="o2"
+            translation="0 0 0" 
+            rotation="0 0 1  0" 
+            scale="1 1 1" 
+            scaleOrientation="0 0 1  0" 
+            center="0 0 0" >
+            <Shape DEF="o3">
+              <Appearance DEF="o4">
+                <Material DEF="o5"
+                  diffuseColor="0.67843139 0.70980394 0.74117649" 
+                  ambientIntensity="0.33333334" 
+                  specularColor="0.53333336 0.53333336 0.53333336" 
+                  shininess="0.89999998" />
+              </Appearance>
+              <IndexedFaceSet DEF="SoFCIndexedFaceSet"
+                coordIndex="0, 2, 1, -1, 0, 3, 2, -1, 4, 6, 5, -1, 4, 7, 6, -1, 8, 10, 9, -1, 8, 11, 10, -1, 12, 14, 13, -1, 12, 15, 14, -1, 16, 18, 17, -1, 16, 19, 18, -1, 20, 22, 21, -1, 20, 23, 22, -1" 
+                ccw="TRUE" 
+                solid="FALSE" 
+                convex="TRUE" 
+                creaseAngle="0" >
+                <Coordinate DEF="o6"
+                  point="-0.5 -0.5 0.5, -0.5 0.5 0.5, 0.5 0.5 0.5, 0.5 -0.5 0.5, -0.5 0.5 -0.50000006, -0.5 -0.5 -0.49999997, 0.5 -0.5 -0.49999997, 0.5 0.5 -0.50000006, -0.49999997 -0.49999997 -0.5, -0.49999997 0.49999997 -0.5, -0.5 0.49999997 0.5, -0.5 -0.49999997 0.5, 0.5 -0.49999997 0.5, 0.5 0.49999997 0.5, 0.49999997 0.49999997 -0.5, 0.49999997 -0.49999997 -0.5, -0.49999997 -0.49999997 -0.5, -0.49999997 -0.5 0.5, 0.49999997 -0.5 0.5, 0.49999997 -0.49999997 -0.5, -0.49999997 0.5 0.5, -0.49999997 0.49999997 -0.5, 0.49999997 0.49999997 -0.5, 0.49999997 0.5 0.5" />
+              </IndexedFaceSet>
+            </Shape>
+          </Transform>
+        </Group>
+      </Group>
+    </Group>
+  </Scene>
+</X3D>

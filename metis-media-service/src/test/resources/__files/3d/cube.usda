@@ -1,0 +1,87 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+    doc = "Blender v4.5.4 LTS"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "root" (
+    customData = {
+        dictionary Blender = {
+            bool generated = 1
+        }
+    }
+)
+{
+    def Xform "Light"
+    {
+        custom string userProperties:blender:object_name = "Light"
+        float3 xformOp:rotateXYZ = (37.261047, 3.1637092, 106.936325)
+        float3 xformOp:scale = (1, 0.99999994, 1)
+        double3 xformOp:translate = (4.076245307922363, 1.0054539442062378, 5.903861999511719)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def SphereLight "Light"
+        {
+            float3[] extent = [(-0.1, -0.1, -0.1), (0.1, 0.1, 0.1)]
+            bool inputs:enableColorTemperature = 1
+            float inputs:intensity = 318.30988
+            bool inputs:normalize = 1
+            float inputs:radius = 0.1
+            custom string userProperties:blender:data_name = "Light"
+        }
+    }
+
+    def Xform "Camera"
+    {
+        custom string userProperties:blender:object_name = "Camera"
+        float3 xformOp:rotateXYZ = (63.559296, 2.2983238e-7, 46.691944)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (7.358891487121582, -6.925790786743164, 4.958309173583984)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def Camera "Camera"
+        {
+            float2 clippingRange = (0.1, 100)
+            float focalLength = 0.5
+            float horizontalAperture = 0.36
+            token projection = "perspective"
+            custom string userProperties:blender:data_name = "Camera"
+            float verticalAperture = 0.2025
+        }
+    }
+
+    def Xform "cube"
+    {
+        custom string userProperties:blender:object_name = "cube"
+        float3 xformOp:rotateXYZ = (89.99999, -0, 0)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+
+        def Mesh "cube_001" (
+            active = true
+        )
+        {
+            float3[] extent = [(-0.5, -0.5, -0.50000006), (0.5, 0.5, 0.5)]
+            int[] faceVertexCounts = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+            int[] faceVertexIndices = [0, 2, 1, 0, 3, 2, 4, 6, 5, 4, 7, 6, 8, 10, 9, 8, 11, 10, 12, 14, 13, 12, 15, 14, 16, 18, 17, 16, 19, 18, 20, 22, 21, 20, 23, 22]
+            normal3f[] normals = [(0.0009830048, 0.000983052, 0.99999905), (0.0009829577, 0.0009830991, 0.99999905), (0.000983052, 0.0009830048, 0.99999905), (0.0009830048, 0.000983052, 0.99999905), (0.0009830048, 0.000983052, 0.99999905), (0.0009829577, 0.0009830991, 0.99999905), (0.000983052, -0.0009830942, -0.99999905), (0.0009830991, -0.0009830471, -0.99999905), (0.000983052, -0.0009830942, -0.99999905), (0.000983052, -0.0009830942, -0.99999905), (0.0009831463, -0.000983, -0.99999905), (0.0009830991, -0.0009830471, -0.99999905), (-0.99999905, 0.000983052, 0.000982975), (-0.99999905, 0.0009830991, 0.0009829279), (-0.99999905, 0.0009830048, 0.0009830222), (-0.99999905, 0.000983052, 0.000982975), (-0.99999905, 0.0009829106, 0.0009831164), (-0.99999905, 0.0009830991, 0.0009829279), (0.99999905, 0.0009830991, -0.0009829875), (0.99999905, 0.0009830991, -0.0009829875), (0.99999905, 0.0009830048, -0.0009830818), (0.99999905, 0.0009830991, -0.0009829875), (0.99999905, 0.000983052, -0.0009830346), (0.99999905, 0.0009830991, -0.0009829875), (0.0009829577, -0.99999905, 0.0009830693), (0.0009829577, -0.99999905, 0.0009830693), (0.000983052, -0.99999905, 0.0009830048), (0.0009829577, -0.99999905, 0.0009830693), (0.0009830049, -0.99999905, 0.0009829925), (0.0009829577, -0.99999905, 0.0009830693), (0.0009830048, 0.99999905, -0.0009830818), (0.0009829577, 0.99999905, -0.0009831289), (0.0009830521, 0.99999905, -0.0009830644), (0.0009830048, 0.99999905, -0.0009830818), (0.0009830048, 0.99999905, -0.000983052), (0.0009829577, 0.99999905, -0.0009831289)] (
+                interpolation = "faceVarying"
+            )
+            point3f[] points = [(-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (-0.5, 0.5, -0.50000006), (-0.5, -0.5, -0.49999997), (0.5, -0.5, -0.49999997), (0.5, 0.5, -0.50000006), (-0.49999997, -0.49999997, -0.5), (-0.49999997, 0.49999997, -0.5), (-0.5, 0.49999997, 0.5), (-0.5, -0.49999997, 0.5), (0.5, -0.49999997, 0.5), (0.5, 0.49999997, 0.5), (0.49999997, 0.49999997, -0.5), (0.49999997, -0.49999997, -0.5), (-0.49999997, -0.49999997, -0.5), (-0.49999997, -0.5, 0.5), (0.49999997, -0.5, 0.5), (0.49999997, -0.49999997, -0.5), (-0.49999997, 0.5, 0.5), (-0.49999997, 0.49999997, -0.5), (0.49999997, 0.49999997, -0.5), (0.49999997, 0.5, 0.5)]
+            uniform token subdivisionScheme = "none"
+            custom string userProperties:blender:data_name = "cube.001"
+        }
+    }
+
+    def DomeLight "env_light"
+    {
+        float inputs:intensity = 1
+        asset inputs:texture:file = @.\textures\color_121212.hdr@
+        float3 xformOp:rotateXYZ = (90, 1.2722219e-14, 90)
+        uniform token[] xformOpOrder = ["xformOp:rotateXYZ"]
+    }
+}
+
