@@ -101,6 +101,9 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube.stpz", "model/step+zip", null),
         //VRML
         of("__files/3d/cube.vrml", "model/vrml", null),
+        //X3D
+        of("__files/3d/cube.x3d", "model/x3d+xml", null),
+        of("__files/3d/cube.x3dv", "model/x3d-vrml", null),
         //GLTF
         of("__files/3d/cube.gltf", "model/gltf+json", null),
         of("__files/3d/cube.glb", "model/gltf-binary", null),
