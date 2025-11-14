@@ -13,6 +13,7 @@
   </mime-type>
   <mime-type type="model/vnd.collada+xml">
     <_comment>COLLADA 3D model (XML-based). Detected via COLLADA root element.</_comment>
+    <sub-class-of type="application/xml"/>
     <root-XML localName="COLLADA" namespaceURI="http://www.collada.org/2005/11/COLLADASchema"/>
     <root-XML localName="COLLADA" namespaceURI="http://www.collada.org/2008/03/COLLADASchema"/>
     <glob pattern="*.dae"/>
@@ -24,7 +25,7 @@
     <glob pattern="*.igs"/>
   </mime-type>
   <mime-type type="model/step">
-    <_comment>STEP CAD file (ISO 10303-21). Magic header: "ISO-10303-21;".</_comment>
+    <_comment>STEP CAD file (ISO 10303-21). Detected by magic starter.</_comment>
     <magic priority="50">
       <match value="ISO-10303-21;" type="string" offset="0"/>
     </magic>
@@ -35,7 +36,7 @@
     <glob pattern="*.210"/>
   </mime-type>
   <mime-type type="model/step+zip">
-    <_comment>Compressed STEP archive (.stpz). ZIP containing a .stp file.</_comment>
+    <_comment>Compressed STEP archive (.stpz). GZIP containing a .stp file.</_comment>
     <sub-class-of type="application/gzip"/>
     <glob pattern="*.stpz"/>
   </mime-type>
@@ -47,6 +48,7 @@
   </mime-type>
   <mime-type type="model/x3d+xml">
     <_comment>X3D XML encoding (XML-based). Detected via X3D root element.</_comment>
+    <sub-class-of type="application/xml"/>
     <root-XML localName="X3D"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.2.xsd"/>
     <root-XML localName="X3D" namespaceURI="http://www.web3d.org/specifications/x3d-3.3.xsd"/>
@@ -54,7 +56,7 @@
     <!--    <glob pattern="*.x3d"/>-->
   </mime-type>
   <mime-type type="model/x3d-vrml">
-    <_comment>X3D-VRML file (ASCII). Matching by magic starter.</_comment>
+    <_comment>X3D-VRML file (ASCII). Detected by magic starter.</_comment>
     <magic priority="50">
       <match type="string" value="#X3D V3.2" offset="0"/>
     </magic>
@@ -71,5 +73,17 @@
   <mime-type type="model/gltf-binary">
     <_comment>glTF 2.0 binary model (.glb). Detected by extension.</_comment>
     <glob pattern="*.glb"/>
+  </mime-type>
+  <mime-type type="model/vnd.usda">
+    <_comment>USDA file. Matching by magic starter.</_comment>
+    <magic priority="50">
+      <match type="string" value="#usda 1.0" offset="0"/>
+    </magic>
+    <glob pattern="*.usda"/>
+  </mime-type>
+  <mime-type type="model/vnd.usdz+zip">
+    <_comment>Compressed USD archive (.usdz). ZIP containing a .usda file.</_comment>
+    <sub-class-of type="application/zip"/>
+    <glob pattern="*.usdz"/>
   </mime-type>
 </mime-info>

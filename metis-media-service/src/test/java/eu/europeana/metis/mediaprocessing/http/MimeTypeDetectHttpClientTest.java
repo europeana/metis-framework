@@ -109,7 +109,10 @@ class MimeTypeDetectHttpClientTest {
         of("__files/3d/cube.glb", "model/gltf-binary", null),
         //OEMBED
         of("__files/oembed.json", "application/json", null),
-        of("__files/oembed.xml", "application/xml", null)
+        of("__files/oembed.xml", "application/xml", null),
+        //USD
+        of("__files/3d/cube.usda", "model/vnd.usda", null),
+        of("__files/3d/cube.usdz", "model/vnd.usdz+zip", null)
     );
   }
 }
