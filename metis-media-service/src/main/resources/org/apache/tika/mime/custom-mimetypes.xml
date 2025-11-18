@@ -1,29 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Tika mimetypes.xml https://raw.githubusercontent.com/apache/tika/refs/heads/main/tika-core/src/main/resources/org/apache/tika/mime/tika-mimetypes.xml -->
 <mime-info>
+  <mime-type type="image/vnd.dxf">
+    <_comment>DXF CAD drawing (ASCII). No magic number; detected by extension.</_comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.dxf"/>
+  </mime-type>
   <mime-type type="model/obj">
+    <_comment>Wavefront OBJ mesh (ASCII). No magic header; detected by extension.</_comment>
     <sub-class-of type="text/plain"/>
     <glob pattern="*.obj"/>
   </mime-type>
+  <mime-type type="model/vnd.collada+xml">
+    <_comment>COLLADA 3D model (XML-based). Detected via COLLADA root element.</_comment>
+    <sub-class-of type="application/xml"/>
+    <magic priority="50">
+      <match value="&lt;COLLADA" type="string" offset="0"/>
+      <match value="&lt;?xml" type="string" offset="0" optional="true"/>
+    </magic>
+    <glob pattern="*.dae"/>
+  </mime-type>
+  <mime-type type="model/iges">
+    <_comment>IGES CAD exchange file (ASCII). No magic; detected by extension.</_comment>
+    <sub-class-of type="text/plain"/>
+    <glob pattern="*.iges"/>
+    <glob pattern="*.igs"/>
+  </mime-type>
+  <mime-type type="model/step">
+    <_comment>STEP CAD file (ISO 10303-21). Detected by magic starter.</_comment>
+    <magic priority="50">
+      <match value="ISO-10303-21;" type="string" offset="0"/>
+    </magic>
+    <glob pattern="*.stp"/>
+    <glob pattern="*.step"/>
+    <glob pattern="*.p21"/>
+    <glob pattern="*.stpnc"/>
+    <glob pattern="*.210"/>
+  </mime-type>
+  <mime-type type="model/step+zip">
+    <_comment>Compressed STEP archive (.stpz). GZIP containing a .stp file.</_comment>
+    <sub-class-of type="application/zip"/>
+    <glob pattern="*.stpz"/>
+  </mime-type>
+  <mime-type type="model/vrml">
+    <_comment>VRML file (ASCII). No magic; detected by extension.</_comment>
+    <sub-class-of type="text/plain"/>
+    <magic priority="50">
+      <match value="#VRML V" type="string" offset="0"/>
+    </magic>
+    <glob pattern="*.vrml"/>
+    <glob pattern="*.wrl"/>
+  </mime-type>
+  <mime-type type="model/x3d+xml">
+    <_comment>X3D XML encoding (XML-based). Detected via X3D root element.</_comment>
+    <sub-class-of type="application/xml"/>
+    <magic priority="50">
+      <match value="&lt;X3D" type="string" offset="0"/>
+      <match value="&lt;?xml" type="string" offset="0" optional="true"/>
+    </magic>
+    <!-- "*.x3d" glob conflict in tika-mimetypes.xml -->
+  </mime-type>
+  <mime-type type="model/x3d-vrml">
+    <_comment>X3D-VRML file (ASCII). Detected by magic starter.</_comment>
+    <magic priority="50">
+      <match type="string" value="#X3D V" offset="0"/>
+    </magic>
+    <glob pattern="*.x3dv"/>
+  </mime-type>
   <mime-type type="model/gltf+json">
+    <_comment>glTF 2.0 JSON model (.gltf). Detected by extension.</_comment>
     <sub-class-of type="text/plain"/>
     <glob pattern="*.gltf"/>
   </mime-type>
   <mime-type type="model/gltf-binary">
+    <_comment>glTF 2.0 binary model (.glb). Detected by extension.</_comment>
+    <magic priority="50">
+      <match type="string" value="glTF" offset="0"/>
+    </magic>
     <glob pattern="*.glb"/>
   </mime-type>
-  <mime-type type="model/x.stl-ascii">
-    <sub-class-of type="text/plain"/>
-    <magic>
-      <!-- It must start with the word 'solid', following it may contain 0 or many whitespaces,
-       following with 1 or many letters/numbers and new line, which then must follow with the word 'facet'-->
-      <match value="^solid *[A-Za-z0-9,;'.?! \n]+facet" type="regex" offset="0"/>
+  <mime-type type="model/vnd.usda">
+    <_comment>USDA file. Matching by magic starter.</_comment>
+    <magic priority="50">
+      <match type="string" value="#usda" offset="0"/>
     </magic>
-<!--    <glob pattern="*.stl"/> Conflicts with already existing *.stl in tika-->
+    <glob pattern="*.usda"/>
   </mime-type>
-  <mime-type type="model/x.stl-binary">
-    <sub-class-of type="application/vnd.ms-pki.stl"/>
-  </mime-type>
-  <mime-type type="model/stl">
-    <sub-class-of type="application/vnd.ms-pki.stl"/>
+  <mime-type type="model/vnd.usdz+zip">
+    <_comment>Compressed USD archive (.usdz). ZIP containing a .usda file.</_comment>
+    <sub-class-of type="application/zip"/>
+    <glob pattern="*.usdz"/>
   </mime-type>
 </mime-info>
