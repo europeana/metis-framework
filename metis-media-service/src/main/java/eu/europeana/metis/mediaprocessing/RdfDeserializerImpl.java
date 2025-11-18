@@ -108,7 +108,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
   private static RdfResourceEntry convertToResourceEntry(Map.Entry<String, ResourceInfo> entry) {
     return new RdfResourceEntry(entry.getKey(), entry.getValue().urlTypes(),
-        entry.getValue().rdfResourceKind(), entry.getValue().hasServiceValue());
+        entry.getValue().rdfResourceKind(), entry.getValue().svcsHasServiceValue());
   }
 
   private static <R> R performDeserialization(byte[] input, DeserializationOperation<R> operation)
@@ -230,13 +230,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
-  private Map<String, CachedHasServiceValue> getResourceUrls(Document document,
+  private Map<String, CachedSvcsHasServiceValue> getResourceUrls(Document document,
       XPathExpressionWrapper expression) throws RdfDeserializationException {
     final NodeList resultNodes = expression.evaluate(document);
     return IntStream.range(0, resultNodes.getLength())
         .mapToObj(resultNodes::item).map(Node::getNodeValue).distinct()
         .collect(Collectors.toMap(Function.identity(),
-            url -> new CachedHasServiceValue(document, url)));
+            url -> new CachedSvcsHasServiceValue(document, url)));
   }
 
   @FunctionalInterface
@@ -314,38 +314,38 @@ class RdfDeserializerImpl implements RdfDeserializer {
       }
     }
 
-    // For each resource, check whether they are configured for oEmbed.
+    // For each resource, check whether they are configured for oEmbed or iiif.
     final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
-    final Map<String, CachedHasServiceValue> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
-    final Map<String, CachedHasServiceValue> iiifUrls = getResourceUrls(document, getIIIFExpression);
+    final Map<String, CachedSvcsHasServiceValue> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
+    final Map<String, CachedSvcsHasServiceValue> iiifUrls = getResourceUrls(document, getIIIFExpression);
     for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
       final RdfResourceKind rdfResourceKind;
-      final String hasServiceValue;
+      final String svcsHasServiceValue;
       if (oEmbedUrls.containsKey(entry.getKey())) {
         rdfResourceKind = RdfResourceKind.OEMBEDDED;
-        hasServiceValue = oEmbedUrls.get(entry.getKey()).getValue();
+        svcsHasServiceValue = oEmbedUrls.get(entry.getKey()).getValue();
       } else if (iiifUrls.containsKey(entry.getKey())) {
         rdfResourceKind = RdfResourceKind.IIIF;
-        hasServiceValue = iiifUrls.get(entry.getKey()).getValue();
+        svcsHasServiceValue = iiifUrls.get(entry.getKey()).getValue();
       } else {
         rdfResourceKind = RdfResourceKind.STANDARD;
-        hasServiceValue = null;
+        svcsHasServiceValue = null;
       }
-      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), rdfResourceKind, hasServiceValue));
+      result.put(entry.getKey(), new ResourceInfo(entry.getValue(), rdfResourceKind, svcsHasServiceValue));
     }
 
     // Done
     return result;
   }
 
-  static class CachedHasServiceValue {
+  static class CachedSvcsHasServiceValue {
 
     boolean valueComputed = false;
-    String hasServiceValue = null;
+    String svcsHasServiceValue = null;
     final String resourceUrl;
     final Document document;
 
-    public CachedHasServiceValue(Document document, String resourceUrl) {
+    public CachedSvcsHasServiceValue(Document document, String resourceUrl) {
       this.document = document;
       this.resourceUrl = resourceUrl;
     }
@@ -355,7 +355,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
       // If the value is already computed, return it. Otherwise, mark the value as computed even if
       // errors occur later.
       if (valueComputed) {
-        return hasServiceValue;
+        return svcsHasServiceValue;
       }
       valueComputed = true;
 
@@ -367,18 +367,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
       // If there are multiple results.
       if (result.getLength() > 1) {
-        hasServiceValue = null;
+        svcsHasServiceValue = null;
         throw new RdfDeserializationException("Multiple services linked from WebResource.", null);
       }
 
       // Find the result if it exists and return it.
       if (result.getLength() == 1) {
-        hasServiceValue = result.item(0).getNodeValue();
+        svcsHasServiceValue = result.item(0).getNodeValue();
       }
-      return hasServiceValue;
+      return svcsHasServiceValue;
     }
   }
 
-  record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind, String hasServiceValue) {
+  record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind, String svcsHasServiceValue) {
   }
 }
