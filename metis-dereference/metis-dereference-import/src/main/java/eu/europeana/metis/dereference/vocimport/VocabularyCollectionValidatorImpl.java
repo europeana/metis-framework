@@ -3,13 +3,13 @@ package eu.europeana.metis.dereference.vocimport;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
 import eu.europeana.metis.dereference.RdfRetriever;
+import eu.europeana.metis.dereference.ResourceUriGenerator;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
 import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -162,7 +162,8 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
-      exampleContent = new RdfRetriever().retrieve(example, suffix, userAgent);
+      exampleContent = new RdfRetriever().retrieve(example,
+          ResourceUriGenerator.forSuffix(suffix), userAgent);
     } catch (IOException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
           readableMetadataLocation, "could not be retrieved", e);

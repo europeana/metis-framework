@@ -14,6 +14,7 @@ import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
+import eu.europeana.metis.dereference.ResourceUriGenerator;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -276,7 +277,8 @@ public class MongoDereferenceService implements DereferenceService {
         // Compute the result (a URI syntax issue is considered a problem with the suffix).
         final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
-                return retriever.retrieve(resourceId, vocabulary.getSuffix(), vocabulary.getUserAgent());
+                return retriever.retrieve(resourceId, ResourceUriGenerator
+                    .forSuffix(vocabulary.getSuffix()), vocabulary.getUserAgent());
             } catch (IOException e) {
                 LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
                 LOGGER.debug("Problem retrieving resource.", e);
