@@ -1,20 +1,18 @@
 package eu.europeana.metis.mediaprocessing.model;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This class represents resource metadata.
  */
 public abstract class AbstractResourceMetadata implements IResourceMetadata {
 
-  /**
-   * Implements {@link java.io.Serializable}.
-   */
+  @Serial
   private static final long serialVersionUID = 4578729338510378084L;
 
   private String mimeType;
@@ -49,10 +47,8 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
     this.mimeType = mimeType;
     this.resourceUrl = resourceUrl;
     this.contentSize = contentSize;
-    final Stream<? extends Thumbnail> thumbnailStream =
-        thumbnails == null ? Stream.empty() : thumbnails.stream();
-    this.thumbnailTargetNames = thumbnailStream.map(Thumbnail::getTargetName)
-        .collect(Collectors.toSet());
+    this.thumbnailTargetNames = Optional.ofNullable(thumbnails).stream().flatMap(Collection::stream)
+        .map(Thumbnail::getTargetName).collect(Collectors.toSet());
   }
 
   /**

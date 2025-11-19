@@ -2,7 +2,11 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * The type IIIf info json model v2 base on the following
@@ -71,6 +75,13 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
    */
   public void setId(String id) {
     this.id = id;
+  }
+
+  @Override
+  public SupportedFormats getSupportedFormats() {
+    final Set<String> formats = Optional.ofNullable(getProfile()).map(IIIFProfile::getDetail)
+        .map(IIIFProfileDetail::getFormats).map(HashSet::new).orElseGet(HashSet::new);
+    return new SupportedFormats(Collections.emptySet(), formats);
   }
 
   @Override

@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
@@ -190,7 +189,7 @@ public class ThumbnailGenerator {
   /**
    * This is the main method of this class. It generates thumbnails for the given content.
    *
-   * @param url The URL of the content. Used for determining the name of the output files.
+   * @param url The reference of the resource. Used for determining the name of the output files.
    * @param detectedMimeType The detected mime type of the content.
    * @param content The resource content for which to generate thumbnails.
    * @param removeAlpha Whether any alpha should be removed and replaced with a white background.
@@ -419,10 +418,10 @@ public class ThumbnailGenerator {
   @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"})
   public static String md5Hex(String s) throws MediaExtractionException {
     try {
-      byte[] bytes = s.getBytes(StandardCharsets.UTF_8.name());
+      byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
       byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
       return String.format("%032x", new BigInteger(1, md5bytes));
-    } catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+    } catch (NoSuchAlgorithmException e) {
       throw new MediaExtractionException("Could not compute md5 hash", e);
     }
   }
