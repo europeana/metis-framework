@@ -20,6 +20,7 @@ public class Vocabulary {
   private final List<String> paths;
   private final int parentIterations;
   private final String suffix;
+  private final String resourceUrlTemplate;
   private final String userAgent;
   private final List<String> examples;
   private final List<String> counterExamples;
@@ -33,6 +34,7 @@ public class Vocabulary {
     this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
     this.suffix = builder.suffix;
+    this.resourceUrlTemplate = builder.resourceUrlTemplate;
     this.userAgent = builder.userAgent;
     this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
     this.counterExamples = Optional.ofNullable(builder.counterExamples)
@@ -58,8 +60,13 @@ public class Vocabulary {
     return parentIterations;
   }
 
+  @Deprecated
   public String getSuffix() {
     return suffix;
+  }
+
+  public String getResourceUrlTemplate() {
+    return resourceUrlTemplate;
   }
 
   public String getUserAgent() {
@@ -100,6 +107,7 @@ public class Vocabulary {
     protected List<String> paths;
     protected int parentIterations;
     protected String suffix;
+    protected String resourceUrlTemplate;
     protected String userAgent;
     protected List<String> examples;
     protected List<String> counterExamples;
@@ -131,8 +139,14 @@ public class Vocabulary {
       return this;
     }
 
+    @Deprecated
     public Builder setSuffix(String suffix) {
       this.suffix = normalizeString(suffix);
+      return this;
+    }
+
+    public Builder setResourceUrlTemplate(String resourceUrlTemplate) {
+      this.resourceUrlTemplate = normalizeString(resourceUrlTemplate);
       return this;
     }
 

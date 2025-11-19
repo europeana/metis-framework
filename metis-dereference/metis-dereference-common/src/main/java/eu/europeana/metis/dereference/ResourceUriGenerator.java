@@ -119,7 +119,8 @@ public abstract class ResourceUriGenerator {
    * This is a convenience method for creating a generator just for adding a suffix (e.g., a file
    * extension) to the resource ID to create the resource URI.
    *
-   * @param suffix The suffix to add to the resource ID.
+   * @param suffix The suffix to add to the resource ID. Can be null, in which case this method
+   *               defaults to calling {@link #identityGenerator()}.
    * @return A resource URI generator.
    * @deprecated This function will be removed in a future version.
    */

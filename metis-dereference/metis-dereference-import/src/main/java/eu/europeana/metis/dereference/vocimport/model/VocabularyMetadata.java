@@ -19,6 +19,7 @@ public class VocabularyMetadata {
   private List<String> paths;
   private Integer parentIterations;
   private String suffix;
+  private String resourceUrlTemplate;
   private String userAgent;
   private List<String> examples;
   private List<String> counterExamples;
@@ -41,8 +42,13 @@ public class VocabularyMetadata {
     return parentIterations;
   }
 
+  @Deprecated
   public String getSuffix() {
     return suffix;
+  }
+
+  public String getResourceUrlTemplate() {
+    return resourceUrlTemplate;
   }
 
   public String getUserAgent() {
@@ -75,8 +81,13 @@ public class VocabularyMetadata {
     this.parentIterations = parentIterations;
   }
 
+  @Deprecated
   public void setSuffix(String suffix) {
     this.suffix = suffix;
+  }
+
+  public void setResourceUrlTemplate(String resourceUrlTemplate) {
+    this.resourceUrlTemplate = resourceUrlTemplate;
   }
 
   public void setUserAgent(String userAgent) {
