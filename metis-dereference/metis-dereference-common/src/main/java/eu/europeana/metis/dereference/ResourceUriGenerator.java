@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -43,44 +42,35 @@ import org.apache.commons.text.StringSubstitutor;
  *   </ul>
  * </p>
  */
-public abstract class ResourceUriGenerator {
+public interface ResourceUriGenerator {
 
-  private static final String PIPELINE_SEPARATOR = "|";
+  /**
+   * The pipeline separator in parameters
+   */
+  String PIPELINE_SEPARATOR = "|";
 
   /**
    * This is the start function that feeds the resource ID into the function pipeline.
    */
-  public static final String RESOURCE_ID_FUNCTION = "resourceId";
+  String RESOURCE_ID_FUNCTION = "resourceId";
 
   /**
    * This is the pipe function that performs URL query escaping of the result of the previous
    * function.
    */
-  public static final String URL_QUERY_ESCAPE_FUNCTION = "urlQueryEscape";
+  String URL_QUERY_ESCAPE_FUNCTION = "urlQueryEscape";
 
   /**
    * This is input for Resource URI generation.
    * @param resourceId The resource ID of the resource for which to generate a URI.
    */
-  public record Input(String resourceId) {}
+  record Input(String resourceId) {}
 
-  private static final Map<String, Function<Input, String>> registeredStartFunctions = new HashMap<>() {{
-    put(RESOURCE_ID_FUNCTION, Input::resourceId);
-  }};
+  Map<String, Function<Input, String>> REGISTERED_START_FUNCTIONS =
+      Map.of(RESOURCE_ID_FUNCTION, Input::resourceId);
 
-  private static final Map<String, Function<String, String>> registeredPipedFunctions = new HashMap<>() {{
-    put(URL_QUERY_ESCAPE_FUNCTION, input -> URLEncoder.encode(input, StandardCharsets.UTF_8));
-  }};
-
-  private static final ResourceUriGenerator IDENTITY_GENERATOR = new ResourceUriGenerator() {
-
-    @Override
-    public URI generateUri(Input input) throws URISyntaxException {
-      return new URI(input.resourceId);
-    }
-  };
-
-  private ResourceUriGenerator() {}
+  Map<String, Function<String, String>> REGISTERED_PIPE_FUNCTIONS =
+      Map.of(URL_QUERY_ESCAPE_FUNCTION, input -> URLEncoder.encode(input, StandardCharsets.UTF_8));
 
   /**
    * This method takes input for a resource and generates the resource URI based on this
@@ -90,7 +80,7 @@ public abstract class ResourceUriGenerator {
    * @return The URI.
    * @throws URISyntaxException In the case of URI syntax issues.
    */
-  public abstract URI generateUri(Input input) throws URISyntaxException;
+  URI generateUri(Input input) throws URISyntaxException;
 
   /**
    * This convenience method compiles the input from the parameters before calling
@@ -100,7 +90,7 @@ public abstract class ResourceUriGenerator {
    * @return The URI.
    * @throws URISyntaxException In the case of URI syntax issues.
    */
-  public final URI generateUri(String resourceId) throws URISyntaxException {
+  default URI generateUri(String resourceId) throws URISyntaxException {
     return this.generateUri(new Input(resourceId));
   }
 
@@ -111,8 +101,8 @@ public abstract class ResourceUriGenerator {
    *
    * @return A resource URI generator.
    */
-  public static ResourceUriGenerator identityGenerator() {
-    return IDENTITY_GENERATOR;
+  static ResourceUriGenerator identityGenerator() {
+    return input -> new URI(input.resourceId);
   }
 
   /**
@@ -124,8 +114,8 @@ public abstract class ResourceUriGenerator {
    * @return A resource URI generator.
    * @deprecated This function will be removed in a future version.
    */
-  @Deprecated
-  public static ResourceUriGenerator forSuffix(String suffix) {
+  @Deprecated(forRemoval = true)
+  static ResourceUriGenerator forSuffix(String suffix) {
     return (suffix == null || suffix.isBlank()) ? identityGenerator()
         : forTemplate("${" + RESOURCE_ID_FUNCTION + "}" + suffix.trim());
   }
@@ -136,16 +126,19 @@ public abstract class ResourceUriGenerator {
    * @param template The template to apply.
    * @return A resource URI generator.
    */
-  public static ResourceUriGenerator forTemplate(String template) {
-    return new ResourceUriGenerator() {
-
-      @Override
-      public URI generateUri(Input input) throws URISyntaxException {
-        return new URI(new StringSubstitutor(key -> evaluate(key, input)).replace(template));
-      }
-    };
+  static ResourceUriGenerator forTemplate(String template) {
+    return input -> new URI(new StringSubstitutor(key -> evaluate(key, input)).replace(template));
   }
 
+  /**
+   * This method evaluates a parameter segment.
+   *
+   * @param segment             The segment (i.e. a function name).
+   * @param input               The input value to use for evaluation.
+   * @param registeredFunctions The registered functions, where the segment should be known.
+   * @param <T>                 The type of the input.
+   * @return The result of the evaluation.
+   */
   private static <T> String evaluateSegment(String segment, T input,
       Map<String, Function<T, String>> registeredFunctions) {
     final String trimmedSegment = segment.trim();
@@ -159,15 +152,22 @@ public abstract class ResourceUriGenerator {
     return function.apply(input);
   }
 
+  /**
+   * This method evaluates a parameter.
+   *
+   * @param parameter The parameter (i.e. a function pipeline).
+   * @param input     The input value to use for evaluation.
+   * @return The result of the evaluation.
+   */
   private static String evaluate(String parameter, Input input) {
 
     // Split the parameter in its segments. Note: the split array always has at least one segment.
     final String[] chain = parameter.split(Pattern.quote(PIPELINE_SEPARATOR), -1);
 
     // Compute result by resolve the first segment followed by the subsequent ones.
-    String result = evaluateSegment(chain[0], input, registeredStartFunctions);
+    String result = evaluateSegment(chain[0], input, REGISTERED_START_FUNCTIONS);
     for (int i = 1; i < chain.length; i++) {
-      result = evaluateSegment(chain[i], result, registeredPipedFunctions);
+      result = evaluateSegment(chain[i], result, REGISTERED_PIPE_FUNCTIONS);
     }
 
     // Done.

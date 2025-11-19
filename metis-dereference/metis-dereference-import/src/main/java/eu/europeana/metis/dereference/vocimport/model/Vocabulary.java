@@ -60,7 +60,13 @@ public class Vocabulary {
     return parentIterations;
   }
 
-  @Deprecated
+  /**
+   * Setter.
+   *
+   * @return The suffix.
+   * @deprecated Will be removed.
+   */
+  @Deprecated(forRemoval = true)
   public String getSuffix() {
     return suffix;
   }
@@ -139,7 +145,14 @@ public class Vocabulary {
       return this;
     }
 
-    @Deprecated
+    /**
+     * Setter.
+     *
+     * @param suffix The suffix.
+     * @return This instance.
+     * @deprecated Will be removed.
+     */
+    @Deprecated(forRemoval = true)
     public Builder setSuffix(String suffix) {
       this.suffix = normalizeString(suffix);
       return this;

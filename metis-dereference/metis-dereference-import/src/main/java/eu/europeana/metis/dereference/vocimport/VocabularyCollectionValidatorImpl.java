@@ -128,13 +128,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private void validateExamples(Vocabulary vocabulary, Consumer<String> warningReceiver,
       IncomingRecordToEdmTransformer converter) throws VocabularyImportException {
 
-    // Create the resource URL generator
-    final ResourceUriGenerator resourceUriGenerator = Optional
-        .ofNullable(vocabulary.getResourceUrlTemplate()).filter(StringUtils::isNotBlank)
-        .map(ResourceUriGenerator::forTemplate)
-        .orElseGet(() -> ResourceUriGenerator.forSuffix(vocabulary.getSuffix()));
-
-    // Testing the examples (if there are any - otherwise issue a warning).
+    // If there are no examples, issue a warning.
     if (vocabulary.getExamples().isEmpty()) {
       final String message = String.format("No examples specified for metadata at [%s].",
           vocabulary.getReadableMetadataLocation());
@@ -144,6 +138,14 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
         throw new VocabularyImportException(message);
       }
     }
+
+    // Create the resource URL generator
+    final ResourceUriGenerator resourceUriGenerator = Optional
+        .ofNullable(vocabulary.getResourceUrlTemplate()).filter(StringUtils::isNotBlank)
+        .map(ResourceUriGenerator::forTemplate)
+        .orElseGet(() -> ResourceUriGenerator.forSuffix(vocabulary.getSuffix()));
+
+    // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {
       testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), false,
           vocabulary.getReadableMetadataLocation(), warningReceiver);

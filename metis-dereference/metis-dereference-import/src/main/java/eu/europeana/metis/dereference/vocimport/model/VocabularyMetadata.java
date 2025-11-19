@@ -42,7 +42,13 @@ public class VocabularyMetadata {
     return parentIterations;
   }
 
-  @Deprecated
+  /**
+   * Getter.
+   *
+   * @return The suffix.
+   * @deprecated Will be removed.
+   */
+  @Deprecated(forRemoval = true)
   public String getSuffix() {
     return suffix;
   }
@@ -81,7 +87,13 @@ public class VocabularyMetadata {
     this.parentIterations = parentIterations;
   }
 
-  @Deprecated
+  /**
+   * Setter.
+   *
+   * @param suffix The suffix.
+   * @deprecated Will be removed.
+   */
+  @Deprecated(forRemoval = true)
   public void setSuffix(String suffix) {
     this.suffix = suffix;
   }
