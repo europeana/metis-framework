@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +28,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.xml.XMLConstants;
@@ -39,6 +39,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -52,34 +53,28 @@ import org.xml.sax.SAXException;
 class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String XPATH_RDF_ABOUT = "@rdf:about";
-  private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo/@rdf:resource";
-  private static final String XPATH_SVCS_HAS_SERVICE = "svcs:has_service/@rdf:resource";
+  private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo";
+  private static final String XPATH_SVCS_HAS_SERVICE = "svcs:has_service";
+  private static final String XPATH_RDF_RESOURCE = "@rdf:resource";
+
+  private static final Set<UrlType> OEMBED_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
+  private static final Set<UrlType> IIIF_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW, UrlType.OBJECT);
 
   private static final String IIIF_NAMESPACE = "http://iiif.io/api/image";
-  private static final String XPATH_IIIF_SERVICES =
-      SVCS_SERVICE + "[" + XPATH_DCTERMS_CONFORMS_TO + " = \"" + IIIF_NAMESPACE + "\"]";
-  private static final String XPATH_IIIF_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[" + XPATH_SVCS_HAS_SERVICE + " = " + XPATH_IIIF_SERVICES + "/" + XPATH_RDF_ABOUT + "]";
-  private static final String XPATH_IS_IIIF_RESOURCE_CONDITION = "[. = "
-      + XPATH_IIIF_WEB_RESOURCES +"/"+ XPATH_RDF_ABOUT+"]";
-  private static final String IIIF_XPATH_CONDITION_IS_SHOWN_BY =
-      EDM_IS_SHOWN_BY + XPATH_IS_IIIF_RESOURCE_CONDITION;
-  private static final String IIIF_XPATH_CONDITION_HAS_VIEW =
-      EDM_HAS_VIEW + XPATH_IS_IIIF_RESOURCE_CONDITION;
-  private static final String IIIF_XPATH_CONDITION_EDM_OBJECT =
-      EDM_OBJECT + XPATH_IS_IIIF_RESOURCE_CONDITION;
+  private static final String XPATH_IIIF_SERVICES = SVCS_SERVICE + "[" +
+      XPATH_DCTERMS_CONFORMS_TO + "/" + XPATH_RDF_RESOURCE + " = \"" + IIIF_NAMESPACE + "\"]";
+  private static final String XPATH_IIIF_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
+      + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_IIIF_SERVICES + "/"
+      + XPATH_RDF_ABOUT + "]";
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
-  private static final String XPATH_OEMBED_SERVICES =
-      SVCS_SERVICE + "[" + XPATH_DCTERMS_CONFORMS_TO + " = \"" + OEMBED_NAMESPACE + "\"]";
-  private static final String XPATH_OEMBED_WEB_RESOURCES = EDM_WEBRESOURCE
-      + "[" + XPATH_SVCS_HAS_SERVICE + " = " + XPATH_OEMBED_SERVICES + "/" + XPATH_RDF_ABOUT + "]";
-  private static final String XPATH_IS_OEMBED_RESOURCE_CONDITION = "[. = "
-      + XPATH_OEMBED_WEB_RESOURCES +"/"+ XPATH_RDF_ABOUT+"]";
-  private static final String OEMBED_XPATH_CONDITION_IS_SHOWN_BY =
-      EDM_IS_SHOWN_BY + XPATH_IS_OEMBED_RESOURCE_CONDITION;
-  private static final String OEMBED_XPATH_CONDITION_HAS_VIEW =
-      EDM_HAS_VIEW + XPATH_IS_OEMBED_RESOURCE_CONDITION;
+  private static final String XPATH_OEMBED_SERVICES = SVCS_SERVICE + "["
+      + XPATH_DCTERMS_CONFORMS_TO  + "/" +XPATH_RDF_RESOURCE+ " = \"" + OEMBED_NAMESPACE + "\"]";
+  private static final String XPATH_OEMBED_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
+      + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_OEMBED_SERVICES + "/"
+      + XPATH_RDF_ABOUT + "]";
 
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_OBJECT));
@@ -91,10 +86,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
 
   private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(OEMBED_XPATH_CONDITION_HAS_VIEW + " | " + OEMBED_XPATH_CONDITION_IS_SHOWN_BY));
+      xPath.compile(XPATH_OEMBED_SERVICE_REFERENCES));
   private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(IIIF_XPATH_CONDITION_HAS_VIEW + " | " + IIIF_XPATH_CONDITION_IS_SHOWN_BY +
-          " | " + IIIF_XPATH_CONDITION_EDM_OBJECT));
+      xPath.compile(XPATH_IIIF_SERVICE_REFERENCES));
 
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -230,13 +224,18 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
-  private Map<String, CachedSvcsHasServiceValue> getResourceUrls(Document document,
-      XPathExpressionWrapper expression) throws RdfDeserializationException {
+  private Map<String, String> getResourceUrls(Document document, XPathExpressionWrapper expression)
+      throws RdfDeserializationException {
     final NodeList resultNodes = expression.evaluate(document);
-    return IntStream.range(0, resultNodes.getLength())
-        .mapToObj(resultNodes::item).map(Node::getNodeValue).distinct()
-        .collect(Collectors.toMap(Function.identity(),
-            url -> new CachedSvcsHasServiceValue(document, url)));
+    final Map<String, String> result = new HashMap<>();
+    IntStream.range(0, resultNodes.getLength()).mapToObj(resultNodes::item).forEach(node -> {
+      final String url = ((Element) node.getParentNode())
+          .getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "about");
+      final String serviceReference = ((Element) node)
+          .getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "resource");
+      result.computeIfAbsent(url, key -> serviceReference);
+    });
+    return result;
   }
 
   @FunctionalInterface
@@ -305,28 +304,36 @@ class RdfDeserializerImpl implements RdfDeserializer {
   Map<String, ResourceInfo> getResourceEntries(Document document,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
 
-    // Get the resources and their types.
+    // Get the oEmbed and IIIF web resources and their service references.
+    final Map<String, String> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
+    final Map<String, String> iiifUrls = getResourceUrls(document, getIIIFExpression);
+
+    // Get the resources and their types. Add only if compatible with IIIF or oEmbed.
     final Map<String, Set<UrlType>> urls = new HashMap<>();
     for (UrlType type : allowedUrlTypes) {
       final Set<String> urlsForType = getUrls(document, type);
       for (String url : urlsForType) {
+        if (oEmbedUrls.containsKey(url) && !OEMBED_SUPPORTED_URL_TYPES.contains(type)) {
+          continue;
+        }
+        if (iiifUrls.containsKey(url) && !IIIF_SUPPORTED_URL_TYPES.contains(type)) {
+          continue;
+        }
         urls.computeIfAbsent(url, k -> new HashSet<>()).add(type);
       }
     }
 
     // For each resource, check whether they are configured for oEmbed or iiif.
     final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
-    final Map<String, CachedSvcsHasServiceValue> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
-    final Map<String, CachedSvcsHasServiceValue> iiifUrls = getResourceUrls(document, getIIIFExpression);
     for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
       final RdfResourceKind rdfResourceKind;
       final String svcsHasServiceValue;
       if (oEmbedUrls.containsKey(entry.getKey())) {
         rdfResourceKind = RdfResourceKind.OEMBEDDED;
-        svcsHasServiceValue = oEmbedUrls.get(entry.getKey()).getValue();
+        svcsHasServiceValue = oEmbedUrls.get(entry.getKey());
       } else if (iiifUrls.containsKey(entry.getKey())) {
         rdfResourceKind = RdfResourceKind.IIIF;
-        svcsHasServiceValue = iiifUrls.get(entry.getKey()).getValue();
+        svcsHasServiceValue = iiifUrls.get(entry.getKey());
       } else {
         rdfResourceKind = RdfResourceKind.STANDARD;
         svcsHasServiceValue = null;
@@ -336,47 +343,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Done
     return result;
-  }
-
-  static class CachedSvcsHasServiceValue {
-
-    boolean valueComputed = false;
-    String svcsHasServiceValue = null;
-    final String resourceUrl;
-    final Document document;
-
-    public CachedSvcsHasServiceValue(Document document, String resourceUrl) {
-      this.document = document;
-      this.resourceUrl = resourceUrl;
-    }
-
-    public String getValue() throws RdfDeserializationException {
-
-      // If the value is already computed, return it. Otherwise, mark the value as computed even if
-      // errors occur later.
-      if (valueComputed) {
-        return svcsHasServiceValue;
-      }
-      valueComputed = true;
-
-      // Execute the Xpath expression. No need to escape the url: it should be a valid XML string.
-      final XPathExpressionWrapper expression = new XPathExpressionWrapper(xPath ->
-          xPath.compile(EDM_WEBRESOURCE + "[" + XPATH_RDF_ABOUT + " = \"" + resourceUrl + "\"]/"
-              + XPATH_SVCS_HAS_SERVICE));
-      final NodeList result = expression.evaluate(document);
-
-      // If there are multiple results.
-      if (result.getLength() > 1) {
-        svcsHasServiceValue = null;
-        throw new RdfDeserializationException("Multiple services linked from WebResource.", null);
-      }
-
-      // Find the result if it exists and return it.
-      if (result.getLength() == 1) {
-        svcsHasServiceValue = result.item(0).getNodeValue();
-      }
-      return svcsHasServiceValue;
-    }
   }
 
   record ResourceInfo(Set<UrlType> urlTypes, RdfResourceKind rdfResourceKind, String svcsHasServiceValue) {

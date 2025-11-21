@@ -240,13 +240,19 @@ class RdfDeserializerImplTest {
         inputStream);
 
     // then
-    assertEquals(2, rdfResourceEntry.size());
+    assertEquals(3, rdfResourceEntry.size());
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
         .equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250")
         && !RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
+        .equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915")
+        && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl()
         .equals("http://www.cmcassociates.co.uk/Skara_Brae/landing/sb_pass_pano.html")
         && !RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().noneMatch(r -> r.getResourceUrl()
+        .equals("https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F24416915")
+        && r.getUrlTypes().contains(UrlType.OBJECT)));
   }
 
   @Test
