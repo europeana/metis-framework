@@ -212,22 +212,15 @@ class RdfDeserializerImplTest {
 
     // then
     assertEquals(2, rdfResourceEntry.size());
-    assertTrue(rdfResourceEntry
-        .stream()
-        .anyMatch(
-            r -> r.getResourceUrl().equals(
-                "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4")
-                && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
-        )
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(
-            r -> r.getResourceUrl().equals(
-                "http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&format=json")
-                && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4")
+        && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
+    ));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+            "http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&format=json")
+            && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
         )
     );
-
   }
 
   @Test
@@ -265,25 +258,24 @@ class RdfDeserializerImplTest {
         inputStream);
 
     // then
-    assertEquals(3, rdfResourceEntry.size());
-    assertTrue(rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-                "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
-                && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
-                && RdfResourceKind.IIIF.equals(r.getResourceKind()))
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-                "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
-                && r.getUrlTypes().contains(UrlType.HAS_VIEW)
-                && RdfResourceKind.IIIF.equals(r.getResourceKind()))
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-                "https://purl.stanford.edu/zw031pj2507")
-                && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
-                && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    assertEquals(4, rdfResourceEntry.size());
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
+        && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
+        && RdfResourceKind.IIIF.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
+        && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+        && RdfResourceKind.IIIF.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://purl.stanford.edu/zw031pj2507")
+        && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    );
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507_0002.xml")
+        && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
     );
   }
 
@@ -297,25 +289,25 @@ class RdfDeserializerImplTest {
         inputStream);
 
     // then
-    assertEquals(3, rdfResourceEntry.size());
-    assertTrue(rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
-            && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
-            && RdfResourceKind.STANDARD.equals(r.getResourceKind())) // this is not detected due no matching service
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-            "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
-            && r.getUrlTypes().contains(UrlType.HAS_VIEW)
-            && RdfResourceKind.IIIF.equals(r.getResourceKind()))
-        && rdfResourceEntry
-        .stream()
-        .anyMatch(r -> r.getResourceUrl().equals(
-            "https://purl.stanford.edu/zw031pj2507")
-            && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
-            && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    assertEquals(4, rdfResourceEntry.size());
+    // this is not detected due no matching service
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001/full/full/0/default.jpg")
+        && r.getUrlTypes().contains(UrlType.IS_SHOWN_BY)
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0002/full/full/0/default.jpg")
+        && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+        && RdfResourceKind.IIIF.equals(r.getResourceKind())));
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://purl.stanford.edu/zw031pj2507")
+        && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
+    );
+    assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
+        "https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507_0002.xml")
+        && r.getUrlTypes().contains(UrlType.HAS_VIEW)
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
     );
   }
 }

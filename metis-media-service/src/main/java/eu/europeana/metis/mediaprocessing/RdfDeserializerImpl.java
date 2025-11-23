@@ -20,9 +20,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,15 +54,13 @@ import org.xml.sax.SAXException;
  */
 class RdfDeserializerImpl implements RdfDeserializer {
 
-  private static final String XPATH_RDF_ABOUT = "@rdf:about";
-  private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo";
-  private static final String XPATH_SVCS_HAS_SERVICE = "svcs:has_service";
-  private static final String XPATH_RDF_RESOURCE = "@rdf:resource";
+  private static final String RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
-  private static final Set<UrlType> OEMBED_SUPPORTED_URL_TYPES = EnumSet
-      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
-  private static final Set<UrlType> IIIF_SUPPORTED_URL_TYPES = EnumSet
-      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW, UrlType.OBJECT);
+  private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo";
+  private static final String XPATH_DCTERMS_IS_FORMAT_OF = "dcterms:isFormatOf";
+  private static final String XPATH_RDF_ABOUT = "@rdf:about";
+  private static final String XPATH_RDF_RESOURCE = "@rdf:resource";
+  private static final String XPATH_SVCS_HAS_SERVICE = "svcs:has_service";
 
   private static final String IIIF_NAMESPACE = "http://iiif.io/api/image";
   private static final String XPATH_IIIF_SERVICES = SVCS_SERVICE + "[" +
@@ -68,6 +68,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_IIIF_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
       + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_IIIF_SERVICES + "/"
       + XPATH_RDF_ABOUT + "]";
+  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(XPATH_IIIF_SERVICE_REFERENCES));
+
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_OEMBED_SERVICES = SVCS_SERVICE + "["
@@ -75,6 +78,13 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_OEMBED_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
       + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_OEMBED_SERVICES + "/"
       + XPATH_RDF_ABOUT + "]";
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(XPATH_OEMBED_SERVICE_REFERENCES));
+
+  private static final String XPATH_DCTERMS_IS_FORMAT_OF_REFERENCES = EDM_WEBRESOURCE + "/"
+      + XPATH_DCTERMS_IS_FORMAT_OF + "[" + XPATH_RDF_RESOURCE + "]";
+  private final XPathExpressionWrapper getIsFormatOfExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(XPATH_DCTERMS_IS_FORMAT_OF_REFERENCES));
 
   private final XPathExpressionWrapper getObjectExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_OBJECT));
@@ -85,10 +95,10 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
 
-  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(XPATH_OEMBED_SERVICE_REFERENCES));
-  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(XPATH_IIIF_SERVICE_REFERENCES));
+  private static final Set<UrlType> OEMBED_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
+  private static final Set<UrlType> IIIF_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW, UrlType.OBJECT);
 
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -194,7 +204,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
     return Optional.of(convertToResourceEntries(resourceEntries).getFirst());
   }
 
-  private Set<String> getUrls(Document document, UrlType type) throws RdfDeserializationException {
+  private Set<String> getDirectlyReferencedUrlsForType(Document document, UrlType type)
+      throws RdfDeserializationException {
 
     // Determine the right expression to apply.
     final XPathExpressionWrapper expression = switch (type) {
@@ -229,11 +240,21 @@ class RdfDeserializerImpl implements RdfDeserializer {
     final NodeList resultNodes = expression.evaluate(document);
     final Map<String, String> result = new HashMap<>();
     IntStream.range(0, resultNodes.getLength()).mapToObj(resultNodes::item).forEach(node -> {
-      final String url = ((Element) node.getParentNode())
-          .getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "about");
-      final String serviceReference = ((Element) node)
-          .getAttributeNS("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "resource");
+      final String url = ((Element) node.getParentNode()).getAttributeNS(RDF_NAMESPACE, "about");
+      final String serviceReference = ((Element) node).getAttributeNS(RDF_NAMESPACE, "resource");
       result.computeIfAbsent(url, key -> serviceReference);
+    });
+    return result;
+  }
+
+  private Map<String, Set<String>> getIsFormatOfReferences(Document document)
+      throws RdfDeserializationException {
+    final NodeList resultNodes = getIsFormatOfExpression.evaluate(document);
+    final Map<String, Set<String>> result = new HashMap<>();
+    IntStream.range(0, resultNodes.getLength()).mapToObj(resultNodes::item).forEach(node -> {
+      final String source = ((Element) node.getParentNode()).getAttributeNS(RDF_NAMESPACE, "about");
+      final String target = ((Element) node).getAttributeNS(RDF_NAMESPACE, "resource");
+      result.computeIfAbsent(source, key -> new HashSet<>()).add(target);
     });
     return result;
   }
@@ -304,28 +325,45 @@ class RdfDeserializerImpl implements RdfDeserializer {
   Map<String, ResourceInfo> getResourceEntries(Document document,
       Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
 
-    // Get the oEmbed and IIIF web resources and their service references.
+    // Get the oEmbed and IIIF web resources and their service references. Get isFormatOf relations.
     final Map<String, String> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
     final Map<String, String> iiifUrls = getResourceUrls(document, getIIIFExpression);
+    final Map<String, Set<String>> isFormatOfReferences = getIsFormatOfReferences(document);
 
-    // Get the resources and their types. Add only if compatible with IIIF or oEmbed.
-    final Map<String, Set<UrlType>> urls = new HashMap<>();
+    // Get all reachable resources and their types.
+    final Map<String, Set<UrlType>> resourcesWithTypes = new HashMap<>();
     for (UrlType type : allowedUrlTypes) {
-      final Set<String> urlsForType = getUrls(document, type);
-      for (String url : urlsForType) {
+
+      // Set up graph walking algorithm - bootstrap with directly linked resources.
+      final Set<String> urlsForType = getDirectlyReferencedUrlsForType(document, type);
+      final Deque<String> urlsToProcess = new LinkedList<>(urlsForType);
+
+      // Process the list.
+      while (!urlsToProcess.isEmpty()) {
+
+        // Get the next url.
+        final String url = urlsToProcess.pop();
+
+        // If it is an oembed or iiif URL, check that the type is supported.
         if (oEmbedUrls.containsKey(url) && !OEMBED_SUPPORTED_URL_TYPES.contains(type)) {
           continue;
         }
         if (iiifUrls.containsKey(url) && !IIIF_SUPPORTED_URL_TYPES.contains(type)) {
           continue;
         }
-        urls.computeIfAbsent(url, k -> new HashSet<>()).add(type);
+
+        // Set the type. Propagate if needed by adding any connected URLs to the list.
+        boolean typeAdded = resourcesWithTypes
+            .computeIfAbsent(url, k -> EnumSet.noneOf(UrlType.class)).add(type);
+        if (typeAdded) {
+          Optional.ofNullable(isFormatOfReferences.get(url)).ifPresent(urlsToProcess::addAll);
+        }
       }
     }
 
-    // For each resource, check whether they are configured for oEmbed or iiif.
-    final Map<String, ResourceInfo> result = HashMap.newHashMap(urls.size());
-    for (Entry<String, Set<UrlType>> entry : urls.entrySet()) {
+    // Build the result by including the resource kind and service reference.
+    final Map<String, ResourceInfo> result = HashMap.newHashMap(resourcesWithTypes.size());
+    for (Entry<String, Set<UrlType>> entry : resourcesWithTypes.entrySet()) {
       final RdfResourceKind rdfResourceKind;
       final String svcsHasServiceValue;
       if (oEmbedUrls.containsKey(entry.getKey())) {
