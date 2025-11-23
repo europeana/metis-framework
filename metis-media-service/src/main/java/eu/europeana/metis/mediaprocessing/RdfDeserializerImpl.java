@@ -56,6 +56,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
   private static final String RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
+  private static final Set<UrlType> OEMBED_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
+  private static final Set<UrlType> IIIF_SUPPORTED_URL_TYPES = EnumSet
+      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW, UrlType.OBJECT);
+
   private static final String XPATH_DCTERMS_CONFORMS_TO = "dcterms:conformsTo";
   private static final String XPATH_DCTERMS_IS_FORMAT_OF = "dcterms:isFormatOf";
   private static final String XPATH_RDF_ABOUT = "@rdf:about";
@@ -68,9 +73,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_IIIF_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
       + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_IIIF_SERVICES + "/"
       + XPATH_RDF_ABOUT + "]";
-  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(XPATH_IIIF_SERVICE_REFERENCES));
-
 
   private static final String OEMBED_NAMESPACE = "https://oembed.com/";
   private static final String XPATH_OEMBED_SERVICES = SVCS_SERVICE + "["
@@ -78,11 +80,14 @@ class RdfDeserializerImpl implements RdfDeserializer {
   private static final String XPATH_OEMBED_SERVICE_REFERENCES = EDM_WEBRESOURCE + "/"
       + XPATH_SVCS_HAS_SERVICE  + "[" +XPATH_RDF_RESOURCE+ " = " + XPATH_OEMBED_SERVICES + "/"
       + XPATH_RDF_ABOUT + "]";
-  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
-      xPath.compile(XPATH_OEMBED_SERVICE_REFERENCES));
 
   private static final String XPATH_DCTERMS_IS_FORMAT_OF_REFERENCES = EDM_WEBRESOURCE + "/"
       + XPATH_DCTERMS_IS_FORMAT_OF + "[" + XPATH_RDF_RESOURCE + "]";
+
+  private final XPathExpressionWrapper getIIIFExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(XPATH_IIIF_SERVICE_REFERENCES));
+  private final XPathExpressionWrapper getOEmbedExpression = new XPathExpressionWrapper(xPath ->
+      xPath.compile(XPATH_OEMBED_SERVICE_REFERENCES));
   private final XPathExpressionWrapper getIsFormatOfExpression = new XPathExpressionWrapper(xPath ->
       xPath.compile(XPATH_DCTERMS_IS_FORMAT_OF_REFERENCES));
 
@@ -94,11 +99,6 @@ class RdfDeserializerImpl implements RdfDeserializer {
       xPath -> xPath.compile(EDM_IS_SHOWN_AT));
   private final XPathExpressionWrapper getIsShownByExpression = new XPathExpressionWrapper(
       xPath -> xPath.compile(EDM_IS_SHOWN_BY));
-
-  private static final Set<UrlType> OEMBED_SUPPORTED_URL_TYPES = EnumSet
-      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW);
-  private static final Set<UrlType> IIIF_SUPPORTED_URL_TYPES = EnumSet
-      .of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW, UrlType.OBJECT);
 
   private final RdfConversionUtils rdfConversionUtils = new RdfConversionUtils();
 
@@ -345,10 +345,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
         final String url = urlsToProcess.pop();
 
         // If it is an oembed or iiif URL, check that the type is supported.
-        if (oEmbedUrls.containsKey(url) && !OEMBED_SUPPORTED_URL_TYPES.contains(type)) {
-          continue;
-        }
-        if (iiifUrls.containsKey(url) && !IIIF_SUPPORTED_URL_TYPES.contains(type)) {
+        final boolean notSupportedOEmbed = oEmbedUrls.containsKey(url) &&
+            !OEMBED_SUPPORTED_URL_TYPES.contains(type);
+        final boolean notSupportedIIIF = iiifUrls.containsKey(url) &&
+            !IIIF_SUPPORTED_URL_TYPES.contains(type);
+        if (notSupportedOEmbed || notSupportedIIIF) {
           continue;
         }
 
