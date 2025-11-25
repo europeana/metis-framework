@@ -55,8 +55,9 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   @Override
-  public void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver) throws VocabularyImportException {
-    validateInternal(vocabularyReceiver, null, false);
+  public void validateVocabularyOnly(Consumer<Vocabulary> vocabularyReceiver)
+      throws VocabularyImportException {
+    validateInternal(vocabularyReceiver, input -> { }, false);
   }
 
   private void validateInternal(Consumer<Vocabulary> vocabularyReceiver,
