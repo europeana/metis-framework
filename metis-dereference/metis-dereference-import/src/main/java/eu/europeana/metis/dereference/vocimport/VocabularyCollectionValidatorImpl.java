@@ -3,13 +3,13 @@ package eu.europeana.metis.dereference.vocimport;
 import eu.europeana.enrichment.utils.EnrichmentBaseConverter;
 import eu.europeana.metis.dereference.IncomingRecordToEdmTransformer;
 import eu.europeana.metis.dereference.RdfRetriever;
+import eu.europeana.metis.dereference.ResourceUriGenerator;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
 import eu.europeana.metis.dereference.vocimport.model.VocabularyLoader;
 import eu.europeana.metis.dereference.vocimport.utils.NonCollidingPathVocabularyTrie;
 import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -66,7 +66,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
       final IncomingRecordToEdmTransformer converter = validateVocabulary(vocabulary,
-          duplicationChecker);
+          duplicationChecker, warningReceiver);
       if (validateExamples) {
         validateExamples(vocabulary, warningReceiver, converter);
       }
@@ -75,7 +75,8 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private IncomingRecordToEdmTransformer validateVocabulary(Vocabulary vocabulary,
-      DuplicationChecker duplicationChecker) throws VocabularyImportException {
+      DuplicationChecker duplicationChecker, Consumer<String> warningReceiver)
+      throws VocabularyImportException {
 
     // Check the presence of the required fields.
     if (vocabulary.getName() == null) {
@@ -98,9 +99,20 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
           String.format("No transformation given in mapping at [%s].",
               vocabulary.getReadableMappingLocation()));
     }
+    if (vocabulary.getSuffix() != null && vocabulary.getResourceUrlTemplate() != null) {
+      throw new VocabularyImportException(
+          String.format("Suffix and resource URL template given in mapping at [%s].",
+              vocabulary.getReadableMappingLocation()));
+    }
 
     // Check whether name and links are unique.
     duplicationChecker.checkAndRegister(vocabulary);
+
+    // Check for deprecated prefix value.
+    if (vocabulary.getSuffix() != null) {
+      warningReceiver.accept(String.format("Deprecated suffix value is given in mapping at [%s].",
+          vocabulary.getReadableMappingLocation()));
+    }
 
     // Verifying the xslt - compile it.
     try {
@@ -115,7 +127,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   private void validateExamples(Vocabulary vocabulary, Consumer<String> warningReceiver,
       IncomingRecordToEdmTransformer converter) throws VocabularyImportException {
 
-    // Testing the examples (if there are any - otherwise issue warning).
+    // If there are no examples, issue a warning.
     if (vocabulary.getExamples().isEmpty()) {
       final String message = String.format("No examples specified for metadata at [%s].",
           vocabulary.getReadableMetadataLocation());
@@ -125,14 +137,20 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
         throw new VocabularyImportException(message);
       }
     }
+
+    // Create the resource URL generator
+    final ResourceUriGenerator resourceUriGenerator = ResourceUriGenerator
+        .forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(), vocabulary.getSuffix());
+
+    // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {
-      testExample(converter, example, vocabulary.getSuffix(), vocabulary.getUserAgent(), false,
+      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), false,
           vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
 
-    // Testing the counter examples (if there are any).
+    // Testing the counter-examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
-      testExample(converter, example, vocabulary.getSuffix(), vocabulary.getUserAgent(), true,
+      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), true,
           vocabulary.getReadableMetadataLocation(), warningReceiver);
     }
   }
@@ -155,14 +173,14 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private void testExample(IncomingRecordToEdmTransformer incomingRecordToEdmTransformer,
-      String example, String suffix, String userAgent,
+      String example, ResourceUriGenerator resourceUriGenerator, String userAgent,
       boolean isCounterExample, String readableMetadataLocation,
       Consumer<String> warningReceiver) throws VocabularyImportException {
 
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
-      exampleContent = new RdfRetriever().retrieve(example, suffix, userAgent);
+      exampleContent = new RdfRetriever().retrieve(example, resourceUriGenerator, userAgent);
     } catch (IOException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
           readableMetadataLocation, "could not be retrieved", e);
