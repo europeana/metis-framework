@@ -89,6 +89,7 @@ public class Vocabulary implements Serializable {
    *
    * @return The suffix.
    * @deprecated Will be removed.
+   * TODO MET-6903
    */
   @XmlElement
   @Deprecated (forRemoval = true)
@@ -101,6 +102,7 @@ public class Vocabulary implements Serializable {
    *
    * @param suffix The suffix.
    * @deprecated Will be removed.
+   * TODO MET-6903
    */
   @Deprecated (forRemoval = true)
   public void setSuffix(String suffix) {

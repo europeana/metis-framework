@@ -266,10 +266,8 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     ResourceUriGenerator getResourceUriGenerator(Vocabulary vocabulary) {
-        return Optional.ofNullable(vocabulary.getResourceUrlTemplate())
-            .filter(StringUtils::isNotBlank)
-            .map(ResourceUriGenerator::forTemplate)
-            .orElseGet(() -> ResourceUriGenerator.forSuffix(vocabulary.getSuffix()));
+        return ResourceUriGenerator.forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(),
+            vocabulary.getSuffix());
     }
 
     private OriginalEntity retrieveOriginalEntity(String resourceId,

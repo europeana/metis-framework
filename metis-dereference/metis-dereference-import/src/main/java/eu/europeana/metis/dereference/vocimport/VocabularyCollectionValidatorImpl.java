@@ -18,7 +18,6 @@ import java.util.function.Consumer;
 import jakarta.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Class that contains functionality to validate vocabularies using a {@link VocabularyCollectionImporter}.
@@ -140,10 +139,8 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     }
 
     // Create the resource URL generator
-    final ResourceUriGenerator resourceUriGenerator = Optional
-        .ofNullable(vocabulary.getResourceUrlTemplate()).filter(StringUtils::isNotBlank)
-        .map(ResourceUriGenerator::forTemplate)
-        .orElseGet(() -> ResourceUriGenerator.forSuffix(vocabulary.getSuffix()));
+    final ResourceUriGenerator resourceUriGenerator = ResourceUriGenerator
+        .forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(), vocabulary.getSuffix());
 
     // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {

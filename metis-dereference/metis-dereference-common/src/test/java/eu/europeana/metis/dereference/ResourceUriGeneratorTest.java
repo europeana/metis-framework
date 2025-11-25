@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
 
-class ResourceURIGeneratorTest {
+class ResourceUriGeneratorTest {
 
   private static final String RECORD_ID = "http://example.com/record/1";
 
@@ -40,22 +40,24 @@ class ResourceURIGeneratorTest {
 
   @Test
   void testInvalidTemplateParameters() {
-    final ResourceUriGenerator emptyTemplate = ResourceUriGenerator.forTemplate("${}");
-    assertThrows(IllegalArgumentException.class, () -> emptyTemplate.generateUri(RECORD_ID));
-    final ResourceUriGenerator pipeWithSpaces = ResourceUriGenerator.forTemplate("${ | }");
-    assertThrows(IllegalArgumentException.class, () -> pipeWithSpaces.generateUri(RECORD_ID));
-    final ResourceUriGenerator spaceAfterPipe = ResourceUriGenerator
-        .forTemplate("${" + ResourceUriGenerator.RESOURCE_ID_FUNCTION + "| }");
-    assertThrows(IllegalArgumentException.class, () -> spaceAfterPipe.generateUri(RECORD_ID));
-    final ResourceUriGenerator nothingBeforePipe = ResourceUriGenerator
-        .forTemplate("${|" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "}");
-    assertThrows(IllegalArgumentException.class, () -> nothingBeforePipe.generateUri(RECORD_ID));
-    final ResourceUriGenerator nonStartFunction = ResourceUriGenerator
-        .forTemplate("${" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "}");
-    assertThrows(IllegalArgumentException.class, () -> nonStartFunction.generateUri(RECORD_ID));
-    final ResourceUriGenerator wrongOrder = ResourceUriGenerator
-        .forTemplate("${" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "| " +
-            ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + " }");
-    assertThrows(IllegalArgumentException.class, () -> wrongOrder.generateUri(RECORD_ID));
+    assertInvalidTemplate("${}");
+    assertInvalidTemplate("${ | }");
+    assertInvalidTemplate("${" + ResourceUriGenerator.RESOURCE_ID_FUNCTION + "| }");
+    assertInvalidTemplate("${|" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "}");
+    assertInvalidTemplate("${" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "}");
+    assertInvalidTemplate("${" + ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + "| " +
+        ResourceUriGenerator.URL_QUERY_ESCAPE_FUNCTION + " }");
+  }
+
+  private void assertInvalidTemplate(String invalidTemplate) {
+    final ResourceUriGenerator generator = ResourceUriGenerator.forTemplate(invalidTemplate);
+    assertThrows(IllegalArgumentException.class, () -> generator.generateUri(RECORD_ID));
+  }
+
+  @Test
+  void testInvalidResultingUri() {
+    final ResourceUriGenerator invalidUriGenerator = ResourceUriGenerator
+        .forTemplate("a ${ " + ResourceUriGenerator.RESOURCE_ID_FUNCTION + " }");
+    assertThrows(URISyntaxException.class, () -> invalidUriGenerator.generateUri(RECORD_ID));
   }
 }

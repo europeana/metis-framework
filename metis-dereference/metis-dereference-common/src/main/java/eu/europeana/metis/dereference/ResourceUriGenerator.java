@@ -5,8 +5,10 @@ import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
 
 /**
@@ -113,6 +115,7 @@ public interface ResourceUriGenerator {
    *               defaults to calling {@link #identityGenerator()}.
    * @return A resource URI generator.
    * @deprecated This function will be removed in a future version.
+   * TODO MET-6903
    */
   @Deprecated(forRemoval = true)
   static ResourceUriGenerator forSuffix(String suffix) {
@@ -123,11 +126,31 @@ public interface ResourceUriGenerator {
   /**
    * This method creates a resource URI generator for the given template.
    *
-   * @param template The template to apply.
+   * @param template The template to apply. Can be null, in which case this method defaults to
+   *                 calling {@link #identityGenerator()}.
    * @return A resource URI generator.
    */
   static ResourceUriGenerator forTemplate(String template) {
-    return input -> new URI(new StringSubstitutor(key -> evaluate(key, input)).replace(template));
+    return (template == null || template.isBlank()) ? identityGenerator() :
+        (input -> new URI(new StringSubstitutor(key -> evaluate(key, input)).replace(template)));
+  }
+
+  /**
+   * This method creates a resource URI generator for the given template. If the template is null or
+   * empty, it creates one for the given suffix. If that is null or empty as well, this method
+   * defaults to calling {@link #identityGenerator()}.
+   *
+   * @param template The template to apply. Can be null.
+   * @param suffix   The suffix to add to the resource ID. Can be null.
+   * @return A resource URI generator.
+   * @deprecated This function will be removed in a future version.
+   * TODO MET-6903
+   */
+  @Deprecated(forRemoval = true)
+  static ResourceUriGenerator forTemplateOrSuffix(String template, String suffix) {
+    return Optional.ofNullable(template).filter(StringUtils::isNotBlank)
+        .map(ResourceUriGenerator::forTemplate)
+        .orElseGet(() -> ResourceUriGenerator.forSuffix(suffix));
   }
 
   /**

@@ -65,6 +65,7 @@ public class Vocabulary {
    *
    * @return The suffix.
    * @deprecated Will be removed.
+   * TODO MET-6903
    */
   @Deprecated(forRemoval = true)
   public String getSuffix() {
@@ -151,6 +152,7 @@ public class Vocabulary {
      * @param suffix The suffix.
      * @return This instance.
      * @deprecated Will be removed.
+     * TODO MET-6903
      */
     @Deprecated(forRemoval = true)
     public Builder setSuffix(String suffix) {

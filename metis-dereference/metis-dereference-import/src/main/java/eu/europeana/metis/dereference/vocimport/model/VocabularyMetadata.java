@@ -47,6 +47,7 @@ public class VocabularyMetadata {
    *
    * @return The suffix.
    * @deprecated Will be removed.
+   * TODO MET-6903
    */
   @Deprecated(forRemoval = true)
   public String getSuffix() {
@@ -92,6 +93,7 @@ public class VocabularyMetadata {
    *
    * @param suffix The suffix.
    * @deprecated Will be removed.
+   * TODO MET-6903
    */
   @Deprecated(forRemoval = true)
   public void setSuffix(String suffix) {
