@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:doap="http://usefulinc.com/ns/doap#"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:svcs="http://rdfs.org/sioc/services#"
+>
+  <edm:ProvidedCHO rdf:about="H-0614">
+    <dc:title xml:lang="en">[Official Court Transcript, 12 July 1946]</dc:title>
+    <dc:description>The contents are missing. (Apparently the contents of folder should have been 12 July 1946 Transcript, French
+      text.)
+    </dc:description>
+    <dc:identifier>Item H-614</dc:identifier>
+    <dc:description xml:lang="en">PRELIMINARY NOTES TO FRENCH TRANSCRIPTS: 1) The majority of the French transcripts are
+      typewritten (with frequent manuscript notes). An occasional transcript session or portion of session is mimeographed. 2) It
+      will be noted that the pagination is haphazard: sometimes pages are numbered session by session, sometimes merely identified
+      according to each Court Reporter's "take". For purpose of this inventory, unnumbered pages were counted manually. This of
+      course does not always establish what pages, if any, may be missing.
+    </dc:description>
+    <dcterms:extent xml:lang="en">2 pages</dcterms:extent>
+    <dc:language>fra</dc:language>
+    <dc:date>1946-07-12</dc:date>
+    <dc:format xml:lang="en">Folder</dc:format>
+    <dc:type xml:lang="en">Empty folder</dc:type>
+    <edm:type>TEXT</edm:type>
+    <dc:subject rdf:resource="http://www.wikidata.org/entity/Q80130"/>
+    <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85093307"/>
+    <dcterms:isPartOf xml:lang="en">International Military Tribunal at Nuremberg, Trial Archives</dcterms:isPartOf>
+    <owl:sameAs rdf:resource="https://purl.stanford.edu/zw031pj2507"/>
+  </edm:ProvidedCHO>
+  <ore:Aggregation rdf:about="H-0614_AGG">
+    <edm:aggregatedCHO rdf:resource="H-0614"/>
+    <edm:rights rdf:resource="http://rightsstatements.org/vocab/CNE/1.0/"/>
+    <edm:provider>International Court of Justice</edm:provider>
+    <edm:dataProvider>International Military Tribunal at Nuremberg</edm:dataProvider>
+    <edm:isShownBy rdf:resource="https://example.com/resourceA1"/>
+    <edm:isShownAt rdf:resource="https://example.com/resourceA1"/>
+    <edm:object rdf:resource="https://example.com/resourceB1"/>
+    <edm:hasView rdf:resource="https://example.com/resourceA1"/>
+    <edm:hasView rdf:resource="https://example.com/resourceB1"/>
+  </ore:Aggregation>
+  <edm:WebResource rdf:about="https://example.com/resourceA1">
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceA2"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://example.com/resourceA2">
+    <svcs:has_service rdf:resource="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001"/>
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceC"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://example.com/resourceB1">
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceB2"/>
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceB3"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://example.com/resourceB2">
+    <svcs:has_service rdf:resource="https://vimeo.com/api/oembed.json"/>
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceC"/>
+  </edm:WebResource>
+  <edm:WebResource rdf:about="https://example.com/resourceD1">
+    <dcterms:isFormatOf rdf:resource="https://example.com/resourceD2"/>
+  </edm:WebResource>
+  <svcs:Service rdf:about="https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001">
+    <dcterms:conformsTo rdf:resource="http://iiif.io/api/image"/>
+    <doap:implements rdf:resource="http://iiif.io/api/image/2/level2.json"/>
+  </svcs:Service>
+  <svcs:Service rdf:about="https://vimeo.com/api/oembed.json">
+    <dcterms:conformsTo rdf:resource="https://oembed.com/"/>
+  </svcs:Service>
+</rdf:RDF>

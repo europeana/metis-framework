@@ -19,7 +19,6 @@ import eu.europeana.metis.utils.RdfNamespaceContext;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -133,7 +132,8 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public RdfResourceEntry getMainThumbnailResourceForMediaExtraction(InputStream inputStream)
       throws RdfDeserializationException {
-    return getMainThumbnailResourceForMediaExtraction(deserializeToDocument(inputStream))
+    final Document document = deserializeToDocument(inputStream);
+    return getMainThumbnailResourceForMediaExtraction(document, getResourceEntries(document))
         .orElse(null);
   }
 
@@ -149,15 +149,16 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Get all the resource entries.
     final Document deserializedDocument = deserializeToDocument(inputStream);
-    final Map<String, ResourceInfo> allResources = getResourceEntries(deserializedDocument,
-        UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION);
+    final Map<String, ResourceInfo> allResources = getResourceEntries(deserializedDocument);
 
     // Find the main thumbnail resource if it exists and remove it from the result.
-    getMainThumbnailResourceForMediaExtraction(deserializedDocument)
+    getMainThumbnailResourceForMediaExtraction(deserializedDocument, allResources)
         .map(RdfResourceEntry::getResourceUrl).ifPresent(allResources::remove);
 
-    // Done.
-    return convertToResourceEntries(allResources);
+    // Convert it and filter it for the URL types we want.
+    return convertToResourceEntries(allResources).stream().filter(
+        entry -> entry.getUrlTypes().stream()
+            .anyMatch(UrlType.URL_TYPES_FOR_MEDIA_EXTRACTION::contains)).toList();
   }
 
   @Override
@@ -169,8 +170,9 @@ class RdfDeserializerImpl implements RdfDeserializer {
   @Override
   public List<RdfResourceEntry> getResourceEntriesForLinkChecking(InputStream inputStream)
       throws RdfDeserializationException {
-    return convertToResourceEntries(getResourceEntries(deserializeToDocument(inputStream),
-        UrlType.URL_TYPES_FOR_LINK_CHECKING));
+    return convertToResourceEntries(getResourceEntries(deserializeToDocument(inputStream))).stream()
+        .filter(entry -> entry.getUrlTypes().stream()
+            .anyMatch(UrlType.URL_TYPES_FOR_LINK_CHECKING::contains)).toList();
   }
 
   @Override
@@ -188,20 +190,22 @@ class RdfDeserializerImpl implements RdfDeserializer {
     }
   }
 
-  private Optional<RdfResourceEntry> getMainThumbnailResourceForMediaExtraction(Document document)
-      throws RdfDeserializationException {
+  private Optional<RdfResourceEntry> getMainThumbnailResourceForMediaExtraction(Document document,
+      Map<String, ResourceInfo> allResourceEntries) throws RdfDeserializationException {
 
-    // Get the entries of the required types.
-    final Map<String, ResourceInfo> resourceEntries = getResourceEntries(document,
-        Collections.singleton(UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE));
-
-    // If there is not exactly one, we return an empty optional.
-    if (resourceEntries.size() != 1) {
+    // Find the main resource ID we wish to return if any exists.
+    final Set<String> mainResource = getDirectlyReferencedUrlsForType(document,
+        UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE);
+    if (mainResource.size() != 1) {
       return Optional.empty();
     }
+    final String resourceId = mainResource.iterator().next();
 
-    // So there is exactly one. Convert and return.
-    return Optional.of(convertToResourceEntries(resourceEntries).getFirst());
+    // Get it from the collection of all resource entries. Make sure to double-check that after
+    // analysis it still has the right url type.
+    return Optional.ofNullable(allResourceEntries.get(resourceId))
+        .map(entry -> convertToResourceEntries(Map.of(resourceId, entry))).map(List::getFirst)
+        .filter(entry -> entry.getUrlTypes().contains(UrlType.URL_TYPE_FOR_MAIN_THUMBNAIL_RESOURCE));
   }
 
   private Set<String> getDirectlyReferencedUrlsForType(Document document, UrlType type)
@@ -318,12 +322,11 @@ class RdfDeserializerImpl implements RdfDeserializer {
    * Gets resource entries.
    *
    * @param document the document
-   * @param allowedUrlTypes the allowed url types
    * @return the resource entries
    * @throws RdfDeserializationException the rdf deserialization exception
    */
-  Map<String, ResourceInfo> getResourceEntries(Document document,
-      Set<UrlType> allowedUrlTypes) throws RdfDeserializationException {
+  Map<String, ResourceInfo> getResourceEntries(Document document)
+      throws RdfDeserializationException {
 
     // Get the oEmbed and IIIF web resources and their service references. Get isFormatOf relations.
     final Map<String, String> oEmbedUrls = getResourceUrls(document, getOEmbedExpression);
@@ -332,7 +335,7 @@ class RdfDeserializerImpl implements RdfDeserializer {
 
     // Get all reachable resources and their types.
     final Map<String, Set<UrlType>> resourcesWithTypes = new HashMap<>();
-    for (UrlType type : allowedUrlTypes) {
+    for (UrlType type : UrlType.values()) {
 
       // Set up graph walking algorithm - bootstrap with directly linked resources.
       final Set<String> urlsForType = getDirectlyReferencedUrlsForType(document, type);

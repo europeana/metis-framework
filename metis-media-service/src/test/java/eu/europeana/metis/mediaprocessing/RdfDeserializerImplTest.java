@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import eu.europeana.metis.mediaprocessing.RdfDeserializerImpl.ResourceInfo;
@@ -8,6 +9,7 @@ import eu.europeana.metis.mediaprocessing.exception.RdfDeserializationException;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -101,8 +104,7 @@ class RdfDeserializerImplTest {
     final String isShownAt = addEdmIsShownAt(document, aggregation2, "is shown at resource");
 
     // Test method for all url types
-    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl()
-        .getResourceEntries(document, Set.of(UrlType.values()));
+    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl().getResourceEntries(document);
     assertEquals(6, resultAllTypes.size());
     assertEquals(Collections.singleton(UrlType.OBJECT), resultAllTypes.get(object).urlTypes());
     assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultAllTypes.get(hasView1).urlTypes());
@@ -110,19 +112,6 @@ class RdfDeserializerImplTest {
     assertEquals(Collections.singleton(UrlType.IS_SHOWN_BY), resultAllTypes.get(isShownBy1).urlTypes());
     assertEquals(Collections.singleton(UrlType.IS_SHOWN_BY), resultAllTypes.get(isShownBy2).urlTypes());
     assertEquals(Collections.singleton(UrlType.IS_SHOWN_AT), resultAllTypes.get(isShownAt).urlTypes());
-
-    // Test method for selection of url types
-    final Map<String, ResourceInfo> resultSelectedTypes = new RdfDeserializerImpl()
-        .getResourceEntries(document, Set.of(UrlType.IS_SHOWN_AT, UrlType.HAS_VIEW));
-    assertEquals(3, resultSelectedTypes.size());
-    assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultSelectedTypes.get(hasView1).urlTypes());
-    assertEquals(Collections.singleton(UrlType.HAS_VIEW), resultSelectedTypes.get(hasView2).urlTypes());
-    assertEquals(Collections.singleton(UrlType.IS_SHOWN_AT), resultSelectedTypes.get(isShownAt).urlTypes());
-
-    // Test method for no url types
-    assertTrue(
-        new RdfDeserializerImpl().getResourceEntries(document, Collections.emptySet())
-                                 .isEmpty());
   }
 
   @Test
@@ -150,28 +139,9 @@ class RdfDeserializerImplTest {
     addEdmIsShownAt(document, aggregation2, commonResource);
 
     // Test method for all url types
-    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl()
-        .getResourceEntries(document, Set.of(UrlType.values()));
+    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl().getResourceEntries(document);
     assertEquals(1, resultAllTypes.size());
     assertEquals(Set.of(UrlType.values()), resultAllTypes.get(commonResource).urlTypes());
-
-    // Test method for selected url types
-    final Set<UrlType> selectedTypes = Set.of(UrlType.IS_SHOWN_BY, UrlType.OBJECT);
-    final Map<String, ResourceInfo> resultSelectedTypes = new RdfDeserializerImpl()
-        .getResourceEntries(document, selectedTypes);
-    assertEquals(1, resultSelectedTypes.size());
-    assertEquals(selectedTypes, resultSelectedTypes.get(commonResource).urlTypes());
-  }
-
-  @Test
-  void testGetResourceUrlsWithoutData()
-      throws RdfDeserializationException, ParserConfigurationException {
-    final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                                                    .newDocument();
-    final Element rdf = document.createElementNS(RDF_NAMESPACE, "RDF");
-    document.appendChild(rdf);
-    assertTrue(new RdfDeserializerImpl().getResourceEntries(document, Collections.emptySet())
-                                        .isEmpty());
   }
 
   @Test
@@ -190,8 +160,7 @@ class RdfDeserializerImplTest {
     final String isShownBy = addEdmOEmbedResourceType(document, aggregation1, "isShownBy", "is shown by resource");
 
     // when test object extraction
-    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl()
-        .getResourceEntries(document, Set.of(UrlType.values()));
+    final Map<String, ResourceInfo> resultAllTypes = new RdfDeserializerImpl().getResourceEntries(document);
 
     // then check the oEmbedResources where successfully identified.
     assertEquals(2, resultAllTypes.size());
@@ -214,13 +183,10 @@ class RdfDeserializerImplTest {
     assertEquals(2, rdfResourceEntry.size());
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
         "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4")
-        && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
-    ));
+        && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
-            "http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&format=json")
-            && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())
-        )
-    );
+        "http://www.flickr.com/services/oembed/?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2Fbees%2F2341623661%2F&format=json")
+        && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
   }
 
   @Test
@@ -270,13 +236,11 @@ class RdfDeserializerImplTest {
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
         "https://purl.stanford.edu/zw031pj2507")
         && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
-        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
-    );
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
         "https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507_0002.xml")
         && r.getUrlTypes().contains(UrlType.HAS_VIEW)
-        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
-    );
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
   }
 
   @Test
@@ -302,12 +266,47 @@ class RdfDeserializerImplTest {
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
         "https://purl.stanford.edu/zw031pj2507")
         && r.getUrlTypes().contains(UrlType.IS_SHOWN_AT)
-        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
-    );
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
     assertTrue(rdfResourceEntry.stream().anyMatch(r -> r.getResourceUrl().equals(
         "https://stacks.stanford.edu/file/zw031pj2507/zw031pj2507_0002.xml")
         && r.getUrlTypes().contains(UrlType.HAS_VIEW)
-        && RdfResourceKind.STANDARD.equals(r.getResourceKind()))
-    );
+        && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
+  }
+
+  @Test
+  void testSampleWithComplexIsFormatOfGraph() throws RdfDeserializationException, IOException {
+
+    // when
+    final byte[] input = IOUtils.resourceToByteArray("__files/rdf_with_complex_isformatof_graph.xml", getClass().getClassLoader());
+    final RdfResourceEntry mainRdfResourceEntry = new RdfDeserializerImpl().getMainThumbnailResourceForMediaExtraction(input);
+    final List<RdfResourceEntry> otherRdfResourceEntries = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(input);
+
+    // then
+    assertNotNull(mainRdfResourceEntry);
+    assertTrue(mainRdfResourceEntry.getResourceUrl().equals("https://example.com/resourceB1")
+        && mainRdfResourceEntry.getUrlTypes().equals(Set.of(UrlType.OBJECT, UrlType.HAS_VIEW))
+        && RdfResourceKind.STANDARD.equals(mainRdfResourceEntry.getResourceKind()));
+    assertEquals(5, otherRdfResourceEntries.size());
+    assertTrue(otherRdfResourceEntries.stream().anyMatch(r ->
+        r.getResourceUrl().equals("https://example.com/resourceA1")
+            && r.getUrlTypes()
+            .equals(Set.of(UrlType.IS_SHOWN_BY, UrlType.IS_SHOWN_AT, UrlType.HAS_VIEW))
+            && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
+    assertTrue(otherRdfResourceEntries.stream().anyMatch(r ->
+        r.getResourceUrl().equals("https://example.com/resourceA2")
+            && r.getUrlTypes().equals(Set.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW))
+            && RdfResourceKind.IIIF.equals(r.getResourceKind())));
+    assertTrue(otherRdfResourceEntries.stream().anyMatch(r ->
+        r.getResourceUrl().equals("https://example.com/resourceB2")
+            && r.getUrlTypes().equals(Set.of(UrlType.HAS_VIEW))
+            && RdfResourceKind.OEMBEDDED.equals(r.getResourceKind())));
+    assertTrue(otherRdfResourceEntries.stream().anyMatch(r ->
+        r.getResourceUrl().equals("https://example.com/resourceB3")
+            && r.getUrlTypes().equals(Set.of(UrlType.HAS_VIEW, UrlType.OBJECT))
+            && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
+    assertTrue(otherRdfResourceEntries.stream().anyMatch(r ->
+        r.getResourceUrl().equals("https://example.com/resourceC")
+            && r.getUrlTypes().equals(Set.of(UrlType.IS_SHOWN_BY, UrlType.HAS_VIEW))
+            && RdfResourceKind.STANDARD.equals(r.getResourceKind())));
   }
 }
