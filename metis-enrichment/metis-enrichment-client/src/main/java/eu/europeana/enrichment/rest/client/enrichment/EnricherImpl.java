@@ -17,6 +17,7 @@ import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.EntityType;
 import eu.europeana.enrichment.utils.RdfEntityUtils;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.AboutType;
 import eu.europeana.metis.schema.jibx.ProxyType;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -50,7 +51,7 @@ public class EnricherImpl implements Enricher {
                                                                          < HttpStatus.INTERNAL_SERVER_ERROR.value())
                                                                  .toList();
   private final RecordParser recordParser;
-  private final ClientEntityResolverFactory clientEntityResolverFactory;
+  private final EntityResolver entityResolver;
   private final EntityMergeEngine entityMergeEngine;
 
   /**
@@ -62,12 +63,11 @@ public class EnricherImpl implements Enricher {
    */
   public EnricherImpl(RecordParser recordParser,
       ClientEntityResolverFactory entityResolverFactory,
-      EntityMergeEngine entityMergeEngine) {
+      EntityMergeEngine entityMergeEngine) throws EntityClientException {
     this.recordParser = recordParser;
-    this.clientEntityResolverFactory = entityResolverFactory;
+    this.entityResolver = entityResolverFactory.create();
     this.entityMergeEngine = entityMergeEngine;
   }
-
 
   private static HttpStatus containsWarningStatus(String message) {
     for (HttpStatus status : WARNING_STATUSES) {
@@ -137,8 +137,8 @@ public class EnricherImpl implements Enricher {
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
 
-    try (EntityResolver entityResolverToUse = clientEntityResolverFactory.create()) {
-      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolverToUse.resolveByText(Set.copyOf(searchTerms));
+    try {
+      Map<SearchTermContext, List<EnrichmentBase>> enrichedValues = entityResolver.resolveByText(Set.copyOf(searchTerms));
       return new ImmutablePair<>(enrichedValues, getSearchTermsReport(searchTerms, enrichedValues));
     } catch (Exception runtimeException) {
       reports.add(Report
@@ -166,8 +166,8 @@ public class EnricherImpl implements Enricher {
           .build());
       return new ImmutablePair<>(Collections.emptyMap(), reports);
     }
-    try (EntityResolver entityResolverToUse = clientEntityResolverFactory.create()) {
-      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolverToUse.resolveByUri(references);
+    try {
+      Map<ReferenceTermContext, List<EnrichmentBase>> enrichedReferences = entityResolver.resolveByUri(references);
       return new ImmutablePair<>(enrichedReferences, getSearchReferenceReport(references, enrichedReferences));
     } catch (Exception runtimeException) {
       String referenceValue = references.stream()
@@ -177,6 +177,11 @@ public class EnricherImpl implements Enricher {
       reports.addAll(getWarningsOrErrors(runtimeException, referenceValue));
       return new ImmutablePair<>(null, reports);
     }
+  }
+
+  @Override
+  public void close() throws Exception {
+    this.entityResolver.close();
   }
 
   private Set<Report> getWarningsOrErrors(Throwable exception, String referenceValue) {

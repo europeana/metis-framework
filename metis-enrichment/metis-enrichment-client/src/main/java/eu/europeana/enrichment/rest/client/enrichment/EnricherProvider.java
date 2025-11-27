@@ -7,6 +7,7 @@ import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
+import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
@@ -63,21 +64,26 @@ public class EnricherProvider extends ConnectionProvider {
      */
     public Enricher create() throws EnrichmentException {
 
-        // Create the entity resolver
-        final EntityClientConfiguration entityClientConfiguration;
-        if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
-                && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
-            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
-                entityApiTokenEndpoint, entityApiGrantParams);
-            entityClientConfiguration = new EntityClientConfiguration(properties);
-        } else {
-            throw new EnrichmentException("We must have either a non-null entity resolver creator,"
-                    + " or a non-blank enrichment URL.", null);
-        }
+      // Create the entity resolver
+      final EntityClientConfiguration entityClientConfiguration;
+      if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
+          && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
+        final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
+            entityApiTokenEndpoint, entityApiGrantParams);
+        entityClientConfiguration = new EntityClientConfiguration(properties);
+      } else {
+        throw new EnrichmentException("We must have either a non-null entity resolver creator,"
+            + " or a non-blank enrichment URL.", null);
+      }
 
-        // Done.
-        return new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
+      // Done.
+      final Enricher enricher;
+      try {
+        enricher = new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
             new ClientEntityResolverFactory(entityClientConfiguration), new EntityMergeEngine());
+      } catch (EntityClientException entityClientException) {
+        throw new EnrichmentException("Error creating the entity resolver for the enricher.", entityClientException);
+      }
+      return enricher;
     }
-
 }

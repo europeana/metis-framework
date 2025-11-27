@@ -5,6 +5,7 @@ import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
+import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -96,11 +97,17 @@ public class DereferencerProvider extends ConnectionProvider {
       entityClientConfiguration = null;
     }
 
+    final Dereferencer dereferencer;
+    try {
+      dereferencer = new DereferencerImpl(
+          new EntityMergeEngine(),
+          new ClientEntityResolverFactory(entityClientConfiguration),
+          dereferenceClient);
+    } catch (EntityClientException entityClientException) {
+      throw new DereferenceException("Error creating the entity resolver for the dereferencer.", entityClientException);
+    }
     // Done.
-    return new DereferencerImpl(
-        new EntityMergeEngine(),
-        new ClientEntityResolverFactory(entityClientConfiguration),
-        dereferenceClient);
+    return dereferencer;
   }
 
   private boolean hasEntityApiClientProperties() {

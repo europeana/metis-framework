@@ -3,7 +3,6 @@ package eu.europeana.enrichment.rest.client.dereference;
 import static eu.europeana.metis.network.ExternalRequestUtil.retryableExternalRequestForNetworkExceptions;
 
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
-import eu.europeana.enrichment.api.external.impl.ClientEntityResolver;
 import eu.europeana.enrichment.api.external.impl.ClientEntityResolverFactory;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
@@ -15,6 +14,7 @@ import eu.europeana.enrichment.rest.client.exceptions.DereferenceException;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.utils.DereferenceUtils;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
+import eu.europeana.entity.client.exception.EntityClientException;
 import eu.europeana.metis.schema.jibx.RDF;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -46,7 +46,7 @@ public class DereferencerImpl implements Dereferencer {
   private static final String CANCELLATION_EXCEPTION_WARN_MESSAGE = "Cancellation exception occurred while trying to perform dereferencing, rethrowing.";
 
   private final EntityMergeEngine entityMergeEngine;
-  private final ClientEntityResolverFactory clientEntityResolverFactory;
+  private final EntityResolver entityResolver;
   private final DereferenceClient dereferenceClient;
 
   /**
@@ -58,7 +58,7 @@ public class DereferencerImpl implements Dereferencer {
    */
   public DereferencerImpl(EntityMergeEngine entityMergeEngine,
       ClientEntityResolverFactory entityResolverFactory,
-      DereferenceClient dereferenceClient) {
+      DereferenceClient dereferenceClient) throws EntityClientException {
     if (entityMergeEngine == null) {
       throw new IllegalArgumentException("You need to specify an entityMergeEngine");
     }
@@ -66,7 +66,7 @@ public class DereferencerImpl implements Dereferencer {
       throw new IllegalArgumentException("You need to specify an entityResolverFactory");
     }
     this.entityMergeEngine = entityMergeEngine;
-    this.clientEntityResolverFactory = entityResolverFactory;
+    this.entityResolver = entityResolverFactory.create();
     this.dereferenceClient = dereferenceClient;
   }
 
@@ -193,13 +193,13 @@ public class DereferencerImpl implements Dereferencer {
       return new DereferencedEntities(new HashMap<>(), new HashSet<>(reports));
     }
 
-    try (ClientEntityResolver entityResolverToUse = clientEntityResolverFactory.create()) {
+    try {
       Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
       Set<ReferenceTerm> ownEntities = resourceIds.stream()
                                                   .filter(id -> EntityResolver.europeanaLinkPattern.matcher(
                                                       id.getReference().toString()).matches())
                                                   .collect(Collectors.toSet());
-      entityResolverToUse.resolveById(ownEntities)
+      entityResolver.resolveById(ownEntities)
                          .forEach((key, value) -> result.put(key, List.of(value)));
       ownEntities.stream().filter(id -> result.get(id) == null || result.get(id).isEmpty())
                  .forEach(notFoundOwnId -> {
@@ -214,6 +214,11 @@ public class DereferencerImpl implements Dereferencer {
     } catch (Exception e) {
       return handleDereferencingException(resourceIds, reports, e);
     }
+  }
+
+  @Override
+  public void close() throws Exception {
+    this.entityResolver.close();
   }
 
   private DereferencedEntities dereferenceExternalEntity(Set<ReferenceTerm> referenceTerms) {
