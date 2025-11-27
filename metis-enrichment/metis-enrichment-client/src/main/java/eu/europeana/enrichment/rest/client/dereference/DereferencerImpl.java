@@ -55,6 +55,7 @@ public class DereferencerImpl implements Dereferencer {
    * @param entityMergeEngine The entity merge engine. Cannot be null. Is required.
    * @param entityResolverFactory the client entity resolver factory. Cannot be null. Is required.
    * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
+   * @throws EntityClientException the entity client exception
    */
   public DereferencerImpl(EntityMergeEngine entityMergeEngine,
       ClientEntityResolverFactory entityResolverFactory,

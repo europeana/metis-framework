@@ -60,6 +60,7 @@ public class EnricherImpl implements Enricher {
    * @param recordParser the record parser
    * @param entityResolverFactory the client entity resolver factory
    * @param entityMergeEngine the entity merge engine
+   * @throws EntityClientException the entity client exception
    */
   public EnricherImpl(RecordParser recordParser,
       ClientEntityResolverFactory entityResolverFactory,
