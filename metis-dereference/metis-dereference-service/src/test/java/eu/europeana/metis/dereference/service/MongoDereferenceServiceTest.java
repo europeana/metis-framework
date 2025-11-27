@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.clearInvocations;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
@@ -22,6 +23,7 @@ import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.RdfRetriever;
+import eu.europeana.metis.dereference.ResourceUriGenerator;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
@@ -54,7 +56,7 @@ class MongoDereferenceServiceTest {
       spy(new MongoDereferenceService(retriever, processedEntityDao, vocabularyDao));
 
   private static final String GEONAMES_URI = "http://sws.geonames.org/";
-  private static Vocabulary geonames;
+  private static final Vocabulary geonames = new Vocabulary();
   private static final String PLACE_ID = "http://sws.geonames.org/3020251/";
   private static String placeSourceEntity;
 
@@ -62,17 +64,6 @@ class MongoDereferenceServiceTest {
 
   @BeforeAll
   static void prepareData() throws IOException {
-
-    // Create the vocabulary
-    geonames = new Vocabulary();
-    geonames.setId(new ObjectId(new Date()));
-    geonames.setUris(Collections.singleton(GEONAMES_URI));
-    geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
-        .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));
-    geonames.setName("Geonames");
-    geonames.setSuffix("suffix");
-    geonames.setUserAgent("user-agent");
-    geonames.setIterations(0);
 
     // Create the place
     placeSourceEntity = IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
@@ -85,14 +76,25 @@ class MongoDereferenceServiceTest {
     // Reset the mocks
     reset(vocabularyDao, processedEntityDao, retriever, dereferenceService);
 
+    // Reset the vocabulary
+    geonames.setId(new ObjectId(new Date()));
+    geonames.setUris(Collections.singleton(GEONAMES_URI));
+    geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
+        .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));
+    geonames.setName("Geonames");
+    geonames.setSuffix("suffix");
+    geonames.setResourceUrlTemplate("resourceUrlTemplate");
+    geonames.setUserAgent("user-agent");
+    geonames.setIterations(0);
+
     // Add support for vocabulary in the mocks.
     final String searchString = new URI(GEONAMES_URI).getHost();
     doReturn(List.of(geonames)).when(vocabularyDao).getByUriSearch(searchString);
     doReturn(geonames).when(vocabularyDao).get(geonames.getId().toString());
 
     // Add support for the place in the mocks.
-    doReturn(placeSourceEntity).when(retriever)
-        .retrieve(PLACE_ID, geonames.getSuffix(), geonames.getUserAgent());
+    doReturn(placeSourceEntity).when(retriever).retrieve(eq(PLACE_ID), any(),
+        eq(geonames.getUserAgent()));
 
     // Clear cache and build the cache functionality
     CACHE.clear();
@@ -106,7 +108,11 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference_Success() throws IOException, URISyntaxException {
+  void testDereference_Success() throws IOException {
+
+    // Mock the ResourceUriGenerator instance
+    final ResourceUriGenerator resourceUriGenerator = ResourceUriGenerator.forTemplate("template");
+    doReturn(resourceUriGenerator).when(dereferenceService).getResourceUriGenerator(geonames);
 
     // First time: no cached item available
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
@@ -115,7 +121,8 @@ class MongoDereferenceServiceTest {
     assertEquals(PLACE_ID, result0.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID),
+        same(resourceUriGenerator), eq(geonames.getUserAgent()));
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -127,7 +134,7 @@ class MongoDereferenceServiceTest {
     assertEquals(PLACE_ID, result1.getEnrichmentBasesAsList().getFirst().getAbout());
     assertEquals(DereferenceResultStatus.SUCCESS, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
   }
 
   @Test
@@ -138,7 +145,7 @@ class MongoDereferenceServiceTest {
   }
 
   @Test
-  void testDereference_NoVocabularyMatching() throws IOException, URISyntaxException {
+  void testDereference_NoVocabularyMatching() throws IOException {
 
     // First time: no cached item available
     final String nonExistingVocabularyEntity = "http://XXX.YYYYYYY.org/3020251/";
@@ -147,7 +154,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(anyString(), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
     assertTrue(CACHE.containsKey(nonExistingVocabularyEntity));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingVocabularyEntity).getResultStatus());
 
@@ -158,11 +165,11 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_VOCABULARY_MATCHING, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(nonExistingVocabularyEntity), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
   }
 
   @Test
-  void testDereference_NoEntityForVocabulary() throws IOException, URISyntaxException {
+  void testDereference_NoEntityForVocabulary() throws IOException {
 
     // First time: no cached item available
     final String nonExistingId = GEONAMES_URI + "XXXXXX";
@@ -171,7 +178,7 @@ class MongoDereferenceServiceTest {
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(nonExistingId), anyString(), anyString());
+    verify(retriever, times(1)).retrieve(eq(nonExistingId), any(), anyString());
     assertTrue(CACHE.containsKey(nonExistingId));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(nonExistingId).getResultStatus());
 
@@ -182,11 +189,11 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(nonExistingId), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
   }
 
   @Test
-  void testDereference_InvalidUrl() throws IOException, URISyntaxException {
+  void testDereference_InvalidUrl() throws IOException {
 
     // Entity ID: ensure that it is indeed invalid.
     final String entityId = "http://sws.geonames.org/?_)(*&^%$#@!3020251/";
@@ -197,21 +204,21 @@ class MongoDereferenceServiceTest {
     assertNotNull(result);
     assertTrue(result.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.INVALID_URL, result.getDereferenceStatus());
-    verify(retriever, never()).retrieve(anyString(), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
     assertFalse(CACHE.containsKey(entityId));
   }
 
   @Test
-  void testDereference_XmlXsltError() throws URISyntaxException, IOException {
+  void testDereference_XmlXsltError() throws IOException {
 
     // First time: no cached item available
-    doReturn("THIS WILL BE AN ERROR").when(retriever).retrieve(eq(PLACE_ID), anyString(), anyString());
+    doReturn("THIS WILL BE AN ERROR").when(retriever).retrieve(eq(PLACE_ID), any(), anyString());
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID), any(), anyString());
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -222,20 +229,20 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
   }
 
   @Test
-  void testDereference_XmlXsltProduceNoContextualClass() throws URISyntaxException, IOException {
+  void testDereference_XmlXsltProduceNoContextualClass() throws IOException {
 
     // First time: no cached item available
-    doReturn("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><empty/>").when(retriever).retrieve(eq(PLACE_ID), anyString(), anyString());
+    doReturn("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><empty/>").when(retriever).retrieve(eq(PLACE_ID), any(), anyString());
     final DereferenceResult result0 = dereferenceService.dereference(PLACE_ID);
     assertNotNull(result0);
     assertTrue(result0.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result0.getDereferenceStatus());
     verify(vocabularyDao, times(1)).getByUriSearch(anyString());
-    verify(retriever, times(1)).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, times(1)).retrieve(eq(PLACE_ID), any(), anyString());
     assertTrue(CACHE.containsKey(PLACE_ID));
     assertEquals(result0.getDereferenceStatus(), CACHE.get(PLACE_ID).getResultStatus());
 
@@ -246,6 +253,28 @@ class MongoDereferenceServiceTest {
     assertTrue(result1.getEnrichmentBasesAsList().isEmpty());
     assertEquals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS, result1.getDereferenceStatus());
     verify(vocabularyDao, never()).getByUriSearch(anyString());
-    verify(retriever, never()).retrieve(eq(PLACE_ID), anyString(), anyString());
+    verify(retriever, never()).retrieve(anyString(), any(), anyString());
+  }
+
+  @Test
+  void testGetResourceUriGenerator() throws URISyntaxException {
+
+    // Test for both suffix and template - template takes precedence.
+    geonames.setResourceUrlTemplate("${resourceId}");
+    geonames.setSuffix(".rdf");
+    final ResourceUriGenerator suffixAndTemplate = dereferenceService.getResourceUriGenerator(geonames);
+    assertEquals(PLACE_ID, suffixAndTemplate.generateUri(PLACE_ID).toString());
+
+    // Test for just template.
+    geonames.setSuffix(null);
+    final ResourceUriGenerator suffixOnly = dereferenceService.getResourceUriGenerator(geonames);
+    assertEquals(PLACE_ID, suffixOnly.generateUri(PLACE_ID).toString());
+
+
+    // Test for just suffix
+    geonames.setSuffix(".rdf");
+    geonames.setResourceUrlTemplate(null);
+    final ResourceUriGenerator templateOnly = dereferenceService.getResourceUriGenerator(geonames);
+    assertEquals(PLACE_ID + geonames.getSuffix(), templateOnly.generateUri(PLACE_ID).toString());
   }
 }

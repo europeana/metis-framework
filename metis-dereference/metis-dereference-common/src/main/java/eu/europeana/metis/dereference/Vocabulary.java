@@ -45,8 +45,14 @@ public class Vocabulary implements Serializable {
 
   /**
    * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
+   * Note: if a value for <code>resourceUrlTemplate</code> is set, this suffix is ignored.
    */
   private String suffix;
+
+  /**
+   * The Resource URL template of the vocabulary: defines how to resolve resource IDs.
+   */
+  private String resourceUrlTemplate;
 
   /**
    * The value of the User Agent HTTP header to be used with the vocabulary. If null, the default
@@ -78,13 +84,38 @@ public class Vocabulary implements Serializable {
     this.uris = new HashSet<>(uris);
   }
 
+  /**
+   * Getter.
+   *
+   * @return The suffix.
+   * @deprecated Will be removed.
+   * TODO MET-6903
+   */
   @XmlElement
+  @Deprecated (forRemoval = true)
   public String getSuffix() {
     return suffix;
   }
 
+  /**
+   * Setter.
+   *
+   * @param suffix The suffix.
+   * @deprecated Will be removed.
+   * TODO MET-6903
+   */
+  @Deprecated (forRemoval = true)
   public void setSuffix(String suffix) {
     this.suffix = suffix;
+  }
+
+  @XmlElement
+  public String getResourceUrlTemplate() {
+    return resourceUrlTemplate;
+  }
+
+  public void setResourceUrlTemplate(String resourceUrlTemplate) {
+    this.resourceUrlTemplate = resourceUrlTemplate;
   }
 
   @XmlElement

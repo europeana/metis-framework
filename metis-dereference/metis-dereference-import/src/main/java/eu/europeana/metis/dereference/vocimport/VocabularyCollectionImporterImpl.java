@@ -84,6 +84,7 @@ record VocabularyCollectionImporterImpl(Location directoryLocation) implements V
         .setPaths(metadata.getPaths())
         .setParentIterations(metadata.getParentIterations())
         .setSuffix(metadata.getSuffix())
+        .setResourceUrlTemplate(metadata.getResourceUrlTemplate())
         .setUserAgent(metadata.getUserAgent())
         .setExamples(metadata.getExamples())
         .setCounterExamples(metadata.getCounterExamples())

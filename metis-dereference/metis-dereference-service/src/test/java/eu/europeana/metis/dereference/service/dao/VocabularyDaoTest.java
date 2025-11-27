@@ -17,7 +17,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Unit tests for {@link VocabularyDao} class
  */
@@ -102,6 +101,7 @@ class VocabularyDaoTest {
 
     assertEquals(expectedVocabulary.getName(), vocabulary.getName());
     assertEquals(expectedVocabulary.getSuffix(), vocabulary.getSuffix());
+    assertEquals(expectedVocabulary.getResourceUrlTemplate(), vocabulary.getResourceUrlTemplate());
     assertEquals(expectedVocabulary.getXslt(), vocabulary.getXslt());
     assertEquals(expectedVocabulary.getUris().stream().findFirst().get(), vocabulary.getUris().stream().findFirst().get());
     assertEquals(expectedVocabulary.getIterations(), vocabulary.getIterations());
@@ -114,6 +114,7 @@ class VocabularyDaoTest {
     Vocabulary vocabulary = new Vocabulary();
     vocabulary.setXslt("xlst");
     vocabulary.setSuffix("suffix");
+    vocabulary.setResourceUrlTemplate("resourceUrlTemplate");
     vocabulary.setUris(List.of("uri"));
     vocabulary.setIterations(0);
     vocabulary.setName("vocabularyName");
@@ -133,6 +134,7 @@ class VocabularyDaoTest {
       Vocabulary vocabulary = new Vocabulary();
       vocabulary.setName("vocabulary" + i);
       vocabulary.setSuffix("suffix" + i);
+      vocabulary.setResourceUrlTemplate("resourceUrlTemplate" + i);
       if (i % 2 == 0) {
         vocabulary.setUris(List.of("http://domain2.uri"));
       } else {

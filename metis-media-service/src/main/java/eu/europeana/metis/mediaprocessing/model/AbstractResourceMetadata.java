@@ -85,7 +85,7 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    *
    * @param resource The resource to update.
    */
-  protected void updateResource(WebResource resource) {
+  void updateResource(WebResource resource) {
     resource.setMimeType(mimeType);
     resource.setFileSize(contentSize);
   }
