@@ -44,7 +44,7 @@
     <edm:WebResource rdf:about=" http://www.cmcassociates.co.uk/Skara_Brae/scandata/house10/sb10_scandata_th.jpg">
         <edm:pointCount>10</edm:pointCount>
         <edm:polygonCount>10</edm:polygonCount>
-        <edm:verticeCount>10</edm:verticeCount>
+        <edm:vertexCount>10</edm:vertexCount>
         <rdfs:seeAlso rdf:resource="linkToOtherWebResourceExample"/>
         <schema:digitalSourceType rdf:resource="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"/>
         <edm:intendedUsage rdf:resource="http://data.europeana.eu/vocabulary/usageArea/Knowledge"/>
