@@ -41,6 +41,16 @@
       <artifactId>httpclient5</artifactId>
       <version>${version.apache.httpclient5}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.core5</groupId>
+      <artifactId>httpcore5</artifactId>
+      <version>${version.apache.httpcore5}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.core5</groupId>
+      <artifactId>httpcore5-h2</artifactId>
+      <version>${version.apache.httpcore5}</version>
+    </dependency>
   </dependencies>
   <dependencyManagement>
     <dependencies>
