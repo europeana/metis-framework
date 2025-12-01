@@ -7,7 +7,6 @@ import eu.europeana.enrichment.rest.client.ConnectionProvider;
 import eu.europeana.enrichment.rest.client.exceptions.EnrichmentException;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.entity.client.config.EntityClientConfiguration;
-import eu.europeana.entity.client.exception.EntityClientException;
 import java.util.Properties;
 import org.apache.commons.lang3.StringUtils;
 
