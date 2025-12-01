@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Instances of this class can perform dereferencing.
  */
-public interface Dereferencer {
+public interface Dereferencer extends AutoCloseable {
 
   /**
    * Performs the dereference procedure on a RDF

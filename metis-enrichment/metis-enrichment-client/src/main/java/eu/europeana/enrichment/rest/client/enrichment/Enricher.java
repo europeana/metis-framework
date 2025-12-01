@@ -13,7 +13,7 @@ import org.apache.commons.lang3.tuple.Pair;
 /**
  * Instances of this class can perform enrichment.
  */
-public interface Enricher {
+public interface Enricher extends AutoCloseable {
 
   /**
    * Performs the enrichment procedure on a RDF

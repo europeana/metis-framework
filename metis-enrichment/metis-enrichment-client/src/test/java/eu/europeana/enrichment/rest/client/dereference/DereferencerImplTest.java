@@ -323,6 +323,15 @@ class DereferencerImplTest {
     }
 
     @Test
+    void testDereferenceWithExceptionEntityResolver() throws EntityClientException {
+        final DereferenceClient dereferenceClient = mock(DereferenceClient.class);
+        final EntityMergeEngine entityMergeEngine = mock(EntityMergeEngine.class);
+        final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+        doThrow(EntityClientException.class).when(clientEntityResolverFactory).create();
+        assertThrows(IllegalArgumentException.class, () -> new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
+    }
+
+    @Test
     void testDereferenceWithEntityResolverException() throws EntityClientException, MalformedURLException {
         final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
         final ClientEntityResolver clientEntityResolver = Mockito.mock(ClientEntityResolver.class);

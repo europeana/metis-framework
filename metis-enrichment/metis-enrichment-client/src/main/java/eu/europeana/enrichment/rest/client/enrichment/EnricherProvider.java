@@ -63,21 +63,20 @@ public class EnricherProvider extends ConnectionProvider {
      */
     public Enricher create() throws EnrichmentException {
 
-        // Create the entity resolver
-        final EntityClientConfiguration entityClientConfiguration;
-        if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
-                && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
-            final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
-                entityApiTokenEndpoint, entityApiGrantParams);
-            entityClientConfiguration = new EntityClientConfiguration(properties);
-        } else {
-            throw new EnrichmentException("We must have either a non-null entity resolver creator,"
-                    + " or a non-blank enrichment URL.", null);
-        }
+      // Create the entity resolver configuration
+      final EntityClientConfiguration entityClientConfiguration;
+      if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
+          && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
+        final Properties properties = buildEntityApiClientProperties(entityManagementUrl, entityApiUrl,
+            entityApiTokenEndpoint, entityApiGrantParams);
+        entityClientConfiguration = new EntityClientConfiguration(properties);
+      } else {
+        throw new EnrichmentException("We must have either a non-null entity resolver creator,"
+            + " or a non-blank enrichment URL.", null);
+      }
 
-        // Done.
+      // Done.
         return new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
             new ClientEntityResolverFactory(entityClientConfiguration), new EntityMergeEngine());
     }
-
 }
