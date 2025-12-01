@@ -60,13 +60,16 @@ public class EnricherImpl implements Enricher {
    * @param recordParser the record parser
    * @param entityResolverFactory the client entity resolver factory
    * @param entityMergeEngine the entity merge engine
-   * @throws EntityClientException the entity client exception
    */
   public EnricherImpl(RecordParser recordParser,
       ClientEntityResolverFactory entityResolverFactory,
-      EntityMergeEngine entityMergeEngine) throws EntityClientException {
+      EntityMergeEngine entityMergeEngine) {
+    try {
+      this.entityResolver = entityResolverFactory.create();
+    } catch (EntityClientException e) {
+      throw new IllegalArgumentException("Could not create entity resolver from factory.", e);
+    }
     this.recordParser = recordParser;
-    this.entityResolver = entityResolverFactory.create();
     this.entityMergeEngine = entityMergeEngine;
   }
 

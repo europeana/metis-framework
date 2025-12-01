@@ -64,7 +64,7 @@ public class EnricherProvider extends ConnectionProvider {
      */
     public Enricher create() throws EnrichmentException {
 
-      // Create the entity resolver
+      // Create the entity resolver configuration
       final EntityClientConfiguration entityClientConfiguration;
       if (StringUtils.isNotBlank(entityManagementUrl) && StringUtils.isNotBlank(entityApiUrl)
           && StringUtils.isNotBlank(entityApiTokenEndpoint) && StringUtils.isNotBlank(entityApiGrantParams)) {
@@ -77,13 +77,7 @@ public class EnricherProvider extends ConnectionProvider {
       }
 
       // Done.
-      final Enricher enricher;
-      try {
-        enricher = new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
+        return new EnricherImpl(recordParser == null ? new MetisRecordParser() : recordParser,
             new ClientEntityResolverFactory(entityClientConfiguration), new EntityMergeEngine());
-      } catch (EntityClientException entityClientException) {
-        throw new EnrichmentException("Error creating the entity resolver for the enricher.", entityClientException);
-      }
-      return enricher;
     }
 }

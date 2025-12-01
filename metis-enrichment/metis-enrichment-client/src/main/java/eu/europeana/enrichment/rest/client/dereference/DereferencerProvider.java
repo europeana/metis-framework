@@ -97,17 +97,11 @@ public class DereferencerProvider extends ConnectionProvider {
       entityClientConfiguration = null;
     }
 
-    final Dereferencer dereferencer;
-    try {
-      dereferencer = new DereferencerImpl(
-          new EntityMergeEngine(),
-          new ClientEntityResolverFactory(entityClientConfiguration),
-          dereferenceClient);
-    } catch (EntityClientException entityClientException) {
-      throw new DereferenceException("Error creating the entity resolver for the dereferencer.", entityClientException);
-    }
     // Done.
-    return dereferencer;
+    return new DereferencerImpl(
+        new EntityMergeEngine(),
+        new ClientEntityResolverFactory(entityClientConfiguration),
+        dereferenceClient);
   }
 
   private boolean hasEntityApiClientProperties() {

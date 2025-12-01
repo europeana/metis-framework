@@ -55,19 +55,22 @@ public class DereferencerImpl implements Dereferencer {
    * @param entityMergeEngine The entity merge engine. Cannot be null. Is required.
    * @param entityResolverFactory the client entity resolver factory. Cannot be null. Is required.
    * @param dereferenceClient Dereference client. Can be null if we don't dereference own entities.
-   * @throws EntityClientException the entity client exception
    */
   public DereferencerImpl(EntityMergeEngine entityMergeEngine,
       ClientEntityResolverFactory entityResolverFactory,
-      DereferenceClient dereferenceClient) throws EntityClientException {
+      DereferenceClient dereferenceClient) {
     if (entityMergeEngine == null) {
       throw new IllegalArgumentException("You need to specify an entityMergeEngine");
     }
     if (entityResolverFactory == null) {
       throw new IllegalArgumentException("You need to specify an entityResolverFactory");
     }
+    try {
+      this.entityResolver = entityResolverFactory.create();
+    } catch (EntityClientException e) {
+      throw new IllegalArgumentException("Could not create entity resolver from factory.", e);
+    }
     this.entityMergeEngine = entityMergeEngine;
-    this.entityResolver = entityResolverFactory.create();
     this.dereferenceClient = dereferenceClient;
   }
 
