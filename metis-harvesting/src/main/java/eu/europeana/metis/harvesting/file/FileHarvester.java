@@ -21,4 +21,12 @@ public interface FileHarvester {
    */
   HarvestingIterator<Path, Path> createHarvestIteratorFromArchive(Path archivePath, Path extractionDirectory)
       throws HarvesterException;
+
+  /**
+   * Converts a partitioned {@link Path} into its canonical path.
+   *
+   * @param partitionedPath the partitioned {@link Path} to be converted
+   * @return the canonical path of the partitioned path
+   */
+  Path convertPartitionedPathToCanonical(Path partitionedPath);
 }

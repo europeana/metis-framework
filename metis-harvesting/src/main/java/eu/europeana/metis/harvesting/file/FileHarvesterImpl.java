@@ -24,4 +24,9 @@ public class FileHarvesterImpl implements FileHarvester {
     Path path = CompressedFileExtension.removeExtension(archivePath);
     return new PathIterator(path);
   }
+
+  @Override
+  public Path convertPartitionedPathToCanonical(Path partitionedPath) {
+    return CompressedFileHandler.convertPartitionedPathToOriginal(partitionedPath);
+  }
 }
