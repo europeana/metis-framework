@@ -16,6 +16,7 @@ import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.search.v2.SolrIndexerIT.SolrIndexerLocalConfigTest;
+import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import eu.europeana.metis.schema.jibx.RDF;
@@ -64,7 +65,7 @@ class SolrIndexerIT {
   private SolrClient solrClient;
 
   private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
-      true, List.of(), true, true);
+      true, List.of(), true, TierCalculationMode.OVERWRITE);
 
   /**
    * Dynamic properties.
