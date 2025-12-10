@@ -3,7 +3,6 @@ package eu.europeana.indexing.base;
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -17,20 +16,21 @@ import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.SolrClientUtils;
 import org.testcontainers.containers.SolrClientUtilsException;
 import org.testcontainers.containers.SolrContainerConfiguration;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
+import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.shaded.okhttp3.HttpUrl;
 import org.testcontainers.shaded.okhttp3.MediaType;
 import org.testcontainers.shaded.okhttp3.OkHttpClient;
 import org.testcontainers.shaded.okhttp3.Request;
 import org.testcontainers.shaded.okhttp3.RequestBody;
 import org.testcontainers.shaded.okhttp3.Response;
-import org.testcontainers.shaded.org.apache.commons.io.IOUtils;
-import org.testcontainers.shaded.org.apache.commons.lang3.StringUtils;
 import org.testcontainers.utility.DockerImageName;
 
 
@@ -65,6 +65,18 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
   /**
    * Instantiates a new Solr metis container.
    *
+   * @param imageFromDockerfile the image from dockerfile
+   */
+  public SolrMetisContainer(ImageFromDockerfile imageFromDockerfile) {
+    super(imageFromDockerfile);
+    this.waitStrategy = (new LogMessageWaitStrategy()).withRegEx(".*o\\.e\\.j\\.s\\.Server Started.*").withStartupTimeout(
+        Duration.of(60L, ChronoUnit.SECONDS));
+    this.configuration = new SolrContainerConfiguration();
+  }
+
+  /**
+   * Instantiates a new Solr metis container.
+   *
    * @param dockerImageName the docker image name
    */
   public SolrMetisContainer(DockerImageName dockerImageName) {
@@ -84,11 +96,10 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
    * @param solrConfig the solr config
    * @param solrSchema the solr schema
    * @param configSchemaFiles the config schema files
-   * @throws URISyntaxException the uri syntax exception
    * @throws IOException the io exception
    */
   public static void uploadConfiguration(String hostname, int port, String configurationName, URL solrConfig, URL solrSchema,
-      List<URL> configSchemaFiles) throws URISyntaxException, IOException {
+      List<URL> configSchemaFiles) throws  IOException {
     Map<String, String> parameters = new HashMap();
     parameters.put("action", "UPLOAD");
     parameters.put("name", configurationName);
@@ -98,8 +109,8 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
   }
 
   private static void executePost(HttpUrl url, byte[] data) throws IOException {
-    RequestBody requestBody = data == null ? RequestBody.create(MediaType.parse("text/plain"), "")
-        : RequestBody.create(MediaType.parse("application/octet-stream"), data);
+    RequestBody requestBody = data == null ? RequestBody.Companion.create("", MediaType.parse("text/plain"))
+        : RequestBody.Companion.create(data, MediaType.parse("application/octet-stream"));
     Request request = (new Request.Builder()).url(url).post(requestBody).build();
     Response response = httpClient.newCall(request).execute();
     if (!response.isSuccessful()) {
