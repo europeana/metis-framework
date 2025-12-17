@@ -106,7 +106,6 @@ public final class EntityValuesConverter {
     vcardAddress.setStreetAddress(address.getVcardStreetAddress());
     vcardAddress.setPostalCode(address.getVcardPostalCode());
     vcardAddress.setPostOfficeBox(address.getVcardPostOfficeBox());
-    vcardAddress.setHasGeo(new Resource(address.getVcardHasGeo()));
     return vcardAddress;
   }
 
