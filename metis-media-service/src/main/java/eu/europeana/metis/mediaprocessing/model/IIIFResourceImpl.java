@@ -15,16 +15,20 @@ public class IIIFResourceImpl implements IIIFResource {
 
   private final Resource resource;
   private final IIIFInfoJson iiifInfoJson;
+  private final String resourceUrl;
 
   /**
    * Constructor.
    *
    * @param resource the resource to wrap.
    * @param iiifInfoJson the iiif info json of the iiif resource
+   * @param resourceUrl the resource URL, how the resource is referenced/known. This will override
+   *                    the value with the same name in the wrapped resource.
    */
-  public IIIFResourceImpl(Resource resource, IIIFInfoJson iiifInfoJson) {
+  public IIIFResourceImpl(Resource resource, IIIFInfoJson iiifInfoJson, String resourceUrl) {
     this.resource = resource;
     this.iiifInfoJson = iiifInfoJson;
+    this.resourceUrl = resourceUrl;
   }
 
   @Override
@@ -59,7 +63,7 @@ public class IIIFResourceImpl implements IIIFResource {
 
   @Override
   public String getResourceUrl() {
-    return resource.getResourceUrl();
+    return this.resourceUrl;
   }
 
   @Override

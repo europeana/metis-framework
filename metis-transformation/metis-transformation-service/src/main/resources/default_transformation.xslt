@@ -293,7 +293,7 @@
       <xsl:apply-templates select="edm:componentColor"/>
       <xsl:apply-templates select="edm:pointCount"/>
       <xsl:apply-templates select="edm:polygonCount"/>
-      <xsl:apply-templates select="edm:verticeCount"/>
+      <xsl:apply-templates select="edm:vertexCount"/>
       <xsl:apply-templates select="rdfs:seeAlso"/>
       <xsl:apply-templates select="ebucore:orientation"/>
       <xsl:apply-templates select="ebucore:audioChannelNumber"/>

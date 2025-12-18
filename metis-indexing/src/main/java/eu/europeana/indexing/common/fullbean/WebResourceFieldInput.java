@@ -290,7 +290,7 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     metaInfo.setFileSize(convertToLong(source.getFileByteSize()));
     metaInfo.setPointCount(convertToLong(source.getPointCount()));
     metaInfo.setPolygonCount(convertToLong(source.getPolygonCount()));
-    metaInfo.setVerticeCount(convertToLong(source.getVerticeCount()));
+    metaInfo.setVertexCount(convertToLong(source.getVertexCount()));
     target.setThreeDMetaInfo(metaInfo);
   }
 

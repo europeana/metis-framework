@@ -5,7 +5,7 @@
   <parent>
     <artifactId>metis-debias</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>15.2</version>
+    <version>16</version>
   </parent>
   <artifactId>metis-debias-detect-service</artifactId>
   <dependencies>
@@ -39,7 +39,17 @@
     <dependency>
       <groupId>org.apache.httpcomponents.client5</groupId>
       <artifactId>httpclient5</artifactId>
-      <version>${version.apache.httpclient}</version>
+      <version>${version.apache.httpclient5}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.core5</groupId>
+      <artifactId>httpcore5</artifactId>
+      <version>${version.apache.httpcore5}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents.core5</groupId>
+      <artifactId>httpcore5-h2</artifactId>
+      <version>${version.apache.httpcore5}</version>
     </dependency>
   </dependencies>
   <dependencyManagement>

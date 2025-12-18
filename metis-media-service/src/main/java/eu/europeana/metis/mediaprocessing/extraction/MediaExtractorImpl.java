@@ -10,11 +10,11 @@ import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
+import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
-import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
 public class MediaExtractorImpl implements MediaExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
+  public static final String PNG_FILE_EXTENSION = ".png";
+  public static final String JPEG_FILE_EXTENSION = ".jpeg";
 
   enum ProcessingMode {FULL, REDUCED, NONE}
 
@@ -146,8 +148,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Download resource and then perform media extraction on it.
-    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode, resourceEntry.getResourceKind())) {
-      return performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry.getResourceKind());
+    try (Resource resource = downloadBasedOnProcessingMode(resourceEntry, mode)) {
+      return performProcessing(resource, mode, mainThumbnailAvailable, resourceEntry);
     } catch (IOException | RuntimeException e) {
       throw new MediaExtractionException(
           String.format("Problem while processing %s", resourceEntry.getResourceUrl()), e);
@@ -163,10 +165,10 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   private Resource downloadBasedOnProcessingMode(RdfResourceEntry resourceEntry,
-      ProcessingMode mode, RdfResourceKind rdfResourceKind) throws IOException {
+      ProcessingMode mode) throws IOException {
 
     // Determine the download method to use (full download vs. quick ping)
-    final ResourceDownloadClient client = getResourceDownloadClient(rdfResourceKind);
+    final ResourceDownloadClient client = getResourceDownloadClient(resourceEntry.getResourceKind());
     final Resource resource;
     if (mode == ProcessingMode.FULL) {
 
@@ -181,7 +183,8 @@ public class MediaExtractorImpl implements MediaExtractor {
       // Create the resource depending on whether there is info JSON content.
       if (infoJson != null) {
         resource = new IIIFResourceImpl(client.downloadBasedOnMimeType(
-            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson);
+            IIIFValidation.adjustResourceEntryToSmallIIIF(resourceEntry, infoJson)), infoJson,
+            resourceEntry.getResourceUrl());
       } else {
         resource = client.downloadBasedOnMimeType(resourceEntry);
       }
@@ -280,14 +283,14 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   void verifyAndCorrectContentAvailability(Resource resource, ProcessingMode mode,
-      String detectedMimeType, RdfResourceKind rdfResourceKind)
+      String detectedMimeType, RdfResourceKind rdfResourceKind, String serviceReference)
       throws MediaExtractionException, IOException {
 
     // If the mime type changed, and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
       final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
-          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind);
+          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
 
       ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
         if (resourceWithContent.hasContent()) {
@@ -311,7 +314,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   }
 
   ResourceExtractionResult performProcessing(Resource resource, ProcessingMode mode,
-      boolean mainThumbnailAvailable, RdfResourceKind rdfResourceKind) throws MediaExtractionException {
+      boolean mainThumbnailAvailable, RdfResourceEntry originalRdfResourceEntry) throws MediaExtractionException {
 
     // Sanity check - shouldn't be called for this mode.
     if (mode == ProcessingMode.NONE) {
@@ -324,14 +327,15 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Verify that we have content when we need to. This can happen if the resource doesn't come
     // with the correct mime type. We correct this here.
     try {
-      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType, rdfResourceKind);
+      verifyAndCorrectContentAvailability(resource, mode, detectedMimeType,
+          originalRdfResourceEntry.getResourceKind(), originalRdfResourceEntry.getServiceReference());
     } catch (IOException e) {
       throw new MediaExtractionException("Content availability verification error.", e);
     }
 
     // Choose the right media processor.
     final List<MediaProcessor> processors = chooseMediaProcessor(
-        MediaType.getMediaType(detectedMimeType), detectedMimeType, rdfResourceKind);
+        MediaType.getMediaType(detectedMimeType), detectedMimeType, originalRdfResourceEntry.getResourceKind());
 
     // Go in order, the first result we get, we accept.
     for (MediaProcessor processor: processors) {

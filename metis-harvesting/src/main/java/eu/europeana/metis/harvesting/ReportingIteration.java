@@ -12,18 +12,12 @@ import java.io.IOException;
 public interface ReportingIteration<T> {
 
   /**
-   * The result of an iteration, indicating whether to proceed.
-   */
-  enum IterationResult {TERMINATE, CONTINUE}
-
-  /**
    * Perform one iteration for the given data.
    *
    * @param data The data to process.
    * @return Whether to continue processing.
-   * @throws IOException in case there was a harvesting related issue. This will cause the remaining
-   *                     records not to be processed (as if {@link IterationResult#TERMINATE} was
-   *                     passed).
+   * @throws IOException in case there was a harvesting-related issue. This will cause the remaining
+   *                     records not to be processed.
    */
-  IterationResult process(T data) throws IOException;
+  boolean process(T data) throws IOException;
 }

@@ -17,7 +17,8 @@ import java.io.InputStream;
 interface ResourceRelatedFile extends Closeable {
 
   /**
-   * @return The resource URL of the resource with which this file is associated.
+   * @return The resource URL of the resource with which this file is associated. This may not be
+   * the actual location of the data, but it is the one by which this web resource is referenced.
    */
   String getResourceUrl();
 

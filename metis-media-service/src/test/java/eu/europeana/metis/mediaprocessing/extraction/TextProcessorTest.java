@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -92,7 +93,7 @@ class TextProcessorTest {
     // Verify
     assertNotNull(result);
     assertNotNull(result.getOriginalMetadata());
-    assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
+    assertInstanceOf(TextResourceMetadata.class, result.getOriginalMetadata());
     assertEquals(mediaType, result.getOriginalMetadata().getMimeType());
     assertEquals(fileSize, result.getOriginalMetadata().getContentSize());
     assertEquals(url, result.getOriginalMetadata().getResourceUrl());
@@ -107,7 +108,7 @@ class TextProcessorTest {
 
     // Define input
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "detected mime type";
@@ -118,7 +119,7 @@ class TextProcessorTest {
     final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType, true);
 
     // Verify result metadata general properties
-    assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
+    assertInstanceOf(TextResourceMetadata.class, result.getOriginalMetadata());
     final TextResourceMetadata metadata = (TextResourceMetadata) result.getOriginalMetadata();
     assertEquals(rdfResourceEntry.getResourceUrl(), metadata.getResourceUrl());
     assertEquals(detectedMimeType, metadata.getMimeType());
@@ -161,7 +162,7 @@ class TextProcessorTest {
     final File contentFile = new File("content");
     doReturn(contentFile).when(contentPath).toFile();
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry("testUrl",
-        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
     final ResourceImpl resource = spy(
         new ResourceImpl(rdfResourceEntry, null, null, URI.create("http://www.test.com")));
     final String detectedMimeType = "application/pdf";
@@ -198,7 +199,7 @@ class TextProcessorTest {
     final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, detectedMimeType, false);
 
     // Verify result metadata general properties
-    assertTrue(result.getOriginalMetadata() instanceof TextResourceMetadata);
+    assertInstanceOf(TextResourceMetadata.class, result.getOriginalMetadata());
     final TextResourceMetadata metadata = (TextResourceMetadata) result.getOriginalMetadata();
     assertEquals(rdfResourceEntry.getResourceUrl(), metadata.getResourceUrl());
     assertEquals(detectedMimeType, metadata.getMimeType());

@@ -16,6 +16,7 @@ import eu.europeana.indexing.base.TestContainerType;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
 import eu.europeana.indexing.record.v2.MongoIndexerIT.MongoIndexerLocalConfigTest;
+import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
 import eu.europeana.metis.mongo.dao.RecordDao;
@@ -50,7 +51,7 @@ class MongoIndexerIT {
   private RecordDao recordDao;
 
   private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
-      true, List.of(), true, true);
+      true, List.of(), true, TierCalculationMode.OVERWRITE);
 
   /**
    * Dynamic properties.

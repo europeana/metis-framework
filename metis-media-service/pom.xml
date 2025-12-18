@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>15.2</version>
+    <version>16</version>
   </parent>
   <artifactId>metis-media-service</artifactId>
 

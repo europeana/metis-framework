@@ -53,7 +53,7 @@
         <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
         <edm:pointCount>10</edm:pointCount>
         <edm:polygonCount>10</edm:polygonCount>
-        <edm:verticeCount>10</edm:verticeCount>
+        <edm:vertexCount>10</edm:vertexCount>
         <rdfs:seeAlso rdf:resource="linkToOtherWebResourceExample"/>
         <schema:digitalSourceType rdf:resource="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"/>
         <edm:intendedUsage rdf:resource="http://data.europeana.eu/vocabulary/usageArea/InvalidValue"/>

@@ -162,6 +162,7 @@ class TestValidationExecution {
         .singleValidation(EDM_EXTERNAL, "EDM-EXTERNAL.xsd", "schematron/schematron.xsl",
             fileToValidate);
     assertFalse(result.isSuccess());
+    System.out.println(result.getMessage());
     assertTrue(result.getMessage().startsWith(
         "Schematron error: Invalid edm:WebResource/schema:digitalSourceType: @rdf:resource must be one of"));
 

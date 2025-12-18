@@ -20,7 +20,6 @@ public class IndexingProperties {
   private final boolean preserveUpdateAndCreateTimesFromRdf;
   private final List<String> datasetIdsForRedirection;
   private final boolean performRedirects;
-  private final boolean performTierCalculation;
   private final TierCalculationMode tierCalculationMode;
   private final EnumSet<EdmType> typesEnabledForTierCalculation;
 
@@ -62,62 +61,6 @@ public class IndexingProperties {
     this.performRedirects = performRedirects;
     this.typesEnabledForTierCalculation = EnumSet.copyOf(typesEnabledForTierCalculation);
     this.tierCalculationMode = tierCalculationMode;
-    if (tierCalculationMode.equals(TierCalculationMode.SKIP)) {
-      this.performTierCalculation = false;
-    } else {
-      this.performTierCalculation = tierCalculationMode.equals(TierCalculationMode.OVERWRITE)
-          || tierCalculationMode.equals(TierCalculationMode.INITIALISE);
-    }
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param recordDate The date that would represent the created/updated date of a record. Can be null.
-   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
-   * updated and created dates that are set in the input record or if they should be recomputed
-   * using any equivalent record that is currently in the database.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
-   * @param performRedirects flag that indicates whether redirect should be performed.
-   * @param performTierCalculation flag that indicates whether tier calculation should be performed.
-   * @deprecated in favor To start using TierCalculationMode
-   */
-  @Deprecated(since = "To start using TierCalculationMode")
-  public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf, List<String> datasetIdsForRedirection,
-      boolean performRedirects, boolean performTierCalculation) {
-    this(recordDate, preserveUpdateAndCreateTimesFromRdf, datasetIdsForRedirection, performRedirects, performTierCalculation,
-        EnumSet.allOf(EdmType.class));
-  }
-
-  /**
-   * Constructor allowing specific types for tier re-calculation.
-   *
-   * @param recordDate The date that would represent the created/updated date of a record. Can be null.
-   * @param preserveUpdateAndCreateTimesFromRdf This regulates whether we should preserve (use) the
-   * updated and created dates that are set in the input record or if they should be recomputed
-   * using any equivalent record that is currently in the database.
-   * @param datasetIdsForRedirection The dataset ids that their records need to be redirected. Can be null.
-   * @param performRedirects flag that indicates whether redirect should be performed.
-   * @param performTierCalculation flag that indicates whether tier calculation should be performed.
-   * @param typesEnabledForTierCalculation the types enabled for tier calculation if enabled.
-   * @deprecated in favor To start using TierCalculationMode
-   */
-  @Deprecated(since = "To start using TierCalculationMode")
-  public IndexingProperties(Date recordDate, boolean preserveUpdateAndCreateTimesFromRdf,
-      List<String> datasetIdsForRedirection, boolean performRedirects,
-      boolean performTierCalculation, Set<EdmType> typesEnabledForTierCalculation) {
-    this.recordDate = recordDate == null ? null : new Date(recordDate.getTime());
-    this.preserveUpdateAndCreateTimesFromRdf = preserveUpdateAndCreateTimesFromRdf;
-    this.datasetIdsForRedirection = Optional.ofNullable(datasetIdsForRedirection)
-                                            .<List<String>>map(ArrayList::new).orElseGet(Collections::emptyList);
-    this.performRedirects = performRedirects;
-    this.performTierCalculation = performTierCalculation;
-    if (performTierCalculation) {
-      this.tierCalculationMode = TierCalculationMode.OVERWRITE;
-    } else {
-      this.tierCalculationMode = TierCalculationMode.SKIP;
-    }
-    this.typesEnabledForTierCalculation = EnumSet.copyOf(typesEnabledForTierCalculation);
   }
 
   /**
@@ -146,15 +89,6 @@ public class IndexingProperties {
    */
   public boolean isPerformRedirects() {
     return performRedirects;
-  }
-
-  /**
-   * @return Whether tier calculation should be performed.
-   * @deprecated in favor To start using getTierCalculationMode
-   */
-  @Deprecated(since = "To start using getTierCalculationMode")
-  public boolean isPerformTierCalculation() {
-    return performTierCalculation;
   }
 
   /**

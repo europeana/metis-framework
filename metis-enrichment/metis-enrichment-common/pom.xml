@@ -4,14 +4,9 @@
   <parent>
     <artifactId>metis-enrichment</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>15.2</version>
+    <version>16</version>
   </parent>
   <artifactId>metis-enrichment-common</artifactId>
-
-  <properties>
-    <version.entity-api-client>2.2.1-SNAPSHOT</version.entity-api-client>
-    <version.caffeine>3.2.0</version.caffeine>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -32,7 +27,7 @@
     </dependency>
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
@@ -50,11 +45,27 @@
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-storage</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-schemaorg</artifactId>
       <version>${version.corelib}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient-cache</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -64,39 +75,40 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
     </dependency>
-     <!-- Entity Client dependency. Includes Entity management Model classes used in common module-->
+    <!-- Entity Client dependency. Includes Entity management Model classes used in common module-->
     <dependency>
-        <groupId>eu.europeana.api</groupId>
-        <artifactId>entity-api-client</artifactId>
-        <version>${version.entity-api-client}</version>
-        <exclusions>
-            <exclusion>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-xml</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.slf4j</groupId>
-              <artifactId>jcl-over-slf4j</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>org.apache.logging.log4j</groupId>
-              <artifactId>*</artifactId>
-            </exclusion>
-          <exclusion>
-            <groupId>eu.europeana.corelib</groupId>
-            <artifactId>corelib-schemaorg</artifactId>
-          </exclusion>
-        </exclusions>
+      <groupId>eu.europeana.api</groupId>
+      <artifactId>entity-api-client</artifactId>
+      <version>${version.entity-api-client}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.dataformat</groupId>
+          <artifactId>jackson-dataformat-xml</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jcl-over-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>eu.europeana.corelib</groupId>
+          <artifactId>corelib-schemaorg</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
       <version>${version.caffeine}</version>
     </dependency>
+    <!-- Test dependencies -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>

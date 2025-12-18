@@ -141,8 +141,8 @@ class WebResourceMetaInfoUpdaterTest extends
         createSetterForThreeD(ThreeDMetaInfoImpl::setPointCount), 28L);
     testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.polygonCount",
         createSetterForThreeD(ThreeDMetaInfoImpl::setPolygonCount), 46L);
-    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.verticeCount",
-        createSetterForThreeD(ThreeDMetaInfoImpl::setVerticeCount), 92L);
+    testObjectPropertyUpdate(propertyUpdater,"threeDMetaInfo.vertexCount",
+        createSetterForThreeD(ThreeDMetaInfoImpl::setVertexCount), 92L);
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }

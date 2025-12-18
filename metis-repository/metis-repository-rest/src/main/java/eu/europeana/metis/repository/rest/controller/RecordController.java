@@ -1,7 +1,6 @@
 package eu.europeana.metis.repository.rest.controller;
 
 import eu.europeana.metis.harvesting.HarvesterException;
-import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
 import eu.europeana.metis.harvesting.http.HttpHarvesterImpl;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
@@ -136,7 +135,7 @@ public class RecordController {
         }
         final String recordId = datasetId + "_" + FilenameUtils.getBaseName(entry.getHarvestingIdentifier());
         saveRecord(recordId, new String(content, StandardCharsets.UTF_8), result, false);
-        return IterationResult.CONTINUE;
+        return true;
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
 

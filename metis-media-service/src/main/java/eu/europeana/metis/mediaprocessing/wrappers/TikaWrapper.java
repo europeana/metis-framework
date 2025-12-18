@@ -1,7 +1,10 @@
 package eu.europeana.metis.mediaprocessing.wrappers;
 
+import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 
@@ -25,20 +28,19 @@ public class TikaWrapper {
    * @param inputStream The input stream to detect from
    * @param metadata The metadata associated with the input stream
    * @return The mime type detected from the input stream
-   * @throws IOException
+   * @throws IOException in case detection fails
    */
   public String detect(InputStream inputStream, Metadata metadata) throws IOException {
+    String detect = tika.detect(inputStream, metadata);
 
-    // Do the detection. Create a markable input stream for tika to use, so that the marking it does
-    // will not interfere with our mark above.
-    String detectedMimeType = tika.detect(inputStream, metadata);
-
-    // Normalize STL files (a 3D format).
-    if (detectedMimeType.equals("application/vnd.ms-pki.stl")) {
-      return "model/x.stl-binary";
+    //LAS normalization. We have to do a code matching since the glob matching already exists in tika.mimetypes.xml
+    if ("application/x-asprs".equals(detect)) {
+      if (metadata.get(RESOURCE_NAME_KEY).toLowerCase(Locale.ROOT).endsWith(".laz")) {
+        detect = "application/vnd.laszip";
+      } else {
+        detect = "application/vnd.las";
+      }
     }
-
-    // Done
-    return detectedMimeType;
+    return detect;
   }
 }

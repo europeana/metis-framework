@@ -3,6 +3,7 @@ package eu.europeana.enrichment.rest.client.enrichment;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anySet;
@@ -300,6 +301,15 @@ class EnricherImplTest {
     // Then verify
     assertNotNull(enrichReferences);
     assertEquals(getExpectedReportMessagesError4Flow(),enrichReferences.getRight());
+  }
+
+  @Test
+  void testEnricherWithExceptionEntityResolver() throws EntityClientException {
+    final RecordParser recordParser = Mockito.mock(RecordParser.class);
+    final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
+    final ClientEntityResolverFactory clientEntityResolverFactory = Mockito.mock(ClientEntityResolverFactory.class);
+    doThrow(EntityClientException.class).when(clientEntityResolverFactory).create();
+    assertThrows(IllegalArgumentException.class, () -> new EnricherImpl(recordParser, clientEntityResolverFactory, entityMergeEngine));
   }
 
   private void verifyEnricherExeptionFlow(RecordParser recordParser, ClientEntityResolver entityResolver,

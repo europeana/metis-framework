@@ -46,7 +46,8 @@ class OEmbedProcessorTest {
     final String resourceUrl = String.format("http://localhost:%d/api/resource?url=https://vimeo.com/24416915",
         wireMockExtension.getPort());
 
-    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl, Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD);
+    final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl,
+        Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.STANDARD, null);
     final Resource resource = resourceDownloadClient.downloadBasedOnMimeType(rdfResourceEntry);
     return new OEmbedResourceTest(resourceUrl, detectedMimeType, resource);
   }

@@ -3,9 +3,10 @@ package eu.europeana.metis.harvesting.oaipmh;
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
 
 import eu.europeana.metis.harvesting.HarvesterException;
+import eu.europeana.metis.harvesting.HarvesterRuntimeException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.ReportingIteration;
-import eu.europeana.metis.harvesting.ReportingIteration.IterationResult;
+import eu.europeana.metis.harvesting.file.CloseableIterator;
 import io.gdcc.xoai.model.oaipmh.results.record.Header;
 import io.gdcc.xoai.model.oaipmh.verbs.Verb;
 import io.gdcc.xoai.serviceprovider.ServiceProvider;
@@ -34,8 +35,10 @@ import org.xml.sax.InputSource;
 
 /**
  * Iterator for harvesting. It wraps a source iterator and provides additional closing functionality for the connection client.
+ *
+ * @param <R> The type of data returned by the iterator after post-processing the headers.
  */
-class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader> {
+public class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static final String COMPLETE_LIST_SIZE_XPATH =
@@ -111,7 +114,7 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
       while (getOrCreateSource().hasNext()) {
         final Header header = Optional.of(getOrCreateSource().next())
                                       .orElseThrow(() -> new HarvesterException("Unexpected null header."));
-        if (singleIteration.process(header) == IterationResult.TERMINATE) {
+        if (!singleIteration.process(header)) {
           break;
         }
       }
@@ -142,6 +145,37 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
   @Override
   public void close() throws IOException {
     this.oaiClient.close();
+  }
+
+  @Override
+  public CloseableIterator<R> getCloseableIterator() {
+    try {
+      Iterator<Header> headerIterator = getOrCreateSource();
+      return new CloseableIterator<>() {
+        @Override
+        public boolean hasNext() {
+          return headerIterator.hasNext();
+        }
+
+        @Override
+        public R next() {
+          Header header = headerIterator.next();
+          try {
+            OaiRecordHeader oaiHeader = OaiRecordHeader.convert(header);
+            return postProcessing.apply(oaiHeader, oaiClient, harvest);
+          } catch (HarvesterException e) {
+            throw new HarvesterRuntimeException("Error during OAI iteration", e);
+          }
+        }
+
+        @Override
+        public void close() {
+          //Nothing to do.
+        }
+      };
+    } catch (HarvesterException e) {
+      throw new HarvesterRuntimeException("Cannot create iterator", e);
+    }
   }
 
   private static Integer readCompleteListSizeFromXML(InputStream stream) throws HarvesterException {
@@ -200,19 +234,18 @@ class OaiHarvestingIterator<R> implements HarvestingIterator<R, OaiRecordHeader>
      * @return the iteration result indicating whether there is more items available.
      * @throws HarvesterException if something went wrong
      */
-    public IterationResult process(Header header) throws HarvesterException {
+    public boolean process(Header header) throws HarvesterException {
       final OaiRecordHeader oaiRecordHeader = OaiRecordHeader.convert(header);
       if (filter.test(oaiRecordHeader)) {
         final O postProcessResult = Optional.ofNullable(recordOaiHeaderPostProcessing.apply(oaiRecordHeader, oaiClient, harvest))
                                             .orElseThrow(() -> new HarvesterException("Post processing result cannot be null."));
         try {
-          return Optional.ofNullable(action.process(postProcessResult))
-                         .orElseThrow(() -> new HarvesterException("Iteration result cannot be null."));
+          return action.process(postProcessResult);
         } catch (IOException e) {
           throw new HarvesterException("Problem while processing: " + oaiRecordHeader.getOaiIdentifier(), e);
         }
       }
-      return IterationResult.CONTINUE;
+      return true;
     }
   }
 }
