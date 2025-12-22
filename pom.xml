@@ -92,9 +92,9 @@
     <version.spring>6.1.5</version.spring>
     <version.spring.boot>3.4.10</version.spring.boot>
     <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
-    <version.springdoc-openapi-starter-webmvc-ui>2.3.0</version.springdoc-openapi-starter-webmvc-ui>
+    <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
-    <version.swagger.annotations>1.6.2</version.swagger.annotations>
+    <version.swagger.annotations>1.6.16</version.swagger.annotations>
     <version.tika.core>2.9.4</version.tika.core>
     <version.org.wiremock>3.4.2</version.org.wiremock>
     <version.testcontainers>2.0.2</version.testcontainers>
