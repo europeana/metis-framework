@@ -1,16 +1,13 @@
 package eu.europeana.metis.mediaprocessing.http;
 
-import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
-
+import eu.europeana.metis.mediaprocessing.model.RemoteResourceMetadata;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.network.AbstractHttpClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tika.Tika;
-import org.apache.tika.metadata.Metadata;
 import org.springframework.http.ContentDisposition;
 
 /**
@@ -39,33 +36,6 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
         super(0, connectTimeout, responseTimeout, requestTimeout);
     }
 
-    private static String getResourceNameFromUrl(URI url) {
-        final String resourcePath = url.getPath().trim();
-        if (resourcePath.isEmpty() || resourcePath.endsWith("/")) {
-            return null;
-        }
-        final int slashIndex = resourcePath.lastIndexOf('/');
-        return slashIndex < 0 ? resourcePath : resourcePath.substring(slashIndex + 1);
-    }
-
-    /**
-     * This method returns the resource name giving precedence to the information
-     * that is contained in Content-Disposition header if exists.
-     * If Content-Disposition resource name is empty then it gets it from the URI provided.
-     *
-     * @param contentDisposition content-disposition header information that can contain a resource name
-     * @param actualUri          actual URI that can contain a resource name
-     * @return String with the resource name
-     */
-    private static String getResourceNameFromContentDispositionOrFromActualURI(ContentDisposition contentDisposition, URI actualUri) {
-        String extractedResourceName = contentDisposition != null &&
-                (contentDisposition.isInline() || contentDisposition.isAttachment()) ? contentDisposition.getFilename() : "";
-        if (StringUtils.isEmpty(extractedResourceName))
-            extractedResourceName = getResourceNameFromUrl(actualUri);
-
-        return extractedResourceName;
-    }
-
     @Override
     protected String getResourceUrl(URL resourceEntry) {
         return resourceEntry.toString();
@@ -75,24 +45,27 @@ public class MimeTypeDetectHttpClient extends AbstractHttpClient<URL, String> {
     protected String createResult(URL providedLink, URI actualUri, ContentDisposition contentDisposition,
                                   String mimeType, Long fileSize, ContentRetriever contentRetriever) throws IOException {
         try (final InputStream inputStream = contentRetriever.getContent()) {
-            final Metadata metadata = new Metadata();
-            final String resourceName = getResourceNameFromContentDispositionOrFromActualURI(contentDisposition, actualUri);
-            if (resourceName != null) {
-                metadata.set(RESOURCE_NAME_KEY, resourceName);
-            }
-            if (mimeType != null) {
-                final int separatorIndex = mimeType.indexOf(';');
-                final String adjustedMimeType =
-                        separatorIndex < 0 ? mimeType : mimeType.substring(0, separatorIndex);
-                metadata.set(Metadata.CONTENT_TYPE, adjustedMimeType);
-            }
-            if (fileSize != null) {
-                metadata.set(Metadata.CONTENT_LENGTH, fileSize.toString());
-            }
+            return tika.detect(new RemoteResourceMetadata() {
+                @Override
+                public String getProvidedMimeType() {
+                    return mimeType;
+                }
 
-            return tika.detect(inputStream, metadata);
+                @Override
+                public Long getProvidedFileSize() {
+                    return fileSize;
+                }
+
+                @Override
+                public ContentDisposition getProvidedContentDisposition() {
+                    return contentDisposition;
+                }
+
+                @Override
+                public URI getActualLocation() {
+                    return actualUri;
+                }
+            }, inputStream);
         }
     }
-
-
 }
