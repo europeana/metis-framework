@@ -1,7 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
-import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -13,6 +12,7 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
+import eu.europeana.metis.mediaprocessing.model.RemoteResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -29,8 +29,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,12 +217,9 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Detect the mime type.
-    final String providedMimeType = resource.getProvidedMimeType();
     final String detectedMimeType;
-    final boolean hasContent;
     try {
-      hasContent = resource.hasContent();
-      detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
+      detectedMimeType = resource.hasContent() ? detectType(resource.getContentPath(), resource)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
     } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Mime type checking error", e);
@@ -232,6 +227,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Log if the detected mime type is different from the provided one. If application/xhtml+xml is
     // detected from tika, and text/html is provided, we don't give a warning.
+    final String providedMimeType = resource.getProvidedMimeType();
     if (providedMimeType != null) {
       final boolean xhtmlHtmlEquivalenceOccurs = "application/xhtml+xml".equals(detectedMimeType)
           && providedMimeType.startsWith("text/html");
@@ -245,17 +241,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     return detectedMimeType;
   }
 
-  String detectType(Path path, String providedMimeType) throws IOException {
-    final Metadata metadata = new Metadata();
-    if (providedMimeType != null) {
-      final int separatorIndex = providedMimeType.indexOf(';');
-      final String adjustedMimeType =
-          separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
-      metadata.set(CONTENT_TYPE, adjustedMimeType);
-    }
-    try (final InputStream stream = TikaInputStream.get(path, metadata)) {
-      return tika.detect(stream, metadata);
-    }
+  String detectType(Path path, RemoteResourceMetadata resource) throws IOException {
+    return tika.detect(resource, path);
   }
 
   List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,

@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.Set;
+import org.springframework.http.ContentDisposition;
 
 /**
  * The type Resource with iiif info.json. Wraps a regular resource and adds functionality.
@@ -44,6 +45,11 @@ public class IIIFResourceImpl implements IIIFResource {
   @Override
   public Long getProvidedFileSize() {
     return resource.getProvidedFileSize();
+  }
+
+  @Override
+  public ContentDisposition getProvidedContentDisposition() {
+    return resource.getProvidedContentDisposition();
   }
 
   @Override

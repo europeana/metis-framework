@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -50,7 +51,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.apache.tika.metadata.Metadata;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -126,14 +126,14 @@ class MediaExtractorImplTest {
 
     // Test case where there is content
     doReturn(true).when(resource).hasContent();
-    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, providedMimeType);
+    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, resource);
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
     assertEquals(detectedMimeTypeWithContent, mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.REDUCED));
 
     // Test when tika throws exception
-    doThrow(IOException.class).when(mediaExtractor).detectType(contentPath, providedMimeType);
+    doThrow(IOException.class).when(mediaExtractor).detectType(contentPath, resource);
     assertThrows(MediaExtractionException.class, () -> mediaExtractor.detectAndVerifyMimeType(resource, ProcessingMode.FULL));
-    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, providedMimeType);
+    doReturn(detectedMimeTypeWithContent).when(mediaExtractor).detectType(contentPath, resource);
 
     // Check what happens if resource.hasContent() throws an exception.
     doThrow(IOException.class).when(resource).hasContent();
@@ -387,11 +387,11 @@ class MediaExtractorImplTest {
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.OEMBEDDED, "service reference");
     final Resource resource = spy(
-        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
+        new ResourceImpl(rdfResourceEntry, null, null, null, URI.create(resourceUrl)));
     doReturn(true)
         .when(resource).hasContent();
     doReturn(detectedMimeType)
-        .when(tika).detect(any(InputStream.class), any(Metadata.class));
+        .when(tika).detect(same(resource), any(Path.class));
     doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.json").getPath()))
         .when(resource).getContentPath();
     doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
@@ -411,11 +411,11 @@ class MediaExtractorImplTest {
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.OEMBEDDED, "service reference");
     final ResourceImpl resource = spy(
-        new ResourceImpl(rdfResourceEntry, detectedMimeType, null, URI.create(resourceUrl)));
+        new ResourceImpl(rdfResourceEntry, detectedMimeType, null, null, URI.create(resourceUrl)));
     doReturn(true)
         .when(resource).hasContent();
     doReturn(detectedMimeType)
-        .when(tika).detect(any(InputStream.class), any(Metadata.class));
+        .when(tika).detect(same(resource), any(Path.class));
     doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.xml").getPath()))
         .when(resource).getContentPath();
     doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
@@ -435,7 +435,7 @@ class MediaExtractorImplTest {
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(resourceUrl,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF, "service reference");
     final Resource resource = spy(
-        new ResourceImpl(rdfResourceEntry, null, null, URI.create(resourceUrl)));
+        new ResourceImpl(rdfResourceEntry, null, null, null, URI.create(resourceUrl)));
     doReturn(true)
         .when(resource).hasContent();
     doReturn(detectedMimeType)
@@ -443,7 +443,7 @@ class MediaExtractorImplTest {
     doReturn(detectedMimeType)
         .when(resource).getProvidedMimeType();
     doReturn(detectedMimeType)
-        .when(tika).detect(any(InputStream.class), any(Metadata.class));
+        .when(tika).detect(same(resource), any(Path.class));
     doReturn(Paths.get(getClass().getClassLoader().getResource("__files/default.jpg").getPath()))
         .when(resource).getContentPath();
     doReturn(getClass().getClassLoader().getResourceAsStream("__files/default.jpg"))
