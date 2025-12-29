@@ -39,7 +39,7 @@
     <version.maven.release.plugin>2.5.3</version.maven.release.plugin>
 
     <!--Internal-->
-    <version.metis-common>18</version.metis-common>
+    <version.metis-common>19-SNAPSHOT</version.metis-common>
     <version.metis-schema>13</version.metis-schema>
 
     <!--External-->
