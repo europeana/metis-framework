@@ -65,7 +65,7 @@ public class DeBiasClient implements BiasDetectService {
     }
 
     final HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-    clientHttpRequestFactory.setConnectTimeout(this.connectTimeOut);
+    clientHttpRequestFactory.setConnectionRequestTimeout(this.connectTimeOut);
     clientHttpRequestFactory.setConnectionRequestTimeout(this.requestTimeout);
     final RestClient restClient = RestClient.builder()
                                             .messageConverters(httpMessageConverters -> {

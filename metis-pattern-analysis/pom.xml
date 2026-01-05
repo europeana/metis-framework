@@ -16,7 +16,6 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
-        <version>${version.jackson}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -52,7 +51,6 @@
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>${version.jackson}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>

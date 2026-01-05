@@ -64,7 +64,7 @@ public class ConnectionProvider {
     HttpClient httpClient = HttpClients.custom().setConnectionManager(connectionManager).build();
 
     final HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-    requestFactory.setConnectTimeout(Math.max(connectTimeout, 0));
+    requestFactory.setConnectionRequestTimeout(Math.max(connectTimeout, 0));
     final RestTemplate restTemplate = new RestTemplate(requestFactory);
     restTemplate.setMessageConverters(Arrays.asList(new Jaxb2RootElementHttpMessageConverter(),
         new MappingJackson2HttpMessageConverter()));

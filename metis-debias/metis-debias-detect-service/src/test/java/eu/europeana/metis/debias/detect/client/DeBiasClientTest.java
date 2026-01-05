@@ -117,7 +117,7 @@ class DeBiasClientTest {
         () -> debiasClient.detect(biasInputLiterals));
 
     assertNotNull(deBiasBadRequestException);
-    assertEquals("422 UNPROCESSABLE_ENTITY string_type Input should be a valid string", deBiasBadRequestException.getMessage());
+    assertEquals("422 UNPROCESSABLE_CONTENT string_type Input should be a valid string", deBiasBadRequestException.getMessage());
   }
 
   @Test

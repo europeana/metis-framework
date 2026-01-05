@@ -123,7 +123,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(content().json(
-               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY string_type Input should be a valid string\"}"));
+               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT string_type Input should be a valid string\"}"));
   }
 
   @Test
@@ -153,7 +153,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(content().json(
-               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY list_type Input should be a valid list\"}"));
+               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT list_type Input should be a valid list\"}"));
   }
 
   @Test
@@ -176,7 +176,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(
-               content().json("{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY missing Field required\"}"));
+               content().json("{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT missing Field required\"}"));
   }
 
   @Test

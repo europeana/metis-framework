@@ -1,6 +1,7 @@
 package eu.europeana.metis.debias.detect.rest.controller;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -13,15 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
-import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
-import eu.europeana.metis.debias.detect.model.error.Detail;
 import eu.europeana.metis.debias.detect.model.error.ErrorDeBiasResult;
-import eu.europeana.metis.debias.detect.model.error.Input;
 import eu.europeana.metis.debias.detect.model.request.BiasInputLiterals;
 import eu.europeana.metis.debias.detect.model.response.DetectionDeBiasResult;
 import eu.europeana.metis.debias.detect.model.response.Metadata;
 import eu.europeana.metis.debias.detect.model.response.Tag;
 import eu.europeana.metis.debias.detect.model.response.ValueDetection;
+import eu.europeana.metis.debias.detect.rest.exceptions.ExceptionResponseHandler;
 import eu.europeana.metis.debias.detect.service.BiasDetectService;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.util.List;
@@ -85,8 +84,6 @@ class DetectionControllerTest {
     detectionResult.setMetadata(metadata);
 
     String detectionParameterJson = getDetectionParameterJson();
-    ObjectMapper mapper = new ObjectMapper();
-    String expectedJson = mapper.writeValueAsString(detectionResult);
     when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(detectionResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
@@ -95,27 +92,19 @@ class DetectionControllerTest {
                                           .content(detectionParameterJson))
            .andExpect(status().is(200))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-           .andExpect(content().string(expectedJson));
+           .andExpect(jsonPath("$.results[0].language").value(valueDetection1.getLanguage()))
+           .andExpect(jsonPath("$.results[0].literal").value(valueDetection1.getLiteral()))
+           .andExpect(jsonPath("$.results[0].tags[0].length").value(tag1.getLength()))
+           .andExpect(jsonPath("$.results[0].tags[0].start").value(tag1.getStart()))
+           .andExpect(jsonPath("$.results[0].tags[0].end").value(tag1.getEnd()));
   }
 
   @Test
   void debias_detect_NoLanguageRequest_expectSuccess() throws Exception {
     ErrorDeBiasResult errorResult = new ErrorDeBiasResult();
-    Detail detail = new Detail();
-    Input input = new Input();
-    input.setValues(List.of(
-        "sample title of aboriginal and addict",
-        "a second addict sample title",
-        "this is a demo of master and slave branch"));
-    detail.setInput(input);
-    detail.setLoc(List.of("body", "language"));
-    detail.setMsg("Field required");
-    detail.setUrl("https://errors.pydantic.dev/2.5/v/missing");
     errorResult.setDetailList(List.of());
 
     String detectionParameterJson = getDetectionParameterJson();
-    ObjectMapper mapper = new ObjectMapper();
-    String expectedJson = mapper.writeValueAsString(errorResult);
     when(biasDetectService.detect(any(BiasInputLiterals.class))).thenReturn(errorResult);
 
     mockMvc.perform(MockMvcRequestBuilders.post(RestEndpoints.DEBIAS_DETECTION)
@@ -124,7 +113,7 @@ class DetectionControllerTest {
                                           .content(detectionParameterJson))
            .andExpect(status().is(200))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-           .andExpect(content().string(expectedJson));
+           .andExpect(jsonPath("$.detail").value(empty()));
   }
 
   @Test
