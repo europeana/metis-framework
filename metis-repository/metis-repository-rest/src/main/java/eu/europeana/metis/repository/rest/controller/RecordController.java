@@ -23,8 +23,6 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -52,11 +50,9 @@ import org.springframework.web.server.ResponseStatusException;
 public class RecordController {
 
   public static final String CONTROLLER_TAG_NAME = "RecordController";
-  private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
-
+  public static final String NOT_FOUND_LOG_STRING = "No record found for this identifier.";
   private static final Pattern UNSUPPORTED_CHARACTERS_PATTERN = Pattern.compile("\\W");
   private static final String REPLACEMENT_CHARACTER = "_";
-  public static final String NOT_FOUND_LOG_STRING = "No record found for this identifier.";
 
   private RecordDao recordDao;
 
@@ -138,9 +134,6 @@ public class RecordController {
         return true;
       });
     } catch (IOException | HarvesterException | RuntimeException e) {
-
-      // Report any problems (also for individual records) as 500 code.
-      LOGGER.warn("A problem occurred while processing the file archive.", e);
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
     }
     return result;
@@ -186,15 +179,13 @@ public class RecordController {
         result.addUpdatedRecord(recordId);
       }
     } catch (RuntimeException e) {
-
-      // Report any problems (also for individual records) as 500 code.
-      LOGGER.warn("A problem occurred while saving a record.", e);
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), e);
     }
   }
 
   /**
    * Get a record from the database using an identifier.
+   *
    * @param recordId the record identifier
    * @return the record
    */
@@ -216,6 +207,7 @@ public class RecordController {
 
   /**
    * Delete a record from the database given a record identifier.
+   *
    * @param recordId the record identifier
    */
   @DeleteMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID)

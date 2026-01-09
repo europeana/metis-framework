@@ -1,10 +1,10 @@
 package eu.europeana.metis.repository.rest.view;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 public class InsertionResult {
 

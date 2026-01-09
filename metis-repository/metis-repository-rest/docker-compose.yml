@@ -5,8 +5,8 @@ services:
     container_name: metis-repository-mongo
     environment:
       MONGO_INITDB_DATABASE: metis-repository
-      MONGO_INITDB_ROOT_USERNAME: guest
-      MONGO_INITDB_ROOT_PASSWORD: guest
+      MONGO_INITDB_ROOT_USERNAME: local
+      MONGO_INITDB_ROOT_PASSWORD: local
     ports:
       - '27017:27017'
   metis-repository-local:

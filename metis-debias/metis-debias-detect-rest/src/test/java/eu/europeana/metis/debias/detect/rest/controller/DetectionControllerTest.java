@@ -9,8 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.debias.detect.client.DeBiasClient;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasBadRequestException;
 import eu.europeana.metis.debias.detect.exceptions.DeBiasInternalServerException;
@@ -31,13 +29,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import tools.jackson.databind.ObjectMapper;
 
 class DetectionControllerTest {
 
   private MockMvc mockMvc;
   private BiasDetectService biasDetectService;
 
-  private static String getDetectionParameterJson() throws JsonProcessingException {
+  private static String getDetectionParameterJson() {
     BiasInputLiterals biasInputLiterals = new BiasInputLiterals();
     biasInputLiterals.setUseLLM(true);
     biasInputLiterals.setUseNER(true);

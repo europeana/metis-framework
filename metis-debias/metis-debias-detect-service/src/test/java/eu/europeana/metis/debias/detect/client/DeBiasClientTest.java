@@ -4,7 +4,10 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
@@ -19,7 +22,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.web.client.ResourceAccessException;
 
 class DeBiasClientTest {
 
@@ -54,7 +56,6 @@ class DeBiasClientTest {
   static void createWireMock() {
     wireMockServer = new WireMockServer(wireMockConfig()
         .dynamicPort()
-        .enableBrowserProxying(true)
         .notifier(new ConsoleNotifier(true)));
     wireMockServer.start();
     JvmProxyConfigurer.configureFor(wireMockServer);
@@ -132,6 +133,6 @@ class DeBiasClientTest {
         "a second addict sample title",
         "this is a demo of master and slave branch"));
 
-    assertThrows(ResourceAccessException.class, () -> debiasClient.detect(biasInputLiterals));
+    assertThrows(DeBiasBadRequestException.class, () -> debiasClient.detect(biasInputLiterals));
   }
 }

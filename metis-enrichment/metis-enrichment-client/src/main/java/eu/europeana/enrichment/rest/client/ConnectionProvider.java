@@ -8,7 +8,7 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.http.io.SocketConfig;
 import org.apache.hc.core5.util.Timeout;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -67,7 +67,7 @@ public class ConnectionProvider {
     requestFactory.setConnectionRequestTimeout(Math.max(connectTimeout, 0));
     final RestTemplate restTemplate = new RestTemplate(requestFactory);
     restTemplate.setMessageConverters(Arrays.asList(new Jaxb2RootElementHttpMessageConverter(),
-        new MappingJackson2HttpMessageConverter()));
+        new JacksonJsonHttpMessageConverter()));
     return restTemplate;
   }
 

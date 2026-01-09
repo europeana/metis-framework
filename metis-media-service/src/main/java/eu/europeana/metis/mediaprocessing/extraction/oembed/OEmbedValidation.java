@@ -1,8 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction.oembed;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,6 +10,10 @@ import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.dataformat.xml.XmlMapper;
 
 /**
  * The type oEmbed validation methods.
@@ -38,8 +39,9 @@ public final class OEmbedValidation {
    * @throws IOException the io exception
    */
   public static OEmbedModel getOEmbedModelFromJson(byte[] jsonResource) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    ObjectMapper objectMapper = JsonMapper.builder()
+                                          .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                                          .build();
     return objectMapper.readValue(jsonResource, OEmbedModel.class);
   }
 
@@ -51,8 +53,9 @@ public final class OEmbedValidation {
    * @throws IOException the io exception
    */
   public static OEmbedModel getOEmbedModelFromXml(byte[] xmlResource) throws IOException {
-    XmlMapper xmlMapper = new XmlMapper();
-    xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    XmlMapper xmlMapper = XmlMapper.builder()
+                                   .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                                   .build();
     return xmlMapper.readValue(xmlResource, OEmbedModel.class);
   }
 

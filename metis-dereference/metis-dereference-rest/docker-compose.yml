@@ -6,8 +6,8 @@ services:
     container_name: metis-dereference-mongo
     environment:
       MONGO_INITDB_DATABASE: metis-dereference
-      MONGO_INITDB_ROOT_USERNAME: guest
-      MONGO_INITDB_ROOT_PASSWORD: guest
+      MONGO_INITDB_ROOT_USERNAME: local
+      MONGO_INITDB_ROOT_PASSWORD: local
     ports:
       - '27017:27017'
   metis-dereference-local:

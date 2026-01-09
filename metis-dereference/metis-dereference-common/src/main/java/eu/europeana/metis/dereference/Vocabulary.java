@@ -1,21 +1,17 @@
 package eu.europeana.metis.dereference;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Field;
-import dev.morphia.annotations.Id;
-import dev.morphia.annotations.Index;
-import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexes;
+import dev.morphia.annotations.*;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import jakarta.xml.bind.annotation.XmlElement;
+import org.bson.types.ObjectId;
+import tools.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import jakarta.xml.bind.annotation.XmlElement;
-import org.bson.types.ObjectId;
 
 /**
  * A controlled vocabulary representation Created by ymamakis on 2/11/16.
