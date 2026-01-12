@@ -77,7 +77,6 @@
     <version.jersey>3.1.5</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.9.0</version.json.path>
-    <version.junit>5.11.4</version.junit>
     <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
@@ -114,6 +113,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${version.spring.boot}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <!-- METIS COMMONS -->
       <dependency>
         <groupId>eu.europeana.metis</groupId>
@@ -145,15 +151,6 @@
         <artifactId>metis-common-spring-properties</artifactId>
         <version>${version.metis-common}</version>
       </dependency>
-
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${version.spring.boot}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
       <dependency>
         <groupId>jakarta.xml.bind</groupId>
         <artifactId>jakarta.xml.bind-api</artifactId>

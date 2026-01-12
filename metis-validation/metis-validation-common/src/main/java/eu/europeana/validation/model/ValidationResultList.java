@@ -2,6 +2,7 @@ package eu.europeana.validation.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,14 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 /**
- * Wrapper class for the batch service Created by ymamakis on 12/22/15.
+ * Contains a list of validation results.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value = "Validation Result List", description = "Batch service result")
 public class ValidationResultList implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1905122041950251207L;
 
   /**
