@@ -43,6 +43,8 @@
     <version.metis-schema>13</version.metis-schema>
 
     <!--External-->
+    <version.spring.boot>4.0.0</version.spring.boot>
+    <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient5>5.4.1</version.apache.httpclient5>
     <version.apache.httpcore5>5.3.1</version.apache.httpcore5>
@@ -87,10 +89,6 @@
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.spring>7.0.2</version.spring>
-    <version.spring.boot>4.0.0</version.spring.boot>
-    <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
-    <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.swagger>3.0.0</version.swagger>
     <version.swagger.annotations>1.6.16</version.swagger.annotations>
     <version.tika.core>2.9.4</version.tika.core>
@@ -106,13 +104,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>${version.spring}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -435,13 +426,6 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${version.mockito.core}</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${version.spring}</version>
         <scope>test</scope>
       </dependency>
       <dependency>
