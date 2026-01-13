@@ -43,7 +43,7 @@
     <version.metis-schema>13</version.metis-schema>
 
     <!--External-->
-    <version.spring.boot>4.0.0</version.spring.boot>
+    <version.spring.boot>4.0.1</version.spring.boot>
     <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient5>5.4.1</version.apache.httpclient5>
