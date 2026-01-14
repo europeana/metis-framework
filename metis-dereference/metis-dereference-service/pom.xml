@@ -9,14 +9,6 @@
   <artifactId>metis-dereference-service</artifactId>
   <dependencies>
     <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.corelib</groupId>
-      <artifactId>corelib-definitions</artifactId>
-    </dependency>
-    <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-dereference-common</artifactId>
       <version>${project.version}</version>
@@ -25,6 +17,30 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-dereference-import</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-enrichment-client</artifactId>
+      <version>${project.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mongodb.morphia</groupId>
+          <artifactId>morphia</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-enrichment-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-definitions</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -49,22 +65,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-enrichment-client</artifactId>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mongodb.morphia</groupId>
-          <artifactId>morphia</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-enrichment-common</artifactId>
-      <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

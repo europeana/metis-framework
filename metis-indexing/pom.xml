@@ -52,6 +52,7 @@
       <artifactId>commons-pool2</artifactId>
       <version>${version.apache.commons-pool2}</version>
     </dependency>
+    <!-- Test -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -65,8 +66,8 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
     </dependency>
-    <!-- Test -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
