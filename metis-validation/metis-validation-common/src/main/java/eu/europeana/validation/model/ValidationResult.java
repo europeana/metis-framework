@@ -1,7 +1,5 @@
 package eu.europeana.validation.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,7 +13,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@ApiModel(value = "Validation Result", description = "Single service result")
 public class ValidationResult implements Serializable {
 
   @Serial
@@ -25,27 +22,23 @@ public class ValidationResult implements Serializable {
    * The record id that generated the issue. Null if success
    */
   @XmlElement
-  @ApiModelProperty(value = "The record identifier", required = false)
   private String recordId;
 
   /**
    * The error code. Null if success
    */
   @XmlElement
-  @ApiModelProperty(value = "The error message", required = false)
   private String message;
 
   /**
    * Id of a node for which error occured. Null if success
    */
   @XmlElement
-  @ApiModelProperty(value = "The node identifier message", required = false)
   private String nodeId;
 
   /**
    * The service result. true if success, false if failure
    */
-  @ApiModelProperty(value = "Failed or successful operation", required = true)
   @XmlElement
   private boolean success;
 

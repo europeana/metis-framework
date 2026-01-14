@@ -79,7 +79,6 @@
     <version.jersey>3.1.5</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.9.0</version.json.path>
-    <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
     <version.morphia.core>2.5.0</version.morphia.core>

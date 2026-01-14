@@ -1,7 +1,5 @@
 package eu.europeana.validation.model;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@ApiModel(value = "Validation Result List", description = "Batch service result")
 public class ValidationResultList implements Serializable {
 
   @Serial
@@ -26,14 +23,12 @@ public class ValidationResultList implements Serializable {
    * List of service results. If the list is empty then we assume success == true
    */
   @XmlElement
-  @ApiModelProperty(value = "Result list")
   private List<ValidationResult> resultList;
 
   /**
    * The result of the batch service
    */
   @XmlElement
-  @ApiModelProperty(value = "Operation outcome", required = true)
   private boolean success;
 
   public boolean isSuccess() {
