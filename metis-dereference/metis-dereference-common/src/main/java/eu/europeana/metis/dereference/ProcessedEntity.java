@@ -1,6 +1,11 @@
 package eu.europeana.metis.dereference;
 
-import dev.morphia.annotations.*;
+import dev.morphia.annotations.Entity;
+import dev.morphia.annotations.Field;
+import dev.morphia.annotations.Id;
+import dev.morphia.annotations.Index;
+import dev.morphia.annotations.IndexOptions;
+import dev.morphia.annotations.Indexes;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
 import jakarta.xml.bind.annotation.XmlElement;

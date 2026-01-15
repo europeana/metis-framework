@@ -28,6 +28,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -68,7 +69,7 @@ class RecordControllerTest {
     mockMvc.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
                .accept(MediaType.APPLICATION_XML))
            .andDo(print())
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andExpect(result -> {
              String actual = result.getResponse().getContentAsString();
              Diff diff = DiffBuilder.compare(getXMLTestRecord())
@@ -90,7 +91,7 @@ class RecordControllerTest {
     mockMvc.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
                .content(""))
            .andDo(print())
-           .andExpect(status().is(404))
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
            .andExpect(content().string(""));
 
     verify(recordDaoMock, times(1)).getRecord("recordId");
@@ -106,7 +107,7 @@ class RecordControllerTest {
                .param("markAsDeleted", "false")
                .content("edmRecord"))
            .andDo(print())
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andExpect(jsonPath("$.datasetId", is("datasetId")))
            .andExpect(jsonPath("$.dateStamp").exists())
            .andExpect(jsonPath("$.insertedRecords", is(1)))
@@ -128,7 +129,7 @@ class RecordControllerTest {
                .param("markAsDeleted", "false")
                .content("edmRecord"))
            .andDo(print())
-           .andExpect(status().is(500));
+           .andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()));
     verify(recordDaoMock, times(1)).createRecord(any());
   }
 
@@ -146,7 +147,7 @@ class RecordControllerTest {
                .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
            .andDo(print())
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andExpect(jsonPath("$.datasetId", is("datasetId")))
            .andExpect(jsonPath("$.dateStamp").exists())
            .andExpect(jsonPath("$.insertedRecords", is(2)))
@@ -172,7 +173,7 @@ class RecordControllerTest {
                .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
            .andDo(print())
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andReturn();
     verify(recordDaoMock, times(0)).createRecord(any());
   }
@@ -188,7 +189,7 @@ class RecordControllerTest {
                .param("markAsDeleted", "false")
                .content("edmRecord"))
            .andDo(print())
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andExpect(jsonPath("$.datasetId", is("datasetId")))
            .andExpect(jsonPath("$.dateStamp").exists())
            .andExpect(jsonPath("$.insertedRecords", is(0)))
@@ -212,7 +213,7 @@ class RecordControllerTest {
                .param("markAsDeleted", "false")
                .content("edmRecord"))
            .andDo(print())
-           .andExpect(status().is(404));
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     verify(recordDaoMock, times(1)).getRecord("recordId");
   }
 
@@ -221,7 +222,7 @@ class RecordControllerTest {
     when(recordDaoMock.deleteRecord("recordId")).thenReturn(true);
     mockMvc.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
                .content(""))
-           .andExpect(status().is(200))
+           .andExpect(status().is(HttpStatus.OK.value()))
            .andExpect(content().string(""));
   }
 
@@ -230,7 +231,7 @@ class RecordControllerTest {
     when(recordDaoMock.deleteRecord("recordId")).thenReturn(false);
     mockMvc.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
                .content(""))
-           .andExpect(status().is(404))
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
            .andExpect(content().string(""));
   }
 
