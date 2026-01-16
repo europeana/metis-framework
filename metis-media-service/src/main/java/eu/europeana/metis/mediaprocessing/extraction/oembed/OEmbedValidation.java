@@ -1,12 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction.oembed;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,6 +7,13 @@ import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.dataformat.xml.XmlMapper;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * The type oEmbed validation methods.
@@ -36,9 +36,8 @@ public final class OEmbedValidation {
    *
    * @param jsonResource byte[]
    * @return the oembed model from json
-   * @throws IOException the io exception
    */
-  public static OEmbedModel getOEmbedModelFromJson(byte[] jsonResource) throws IOException {
+  public static OEmbedModel getOEmbedModelFromJson(byte[] jsonResource) {
     ObjectMapper objectMapper = JsonMapper.builder()
                                           .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                                           .build();
@@ -50,9 +49,8 @@ public final class OEmbedValidation {
    *
    * @param xmlResource byte[]
    * @return the oembed model from xml
-   * @throws IOException the io exception
    */
-  public static OEmbedModel getOEmbedModelFromXml(byte[] xmlResource) throws IOException {
+  public static OEmbedModel getOEmbedModelFromXml(byte[] xmlResource) {
     XmlMapper xmlMapper = XmlMapper.builder()
                                    .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                                    .build();
