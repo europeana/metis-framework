@@ -1,6 +1,5 @@
 package eu.europeana.metis.harvesting.http;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performFunction;
 import static eu.europeana.metis.utils.TempFileUtils.createSecureTempDirectoryAndFile;
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
@@ -161,7 +160,7 @@ public class HttpHarvesterImpl implements HttpHarvester {
     }
     try (Stream<Path> files = Files.walk(directory)) {
       final Set<PosixFilePermission> rights = Files.getPosixFilePermissions(directory.getParent());
-      final Iterator<Path> i = performFunction(files, Stream::iterator);
+      final Iterator<Path> i = files.iterator();
       while (i.hasNext()) {
         Files.setPosixFilePermissions(i.next(), rights);
       }

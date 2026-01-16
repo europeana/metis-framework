@@ -5,9 +5,6 @@ import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_R
 import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_RESOURCE_DOWNLOAD_TIMEOUT;
 import static eu.europeana.metis.mediaprocessing.MediaProcessorFactory.DEFAULT_RESOURCE_RESPONSE_TIMEOUT;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson.SupportedFormats;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient.DownloadMode;
@@ -18,9 +15,13 @@ import java.util.List;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
- * The type Iiif validation.
+ * The type IIIF validation.
  */
 public final class IIIFValidation {
 
@@ -63,18 +64,21 @@ public final class IIIFValidation {
     try (Resource resource = resourceDownloadClient.download(
         new ImmutablePair<>(infoJsonResourceEntry, DownloadMode.MIME_TYPE))) {
       final String fieldContext = "@context";
-      ObjectMapper objectMapper = new ObjectMapper();
-      objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+      ObjectMapper objectMapper = JsonMapper.builder()
+                                            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                                            .disable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
+                                            .build();
       JsonNode jsonNode = objectMapper.readTree(resource.getContentStream().readAllBytes());
       if (jsonNode.get(fieldContext).isArray()
           // according to documentation
           // the context is at last position on info.json v3
-          && IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).get(jsonNode.get(fieldContext).size() - 1).asText())) {
-        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
-      } else if (IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).asText())) {
-        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV3.class);
-      } else if (IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asText())) {
-        iiifInfoJson = objectMapper.readValue(jsonNode.toString(), IIIFInfoJsonV2.class);
+          && IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).get(jsonNode.get(fieldContext).size() - 1).asString())) {
+        iiifInfoJson = objectMapper.treeToValue(jsonNode, IIIFInfoJsonV3.class);
+      } else if (IIIF_INFO_JSON_V3.equals(jsonNode.get(fieldContext).asString())) {
+        iiifInfoJson = objectMapper.treeToValue(jsonNode, IIIFInfoJsonV3.class);
+      } else if (IIIF_INFO_JSON_V2.equals(jsonNode.get(fieldContext).asString())) {
+        iiifInfoJson = objectMapper.treeToValue(jsonNode, IIIFInfoJsonV2.class);
       } else {
         LOGGER.warn("No info json found for IIIF resource entry. {} ", rdfResourceEntry.getResourceUrl());
       }

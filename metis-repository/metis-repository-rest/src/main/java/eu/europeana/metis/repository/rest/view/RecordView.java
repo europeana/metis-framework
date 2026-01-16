@@ -1,8 +1,8 @@
 package eu.europeana.metis.repository.rest.view;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.Instant;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 public class RecordView {
 

@@ -69,7 +69,7 @@ class DereferencingControllerTest {
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenReturn(
         new DereferenceResult(Collections.singletonList(getAgent("http://www.example.com")), DereferenceResultStatus.SUCCESS));
 
-    dereferencingControllerMock.perform(MockMvcRequestBuilders.get(RestEndpoints.DEREFERENCE + "/?uri=http://www.example.com")
+    dereferencingControllerMock.perform(MockMvcRequestBuilders.get(RestEndpoints.DEREFERENCE + "?uri=http://www.example.com")
                                                               .accept(MediaType.APPLICATION_XML_VALUE))
                                .andExpect(status().is(200)).andExpect(
                                    xpath("metis:results/metis:result/edm:Agent/@rdf:about", namespaceMap).string("http://www.example.com")).andExpect(
@@ -84,7 +84,7 @@ class DereferencingControllerTest {
   void dereferenceGet_outputXML_expectInternalServerError() throws Exception {
     when(dereferenceServiceMock.dereference("http://www.example.com")).thenThrow(new RuntimeException("Error reason"));
 
-    dereferencingControllerMock.perform(MockMvcRequestBuilders.get(RestEndpoints.DEREFERENCE + "/?uri=http://www.example.com")
+    dereferencingControllerMock.perform(MockMvcRequestBuilders.get(RestEndpoints.DEREFERENCE + "?uri=http://www.example.com")
                                                               .accept(MediaType.APPLICATION_XML_VALUE)).andDo(print())
                                .andExpect(status().is(500)).andExpect(xpath("//error").exists())
                                .andExpect(xpath("//error/errorMessage").exists()).andExpect(xpath("//error/errorMessage").string(
