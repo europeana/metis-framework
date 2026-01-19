@@ -55,7 +55,6 @@
     <version.commons.io>2.14.0</version.commons.io>
     <version.commons.lang3>3.18.0</version.commons.lang3>
     <version.commons-collections4>4.4</version.commons-collections4>
-    <version.awaitability>4.2.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
@@ -87,7 +86,6 @@
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.swagger.annotations>1.6.16</version.swagger.annotations>
     <version.tika.core>2.9.4</version.tika.core>
     <version.org.wiremock>3.4.2</version.org.wiremock>
     <version.testcontainers>2.0.2</version.testcontainers>

@@ -8,11 +8,11 @@ import eu.europeana.metis.repository.rest.view.InsertionResult;
 import eu.europeana.metis.repository.rest.view.RecordView;
 import eu.europeana.metis.utils.CompressedFileExtension;
 import eu.europeana.metis.utils.RestEndpoints;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.io.IOException;
@@ -46,7 +46,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @Tags(@Tag(name = RecordController.CONTROLLER_TAG_NAME,
     description = "Controller providing access to record management functionality."))
-@Api(tags = RecordController.CONTROLLER_TAG_NAME)
 public class RecordController {
 
   public static final String CONTROLLER_TAG_NAME = "RecordController";
@@ -75,19 +74,31 @@ public class RecordController {
       consumes = {MediaType.APPLICATION_XML_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "The given record is put into the database. If the record ID already "
-      + "exists, the record is overwritten. Note that record IDs are normalized to contain "
-      + "only the characters a-z, A-Z, 0-9 and `_`. But contrary to the batch upload method, they "
-      + "are NOT prefixed by the dataset ID.")
-  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
-      @ApiResponse(code = 500, message = "Error processing the record")})
+  @Operation(
+      summary = "Save record",
+      description = "The given record is put into the database. If the record ID already exists, "
+          + "the record is overwritten. Note that record IDs are normalized to contain "
+          + "only the characters a-z, A-Z, 0-9 and `_`. But contrary to the batch upload method, they "
+          + "are NOT prefixed by the dataset ID.")
+  @ApiResponse(responseCode = "200", description = "Record saved successfully")
+  @ApiResponse(responseCode = "404", description = "Illegal dataset or record ID")
+  @ApiResponse(responseCode = "500", description = "Error processing the record")
   public InsertionResult saveRecord(
-      @ApiParam(value = "Record ID (new or existing)", required = true) @PathVariable("recordId") String recordId,
-      @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
-      @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false)
+      @Parameter(description = "Record ID (new or existing)", required = true)
+      @PathVariable("recordId") String recordId,
+
+      @Parameter(description = "Dataset ID (new or existing)", required = true)
+      @RequestParam("datasetId") String datasetId,
+
+      @Parameter(description = "Date stamp (in ISO format)")
+      @RequestParam(name = "dateStamp", required = false)
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-      @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted,
-      @ApiParam(value = "The actual (EDM/RDF) record", required = true) @RequestBody String edmRecord) {
+
+      @Parameter(description = "Whether the record is to be marked as deleted", required = true)
+      @RequestParam("markAsDeleted") boolean markAsDeleted,
+
+      @Parameter(description = "The actual (EDM/RDF) record", required = true)
+      @RequestBody String edmRecord) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
@@ -109,17 +120,38 @@ public class RecordController {
       consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "The given records are put into the database as non-deleted records. The "
-      + "record IDs are computed to be the file name (without the extension) prefixed by the "
-      + "dataset ID. If a record ID already exists, the record is overwritten. Note that record "
-      + "IDs are normalized to contain only the characters a-z, A-Z, 0-9 and `_`.")
-  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or record ID"),
-      @ApiResponse(code = 500, message = "Error processing the file archive")})
+  @Operation(
+      summary = "Upload dataset records",
+      description = "The given records are put into the database as non-deleted records. " +
+          "Record IDs are computed to be the file name (without extension) prefixed by the dataset ID. " +
+          "If a record ID already exists, the record is overwritten. " +
+          "IDs are normalized to contain only characters a-z, A-Z, 0-9 and '_'."
+  )
+  @ApiResponse(responseCode = "200", description = "Records uploaded successfully")
+  @ApiResponse(responseCode = "404", description = "Illegal dataset or record ID")
+  @ApiResponse(responseCode = "500", description = "Error processing the file archive")
   public InsertionResult saveRecords(
-      @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
-      @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false)
+      @Parameter(
+          description = "Dataset ID (new or existing)",
+          required = true,
+          example = "dataset-123"
+      )
+      @RequestParam("datasetId") String datasetId,
+      @Parameter(
+          description = "Date stamp (ISO-8601 format)",
+          example = "2025-01-15T12:30:00Z"
+      )
+      @RequestParam(name = "dateStamp", required = false)
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-      @ApiParam(value = "The (EDM/RDF) records", required = true) @RequestPart("recordsZipFile") MultipartFile recordsZipFile) {
+      @Parameter(
+          description = "ZIP file containing EDM/RDF records",
+          required = true,
+          content = @Content(
+              mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+              schema = @Schema(type = "string", format = "binary")
+          )
+      )
+      @RequestPart("recordsZipFile") MultipartFile recordsZipFile) {
     verifyDatasetId(datasetId);
     final InsertionResult result = new InsertionResult(datasetId,
         Objects.requireNonNullElseGet(dateStamp, Instant::now));
@@ -151,15 +183,41 @@ public class RecordController {
   @PutMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER,
       produces = {MediaType.APPLICATION_JSON_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "The header fields of the given record is updated.")
-  @ApiResponses(value = {@ApiResponse(code = 404, message = "Illegal dataset or unknown record ID"),
-      @ApiResponse(code = 500, message = "Error processing the record")})
+  @Operation(
+      summary = "Update record header",
+      description = "Updates the header fields of the given record."
+  )
+  @ApiResponse(responseCode = "200", description = "Record header updated successfully")
+  @ApiResponse(responseCode = "404", description = "Illegal dataset or unknown record ID")
+  @ApiResponse(responseCode = "500", description = "Error processing the record")
   public InsertionResult updateRecordHeader(
-      @ApiParam(value = "Record ID (existing)", required = true) @PathVariable("recordId") String recordId,
-      @ApiParam(value = "Dataset ID (new or existing)", required = true) @RequestParam("datasetId") String datasetId,
-      @ApiParam(value = "Date stamp (in ISO format)") @RequestParam(name = "dateStamp", required = false)
+      @Parameter(
+          description = "Record ID (existing)",
+          required = true,
+          example = "record-123"
+      )
+      @PathVariable("recordId") String recordId,
+
+      @Parameter(
+          description = "Dataset ID (new or existing)",
+          required = true,
+          example = "dataset-456"
+      )
+      @RequestParam("datasetId") String datasetId,
+
+      @Parameter(
+          description = "Date stamp (ISO-8601 format)",
+          example = "2025-01-15T12:30:00Z"
+      )
+      @RequestParam(name = "dateStamp", required = false)
       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant dateStamp,
-      @ApiParam(value = "Whether the record is to be marked as deleted", required = true) @RequestParam("markAsDeleted") boolean markAsDeleted) {
+
+      @Parameter(
+          description = "Whether the record is to be marked as deleted",
+          required = true,
+          example = "false"
+      )
+      @RequestParam("markAsDeleted") boolean markAsDeleted) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
@@ -192,11 +250,27 @@ public class RecordController {
   @GetMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID,
       produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "The record is retrieved from the database.")
-  @ApiResponses(value = {@ApiResponse(code = 404, message = "Record ID is invalid or unknown"),
-      @ApiResponse(code = 500, message = "Error processing the request")})
+  @Operation(
+      summary = "Get record",
+      description = "Retrieves a record from the database by its identifier."
+  )
+  @ApiResponse(
+      responseCode = "200",
+      description = "Record retrieved successfully",
+      content = @Content(
+          mediaType = MediaType.APPLICATION_XML_VALUE,
+          schema = @Schema(implementation = RecordView.class)
+      )
+  )
+  @ApiResponse(responseCode = "404", description = "Record ID is invalid or unknown")
+  @ApiResponse(responseCode = "500", description = "Error processing the request")
   public RecordView getRecord(
-      @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
+      @Parameter(
+          description = "Record ID",
+          required = true,
+          example = "record-123"
+      )
+      @PathVariable("recordId") String recordId) {
     final Record oaiRecord = recordDao.getRecord(recordId);
     if (oaiRecord == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
@@ -212,12 +286,20 @@ public class RecordController {
    */
   @DeleteMapping(value = RestEndpoints.REPOSITORY_RECORDS_RECORD_ID)
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "The record is deleted from the database. Note: this is not the same as "
-      + "marking a record as deleted.")
-  @ApiResponses(value = {@ApiResponse(code = 404, message = "Record ID is invalid or unknown"),
-      @ApiResponse(code = 500, message = "Error processing the request")})
+  @Operation(
+      summary = "Delete record",
+      description = "Deletes the record from the database. Note: this is not the same as marking a record as deleted."
+  )
+  @ApiResponse(responseCode = "204", description = "Record deleted successfully")
+  @ApiResponse(responseCode = "404", description = "Record ID is invalid or unknown")
+  @ApiResponse(responseCode = "500", description = "Error processing the request")
   public void deleteRecord(
-      @ApiParam(value = "Record ID", required = true) @PathVariable("recordId") String recordId) {
+      @Parameter(
+          description = "Record ID",
+          required = true,
+          example = "record-123"
+      )
+      @PathVariable("recordId") String recordId) {
     if (!recordDao.deleteRecord(recordId)) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, NOT_FOUND_LOG_STRING);
     }
