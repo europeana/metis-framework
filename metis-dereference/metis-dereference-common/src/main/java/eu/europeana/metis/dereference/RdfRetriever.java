@@ -25,8 +25,7 @@ public class RdfRetriever {
   private static final String DEFAULT_USER_AGENT = "MetisDereferencer/1.0 (Europeana Foundation)";
 
   /**
-   * Retrieve a remote entity from a resource as a String. We try every suffix in a random order
-   * until we find one that works (i.e. yield a non-null result that is not HTML).
+   * Retrieve a remote entity from a resource as a String.
    *
    * @param resourceId           The remote entity to retrieve (resource IDs are in fact URIs)
    * @param resourceUriGenerator A generator for the resource's URI. Cannot be null.
@@ -34,7 +33,7 @@ public class RdfRetriever {
    * @return The original entity containing a string representation of the remote entity. This
    * method does not return null.
    * @throws IOException If there was an issue retrieving the resource or if the provided resource
-   *                     ID - suffix combination does not form a valid URI.
+   *                     does not form a valid URI.
    */
   public String retrieve(String resourceId, ResourceUriGenerator resourceUriGenerator,
       String userAgent) throws IOException {

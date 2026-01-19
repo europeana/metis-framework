@@ -82,7 +82,6 @@ class MongoDereferenceServiceTest {
     geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
         .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));
     geonames.setName("Geonames");
-    geonames.setSuffix("suffix");
     geonames.setResourceUrlTemplate("resourceUrlTemplate");
     geonames.setUserAgent("user-agent");
     geonames.setIterations(0);
@@ -258,23 +257,8 @@ class MongoDereferenceServiceTest {
 
   @Test
   void testGetResourceUriGenerator() throws URISyntaxException {
-
-    // Test for both suffix and template - template takes precedence.
     geonames.setResourceUrlTemplate("${resourceId}");
-    geonames.setSuffix(".rdf");
-    final ResourceUriGenerator suffixAndTemplate = dereferenceService.getResourceUriGenerator(geonames);
-    assertEquals(PLACE_ID, suffixAndTemplate.generateUri(PLACE_ID).toString());
-
-    // Test for just template.
-    geonames.setSuffix(null);
-    final ResourceUriGenerator suffixOnly = dereferenceService.getResourceUriGenerator(geonames);
-    assertEquals(PLACE_ID, suffixOnly.generateUri(PLACE_ID).toString());
-
-
-    // Test for just suffix
-    geonames.setSuffix(".rdf");
-    geonames.setResourceUrlTemplate(null);
-    final ResourceUriGenerator templateOnly = dereferenceService.getResourceUriGenerator(geonames);
-    assertEquals(PLACE_ID + geonames.getSuffix(), templateOnly.generateUri(PLACE_ID).toString());
+    final ResourceUriGenerator generator = dereferenceService.getResourceUriGenerator(geonames);
+    assertEquals(PLACE_ID, generator.generateUri(PLACE_ID).toString());
   }
 }

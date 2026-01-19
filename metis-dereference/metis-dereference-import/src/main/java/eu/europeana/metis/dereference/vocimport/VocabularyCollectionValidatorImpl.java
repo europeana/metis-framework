@@ -67,7 +67,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
       final IncomingRecordToEdmTransformer converter = validateVocabulary(vocabulary,
-          duplicationChecker, warningReceiver);
+          duplicationChecker);
       if (validateExamples) {
         validateExamples(vocabulary, warningReceiver, converter);
       }
@@ -76,7 +76,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private IncomingRecordToEdmTransformer validateVocabulary(Vocabulary vocabulary,
-      DuplicationChecker duplicationChecker, Consumer<String> warningReceiver)
+      DuplicationChecker duplicationChecker)
       throws VocabularyImportException {
 
     // Check the presence of the required fields.
@@ -100,20 +100,9 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
           String.format("No transformation given in mapping at [%s].",
               vocabulary.getReadableMappingLocation()));
     }
-    if (vocabulary.getSuffix() != null && vocabulary.getResourceUrlTemplate() != null) {
-      throw new VocabularyImportException(
-          String.format("Suffix and resource URL template given in mapping at [%s].",
-              vocabulary.getReadableMappingLocation()));
-    }
 
     // Check whether name and links are unique.
     duplicationChecker.checkAndRegister(vocabulary);
-
-    // Check for deprecated prefix value.
-    if (vocabulary.getSuffix() != null) {
-      warningReceiver.accept(String.format("Deprecated suffix value is given in mapping at [%s].",
-          vocabulary.getReadableMappingLocation()));
-    }
 
     // Verifying the xslt - compile it.
     try {
@@ -141,7 +130,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     // Create the resource URL generator
     final ResourceUriGenerator resourceUriGenerator = ResourceUriGenerator
-        .forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(), vocabulary.getSuffix());
+        .forTemplate(vocabulary.getResourceUrlTemplate());
 
     // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {

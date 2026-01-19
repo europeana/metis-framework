@@ -14,15 +14,6 @@ class ResourceUriGeneratorTest {
   void testIdentityGenerator() throws URISyntaxException {
     assertEquals(RECORD_ID,
         ResourceUriGenerator.identityGenerator().generateUri(RECORD_ID).toString());
-    assertEquals(RECORD_ID, ResourceUriGenerator.forSuffix(null).generateUri(RECORD_ID).toString());
-    assertEquals(RECORD_ID, ResourceUriGenerator.forSuffix(" ").generateUri(RECORD_ID).toString());
-  }
-
-  @Test
-  void testSuffixGenerator() throws URISyntaxException {
-    final String suffix = ".rdf";
-    assertEquals(RECORD_ID + suffix,
-        ResourceUriGenerator.forSuffix(suffix).generateUri(RECORD_ID).toString());
   }
 
   @Test
