@@ -5,7 +5,6 @@ import static org.apache.tika.metadata.TikaCoreProperties.RESOURCE_NAME_KEY;
 import eu.europeana.metis.mediaprocessing.model.RemoteResourceMetadata;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.nio.file.Path;
 import java.util.Locale;
 import org.apache.tika.Tika;
@@ -29,22 +28,22 @@ public class TikaWrapper {
   }
 
   /**
-   * This method returns the resource name giving precedence to the information
-   * that is contained in Content-Disposition header if exists.
-   * If Content-Disposition resource name is empty then it gets it from the URI provided.
+   * This method returns the resource name giving precedence to the information that is contained in
+   * Content-Disposition header if exists. If Content-Disposition resource name is empty then it
+   * gets it from the URI provided.
    *
-   * @param contentDisposition content-disposition header information that can contain a resource name
-   * @param actualUri          actual URI that can contain a resource name
+   * @param resource The metadata of the resource
    * @return String with the resource name
    */
   private static String getResourceNameFromContentDispositionOrFromActualURI(
-      ContentDisposition contentDisposition, URI actualUri) {
+      RemoteResourceMetadata resource) {
     final String extractedResourceName;
+    final ContentDisposition contentDisposition = resource.getProvidedContentDisposition();
     if (contentDisposition != null &&
         (contentDisposition.isInline() || contentDisposition.isAttachment())) {
       extractedResourceName = contentDisposition.getFilename();
     } else {
-      final String resourcePath = actualUri.getPath().trim();
+      final String resourcePath = resource.getActualLocation().getPath().trim();
       if (resourcePath.isEmpty() || resourcePath.endsWith("/")) {
         extractedResourceName = null;
       } else {
@@ -58,8 +57,7 @@ public class TikaWrapper {
 
   private static Metadata getMetadataFromResource(RemoteResourceMetadata resource) {
     final Metadata metadata = new Metadata();
-    final String resourceName = getResourceNameFromContentDispositionOrFromActualURI(
-        resource.getProvidedContentDisposition(), resource.getActualLocation());
+    final String resourceName = getResourceNameFromContentDispositionOrFromActualURI(resource);
     if (resourceName != null) {
       metadata.set(RESOURCE_NAME_KEY, resourceName);
     }

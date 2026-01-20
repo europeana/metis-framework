@@ -12,7 +12,6 @@ import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
-import eu.europeana.metis.mediaprocessing.model.RemoteResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
@@ -21,7 +20,6 @@ import eu.europeana.metis.schema.model.MediaType;
 import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -219,7 +217,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     // Detect the mime type.
     final String detectedMimeType;
     try {
-      detectedMimeType = resource.hasContent() ? detectType(resource.getContentPath(), resource)
+      detectedMimeType = resource.hasContent() ? detectType(resource)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
     } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Mime type checking error", e);
@@ -241,8 +239,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     return detectedMimeType;
   }
 
-  String detectType(Path path, RemoteResourceMetadata resource) throws IOException {
-    return tika.detect(resource, path);
+  String detectType(Resource resource) throws IOException {
+    return tika.detect(resource, resource.getContentPath());
   }
 
   List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,
