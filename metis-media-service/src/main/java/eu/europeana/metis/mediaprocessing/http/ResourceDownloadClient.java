@@ -112,7 +112,7 @@ public class ResourceDownloadClient extends
 
     // Create resource
     final RdfResourceEntry resourceEntry = providedLink.getLeft();
-    final Resource resource = new ResourceImpl(resourceEntry, mimeType, fileSize, actualUri);
+    final Resource resource = new ResourceImpl(resourceEntry, mimeType, fileSize, contentDisposition, actualUri);
 
     // In case we are expecting a file, we download it.
     final boolean fullDownload = providedLink.getRight() == DownloadMode.ALWAYS
