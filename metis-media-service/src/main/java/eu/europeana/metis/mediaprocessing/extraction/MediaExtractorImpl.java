@@ -1,7 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
-
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
