@@ -39,10 +39,12 @@
     <version.maven.release.plugin>2.5.3</version.maven.release.plugin>
 
     <!--Internal-->
-    <version.metis-common>18</version.metis-common>
+    <version.metis-common>19-SNAPSHOT</version.metis-common>
     <version.metis-schema>13</version.metis-schema>
 
     <!--External-->
+    <version.spring.boot>4.0.1</version.spring.boot>
+    <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
     <version.apache.httpclient5>5.4.1</version.apache.httpclient5>
     <version.apache.httpcore5>5.3.1</version.apache.httpcore5>
@@ -53,7 +55,6 @@
     <version.commons.io>2.14.0</version.commons.io>
     <version.commons.lang3>3.18.0</version.commons.lang3>
     <version.commons-collections4>4.4</version.commons-collections4>
-    <version.awaitability>4.2.0</version.awaitability>
     <version.bouncycastle>1.68</version.bouncycastle>
     <version.commons.codec>1.16.1</version.commons.codec>
     <version.apache.commons.text>1.10.0</version.apache.commons.text>
@@ -66,7 +67,6 @@
     <version.postgresql>42.7.2</version.postgresql>
     <version.ibm.icu4j>69.1</version.ibm.icu4j>
     <version.itextpdf>5.5.13.2</version.itextpdf>
-    <version.jackson>2.16.1</version.jackson>
     <version.elastic.apm>1.48.1</version.elastic.apm>
     <version.javax.annotation>2.1.1</version.javax.annotation>
     <version.javax.mail>1.6.0</version.javax.mail>
@@ -78,23 +78,14 @@
     <version.jersey>3.1.5</version.jersey>
     <version.json>20210307</version.json>
     <version.json.path>2.9.0</version.json.path>
-    <version.junit>5.11.4</version.junit>
-    <version.junit5.vintage.version>5.1.0</version.junit5.vintage.version>
     <version.log4j>2.23.0</version.log4j>
     <version.slf4j>2.0.12</version.slf4j>
-    <version.mockito.core>5.17.0</version.mockito.core>
     <version.morphia.core>2.5.0</version.morphia.core>
     <version.mpd.parser>0.9</version.mpd.parser>
     <version.powermock>2.0.9</version.powermock>
     <version.saxon.he>10.5</version.saxon.he>
     <version.servlet.api>4.0.1</version.servlet.api>
     <version.solr.solrj>8.8.2</version.solr.solrj>
-    <version.spring>6.1.5</version.spring>
-    <version.spring.boot>3.4.10</version.spring.boot>
-    <version.spring.security.crypto>5.8.10</version.spring.security.crypto>
-    <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
-    <version.swagger>3.0.0</version.swagger>
-    <version.swagger.annotations>1.6.16</version.swagger.annotations>
     <version.tika.core>2.9.4</version.tika.core>
     <version.org.wiremock>3.4.2</version.org.wiremock>
     <version.testcontainers>2.0.2</version.testcontainers>
@@ -109,9 +100,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-framework-bom</artifactId>
-        <version>${version.spring}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${version.spring.boot}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -146,15 +137,6 @@
         <artifactId>metis-common-spring-properties</artifactId>
         <version>${version.metis-common}</version>
       </dependency>
-
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${version.spring.boot}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
       <dependency>
         <groupId>jakarta.xml.bind</groupId>
         <artifactId>jakarta.xml.bind-api</artifactId>
@@ -434,37 +416,6 @@
         <groupId>eu.europeana.corelib</groupId>
         <artifactId>corelib-lookup</artifactId>
         <version>${version.corelib}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>${version.junit}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${version.junit}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <artifactId>junit-jupiter-params</artifactId>
-        <groupId>org.junit.jupiter</groupId>
-        <version>${version.junit}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>${version.mockito.core}</version>
-        <scope>test</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>${version.spring}</version>
-        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.hamcrest</groupId>

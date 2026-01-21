@@ -1,15 +1,15 @@
 package eu.europeana.metis.mediaprocessing.extraction.iiif;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * The type IIIf info json model v2 base on the following
+ * The type IIIF info json model v2 base on the following
  * <a href="https://iiif.io/api/image/2.0/#image-information">technical properties</a>
  */
 public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {

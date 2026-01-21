@@ -7,7 +7,6 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.http.JvmProxyConfigurer;
@@ -28,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import tools.jackson.databind.ObjectMapper;
 
 // todo When renaming to *IT then failsafe fails to execute. Needs investigation.
 class DetectionControllerWiremockTest {
@@ -123,7 +123,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(content().json(
-               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY string_type Input should be a valid string\"}"));
+               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT string_type Input should be a valid string\"}"));
   }
 
   @Test
@@ -153,7 +153,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(content().json(
-               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY list_type Input should be a valid list\"}"));
+               "{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT list_type Input should be a valid list\"}"));
   }
 
   @Test
@@ -176,7 +176,7 @@ class DetectionControllerWiremockTest {
            .andExpect(status().is(400))
            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
            .andExpect(
-               content().json("{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_ENTITY missing Field required\"}"));
+               content().json("{\"statusCode\":400,\"errorMessage\":\"422 UNPROCESSABLE_CONTENT missing Field required\"}"));
   }
 
   @Test

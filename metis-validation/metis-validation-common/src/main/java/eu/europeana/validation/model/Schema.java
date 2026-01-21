@@ -6,9 +6,8 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
- * Created by ymamakis on 3/14/16.
+ * Contains the zip file and information for accessing the xml schema in that file.
  */
-
 @XmlRootElement
 public class Schema {
 

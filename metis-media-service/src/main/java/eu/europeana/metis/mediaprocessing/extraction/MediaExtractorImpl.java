@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
+import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
 
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -17,7 +17,6 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -274,20 +273,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     // If the mime type changed, and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
-      final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
-          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
-
-      ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
-        if (resourceWithContent.hasContent()) {
-          try (final InputStream inputStream = resourceWithContent.getContentStream()) {
-            resource.markAsWithContent(inputStream);
-          }
-        }
-      };
-      try (final Resource resourceWithContent = getResourceDownloadClient(rdfResourceKind)
-          .downloadWithContent(downloadInput)) {
-        performThrowingAction(resourceWithContent, action);
-      }
+      downloadContent(resource, rdfResourceKind, serviceReference);
     }
 
     // Verify that we have content when we need to.
@@ -295,6 +281,20 @@ public class MediaExtractorImpl implements MediaExtractor {
         && !resource.hasContent()) {
       throw new MediaExtractionException(
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+    }
+  }
+
+  private void downloadContent(Resource resource, RdfResourceKind rdfResourceKind, String serviceReference) throws IOException {
+    final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
+        new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
+
+    try (final Resource resourceWithContent = getResourceDownloadClient(rdfResourceKind)
+        .downloadWithContent(downloadInput)) {
+      if (resourceWithContent.hasContent()) {
+        try (final InputStream inputStream = resourceWithContent.getContentStream()) {
+          resource.markAsWithContent(inputStream);
+        }
+      }
     }
   }
 
