@@ -19,7 +19,6 @@ public class Vocabulary {
   private final Set<Type> types;
   private final List<String> paths;
   private final int parentIterations;
-  private final String suffix;
   private final String resourceUrlTemplate;
   private final String userAgent;
   private final List<String> examples;
@@ -33,7 +32,6 @@ public class Vocabulary {
     this.types = Optional.ofNullable(builder.types).orElseGet(Collections::emptySet);
     this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
-    this.suffix = builder.suffix;
     this.resourceUrlTemplate = builder.resourceUrlTemplate;
     this.userAgent = builder.userAgent;
     this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
@@ -58,18 +56,6 @@ public class Vocabulary {
 
   public int getParentIterations() {
     return parentIterations;
-  }
-
-  /**
-   * Setter.
-   *
-   * @return The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @Deprecated(forRemoval = true)
-  public String getSuffix() {
-    return suffix;
   }
 
   public String getResourceUrlTemplate() {
@@ -113,7 +99,6 @@ public class Vocabulary {
     protected Set<Type> types;
     protected List<String> paths;
     protected int parentIterations;
-    protected String suffix;
     protected String resourceUrlTemplate;
     protected String userAgent;
     protected List<String> examples;
@@ -143,20 +128,6 @@ public class Vocabulary {
 
     public Builder setParentIterations(Integer parentIterations) {
       this.parentIterations = Objects.requireNonNullElse(parentIterations, 0);
-      return this;
-    }
-
-    /**
-     * Setter.
-     *
-     * @param suffix The suffix.
-     * @return This instance.
-     * @deprecated Will be removed.
-     * TODO MET-6903
-     */
-    @Deprecated(forRemoval = true)
-    public Builder setSuffix(String suffix) {
-      this.suffix = normalizeString(suffix);
       return this;
     }
 

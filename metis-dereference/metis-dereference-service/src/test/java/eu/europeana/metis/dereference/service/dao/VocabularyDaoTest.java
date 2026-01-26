@@ -100,7 +100,6 @@ class VocabularyDaoTest {
     Vocabulary vocabulary = vocabularyDao.get(expectedVocabulary.getId().toString());
 
     assertEquals(expectedVocabulary.getName(), vocabulary.getName());
-    assertEquals(expectedVocabulary.getSuffix(), vocabulary.getSuffix());
     assertEquals(expectedVocabulary.getResourceUrlTemplate(), vocabulary.getResourceUrlTemplate());
     assertEquals(expectedVocabulary.getXslt(), vocabulary.getXslt());
     assertEquals(expectedVocabulary.getUris().stream().findFirst().get(), vocabulary.getUris().stream().findFirst().get());
@@ -113,7 +112,6 @@ class VocabularyDaoTest {
 
     Vocabulary vocabulary = new Vocabulary();
     vocabulary.setXslt("xlst");
-    vocabulary.setSuffix("suffix");
     vocabulary.setResourceUrlTemplate("resourceUrlTemplate");
     vocabulary.setUris(List.of("uri"));
     vocabulary.setIterations(0);
@@ -133,7 +131,6 @@ class VocabularyDaoTest {
     for (int i = 1; i <= 5; i++) {
       Vocabulary vocabulary = new Vocabulary();
       vocabulary.setName("vocabulary" + i);
-      vocabulary.setSuffix("suffix" + i);
       vocabulary.setResourceUrlTemplate("resourceUrlTemplate" + i);
       if (i % 2 == 0) {
         vocabulary.setUris(List.of("http://domain2.uri"));

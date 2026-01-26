@@ -266,8 +266,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     ResourceUriGenerator getResourceUriGenerator(Vocabulary vocabulary) {
-        return ResourceUriGenerator.forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(),
-            vocabulary.getSuffix());
+        return ResourceUriGenerator.forTemplate(vocabulary.getResourceUrlTemplate());
     }
 
     private OriginalEntity retrieveOriginalEntity(String resourceId,
@@ -279,7 +278,7 @@ public class MongoDereferenceService implements DereferenceService {
             throw new IllegalArgumentException();
         }
 
-        // Compute the result (a URI syntax issue is considered a problem with the suffix).
+        // Compute the result.
         final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
                 return retriever.retrieve(resourceId, getResourceUriGenerator(vocabulary),
