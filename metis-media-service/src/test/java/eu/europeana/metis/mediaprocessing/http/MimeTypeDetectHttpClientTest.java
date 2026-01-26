@@ -86,7 +86,6 @@ class MimeTypeDetectHttpClientTest {
         //STL
         of("__files/3d/cube-ascii.stl", "model/x.stl-ascii"),
         of("__files/3d/cube-binary.stl", "model/x.stl-binary"),
-        of("__files/3d/cube-binary.stl", "model/x.stl-binary"),
         //IGES
         of("__files/3d/cube.iges", "model/iges"),
         //STEP
@@ -105,7 +104,10 @@ class MimeTypeDetectHttpClientTest {
         of("__files/oembed.xml", "application/xml"),
         //USD
         of("__files/3d/cube.usda", "model/vnd.usda"),
-        of("__files/3d/cube.usdz", "model/vnd.usdz+zip")
+        of("__files/3d/cube.usdz", "model/vnd.usdz+zip"),
+        //PLY
+        of("__files/3d/cube-ascii.ply", "model/ply"),
+        of("__files/3d/cube-binary.ply", "model/ply")
     );
   }
 }
