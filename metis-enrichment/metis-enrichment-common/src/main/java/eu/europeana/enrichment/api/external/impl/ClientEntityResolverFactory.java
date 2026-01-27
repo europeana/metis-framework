@@ -31,7 +31,7 @@ public class ClientEntityResolverFactory {
   public ClientEntityResolver create()
       throws EntityClientException {
     ClientConnectionConfig clientConnectionConfig =
-        new ClientConnectionConfig("200", "20", "1", "30", "30", "60", "30");
+        new ClientConnectionConfig("200", "20", "1", "30", "30", "60", "30", true);
     EntityApiClient entityApiClient = new EntityApiClient(entityApiClientConfiguration.getEntityApiUrl(),
         entityApiClientConfiguration.getEntityManagementUrl(),
         AuthenticationBuilder.newAuthentication(entityApiClientConfiguration),
