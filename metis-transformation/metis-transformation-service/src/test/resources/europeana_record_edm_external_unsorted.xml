@@ -57,6 +57,7 @@
         <dc:source xml:lang="en">Scottish 10</dc:source>
         <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
         <edm:pid>ark:/12148/123</edm:pid>
+        <edm:isRepresentationOf rdf:resource="http://data.europeana.eu/item/90402/BK_1955_331"/>
     </edm:WebResource>
     <edm:Place rdf:about="iid:4387/SP.1">
         <wgs84_pos:lat>59.04861</wgs84_pos:lat>
