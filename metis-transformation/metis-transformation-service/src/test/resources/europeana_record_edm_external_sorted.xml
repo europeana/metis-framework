@@ -57,6 +57,7 @@
         <rdfs:seeAlso rdf:resource="linkToOtherWebResourceExample"/>
         <schema:digitalSourceType rdf:resource="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"/>
         <edm:intendedUsage rdf:resource="http://data.europeana.eu/vocabulary/usageArea/Knowledge"/>
+        <edm:isRepresentationOf rdf:resource="http://data.europeana.eu/item/90402/BK_1955_331"/>
     </edm:WebResource>
     <edm:Place rdf:about="iid:4387/SP.1">
         <wgs84_pos:lat>59.04861</wgs84_pos:lat>

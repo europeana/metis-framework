@@ -303,6 +303,7 @@
       <xsl:apply-templates select="edm:type"/>
       <xsl:apply-templates select="schema:digitalSourceType"/>
       <xsl:apply-templates select="edm:intendedUsage"/>
+      <xsl:apply-templates select="edm:isRepresentationOf"/>
     </xsl:element>
   </xsl:template>
   <xsl:template match="edm:Agent">

@@ -144,6 +144,10 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
       webResource.setEdmIntendedUsage(FieldInputUtils.resourceListToArray(wResourceType.getIntendedUsageList()));
     }
 
+    if (wResourceType.getIsRepresentationOfList() != null) {
+      webResource.setEdmIsRepresentationOf(FieldInputUtils.resourceListToArray(wResourceType.getIsRepresentationOfList()));
+    }
+
     Map<String, List<String>> titleMap =
         FieldInputUtils.createLiteralMapFromList(wResourceType.getTitleList());
 
