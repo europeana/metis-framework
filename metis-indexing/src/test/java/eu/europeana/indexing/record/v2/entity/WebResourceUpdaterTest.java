@@ -99,5 +99,6 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
     testMapPropertyUpdate(propertyUpdater, "dcLanguage", WebResource::setDcLanguage);
     testMapPropertyUpdate(propertyUpdater, "dcTermsTemporal", WebResource::setDcTermsTemporal);
     testArrayPropertyUpdate(propertyUpdater, "rdfsSeeAlso", WebResource::setRdfsSeeAlso);
+    testArrayPropertyUpdate(propertyUpdater, "edmIsRepresentationOf", WebResource::setEdmIsRepresentationOf);
   }
 }
