@@ -44,6 +44,7 @@ public class WebResourceUpdater extends
     propertyUpdater.updateMap("dcLanguage", WebResource::getDcLanguage);
     propertyUpdater.updateMap("dcTermsTemporal", WebResource::getDcTermsTemporal);
     propertyUpdater.updateArray("rdfsSeeAlso", WebResource::getRdfsSeeAlso);
+    propertyUpdater.updateArray("edmIsRepresentationOf", WebResource::getEdmIsRepresentationOf);
 
     propertyUpdater.updateWebResourceMetaInfo(WebResourceImpl::getWebResourceMetaInfo,
         webResource -> createWebResourceInfo(webResource, ancestorInformation),
