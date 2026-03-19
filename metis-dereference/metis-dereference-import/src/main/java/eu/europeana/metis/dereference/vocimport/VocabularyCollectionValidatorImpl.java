@@ -134,14 +134,16 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {
-      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), false,
-          vocabulary.getReadableMetadataLocation(), warningReceiver);
+      testExample(converter, example, resourceUriGenerator, vocabulary.getMediaType(),
+          vocabulary.getUserAgent(), false, vocabulary.getReadableMetadataLocation(),
+          warningReceiver);
     }
 
     // Testing the counter-examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
-      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), true,
-          vocabulary.getReadableMetadataLocation(), warningReceiver);
+      testExample(converter, example, resourceUriGenerator, vocabulary.getMediaType(),
+          vocabulary.getUserAgent(), true, vocabulary.getReadableMetadataLocation(),
+          warningReceiver);
     }
   }
 
@@ -163,14 +165,14 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private void testExample(IncomingRecordToEdmTransformer incomingRecordToEdmTransformer,
-      String example, ResourceUriGenerator resourceUriGenerator, String userAgent,
+      String example, ResourceUriGenerator resourceUriGenerator, String mediaType, String userAgent,
       boolean isCounterExample, String readableMetadataLocation,
       Consumer<String> warningReceiver) throws VocabularyImportException {
 
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
-      exampleContent = new RdfRetriever().retrieve(example, resourceUriGenerator, userAgent);
+      exampleContent = new RdfRetriever().retrieve(example, resourceUriGenerator, mediaType, userAgent);
     } catch (IOException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
           readableMetadataLocation, "could not be retrieved", e);

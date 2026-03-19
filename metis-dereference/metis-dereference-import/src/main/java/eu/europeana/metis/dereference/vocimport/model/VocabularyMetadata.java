@@ -19,6 +19,7 @@ public class VocabularyMetadata {
   private List<String> paths;
   private Integer parentIterations;
   private String resourceUrlTemplate;
+  private String mediaType;
   private String userAgent;
   private List<String> examples;
   private List<String> counterExamples;
@@ -43,6 +44,10 @@ public class VocabularyMetadata {
 
   public String getResourceUrlTemplate() {
     return resourceUrlTemplate;
+  }
+
+  public String getMediaType() {
+    return mediaType;
   }
 
   public String getUserAgent() {
@@ -77,6 +82,10 @@ public class VocabularyMetadata {
 
   public void setResourceUrlTemplate(String resourceUrlTemplate) {
     this.resourceUrlTemplate = resourceUrlTemplate;
+  }
+
+  public void setMediaType(String mediaType) {
+    this.mediaType = mediaType;
   }
 
   public void setUserAgent(String userAgent) {

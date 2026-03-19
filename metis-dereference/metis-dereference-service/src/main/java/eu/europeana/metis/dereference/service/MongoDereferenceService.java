@@ -282,7 +282,7 @@ public class MongoDereferenceService implements DereferenceService {
         final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
                 return retriever.retrieve(resourceId, getResourceUriGenerator(vocabulary),
-                    vocabulary.getUserAgent());
+                    vocabulary.getMediaType(), vocabulary.getUserAgent());
             } catch (IOException e) {
                 LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
                 LOGGER.debug("Problem retrieving resource.", e);

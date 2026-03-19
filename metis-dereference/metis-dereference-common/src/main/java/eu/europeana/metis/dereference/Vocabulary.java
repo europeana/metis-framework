@@ -48,6 +48,12 @@ public class Vocabulary implements Serializable {
   private String resourceUrlTemplate;
 
   /**
+   * The value of the Accept HTTP header to be used with the vocabulary. If null, the default
+   * media type (RDF/XML) will be set.
+   */
+  private String mediaType;
+
+  /**
    * The value of the User Agent HTTP header to be used with the vocabulary. If null, the default
    * user agent will be set.
    */
@@ -84,6 +90,15 @@ public class Vocabulary implements Serializable {
 
   public void setResourceUrlTemplate(String resourceUrlTemplate) {
     this.resourceUrlTemplate = resourceUrlTemplate;
+  }
+
+  @XmlElement
+  public String getMediaType() {
+    return mediaType;
+  }
+
+  public void setMediaType(String mediaType) {
+    this.mediaType = mediaType;
   }
 
   @XmlElement
