@@ -1,5 +1,6 @@
 package eu.europeana.metis.dereference;
 
+import eu.europeana.metis.common.rdf.ComplianceException;
 import eu.europeana.metis.common.rdf.RdfConversion;
 import eu.europeana.metis.common.rdf.RdfRepresentation;
 import eu.europeana.metis.network.StringHttpClient;
@@ -35,8 +36,8 @@ public class RdfRetriever {
    * @param userAgent            The user agent to set. If null, the default user agent is used.
    * @return The original entity containing a string representation of the remote entity. This
    * method does not return null.
-   * @throws IOException If there was an issue retrieving the resource or if the provided resource
-   *                     does not form a valid URI.
+   * @throws IOException If there was an issue retrieving the resource, the provided resource
+   *                     does not form a valid URI, or the resource could not be converted to XML.
    */
   public String retrieve(String resourceId, ResourceUriGenerator resourceUriGenerator,
       String mediaType, String userAgent) throws IOException {
@@ -45,13 +46,13 @@ public class RdfRetriever {
     }
     try {
       return retrieveFromSource(resourceUriGenerator.generateUri(resourceId), mediaType, userAgent);
-    } catch (URISyntaxException e) {
+    } catch (URISyntaxException | ComplianceException e) {
       throw new IOException(e.getMessage(), e);
     }
   }
 
   private static String retrieveFromSource(URI resourceUri, String mediaType, String userAgent)
-      throws IOException {
+      throws IOException, ComplianceException {
 
     // Check the media type
     final String mediaTypeToUse = Optional.ofNullable(mediaType).orElse(DEFAULT_MEDIA_TYPE);
