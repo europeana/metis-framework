@@ -1,7 +1,7 @@
 package eu.europeana.metis.dereference;
 
 import eu.europeana.metis.common.rdf.ComplianceException;
-import eu.europeana.metis.common.rdf.RdfConversion;
+import eu.europeana.metis.common.rdf.RdfRepresentationConverter;
 import eu.europeana.metis.common.rdf.RdfRepresentation;
 import eu.europeana.metis.network.StringHttpClient;
 import eu.europeana.metis.network.StringHttpClient.StringContent;
@@ -79,12 +79,13 @@ public class RdfRetriever {
       throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
     }
 
-    // Convert the response to XML. If the representation is already XML, return unchanged.
+    // Convert the response to XML. If the representation is already XML, return unchanged (this
+    // is for backwards compatibility reasons: all XSLT transformations assume unchanged content).
     final String result;
     if (representation == RdfRepresentation.XML) {
       result = response.getContent();
     } else {
-      result = RdfConversion.convertToXmlAndNormalizeHierarchy(response.getContent(),
+      result = RdfRepresentationConverter.convertToXmlAndNormalizeHierarchy(response.getContent(),
           representation, resourceUri.toString());
     }
     return result;
