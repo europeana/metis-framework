@@ -20,6 +20,7 @@ public class Vocabulary {
   private final List<String> paths;
   private final int parentIterations;
   private final String resourceUrlTemplate;
+  private final String mediaType;
   private final String userAgent;
   private final List<String> examples;
   private final List<String> counterExamples;
@@ -33,6 +34,7 @@ public class Vocabulary {
     this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
     this.resourceUrlTemplate = builder.resourceUrlTemplate;
+    this.mediaType = builder.mediaType;
     this.userAgent = builder.userAgent;
     this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
     this.counterExamples = Optional.ofNullable(builder.counterExamples)
@@ -60,6 +62,10 @@ public class Vocabulary {
 
   public String getResourceUrlTemplate() {
     return resourceUrlTemplate;
+  }
+
+  public String getMediaType() {
+    return mediaType;
   }
 
   public String getUserAgent() {
@@ -100,6 +106,7 @@ public class Vocabulary {
     protected List<String> paths;
     protected int parentIterations;
     protected String resourceUrlTemplate;
+    protected String mediaType;
     protected String userAgent;
     protected List<String> examples;
     protected List<String> counterExamples;
@@ -133,6 +140,11 @@ public class Vocabulary {
 
     public Builder setResourceUrlTemplate(String resourceUrlTemplate) {
       this.resourceUrlTemplate = normalizeString(resourceUrlTemplate);
+      return this;
+    }
+
+    public Builder setMediaType(String mediaType) {
+      this.mediaType = normalizeString(mediaType);
       return this;
     }
 
