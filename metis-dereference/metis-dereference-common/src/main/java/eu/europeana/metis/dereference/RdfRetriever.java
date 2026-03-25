@@ -79,8 +79,8 @@ public class RdfRetriever {
       throw new IOException("Could not retrieve the entity: seems to be an HTML document.");
     }
 
-    // Convert the response to XML. If the representation is already XML, return unchanged (this
-    // is for backwards compatibility reasons: all XSLT transformations assume unchanged content).
+    // Convert the response to XML. If already XML, return the content unchanged (this is for
+    // backwards compatibility reasons: all existing XSLT transformations assume unchanged content).
     final String result;
     if (representation == RdfRepresentation.XML) {
       result = response.getContent();
