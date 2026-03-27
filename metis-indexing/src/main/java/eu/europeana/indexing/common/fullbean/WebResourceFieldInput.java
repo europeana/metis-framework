@@ -179,18 +179,23 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
                                                          .map(HasMimeType::getHasMimeType);
 
     final MediaType mediaType = optionalHasMimeType.map(hasMimeType -> {
-      MediaType adaptedMediaType = MediaType.getMediaType(hasMimeType);
       final EdmType edmType = Optional.ofNullable(webResource.getType1()).map(Type2::getType).orElse(null);
-      final boolean isOembedMimeType = hasMimeType.startsWith("application/xml+oembed") || hasMimeType.startsWith("application/json+oembed");
-      final boolean isPossibleOembedMediaType = adaptedMediaType == MediaType.TEXT || adaptedMediaType == MediaType.OTHER;
-      if (isPossibleOembedMediaType && edmType != null && isOembedMimeType) {
-        if (edmType == EdmType.IMAGE) {
-          adaptedMediaType = MediaType.IMAGE;
-        } else if (edmType == EdmType.VIDEO) {
-          adaptedMediaType = MediaType.VIDEO;
-        }
+      final boolean isOembedMimeType = hasMimeType.startsWith("application/xml+oembed")
+          || hasMimeType.startsWith("application/json+oembed");
+      final MediaType adaptedMediaType;
+      if (isOembedMimeType && edmType != null) {
+        adaptedMediaType = switch (edmType) {
+          case TEXT -> MediaType.TEXT;
+          case VIDEO -> MediaType.VIDEO;
+          case IMAGE -> MediaType.IMAGE;
+          case SOUND -> MediaType.AUDIO;
+          case _3_D -> MediaType.THREE_D;
+        };
+      } else if (isOembedMimeType) {
+        adaptedMediaType = null;
+      } else {
+        adaptedMediaType = MediaType.getMediaType(hasMimeType);
       }
-
       return adaptedMediaType;
     }).orElse(MediaType.OTHER);
 
