@@ -218,15 +218,22 @@ class WebResourceTest {
   void testSetEdmType() {
     final WebResourceType resourceType = new WebResourceType();
     final WebResource webResource = new WebResource(resourceType);
-    webResource.setEdmType(EdmType.VIDEO);
+    webResource.setEdmType(EdmType.VIDEO, false);
     assertNotNull(resourceType.getType1());
     assertEquals(EdmType.VIDEO, resourceType.getType1().getType());
 
-    webResource.setEdmType(EdmType.IMAGE);
+    webResource.setEdmType(EdmType.IMAGE, false);
+    assertNotNull(resourceType.getType1());
+    assertEquals(EdmType.VIDEO, resourceType.getType1().getType());
+
+    webResource.setEdmType(EdmType.IMAGE, true);
     assertNotNull(resourceType.getType1());
     assertEquals(EdmType.IMAGE, resourceType.getType1().getType());
 
-    webResource.setEdmType(EdmType._3_D);
+    webResource.setEdmType(null, true);
+    assertNull(resourceType.getType1());
+
+    webResource.setEdmType(EdmType._3_D, true);
     assertNotNull(resourceType.getType1());
     assertEquals(EdmType._3_D, resourceType.getType1().getType());
   }

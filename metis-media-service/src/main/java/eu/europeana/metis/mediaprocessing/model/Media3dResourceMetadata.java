@@ -1,12 +1,14 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.schema.jibx.EdmType;
+import java.io.Serial;
 
 public class Media3dResourceMetadata extends AbstractResourceMetadata{
 
   /**
    * Implements {@link java.io.Serializable}.
    */
+  @Serial
   private static final long serialVersionUID = -2887423565606864723L;
 
   /**
@@ -28,6 +30,6 @@ public class Media3dResourceMetadata extends AbstractResourceMetadata{
   @Override
   protected void updateResource(WebResource resource) {
     super.updateResource(resource);
-    resource.setEdmType(EdmType._3_D);
+    resource.setEdmType(EdmType._3_D, isOembedResource());
   }
 }
