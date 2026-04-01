@@ -34,9 +34,8 @@ public class RdfRetriever {
    * @param resourceUriGenerator A generator for the resource's URI. Cannot be null.
    * @param mediaType            The media type to set. If null, the default media type is used.
    * @param userAgent            The user agent to set. If null, the default user agent is used.
-   * @return The original entity containing a string representation of the remote entity. This
-   * method does not return null.
-   * @throws IOException If there was an issue retrieving the resource, the provided resource
+   * @return A string representation of the remote entity.
+   * @throws IOException If there was an issue retrieving the entity, the provided resource ID
    *                     does not form a valid URI, or the resource could not be converted to XML.
    */
   public String retrieve(String resourceId, ResourceUriGenerator resourceUriGenerator,
@@ -51,13 +50,28 @@ public class RdfRetriever {
     }
   }
 
+  /**
+   * Retrieve remote content from a resource as a String.
+   *
+   * @param resourceUri The location of the content to retrieve.
+   * @param mediaType   The media type to set. If null, the default media type is used.
+   * @param userAgent   The user agent to set. If null, the default user agent is used.
+   * @return A string representation of the remote content.
+   * @throws IOException If there was an issue retrieving the content, the provided location does
+   *                     not form a valid URI, or the content could not be converted to XML.
+   */
+  public String retrieve(String resourceUri, String mediaType, String userAgent)
+      throws IOException {
+    return retrieve(resourceUri, ResourceUriGenerator.identityGenerator(), mediaType, userAgent);
+  }
+
   private static String retrieveFromSource(URI resourceUri, String mediaType, String userAgent)
       throws IOException, ComplianceException {
 
     // Check the media type
     final String mediaTypeToUse = Optional.ofNullable(mediaType).orElse(DEFAULT_MEDIA_TYPE);
     final RdfRepresentation representation = RdfRepresentation.forMediaType(mediaTypeToUse);
-    if (representation==null) {
+    if (representation == null) {
       throw new IllegalArgumentException(
           "Could not retrieve the entity: unknown media type: " + mediaType + ".");
     }
