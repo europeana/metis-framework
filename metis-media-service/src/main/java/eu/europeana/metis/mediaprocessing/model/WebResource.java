@@ -149,7 +149,18 @@ class WebResource {
     resource.setSpatialResolution(uintVal(SpatialResolution::new, resolution));
   }
 
-  void setEdmType(EdmType edmType) {
+  void setEdmType(EdmType edmType, boolean overwrite) {
+
+    // Check for existing type if we don't force overwriting.
+    if (!overwrite) {
+      final EdmType existingType = Optional.ofNullable(resource.getType1()).map(Type2::getType)
+          .orElse(null);
+      if (existingType != null) {
+        return;
+      }
+    }
+
+    // Set new type.
     resource.setType1(Optional.ofNullable(edmType).map(type -> {
       final Type2 type2 = new Type2();
       type2.setType(edmType);

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.schema.jibx.EdmType;
+import java.io.Serial;
 
 /**
  * Resource metadata for video resources.
@@ -10,6 +11,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
   /**
    * Implements {@link java.io.Serializable}.
    */
+  @Serial
   private static final long serialVersionUID = 2909859187992441100L;
 
   private Double duration;
@@ -80,7 +82,7 @@ public class VideoResourceMetadata extends AbstractResourceMetadata {
     resource.setHeight(height);
     resource.setCodecName(codecName);
     resource.setFrameRate(frameRate);
-    resource.setEdmType(EdmType.VIDEO);
+    resource.setEdmType(EdmType.VIDEO, isOembedResource());
   }
 
   public Double getDuration() {

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.schema.jibx.EdmType;
+import java.io.Serial;
 
 /**
  * Resource metadata for audio resources.
@@ -10,6 +11,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
   /**
    * Implements {@link java.io.Serializable}
    */
+  @Serial
   private static final long serialVersionUID = 7680381750866877618L;
 
   private Double duration;
@@ -79,7 +81,7 @@ public class AudioResourceMetadata extends AbstractResourceMetadata {
     resource.setSampleRate(sampleRate);
     resource.setSampleSize(sampleSize);
     resource.setCodecName(codecName);
-    resource.setEdmType(EdmType.SOUND);
+    resource.setEdmType(EdmType.SOUND, isOembedResource());
   }
 
   public Double getDuration() {

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.model;
 
 import eu.europeana.metis.schema.jibx.EdmType;
+import java.io.Serial;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
   /**
    * Implements {@link java.io.Serializable}.
    */
+  @Serial
   private static final long serialVersionUID = 96571759753604500L;
 
   private boolean containsText;
@@ -61,7 +63,7 @@ public class TextResourceMetadata extends AbstractResourceMetadata {
     super.updateResource(resource);
     resource.setContainsText(containsText);
     resource.setResolution(resolution);
-    resource.setEdmType(EdmType.TEXT);
+    resource.setEdmType(EdmType.TEXT, isOembedResource());
   }
 
   /**
