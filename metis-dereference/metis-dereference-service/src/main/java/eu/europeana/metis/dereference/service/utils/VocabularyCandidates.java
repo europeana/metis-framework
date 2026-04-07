@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service.utils;
 
-import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
+import static org.apache.commons.text.StringEscapeUtils.escapeJava;
 
 import eu.europeana.metis.dereference.Vocabulary;
 import java.net.URI;
@@ -70,10 +70,10 @@ public final class VocabularyCandidates {
 
     // Log and done.
     if (candidates.isEmpty() && (LOGGER.isInfoEnabled())) {
-      LOGGER.info("No vocabularies found for uri {}", sanitizeCRLF(resourceId));
+      LOGGER.info("No vocabularies found for uri {}", escapeJava(resourceId));
     }
     if (candidates.size() > 1 && LOGGER.isWarnEnabled()) {
-      LOGGER.warn("Multiple vocabularies found for uri {}: {}", sanitizeCRLF(resourceId),
+      LOGGER.warn("Multiple vocabularies found for uri {}: {}", escapeJava(resourceId),
           candidates.stream().map(Vocabulary::getName).collect(Collectors.joining(", ")));
     }
     return new VocabularyCandidates(candidates);
