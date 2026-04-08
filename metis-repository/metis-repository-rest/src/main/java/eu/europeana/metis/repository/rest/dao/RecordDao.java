@@ -1,6 +1,6 @@
 package eu.europeana.metis.repository.rest.dao;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeJava;
+import static org.apache.commons.text.StringEscapeUtils.escapeJava;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;
@@ -104,7 +104,7 @@ public class RecordDao {
   public boolean deleteRecord(String recordId) {
     final boolean isDeleted = datastore.find(Record.class)
                                        .filter(Filters.eq(RECORD_ID_FIELD, recordId)).delete().getDeletedCount() > 0;
-    if (!isDeleted) {
+    if (!isDeleted && LOGGER.isWarnEnabled()) {
       LOGGER.warn("There is no such record with id {}.", escapeJava(recordId));
     }
     return isDeleted;
