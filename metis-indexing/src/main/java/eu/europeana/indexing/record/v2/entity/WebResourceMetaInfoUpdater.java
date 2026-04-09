@@ -157,6 +157,8 @@ public class WebResourceMetaInfoUpdater extends
           createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getPolygonCount));
       propertyUpdater.updateObject("threeDMetaInfo.vertexCount",
           createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getVertexCount));
+      propertyUpdater.updateObject("threeDMetaInfo.gaussianCount",
+          createGetter(WebResourceMetaInfoImpl::getThreeDMetaInfo, ThreeDMetaInfo::getGaussianCount));
     }
   }
 

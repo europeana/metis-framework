@@ -305,6 +305,7 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     metaInfo.setPointCount(convertToLong(source.getPointCount()));
     metaInfo.setPolygonCount(convertToLong(source.getPolygonCount()));
     metaInfo.setVertexCount(convertToLong(source.getVertexCount()));
+    metaInfo.setGaussianCount(convertToLong(source.getGaussianCount()));
     target.setThreeDMetaInfo(metaInfo);
   }
 
