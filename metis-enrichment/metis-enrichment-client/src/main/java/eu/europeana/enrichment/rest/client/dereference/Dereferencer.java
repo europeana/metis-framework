@@ -20,10 +20,7 @@ public interface Dereferencer extends AutoCloseable {
     EUROPEANA_ENTITY,
 
     /** Only external (non-Europeana) entities are permitted. **/
-    EXTERNAL_ENTITY,
-
-    /** All entities are permitted. **/
-    ANY_ENTITY
+    EXTERNAL_ENTITY
   }
 
   /**
@@ -37,20 +34,20 @@ public interface Dereferencer extends AutoCloseable {
   /**
    * Dereference entity links from the Europeana entity collection as well as from external sources.
    *
-   * @param resourceIds The set of references to dereference, each with an associated permitted
-   *                    entity type.
+   * @param resourceIds The set of references to dereference, each with associated permitted
+   *                    entity types.
    * @return Object containing a list of RDF field names with any dereferenced entities associated
    * with them as well as a report.
    */
-  DereferencedEntities dereferenceEntities(Map<String, PermittedEntityType> resourceIds);
+  DereferencedEntities dereferenceEntities(Map<String, Set<PermittedEntityType>> resourceIds);
 
   /**
    * It extracts the references for dereferencing from a RDF file
    *
    * @param rdf The RDF where the references are extracted from
-   * @return A set of extracted references, each with an associated permitted entity type.
+   * @return A set of extracted references, each with associated permitted entity types.
    */
-  Map<String, PermittedEntityType> extractReferencesForDereferencing(RDF rdf);
+  Map<String, Set<PermittedEntityType>> extractReferencesForDereferencing(RDF rdf);
 
   /**
    * Dereference entity links from the Europeana entity collection.

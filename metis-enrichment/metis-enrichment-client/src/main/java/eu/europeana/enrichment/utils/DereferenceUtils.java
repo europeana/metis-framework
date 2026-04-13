@@ -14,6 +14,7 @@ import eu.europeana.metis.schema.jibx.ResourceOrLiteralType;
 import eu.europeana.metis.schema.jibx.ResourceType;
 import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +43,7 @@ public final class DereferenceUtils {
    * @param rdf input document
    * @return non-null set of values for dereferencing, not containing null.
    */
-  public static Map<String, PermittedEntityType> extractReferencesForDereferencing(RDF rdf) {
+  public static Map<String, Set<PermittedEntityType>> extractReferencesForDereferencing(RDF rdf) {
 
     // Get all the links to be dereferenced with any entity (Europeana or external).
     final Set<String> anyTypeResult = new HashSet<>();
@@ -61,10 +62,11 @@ public final class DereferenceUtils {
     // permissive permitted entity type.
     cleanResultSet(rdf, anyTypeResult);
     cleanResultSet(rdf, europeanaTypeResult);
-    final Map<String, PermittedEntityType> result = new HashMap<>();
-    anyTypeResult.forEach(reference -> result.put(reference, PermittedEntityType.ANY_ENTITY));
-    europeanaTypeResult.forEach(
-        reference -> result.putIfAbsent(reference, PermittedEntityType.EUROPEANA_ENTITY));
+    final Map<String, Set<PermittedEntityType>> result = new HashMap<>();
+    anyTypeResult.forEach(reference -> result.put(reference,
+        EnumSet.of(PermittedEntityType.EXTERNAL_ENTITY, PermittedEntityType.EUROPEANA_ENTITY)));
+    europeanaTypeResult.forEach(reference ->
+        result.putIfAbsent(reference, EnumSet.of(PermittedEntityType.EUROPEANA_ENTITY)));
 
     // Done.
     return result;

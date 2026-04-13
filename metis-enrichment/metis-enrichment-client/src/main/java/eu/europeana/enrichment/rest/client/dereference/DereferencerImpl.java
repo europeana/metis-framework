@@ -22,7 +22,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -143,7 +142,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Extract fields from the RDF for dereferencing, grouped by the source type.
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Map<String, PermittedEntityType> resourceIds = extractReferencesForDereferencing(rdf);
+    Map<String, Set<PermittedEntityType>> resourceIds = extractReferencesForDereferencing(rdf);
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
@@ -159,7 +158,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public DereferencedEntities dereferenceEntities(Map<String, PermittedEntityType> resourceIds) {
+  public DereferencedEntities dereferenceEntities(Map<String, Set<PermittedEntityType>> resourceIds) {
 
     // Sanity check.
     if (resourceIds == null || resourceIds.isEmpty()) {
@@ -173,10 +172,8 @@ public class DereferencerImpl implements Dereferencer {
     final DereferencedEntities result = new DereferencedEntities(Collections.emptyMap(), reports);
 
     // First, try to get entities from the Europeana entity collection database.
-    final Set<PermittedEntityType> europeanaTypes = EnumSet.of(PermittedEntityType.EUROPEANA_ENTITY,
-        PermittedEntityType.ANY_ENTITY);
     final Set<ReferenceTerm> termsForEuropeanaDereference = resourceIds.entrySet().stream()
-        .filter(entry -> europeanaTypes.contains(entry.getValue()))
+        .filter(entry -> entry.getValue().contains(PermittedEntityType.EUROPEANA_ENTITY))
         .map(Entry::getKey).map(referenceTerms::get).filter(Objects::nonNull)
         .collect(Collectors.toSet());
     if (!termsForEuropeanaDereference.isEmpty()) {
@@ -184,12 +181,10 @@ public class DereferencerImpl implements Dereferencer {
     }
 
     // For the remaining ones, get them from the dereference service.
-    final Set<PermittedEntityType> externalTypes = EnumSet.of(PermittedEntityType.EXTERNAL_ENTITY,
-        PermittedEntityType.ANY_ENTITY);
     final Set<String> europeanaEntityIds = result.getReferenceTermListMap().values().stream()
         .flatMap(Collection::stream).map(EnrichmentBase::getAbout).collect(Collectors.toSet());
     final Set<ReferenceTerm> termsForExternalDereference = resourceIds.entrySet().stream()
-        .filter(entry -> externalTypes.contains(entry.getValue()))
+        .filter(entry -> entry.getValue().contains(PermittedEntityType.EXTERNAL_ENTITY))
         .map(Entry::getKey)
         .filter(id -> !europeanaEntityIds.contains(id))
         .map(referenceTerms::get).filter(Objects::nonNull).collect(Collectors.toSet());
@@ -202,7 +197,7 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public Map<String, PermittedEntityType> extractReferencesForDereferencing(RDF rdf) {
+  public Map<String, Set<PermittedEntityType>> extractReferencesForDereferencing(RDF rdf) {
     return DereferenceUtils.extractReferencesForDereferencing(rdf);
   }
 

@@ -55,6 +55,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,20 +81,20 @@ import org.springframework.web.client.HttpServerErrorException;
  */
 class DereferencerImplTest {
 
-    private static final Map<String, PermittedEntityType> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
-            "htt://invalid-example.host/about", PermittedEntityType.ANY_ENTITY,
-            "httpx://invalid-example.host/concept", PermittedEntityType.ANY_ENTITY,
-            "http://invalid-example host/place?val=ab", PermittedEntityType.ANY_ENTITY);
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
+            "htt://invalid-example.host/about", EnumSet.allOf(PermittedEntityType.class),
+            "httpx://invalid-example.host/concept", EnumSet.allOf(PermittedEntityType.class),
+            "http://invalid-example host/place?val=ab", EnumSet.allOf(PermittedEntityType.class));
 
-    private static final Map<String, PermittedEntityType> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
-            "http://valid-example.host/about", PermittedEntityType.ANY_ENTITY,
-            "http://data.europeana.eu.host/concept", PermittedEntityType.ANY_ENTITY,
-            "http://valid-example.host/place", PermittedEntityType.ANY_ENTITY);
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
+            "http://valid-example.host/about", EnumSet.allOf(PermittedEntityType.class),
+            "http://data.europeana.eu.host/concept", EnumSet.allOf(PermittedEntityType.class),
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
 
-    private static final Map<String, PermittedEntityType> DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID = Map.of(
-            "http://valid-example.host/place", PermittedEntityType.ANY_ENTITY);
-    private static final Map<String, PermittedEntityType> DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID = Map.of(
-            "http://valid-example.host/place", PermittedEntityType.ANY_ENTITY);
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID = Map.of(
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID = Map.of(
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
 
     private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
     private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -367,7 +368,8 @@ class DereferencerImplTest {
             .dereference(any())).thenThrow(new RuntimeException("External Entity"))
                 .thenThrow(HttpClientErrorException.create(HttpStatus.BAD_REQUEST,"External Entity",null, null, null));
         DereferencedEntities dereferencedEntities = dereferencer.dereferenceEntities(Map.of(
-            "http://localhost", PermittedEntityType.ANY_ENTITY, "http://demo", PermittedEntityType.ANY_ENTITY));
+            "http://localhost", EnumSet.allOf(PermittedEntityType.class),
+            "http://demo", EnumSet.allOf(PermittedEntityType.class)));
 
         assertEquals(2, dereferencedEntities.getReportMessages().size());
         assertTrue( dereferencedEntities.getReportMessages()
