@@ -57,7 +57,7 @@ import eu.europeana.metis.schema.jibx.TimeSpanType;
 import eu.europeana.metis.schema.jibx.WebResourceType;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Set;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class DereferenceUtilsTest {
@@ -108,12 +108,12 @@ class DereferenceUtilsTest {
 
     rdf.setPlaceList(placeList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy2.dum"));
+    assertTrue(result.containsKey("http://dummy2.dum"));
   }
 
   @Test
@@ -167,13 +167,13 @@ class DereferenceUtilsTest {
 
     rdf.setAgentList(agentList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(2, result.size());
 
-    assertTrue(result.contains("http://dummy4.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
+    assertTrue(result.containsKey("http://dummy4.dum"));
+    assertTrue(result.containsKey("http://dummy5.dum"));
   }
 
   @Test
@@ -244,12 +244,12 @@ class DereferenceUtilsTest {
 
     rdf.setConceptList(conceptList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy8.dum"));
+    assertTrue(result.containsKey("http://dummy8.dum"));
   }
 
   @Test
@@ -298,12 +298,12 @@ class DereferenceUtilsTest {
 
     rdf.setTimeSpanList(timeSpanList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(1, result.size());
 
-    assertTrue(result.contains("http://dummy4.dum"));
+    assertTrue(result.containsKey("http://dummy4.dum"));
   }
 
   @Test
@@ -375,16 +375,16 @@ class DereferenceUtilsTest {
 
     rdf.setWebResourceList(webResourceList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(5, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
-    assertTrue(result.contains("http://dummy2.dum"));
-    assertTrue(result.contains("http://dummy3.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
-    assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(result.containsKey("http://dummy1.dum"));
+    assertTrue(result.containsKey("http://dummy2.dum"));
+    assertTrue(result.containsKey("http://dummy3.dum"));
+    assertTrue(result.containsKey("http://dummy5.dum"));
+    assertTrue(result.containsKey("http://dummy6.dum"));
   }
 
   @Test
@@ -612,35 +612,35 @@ class DereferenceUtilsTest {
 
     rdf.setProxyList(proxyList);
 
-    Set<String> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
+    Map<String, ?> result = DereferenceUtils.extractReferencesForDereferencing(rdf);
 
     assertNotNull(result);
     assertEquals(25, result.size());
 
-    assertTrue(result.contains("http://dummy1.dum"));
-    assertTrue(result.contains("http://dummy2.dum"));
-    assertTrue(result.contains("http://dummy3.dum"));
-    assertTrue(result.contains("http://dummy4.dum"));
-    assertTrue(result.contains("http://dummy5.dum"));
-    assertTrue(result.contains("http://dummy6.dum"));
+    assertTrue(result.containsKey("http://dummy1.dum"));
+    assertTrue(result.containsKey("http://dummy2.dum"));
+    assertTrue(result.containsKey("http://dummy3.dum"));
+    assertTrue(result.containsKey("http://dummy4.dum"));
+    assertTrue(result.containsKey("http://dummy5.dum"));
+    assertTrue(result.containsKey("http://dummy6.dum"));
 
-    assertTrue(result.contains("http://dummy7.dum"));
-    assertTrue(result.contains("http://dummy8.dum"));
-    assertTrue(result.contains("http://dummy9.dum"));
+    assertTrue(result.containsKey("http://dummy7.dum"));
+    assertTrue(result.containsKey("http://dummy8.dum"));
+    assertTrue(result.containsKey("http://dummy9.dum"));
 
-    assertTrue(result.contains("http://dummy20.dum"));
-    assertTrue(result.contains("http://dummy22.dum"));
+    assertTrue(result.containsKey("http://dummy20.dum"));
+    assertTrue(result.containsKey("http://dummy22.dum"));
 
-    assertTrue(result.contains("http://dummy25.dum"));
-    assertTrue(result.contains("http://dummy28.dum"));
-    assertTrue(result.contains("http://dummy30.dum"));
+    assertTrue(result.containsKey("http://dummy25.dum"));
+    assertTrue(result.containsKey("http://dummy28.dum"));
+    assertTrue(result.containsKey("http://dummy30.dum"));
 
-    assertTrue(result.contains("http://dummy31.dum"));
-    assertTrue(result.contains("http://dummy33.dum"));
-    assertTrue(result.contains("http://dummy36.dum"));
-    assertTrue(result.contains("http://dummy37.dum"));
-    assertTrue(result.contains("http://dummy38.dum"));
-    assertTrue(result.contains("http://dummy39.dum"));
-    assertTrue(result.contains("http://dummy40.dum"));
+    assertTrue(result.containsKey("http://dummy31.dum"));
+    assertTrue(result.containsKey("http://dummy33.dum"));
+    assertTrue(result.containsKey("http://dummy36.dum"));
+    assertTrue(result.containsKey("http://dummy37.dum"));
+    assertTrue(result.containsKey("http://dummy38.dum"));
+    assertTrue(result.containsKey("http://dummy39.dum"));
+    assertTrue(result.containsKey("http://dummy40.dum"));
   }
 }

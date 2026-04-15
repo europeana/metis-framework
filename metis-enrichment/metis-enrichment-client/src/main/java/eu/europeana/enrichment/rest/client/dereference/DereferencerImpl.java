@@ -26,10 +26,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CancellationException;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -74,12 +76,12 @@ public class DereferencerImpl implements Dereferencer {
     this.dereferenceClient = dereferenceClient;
   }
 
-  private static URL checkIfUrlIsValid(HashSet<Report> reports, String id) {
+  private static URL checkIfUrlIsValid(Consumer<Report> reportAction, String id) {
     try {
       URI uri = new URI(id);
       return new URI(uri.toString()).toURL();
     } catch (URISyntaxException | MalformedURLException | IllegalArgumentException e) {
-      reports.add(Report
+      reportAction.accept(Report
           .buildDereferenceIgnore()
           .withStatus(HttpStatus.OK)
           .withValue(id)
@@ -90,26 +92,26 @@ public class DereferencerImpl implements Dereferencer {
     }
   }
 
-  private static void setDereferenceStatusInReport(String resourceId, HashSet<Report> reports,
+  private static void setDereferenceStatusInReport(String resourceId, Consumer<Report> reportAction,
       DereferenceResultStatus resultStatus) {
     if (!resultStatus.equals(DereferenceResultStatus.SUCCESS)) {
       final String resultMessage = getResultStatusMessage(resultStatus);
       if (resultStatus.equals(DereferenceResultStatus.FAILURE)) {
-        reports.add(Report.buildDereferenceError()
-                          .withValue(resourceId)
-                          .withMessage(resultMessage)
-                          .build());
+        reportAction.accept(Report.buildDereferenceError()
+            .withValue(resourceId)
+            .withMessage(resultMessage)
+            .build());
       } else if (resultStatus.equals(DereferenceResultStatus.INVALID_URL) ||
           resultStatus.equals(DereferenceResultStatus.NO_VOCABULARY_MATCHING) ||
           resultStatus.equals(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_PRODUCE_NO_CONTEXTUAL_CLASS)) {
-        reports.add(Report
+        reportAction.accept(Report
             .buildDereferenceIgnore()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
             .withMessage(resultMessage)
             .build());
       } else {
-        reports.add(Report
+        reportAction.accept(Report
             .buildDereferenceWarn()
             .withStatus(HttpStatus.OK)
             .withValue(resourceId)
@@ -140,7 +142,7 @@ public class DereferencerImpl implements Dereferencer {
 
     // Extract fields from the RDF for dereferencing, grouped by the source type.
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Set<String> resourceIds = extractReferencesForDereferencing(rdf);
+    Map<String, Set<PermittedEntityType>> resourceIds = extractReferencesForDereferencing(rdf);
 
     // Get the dereferenced information to add to the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
@@ -156,28 +158,38 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public DereferencedEntities dereferenceEntities(Set<String> resourceIds) {
+  public DereferencedEntities dereferenceEntities(Map<String, Set<PermittedEntityType>> resourceIds) {
 
     // Sanity check.
-    if (resourceIds.isEmpty()) {
+    if (resourceIds == null || resourceIds.isEmpty()) {
       return DereferencedEntities.emptyInstance();
     }
 
-    // First try to get them from our own entity collection database.
-    DereferencedEntities result = DereferencedEntities.emptyInstance();
-    HashSet<Report> reports = new HashSet<>();
-    Set<ReferenceTerm> referenceTerms = setUpReferenceTermSet(resourceIds, reports);
-    result.addAll(dereferenceEuropeanaEntities(referenceTerms, reports));
-    final Set<String> foundOwnEntityIds = result.getReferenceTermListMap().values().stream()
-                                                .flatMap(Collection::stream).map(EnrichmentBase::getAbout)
-                                                .collect(Collectors.toSet());
+    // Create reference terms for all valid resource IDs
+    final HashSet<Report> reports = new HashSet<>();
+    final Map<String, ReferenceTerm> referenceTerms = toReferenceTerms(resourceIds.keySet(),
+        reports::add);
+    final DereferencedEntities result = new DereferencedEntities(Collections.emptyMap(), reports);
+
+    // First, try to get entities from the Europeana entity collection database.
+    final Set<ReferenceTerm> termsForEuropeanaDereference = resourceIds.entrySet().stream()
+        .filter(entry -> entry.getValue().contains(PermittedEntityType.EUROPEANA_ENTITY))
+        .map(Entry::getKey).map(referenceTerms::get).filter(Objects::nonNull)
+        .collect(Collectors.toSet());
+    if (!termsForEuropeanaDereference.isEmpty()) {
+      result.addAll(dereferenceEuropeanaEntities(termsForEuropeanaDereference));
+    }
 
     // For the remaining ones, get them from the dereference service.
-    Set<ReferenceTerm> notFoundOwnReferenceTerms = referenceTerms.stream().filter(
-        referenceTerm -> !foundOwnEntityIds.contains(referenceTerm.getReference().toString())).collect(
-        Collectors.toSet());
-    if (!notFoundOwnReferenceTerms.isEmpty()) {
-      result.addAll(dereferenceExternalEntity(notFoundOwnReferenceTerms));
+    final Set<String> europeanaEntityIds = result.getReferenceTermListMap().values().stream()
+        .flatMap(Collection::stream).map(EnrichmentBase::getAbout).collect(Collectors.toSet());
+    final Set<ReferenceTerm> termsForExternalDereference = resourceIds.entrySet().stream()
+        .filter(entry -> entry.getValue().contains(PermittedEntityType.EXTERNAL_ENTITY))
+        .map(Entry::getKey)
+        .filter(id -> !europeanaEntityIds.contains(id))
+        .map(referenceTerms::get).filter(Objects::nonNull).collect(Collectors.toSet());
+    if (!termsForExternalDereference.isEmpty()) {
+      result.addAll(dereferenceExternalEntity(termsForExternalDereference));
     }
 
     // Done.
@@ -185,39 +197,47 @@ public class DereferencerImpl implements Dereferencer {
   }
 
   @Override
-  public Set<String> extractReferencesForDereferencing(RDF rdf) {
+  public Map<String, Set<PermittedEntityType>> extractReferencesForDereferencing(RDF rdf) {
     return DereferenceUtils.extractReferencesForDereferencing(rdf);
   }
 
   @Override
-  public DereferencedEntities dereferenceEuropeanaEntities(Set<ReferenceTerm> resourceIds,
-      HashSet<Report> reports) {
+  public DereferencedEntities dereferenceEuropeanaEntities(Set<ReferenceTerm> resourceIds) {
 
-    if (resourceIds.isEmpty()) {
-      return new DereferencedEntities(new HashMap<>(), new HashSet<>(reports));
+    // Sanity check.
+    if (resourceIds == null || resourceIds.isEmpty()) {
+      return DereferencedEntities.emptyInstance();
     }
 
+    // Set up the dereference process: only attempt for Europeana entities.
+    final Set<Report> reports = new HashSet<>();
+    final Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
+    final Set<ReferenceTerm> europeanaEntities = resourceIds.stream()
+        .filter(term -> EntityResolver.europeanaLinkPattern.matcher(
+            term.getReference().toString()).matches())
+        .collect(Collectors.toSet());
+
+    // Resolve the references and collect the result.
     try {
-      Map<ReferenceTerm, List<EnrichmentBase>> result = new HashMap<>();
-      Set<ReferenceTerm> ownEntities = resourceIds.stream()
-                                                  .filter(id -> EntityResolver.europeanaLinkPattern.matcher(
-                                                      id.getReference().toString()).matches())
-                                                  .collect(Collectors.toSet());
-      entityResolver.resolveById(ownEntities)
-                         .forEach((key, value) -> result.put(key, List.of(value)));
-      ownEntities.stream().filter(id -> result.get(id) == null || result.get(id).isEmpty())
-                 .forEach(notFoundOwnId -> {
-                   setDereferenceStatusInReport(notFoundOwnId.getReference().toString(),
-                       reports, DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY);
-                   result.putIfAbsent(notFoundOwnId, Collections.emptyList());
-                 });
-      return new DereferencedEntities(result, reports);
+      entityResolver.resolveById(europeanaEntities)
+          .forEach((key, value) -> result.put(key, List.of(value)));
+      europeanaEntities.stream()
+          .filter(id -> result.get(id) == null || result.get(id).isEmpty())
+          .forEach(nonEuropeanaId -> {
+            setDereferenceStatusInReport(nonEuropeanaId.getReference().toString(),
+                reports::add, DereferenceResultStatus.UNKNOWN_EUROPEANA_ENTITY);
+            result.putIfAbsent(nonEuropeanaId, Collections.emptyList());
+          });
     } catch (CancellationException e) {
       LOGGER.warn(CANCELLATION_EXCEPTION_WARN_MESSAGE);
       throw e;
     } catch (Exception e) {
-      return handleDereferencingException(resourceIds, reports, e);
+      handleDereferencingException(resourceIds, reports::add, e);
+      return new DereferencedEntities(Collections.emptyMap(), reports);
     }
+
+    // Done.
+    return new DereferencedEntities(result, reports);
   }
 
   @Override
@@ -243,13 +263,13 @@ public class DereferencerImpl implements Dereferencer {
         result = retryableExternalRequestForNetworkExceptions(
             () -> dereferenceClient.dereference(resourceId));
         DereferenceResultStatus resultStatus = Optional.ofNullable(result)
-                                                       .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
-                                                       .orElseGet(Collections::emptyList).stream()
-                                                       .map(EnrichmentResultBaseWrapper::getDereferenceStatus)
-                                                       .filter(Objects::nonNull).findFirst()
-                                                       .orElse(DereferenceResultStatus.FAILURE);
+            .map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
+            .orElseGet(Collections::emptyList).stream()
+            .map(EnrichmentResultBaseWrapper::getDereferenceStatus)
+            .filter(Objects::nonNull).findFirst()
+            .orElse(DereferenceResultStatus.FAILURE);
 
-        setDereferenceStatusInReport(resourceId, reports, resultStatus);
+        setDereferenceStatusInReport(resourceId, reports::add, resultStatus);
       } catch (BadRequest e) {
         // We are forgiving for these errors
         LOGGER.warn("ResourceId {}, failed", resourceId, e);
@@ -273,36 +293,36 @@ public class DereferencerImpl implements Dereferencer {
             .build());
         result = null;
       }
-      resultMap.put(referenceTerm, Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
-                                           .orElseGet(Collections::emptyList).stream()
-                                           .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
-                                           .flatMap(List::stream).toList());
+      resultMap.put(referenceTerm,
+          Optional.ofNullable(result).map(EnrichmentResultList::getEnrichmentBaseResultWrapperList)
+              .orElseGet(Collections::emptyList).stream()
+              .map(EnrichmentResultBaseWrapper::getEnrichmentBaseList).filter(Objects::nonNull)
+              .flatMap(List::stream).toList());
     }
 
     // Return the result.
     return new DereferencedEntities(resultMap, reports);
   }
 
-  private Set<ReferenceTerm> setUpReferenceTermSet(Set<String> resourcesIds, HashSet<Report> reports) {
-    return resourcesIds.stream()
-                       .map(id -> checkIfUrlIsValid(reports, id))
-                       .filter(Objects::nonNull)
-                       .map(validateUrl -> new ReferenceTermImpl(validateUrl, new HashSet<>()))
-                       .collect(Collectors.toSet());
+  private Map<String, ReferenceTerm> toReferenceTerms(Set<String> resourceIds,
+      Consumer<Report> reportAction) {
+    final Map<String, ReferenceTerm> result = new HashMap<>();
+    resourceIds.forEach(id -> Optional.ofNullable(checkIfUrlIsValid(reportAction, id))
+        .ifPresent(url -> result.put(id, new ReferenceTermImpl(url, Collections.emptySet()))));
+    return result;
   }
 
-  private DereferencedEntities handleDereferencingException(Set<ReferenceTerm> resourceIds, HashSet<Report> reports,
-      Exception exception) {
+  private void handleDereferencingException(Set<ReferenceTerm> resourceIds,
+      Consumer<Report> reportAction, Exception exception) {
     DereferenceException dereferenceException = new DereferenceException(
         "Exception occurred while trying to perform dereferencing.", exception);
-    reports.add(Report
+    reportAction.accept(Report
         .buildDereferenceWarn()
         .withStatus(HttpStatus.OK)
         .withValue(resourceIds.stream()
-                              .map(resourceId -> resourceId.getReference().toString())
-                              .collect(Collectors.joining(",")))
+            .map(resourceId -> resourceId.getReference().toString())
+            .collect(Collectors.joining(",")))
         .withException(dereferenceException)
         .build());
-    return new DereferencedEntities(new HashMap<>(), reports);
   }
 }

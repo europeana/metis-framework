@@ -12,7 +12,6 @@ import eu.europeana.enrichment.api.external.model.TimeSpan;
 import eu.europeana.enrichment.api.internal.AggregationFieldType;
 import eu.europeana.enrichment.api.internal.FieldType;
 import eu.europeana.enrichment.api.internal.ProxyFieldType;
-import eu.europeana.enrichment.api.internal.ReferenceTerm;
 import eu.europeana.enrichment.api.internal.TermContext;
 import eu.europeana.enrichment.rest.client.dereference.DereferencedEntities;
 import eu.europeana.metis.schema.jibx.AboutType;
@@ -115,13 +114,15 @@ public class EntityMergeEngine {
   }
 
   /**
-   * Merge entities in a record.
-   * <p>This method is when enrichment is performed where we <b>do</b> want to add the generated
-   * links to the europeana proxy</p>
+   * <p>Merge entities in a record and add appropriate links to them in the Proxy or Aggregation.
+   * </p>
+   * <p>Note that some links (namely the provider links in the aggregation) admit only one instance,
+   * so links may be replaced there instead of added. This method will not attempt to remove
+   * orphaned entities (if a link to it was replaced).</p>
    *
-   * @param rdf The RDF to enrich
+   * @param rdf                The RDF to enrich
    * @param enrichmentBaseList The information to append
-   * @param termContext the reference/search term context
+   * @param termContext        the reference/search term context
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
       TermContext termContext) {
@@ -155,8 +156,7 @@ public class EntityMergeEngine {
    * @param dereferencedEntities The information to append
    */
   public void convertAndAddAllEntities(RDF rdf, DereferencedEntities dereferencedEntities) {
-    for (Map.Entry<ReferenceTerm, List<EnrichmentBase>> entry : dereferencedEntities.getReferenceTermListMap().entrySet()) {
-      entry.getValue().forEach(base -> convertAndAddEntity(rdf, base));
-    }
+    dereferencedEntities.getReferenceTermListMap().values().stream().flatMap(Collection::stream)
+        .forEach(base -> convertAndAddEntity(rdf, base));
   }
 }

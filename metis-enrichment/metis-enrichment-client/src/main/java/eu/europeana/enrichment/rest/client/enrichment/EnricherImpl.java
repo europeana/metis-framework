@@ -107,7 +107,9 @@ public class EnricherImpl implements Enricher {
     reports.addAll(enrichedValues.getRight());
     reports.addAll(enrichedReferences.getRight());
 
-    // Merge the acquired information into the RDF
+    // Merge the acquired information into the RDF. We are fine overwriting links: we should not
+    // have dereferenced any fields subject to replacement, and the outcome of this enrichment or
+    // coreferencing should always be a Europeana entity (which we prefer over external entities).
     LOGGER.debug("Merging Enrichment Information...");
     if (enrichedValues.getLeft() != null) {
       for (Entry<SearchTermContext, List<EnrichmentBase>> entry : enrichedValues.getLeft().entrySet()) {
