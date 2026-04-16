@@ -158,14 +158,18 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
 
     webResource.setDcLanguage(languageMap);
 
-    Map<String, List<String>> termsTemporalMap =
+    Map<String, List<String>> temporalMap =
         FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getTemporalList());
 
-    webResource.setDcTermsTemporal(termsTemporalMap);
+    webResource.setDctermsTemporal(temporalMap);
 
     if (wResourceType.getSeeAlsoList() != null) {
       webResource.setRdfsSeeAlso(FieldInputUtils.resourceListToArray(wResourceType.getSeeAlsoList()));
     }
+
+    final String docType = Optional.ofNullable(wResourceType.getType1()).map(Type2::getType)
+                                   .map(EdmType::xmlValue).orElse(null);
+    webResource.setEdmType(docType);
 
     webResource.setWebResourceMetaInfo(createWebResourceMetaInfo(wResourceType));
 
