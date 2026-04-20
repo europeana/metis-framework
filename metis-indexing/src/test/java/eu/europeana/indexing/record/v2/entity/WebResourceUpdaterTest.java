@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.definitions.edm.entity.WebResource;
 import eu.europeana.corelib.definitions.edm.model.metainfo.WebResourceMetaInfo;
+import eu.europeana.corelib.definitions.solr.DocType;
 import eu.europeana.corelib.edm.model.metainfo.WebResourceMetaInfoImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
@@ -83,22 +84,20 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
     testMapPropertyUpdate(propertyUpdater, "dctermsIsPartOf", WebResource::setDctermsIsPartOf);
     testMapPropertyUpdate(propertyUpdater, "dctermsIssued", WebResource::setDctermsIssued);
     testStringPropertyUpdate(propertyUpdater, "isNextInSequence", WebResource::setIsNextInSequence);
-    testMapPropertyUpdate(propertyUpdater, "webResourceDcRights",
-        WebResource::setWebResourceDcRights);
-    testMapPropertyUpdate(propertyUpdater, "webResourceEdmRights",
-        WebResource::setWebResourceEdmRights);
+    testMapPropertyUpdate(propertyUpdater, "webResourceDcRights", WebResource::setWebResourceDcRights);
+    testMapPropertyUpdate(propertyUpdater, "webResourceEdmRights", WebResource::setWebResourceEdmRights);
     testMapPropertyUpdate(propertyUpdater, "dcType", WebResource::setDcType);
     testArrayPropertyUpdate(propertyUpdater, "owlSameAs", WebResource::setOwlSameAs);
     testStringPropertyUpdate(propertyUpdater, "edmPreview", WebResource::setEdmPreview);
     testArrayPropertyUpdate(propertyUpdater, "svcsHasService", WebResource::setSvcsHasService);
-    testArrayPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy",
-        WebResource::setDctermsIsReferencedBy);
+    testArrayPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy", WebResource::setDctermsIsReferencedBy);
     testStringPropertyUpdate(propertyUpdater, "schemaDigitalSourceType", WebResource::setSchemaDigitalSourceType);
     testArrayPropertyUpdate(propertyUpdater, "edmIntendedUsage", WebResource::setEdmIntendedUsage);
     testMapPropertyUpdate(propertyUpdater, "dcTitle", WebResource::setDcTitle);
     testMapPropertyUpdate(propertyUpdater, "dcLanguage", WebResource::setDcLanguage);
-    testMapPropertyUpdate(propertyUpdater, "dcTermsTemporal", WebResource::setDcTermsTemporal);
+    testMapPropertyUpdate(propertyUpdater, "dctermsTemporal", WebResource::setDctermsTemporal);
     testArrayPropertyUpdate(propertyUpdater, "rdfsSeeAlso", WebResource::setRdfsSeeAlso);
     testArrayPropertyUpdate(propertyUpdater, "edmIsRepresentationOf", WebResource::setEdmIsRepresentationOf);
+    testObjectPropertyUpdate(propertyUpdater, "edmType", WebResource::setEdmType, DocType.VIDEO.name());
   }
 }
