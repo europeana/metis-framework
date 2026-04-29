@@ -73,8 +73,12 @@ public final class EntityConverterUtils {
     ItemExtractorUtils.setAbout(timespan, timeSpanType);
     timeSpanType.setAltLabelList(
         ItemExtractorUtils.extractLabels(timespan.getAltLabelList(), AltLabel::new));
-    timeSpanType.setBegin(ItemExtractorUtils.extractLabel(timespan.getBegin(), Begin::new));
-    timeSpanType.setEnd(ItemExtractorUtils.extractLabel(timespan.getEnd(), End::new));
+    if (timespan.getBegin() != null) {
+      timeSpanType.setBegin(ItemExtractorUtils.extractLabel(timespan.getBegin(), Begin::new));
+    }
+    if (timespan.getEnd() != null) {
+      timeSpanType.setEnd(ItemExtractorUtils.extractLabel(timespan.getEnd(), End::new));
+    }
     timeSpanType.setHasPartList(
         ItemExtractorUtils.extractLabelResources(timespan.getHasPartsList(), HasPart::new));
     if (timespan.getIsNextInSequence() != null) {
