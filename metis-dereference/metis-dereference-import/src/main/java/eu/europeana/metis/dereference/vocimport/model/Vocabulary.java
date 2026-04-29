@@ -19,8 +19,8 @@ public class Vocabulary {
   private final Set<Type> types;
   private final List<String> paths;
   private final int parentIterations;
-  private final String suffix;
   private final String resourceUrlTemplate;
+  private final String mediaType;
   private final String userAgent;
   private final List<String> examples;
   private final List<String> counterExamples;
@@ -33,8 +33,8 @@ public class Vocabulary {
     this.types = Optional.ofNullable(builder.types).orElseGet(Collections::emptySet);
     this.paths = Optional.ofNullable(builder.paths).orElseGet(Collections::emptyList);
     this.parentIterations = builder.parentIterations;
-    this.suffix = builder.suffix;
     this.resourceUrlTemplate = builder.resourceUrlTemplate;
+    this.mediaType = builder.mediaType;
     this.userAgent = builder.userAgent;
     this.examples = Optional.ofNullable(builder.examples).orElseGet(Collections::emptyList);
     this.counterExamples = Optional.ofNullable(builder.counterExamples)
@@ -60,20 +60,12 @@ public class Vocabulary {
     return parentIterations;
   }
 
-  /**
-   * Setter.
-   *
-   * @return The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @Deprecated(forRemoval = true)
-  public String getSuffix() {
-    return suffix;
-  }
-
   public String getResourceUrlTemplate() {
     return resourceUrlTemplate;
+  }
+
+  public String getMediaType() {
+    return mediaType;
   }
 
   public String getUserAgent() {
@@ -113,8 +105,8 @@ public class Vocabulary {
     protected Set<Type> types;
     protected List<String> paths;
     protected int parentIterations;
-    protected String suffix;
     protected String resourceUrlTemplate;
+    protected String mediaType;
     protected String userAgent;
     protected List<String> examples;
     protected List<String> counterExamples;
@@ -146,22 +138,13 @@ public class Vocabulary {
       return this;
     }
 
-    /**
-     * Setter.
-     *
-     * @param suffix The suffix.
-     * @return This instance.
-     * @deprecated Will be removed.
-     * TODO MET-6903
-     */
-    @Deprecated(forRemoval = true)
-    public Builder setSuffix(String suffix) {
-      this.suffix = normalizeString(suffix);
+    public Builder setResourceUrlTemplate(String resourceUrlTemplate) {
+      this.resourceUrlTemplate = normalizeString(resourceUrlTemplate);
       return this;
     }
 
-    public Builder setResourceUrlTemplate(String resourceUrlTemplate) {
-      this.resourceUrlTemplate = normalizeString(resourceUrlTemplate);
+    public Builder setMediaType(String mediaType) {
+      this.mediaType = normalizeString(mediaType);
       return this;
     }
 

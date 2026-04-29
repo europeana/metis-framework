@@ -141,6 +141,7 @@ class WebResourceFieldInputTest {
     assertEquals(webResourceType.getHasColorSpace().getHasColorSpace().xmlValue(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getColorSpace());
     assertEquals(webResourceType.getOrientation().getString(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getOrientation().name());
     assertArrayEquals(webResourceType.getComponentColorList().stream().map(HexBinaryType::getString).toList().toArray(), webResourceImpl.getWebResourceMetaInfo().getImageMetaInfo().getColorPalette());
+    assertEquals(webResourceType.getType1().getType().toString(), webResourceImpl.getEdmType());
   }
 
   private static void assertVideoWebResourceImpl(WebResourceType webResourceType, WebResourceImpl webResourceImpl) {
@@ -152,6 +153,7 @@ class WebResourceFieldInputTest {
     assertEquals(webResourceType.getCodecName().getCodecName(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getCodec());
     assertEquals(webResourceType.getFrameRate().getDouble(), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getFrameRate());
     assertEquals(Long.valueOf(webResourceType.getDuration().getDuration()), webResourceImpl.getWebResourceMetaInfo().getVideoMetaInfo().getDuration());
+    assertEquals(webResourceType.getType1().getType().toString(), webResourceImpl.getEdmType());
   }
 
   private static @NotNull WebResourceType getWebResourceImage() {

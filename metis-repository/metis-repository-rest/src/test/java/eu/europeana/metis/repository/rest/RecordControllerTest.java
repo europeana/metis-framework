@@ -1,11 +1,8 @@
 package eu.europeana.metis.repository.rest;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -23,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.repository.rest.controller.RecordController;
 import eu.europeana.metis.repository.rest.dao.Record;
 import eu.europeana.metis.repository.rest.dao.RecordDao;
-import eu.europeana.metis.repository.rest.view.RecordView;
 import eu.europeana.metis.utils.RestEndpoints;
 import java.io.InputStream;
 import java.time.Instant;
@@ -31,26 +27,32 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.context.WebApplicationContext;
+import org.xmlunit.builder.DiffBuilder;
+import org.xmlunit.diff.DefaultNodeMatcher;
+import org.xmlunit.diff.Diff;
+import org.xmlunit.diff.ElementSelectors;
 
-/**
- * Unit test for {@link RecordController} class
- */
+@WebMvcTest(RecordController.class)
 class RecordControllerTest {
 
-  private static RecordDao recordDaoMock;
-  private static MockMvc recordControllerMock;
-  private static RecordController recordController;
+  @MockitoBean
+  private RecordDao recordDaoMock;
+
+  private static MockMvc mockMvc;
 
   @BeforeAll
-  static void setup() {
-    recordDaoMock = mock(RecordDao.class);
-    recordController = new RecordController();
-    recordControllerMock = MockMvcBuilders.standaloneSetup(recordController).build();
+  static void setup(WebApplicationContext context) {
+    mockMvc = MockMvcBuilders.webAppContextSetup(context)
+                             .defaultRequest(get("/"))
+                             .build();
   }
 
   @AfterEach
@@ -58,45 +60,27 @@ class RecordControllerTest {
     reset(recordDaoMock);
   }
 
-  @Test
-  void setRecordDaoAndGetRecord() {
-    Record expectedRecord = getTestRecord();
-
-    when(recordDaoMock.getRecord("recordId")).thenReturn(expectedRecord);
-    recordController.setRecordDao(recordDaoMock);
-
-    RecordView recordView = recordController.getRecord("recordId");
-
-    assertEquals(expectedRecord.getRecordId(), recordView.getRecordId());
-    assertEquals(expectedRecord.getEdmRecord(), recordView.getEdmRecord());
-    assertEquals(expectedRecord.getDatasetId(), recordView.getDatasetId());
-    assertEquals(expectedRecord.isDeleted(), recordView.isMarkedAsDeleted());
-    assertEquals(expectedRecord.getDateStamp(), recordView.getDateStamp());
-  }
-
-  @Test
-  void setRecordDaoAndGetRecord_expectException() {
-    when(recordDaoMock.getRecord("recordId")).thenReturn(null);
-    recordController.setRecordDao(recordDaoMock);
-
-    RuntimeException expectedException = assertThrows(ResponseStatusException.class, () -> {
-      recordController.getRecord("recordId");
-    });
-
-    assertEquals("404 NOT_FOUND \"No record found for this identifier.\"", expectedException.getMessage());
-  }
 
   @Test
   void getRecordViaController() throws Exception {
     Record expectedRecord = getTestRecord();
 
     when(recordDaoMock.getRecord("recordId")).thenReturn(expectedRecord);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .content(""))
-                        .andDo(print())
-                        .andExpect(status().is(200))
-                        .andExpect(content().string(getXMLTestRecord()));
+    mockMvc.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .accept(MediaType.APPLICATION_XML))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andExpect(result -> {
+             String actual = result.getResponse().getContentAsString();
+             Diff diff = DiffBuilder.compare(getXMLTestRecord())
+                                    .withTest(actual)
+                                    .ignoreWhitespace()
+                                    .ignoreComments()
+                                    .withNodeMatcher(new DefaultNodeMatcher(ElementSelectors.byNameAndText))
+                                    .checkForSimilar()
+                                    .build();
+             assertFalse(diff.hasDifferences(), () -> "XMLs differ: " + diff);
+           });
 
     verify(recordDaoMock, times(1)).getRecord("recordId");
   }
@@ -104,12 +88,11 @@ class RecordControllerTest {
   @Test
   void getRecordViaController_notFound() throws Exception {
     when(recordDaoMock.getRecord("recordId")).thenReturn(null);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .content(""))
-                        .andDo(print())
-                        .andExpect(status().is(404))
-                        .andExpect(content().string(""));
+    mockMvc.perform(get(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .content(""))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
+           .andExpect(content().string(""));
 
     verify(recordDaoMock, times(1)).getRecord("recordId");
   }
@@ -117,38 +100,36 @@ class RecordControllerTest {
   @Test
   void saveRecord() throws Exception {
     when(recordDaoMock.createRecord(any(Record.class))).thenReturn(true);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(post(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .contentType(MediaType.APPLICATION_XML)
-                            .param("datasetId", "datasetId")
-                            .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .param("markAsDeleted", "false")
-                            .content("edmRecord"))
-                        .andDo(print())
-                        .andExpect(status().is(200))
-                        .andExpect(jsonPath("$.datasetId", is("datasetId")))
-                        .andExpect(jsonPath("$.dateStamp").exists())
-                        .andExpect(jsonPath("$.insertedRecords", is(1)))
-                        .andExpect(jsonPath("$.updatedRecords", is(0)))
-                        .andExpect(jsonPath("$.insertedRecordIds").isArray())
-                        .andExpect(jsonPath("$.insertedRecordIds").isNotEmpty())
-                        .andExpect(jsonPath("$.updatedRecordIds").isArray())
-                        .andExpect(jsonPath("$.updatedRecordIds").isEmpty());
+    mockMvc.perform(post(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .contentType(MediaType.APPLICATION_XML)
+               .param("datasetId", "datasetId")
+               .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .param("markAsDeleted", "false")
+               .content("edmRecord"))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andExpect(jsonPath("$.datasetId", is("datasetId")))
+           .andExpect(jsonPath("$.dateStamp").exists())
+           .andExpect(jsonPath("$.insertedRecords", is(1)))
+           .andExpect(jsonPath("$.updatedRecords", is(0)))
+           .andExpect(jsonPath("$.insertedRecordIds").isArray())
+           .andExpect(jsonPath("$.insertedRecordIds").isNotEmpty())
+           .andExpect(jsonPath("$.updatedRecordIds").isArray())
+           .andExpect(jsonPath("$.updatedRecordIds").isEmpty());
     verify(recordDaoMock, times(1)).createRecord(any());
   }
 
   @Test
   void saveRecord_Exception() throws Exception {
     when(recordDaoMock.createRecord(any(Record.class))).thenThrow(new RuntimeException("Fail to save record"));
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(post(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .contentType(MediaType.APPLICATION_XML)
-                            .param("datasetId", "datasetId")
-                            .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .param("markAsDeleted", "false")
-                            .content("edmRecord"))
-                        .andDo(print())
-                        .andExpect(status().is(500));
+    mockMvc.perform(post(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .contentType(MediaType.APPLICATION_XML)
+               .param("datasetId", "datasetId")
+               .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .param("markAsDeleted", "false")
+               .content("edmRecord"))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.INTERNAL_SERVER_ERROR.value()));
     verify(recordDaoMock, times(1)).createRecord(any());
   }
 
@@ -160,22 +141,21 @@ class RecordControllerTest {
         "application/zip",
         inputStream);
     when(recordDaoMock.createRecord(any(Record.class))).thenReturn(true);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
-                            .file(recordsFile)
-                            .param("datasetId", "datasetId")
-                            .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
-                        .andDo(print())
-                        .andExpect(status().is(200))
-                        .andExpect(jsonPath("$.datasetId", is("datasetId")))
-                        .andExpect(jsonPath("$.dateStamp").exists())
-                        .andExpect(jsonPath("$.insertedRecords", is(2)))
-                        .andExpect(jsonPath("$.updatedRecords", is(0)))
-                        .andExpect(jsonPath("$.insertedRecordIds").isArray())
-                        .andExpect(jsonPath("$.insertedRecordIds").isNotEmpty())
-                        .andExpect(jsonPath("$.updatedRecordIds").isArray())
-                        .andExpect(jsonPath("$.updatedRecordIds").isEmpty());
+    mockMvc.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
+               .file(recordsFile)
+               .param("datasetId", "datasetId")
+               .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andExpect(jsonPath("$.datasetId", is("datasetId")))
+           .andExpect(jsonPath("$.dateStamp").exists())
+           .andExpect(jsonPath("$.insertedRecords", is(2)))
+           .andExpect(jsonPath("$.updatedRecords", is(0)))
+           .andExpect(jsonPath("$.insertedRecordIds").isArray())
+           .andExpect(jsonPath("$.insertedRecordIds").isNotEmpty())
+           .andExpect(jsonPath("$.updatedRecordIds").isArray())
+           .andExpect(jsonPath("$.updatedRecordIds").isEmpty());
     verify(recordDaoMock, times(2)).createRecord(any());
   }
 
@@ -187,15 +167,14 @@ class RecordControllerTest {
         "application/zip",
         inputStream);
     when(recordDaoMock.createRecord(any(Record.class))).thenReturn(true);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
-                                               .file(recordsFile)
-                                               .param("datasetId", "datasetId")
-                                               .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
-                                               .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
-                                           .andDo(print())
-                                           .andExpect(status().is(200))
-                                           .andReturn();
+    mockMvc.perform(multipart(RestEndpoints.REPOSITORY_RECORDS)
+               .file(recordsFile)
+               .param("datasetId", "datasetId")
+               .param("dateStamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .contentType(MediaType.MULTIPART_FORM_DATA_VALUE))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andReturn();
     verify(recordDaoMock, times(0)).createRecord(any());
   }
 
@@ -203,23 +182,22 @@ class RecordControllerTest {
   void updateRecordHeader() throws Exception {
     when(recordDaoMock.getRecord("recordId")).thenReturn(getTestRecord());
     when(recordDaoMock.createRecord(any(Record.class))).thenReturn(false);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(put(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER, "recordId")
-                            .contentType(MediaType.APPLICATION_XML)
-                            .param("datasetId", "datasetId")
-                            .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .param("markAsDeleted", "false")
-                            .content("edmRecord"))
-                        .andDo(print())
-                        .andExpect(status().is(200))
-                        .andExpect(jsonPath("$.datasetId", is("datasetId")))
-                        .andExpect(jsonPath("$.dateStamp").exists())
-                        .andExpect(jsonPath("$.insertedRecords", is(0)))
-                        .andExpect(jsonPath("$.updatedRecords", is(1)))
-                        .andExpect(jsonPath("$.insertedRecordIds").isArray())
-                        .andExpect(jsonPath("$.insertedRecordIds").isEmpty())
-                        .andExpect(jsonPath("$.updatedRecordIds").isArray())
-                        .andExpect(jsonPath("$.updatedRecordIds").isNotEmpty());
+    mockMvc.perform(put(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER, "recordId")
+               .contentType(MediaType.APPLICATION_XML)
+               .param("datasetId", "datasetId")
+               .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .param("markAsDeleted", "false")
+               .content("edmRecord"))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andExpect(jsonPath("$.datasetId", is("datasetId")))
+           .andExpect(jsonPath("$.dateStamp").exists())
+           .andExpect(jsonPath("$.insertedRecords", is(0)))
+           .andExpect(jsonPath("$.updatedRecords", is(1)))
+           .andExpect(jsonPath("$.insertedRecordIds").isArray())
+           .andExpect(jsonPath("$.insertedRecordIds").isEmpty())
+           .andExpect(jsonPath("$.updatedRecordIds").isArray())
+           .andExpect(jsonPath("$.updatedRecordIds").isNotEmpty());
     verify(recordDaoMock, times(1)).getRecord("recordId");
     verify(recordDaoMock, times(1)).createRecord(any());
   }
@@ -228,36 +206,33 @@ class RecordControllerTest {
   void updateRecordHeader_Exception() throws Exception {
     when(recordDaoMock.getRecord("recordId")).thenReturn(null);
 
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(put(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER, "recordId")
-                            .contentType(MediaType.APPLICATION_XML)
-                            .param("datasetId", "datasetId")
-                            .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
-                            .param("markAsDeleted", "false")
-                            .content("edmRecord"))
-                        .andDo(print())
-                        .andExpect(status().is(404));
+    mockMvc.perform(put(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID_HEADER, "recordId")
+               .contentType(MediaType.APPLICATION_XML)
+               .param("datasetId", "datasetId")
+               .param("datestamp", "+1000000000-12-31T23:59:59.999999999Z")
+               .param("markAsDeleted", "false")
+               .content("edmRecord"))
+           .andDo(print())
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     verify(recordDaoMock, times(1)).getRecord("recordId");
   }
 
   @Test
   void deleteRecord() throws Exception {
     when(recordDaoMock.deleteRecord("recordId")).thenReturn(true);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .content(""))
-                        .andExpect(status().is(200))
-                        .andExpect(content().string(""));
+    mockMvc.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .content(""))
+           .andExpect(status().is(HttpStatus.OK.value()))
+           .andExpect(content().string(""));
   }
 
   @Test
   void deleteRecord_notFound() throws Exception {
     when(recordDaoMock.deleteRecord("recordId")).thenReturn(false);
-    recordController.setRecordDao(recordDaoMock);
-    recordControllerMock.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
-                            .content(""))
-                        .andExpect(status().is(404))
-                        .andExpect(content().string(""));
+    mockMvc.perform(delete(RestEndpoints.REPOSITORY_RECORDS_RECORD_ID, "recordId")
+               .content(""))
+           .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
+           .andExpect(content().string(""));
   }
 
   @NotNull

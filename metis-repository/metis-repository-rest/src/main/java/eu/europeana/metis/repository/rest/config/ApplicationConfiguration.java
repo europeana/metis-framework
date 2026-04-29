@@ -21,14 +21,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * The web application making available the repository functionality. This provides all the configuration and is the starting
  * point for all injections and beans. It also performs the required setup.
  */
 @Configuration
-@EnableWebMvc
 @EnableConfigurationProperties({
     ElasticAPMConfiguration.class, TruststoreConfigurationProperties.class, MongoConfigurationProperties.class})
 @ComponentScan(basePackages = {

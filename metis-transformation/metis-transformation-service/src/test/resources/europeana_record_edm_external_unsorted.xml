@@ -44,6 +44,7 @@
     <edm:WebResource rdf:about=" http://www.cmcassociates.co.uk/Skara_Brae/scandata/house10/sb10_scandata_th.jpg">
         <edm:pointCount>10</edm:pointCount>
         <edm:polygonCount>10</edm:polygonCount>
+        <edm:gaussianCount>10</edm:gaussianCount>
         <edm:vertexCount>10</edm:vertexCount>
         <rdfs:seeAlso rdf:resource="linkToOtherWebResourceExample"/>
         <schema:digitalSourceType rdf:resource="https://cv.iptc.org/newscodes/digitalsourcetype/digitalCapture"/>
@@ -57,6 +58,7 @@
         <dc:source xml:lang="en">Scottish 10</dc:source>
         <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
         <edm:pid>ark:/12148/123</edm:pid>
+        <edm:isRepresentationOf rdf:resource="http://data.europeana.eu/item/90402/BK_1955_331"/>
     </edm:WebResource>
     <edm:Place rdf:about="iid:4387/SP.1">
         <wgs84_pos:lat>59.04861</wgs84_pos:lat>

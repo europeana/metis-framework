@@ -144,6 +144,10 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
       webResource.setEdmIntendedUsage(FieldInputUtils.resourceListToArray(wResourceType.getIntendedUsageList()));
     }
 
+    if (wResourceType.getIsRepresentationOfList() != null) {
+      webResource.setEdmIsRepresentationOf(FieldInputUtils.resourceListToArray(wResourceType.getIsRepresentationOfList()));
+    }
+
     Map<String, List<String>> titleMap =
         FieldInputUtils.createLiteralMapFromList(wResourceType.getTitleList());
 
@@ -154,50 +158,64 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
 
     webResource.setDcLanguage(languageMap);
 
-    Map<String, List<String>> termsTemporalMap =
+    Map<String, List<String>> temporalMap =
         FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getTemporalList());
 
-    webResource.setDcTermsTemporal(termsTemporalMap);
+    webResource.setDctermsTemporal(temporalMap);
 
     if (wResourceType.getSeeAlsoList() != null) {
       webResource.setRdfsSeeAlso(FieldInputUtils.resourceListToArray(wResourceType.getSeeAlsoList()));
     }
+
+    final String docType = Optional.ofNullable(wResourceType.getType1()).map(Type2::getType)
+                                   .map(EdmType::xmlValue).orElse(null);
+    webResource.setEdmType(docType);
 
     webResource.setWebResourceMetaInfo(createWebResourceMetaInfo(wResourceType));
 
     return webResource;
   }
 
+  private static MediaType convert(EdmType edmType) {
+    return switch (edmType) {
+      case TEXT -> MediaType.TEXT;
+      case VIDEO -> MediaType.VIDEO;
+      case IMAGE -> MediaType.IMAGE;
+      case SOUND -> MediaType.AUDIO;
+      case _3_D -> MediaType.THREE_D;
+      case null -> MediaType.OTHER;
+    };
+  }
+
   private WebResourceMetaInfoImpl createWebResourceMetaInfo(WebResourceType webResource) {
 
-    // Get the media type and determine meta data creator
-    final Optional<String> optionalHasMimeType = Optional.ofNullable(webResource.getHasMimeType())
-                                                         .map(HasMimeType::getHasMimeType);
+    // Get the edm type and media type.
+    final EdmType edmType = Optional.ofNullable(webResource.getType1()).map(Type2::getType).orElse(null);
+    final String hasMimeType = Optional.ofNullable(webResource.getHasMimeType())
+        .map(HasMimeType::getHasMimeType).orElse(null);
 
-    final MediaType mediaType = optionalHasMimeType.map(hasMimeType -> {
-      MediaType adaptedMediaType = MediaType.getMediaType(hasMimeType);
-      final EdmType edmType = Optional.ofNullable(webResource.getType1()).map(Type2::getType).orElse(null);
-      final boolean isOembedMimeType = hasMimeType.startsWith("application/xml+oembed") || hasMimeType.startsWith("application/json+oembed");
-      final boolean isPossibleOembedMediaType = adaptedMediaType == MediaType.TEXT || adaptedMediaType == MediaType.OTHER;
-      if (isPossibleOembedMediaType && edmType != null && isOembedMimeType) {
-        if (edmType == EdmType.IMAGE) {
-          adaptedMediaType = MediaType.IMAGE;
-        } else if (edmType == EdmType.VIDEO) {
-          adaptedMediaType = MediaType.VIDEO;
-        }
-      }
+    // Determine the media type. Prefer our own analysis, except in the case that yields an oembed
+    // resource, or if the provider determined the type as 3D (in which case we trust them and
+    // copy over any 3D fields to the metadata info that would otherwise be lost).
+    final boolean isOembedMimeType = hasMimeType != null &&
+        (hasMimeType.startsWith("application/xml+oembed")
+            || hasMimeType.startsWith("application/json+oembed"));
+    final MediaType metaInfoType;
+    if (isOembedMimeType || edmType == EdmType._3_D || hasMimeType == null) {
+      metaInfoType = convert(edmType);
+    } else {
+      metaInfoType = MediaType.getMediaType(hasMimeType);
+    }
 
-      return adaptedMediaType;
-    }).orElse(MediaType.OTHER);
-
+    // Set up a creator for metadata info based on the media type.
     final BiConsumer<WebResourceType, WebResourceMetaInfoImpl> metaDataCreator =
-        switch (mediaType) {
+        switch (metaInfoType) {
           case AUDIO -> this::addAudioMetaInfo;
           case IMAGE -> this::addImageMetaInfo;
           case TEXT -> this::addTextMetaInfo;
           case VIDEO -> this::addVideoMetaInfo;
           case THREE_D -> this::add3DMetaInfo;
-          default -> null;
+          case null, default -> null;
         };
 
     // If we have a creator, use it.
@@ -291,6 +309,7 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     metaInfo.setPointCount(convertToLong(source.getPointCount()));
     metaInfo.setPolygonCount(convertToLong(source.getPolygonCount()));
     metaInfo.setVertexCount(convertToLong(source.getVertexCount()));
+    metaInfo.setGaussianCount(convertToLong(source.getGaussianCount()));
     target.setThreeDMetaInfo(metaInfo);
   }
 

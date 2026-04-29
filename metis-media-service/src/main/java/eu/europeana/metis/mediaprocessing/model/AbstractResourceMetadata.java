@@ -94,4 +94,12 @@ public abstract class AbstractResourceMetadata implements IResourceMetadata {
    * @return A serializable (and deserializable) wrapper containing this resource metadata.
    */
   protected abstract ResourceMetadata prepareForSerialization();
+
+  /**
+   * @return Whether this resource is an embedded resource.
+   */
+  boolean isOembedResource() {
+    return mimeType != null && (mimeType.startsWith("application/xml+oembed")
+        || mimeType.startsWith("application/json+oembed"));
+  }
 }

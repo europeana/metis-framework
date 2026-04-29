@@ -1,8 +1,5 @@
 package eu.europeana.metis.dereference.vocimport;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import eu.europeana.metis.dereference.vocimport.exception.VocabularyImportException;
 import eu.europeana.metis.dereference.vocimport.model.Location;
 import eu.europeana.metis.dereference.vocimport.model.Vocabulary;
@@ -16,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.dataformat.yaml.YAMLFactory;
 
 /**
  * This is the default implementation of the vocabulary importing functionality.
@@ -83,8 +82,8 @@ record VocabularyCollectionImporterImpl(Location directoryLocation) implements V
         .setTypes(metadata.getTypes())
         .setPaths(metadata.getPaths())
         .setParentIterations(metadata.getParentIterations())
-        .setSuffix(metadata.getSuffix())
         .setResourceUrlTemplate(metadata.getResourceUrlTemplate())
+        .setMediaType(metadata.getMediaType())
         .setUserAgent(metadata.getUserAgent())
         .setExamples(metadata.getExamples())
         .setCounterExamples(metadata.getCounterExamples())

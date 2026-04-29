@@ -37,6 +37,7 @@ import eu.europeana.enrichment.api.internal.ReferenceTermImpl;
 import eu.europeana.enrichment.api.internal.SearchTerm;
 import eu.europeana.enrichment.api.internal.SearchTermImpl;
 import eu.europeana.enrichment.rest.client.EnrichmentWorker.Mode;
+import eu.europeana.enrichment.rest.client.dereference.Dereferencer.PermittedEntityType;
 import eu.europeana.enrichment.rest.client.report.Report;
 import eu.europeana.enrichment.rest.client.report.Type;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
@@ -54,8 +55,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,20 +81,20 @@ import org.springframework.web.client.HttpServerErrorException;
  */
 class DereferencerImplTest {
 
-    private static final Set<String> DEREFERENCE_EXTRACT_RESULT_INVALID = Set.of(
-            "htt://invalid-example.host/about",
-            "httpx://invalid-example.host/concept",
-            "http://invalid-example host/place?val=ab");
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_RESULT_INVALID = Map.of(
+            "htt://invalid-example.host/about", EnumSet.allOf(PermittedEntityType.class),
+            "httpx://invalid-example.host/concept", EnumSet.allOf(PermittedEntityType.class),
+            "http://invalid-example host/place?val=ab", EnumSet.allOf(PermittedEntityType.class));
 
-    private static final Set<String> DEREFERENCE_EXTRACT_RESULT_VALID = Set.of(
-            "http://valid-example.host/about",
-            "http://data.europeana.eu.host/concept",
-            "http://valid-example.host/place");
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_RESULT_VALID = Map.of(
+            "http://valid-example.host/about", EnumSet.allOf(PermittedEntityType.class),
+            "http://data.europeana.eu.host/concept", EnumSet.allOf(PermittedEntityType.class),
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
 
-    private static final Set<String> DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID = Set.of(
-            "http://valid-example.host/place");
-    private static final Set<String> DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID = Set.of(
-            "http://valid-example.host/place");
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_SINGLE_ABOUT_RESULT_VALID = Map.of(
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
+    private static final Map<String, Set<PermittedEntityType>> DEREFERENCE_EXTRACT_SINGLE_AGGREGATION_RESULT_VALID = Map.of(
+            "http://valid-example.host/place", EnumSet.allOf(PermittedEntityType.class));
 
     private static final List<EnrichmentResultList> DEREFERENCE_RESULT;
     private static final Map<SearchTerm, List<EnrichmentBase>> ENRICHMENT_RESULT = new HashMap<>();
@@ -224,7 +225,7 @@ class DereferencerImplTest {
         // Create dereferencer.
         final Dereferencer dereferencer = spy(
                 new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
-        doReturn(Collections.emptySet()).when(dereferencer).extractReferencesForDereferencing(any());
+        doReturn(Collections.emptyMap()).when(dereferencer).extractReferencesForDereferencing(any());
 
         final RDF inputRdf = new RDF();
         dereferencer.dereference(inputRdf);
@@ -316,7 +317,7 @@ class DereferencerImplTest {
         final Dereferencer dereferencer = spy(
             new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
 
-        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(), HashSet.newHashSet(0));
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of());
 
         assertEquals(0, dereferencedEntities.getReferenceTermListMap().size());
         assertEquals(0, dereferencedEntities.getReportMessages().size());
@@ -342,13 +343,11 @@ class DereferencerImplTest {
             new DereferencerImpl(entityMergeEngine, clientEntityResolverFactory, dereferenceClient));
         doThrow(new RuntimeException("Exception occurred while trying to resolve entities")).when(clientEntityResolver)
                                                                                             .resolveById(any());
-        HashSet<Report> reports = HashSet.newHashSet(0);
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(new ReferenceTermImpl(URI.create("http://data.europeana.eu.host").toURL())));
 
-        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEuropeanaEntities(Set.of(new ReferenceTermImpl(URI.create("http://data.europeana.eu.host").toURL())), reports);
-
-        assertEquals(1, reports.size());
+        assertEquals(1, dereferencedEntities.getReportMessages().size());
         assertEquals("DereferenceException: Exception occurred while trying to perform dereferencing.",
-            reports.iterator().next().getMessage());
+            dereferencedEntities.getReportMessages().iterator().next().getMessage());
         assertEquals(0, dereferencedEntities.getReferenceTermListMap().size());
     }
 
@@ -368,7 +367,9 @@ class DereferencerImplTest {
             when(dereferenceClient
             .dereference(any())).thenThrow(new RuntimeException("External Entity"))
                 .thenThrow(HttpClientErrorException.create(HttpStatus.BAD_REQUEST,"External Entity",null, null, null));
-        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEntities(Set.of("http://localhost","http://demo"));
+        DereferencedEntities dereferencedEntities = dereferencer.dereferenceEntities(Map.of(
+            "http://localhost", EnumSet.allOf(PermittedEntityType.class),
+            "http://demo", EnumSet.allOf(PermittedEntityType.class)));
 
         assertEquals(2, dereferencedEntities.getReportMessages().size());
         assertTrue( dereferencedEntities.getReportMessages()
@@ -445,7 +446,7 @@ class DereferencerImplTest {
 
         assertTrue(CollectionUtils.isEqualCollection(expectedReports, reports));
 
-        for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
+        for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID.keySet()) {
             verify(dereferenceClient, times(1)).dereference(dereferenceUrl);
         }
     }
@@ -462,7 +463,7 @@ class DereferencerImplTest {
             assertEquals(Type.IGNORE, report.getMessageType());
             assertEquals(Mode.DEREFERENCE, report.getMode());
         }
-        for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID) {
+        for (String dereferenceUrl : DEREFERENCE_EXTRACT_RESULT_VALID.keySet()) {
             verify(dereferenceClient, times(0)).dereference(dereferenceUrl);
         }
     }

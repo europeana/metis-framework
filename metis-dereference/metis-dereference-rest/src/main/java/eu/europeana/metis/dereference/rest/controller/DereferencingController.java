@@ -1,11 +1,12 @@
 package eu.europeana.metis.dereference.rest.controller;
 
+import static org.apache.commons.text.StringEscapeUtils.escapeJava;
+
 import eu.europeana.enrichment.api.external.model.EnrichmentResultBaseWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.DereferenceResult;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
-import eu.europeana.metis.utils.CommonStringValues;
 import eu.europeana.metis.utils.RestEndpoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -62,8 +63,7 @@ public class DereferencingController {
   }
 
   private static String generateExceptionMessage(String resourceId, Exception e) {
-    return String.format("Dereferencing failed for uri: %s with root cause: %s",
-        resourceId.replaceAll(CommonStringValues.REPLACEABLE_CRLF_CHARACTERS_REGEX, ""), e.getMessage());
+    return String.format("Dereferencing failed for uri: %s with root cause: %s", escapeJava(resourceId), e.getMessage());
   }
 
   /**

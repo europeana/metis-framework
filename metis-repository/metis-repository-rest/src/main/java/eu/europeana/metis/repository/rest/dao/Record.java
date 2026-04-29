@@ -1,15 +1,11 @@
 package eu.europeana.metis.repository.rest.dao;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Field;
-import dev.morphia.annotations.Id;
-import dev.morphia.annotations.Index;
-import dev.morphia.annotations.IndexOptions;
-import dev.morphia.annotations.Indexes;
+import dev.morphia.annotations.*;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
-import java.time.Instant;
 import org.bson.types.ObjectId;
+import tools.jackson.databind.annotation.JsonSerialize;
+
+import java.time.Instant;
 
 /**
  * Model (database) object representing a record. Apart from a (generated and immutable) ID, records

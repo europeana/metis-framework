@@ -1,8 +1,5 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingAction;
-import static org.apache.tika.metadata.HttpHeaders.CONTENT_TYPE;
-
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
@@ -18,10 +15,8 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import eu.europeana.metis.schema.model.MediaType;
-import eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.ThrowingConsumer;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,8 +24,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,12 +212,9 @@ public class MediaExtractorImpl implements MediaExtractor {
     }
 
     // Detect the mime type.
-    final String providedMimeType = resource.getProvidedMimeType();
     final String detectedMimeType;
-    final boolean hasContent;
     try {
-      hasContent = resource.hasContent();
-      detectedMimeType = hasContent ? detectType(resource.getContentPath(), providedMimeType)
+      detectedMimeType = resource.hasContent() ? detectType(resource)
           : mimeTypeDetectHttpClient.download(resource.getActualLocation().toURL());
     } catch (IOException | IllegalArgumentException e) {
       throw new MediaExtractionException("Mime type checking error", e);
@@ -232,6 +222,7 @@ public class MediaExtractorImpl implements MediaExtractor {
 
     // Log if the detected mime type is different from the provided one. If application/xhtml+xml is
     // detected from tika, and text/html is provided, we don't give a warning.
+    final String providedMimeType = resource.getProvidedMimeType();
     if (providedMimeType != null) {
       final boolean xhtmlHtmlEquivalenceOccurs = "application/xhtml+xml".equals(detectedMimeType)
           && providedMimeType.startsWith("text/html");
@@ -245,17 +236,8 @@ public class MediaExtractorImpl implements MediaExtractor {
     return detectedMimeType;
   }
 
-  String detectType(Path path, String providedMimeType) throws IOException {
-    final Metadata metadata = new Metadata();
-    if (providedMimeType != null) {
-      final int separatorIndex = providedMimeType.indexOf(';');
-      final String adjustedMimeType =
-          separatorIndex < 0 ? providedMimeType : providedMimeType.substring(0, separatorIndex);
-      metadata.set(CONTENT_TYPE, adjustedMimeType);
-    }
-    try (final InputStream stream = TikaInputStream.get(path, metadata)) {
-      return tika.detect(stream, metadata);
-    }
+  String detectType(Resource resource) throws IOException {
+    return tika.detect(resource, resource.getContentPath());
   }
 
   List<MediaProcessor> chooseMediaProcessor(MediaType mediaType, String detectedMimeType,
@@ -289,20 +271,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     // If the mime type changed, and we need the content after all, we download it.
     if (mode == ProcessingMode.FULL && shouldDownloadForFullProcessing(detectedMimeType, rdfResourceKind)
         && !shouldDownloadForFullProcessing(resource.getProvidedMimeType(), rdfResourceKind)) {
-      final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
-          new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
-
-      ThrowingConsumer<Resource, IOException> action = resourceWithContent -> {
-        if (resourceWithContent.hasContent()) {
-          try (final InputStream inputStream = resourceWithContent.getContentStream()) {
-            resource.markAsWithContent(inputStream);
-          }
-        }
-      };
-      try (final Resource resourceWithContent = getResourceDownloadClient(rdfResourceKind)
-          .downloadWithContent(downloadInput)) {
-        performThrowingAction(resourceWithContent, action);
-      }
+      downloadContent(resource, rdfResourceKind, serviceReference);
     }
 
     // Verify that we have content when we need to.
@@ -310,6 +279,20 @@ public class MediaExtractorImpl implements MediaExtractor {
         && !resource.hasContent()) {
       throw new MediaExtractionException(
           "File content is not downloaded and mimeType does not support processing without a downloaded file.");
+    }
+  }
+
+  private void downloadContent(Resource resource, RdfResourceKind rdfResourceKind, String serviceReference) throws IOException {
+    final RdfResourceEntry downloadInput = new RdfResourceEntry(resource.getResourceUrl(),
+        new ArrayList<>(resource.getUrlTypes()), rdfResourceKind, serviceReference);
+
+    try (final Resource resourceWithContent = getResourceDownloadClient(rdfResourceKind)
+        .downloadWithContent(downloadInput)) {
+      if (resourceWithContent.hasContent()) {
+        try (final InputStream inputStream = resourceWithContent.getContentStream()) {
+          resource.markAsWithContent(inputStream);
+        }
+      }
     }
   }
 

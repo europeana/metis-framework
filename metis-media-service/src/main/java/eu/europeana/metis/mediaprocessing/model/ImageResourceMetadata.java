@@ -97,7 +97,7 @@ public class ImageResourceMetadata extends AbstractResourceMetadata {
     resource.setOrientation(orientation);
     resource.setColorspace(colorSpace);
     resource.setDominantColors(getDominantColors());
-    resource.setEdmType(EdmType.IMAGE);
+    resource.setEdmType(EdmType.IMAGE, isOembedResource());
 
   }
 

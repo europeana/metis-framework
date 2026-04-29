@@ -14,11 +14,11 @@ import io.gdcc.xoai.model.oaipmh.verbs.ListIdentifiers;
 import io.gdcc.xoai.model.oaipmh.verbs.Verb;
 import io.gdcc.xoai.xml.WriterContext;
 import io.gdcc.xoai.xml.XmlWriter;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.io.ByteArrayOutputStream;
@@ -40,7 +40,6 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @Tags(@Tag(name = OaiPmhController.CONTROLLER_TAG_NAME,
     description = "Controller providing access to OAI-PMH harvesting functionality."))
-@Api(tags = OaiPmhController.CONTROLLER_TAG_NAME)
 public class OaiPmhController {
 
   public static final String CONTROLLER_TAG_NAME = "OaiPmhController";
@@ -73,15 +72,41 @@ public class OaiPmhController {
   @GetMapping(value = RestEndpoints.REPOSITORY_OAI_ENDPOINT,
       produces = {MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
-  @ApiOperation(value = "OAI endpoint (supporting only the ListIdentifiers and GetRecord verbs)")
-  @ApiResponses(value = {@ApiResponse(code = 400, message = "Illegal OAI request"),
-      @ApiResponse(code = 404, message = "Unknown dataset or record ID"),
-      @ApiResponse(code = 500, message = "Error processing the request")})
+  @Operation(
+      summary = "OAI-PMH endpoint",
+      description = "OAI endpoint supporting only the ListIdentifiers and GetRecord verbs"
+  )
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Request processed successfully",
+          content = @Content(mediaType = MediaType.APPLICATION_XML_VALUE)),
+      @ApiResponse(responseCode = "400", description = "Illegal OAI request"),
+      @ApiResponse(responseCode = "404", description = "Unknown dataset or record ID"),
+      @ApiResponse(responseCode = "500", description = "Error processing the request")
+  })
   public String oaiPmh(
-      @ApiParam(value = "The verb (ListIdentifiers or GetRecords)", required = true) @RequestParam("verb") String verb,
-      @ApiParam(value = "The set (required for ListIdentifiers)") @RequestParam(value = "set", required = false) String set,
-      @ApiParam(value = "The metadataPrefix (only 'edm' is supported.)", required = true) @RequestParam("metadataPrefix") String metadataPrefix,
-      @ApiParam(value = "The record identifier (required for GetRecord)") @RequestParam(value = "identifier", required = false) String identifier) {
+      @Parameter(
+          description = "The verb (ListIdentifiers or GetRecord)",
+          required = true,
+          example = "ListIdentifiers"
+      )
+      @RequestParam("verb") String verb,
+
+      @Parameter(
+          description = "The set (required for ListIdentifiers)",
+          example = "dataset-123"
+      )
+      @RequestParam(value = "set", required = false) String set,
+      @Parameter(
+          description = "The metadataPrefix (only 'edm' is supported)",
+          required = true,
+          example = "edm"
+      )
+      @RequestParam("metadataPrefix") String metadataPrefix,
+      @Parameter(
+          description = "The record identifier (required for GetRecord)",
+          example = "recordId"
+      )
+      @RequestParam(value = "identifier", required = false) String identifier) {
 
     // Check the metadata prefix
     if (!"edm".equals(metadataPrefix)) {

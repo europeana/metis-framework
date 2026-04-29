@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.http.ContentDisposition;
 
 /**
  * This class implements {@link Resource}.
@@ -17,6 +18,7 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   private static final Long DEFAULT_FILE_SIZE = 0L;
   private final String providedMimeType;
   private final Long providedFileSize;
+  private final ContentDisposition providedContentDisposition;
   private final Set<UrlType> urlTypes;
   private final URI actualLocation;
 
@@ -28,15 +30,18 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
    * if the source didn't specify a mime type.
    * @param providedFileSize The file size of this content, as provided by the source. Can be null
    * if the source didn't specify a file size.
+   * @param providedContentDisposition The value of the content disposition header for this content,
+   * as provided by the source. Can be null.
    * @param actualLocation The actual location where the resource was obtained (as opposed from the
    * resource URL given by {@link ResourceImpl#getResourceUrl()}).
    */
   public ResourceImpl(RdfResourceEntry rdfResourceEntry, String providedMimeType,
-      Long providedFileSize, URI actualLocation) {
+      Long providedFileSize, ContentDisposition providedContentDisposition, URI actualLocation) {
     super(rdfResourceEntry.getResourceUrl(), "media_resource_", null);
     this.providedMimeType = Optional.ofNullable(providedMimeType)
         .filter(type -> !type.startsWith(DEFAULT_MIME_TYPE)).orElse(null);
     this.providedFileSize = Optional.ofNullable(providedFileSize).orElse(DEFAULT_FILE_SIZE);
+    this.providedContentDisposition = providedContentDisposition;
     this.urlTypes = new HashSet<>(rdfResourceEntry.getUrlTypes());
     this.actualLocation = actualLocation;
   }
@@ -59,6 +64,11 @@ public class ResourceImpl extends AbstractTemporaryFile implements Resource {
   @Override
   public Long getProvidedFileSize() {
     return providedFileSize;
+  }
+
+  @Override
+  public ContentDisposition getProvidedContentDisposition() {
+    return providedContentDisposition;
   }
 
   @Override

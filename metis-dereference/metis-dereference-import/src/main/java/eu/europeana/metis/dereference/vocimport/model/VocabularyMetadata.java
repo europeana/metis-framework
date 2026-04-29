@@ -18,8 +18,8 @@ public class VocabularyMetadata {
   private List<Type> types;
   private List<String> paths;
   private Integer parentIterations;
-  private String suffix;
   private String resourceUrlTemplate;
+  private String mediaType;
   private String userAgent;
   private List<String> examples;
   private List<String> counterExamples;
@@ -42,20 +42,12 @@ public class VocabularyMetadata {
     return parentIterations;
   }
 
-  /**
-   * Getter.
-   *
-   * @return The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @Deprecated(forRemoval = true)
-  public String getSuffix() {
-    return suffix;
-  }
-
   public String getResourceUrlTemplate() {
     return resourceUrlTemplate;
+  }
+
+  public String getMediaType() {
+    return mediaType;
   }
 
   public String getUserAgent() {
@@ -88,20 +80,12 @@ public class VocabularyMetadata {
     this.parentIterations = parentIterations;
   }
 
-  /**
-   * Setter.
-   *
-   * @param suffix The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @Deprecated(forRemoval = true)
-  public void setSuffix(String suffix) {
-    this.suffix = suffix;
-  }
-
   public void setResourceUrlTemplate(String resourceUrlTemplate) {
     this.resourceUrlTemplate = resourceUrlTemplate;
+  }
+
+  public void setMediaType(String mediaType) {
+    this.mediaType = mediaType;
   }
 
   public void setUserAgent(String userAgent) {

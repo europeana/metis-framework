@@ -67,7 +67,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     for (VocabularyLoader loader : vocabularyLoaders) {
       final Vocabulary vocabulary = loader.load();
       final IncomingRecordToEdmTransformer converter = validateVocabulary(vocabulary,
-          duplicationChecker, warningReceiver);
+          duplicationChecker);
       if (validateExamples) {
         validateExamples(vocabulary, warningReceiver, converter);
       }
@@ -76,7 +76,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private IncomingRecordToEdmTransformer validateVocabulary(Vocabulary vocabulary,
-      DuplicationChecker duplicationChecker, Consumer<String> warningReceiver)
+      DuplicationChecker duplicationChecker)
       throws VocabularyImportException {
 
     // Check the presence of the required fields.
@@ -100,20 +100,9 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
           String.format("No transformation given in mapping at [%s].",
               vocabulary.getReadableMappingLocation()));
     }
-    if (vocabulary.getSuffix() != null && vocabulary.getResourceUrlTemplate() != null) {
-      throw new VocabularyImportException(
-          String.format("Suffix and resource URL template given in mapping at [%s].",
-              vocabulary.getReadableMappingLocation()));
-    }
 
     // Check whether name and links are unique.
     duplicationChecker.checkAndRegister(vocabulary);
-
-    // Check for deprecated prefix value.
-    if (vocabulary.getSuffix() != null) {
-      warningReceiver.accept(String.format("Deprecated suffix value is given in mapping at [%s].",
-          vocabulary.getReadableMappingLocation()));
-    }
 
     // Verifying the xslt - compile it.
     try {
@@ -141,18 +130,16 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
 
     // Create the resource URL generator
     final ResourceUriGenerator resourceUriGenerator = ResourceUriGenerator
-        .forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(), vocabulary.getSuffix());
+        .forTemplate(vocabulary.getResourceUrlTemplate());
 
     // Testing the examples (if there are any).
     for (String example : vocabulary.getExamples()) {
-      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), false,
-          vocabulary.getReadableMetadataLocation(), warningReceiver);
+      testExample(converter, example, resourceUriGenerator, vocabulary, false, warningReceiver);
     }
 
     // Testing the counter-examples (if there are any).
     for (String example : vocabulary.getCounterExamples()) {
-      testExample(converter, example, resourceUriGenerator, vocabulary.getUserAgent(), true,
-          vocabulary.getReadableMetadataLocation(), warningReceiver);
+      testExample(converter, example, resourceUriGenerator, vocabulary, true, warningReceiver);
     }
   }
 
@@ -174,17 +161,17 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
   }
 
   private void testExample(IncomingRecordToEdmTransformer incomingRecordToEdmTransformer,
-      String example, ResourceUriGenerator resourceUriGenerator, String userAgent,
-      boolean isCounterExample, String readableMetadataLocation,
-      Consumer<String> warningReceiver) throws VocabularyImportException {
+      String example, ResourceUriGenerator resourceUriGenerator, Vocabulary vocabulary,
+      boolean isCounterExample, Consumer<String> warningReceiver) throws VocabularyImportException {
 
     // Retrieve the example - is not null.
     final String exampleContent;
     try {
-      exampleContent = new RdfRetriever().retrieve(example, resourceUriGenerator, userAgent);
+      exampleContent = new RdfRetriever().retrieve(example, resourceUriGenerator,
+          vocabulary.getMediaType(), vocabulary.getUserAgent());
     } catch (IOException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
-          readableMetadataLocation, "could not be retrieved", e);
+          vocabulary.getReadableMetadataLocation(), "could not be retrieved", e);
       processTestError(message, lenientOnExampleRetrievalFailures, warningReceiver, e);
       return;
     }
@@ -195,7 +182,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
       result = incomingRecordToEdmTransformer.transform(exampleContent, example);
     } catch (BadContentException e) {
       final String message = getTestErrorMessage(example, isCounterExample,
-          readableMetadataLocation, "could not be mapped", e);
+          vocabulary.getReadableMetadataLocation(), "could not be mapped", e);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, e);
       return;
     }
@@ -203,11 +190,13 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
     // Check whether the example yielded a mapped entity or not
     if (result.isPresent() && isCounterExample) {
       final String message = getTestErrorMessage(example, isCounterExample,
-          readableMetadataLocation, "yielded a mapped result, but is expected not to", null);
+          vocabulary.getReadableMetadataLocation(),
+          "yielded a mapped result, but is expected not to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     } else if (result.isEmpty() && !isCounterExample) {
       final String message = getTestErrorMessage(example, isCounterExample,
-          readableMetadataLocation, "did not yield a mapped result, but is expected to", null);
+          vocabulary.getReadableMetadataLocation(),
+          "did not yield a mapped result, but is expected to", null);
       processTestError(message, lenientOnMappingTestFailures, warningReceiver, null);
     }
 
@@ -217,7 +206,7 @@ public class VocabularyCollectionValidatorImpl implements VocabularyCollectionVa
         EnrichmentBaseConverter.convertToEnrichmentBase(result.get());
       } catch (JAXBException e) {
         final String message = getTestErrorMessage(example, isCounterExample,
-            readableMetadataLocation, "did not yield a valid XML", e);
+            vocabulary.getReadableMetadataLocation(), "did not yield a valid XML", e);
         throw new VocabularyImportException(message, e);
       }
     }

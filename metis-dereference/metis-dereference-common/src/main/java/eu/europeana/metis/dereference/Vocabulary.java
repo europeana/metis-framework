@@ -1,6 +1,5 @@
 package eu.europeana.metis.dereference;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
@@ -8,19 +7,19 @@ import dev.morphia.annotations.Index;
 import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
+import jakarta.xml.bind.annotation.XmlElement;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import jakarta.xml.bind.annotation.XmlElement;
 import org.bson.types.ObjectId;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 /**
  * A controlled vocabulary representation Created by ymamakis on 2/11/16.
  */
-
 @Entity
 @Indexes({
     @Index(fields = {@Field("uris")}),
@@ -44,15 +43,15 @@ public class Vocabulary implements Serializable {
   private Set<String> uris;
 
   /**
-   * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
-   * Note: if a value for <code>resourceUrlTemplate</code> is set, this suffix is ignored.
-   */
-  private String suffix;
-
-  /**
    * The Resource URL template of the vocabulary: defines how to resolve resource IDs.
    */
   private String resourceUrlTemplate;
+
+  /**
+   * The value of the Accept HTTP header to be used with the vocabulary. If null, the default
+   * media type (RDF/XML) will be set.
+   */
+  private String mediaType;
 
   /**
    * The value of the User Agent HTTP header to be used with the vocabulary. If null, the default
@@ -84,31 +83,6 @@ public class Vocabulary implements Serializable {
     this.uris = new HashSet<>(uris);
   }
 
-  /**
-   * Getter.
-   *
-   * @return The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @XmlElement
-  @Deprecated (forRemoval = true)
-  public String getSuffix() {
-    return suffix;
-  }
-
-  /**
-   * Setter.
-   *
-   * @param suffix The suffix.
-   * @deprecated Will be removed.
-   * TODO MET-6903
-   */
-  @Deprecated (forRemoval = true)
-  public void setSuffix(String suffix) {
-    this.suffix = suffix;
-  }
-
   @XmlElement
   public String getResourceUrlTemplate() {
     return resourceUrlTemplate;
@@ -116,6 +90,15 @@ public class Vocabulary implements Serializable {
 
   public void setResourceUrlTemplate(String resourceUrlTemplate) {
     this.resourceUrlTemplate = resourceUrlTemplate;
+  }
+
+  @XmlElement
+  public String getMediaType() {
+    return mediaType;
+  }
+
+  public void setMediaType(String mediaType) {
+    this.mediaType = mediaType;
   }
 
   @XmlElement

@@ -127,7 +127,7 @@ class IIIFProcessorTest {
     final RdfResourceEntry rdfResourceEntry = new RdfResourceEntry(url,
         Collections.singletonList(UrlType.IS_SHOWN_BY), RdfResourceKind.IIIF, baseUrl);
     final IIIFInfoJson iiifInfoJson = iiifValidation.fetchInfoJson(rdfResourceEntry);
-    final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, URI.create(url));
+    final Resource innerResource = new ResourceImpl(rdfResourceEntry, null, null, null, URI.create(url));
     innerResource.markAsWithContent(inputStreamInfoJson);
     final IIIFResourceImpl resource = spy(new IIIFResourceImpl(innerResource, iiifInfoJson, url));
     final String detectedMimeType = "image/jpeg";

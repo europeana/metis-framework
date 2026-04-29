@@ -1,7 +1,5 @@
 package eu.europeana.metis.harvesting.oaipmh;
 
-import static eu.europeana.metis.utils.SonarqubeNullcheckAvoidanceUtils.performThrowingFunction;
-
 import eu.europeana.metis.harvesting.HarvesterException;
 import eu.europeana.metis.harvesting.HarvestingIterator;
 import eu.europeana.metis.harvesting.oaipmh.OaiHarvestingIterator.RecordOaiHeaderPostProcessing;
@@ -64,8 +62,7 @@ public class OaiHarvesterImpl implements OaiHarvester {
     final Parameters parameters = Parameters.parameters().withVerb(Verb.Type.GetRecord)
                                             .include(getRecordParameters);
     final byte[] byteArrayRecord;
-    try (final InputStream recordStream = performThrowingFunction(oaiClient,
-            client -> client.execute(parameters))) {
+    try (final InputStream recordStream = oaiClient.execute(parameters)) {
       byteArrayRecord = IOUtils.toByteArray(recordStream);
     } catch (OAIRequestException | IOException e) {
       throw new HarvesterException(String.format(

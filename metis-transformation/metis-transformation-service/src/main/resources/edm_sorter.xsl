@@ -244,6 +244,7 @@
       <xsl:apply-templates select="edm:pointCount"/>
       <xsl:apply-templates select="edm:polygonCount"/>
       <xsl:apply-templates select="edm:vertexCount"/>
+      <xsl:apply-templates select="edm:gaussianCount"/>
       <xsl:apply-templates select="rdfs:seeAlso"/>
 			<xsl:apply-templates select="ebucore:orientation"/>
 			<xsl:apply-templates select="ebucore:audioChannelNumber"/>
@@ -253,6 +254,7 @@
       <xsl:apply-templates select="edm:type"/>
       <xsl:apply-templates select="schema:digitalSourceType"/>
       <xsl:apply-templates select="edm:intendedUsage"/>
+			<xsl:apply-templates select="edm:isRepresentationOf"/>
 		</xsl:element>
 	</xsl:template>
 
@@ -261,6 +263,7 @@
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates select="skos:prefLabel"/>
 			<xsl:apply-templates select="skos:altLabel"/>
+			<xsl:apply-templates select="skos:hiddenLabel"/>
 			<xsl:apply-templates select="skos:note"/>
 			<xsl:apply-templates select="dc:date"/>
 			<xsl:apply-templates select="dc:identifier"/>
@@ -292,6 +295,7 @@
 			<xsl:apply-templates select="wgs84_pos:alt"/>
 			<xsl:apply-templates select="skos:prefLabel"/>
 			<xsl:apply-templates select="skos:altLabel"/>
+			<xsl:apply-templates select="skos:hiddenLabel"/>
 			<xsl:apply-templates select="skos:note"/>
 			<xsl:apply-templates select="dcterms:hasPart"/>
 			<xsl:apply-templates select="dcterms:isPartOf"/>
@@ -305,6 +309,7 @@
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates select="skos:prefLabel"/>
 			<xsl:apply-templates select="skos:altLabel"/>
+			<xsl:apply-templates select="skos:hiddenLabel"/>
 			<xsl:apply-templates select="skos:note"/>
 			<xsl:apply-templates select="dcterms:hasPart"/>
 			<xsl:apply-templates select="dcterms:isPartOf"/>
@@ -320,6 +325,7 @@
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates select="skos:prefLabel"/>
 			<xsl:apply-templates select="skos:altLabel"/>
+			<xsl:apply-templates select="skos:hiddenLabel"/>
 			<xsl:apply-templates select="skos:broader"/>
 			<xsl:apply-templates select="skos:narrower"/>
 			<xsl:apply-templates select="skos:related"/>
@@ -354,6 +360,7 @@
 			<xsl:apply-templates select="edm:europeanaRole"/>
 			<xsl:apply-templates select="foaf:homepage"/>
 			<xsl:apply-templates select="foaf:logo"/>
+			<xsl:apply-templates select="skos:hiddenLabel"/>
 		</xsl:element>
 	</xsl:template>
 

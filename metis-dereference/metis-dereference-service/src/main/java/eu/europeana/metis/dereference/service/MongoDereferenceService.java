@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference.service;
 
-import static eu.europeana.metis.utils.CommonStringValues.sanitizeCRLF;
+import static org.apache.commons.text.StringEscapeUtils.escapeJava;
 
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.enrichment.api.external.model.Concept;
@@ -266,8 +266,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     ResourceUriGenerator getResourceUriGenerator(Vocabulary vocabulary) {
-        return ResourceUriGenerator.forTemplateOrSuffix(vocabulary.getResourceUrlTemplate(),
-            vocabulary.getSuffix());
+        return ResourceUriGenerator.forTemplate(vocabulary.getResourceUrlTemplate());
     }
 
     private OriginalEntity retrieveOriginalEntity(String resourceId,
@@ -279,11 +278,11 @@ public class MongoDereferenceService implements DereferenceService {
             throw new IllegalArgumentException();
         }
 
-        // Compute the result (a URI syntax issue is considered a problem with the suffix).
+        // Compute the result.
         final String originalEntity = candidates.stream().map(vocabulary -> {
             try {
                 return retriever.retrieve(resourceId, getResourceUriGenerator(vocabulary),
-                    vocabulary.getUserAgent());
+                    vocabulary.getMediaType(), vocabulary.getUserAgent());
             } catch (IOException e) {
                 LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
                 LOGGER.debug("Problem retrieving resource.", e);
@@ -293,7 +292,7 @@ public class MongoDereferenceService implements DereferenceService {
 
         // Evaluate and return the result.
         if (originalEntity == null && LOGGER.isInfoEnabled()) {
-            LOGGER.info("No entity XML for uri {}", sanitizeCRLF(resourceId));
+            LOGGER.info("No entity XML for uri {}", escapeJava(resourceId));
         }
         final DereferenceResultStatus dereferenceResultStatus = originalEntity == null ?
             DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY : DereferenceResultStatus.SUCCESS;
