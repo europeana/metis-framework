@@ -48,7 +48,7 @@ public class VocabularyDao {
   public List<Vocabulary> getByUriSearch(String searchString) {
     final Pattern pattern = Pattern.compile(Pattern.quote(searchString));
     final Query<Vocabulary> query = datastore.find(Vocabulary.class);
-    query.filter(Filters.eq("uris", pattern));
+    query.filter(Filters.regex("uris", pattern));
     return getListOfQueryRetryable(query);
   }
 
