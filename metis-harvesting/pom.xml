@@ -5,7 +5,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>17</version>
+    <version>17.1</version>
   </parent>
   <artifactId>metis-harvesting</artifactId>
 
