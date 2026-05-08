@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
 class AudioVideoProcessor implements MediaProcessor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AudioVideoProcessor.class);
-  public static final int FFPROBE_MAX_VERSION = 7;
+  public static final int FFPROBE_MAX_VERSION = 9;
   public static final int FFPROBE_MIN_VERSION = 2;
 
   private static String globalFfprobeCommand;
