@@ -36,6 +36,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -64,6 +65,11 @@ class SolrIndexerIT {
   @Autowired
   private SolrClient solrClient;
 
+  @BeforeEach
+  void setup() throws SolrServerException, IOException {
+    solrClient.deleteByQuery("*:*");
+    solrClient.commit();
+  }
   private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
       true, List.of(), true, TierCalculationMode.OVERWRITE);
 
