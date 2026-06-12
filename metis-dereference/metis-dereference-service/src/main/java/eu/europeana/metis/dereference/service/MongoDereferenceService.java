@@ -36,10 +36,9 @@ import java.util.Set;
 import java.util.stream.Stream;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,10 +46,9 @@ import org.springframework.stereotype.Component;
  * Implementation of {@link DereferenceService} that uses the MongoDB for retrieving vocabularies
  * and for caching.
  */
+@Slf4j
 @Component
 public class MongoDereferenceService implements DereferenceService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
     private final RdfRetriever retriever;
     private final ProcessedEntityDao processedEntityDao;
@@ -112,7 +110,7 @@ public class MongoDereferenceService implements DereferenceService {
             deserializedEntity = resource.entity() == null ? null
                 : EnrichmentBaseConverter.convertToEnrichmentBase(resource.entity());
         } catch (JAXBException e) {
-            LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
+            log.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new DereferenceResult(DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
 
@@ -144,7 +142,7 @@ public class MongoDereferenceService implements DereferenceService {
             deserializedEntity = resource.entity() == null ? null
                 : EnrichmentBaseConverter.convertToEnrichmentBase(resource.entity());
         } catch (JAXBException e) {
-            LOGGER.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
+            log.info("Problem occurred while parsing transformed entity {}.", resourceId, e);
             return new DeserializedEntity(null, DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
         return new DeserializedEntity(deserializedEntity, resource.resultStatus());
@@ -169,7 +167,7 @@ public class MongoDereferenceService implements DereferenceService {
         try {
             new URI(resourceId);
         } catch (URISyntaxException e) {
-            LOGGER.warn("Invalid URI: {} with message: {}", resourceId, e.getMessage());
+            log.warn("Invalid URI: {} with message: {}", resourceId, e.getMessage());
             return new TransformedEntity(null, null, DereferenceResultStatus.INVALID_URL);
         }
 
@@ -228,7 +226,7 @@ public class MongoDereferenceService implements DereferenceService {
                 vocabularyDao::getByUriSearch);
         } catch (URISyntaxException e) {
             // Shouldn't happen as we checked this before.
-            LOGGER.warn(String.format("Problem occurred while dereferencing resource %s.",
+            log.warn(String.format("Problem occurred while dereferencing resource %s.",
                 resourceId), e);
             return new MatchedVocabularies(null, DereferenceResultStatus.FAILURE);
         }
@@ -257,9 +255,9 @@ public class MongoDereferenceService implements DereferenceService {
             }
             return new TransformedEntity(vocabulary, result, resultStatus);
         } catch (TransformerException | BadContentException | ParserConfigurationException e) {
-            LOGGER.warn("Error transforming entity: {} with message: {}", resourceId,
+            log.warn("Error transforming entity: {} with message: {}", resourceId,
                 e.getMessage());
-            LOGGER.debug("Transformation issue: ", e);
+            log.debug("Transformation issue: ", e);
             return new TransformedEntity(vocabulary, null,
                 DereferenceResultStatus.ENTITY_FOUND_XML_XSLT_ERROR);
         }
@@ -284,15 +282,15 @@ public class MongoDereferenceService implements DereferenceService {
                 return retriever.retrieve(resourceId, getResourceUriGenerator(vocabulary),
                     vocabulary.getMediaType(), vocabulary.getUserAgent());
             } catch (IOException e) {
-                LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
-                LOGGER.debug("Problem retrieving resource.", e);
+                log.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
+                log.debug("Problem retrieving resource.", e);
                 return null;
             }
         }).filter(Objects::nonNull).findAny().orElse(null);
 
         // Evaluate and return the result.
-        if (originalEntity == null && LOGGER.isInfoEnabled()) {
-            LOGGER.info("No entity XML for uri {}", escapeJava(resourceId));
+        if (originalEntity == null && log.isInfoEnabled()) {
+            log.info("No entity XML for uri {}", escapeJava(resourceId));
         }
         final DereferenceResultStatus dereferenceResultStatus = originalEntity == null ?
             DereferenceResultStatus.NO_ENTITY_FOR_VOCABULARY : DereferenceResultStatus.SUCCESS;
@@ -330,6 +328,6 @@ public class MongoDereferenceService implements DereferenceService {
         entityToCache.setVocabularyId(Optional.ofNullable(transformedEntity.vocabulary())
             .map(Vocabulary::getId).map(ObjectId::toString).orElse(null));
         entityToCache.setResultStatus(transformedEntity.resultStatus());
-        processedEntityDao.save(entityToCache);
+        processedEntityDao.saveConditionally(entityToCache);
     }
 }

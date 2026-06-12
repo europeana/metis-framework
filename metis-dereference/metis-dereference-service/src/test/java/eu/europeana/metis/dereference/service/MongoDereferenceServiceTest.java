@@ -102,7 +102,7 @@ class MongoDereferenceServiceTest {
       final ProcessedEntity entity = invocation.getArgument(0);
       CACHE.put(entity.getResourceId(), entity);
       return null;
-    }).when(processedEntityDao).save(any());
+    }).when(processedEntityDao).saveConditionally(any());
     doAnswer((Answer<ProcessedEntity>) invocation -> CACHE.get((String) invocation.getArgument(0)))
         .when(processedEntityDao).getByResourceId(anyString());
   }

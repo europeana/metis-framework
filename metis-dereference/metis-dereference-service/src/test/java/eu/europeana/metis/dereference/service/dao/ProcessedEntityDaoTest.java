@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.service.dao.ProcessedEntityDao;
 import eu.europeana.metis.mongo.embedded.EmbeddedLocalhostMongo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -108,7 +108,8 @@ class ProcessedEntityDaoTest {
       } else {
         processedEntity.setXml("<?xml version=\"1.0\" encoding=\"UTF-8\"?><item>value</item>");
       }
-      processedEntityDao.save(processedEntity);
+      processedEntity.setResultStatus(DereferenceResultStatus.SUCCESS);
+      processedEntityDao.saveConditionally(processedEntity);
     }
   }
 

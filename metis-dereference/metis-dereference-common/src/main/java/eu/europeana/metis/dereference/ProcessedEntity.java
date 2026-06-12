@@ -8,8 +8,9 @@ import dev.morphia.annotations.IndexOptions;
 import dev.morphia.annotations.Indexes;
 import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.mongo.utils.ObjectIdSerializer;
-import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
 import tools.jackson.databind.annotation.JsonSerialize;
 
@@ -19,9 +20,17 @@ import tools.jackson.databind.annotation.JsonSerialize;
 @XmlRootElement
 @Entity
 @Indexes({
-    @Index(fields = {@Field("resourceId")}, options = @IndexOptions(unique = true))
+    @Index(fields = {@Field(ProcessedEntity.RESOURCE_ID_FIELD)}, options = @IndexOptions(unique = true))
 })
+@Setter
+@Getter
 public class ProcessedEntity {
+
+  public static final String MONGO_ID_FIELD = "_id";
+  public static final String RESOURCE_ID_FIELD = "resourceId";
+  public static final String VOCABULARY_ID_FIELD = "vocabularyId";
+  public static final String XML_FIELD = "xml";
+  public static final String RESULT_STATUS_FIELD = "resultStatus";
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -46,49 +55,4 @@ public class ProcessedEntity {
    * The status of the dereference operation.
    */
   private DereferenceResultStatus resultStatus;
-
-  @XmlElement
-  public ObjectId getId() {
-    return id;
-  }
-
-  public void setId(ObjectId id) {
-    this.id = id;
-  }
-
-  @XmlElement
-  public String getResourceId() {
-    return resourceId;
-  }
-
-  public void setResourceId(String resourceId) {
-    this.resourceId = resourceId;
-  }
-
-  @XmlElement
-  public String getXml() {
-    return xml;
-  }
-
-  public void setXml(String xml) {
-    this.xml = xml;
-  }
-
-  @XmlElement
-  public String getVocabularyId() {
-    return vocabularyId;
-  }
-
-  public void setVocabularyId(String vocabularyId) {
-    this.vocabularyId = vocabularyId;
-  }
-
-  @XmlElement
-  public DereferenceResultStatus getResultStatus() {
-    return resultStatus;
-  }
-
-  public void setResultStatus(DereferenceResultStatus resultStatus) {
-    this.resultStatus = resultStatus;
-  }
 }
