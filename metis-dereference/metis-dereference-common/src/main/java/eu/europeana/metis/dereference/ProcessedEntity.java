@@ -17,13 +17,13 @@ import tools.jackson.databind.annotation.JsonSerialize;
 /**
  * A processed (mapped) Entity Created by ymamakis on 2/11/16.
  */
-@XmlRootElement
+@Setter
+@Getter
 @Entity
+@XmlRootElement
 @Indexes({
     @Index(fields = {@Field(ProcessedEntity.RESOURCE_ID_FIELD)}, options = @IndexOptions(unique = true))
 })
-@Setter
-@Getter
 public class ProcessedEntity {
 
   public static final String MONGO_ID_FIELD = "_id";

@@ -32,7 +32,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +76,7 @@ class MongoDereferenceServiceTest {
     reset(vocabularyDao, processedEntityDao, retriever, dereferenceService);
 
     // Reset the vocabulary
-    geonames.setId(new ObjectId(new Date()));
+    geonames.setId(new ObjectId());
     geonames.setUris(Collections.singleton(GEONAMES_URI));
     geonames.setXslt(IOUtils.toString(Objects.requireNonNull(MongoDereferenceServiceTest.class
         .getClassLoader().getResourceAsStream("geonames.xsl")), StandardCharsets.UTF_8));

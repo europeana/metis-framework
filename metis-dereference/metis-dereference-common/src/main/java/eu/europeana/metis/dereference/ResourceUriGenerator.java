@@ -19,23 +19,23 @@ import org.apache.commons.text.StringSubstitutor;
  * <p>
  *   This generation works based on a template for the resource URI that can be evaluated for
  *   different input. The template may (should) contain parameters declared using the following
- *   syntax: <code>${PARAMETER}</code> where <code>PARAMETER</code> represents a function pipeline
+ *   syntax: {@code ${PARAMETER}} where {@code PARAMETER} represents a function pipeline
  *   consisting of a start function followed by zero or more piped functions, separated by the pipe
- *   character <code>|</code>.
+ *   character {@code |}.
  * </p>
  * <p>
  *   Example templates:
  *   <ul>
  *     <li>
- *       The template <code>"${resourceId}"</code> is the most basic template: this indicates that
+ *       The template {@code "${resourceId}"} is the most basic template: this indicates that
  *       the resource URI is equal to the resource ID.
  *     </li>
  *     <li>
  *       A common use case is that a file extension is missing. This can be corrected in a template
- *       like this: <code>"${resourceId}.rdf"</code>.
+ *       like this: {@code "${resourceId}.rdf"}.
  *     </li>
  *     <li>
- *       The template <code>"https://example.com/entities?id=${resourceId|urlQueryEscape}"</code>
+ *       The template {@code "https://example.com/entities?id=${resourceId|urlQueryEscape}"}
  *       is an example of a start function followed by one piped function. This indicates that the
  *       resource ID should be URL-escaped and put into the query parameters for an API call.
  *     </li>
@@ -97,7 +97,7 @@ public interface ResourceUriGenerator {
   /**
    * This is a convenience method for creating a generator for which the resource URI is the same as
    * the resource ID. It is equivalent to a resource generator with template
-   * <code>"${resourceId}"</code>.
+   * {@code "${resourceId}"}.
    *
    * @return A resource URI generator.
    */
@@ -120,7 +120,7 @@ public interface ResourceUriGenerator {
   /**
    * This method evaluates a parameter segment.
    *
-   * @param segment             The segment (i.e. a function name).
+   * @param segment             The segment (i.e., a function name).
    * @param input               The input value to use for evaluation.
    * @param registeredFunctions The registered functions, where the segment should be known.
    * @param <T>                 The type of the input.
@@ -142,7 +142,7 @@ public interface ResourceUriGenerator {
   /**
    * This method evaluates a parameter.
    *
-   * @param parameter The parameter (i.e. a function pipeline).
+   * @param parameter The parameter (i.e., a function pipeline).
    * @param input     The input value to use for evaluation.
    * @return The result of the evaluation.
    */
