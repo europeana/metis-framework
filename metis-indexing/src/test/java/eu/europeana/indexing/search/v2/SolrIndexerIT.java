@@ -70,7 +70,7 @@ class SolrIndexerIT {
     solrClient.deleteByQuery("*:*");
     solrClient.commit();
   }
-  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.parse("2026-06-16T12:00:00Z")),
       true, List.of(), true, TierCalculationMode.OVERWRITE);
 
   /**
