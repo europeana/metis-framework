@@ -387,6 +387,7 @@
 			<xsl:copy-of select="@*"/>
 			<xsl:apply-templates select="dcterms:conformsTo"/>
 			<xsl:apply-templates select="doap:implements"/>
+      <xsl:apply-templates select="rdfs:label"/>
 		</xsl:element>
 	</xsl:template>
 
