@@ -54,7 +54,7 @@ class MongoDereferencingManagementServiceTest {
     MongoClient mongoClient = MongoClients
         .create(String.format("mongodb://%s:%s", mongoHost, mongoPort));
 
-    VocabularyDao vocDao = new VocabularyDao(mongoClient, "voctest") {
+    VocabularyDao vocDao = new VocabularyDao(mongoClient, "metis-dereference") {
       {
         vocabularyDaoDatastore = this.getDatastore();
       }
@@ -81,7 +81,7 @@ class MongoDereferencingManagementServiceTest {
   void purgeAllCache() {
     ProcessedEntity processedEntity = new ProcessedEntity();
     processedEntity.setResourceId("http://www.test.uri/");
-    processedEntityDao.save(processedEntity);
+    processedEntityDao.saveConditionally(processedEntity);
     service.emptyCache();
     ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
     assertNull(ret);
@@ -92,7 +92,7 @@ class MongoDereferencingManagementServiceTest {
     ProcessedEntity processedEntity = new ProcessedEntity();
     processedEntity.setResourceId("http://www.test.uri/");
     processedEntity.setXml(null);
-    processedEntityDao.save(processedEntity);
+    processedEntityDao.saveConditionally(processedEntity);
     service.purgeByNullOrEmptyXml();
     ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
     assertNull(ret);
@@ -103,7 +103,7 @@ class MongoDereferencingManagementServiceTest {
   void purgeCacheByResourceId() {
     ProcessedEntity processedEntity = new ProcessedEntity();
     processedEntity.setResourceId("http://www.test.uri/");
-    processedEntityDao.save(processedEntity);
+    processedEntityDao.saveConditionally(processedEntity);
     service.purgeByResourceId("http://www.test.uri/");
     ProcessedEntity ret = processedEntityDao.getByResourceId("http://www.test.uri/");
     assertNull(ret);
@@ -113,7 +113,7 @@ class MongoDereferencingManagementServiceTest {
   void purgeCacheByVocabularyId() {
     ProcessedEntity processedEntity = new ProcessedEntity();
     processedEntity.setVocabularyId("vocabularyId");
-    processedEntityDao.save(processedEntity);
+    processedEntityDao.saveConditionally(processedEntity);
     service.purgeByVocabularyId("vocabularyId");
     ProcessedEntity ret = processedEntityDao.getByVocabularyId("vocabularyId");
     assertNull(ret);
