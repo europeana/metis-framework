@@ -25,14 +25,12 @@ import eu.europeana.enrichment.api.external.DereferenceResultStatus;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import java.util.Map;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 
 /**
  * Data Access Object (DAO) for managing {@link ProcessedEntity} objects in the database. This class provides methods for
  * retrieving, creating, updating, and deleting entities in the associated datastore.
  */
-@Slf4j
 public class ProcessedEntityDao {
 
   private final Datastore datastore;
