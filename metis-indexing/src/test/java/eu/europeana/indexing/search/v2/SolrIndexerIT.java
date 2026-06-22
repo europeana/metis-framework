@@ -65,11 +65,6 @@ class SolrIndexerIT {
   @Autowired
   private SolrClient solrClient;
 
-  @BeforeEach
-  void setup() throws SolrServerException, IOException {
-    solrClient.deleteByQuery("*:*");
-    solrClient.commit();
-  }
   private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.parse("2026-06-16T12:00:00Z")),
       true, List.of(), true, TierCalculationMode.OVERWRITE);
 
