@@ -42,7 +42,7 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
   /**
    * The constant DEFAULT_TAG.
    */
-  public static final String DEFAULT_TAG = "7.7.3";
+  public static final String DEFAULT_TAG = "9.10.1";
   /**
    * The constant ZOOKEEPER_PORT.
    */
@@ -263,7 +263,7 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
     try {
       if (!this.configuration.isZookeeper()) {
         Container.ExecResult result = this.execInContainer(
-            "solr", "create_core", "-c", this.configuration.getCollectionName());
+            "solr", "create", "-c", this.configuration.getCollectionName());
         if (result.getExitCode() != 0) {
           throw new IllegalStateException(
               "Unable to create solr core:\nStdout: " + result.getStdout() + "\nStderr:" + result.getStderr());
@@ -292,7 +292,7 @@ public class SolrMetisContainer extends GenericContainer<SolrMetisContainer> {
         this.addExposedPort(SOLR_PORT);
         if (this.configuration.isZookeeper()) {
           this.addExposedPort(ZOOKEEPER_PORT);
-          command = "-DzkRun -h localhost";
+          command = "-c --solr-home /opt/solr --data-home /opt/solr/data";
         }
 
         this.setCommand(command);
