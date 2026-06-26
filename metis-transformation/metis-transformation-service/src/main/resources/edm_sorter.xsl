@@ -19,6 +19,7 @@
 	xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
 	xmlns:adms="http://www.w3.org/ns/adms#"
   xmlns:schema="https://schema.org/"
+	xmlns:prov="http://www.w3.org/ns/prov#"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	exclude-result-prefixes="xsi xsl">
@@ -119,6 +120,7 @@
 			<xsl:apply-templates select="edm:rights"/>
 			<xsl:apply-templates select="edm:ugc"/>
 			<xsl:apply-templates select="edm:intermediateProvider"/>
+			<xsl:apply-templates select="prov:wasGeneratedBy"/>
 		</xsl:element>
 	</xsl:template>
 

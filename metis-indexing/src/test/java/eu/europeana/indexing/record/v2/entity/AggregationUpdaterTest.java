@@ -51,6 +51,7 @@ class AggregationUpdaterTest extends MongoEntityUpdaterTest<AggregationImpl> {
         AggregationImpl::setEdmPreviewNoDistribute, Boolean.TRUE);
     testWebResourcesPropertyUpdate(propertyUpdater, "webResources",
         AggregationImpl::setWebResources, rootAbout);
+    testStringPropertyUpdate(propertyUpdater, "wasGeneratedBy", AggregationImpl::setWasGeneratedBy);
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
