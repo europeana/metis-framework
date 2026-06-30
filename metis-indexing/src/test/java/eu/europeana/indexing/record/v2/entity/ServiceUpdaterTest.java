@@ -32,9 +32,9 @@ class ServiceUpdaterTest extends MongoEntityUpdaterTest<ServiceImpl> {
     updater.update(propertyUpdater);
 
     // Test all the values
-    testArrayPropertyUpdate(propertyUpdater, "dctermsConformsTo",
-        ServiceImpl::setDcTermsConformsTo);
+    testArrayPropertyUpdate(propertyUpdater, "dctermsConformsTo", ServiceImpl::setDcTermsConformsTo);
     testArrayPropertyUpdate(propertyUpdater, "doapImplements", ServiceImpl::setDoapImplements);
+    testMapPropertyUpdate(propertyUpdater, "rdfsLabel", ServiceImpl::setRdfsLabel);
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);

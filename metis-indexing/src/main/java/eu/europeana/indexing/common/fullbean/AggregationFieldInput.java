@@ -103,6 +103,8 @@ final class AggregationFieldInput implements Function<Aggregation, AggregationIm
       mongoAggregation.setHasView(hasViewList);
     }
 
+    mongoAggregation.setWasGeneratedBy(
+        Optional.ofNullable(aggregation.getWasGeneratedBy()).map(ResourceType::getResource).orElse(null));
     mongoAggregation.setWebResources(webResources);
 
     return mongoAggregation;

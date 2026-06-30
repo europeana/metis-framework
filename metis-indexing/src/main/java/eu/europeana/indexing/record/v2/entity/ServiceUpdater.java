@@ -17,5 +17,6 @@ public class ServiceUpdater extends AbstractIsolatedEdmEntityUpdater<ServiceImpl
   protected void update(MongoPropertyUpdater<ServiceImpl> propertyUpdater) {
     propertyUpdater.updateArray("dctermsConformsTo", ServiceImpl::getDctermsConformsTo);
     propertyUpdater.updateArray("doapImplements", ServiceImpl::getDoapImplements);
+    propertyUpdater.updateMap("rdfsLabel", ServiceImpl::getRdfsLabel);
   }
 }
