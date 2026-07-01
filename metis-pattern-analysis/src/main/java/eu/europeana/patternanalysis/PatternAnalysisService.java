@@ -23,10 +23,9 @@ public interface PatternAnalysisService<T, K> {
    * @param datasetId the datasetId
    * @param executionStep the constant value of the step (Similar to eu.europeana.metis.core.workflow.plugins.PluginType from
    * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox)
-   * @param executionTimestamp the execution timestamp for the execution of the dataset (this should be the same for all records).
    * @return the execution point that can be used on other calls
    */
-  K initializePatternAnalysisExecution(String datasetId, T executionStep, Instant executionTimestamp);
+  K initializePatternAnalysisExecution(String datasetId, T executionStep);
 
   /**
    * Generates the analysis of the record in RDF format.
