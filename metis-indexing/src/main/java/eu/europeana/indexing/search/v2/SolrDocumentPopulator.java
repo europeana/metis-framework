@@ -210,7 +210,8 @@ class SolrDocumentPopulator {
         .filter(RdfWrapper::isEuropeanaProxy).findFirst()
         .orElseThrow();
 
-    final List<String> proxyChoiceLinks = europeanaProxy.getChoiceList().stream()
+    final List<String> proxyChoiceLinks = Optional.ofNullable(europeanaProxy.getChoiceList())
+        .stream().flatMap(Collection::stream)
         .filter(choiceTypePredicate)
         .map(choiceValueGetter)
         .filter(Objects::nonNull)
