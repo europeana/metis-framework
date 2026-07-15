@@ -172,7 +172,7 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException If an error occurs during the removal operation.
    */
   public int removeAll(String datasetId, Instant maxRecordDate) throws IndexingException {
-    return executeIndexCommand(indexer -> indexer.removeAll(datasetId, Date.from(maxRecordDate)));
+    return executeIndexCommand(indexer -> indexer.removeAll(datasetId, maxRecordDate == null ? null : Date.from(maxRecordDate)));
   }
 
   /**
@@ -186,7 +186,8 @@ public class IndexerPool implements Closeable {
    * @throws IndexingException If an error occurs while performing the counting operation.
    */
   public long countRecords(String datasetId, Instant maxRecordDate) throws IndexingException {
-    return executeIndexCommand(indexer -> indexer.countRecords(datasetId, Date.from(maxRecordDate)));
+    return executeIndexCommand(
+        indexer -> indexer.countRecords(datasetId, maxRecordDate == null ? null : Date.from(maxRecordDate)));
   }
 
   private <R> R executeIndexCommand(IndexTask<R> indexTask) throws IndexingException {
