@@ -170,6 +170,7 @@ final class WebResourceFieldInput implements Function<WebResourceType, WebResour
     final String docType = Optional.ofNullable(wResourceType.getType1()).map(Type2::getType)
                                    .map(EdmType::xmlValue).orElse(null);
     webResource.setEdmType(docType);
+    webResource.setPid(FieldInputUtils.createResourceOrLiteralMapFromList(wResourceType.getPidList()));
 
     webResource.setWebResourceMetaInfo(createWebResourceMetaInfo(wResourceType));
 

@@ -111,6 +111,7 @@ public class FullBeanUpdater extends AbstractMongoObjectUpdater<FullBeanImpl, Vo
         fullBean -> null, new LicenseUpdater());
 
     propertyUpdater.updateObjectList("qualityAnnotations", FullBeanImpl::getQualityAnnotations);
+    propertyUpdater.updateObjectList("persistentIdentifiers", FullBeanImpl::getPersistentIdentifiers);
   }
 
   private static EuropeanaAggregationImpl getEuropeanaAggregationFromFullBean(

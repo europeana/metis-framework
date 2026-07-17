@@ -7,8 +7,6 @@ import static org.mockito.Mockito.when;
 import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.filters.Filters;
-import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
-import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.schema.jibx.Alternative;
@@ -87,14 +85,13 @@ class ProxyFieldInputTest {
     when(queryMock.filter(Filters.eq("about", proxy.getAbout()))).thenReturn(queryMock);
     when(queryMock.first()).thenReturn(null);
 
-    List<PersistentIdentifier> persistentIdentifiers = List.of(getPersistentIdentifier());
-    ProxyImpl mongoProxy = new ProxyFieldInput(persistentIdentifiers).apply(proxy);
+    ProxyImpl mongoProxy = new ProxyFieldInput().apply(proxy);
     mongoServerMock.getDatastore().save(mongoProxy);
     assertEquals(proxy.getAbout(), mongoProxy.getAbout());
     assertEquals(proxy.getType().getType().toString(), mongoProxy.getEdmType());
     assertEquals(proxy.getIsNextInSequenceList().size(),
         mongoProxy.getEdmIsNextInSequence().length);
-    assertEquals(proxy.getPidList().getFirst().getString(), mongoProxy.getPID().getFirst().getValue());
+    assertEquals(proxy.getPidList().getFirst().getString(), mongoProxy.getPid().values().iterator().next().getFirst());
     // @TODO: Add actual content checking here
     List<EuropeanaType.Choice> dcterms = proxy.getChoiceList();
     for (EuropeanaType.Choice choice : dcterms) {
@@ -247,20 +244,6 @@ class ProxyFieldInputTest {
             mongoProxy.getDcType().values().iterator().next().getFirst());
       }
     }
-  }
-
-  private static PersistentIdentifierImpl getPersistentIdentifier() {
-    PersistentIdentifierImpl identifier = new PersistentIdentifierImpl();
-    identifier.setAbout("#pid_0");
-    identifier.setCreated("created");
-    identifier.setHasURL(List.of("hasURL"));
-    identifier.setValue("pid value");
-    identifier.setNotation(List.of("notation"));
-    identifier.setReplacesPID(List.of("replacesPID"));
-    identifier.setEquivalentPID(List.of("equivalentPID"));
-    identifier.setHasPolicy("hasPolicy");
-    identifier.setInScheme("inScheme");
-    return identifier;
   }
 
   private ProxyType createProxyFields() {
