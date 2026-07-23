@@ -130,8 +130,8 @@ class SolrDocumentPopulator {
     final List<? extends PersistentIdentifier> identifierList =
         fullBean.getProxies()
                 .stream()
-                .filter(proxy -> proxy!=null && proxy.getPID() != null)
-                .flatMap(proxy -> proxy.getPID().stream())
+                .filter(proxy -> proxy!=null && proxy.getPIDS() != null)
+                .flatMap(proxy -> proxy.getPIDS().stream())
             .toList();
 
     new PIDSolrCreator().addAllToDocument(document, identifierList);
