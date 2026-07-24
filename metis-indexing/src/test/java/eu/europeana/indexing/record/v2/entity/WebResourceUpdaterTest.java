@@ -35,7 +35,7 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
   @Test
   void testUpdate() {
 
-    // Craete objects for execution
+    // Create objects for execution
     final WebResourceUpdater updater = new WebResourceUpdater();
     @SuppressWarnings("unchecked") final MongoPropertyUpdater<WebResourceImpl> propertyUpdater = mock(
         MongoPropertyUpdater.class);
@@ -99,5 +99,6 @@ class WebResourceUpdaterTest extends MongoEntityUpdaterTest<WebResourceImpl> {
     testArrayPropertyUpdate(propertyUpdater, "rdfsSeeAlso", WebResource::setRdfsSeeAlso);
     testArrayPropertyUpdate(propertyUpdater, "edmIsRepresentationOf", WebResource::setEdmIsRepresentationOf);
     testObjectPropertyUpdate(propertyUpdater, "edmType", WebResource::setEdmType, DocType.VIDEO.name());
+    testMapPropertyUpdate(propertyUpdater, "pid", WebResource::setPid);
   }
 }

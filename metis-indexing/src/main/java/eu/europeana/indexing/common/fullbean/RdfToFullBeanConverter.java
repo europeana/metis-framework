@@ -1,7 +1,6 @@
 package eu.europeana.indexing.common.fullbean;
 
 import eu.europeana.corelib.definitions.edm.entity.Aggregation;
-import eu.europeana.corelib.definitions.edm.entity.PersistentIdentifier;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.WebResourceImpl;
@@ -53,28 +52,28 @@ public class RdfToFullBeanConverter {
 
   private static List<QualityAnnotation> getQualityAnnotations(RdfWrapper rdfWrappedRecord) {
     return Stream.concat(rdfWrappedRecord.getEuropeanaAggregation()
-                .stream()
-                .flatMap(qa -> {
-                  if (qa.getHasQualityAnnotationList() == null) {
-                    return null;
-                  } else {
-                    return qa.getHasQualityAnnotationList().stream();
-                  }
-                })
-                .filter(Objects::nonNull)
-                .map(HasQualityAnnotation::getQualityAnnotation),
-            rdfWrappedRecord.getAggregations()
-                .stream()
-                .flatMap(qa -> {
-                  if (qa.getHasQualityAnnotationList() == null) {
-                    return null;
-                  } else {
-                    return qa.getHasQualityAnnotationList().stream();
-                  }
-                })
-                .filter(Objects::nonNull)
-                .map(HasQualityAnnotation::getQualityAnnotation))
-        .toList();
+                                         .stream()
+                                         .flatMap(qa -> {
+                                           if (qa.getHasQualityAnnotationList() == null) {
+                                             return null;
+                                           } else {
+                                             return qa.getHasQualityAnnotationList().stream();
+                                           }
+                                         })
+                                         .filter(Objects::nonNull)
+                                         .map(HasQualityAnnotation::getQualityAnnotation),
+                     rdfWrappedRecord.getAggregations()
+                                     .stream()
+                                     .flatMap(qa -> {
+                                       if (qa.getHasQualityAnnotationList() == null) {
+                                         return null;
+                                       } else {
+                                         return qa.getHasQualityAnnotationList().stream();
+                                       }
+                                     })
+                                     .filter(Objects::nonNull)
+                                     .map(HasQualityAnnotation::getQualityAnnotation))
+                 .toList();
   }
 
   /**
@@ -88,11 +87,9 @@ public class RdfToFullBeanConverter {
     // Create full bean and set about value.
     final FullBeanImpl fullBean = new FullBeanImpl();
     fullBean.setAbout(rdfWrapper.getAbout());
-    List<? extends PersistentIdentifier> persistentIdentifierList =
-        convertList(rdfWrapper.getPersistentIdentifiers(), new PersistentIdentifierFieldInput(), false);
     // Set list properties.
     fullBean.setProvidedCHOs(convertList(rdfWrapper.getProvidedCHOs(), new ProvidedCHOFieldInput(), false));
-    fullBean.setProxies(convertList(rdfWrapper.getProxies(), new ProxyFieldInput(persistentIdentifierList), false));
+    fullBean.setProxies(convertList(rdfWrapper.getProxies(), new ProxyFieldInput(), false));
     fullBean.setAggregations(convertAggregations(rdfWrapper));
     fullBean.setConcepts(convertList(rdfWrapper.getConcepts(), new ConceptFieldInput(), false));
     fullBean.setPlaces(convertList(rdfWrapper.getPlaces(), new PlaceFieldInput(), false));
@@ -103,6 +100,8 @@ public class RdfToFullBeanConverter {
     fullBean.setServices(convertList(rdfWrapper.getServices(), new ServiceFieldInput(), false));
     var qualityAnnotationsList = convertList(getQualityAnnotations(rdfWrapper), new QualityAnnotationFieldInput(), false);
     fullBean.setQualityAnnotations(qualityAnnotationsList);
+    fullBean.setPersistentIdentifiers(
+        convertList(rdfWrapper.getPersistentIdentifiers(), new PersistentIdentifierFieldInput(), false));
 
     // Set properties related to the Europeana aggregation
     fullBean.setEuropeanaCollectionName(new String[]{rdfWrapper.getDatasetName()});

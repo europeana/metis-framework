@@ -9,13 +9,11 @@ import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
 import eu.europeana.corelib.solr.entity.AggregationImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.utils.RdfWrapper;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
 import eu.europeana.metis.schema.convert.SerializationException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -46,12 +44,9 @@ class RdfToFullBeanConverterTest {
                 .map(AbstractEdmEntityImpl::getAbout)
                 .collect(Collectors.toSet()));
     assertEquals(Set.of("ark:/12148/bpt6k279983", "ark:/12148/bpt6k279984"),
-        fullBean.getProxies()
+        fullBean.getPersistentIdentifiers()
                 .stream()
                 .filter(Objects::nonNull)
-                .map(ProxyImpl::getPID)
-                .filter(Objects::nonNull)
-                .flatMap(Collection::stream)
                 .map(PersistentIdentifier::getValue)
                 .collect(Collectors.toSet()));
   }

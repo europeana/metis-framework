@@ -46,6 +46,7 @@ public class WebResourceUpdater extends
     propertyUpdater.updateArray("rdfsSeeAlso", WebResource::getRdfsSeeAlso);
     propertyUpdater.updateArray("edmIsRepresentationOf", WebResource::getEdmIsRepresentationOf);
     propertyUpdater.updateObject("edmType", WebResource::getEdmType);
+    propertyUpdater.updateMap("pid", WebResource::getPid);
 
     propertyUpdater.updateWebResourceMetaInfo(WebResourceImpl::getWebResourceMetaInfo,
         webResource -> createWebResourceInfo(webResource, ancestorInformation),

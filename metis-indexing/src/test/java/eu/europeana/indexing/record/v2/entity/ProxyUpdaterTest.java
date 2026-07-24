@@ -5,10 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import eu.europeana.corelib.definitions.solr.DocType;
-import eu.europeana.corelib.solr.entity.PersistentIdentifierImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
@@ -59,12 +57,9 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
     testMapPropertyUpdate(propertyUpdater, "dctermsHasVersion", ProxyImpl::setDctermsHasVersion);
     testMapPropertyUpdate(propertyUpdater, "dctermsIsFormatOf", ProxyImpl::setDctermsIsFormatOf);
     testMapPropertyUpdate(propertyUpdater, "dctermsIsPartOf", ProxyImpl::setDctermsIsPartOf);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy",
-        ProxyImpl::setDctermsIsReferencedBy);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIsReplacedBy",
-        ProxyImpl::setDctermsIsReplacedBy);
-    testMapPropertyUpdate(propertyUpdater, "dctermsIsRequiredBy",
-        ProxyImpl::setDctermsIsRequiredBy);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIsReferencedBy", ProxyImpl::setDctermsIsReferencedBy);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIsReplacedBy", ProxyImpl::setDctermsIsReplacedBy);
+    testMapPropertyUpdate(propertyUpdater, "dctermsIsRequiredBy", ProxyImpl::setDctermsIsRequiredBy);
     testMapPropertyUpdate(propertyUpdater, "dctermsIssued", ProxyImpl::setDctermsIssued);
     testMapPropertyUpdate(propertyUpdater, "dctermsIsVersionOf", ProxyImpl::setDctermsIsVersionOf);
     testMapPropertyUpdate(propertyUpdater, "dctermsMedium", ProxyImpl::setDctermsMedium);
@@ -84,8 +79,7 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
     testMapPropertyUpdate(propertyUpdater, "year", ProxyImpl::setYear);
     testMapPropertyUpdate(propertyUpdater, "edmIsRelatedTo", ProxyImpl::setEdmIsRelatedTo);
     testArrayPropertyUpdate(propertyUpdater, "edmIsDerivativeOf", ProxyImpl::setEdmIsDerivativeOf);
-    testArrayPropertyUpdate(propertyUpdater, "edmIsNextInSequence",
-        ProxyImpl::setEdmIsNextInSequence);
+    testArrayPropertyUpdate(propertyUpdater, "edmIsNextInSequence", ProxyImpl::setEdmIsNextInSequence);
     testArrayPropertyUpdate(propertyUpdater, "edmIsSimilarTo", ProxyImpl::setEdmIsSimilarTo);
     testArrayPropertyUpdate(propertyUpdater, "edmIsSuccessorOf", ProxyImpl::setEdmIsSuccessorOf);
     testArrayPropertyUpdate(propertyUpdater, "edmRealizes", ProxyImpl::setEdmRealizes);
@@ -93,11 +87,9 @@ class ProxyUpdaterTest extends MongoEntityUpdaterTest<ProxyImpl> {
     testArrayPropertyUpdate(propertyUpdater, "proxyIn", ProxyImpl::setProxyIn);
     testStringPropertyUpdate(propertyUpdater, "proxyFor", ProxyImpl::setProxyFor);
     testArrayPropertyUpdate(propertyUpdater, "lineage", ProxyImpl::setLineage);
-    testStringPropertyUpdate(propertyUpdater, "edmIsRepresentationOf",
-        ProxyImpl::setEdmIsRepresentationOf);
-    testObjectPropertyUpdate(propertyUpdater, "europeanaProxy", ProxyImpl::setEuropeanaProxy,
-        Boolean.TRUE);
-    testObjectListPropertyUpdate(propertyUpdater, "pid", ProxyImpl::setPID, List.of(new PersistentIdentifierImpl()));
+    testStringPropertyUpdate(propertyUpdater, "edmIsRepresentationOf", ProxyImpl::setEdmIsRepresentationOf);
+    testObjectPropertyUpdate(propertyUpdater, "europeanaProxy", ProxyImpl::setEuropeanaProxy, Boolean.TRUE);
+    testMapPropertyUpdate(propertyUpdater, "pid", ProxyImpl::setPid);
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
   }

@@ -101,11 +101,17 @@ class FullBeanUpdaterTest extends MongoEntityUpdaterTest<FullBeanImpl> {
 
     final FullBeanImpl fullBean = new FullBeanImpl();
     fullBean.setQualityAnnotations(new ArrayList<>());
-    @SuppressWarnings("unchecked") final ArgumentCaptor<Function<FullBeanImpl, List<Object>>> getterCaptor = ArgumentCaptor
+    @SuppressWarnings("unchecked") final ArgumentCaptor<Function<FullBeanImpl, List<Object>>> qualityAnnotationsCaptor = ArgumentCaptor
         .forClass(Function.class);
     verify(propertyUpdater, times(1))
-        .updateObjectList(eq("qualityAnnotations"), getterCaptor.capture());
-    assertSame(fullBean.getQualityAnnotations(), getterCaptor.getValue().apply(fullBean));
+        .updateObjectList(eq("qualityAnnotations"), qualityAnnotationsCaptor.capture());
+    assertSame(fullBean.getQualityAnnotations(), qualityAnnotationsCaptor.getValue().apply(fullBean));
+    fullBean.setPersistentIdentifiers(new ArrayList<>());
+    @SuppressWarnings("unchecked") final ArgumentCaptor<Function<FullBeanImpl, List<Object>>> persistentIdentifiersCaptor = ArgumentCaptor
+        .forClass(Function.class);
+    verify(propertyUpdater, times(1))
+        .updateObjectList(eq("persistentIdentifiers"), persistentIdentifiersCaptor.capture());
+    assertSame(fullBean.getPersistentIdentifiers(), persistentIdentifiersCaptor.getValue().apply(fullBean));
 
     // And that should be it.
     verifyNoMoreInteractions(propertyUpdater);
