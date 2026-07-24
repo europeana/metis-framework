@@ -19,6 +19,13 @@ import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
  */
 public final class SolrPropertyUtils {
 
+  /**
+   * The key used for references in a key-value map in corelib. Note that this does not guarantee
+   * that the values are references: they can also be literals without language qualifiers. But
+   * it is the best we have... once we eliminate corelib we should ensure that we get references.
+   */
+  public static final String REFERENCES_KEY = "def";
+
   private SolrPropertyUtils() {}
 
   private static void addValues(SolrInputDocument document, String label, Object[] values) {
@@ -104,7 +111,7 @@ public final class SolrPropertyUtils {
    * @return A non-null stream.
    */
   public static Stream<String> getRightsFromMap(Map<String, List<String>> edmRights) {
-    final List<String> resultList = edmRights == null ? null : edmRights.get("def");
+    final List<String> resultList = edmRights == null ? null : edmRights.get(REFERENCES_KEY);
     return resultList == null ? Stream.empty() : resultList.stream();
   }
 
