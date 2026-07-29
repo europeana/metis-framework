@@ -29,7 +29,7 @@ class ProblemPatternDescriptionTest {
     assertProblemPatternDescription(ProblemPatternDescription.P6, "P6", "Non-meaningful title", "WARNING", "ACCURACY");
     assertProblemPatternDescription(ProblemPatternDescription.P7, "P7", "Missing description fields", "WARNING", "COMPLETENESS");
     assertProblemPatternDescription(ProblemPatternDescription.P9, "P9", "Very short description", "WARNING", "ACCURACY");
-    assertProblemPatternDescription(ProblemPatternDescription.P12, "P12", "Extremely long values", "WARNING", "ACCURACY");
+    assertProblemPatternDescription(ProblemPatternDescription.P12, "P12", "Extremely long titles", "WARNING", "ACCURACY");
   }
 
   @Test

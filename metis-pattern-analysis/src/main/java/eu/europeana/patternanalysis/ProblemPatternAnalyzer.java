@@ -53,14 +53,10 @@ public class ProblemPatternAnalyzer {
   private static final int MIN_TITLE_LENGTH = 2;
   private static final int MAX_TITLE_LENGTH = 70;
   private static final int MIN_DESCRIPTION_LENGTH = 51;
-  private static final int UNRECOGNIZABLE_CHARACTERS_THRESHOLD = 5;
   private static final double LCS_THRESHOLD = 0.9;
   private static final int TITLE_DESCRIPTION_LENGTH_OFFSET = 5;
   private static final double TITLE_DESCRIPTION_LENGTH_TOLERANCE = 0.1;
   private static final int DEFAULT_MAX_CHARACTERS_ELEMENT_LENGTH_FOR_REPORT = 50;
-  // Match anything that is not alphanumeric in all languages or literal spaces. We cannot just use \\w
-  private static final String UNRECOGNIZABLE_CHARACTERS_REGEX = "[^\\p{IsAlphabetic}\\p{IsDigit} ]";
-  private static final Pattern UNRECOGNIZABLE_CHARACTERS_PATTERN = Pattern.compile(UNRECOGNIZABLE_CHARACTERS_REGEX);
 
   public static final Set<ProblemPatternId> globalProblemPatterns = Collections.unmodifiableSet(EnumSet.of(ProblemPatternId.P1));
   public static final Set<ProblemPatternId> nonGlobalProblemPatterns = Collections.unmodifiableSet(
@@ -243,15 +239,7 @@ public class ProblemPatternAnalyzer {
   /**
    * Check whether a title is not human-readable.
    * <p>
-   * We check this by:
-   *   <ul>
-   *     <li>Whether there are more than 5 characters that are not valid.
-   *     Non valid characters are considered characters that are not alphanumeric and are not simple "literal" spaces(tabs,
-   *     new lines etc. are considered invalid characters).
-   *     This is performed with regex unicode matching {@link #UNRECOGNIZABLE_CHARACTERS_REGEX} and should support all languages.
-   *     For more information check <a href="https://www.regular-expressions.info/unicode.html#category">unicode regex</a></li>
-   *     <li>The title does not fully contain an identifier</li>
-   *   </ul>
+   * The check is whether any title fully contains an identifier.
    * </p>
    *
    * @param titles the list of titles
@@ -259,10 +247,8 @@ public class ProblemPatternAnalyzer {
    * @return the list of problem occurrences encountered
    */
   private List<ProblemOccurrence> checkP5(List<String> titles, List<String> identifiers) {
-    final Predicate<String> moreThanThresholdUnrecognizableCharacters = s ->
-        UNRECOGNIZABLE_CHARACTERS_PATTERN.matcher(s).results().count() > UNRECOGNIZABLE_CHARACTERS_THRESHOLD;
     final Predicate<String> containsIdentifier = s -> identifiers.stream().anyMatch(s::contains);
-    return titles.stream().filter(moreThanThresholdUnrecognizableCharacters.or(containsIdentifier))
+    return titles.stream().filter(containsIdentifier)
                  .map(title -> new ProblemOccurrence(abbreviateElement(title))
                  ).toList();
   }

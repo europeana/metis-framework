@@ -20,7 +20,7 @@ public enum ProblemPatternDescription {
   P7(ProblemPatternId.P7, "Missing description fields", ProblemPatternSeverity.WARNING,
       ProblemPatternQualityDimension.COMPLETENESS),
   P9(ProblemPatternId.P9, "Very short description", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY),
-  P12(ProblemPatternId.P12, "Extremely long values", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY);
+  P12(ProblemPatternId.P12, "Extremely long titles", ProblemPatternSeverity.WARNING, ProblemPatternQualityDimension.ACCURACY);
 
   private final ProblemPatternId problemPatternId;
   private final String problemPatternTitle;
