@@ -43,7 +43,7 @@
     <version.metis-common>20-SNAPSHOT</version.metis-common>
 
     <!--External-->
-    <version.corelib>2.17.8-SNAPSHOT</version.corelib>
+    <version.corelib>2.18.0</version.corelib>
     <version.spring.boot>4.0.1</version.spring.boot>
     <version.springdoc-openapi-starter-webmvc-ui>2.8.14</version.springdoc-openapi-starter-webmvc-ui>
     <version.apache.commons-pool2>2.9.0</version.apache.commons-pool2>
