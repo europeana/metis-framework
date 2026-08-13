@@ -138,6 +138,17 @@ public class IndexerPool implements Closeable {
   }
 
   /**
+   * Trigger flush of pending changes.
+   *
+   * @param blockUntilComplete the block until complete
+   * @throws IndexingException the indexing exception
+   */
+  public void triggerFlushOfPendingChanges(boolean blockUntilComplete) throws IndexingException {
+    executeIndexCommand( indexer -> {indexer.triggerFlushOfPendingChanges(blockUntilComplete);
+    return true;});
+  }
+
+  /**
    * This method removes a single record, using a free indexer in the pool
    *
    * @param stringRdfRecord The record to be removed.
