@@ -5,7 +5,7 @@
   <parent>
     <artifactId>metis-debias</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>17.1</version>
+    <version>18</version>
   </parent>
   <artifactId>metis-debias-detect-service</artifactId>
   <dependencies>

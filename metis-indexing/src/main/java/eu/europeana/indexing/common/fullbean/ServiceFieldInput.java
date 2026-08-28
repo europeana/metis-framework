@@ -22,6 +22,8 @@ final class ServiceFieldInput implements Function<Service, ServiceImpl> {
     if (service.getImplementList() != null) {
       serv.setDoapImplements(FieldInputUtils.resourceListToArray(service.getImplementList()));
     }
+
+    serv.setRdfsLabel(FieldInputUtils.createLiteralMapFromList(service.getLabelList()));
     return serv;
   }
 }

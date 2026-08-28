@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-validation</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>17.1</version>
+    <version>18</version>
   </parent>
   <artifactId>metis-validation-service</artifactId>
   <dependencies>

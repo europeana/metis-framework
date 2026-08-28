@@ -30,5 +30,6 @@ public class EuropeanaAggregationUpdater
     propertyUpdater.updateWebResources("webResources", EuropeanaAggregation::getWebResources,
         ancestorInformation, new WebResourceUpdater());
     propertyUpdater.updateObjectList("changeLog", EuropeanaAggregation::getChangeLog);
+    propertyUpdater.updateString("wasGeneratedBy", EuropeanaAggregation::getWasGeneratedBy);
   }
 }

@@ -59,6 +59,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.stream.Streams;
 import org.apache.solr.common.SolrInputDocument;
 
 /**
@@ -126,14 +127,15 @@ class SolrDocumentPopulator {
     new LicenseSolrCreator(license -> defRights.contains(license.getAbout()))
         .addAllToDocument(document, fullBean.getLicenses());
 
-    // Add the persistent identifiers
-    final List<? extends PersistentIdentifier> identifierList =
-        fullBean.getProxies()
-                .stream()
-                .filter(proxy -> proxy!=null && proxy.getPID() != null)
-                .flatMap(proxy -> proxy.getPID().stream())
-            .toList();
-
+    // Add the persistent identifiers that are referenced from the proxies.
+    final Set<String> pidReferences = Streams.nonNull(fullBean.getProxies())
+        .map(ProxyImpl::getPid).filter(Objects::nonNull)
+        .map(values -> values.get(SolrPropertyUtils.REFERENCES_KEY)).filter(Objects::nonNull)
+        .flatMap(Collection::stream).collect(Collectors.toSet());
+    final List<? extends PersistentIdentifier> identifierList = Streams
+        .nonNull(fullBean.getPersistentIdentifiers())
+        .filter(pid -> pidReferences.contains(pid.getAbout()))
+        .toList();
     new PIDSolrCreator().addAllToDocument(document, identifierList);
   }
 
@@ -210,7 +212,8 @@ class SolrDocumentPopulator {
         .filter(RdfWrapper::isEuropeanaProxy).findFirst()
         .orElseThrow();
 
-    final List<String> proxyChoiceLinks = europeanaProxy.getChoiceList().stream()
+    final List<String> proxyChoiceLinks = Optional.ofNullable(europeanaProxy.getChoiceList())
+        .stream().flatMap(Collection::stream)
         .filter(choiceTypePredicate)
         .map(choiceValueGetter)
         .filter(Objects::nonNull)

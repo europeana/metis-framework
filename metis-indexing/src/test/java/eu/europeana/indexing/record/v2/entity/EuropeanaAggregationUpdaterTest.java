@@ -54,6 +54,7 @@ class EuropeanaAggregationUpdaterTest extends MongoEntityUpdaterTest<EuropeanaAg
     testMapPropertyUpdate(propertyUpdater, "dcCreator", EuropeanaAggregation::setDcCreator);
     testStringPropertyUpdate(propertyUpdater, "edmPreview", EuropeanaAggregation::setEdmPreview);
     testArrayPropertyUpdate(propertyUpdater, "aggregates", EuropeanaAggregation::setAggregates);
+    testStringPropertyUpdate(propertyUpdater, "wasGeneratedBy", EuropeanaAggregation::setWasGeneratedBy);
     testWebResourcesPropertyUpdate(propertyUpdater, "webResources",
         EuropeanaAggregationImpl::setWebResources, rootAbout);
 

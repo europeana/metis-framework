@@ -277,10 +277,10 @@ class MongoPropertyUpdaterImpl<T> implements MongoPropertyUpdater<T> {
 
   @Override
   public T applyOperations() {
-    final UpdateOperator[] extraUpdateOperators = this.updateOperators.toArray(UpdateOperator[]::new);
+    final UpdateOperator[] updateOperatorsArray = this.updateOperators.toArray(UpdateOperator[]::new);
     final UpdateOptions updateOptions = new UpdateOptions().upsert(true).multi(true);
     final Query<T> update = queryCreator.get();
-    retryableExternalRequest(() -> update.update(updateOptions, extraUpdateOperators), retryExceptions);
+    retryableExternalRequest(() -> update.update(updateOptions, updateOperatorsArray), retryExceptions);
     return queryCreator.get().first();
   }
 }

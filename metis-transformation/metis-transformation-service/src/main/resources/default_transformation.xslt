@@ -13,6 +13,7 @@
   xmlns:odrl="http://www.w3.org/ns/odrl/2/"
   xmlns:ore="http://www.openarchives.org/ore/terms/"
   xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:prov="http://www.w3.org/ns/prov#"
   xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
@@ -144,6 +145,7 @@
       <xsl:element name="edm:language">
         <xsl:value-of select="$edmLanguage" />
       </xsl:element>
+      <prov:wasGeneratedBy rdf:resource="http://data.europeana.eu/provenance/europeana"/>
     </xsl:element>
   </xsl:template>
   <xsl:template match="edm:ProvidedCHO">
@@ -424,6 +426,7 @@
       <xsl:copy-of select="@*"/>
       <xsl:apply-templates select="dcterms:conformsTo"/>
       <xsl:apply-templates select="doap:implements"/>
+      <xsl:apply-templates select="rdfs:label"/>
     </xsl:element>
   </xsl:template>
   <xsl:template match="text()">

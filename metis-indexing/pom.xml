@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-framework</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>17.1</version>
+    <version>18</version>
   </parent>
   <artifactId>metis-indexing</artifactId>
   <properties>
@@ -22,6 +22,16 @@
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-common-mongo</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.logging.log4j</groupId>
+          <artifactId>log4j-to-slf4j</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

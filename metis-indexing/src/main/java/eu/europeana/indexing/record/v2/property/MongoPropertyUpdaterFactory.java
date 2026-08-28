@@ -17,9 +17,64 @@ import org.apache.commons.lang3.StringUtils;
  */
 public final class MongoPropertyUpdaterFactory {
 
+  public static final String ID = "_id";
   private static final String ABOUT_FIELD = "about";
 
   private MongoPropertyUpdaterFactory() {
+  }
+
+  /**
+   * Static constructor for objects that have an about field.
+   *
+   * @param updated The updated object (i.e. the object to take the value from). This object will remain unchanged.
+   * @param mongoServer The Mongo connection.
+   * @param objectClass The class of the object which is used to create an instance of {@link Query}.
+   * @param aboutGetter The function that obtains the about value from the object.
+   * @param preprocessor This provides the option of performing some preprocessing on the current and/or the new object before
+   * applying the operations. Its parameters are first the current bean (found in the database) and second the updated (as passed
+   * to this method). This parameter can be null, in which no preprocessing takes place.
+   * @return The property updater.
+   */
+  public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
+      RecordDao mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
+      BiConsumer<T, T> preprocessor) {
+    return createForObjectWithField(updated, mongoServer, objectClass, ABOUT_FIELD, aboutGetter.apply(updated), preprocessor);
+  }
+
+  /**
+   * Static constructor for objects that do not have an {@code about} field but instead use an {@code id} field.
+   * <p>
+   * The id field is provided and it is not part of the record itself.
+   *
+   * @param updated The updated object (i.e., the object to take the value from). This object will remain unchanged.
+   * @param mongoServer The Mongo connection.
+   * @param objectClass The class of the object to be updated.
+   * @param id The id of the object to be updated.
+   * @param preprocessor This provides the option of performing some preprocessing on the current and/or the new object before
+   * applying the operations. Its parameters are first the current bean (found in the database) and second the updated (as passed
+   * to this method). This parameter can be null, in which no preprocessing takes place.
+   * @return The property updater.
+   */
+  public static <T> MongoPropertyUpdater<T> createForObjectWithId(T updated,
+      RecordDao mongoServer, Class<T> objectClass, String id, BiConsumer<T, T> preprocessor) {
+    return createForObjectWithField(updated, mongoServer, objectClass, ID, id, preprocessor);
+  }
+
+  private static <T> MongoPropertyUpdater<T> createForObjectWithField(
+      T updated, RecordDao mongoServer, Class<T> objectClass, String fieldName, String fieldValue,
+      BiConsumer<T, T> preprocessor) {
+
+    if (StringUtils.isBlank(fieldName) || StringUtils.isBlank(fieldValue)) {
+      throw new IllegalArgumentException("Field name and value are required.");
+    }
+
+    final Supplier<Query<T>> queryCreator =
+        () -> mongoServer.getDatastore().find(objectClass).filter(Filters.eq(fieldName, fieldValue));
+
+    final List<UpdateOperator> updateOperators =
+        List.of(UpdateOperators.setOnInsert(Map.of(fieldName, fieldValue)));
+
+    return create(updated, mongoServer, queryCreator, preprocessor, updateOperators);
   }
 
   private static <T> MongoPropertyUpdater<T> create(T updated, RecordDao mongoServer,
@@ -31,7 +86,7 @@ public final class MongoPropertyUpdaterFactory {
       throw new IllegalArgumentException();
     }
 
-    // Obtain the current state from the database and perform preprocessing on it.
+    // Get the current state from the database and perform preprocessing on it.
     final T current = queryCreator.get().first();
     if (dataPreprocessor != null) {
       dataPreprocessor.accept(current, updated);
@@ -42,61 +97,4 @@ public final class MongoPropertyUpdaterFactory {
         queryCreator);
   }
 
-  /**
-   * Static constructor for objects that do not have an about field.
-   *
-   * @param updated The updated object (i.e. the object to take the value from). This object will
-   * remain unchanged.
-   * @param mongoServer The Mongo connection.
-   * @param queryCreator The function that creates the mongo query that can retrieve the object from
-   * Mongo.
-   * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its parameters are first the
-   * current bean (found in the database) and second the updated (as passed to this method). This
-   * parameter can be null, in which no preprocessing takes place.
-   * @return The property updater.
-   */
-  public static <T> MongoPropertyUpdater<T> createForObjectWithoutAbout(T updated,
-      RecordDao mongoServer, Supplier<Query<T>> queryCreator, BiConsumer<T, T> preprocessor) {
-    return create(updated, mongoServer, queryCreator, preprocessor, null);
-  }
-
-  /**
-   * Static constructor for objects that have an about field.
-   *
-   * @param updated The updated object (i.e. the object to take the value from). This object will
-   * remain unchanged.
-   * @param mongoServer The Mongo connection.
-   * @param objectClass The class of the object which is used to create an instance of {@link
-   * Query}.
-   * @param aboutGetter The function that obtains the about value from the object.
-   * @param preprocessor This provides the option of performing some preprocessing on the current
-   * and/or the new object before applying the operations. Its parameters are first the
-   * current bean (found in the database) and second the updated (as passed to this method). This
-   * parameter can be null, in which no preprocessing takes place.
-   * @return The property updater.
-   */
-  public static <T> MongoPropertyUpdater<T> createForObjectWithAbout(T updated,
-      RecordDao mongoServer, Class<T> objectClass, Function<T, String> aboutGetter,
-      BiConsumer<T, T> preprocessor) {
-
-    // Sanity checks.
-    if (aboutGetter == null) {
-      throw new IllegalArgumentException();
-    }
-    if (StringUtils.isBlank(aboutGetter.apply(updated))) {
-      throw new IllegalArgumentException("Object does not have an 'about' value.");
-    }
-
-    // Find object with the same about value
-    final Supplier<Query<T>> queryCreator = () -> mongoServer.getDatastore().find(objectClass)
-        .filter(Filters.eq(ABOUT_FIELD, aboutGetter.apply(updated)));
-
-    // Set the about.
-    final List<UpdateOperator> updateOperators = List.of(UpdateOperators
-        .setOnInsert(Map.of(ABOUT_FIELD, aboutGetter.apply(updated))));
-
-    // Done
-    return create(updated, mongoServer, queryCreator, preprocessor, updateOperators);
-  }
 }

@@ -1,7 +1,6 @@
 package eu.europeana.patternanalysis.view;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -12,8 +11,7 @@ import java.util.List;
 public record DatasetProblemPatternAnalysis<T>(
     String datasetId,
     T executionStep,
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    LocalDateTime executionTimestamp,
+    Instant executionTimestamp,
     List<ProblemPattern> problemPatternList) {
 
   /**

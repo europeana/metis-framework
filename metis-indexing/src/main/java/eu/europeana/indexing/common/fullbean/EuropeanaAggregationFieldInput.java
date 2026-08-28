@@ -53,6 +53,8 @@ final class EuropeanaAggregationFieldInput
     String edmPreview = Optional.ofNullable(aggregation.getPreview())
                                 .map(ResourceType::getResource).orElse(null);
     mongoAggregation.setEdmPreview(edmPreview);
+    mongoAggregation.setWasGeneratedBy(
+        Optional.ofNullable(aggregation.getWasGeneratedBy()).map(ResourceType::getResource).orElse(null));
 
     return mongoAggregation;
   }

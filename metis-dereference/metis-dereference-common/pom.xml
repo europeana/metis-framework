@@ -4,7 +4,7 @@
   <parent>
     <artifactId>metis-dereference</artifactId>
     <groupId>eu.europeana.metis</groupId>
-    <version>17.1</version>
+    <version>18</version>
   </parent>
   <artifactId>metis-dereference-common</artifactId>
   <dependencies>
@@ -74,6 +74,10 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
       <version>${version.apache.commons.text}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
 </project>

@@ -4,7 +4,7 @@ import eu.europeana.metis.schema.jibx.RDF;
 import eu.europeana.patternanalysis.exception.PatternAnalysisException;
 import eu.europeana.patternanalysis.view.DatasetProblemPatternAnalysis;
 import eu.europeana.patternanalysis.view.ProblemPattern;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +22,10 @@ public interface PatternAnalysisService<T, K> {
    *
    * @param datasetId the datasetId
    * @param executionStep the constant value of the step (Similar to eu.europeana.metis.core.workflow.plugins.PluginType from
-   * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox
-   * @param executionTimestamp the execution timestamp for the execution of the dataset(this should be the same for all records).
+   * metis-core and eu.europeana.metis.sandbox.common.Step from metis-sandbox)
    * @return the execution point that can be used on other calls
    */
-  K initializePatternAnalysisExecution(String datasetId, T executionStep, LocalDateTime executionTimestamp);
+  K initializePatternAnalysisExecution(String datasetId, T executionStep);
 
   /**
    * Generates the analysis of the record in RDF format.
@@ -77,7 +76,7 @@ public interface PatternAnalysisService<T, K> {
    * @return the dataset pattern analysis
    */
   Optional<DatasetProblemPatternAnalysis<T>> getDatasetPatternAnalysis(String datasetId, T executionStep,
-      LocalDateTime executionTimestamp);
+      Instant executionTimestamp);
 
   /**
    * Get a list of problem patterns for a particular record without storing them in the database.

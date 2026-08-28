@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.mongodb.client.MongoClient;
 import eu.europeana.corelib.definitions.edm.beans.FullBean;
-import eu.europeana.corelib.web.exception.EuropeanaException;
 import eu.europeana.indexing.IndexerPreprocessor;
 import eu.europeana.indexing.IndexingProperties;
 import eu.europeana.indexing.base.IndexingTestUtils;
@@ -37,9 +36,6 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * The type Mongo indexer test.
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = MongoIndexerLocalConfigTest.class)
 class MongoIndexerIT {
@@ -53,35 +49,20 @@ class MongoIndexerIT {
   private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
       true, List.of(), true, TierCalculationMode.OVERWRITE);
 
-  /**
-   * Dynamic properties.
-   *
-   * @param registry the registry
-   */
   @DynamicPropertySource
   public static void dynamicProperties(DynamicPropertyRegistry registry) {
     TestContainer mongoContainerIT = TestContainerFactoryIT.getContainer(TestContainerType.MONGO);
     mongoContainerIT.dynamicProperties(registry);
   }
 
-  /**
-   * Illegal argument exception test.
-   */
   @Test
   void NullPointerExceptionTest() {
     NullPointerException expected = assertThrows(NullPointerException.class, () -> indexer.saveRecord((RDF) null));
     assertEquals("record is null", expected.getMessage());
   }
 
-  /**
-   * Index record.
-   *
-   * @throws IndexingException the indexing exception
-   * @throws SerializationException the serialization exception
-   * @throws EuropeanaException the europeana exception
-   */
   @Test
-  void indexRecord() throws IndexingException, SerializationException, EuropeanaException {
+  void indexRecord() throws IndexingException, SerializationException {
     final RdfConversionUtils conversionUtils = new RdfConversionUtils();
     final RDF inputRdf = conversionUtils.convertStringToRdf(
         IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_rdf.xml"));
@@ -91,14 +72,8 @@ class MongoIndexerIT {
     assertIndexedRecord("/50/_providedCHO_NL_BwdADRKF_2_62_7");
   }
 
-  /**
-   * Test index record.
-   *
-   * @throws IndexingException the indexing exception
-   * @throws EuropeanaException the europeana exception
-   */
   @Test
-  void testIndexRecord() throws IndexingException, EuropeanaException {
+  void testIndexRecord() throws IndexingException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_index_string.xml");
 
     indexer.saveRecord(stringRdfRecord);
@@ -107,7 +82,7 @@ class MongoIndexerIT {
   }
 
   @Test
-  void indexRecordWithPersistentIdentifier() throws IndexingException, EuropeanaException {
+  void indexRecordWithPersistentIdentifier() throws IndexingException {
     final String stringRdfRecord = IndexingTestUtils.getResourceFileContent("europeana_record_to_sample_pid_index_rdf.xml");
 
     indexer.saveRecord(stringRdfRecord);
@@ -115,7 +90,7 @@ class MongoIndexerIT {
     assertIndexedRecord("/12148/ivrla:3827");
   }
 
-  private void assertIndexedRecord(String expectedId) throws EuropeanaException {
+  private void assertIndexedRecord(String expectedId) {
     FullBean fullBean = recordDao.getFullBean(expectedId);
     assertNotNull(fullBean);
     assertEquals(expectedId, fullBean.getAbout());

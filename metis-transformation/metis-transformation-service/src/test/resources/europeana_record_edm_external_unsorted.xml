@@ -12,6 +12,8 @@
         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
         xmlns:svcs="http://rdfs.org/sioc/services#"
+        xmlns:doap="http://usefulinc.com/ns/doap#"
+				xmlns:prov="http://www.w3.org/ns/prov#"
         xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
         xmlns:schema="https://schema.org/"
         xmlns:xalan="http://xml.apache.org/xalan">
@@ -59,6 +61,7 @@
         <edm:rights rdf:resource="http://rightsstatements.org/vocab/InC/1.0/"/>
         <edm:pid>ark:/12148/123</edm:pid>
         <edm:isRepresentationOf rdf:resource="http://data.europeana.eu/item/90402/BK_1955_331"/>
+        <svcs:has_service rdf:resource="http://dams.llgc.org.uk/iiif/image/1294670"/>
     </edm:WebResource>
     <edm:Place rdf:about="iid:4387/SP.1">
         <wgs84_pos:lat>59.04861</wgs84_pos:lat>
@@ -73,7 +76,13 @@
         <owl:sameAs rdf:resource=" https://www.wikidata.org/wiki/Q2314807"/>
         <owl:sameAs rdf:resource=" http://vocab.getty.edu/aat/300019272"/>
     </edm:TimeSpan>
+    <svcs:Service rdf:about="http://dams.llgc.org.uk/iiif/image/1294670">
+      <rdfs:label xml:lang="en">IIIF Image API</rdfs:label>
+      <dcterms:conformsTo rdf:resource="http://iiif.io/api/image"/>
+      <doap:implements rdf:resource="http://iiif.io/api/image/2/level1.json"/>
+    </svcs:Service>
     <ore:Aggregation rdf:about="CMC_HA/936#ORE">
+				<prov:wasGeneratedBy rdf:resource="http://data.europeana.eu/provenance/europeana"/>
         <edm:aggregatedCHO rdf:resource="CMC_HA/936"/>
         <edm:dataProvider xml:lang="en">Historic Scotland</edm:dataProvider>
         <edm:isShownAt rdf:resource="  http://cmcassociates.co.uk/Skara_Brae/landing/sb_h10_lidar.html"/>

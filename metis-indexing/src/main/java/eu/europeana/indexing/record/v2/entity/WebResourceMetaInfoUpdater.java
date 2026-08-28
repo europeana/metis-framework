@@ -13,6 +13,7 @@ import eu.europeana.indexing.record.v2.property.MongoObjectManager;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdater;
 import eu.europeana.indexing.record.v2.property.MongoPropertyUpdaterFactory;
 import eu.europeana.metis.mongo.dao.RecordDao;
+import jakarta.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,8 +21,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import jakarta.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WebResourceMetaInfoUpdater extends
     AbstractMongoObjectUpdater<WebResourceMetaInfoImpl, WebResourceInformation> implements
-        MongoObjectManager<WebResourceMetaInfoImpl, WebResourceInformation> {
+    MongoObjectManager<WebResourceMetaInfoImpl, WebResourceInformation> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebResourceMetaInfoUpdater.class);
 
@@ -40,14 +39,12 @@ public class WebResourceMetaInfoUpdater extends
       Date recordDate, Date recordCreationDate, RecordDao mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
         ancestorInformation.getRootAbout());
-    final Supplier<Query<WebResourceMetaInfoImpl>> querySupplier =
-        () -> createQuery(mongoServer, hashCode);
-    return MongoPropertyUpdaterFactory.createForObjectWithoutAbout(newEntity, mongoServer, querySupplier, null);
+    return MongoPropertyUpdaterFactory.createForObjectWithId(newEntity, mongoServer, WebResourceMetaInfoImpl.class,
+        hashCode, null);
   }
 
   private static Query<WebResourceMetaInfoImpl> createQuery(RecordDao mongoServer, String id) {
-    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class)
-        .filter(Filters.eq("_id", id));
+    return mongoServer.getDatastore().find(WebResourceMetaInfoImpl.class).filter(Filters.eq(MongoPropertyUpdaterFactory.ID, id));
   }
 
   private static String generateHashCode(String webResourceId, String recordId) {
@@ -55,7 +52,8 @@ public class WebResourceMetaInfoUpdater extends
     try {
       // Note: we have no choice but to use MD5, this is agreed upon with the API implementation.
       // The data used are not private and are considered safe
-      @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"}) final MessageDigest md = MessageDigest.getInstance(
+      @SuppressWarnings({"findsecbugs:WEAK_MESSAGE_DIGEST_MD5", "java:S4790"})
+      final MessageDigest md = MessageDigest.getInstance(
           "MD5");
       byte[] digest = md.digest((webResourceId + "-" + recordId).getBytes(StandardCharsets.UTF_8));
       generatedHash = DatatypeConverter.printHexBinary(digest).toLowerCase(Locale.US);
@@ -172,7 +170,7 @@ public class WebResourceMetaInfoUpdater extends
   @Override
   public void delete(WebResourceInformation ancestorInformation, RecordDao mongoServer) {
     final String hashCode = generateHashCode(ancestorInformation.getWebResourceAbout(),
-            ancestorInformation.getRootAbout());
+        ancestorInformation.getRootAbout());
     createQuery(mongoServer, hashCode).delete();
   }
 }

@@ -10,11 +10,11 @@ import eu.europeana.indexing.base.IndexingTestUtils;
 import eu.europeana.indexing.base.TestContainer;
 import eu.europeana.indexing.base.TestContainerFactoryIT;
 import eu.europeana.indexing.base.TestContainerType;
+import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.exception.IndexerRelatedIndexingException;
 import eu.europeana.indexing.exception.IndexingException;
 import eu.europeana.indexing.exception.RecordRelatedIndexingException;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
-import eu.europeana.indexing.common.persistence.solr.v2.SolrV2Field;
 import eu.europeana.indexing.search.v2.SolrIndexerIT.SolrIndexerLocalConfigTest;
 import eu.europeana.indexing.tiers.TierCalculationMode;
 import eu.europeana.metis.schema.convert.RdfConversionUtils;
@@ -64,7 +64,7 @@ class SolrIndexerIT {
   @Autowired
   private SolrClient solrClient;
 
-  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.now()),
+  private static final IndexingProperties indexingProperties = new IndexingProperties(Date.from(Instant.parse("2026-06-16T12:00:00Z")),
       true, List.of(), true, TierCalculationMode.OVERWRITE);
 
   /**
