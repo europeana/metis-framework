@@ -40,7 +40,7 @@
 
     <!--Internal-->
     <version.metis-schema>15-SNAPSHOT</version.metis-schema>
-    <version.metis-common>20-SNAPSHOT</version.metis-common>
+    <version.metis-common>21-SNAPSHOT</version.metis-common>
 
     <!--External-->
     <version.corelib>2.18.0</version.corelib>
