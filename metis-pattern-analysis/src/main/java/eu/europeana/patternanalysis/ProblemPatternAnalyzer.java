@@ -39,7 +39,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +49,6 @@ import org.apache.commons.text.similarity.LongestCommonSubsequence;
  */
 public class ProblemPatternAnalyzer {
 
-  private static final int MIN_TITLE_LENGTH = 2;
   private static final int MAX_TITLE_LENGTH = 70;
   private static final int MIN_DESCRIPTION_LENGTH = 51;
   private static final double LCS_THRESHOLD = 0.9;
@@ -254,13 +252,14 @@ public class ProblemPatternAnalyzer {
   }
 
   /**
-   * Check whether the record has titles of {@link #MIN_TITLE_LENGTH} characters or fewer.
+   * Check whether a title matches a predefined unrecognizable or N/A value, ignoring case and language tags. Square-bracketed
+   * values and the special value "[...]" are also recognized.
    *
    * @param titles the list of titles
    * @return the list of problem occurrences encountered
    */
   private List<ProblemOccurrence> checkP6(List<String> titles) {
-    return titles.stream().filter(title -> title.length() <= MIN_TITLE_LENGTH)
+    return titles.stream().filter(UnrecognizableTitleValues::matches)
                  .map(title -> new ProblemOccurrence(abbreviateElement(title)))
                  .toList();
   }

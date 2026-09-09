@@ -58,7 +58,7 @@ class ProblemPatternAnalyzerTest {
         Arguments.of(FILE_XML_P3_LOCATION, 2, ProblemPatternDescription.P3, 2),
         //Should contain valid titles in different languages and unrecognizable titles (equal to identifier)
         Arguments.of(FILE_XML_P5_LOCATION, 1, ProblemPatternDescription.P5, 1),
-        //Should contain one title that is not meaningful(too short)
+        //Should contain one title that matches a predefined unrecognizable value
         Arguments.of(FILE_XML_P6_LOCATION, 1, ProblemPatternDescription.P6, 1),
         //Should not contain any descriptions
         Arguments.of(FILE_XML_P7_LOCATION, 1, ProblemPatternDescription.P7, 1),
