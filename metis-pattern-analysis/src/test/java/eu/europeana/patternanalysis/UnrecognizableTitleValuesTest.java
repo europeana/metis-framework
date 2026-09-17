@@ -4,18 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class UnrecognizableTitleValuesTest {
 
   @ParameterizedTest
   @ValueSource(strings = {
-      "Unknown", "No title", "Untitled", "Without title",
       "Неизвестен", "Без заглавие",
       "Nepoznato", "Bez naslova",
       "Neznámý", "Bez názvu", "nezn.",
       "Ukendt", "Uden titel",
       "Onbekend", "Zonder titel", "z.t.",
+      "Unknown", "No title", "Untitled", "Without title",
       "Tundmatu", "Pealkirjata",
       "Tuntematon", "Ei nimekettä",
       "Inconnu", "Sans titre", "inc.", "s.t.",
@@ -56,6 +57,15 @@ class UnrecognizableTitleValuesTest {
   }
 
   @ParameterizedTest
+  @ValueSource(strings = {
+      " Unknown", "Unknown ", "\tN/A\n", "  [UnTiTlEd]  ", " \t[...]\r\n", "\u2003Sans titre\u2003"
+  })
+  void matchesIgnoringLeadingAndTrailingWhitespace(String title) {
+    assertTrue(UnrecognizableTitleValues.matches(title));
+  }
+
+  @ParameterizedTest
+  @NullSource
   @ValueSource(strings = {
       "", " ", "[unknown", "unknown]", "[[unknown]]", "(unknown)", "[]",
       "...", "nXaX", "n.a", "<br>"
