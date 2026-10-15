@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +35,6 @@ class TextProcessor implements MediaProcessor {
   private static final Logger LOGGER = LoggerFactory.getLogger(TextProcessor.class);
 
   private static final String PDF_MIME_TYPE = "application/pdf";
-  private static final String PNG_MIME_TYPE = "image/png";
 
   protected static final int DISPLAY_DPI = 72;
 
@@ -84,14 +82,12 @@ class TextProcessor implements MediaProcessor {
 
     // Create thumbnails in case of PDF file.
     final List<Thumbnail> thumbnails;
-    if (PDF_MIME_TYPE.equals(detectedMimeType) && generateThumbnailForPdf(resource,
-            mainThumbnailAvailable)) {
-      final Path pdfImage = pdfToImageConverter.convertPdfFirstPageToImage(resource.getContentPath());
+    if (PDF_MIME_TYPE.equals(detectedMimeType) && generateThumbnailForPdf(resource, mainThumbnailAvailable)) {
+      final BufferedImage pdfImage = pdfToImageConverter.convertPdfFirstPageToImage(resource.getContentPath());
       try {
-        thumbnails = thumbnailGenerator.generateThumbnails(resource.getResourceUrl(),
-                PNG_MIME_TYPE, pdfImage.toFile(), true).getRight();
+        thumbnails = thumbnailGenerator.generatePdfThumbnails(resource.getResourceUrl(), pdfImage);
       } finally {
-        pdfToImageConverter.removePdfImageFileSilently(pdfImage);
+        pdfImage.flush();
       }
     } else {
       thumbnails = null;
@@ -100,7 +96,12 @@ class TextProcessor implements MediaProcessor {
     // Set the resource properties relating to content.
     final PdfCharacteristics characteristics;
     if (PDF_MIME_TYPE.equals(detectedMimeType)) {
-      characteristics = findPdfCharacteristics(resource.getContentFile());
+      try {
+        characteristics = findPdfCharacteristics(resource.getContentFile());
+      } catch (MediaExtractionException | RuntimeException e) {
+        closeAllThumbnailsSilently(thumbnails);
+        throw e;
+      }
     } else {
       final boolean hasText = detectedMimeType.startsWith("text/")
           || "application/xhtml+xml".equals(detectedMimeType);

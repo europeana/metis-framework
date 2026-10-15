@@ -69,13 +69,13 @@ public class MediaProcessorFactory {
   }
 
   /**
-   * Set the timeout for performing command-line IO for thumbnail generation. The default (when not
-   * calling this method or calling it with zero or a negative number) is {@link
-   * MediaProcessorFactory#DEFAULT_THUMBNAIL_GENERATE_TIMEOUT} seconds.
+   * Retained for API compatibility. Image and PDF thumbnail processing now runs in Java and
+   * has no external-command timeout, so this setting has no effect.
    *
-   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation
-   * command is allowed to take before it is forcibly destroyed (i.e. cancelled).
+   * @param thumbnailGenerateTimeout The former thumbnail command timeout in seconds.
+   * @deprecated Image and PDF thumbnails no longer use external commands.
    */
+  @Deprecated
   public void setThumbnailGenerateTimeout(int thumbnailGenerateTimeout) {
     this.thumbnailGenerateTimeout =
         thumbnailGenerateTimeout < 1 ? DEFAULT_THUMBNAIL_GENERATE_TIMEOUT

@@ -33,8 +33,6 @@ import org.slf4j.LoggerFactory;
 public class MediaExtractorImpl implements MediaExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
-  public static final String PNG_FILE_EXTENSION = ".png";
-  public static final String JPEG_FILE_EXTENSION = ".jpeg";
 
   enum ProcessingMode {FULL, REDUCED, NONE}
 
@@ -86,8 +84,7 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Constructor for non-testing purposes.
    *
    * @param redirectCount The maximum number of times we will follow a redirect.
-   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation command is allowed to take
-   * before it is forcibly destroyed (i.e. cancelled).
+   * @param thumbnailGenerateTimeout Retained for API compatibility; Java image and PDF processing have no command timeout.
    * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe command is allowed to take before
    * it is forcibly destroyed (i.e. cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
@@ -98,8 +95,7 @@ public class MediaExtractorImpl implements MediaExtractor {
   public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
       int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
       throws MediaProcessorException {
-    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
-        new CommandExecutor(thumbnailGenerateTimeout));
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
     this.resourceDownloadClientOembed = new ResourceDownloadClient(redirectCount,
         type -> this.shouldDownloadForFullProcessing(type, RdfResourceKind.OEMBEDDED),
         connectTimeout, responseTimeout, downloadTimeout);
@@ -114,8 +110,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.tika = new TikaWrapper();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
-    this.textProcessor = new TextProcessor(thumbnailGenerator,
-        new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+    this.textProcessor = new TextProcessor(thumbnailGenerator, new PdfToImageConverter());
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
     this.iiifProcessor = new IIIFProcessor(thumbnailGenerator);

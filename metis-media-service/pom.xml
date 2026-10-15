@@ -10,6 +10,61 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>pdfbox</artifactId>
+      <version>${version.pdfbox}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.pdfbox</groupId>
+      <artifactId>jbig2-imageio</artifactId>
+      <version>${version.pdfbox.jbig2}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-batik</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-pict</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlgraphics</groupId>
+      <artifactId>batik-all</artifactId>
+      <version>${version.batik}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.common</groupId>
+      <artifactId>common-image</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-jpeg</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-tiff</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-webp</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-psd</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twelvemonkeys.imageio</groupId>
+      <artifactId>imageio-bmp</artifactId>
+      <version>${version.twelvemonkeys}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-schema</artifactId>
     </dependency>

@@ -1,146 +1,33 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.mediaprocessing.extraction.MediaExtractorImpl.PNG_FILE_EXTENSION;
-import static eu.europeana.metis.utils.TempFileUtils.createSecureTempFile;
-import static java.util.Collections.emptyMap;
-
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.IOUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
-/**
- * Converts the first page of PDF files to PNG files.
- */
+/** Renders the first PDF page to an opaque image using Apache PDFBox. */
 class PdfToImageConverter {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(PdfToImageConverter.class);
-
-  private static String globalGhostScriptCommand;
-
-  private final String ghostScriptCmd;
-
-  private final CommandExecutor commandExecutor;
-
-  /**
-   * Constructor. This is a wrapper for {@link PdfToImageConverter#PdfToImageConverter(CommandExecutor, String)} where the
-   * property is detected. It is advisable to use this constructor for non-testing purposes.
-   *
-   * @param commandExecutor A command executor.
-   * @throws MediaProcessorException In case the properties could not be initialized.
-   */
-  PdfToImageConverter(CommandExecutor commandExecutor) throws MediaProcessorException {
-    this(commandExecutor, getGlobalGhostScriptCommand(commandExecutor));
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param commandExecutor A command executor.
-   * @param ghostScriptCmd The ghostscript command (how to trigger ghostscript).
-   */
-  PdfToImageConverter(CommandExecutor commandExecutor, String ghostScriptCmd) {
-    this.ghostScriptCmd = ghostScriptCmd;
-    this.commandExecutor = commandExecutor;
-  }
-
-  private static String getGlobalGhostScriptCommand(CommandExecutor commandExecutor)
-      throws MediaProcessorException {
-    synchronized (AudioVideoProcessor.class) {
-      if (globalGhostScriptCommand == null) {
-        globalGhostScriptCommand = discoverGhostScriptCommand(commandExecutor);
-      }
-      return globalGhostScriptCommand;
-    }
-  }
-
-  static String discoverGhostScriptCommand(CommandExecutor commandExecutor)
-      throws MediaProcessorException {
-
-    // Check whether ghostscript is installed.
-    final String command = "gs";
-    final String output;
-    output = commandExecutor.execute(Arrays.asList(command, "--version"), emptyMap(), true, message ->
-        new MediaProcessorException("Error while looking for ghostscript tools: " + message));
-    if (!(output.startsWith("10.") || output.startsWith("9."))) {
-      throw new MediaProcessorException("Ghostscript 10.x or 9.x not found.");
-    }
-
-    // So it is installed and available.
-    return command;
-  }
-
-  /**
-   * The main method of this class. It takes a PDF input file and converts the first page of it to a PNG image. It saves it as a
-   * file and returns the reference to it.
-   *
-   * @param content the PDF input.
-   * @return The PNG output.
-   * @throws MediaExtractionException In case something went wrong during the conversion.
-   */
-  Path convertPdfFirstPageToImage(Path content) throws MediaExtractionException {
-
-    // Sanity checking
+  // The caller owns the returned image and must flush it after generating thumbnails.
+  BufferedImage convertPdfFirstPageToImage(Path content) throws MediaExtractionException {
     if (content == null) {
       throw new MediaExtractionException("File content is null or file does not exist.");
     }
-
-    // Prepare the new file
-    final Path pdfImage = createPdfImageFile();
-
-    // Execute the command
-    try {
-      final List<String> command = createPdfConversionCommand(content, pdfImage);
-      this.commandExecutor.execute(command, emptyMap(), false, MediaExtractionException::new);
-    } catch (MediaExtractionException | RuntimeException e) {
-      removePdfImageFileSilently(pdfImage);
-      throw e;
+    // File input and disk-backed stream caching avoid buffering the entire PDF on the heap.
+    try (PDDocument pdDocument = Loader.loadPDF(content.toFile(), IOUtils.createTempFileOnlyStreamCache())) {
+      if (pdDocument.getNumberOfPages() == 0) {
+        throw new IOException("PDF has no pages");
+      }
+      final PDFRenderer renderer = new PDFRenderer(pdDocument);
+      renderer.setSubsamplingAllowed(true);
+      return renderer.renderImageWithDPI(0, TextProcessor.DISPLAY_DPI, ImageType.RGB);
+    } catch (IOException | RuntimeException e) {
+      throw new MediaExtractionException("Could not render the first PDF page in Java", e);
     }
-
-    // Return the result
-    return pdfImage;
-  }
-
-  void removePdfImageFileSilently(Path file) {
-    try {
-      Files.deleteIfExists(file);
-    } catch (IOException e) {
-      LOGGER.warn("Could not remove PDF image: {}", file.toAbsolutePath(), e);
-    }
-  }
-
-  Path createPdfImageFile() throws MediaExtractionException {
-    try {
-      return createSecureTempFile("metis_pdf_image_", PNG_FILE_EXTENSION);
-    } catch (IOException e) {
-      throw new MediaExtractionException("Could not create temporary file.", e);
-    }
-  }
-
-  List<String> createPdfConversionCommand(Path inputFile, Path outputFile) {
-    return Arrays.asList(ghostScriptCmd,
-        "-q",
-        "-dQUIET",
-        "-dSAFER",
-        "-dBATCH",
-        "-dNOPAUSE",
-        "-dNOPROMPT",
-        "-dMaxBitmap=500000000",
-        "-dAlignToPixels=0",
-        "-dGridFitTT=2",
-        "-sDEVICE=pngalpha",
-        "-dTextAlphaBits=4",
-        "-dGraphicsAlphaBits=4",
-        "-r72x72",
-        "-dFirstPage=1",
-        "-dLastPage=1",
-        "-sOutputFile=" + outputFile.toAbsolutePath(),
-        "-f" + inputFile.toAbsolutePath()
-    );
   }
 }
