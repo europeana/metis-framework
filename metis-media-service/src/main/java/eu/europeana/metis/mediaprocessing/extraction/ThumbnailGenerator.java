@@ -21,7 +21,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 /**
- * Resizes images and encodes thumbnails with ImageIO and TwelveMonkeys. The caller owns input images and returned thumbnails;
+ * Resizes images and encodes thumbnails with ImageIO and TwelveMonkeys. The caller owns input images and returned thumbnails, and
  * partially generated thumbnails are closed here on failure.
  */
 public class ThumbnailGenerator {
@@ -29,7 +29,19 @@ public class ThumbnailGenerator {
   private static final String PNG_MIME_TYPE = "image/png";
   private static final String JPEG_MIME_TYPE = "image/jpeg";
 
-  /** Generates opaque PNG previews from a rendered PDF page. The caller owns the page image. */
+  /**
+   * Generates thumbnails for a given PDF page. Thumbnails are derived from the provided
+   * PDF page image and resized based on predefined types. Each thumbnail is encoded
+   * based on the detected MIME type of the source URL.
+   *
+   * @param url The URL of the resource from which the PDF page is derived.
+   * @param pdfPage A {@code BufferedImage} representation of the PDF page to generate thumbnails from.
+   *                If the PDF page contains alpha transparency, it will be composited onto a white background.
+   * @return A {@code List} of {@code Thumbnail} objects representing the generated thumbnails.
+   *         Each thumbnail contains the resized image encoded in the appropriate format.
+   * @throws MediaExtractionException If an error occurs during thumbnail preparation, resizing, encoding,
+   *                                  or due to any other unexpected runtime issue.
+   */
   List<Thumbnail> generatePdfThumbnails(String url, BufferedImage pdfPage) throws MediaExtractionException {
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = prepareThumbnails(url, PNG_MIME_TYPE);
     BufferedImage source = pdfPage;
@@ -38,17 +50,17 @@ public class ThumbnailGenerator {
         source = onWhite(pdfPage);
       }
       for (var entry : thumbnails.entrySet()) {
-        final BufferedImage resized = resize(source, pdfPage.getWidth(), pdfPage.getHeight(), entry.getKey());
+        final BufferedImage resizedBufferedImage = resize(source, pdfPage.getWidth(), pdfPage.getHeight(), entry.getKey());
         try {
-          encodeThumbnail(resized, entry.getValue());
+          encodeThumbnail(resizedBufferedImage, entry.getValue());
         } finally {
-          resized.flush();
+          resizedBufferedImage.flush();
         }
       }
       return new ArrayList<>(thumbnails.values());
     } catch (IOException | RuntimeException e) {
       thumbnails.values().forEach(ThumbnailImpl::close);
-      throw new MediaExtractionException("Could not generate PDF thumbnails in Java", e);
+      throw new MediaExtractionException("Could not generate PDF thumbnails", e);
     } finally {
       if (source != pdfPage) {
         source.flush();
@@ -56,14 +68,12 @@ public class ThumbnailGenerator {
     }
   }
 
-  /** Resizes using the original aspect ratio. The caller owns and must flush the returned image. */
-  BufferedImage resize(BufferedImage image, int originalWidth, int originalHeight, ThumbnailKind kind) {
-    final int width = kind.getImageSize();
+  BufferedImage resize(BufferedImage image, int originalWidth, int originalHeight, ThumbnailKind thumbnailKind) {
+    final int width = thumbnailKind.getImageSize();
     final int height = Math.max(1, (int) Math.round((double) originalHeight * width / originalWidth));
     return new ResampleOp(width, height, ResampleOp.FILTER_LANCZOS).filter(image, null);
   }
 
-  /** Encodes pixels into a thumbnail without taking ownership of the image. */
   void encodeThumbnail(BufferedImage image, ThumbnailImpl thumbnail) throws IOException {
     if (PNG_MIME_TYPE.equals(thumbnail.getMimeType())) {
       thumbnail.markAsWithContent(encodeImage(image, "png"));

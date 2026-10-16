@@ -41,7 +41,6 @@ class PaletteAnalyzer {
       0xFFFFF0, 0xFFFFFF
   };
 
-  // TwelveMonkeys' precomputed inverse lookup is shared; per-image buffers are not.
   private final IndexColorModel palette = new InverseColorMapIndexColorModel(Byte.SIZE, PALETTE_COLORS.length,
       PALETTE_COLORS, 0, false, -1, DataBuffer.TYPE_BYTE);
 
@@ -52,9 +51,19 @@ class PaletteAnalyzer {
                            .limit(MAX_COLORS).map(Map.Entry::getKey).toList();
   }
 
+  /**
+   * Calculates the color histogram of a given image by mapping its colors to a predefined palette and counting the occurrences of
+   * each mapped color.
+   * <p>
+   * Diffusion dithering introduces extra colours and randomized errors. For dominant-colour analysis, direct mapping is
+   * deterministic and stays closer to the legacy histograms.
+   *
+   * @param image The input image for which the histogram is computed. The image is converted to indexed color using a predefined
+   * palette before calculating the histogram.
+   * @return A map where the keys are color codes (hexadecimal RGB values in the format of "RRGGBB") from the palette, and the
+   * values are the number of times each color appears in the image.
+   */
   Map<String, Long> histogram(BufferedImage image) {
-    // Diffusion dithering introduces extra colours and randomized errors. For dominant-colour
-    // analysis, direct mapping is deterministic and stays closer to the legacy histograms.
     final BufferedImage rgb = ImageUtil.toBuffered(image, BufferedImage.TYPE_INT_RGB);
     final BufferedImage indexed = ImageUtil.createIndexed(rgb, palette, null, ImageUtil.DITHER_NONE);
     final long[] counts = new long[palette.getMapSize()];

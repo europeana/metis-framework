@@ -15,9 +15,20 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.ParsedURL;
 
-/** Renders SVG directly to a bounded raster while retaining fractional viewBox coordinates. */
+/**
+ * Renders SVG directly to a bounded raster while retaining fractional viewBox coordinates.
+ */
 class SvgRasterizer {
 
+  /**
+   * Renders an SVG file into a rasterized {@link BufferedImage} with the specified width and height.
+   *
+   * @param content The SVG file to be rendered.
+   * @param width The desired width of the rendered image, in pixels.
+   * @param height The desired height of the rendered image, in pixels.
+   * @return A {@link BufferedImage} representing the rendered SVG.
+   * @throws IOException If an error occurs while reading the input file or rendering the SVG.
+   */
   BufferedImage render(File content, int width, int height) throws IOException {
     final BufferedImageTranscoder transcoder = new BufferedImageTranscoder();
     transcoder.addTranscodingHint(SVGAbstractTranscoder.KEY_WIDTH, (float) width);
@@ -30,6 +41,12 @@ class SvgRasterizer {
     }
   }
 
+  /**
+   * A specialized implementation of {@link ImageTranscoder} that generates a {@link BufferedImage}. This class is used for
+   * rendering scalable vector graphics (SVG) into rasterized images.
+   */
+  @SuppressWarnings("java:S110")
+  // Batik's ImageTranscoder extension point already has a deep inheritance hierarchy.
   private static class BufferedImageTranscoder extends ImageTranscoder {
 
     private BufferedImage image;
@@ -49,7 +66,7 @@ class SvgRasterizer {
       return new SVGAbstractTranscoderUserAgent() {
         @Override
         public ExternalResourceSecurity getExternalResourceSecurity(ParsedURL resourceUrl, ParsedURL documentUrl) {
-          // Match the ImageIO SVG reader: allow embedded images, without fetching external resources.
+          // Match the ImageIO SVG reader: allow embedded images without fetching external resources.
           return new EmbededExternalResourceSecurity(resourceUrl);
         }
       };

@@ -1,6 +1,7 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.ImageDecoder.DecodedImageAndMetadata;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
@@ -27,6 +28,8 @@ import java.util.List;
  * </p>
  */
 class ImageProcessor implements MediaProcessor {
+
+  private static final String SVG_MIME_TYPE_PREFIX = "image/svg";
 
   private final ThumbnailGenerator thumbnailGenerator;
   private final ImageDecoder imageDecoder = new ImageDecoder();
@@ -78,9 +81,6 @@ class ImageProcessor implements MediaProcessor {
     return processImage(resource.getResourceUrl(), detectedMimeType, resource.getContentFile(), contentSize);
   }
 
-  /**
-   * Decodes an image once, generates thumbnails, and analyses colours without upscaling raster images.
-   */
   ResourceExtractionResultImpl processImage(String url, String detectedMimeType, File content, Long contentSize)
       throws MediaExtractionException {
     if (content == null) {
@@ -89,81 +89,76 @@ class ImageProcessor implements MediaProcessor {
     if (MediaType.getMediaType(detectedMimeType) != MediaType.IMAGE) {
       throw new MediaExtractionException("Cannot perform thumbnail generation on mime type '" + detectedMimeType + "'.");
     }
-    if (detectedMimeType.startsWith("image/vnd.djvu") || detectedMimeType.startsWith("image/x-djvu")
-        || detectedMimeType.startsWith("image/x.djvu")) {
-      throw new MediaExtractionException("Cannot generate thumbnails for DjVu file.");
-    }
 
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
     final ThumbnailKind largestKind = thumbnails.keySet().stream()
                                                 .max(Comparator.comparingInt(ThumbnailKind::getImageSize)).orElseThrow();
     final int maximumWidth = largestKind.getImageSize();
-    try (ImageDecoder.DecodedImage decoded = imageDecoder.decode(content, maximumWidth)) {
-      // SVGs must be rasterized. Other small originals can be reused without resizing or encoding.
-      final byte[] original = !detectedMimeType.startsWith("image/svg") && decoded.originalWidth() < maximumWidth
-          ? Files.readAllBytes(content.toPath()) : null;
-      final List<String> dominantColors = generateThumbnailsAndAnalyseColors(decoded, thumbnails, original, largestKind);
+    try (DecodedImageAndMetadata decoded = imageDecoder.decode(content, maximumWidth)) {
+      // Load source bytes only when the original image can be reused as thumbnail content. SVGs must be rasterized.
+      final byte[] reusableOriginalImageBytes =
+          !detectedMimeType.startsWith(SVG_MIME_TYPE_PREFIX) && decoded.originalWidth() < maximumWidth
+              ? Files.readAllBytes(content.toPath()) : null;
+      final List<String> dominantColors =
+          generateThumbnailsAndAnalyseColors(decoded, thumbnails, reusableOriginalImageBytes, largestKind);
       final List<Thumbnail> generatedThumbnails = new ArrayList<>(thumbnails.values());
-      final ImageResourceMetadata metadata = new ImageResourceMetadata(detectedMimeType, url, contentSize,
+      final ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType, url, contentSize,
           nullIfNegative(decoded.originalWidth()), nullIfNegative(decoded.originalHeight()), decoded.colorSpace(),
           dominantColors, generatedThumbnails);
-      return new ResourceExtractionResultImpl(metadata, generatedThumbnails);
+      return new ResourceExtractionResultImpl(imageResourceMetadata, generatedThumbnails);
     } catch (MediaExtractionException e) {
       thumbnails.values().forEach(ThumbnailImpl::close);
       throw e;
     } catch (IOException e) {
       thumbnails.values().forEach(ThumbnailImpl::close);
-      throw new MediaExtractionException("Could not generate thumbnails in Java", e);
+      throw new MediaExtractionException("Could not process image", e);
     } catch (RuntimeException e) {
       thumbnails.values().forEach(ThumbnailImpl::close);
       throw new MediaExtractionException("Unexpected error during processing", e);
     }
   }
 
-  /**
-   * Generates smaller thumbnails first, then analyses the original pixels or the largest thumbnail.
-   */
-  private List<String> generateThumbnailsAndAnalyseColors(ImageDecoder.DecodedImage decodedImage,
-      EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails, byte[] original, ThumbnailKind largestKind) throws IOException {
+  private List<String> generateThumbnailsAndAnalyseColors(DecodedImageAndMetadata decodedImageAndMetadata,
+      EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails, byte[] reusableOriginalImageBytes, ThumbnailKind largestKind)
+      throws IOException {
+    //Skip generating thumbnails for the largest kind, we will resize it later if necessary
     for (var entry : thumbnails.entrySet()) {
       if (entry.getKey() == largestKind) {
         continue;
       }
-      generateThumbnail(decodedImage, entry.getKey(), entry.getValue(), original);
+      generateThumbnail(decodedImageAndMetadata, entry.getKey(), entry.getValue(), reusableOriginalImageBytes);
     }
 
     final ThumbnailImpl thumbnail = thumbnails.get(largestKind);
-    if (original != null) {
-      thumbnail.markAsWithContent(original);
-      return paletteAnalyzer.dominantColors(decodedImage.image());
+    if (reusableOriginalImageBytes != null) {
+      thumbnail.markAsWithContent(reusableOriginalImageBytes);
+      return paletteAnalyzer.dominantColors(decodedImageAndMetadata.image());
     }
 
-    final BufferedImage largestBufferedImage = thumbnailGenerator.resize(decodedImage.image(), decodedImage.originalWidth(),
-        decodedImage.originalHeight(), largestKind);
+    final BufferedImage largestBufferedImage =
+        thumbnailGenerator.resize(decodedImageAndMetadata.image(), decodedImageAndMetadata.originalWidth(),
+            decodedImageAndMetadata.originalHeight(), largestKind);
     try {
       thumbnailGenerator.encodeThumbnail(largestBufferedImage, thumbnail);
-      // Use the uncompressed resized pixels for colour analysis.
       return paletteAnalyzer.dominantColors(largestBufferedImage);
     } finally {
       largestBufferedImage.flush();
     }
   }
 
-  /**
-   * Reuses a small original, otherwise resizes and encodes the thumbnail.
-   */
-  private void generateThumbnail(ImageDecoder.DecodedImage decodedImage, ThumbnailKind kind, ThumbnailImpl thumbnail,
-      byte[] originalImageBytes) throws IOException {
-    if (originalImageBytes != null && decodedImage.originalWidth() < kind.getImageSize()) {
-      thumbnail.markAsWithContent(originalImageBytes);
+  private void generateThumbnail(DecodedImageAndMetadata decodedImageAndMetadata, ThumbnailKind thumbnailKind,
+      ThumbnailImpl thumbnail, byte[] reusableOriginalImageBytes) throws IOException {
+    if (reusableOriginalImageBytes != null && decodedImageAndMetadata.originalWidth() < thumbnailKind.getImageSize()) {
+      thumbnail.markAsWithContent(reusableOriginalImageBytes);
       return;
     }
-    final BufferedImage resized = thumbnailGenerator.resize(decodedImage.image(), decodedImage.originalWidth(),
-        decodedImage.originalHeight(), kind);
+    final BufferedImage resizedBufferedImage = thumbnailGenerator.resize(decodedImageAndMetadata.image(),
+        decodedImageAndMetadata.originalWidth(),
+        decodedImageAndMetadata.originalHeight(), thumbnailKind);
     try {
-      thumbnailGenerator.encodeThumbnail(resized, thumbnail);
+      thumbnailGenerator.encodeThumbnail(resizedBufferedImage, thumbnail);
     } finally {
-      resized.flush();
+      resizedBufferedImage.flush();
     }
   }
 }
