@@ -67,7 +67,6 @@
     <version.hibernate.core>6.4.4.Final</version.hibernate.core>
     <version.postgresql>42.7.2</version.postgresql>
     <version.ibm.icu4j>69.1</version.ibm.icu4j>
-    <version.itextpdf>5.5.13.2</version.itextpdf>
     <version.pdfbox>3.0.8</version.pdfbox>
     <version.pdfbox.jbig2>3.0.5</version.pdfbox.jbig2>
     <version.elastic.apm>1.48.1</version.elastic.apm>

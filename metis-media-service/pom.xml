@@ -131,12 +131,7 @@
       <version>${version.json}</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.itextpdf</groupId>
-      <artifactId>itextpdf</artifactId>
-      <version>${version.itextpdf}</version>
-    </dependency>
-    <!--The following bouncy castle dependencies are required from itextpdf since they are declared as optional in that pom file-->
+    <!-- PDFBox needs Bouncy Castle for PDFs using public-key encryption. -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>

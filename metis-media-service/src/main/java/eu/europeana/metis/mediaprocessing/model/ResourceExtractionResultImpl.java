@@ -1,19 +1,13 @@
 package eu.europeana.metis.mediaprocessing.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class contains the result of a resource extraction, consisting of metadata and thumbnails.
  */
 public class ResourceExtractionResultImpl implements ResourceExtractionResult {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ResourceExtractionResultImpl.class);
 
   private final AbstractResourceMetadata metadata;
 
@@ -62,27 +56,9 @@ public class ResourceExtractionResultImpl implements ResourceExtractionResult {
   }
 
   @Override
-  public void close() throws IOException {
-
-    // Sanity check.
-    if (thumbnails == null) {
-      return;
-    }
-
-    // Save the first exception
-    IOException exception = null;
-    for (Thumbnail thumbnail : thumbnails) {
-      try {
-        thumbnail.close();
-      } catch (IOException e) {
-        exception = Optional.ofNullable(exception).orElse(e);
-        LOGGER.warn("Could not close thumbnail: {}", thumbnail.getResourceUrl(), e);
-      }
-    }
-
-    // If there is an exception, throw it.
-    if (exception != null) {
-      throw exception;
+  public void close() {
+    if (thumbnails != null) {
+      thumbnails.forEach(Thumbnail::close);
     }
   }
 }

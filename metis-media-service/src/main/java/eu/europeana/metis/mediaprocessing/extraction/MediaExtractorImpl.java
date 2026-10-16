@@ -86,7 +86,7 @@ public class MediaExtractorImpl implements MediaExtractor {
    * @param redirectCount The maximum number of times we will follow a redirect.
    * @param thumbnailGenerateTimeout Retained for API compatibility; Java image and PDF processing have no command timeout.
    * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe command is allowed to take before
-   * it is forcibly destroyed (i.e. cancelled).
+   * it is forcibly destroyed (i.e., cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
@@ -110,7 +110,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.tika = new TikaWrapper();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
-    this.textProcessor = new TextProcessor(thumbnailGenerator, new PdfToImageConverter());
+    this.textProcessor = new TextProcessor(new PdfProcessor(thumbnailGenerator));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
     this.iiifProcessor = new IIIFProcessor(thumbnailGenerator);
