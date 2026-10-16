@@ -74,13 +74,17 @@ public class ThumbnailGenerator {
     return new ResampleOp(width, height, ResampleOp.FILTER_LANCZOS).filter(image, null);
   }
 
-  void encodeThumbnail(BufferedImage image, ThumbnailImpl thumbnail) throws IOException {
+  void encodeThumbnail(BufferedImage bufferedImage, ThumbnailImpl thumbnail) throws IOException {
     if (PNG_MIME_TYPE.equals(thumbnail.getMimeType())) {
-      thumbnail.markAsWithContent(encodeImage(image, "png"));
+      thumbnail.markAsWithContent(encodeImage(bufferedImage, "png"));
+      return;
+    }
+    if (bufferedImage.getType() == BufferedImage.TYPE_INT_RGB) {
+      thumbnail.markAsWithContent(encodeImage(bufferedImage, "jpeg"));
       return;
     }
     // JPEG writers require an RGB image. Composite transparency on white for opaque output.
-    final BufferedImage rgb = onWhite(image);
+    final BufferedImage rgb = onWhite(bufferedImage);
     try {
       thumbnail.markAsWithContent(encodeImage(rgb, "jpeg"));
     } finally {
