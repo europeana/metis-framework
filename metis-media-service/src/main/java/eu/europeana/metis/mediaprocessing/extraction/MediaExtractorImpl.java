@@ -84,15 +84,14 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Constructor for non-testing purposes.
    *
    * @param redirectCount The maximum number of times we will follow a redirect.
-   * @param thumbnailGenerateTimeout Retained for API compatibility; Java image and PDF processing have no command timeout.
-   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe command is allowed to take before
+   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, an audio/video probe command is allowed to take before
    * it is forcibly destroyed (i.e., cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
-  public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
+  public MediaExtractorImpl(int redirectCount,
       int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
       throws MediaProcessorException {
     final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
