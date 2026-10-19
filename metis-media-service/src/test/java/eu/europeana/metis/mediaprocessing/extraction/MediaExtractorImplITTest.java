@@ -80,7 +80,7 @@ class MediaExtractorImplITTest {
     //used internally for testing purposes
   }
 
-  @Disabled("Enable media-processing tools (image-magick, ghostscript, etc) first on metis-actions for the build.")
+  @Disabled("It uses external resources, perhaps it should be caching them")
   @ParameterizedTest(name = "{index} => record={0}, expected-resource{1}")
   @MethodSource
   void testMediaExtraction_ResourceAndMimeType(String resourcePath,

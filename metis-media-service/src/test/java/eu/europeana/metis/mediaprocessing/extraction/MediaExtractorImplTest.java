@@ -60,7 +60,6 @@ class MediaExtractorImplTest {
 
   private static ResourceDownloadClient resourceDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
-  private static CommandExecutor commandExecutor;
   private static TikaWrapper tika;
 
   private static ImageProcessor imageProcessor;
@@ -81,7 +80,6 @@ class MediaExtractorImplTest {
   static void prepare() {
     resourceDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
-    commandExecutor = mock(CommandExecutor.class);
     tika = mock(TikaWrapper.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
@@ -95,7 +93,7 @@ class MediaExtractorImplTest {
 
   @BeforeEach
   void resetMocks() {
-    reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
+    reset(resourceDownloadClient, mimeTypeDetectHttpClient, tika, imageProcessor,
         audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor, iiifProcessor);
   }
 

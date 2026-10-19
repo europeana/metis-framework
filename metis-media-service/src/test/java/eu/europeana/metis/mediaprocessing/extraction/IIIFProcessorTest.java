@@ -32,6 +32,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +40,6 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,7 +71,7 @@ class IIIFProcessorTest {
 
   @BeforeEach
   void resetMocks() {
-    reset(thumbnailGenerator);
+    reset(thumbnailGenerator, iiifProcessor);
   }
 
   @Test
@@ -142,13 +141,12 @@ class IIIFProcessorTest {
     final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
     doReturn("thumbnail 2").when(thumbnail2).getTargetName();
 
-    // Define output and mock thumbnail generator - resource type for which metadata is generated.
-    final ImageMetadata imageMetadata = new ImageMetadata(3710, 3088, "sRGB",
-        Arrays.asList("123456", "654321"));
-    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata = new ImmutablePair<>(
-        imageMetadata, Arrays.asList(thumbnail1, thumbnail2));
-    doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
-                                   .generateThumbnails(url, detectedMimeType, content, false);
+    // Stub image processing to verify the IIIF metadata overrides independently.
+    final List<Thumbnail> thumbnails = Arrays.asList(thumbnail1, thumbnail2);
+    final ImageResourceMetadata imageMetadata = new ImageResourceMetadata(detectedMimeType, url, 1234L,
+        123, 321, ColorSpaceType.S_RGB, Arrays.asList("123456", "654321"), thumbnails);
+    final ResourceExtractionResultImpl imageResult = new ResourceExtractionResultImpl(imageMetadata, thumbnails);
+    doReturn(imageResult).when(iiifProcessor).processImage(url, detectedMimeType, content, 1234L);
 
     // Call method
     final ResourceExtractionResultImpl result = iiifProcessor.extractMetadata(resource, detectedMimeType, true);
@@ -164,10 +162,10 @@ class IIIFProcessorTest {
     assertNull(metadata.getContentSize());
 
     // Verify result metadata image specific properties
-    assertEquals(Integer.valueOf(imageMetadata.getWidth()), metadata.getWidth());
-    assertEquals(Integer.valueOf(imageMetadata.getHeight()), metadata.getHeight());
-    assertEquals(imageMetadata.getColorSpace(), metadata.getColorSpace().xmlValue());
-    assertEquals(imageMetadata.getDominantColors().stream().map(color -> "#" + color).toList(), metadata.getDominantColors());
+    assertEquals(iiifInfoJson.getWidth(), metadata.getWidth());
+    assertEquals(iiifInfoJson.getHeight(), metadata.getHeight());
+    assertEquals(imageMetadata.getColorSpace(), metadata.getColorSpace());
+    assertEquals(imageMetadata.getDominantColors(), metadata.getDominantColors());
 
 
     // Check for resource with no content

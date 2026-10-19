@@ -1,9 +1,10 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doReturn;
@@ -19,20 +20,19 @@ import eu.europeana.metis.mediaprocessing.model.RdfResourceKind;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.ResourceImpl;
-import eu.europeana.metis.mediaprocessing.model.Thumbnail;
-import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
-import java.util.List;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ImageProcessorTest {
 
@@ -47,7 +47,7 @@ class ImageProcessorTest {
 
   @BeforeEach
   void resetMocks() {
-    reset(thumbnailGenerator);
+    reset(thumbnailGenerator, imageProcessor);
   }
 
   @Test
@@ -78,10 +78,10 @@ class ImageProcessorTest {
     assertEquals(url, result.getOriginalMetadata().getResourceUrl());
     assertNull(result.getThumbnails());
     assertTrue(result.getOriginalMetadata().getThumbnailTargetNames().isEmpty());
-    assertTrue(((ImageResourceMetadata)result.getOriginalMetadata()).getDominantColors().isEmpty());
-    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getColorSpace());
-    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getHeight());
-    assertNull(((ImageResourceMetadata)result.getOriginalMetadata()).getWidth());
+    assertTrue(((ImageResourceMetadata) result.getOriginalMetadata()).getDominantColors().isEmpty());
+    assertNull(((ImageResourceMetadata) result.getOriginalMetadata()).getColorSpace());
+    assertNull(((ImageResourceMetadata) result.getOriginalMetadata()).getHeight());
+    assertNull(((ImageResourceMetadata) result.getOriginalMetadata()).getWidth());
   }
 
   @Test
@@ -99,41 +99,13 @@ class ImageProcessorTest {
     doReturn(1234L).when(resource).getContentSize();
     doReturn(content).when(resource).getContentFile();
 
-    // Define thumbnails
-    final ThumbnailImpl thumbnail1 = mock(ThumbnailImpl.class);
-    doReturn("thumbnail 1").when(thumbnail1).getTargetName();
-    final ThumbnailImpl thumbnail2 = mock(ThumbnailImpl.class);
-    doReturn("thumbnail 2").when(thumbnail1).getTargetName();
+    // The processing method already returns the complete extraction result.
+    final ResourceExtractionResultImpl expected = mock(ResourceExtractionResultImpl.class);
+    doReturn(expected).when(imageProcessor).processImage(url, detectedMimeType, content, 1234L);
 
-    // Define output and mock thumbnail generator - resource type for which metadata is generated.
-    final ImageMetadata imageMetadata = new ImageMetadata(123, 321, "sRGB",
-        Arrays.asList("123456", "654321"));
-    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata = new ImmutablePair<>(
-        imageMetadata, Arrays.asList(thumbnail1, thumbnail2));
-    doReturn(thumbnailsAndMetadata).when(thumbnailGenerator)
-        .generateThumbnails(url, detectedMimeType, content, false);
-
-    // Call method
-    final ResourceExtractionResultImpl result = imageProcessor.extractMetadata(resource, detectedMimeType, true);
-
-    // Verify result metadata general properties
-    assertInstanceOf(ImageResourceMetadata.class, result.getOriginalMetadata());
-    final ImageResourceMetadata metadata = (ImageResourceMetadata) result.getOriginalMetadata();
-    assertEquals(rdfResourceEntry.getResourceUrl(), metadata.getResourceUrl());
-    assertEquals(detectedMimeType, metadata.getMimeType());
-    assertEquals(2, metadata.getThumbnailTargetNames().size());
-    assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail1.getTargetName()));
-    assertTrue(metadata.getThumbnailTargetNames().contains(thumbnail2.getTargetName()));
-    assertEquals(resource.getContentSize(), metadata.getContentSize());
-
-    // Verify result metadata image specific properties
-    assertEquals(Integer.valueOf(imageMetadata.getWidth()), metadata.getWidth());
-    assertEquals(Integer.valueOf(imageMetadata.getHeight()), metadata.getHeight());
-    assertEquals(imageMetadata.getColorSpace(), metadata.getColorSpace().xmlValue());
-    assertEquals(imageMetadata.getDominantColors().stream().map(color -> "#" + color).toList(), metadata.getDominantColors());
-
-    // Verify result thumbnails
-    assertEquals(thumbnailsAndMetadata.getRight(), result.getThumbnails());
+    final ResourceExtractionResultImpl resourceExtractionResult = imageProcessor.extractMetadata(resource, detectedMimeType,
+        true);
+    assertSame(expected, resourceExtractionResult);
 
     // Check for resource with no content
     doReturn(false).when(resource).hasContent();
@@ -153,5 +125,29 @@ class ImageProcessorTest {
 
     // Check that all is well again.
     assertNotNull(imageProcessor.extractMetadata(resource, detectedMimeType, true));
+  }
+
+  @Test
+  void rejectsNullContent() {
+    assertThrows(MediaExtractionException.class,
+        () -> imageProcessor.processImage("test", "image/png", null, null));
+  }
+
+  @Test
+  void rejectsNonImageInputs() {
+    assertThrows(MediaExtractionException.class,
+        () -> imageProcessor.processImage("test", "application/pdf", new File("unused"), null));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"image/vnd.djvu", "image/x-djvu", "image/x.djvu"})
+  void rejectsDjvuThroughUnsupportedReader(String mimeType, @TempDir Path directory) throws IOException {
+    final Path content = directory.resolve("image.djvu");
+    Files.write(content, new byte[]{'A', 'T', '&', 'T', 'F', 'O', 'R', 'M', 0, 0, 0, 4, 'D', 'J', 'V', 'U'});
+    final ImageProcessor processor = new ImageProcessor(new ThumbnailGenerator());
+    final MediaExtractionException exception = assertThrows(MediaExtractionException.class,
+        () -> processor.processImage("test", mimeType, content.toFile(), Files.size(content)));
+    final IOException cause = assertInstanceOf(IOException.class, exception.getCause());
+    assertTrue(cause.getMessage().startsWith("No ImageIO reader supports image:"));
   }
 }
