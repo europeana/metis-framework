@@ -21,7 +21,9 @@ class ImageDecoder {
   private static final int THUMBNAIL_OVERSAMPLE_FACTOR = 2;
 
   /**
-   * Decodes the image or renders an SVG. The caller must close the returned image.
+   * Decodes the image or renders an SVG.
+   * <p>
+   * Note: The caller must close the returned image.
    *
    * @param content The original image file.
    * @param maximumWidth The largest requested thumbnail width.
