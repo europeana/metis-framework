@@ -8,38 +8,51 @@ import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.metadata.IIOMetadata;
 import org.w3c.dom.Node;
 
-/** Reads the source colour-space family without inspecting decoded or resized pixels. */
+/**
+ * Reads the source colour-space family.
+ */
 class ImageColorSpaceReader {
 
+  /**
+   * Reads the source color space family from the provided {@link ImageReader}. The method determines the color space by
+   * inspecting available metadata or fallback mechanisms based on the image type and associated color model.
+   *
+   * @param reader the {@link ImageReader} used to read image metadata and type specifications.
+   * @return the {@link ColorSpaceType} representing the color space family of the image.
+   * @throws IOException if an I/O error occurs while reading the image metadata or type information.
+   */
   ColorSpaceType read(ImageReader reader) throws IOException {
-    final IIOMetadata metadata = reader.getImageMetadata(0);
-    if (metadata != null && metadata.isStandardMetadataFormatSupported()) {
-      final Node tree = metadata.getAsTree("javax_imageio_1.0");
-      final Node chroma = child(tree, "Chroma");
-      final Node type = child(chroma, "ColorSpaceType");
-      if (type != null) {
-        final String name = type.getAttributes().getNamedItem("name").getNodeValue();
-        return switch (name) {
-          case "GRAY" -> ColorSpaceType.GRAYSCALE;
-          case "CMYK", "YCCK" -> ColorSpaceType.CMYK;
-          case "CMY" -> ColorSpaceType.CMY;
-          case "Lab" -> ColorSpaceType.LAB;
-          case "Luv" -> ColorSpaceType.LUV;
-          case "XYZ" -> ColorSpaceType.XYZ;
-          case "Yxy" -> ColorSpaceType.XY_Y;
-          case "HSV" -> ColorSpaceType.HSV;
-          case "HLS" -> ColorSpaceType.HSL;
-          // Preserve the existing broad RGB/sRGB classification for RGB and JPEG encodings.
-          case "RGB", "YCbCr", "PhotoYCC" -> rgbColorSpace(reader);
-          // An unknown source space must not become RGB just because the decoder offers RGB output.
-          default -> ColorSpaceType.OTHER;
-        };
-      }
-    }
+    final String name = standardColorSpaceName(reader.getImageMetadata(0));
+    return name != null ? fromStandardMetadata(name, reader) : fromRawType(reader.getRawImageType(0));
+  }
 
-    // Readers may omit standard metadata (for example, SVG). Consult their source image type,
-    // which may include an embedded ICC profile, rather than the converted BufferedImage.
-    final ImageTypeSpecifier type = reader.getRawImageType(0);
+  private String standardColorSpaceName(IIOMetadata metadata) {
+    if (metadata == null || !metadata.isStandardMetadataFormatSupported()) {
+      return null;
+    }
+    final Node tree = metadata.getAsTree("javax_imageio_1.0");
+    final Node type = child(child(tree, "Chroma"), "ColorSpaceType");
+    return type == null ? null : type.getAttributes().getNamedItem("name").getNodeValue();
+  }
+
+  private ColorSpaceType fromStandardMetadata(String name, ImageReader reader) throws IOException {
+    return switch (name) {
+      case "GRAY" -> ColorSpaceType.GRAYSCALE;
+      case "CMYK", "YCCK" -> ColorSpaceType.CMYK;
+      case "CMY" -> ColorSpaceType.CMY;
+      case "Lab" -> ColorSpaceType.LAB;
+      case "Luv" -> ColorSpaceType.LUV;
+      case "XYZ" -> ColorSpaceType.XYZ;
+      case "Yxy" -> ColorSpaceType.XY_Y;
+      case "HSV" -> ColorSpaceType.HSV;
+      case "HLS" -> ColorSpaceType.HSL;
+      case "RGB", "YCbCr" -> rgbColorSpace(reader);
+      case "PhotoYCC" -> ColorSpaceType.YCC;
+      default -> ColorSpaceType.OTHER;
+    };
+  }
+
+  private ColorSpaceType fromRawType(ImageTypeSpecifier type) {
     if (type == null) {
       return ColorSpaceType.OTHER;
     }
@@ -52,7 +65,7 @@ class ImageColorSpaceReader {
       case ColorSpace.TYPE_Luv -> ColorSpaceType.LUV;
       case ColorSpace.TYPE_XYZ -> ColorSpaceType.XYZ;
       case ColorSpace.TYPE_Yxy -> ColorSpaceType.XY_Y;
-      case ColorSpace.TYPE_YCbCr -> ColorSpaceType.S_RGB;
+      case ColorSpace.TYPE_YCbCr -> ColorSpaceType.Y_CB_CR;
       case ColorSpace.TYPE_RGB -> rgbColorSpace(colorSpace);
       case ColorSpace.TYPE_HSV -> ColorSpaceType.HSV;
       case ColorSpace.TYPE_HLS -> ColorSpaceType.HSL;
@@ -66,8 +79,7 @@ class ImageColorSpaceReader {
   }
 
   private ColorSpaceType rgbColorSpace(ColorSpace colorSpace) {
-    // Retain the existing broad RGB/sRGB classification; this does not report an ICC profile's name.
-    return colorSpace.equals(ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB)) ? ColorSpaceType.RGB : ColorSpaceType.S_RGB;
+    return colorSpace.isCS_sRGB() ? ColorSpaceType.S_RGB : ColorSpaceType.RGB;
   }
 
   private Node child(Node parent, String name) {
