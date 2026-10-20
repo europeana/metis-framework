@@ -45,7 +45,7 @@ final class ImageTestUtils {
     return path;
   }
 
-  static Path copyFixture(Path directory, String name) throws IOException {
+  static Path copyFile(Path directory, String name) throws IOException {
     final Path path = directory.resolve(Path.of(name).getFileName());
     try (InputStream input = ImageTestUtils.class.getResourceAsStream("/images/" + name)) {
       assertNotNull(input, "Missing image fixture: " + name);
@@ -64,10 +64,10 @@ final class ImageTestUtils {
         ? new byte[]{(byte) 0x89, 'P', 'N', 'G', 13, 10, 26, 10}
         : new byte[]{(byte) 0xff, (byte) 0xd8, (byte) 0xff};
     assertArrayEquals(signature, Arrays.copyOf(bytes, signature.length), "Encoded format must match thumbnail MIME type");
-    final BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
-    assertNotNull(image);
-    assertEquals(width, image.getWidth());
-    assertEquals(height, image.getHeight());
-    return image;
+    final BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(bytes));
+    assertNotNull(bufferedImage);
+    assertEquals(width, bufferedImage.getWidth());
+    assertEquals(height, bufferedImage.getHeight());
+    return bufferedImage;
   }
 }

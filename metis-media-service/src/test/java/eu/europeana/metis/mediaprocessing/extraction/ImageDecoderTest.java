@@ -1,6 +1,6 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.copyFixture;
+import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.copyFile;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.createImageWithRedLeftHalf;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.writeImage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,7 +58,7 @@ class ImageDecoderTest {
 
   @Test
   void retainsCmykSourceMetadataWhenPixelsAreConvertedToRgb() throws Exception {
-    final Path source = copyFixture(directory, "color-spaces/cmyk.jpeg");
+    final Path source = copyFile(directory, "color-spaces/cmyk.jpeg");
     try (DecodedImageAndMetadata decoded = imageDecoder.decode(source.toFile(), 400)) {
       assertEquals(ColorSpaceType.CMYK, decoded.colorSpace());
       assertTrue(decoded.image().getColorModel().getColorSpace().isCS_sRGB());
