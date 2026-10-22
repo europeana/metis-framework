@@ -51,17 +51,17 @@ class PdfProcessor {
     }
   }
 
-  PDDocument openDocument(Path content) throws IOException {
-    return Loader.loadPDF(content.toFile(), IOUtils.createTempFileOnlyStreamCache());
+  PDDocument openDocument(Path path) throws IOException {
+    return Loader.loadPDF(path.toFile(), IOUtils.createTempFileOnlyStreamCache());
   }
 
   BufferedImage renderFirstPage(PDDocument pdDocument) throws IOException {
     if (pdDocument.getNumberOfPages() == 0) {
       throw new IOException("PDF has no pages");
     }
-    final PDFRenderer renderer = new PDFRenderer(pdDocument);
-    renderer.setSubsamplingAllowed(true);
-    return renderer.renderImageWithDPI(0, PREVIEW_DPI, ImageType.RGB);
+    final PDFRenderer pdfRenderer = new PDFRenderer(pdDocument);
+    pdfRenderer.setSubsamplingAllowed(true);
+    return pdfRenderer.renderImageWithDPI(0, PREVIEW_DPI, ImageType.RGB);
   }
 
   record PdfResult(boolean containsText, Integer resolution, List<Thumbnail> thumbnails) {
