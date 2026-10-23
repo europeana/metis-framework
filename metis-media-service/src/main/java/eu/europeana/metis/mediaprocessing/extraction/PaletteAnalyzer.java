@@ -17,6 +17,7 @@ import java.util.Map;
 class PaletteAnalyzer {
 
   private static final int MAX_COLORS = 6;
+  static final int OPAQUE_ALPHA = 255;
 
   //Note: Perhaps we can use an adaptive palette instead. That might improve the results.
   // The 138 distinct RGB colours from the former colormap.png, in the same sorted order.
@@ -52,8 +53,9 @@ class PaletteAnalyzer {
   }
 
   /**
-   * Calculates the color histogram of a given image by mapping its colors to a predefined palette and counting the occurrences of
-   * each mapped color.
+   * Calculates an opacity-weighted color histogram by mapping image colors to a predefined palette.
+   * Fully transparent pixels contribute nothing; opaque pixels contribute {@value #OPAQUE_ALPHA} and partial transparency contributes
+   * proportionally. These integer weights avoid rounding away faint pixels.
    * <p>
    * Diffusion dithering introduces extra colours and randomized errors. For dominant-colour analysis, direct mapping is
    * deterministic and stays closer to the legacy histograms.
@@ -61,15 +63,17 @@ class PaletteAnalyzer {
    * @param image The input image for which the histogram is computed. The image is converted to indexed color using a predefined
    * palette before calculating the histogram.
    * @return A map where the keys are color codes (hexadecimal RGB values in the format of "RRGGBB") from the palette, and the
-   * values are the number of times each color appears in the image.
+   * values are the summed alpha weights for each color.
    */
   Map<String, Long> histogram(BufferedImage image) {
     final BufferedImage rgb = ImageUtil.toBuffered(image, BufferedImage.TYPE_INT_RGB);
     final BufferedImage indexed = ImageUtil.createIndexed(rgb, palette, null, ImageUtil.DITHER_NONE);
+    final boolean hasAlpha = image.getColorModel().hasAlpha();
     final long[] counts = new long[palette.getMapSize()];
     for (int y = 0; y < indexed.getHeight(); y++) {
       for (int x = 0; x < indexed.getWidth(); x++) {
-        counts[indexed.getRaster().getSample(x, y, 0)]++;
+        final int weight = hasAlpha ? (image.getRGB(x, y) >>> 24) : OPAQUE_ALPHA;
+        counts[indexed.getRaster().getSample(x, y, 0)] += weight;
       }
     }
     final Map<String, Long> histogram = new HashMap<>();

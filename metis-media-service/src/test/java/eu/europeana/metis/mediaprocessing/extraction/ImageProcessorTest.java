@@ -4,6 +4,9 @@ import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.asser
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.copyFile;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.createImageWithRedLeftHalf;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.writeImage;
+import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzer.OPAQUE_ALPHA;
+import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzerTest.BLUE_HEX;
+import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzerTest.RED_HEX;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -240,38 +243,52 @@ class ImageProcessorTest {
       final BufferedImage bufferedImage = assertThumbnail(resourceExtractionResult.getThumbnails().get(1), thumbnailWidth,
           (int) Math.round(100.0 * thumbnailWidth / width));
       assertEquals(0, bufferedImage.getRGB(thumbnailWidth * 3 / 4, bufferedImage.getHeight() / 2) >>> 24);
-      assertEquals(255, bufferedImage.getRGB(thumbnailWidth / 4, bufferedImage.getHeight() / 2) >>> 24);
+      assertEquals(OPAQUE_ALPHA, bufferedImage.getRGB(thumbnailWidth / 4, bufferedImage.getHeight() / 2) >>> 24);
+      final ImageResourceMetadata metadata = (ImageResourceMetadata) resourceExtractionResult.getOriginalMetadata();
+      assertEquals("#" + RED_HEX, metadata.getDominantColors().getFirst());
+    }
+  }
+
+  @Test
+  void excludesInvisibleColorsFromPngMetadata() throws Exception {
+    final BufferedImage bufferedImage = createImageWithRedLeftHalf(125, 100, true);
+    final Path source = writeImage(directory.resolve("transparent.png"), bufferedImage, "png");
+    try (ResourceExtractionResultImpl resourceExtractionResult = processImage(source, "image/png")) {
+      final ImageResourceMetadata imageResourceMetadata = (ImageResourceMetadata) resourceExtractionResult.getOriginalMetadata();
+      assertEquals(List.of("#" + RED_HEX), imageResourceMetadata.getDominantColors());
     }
   }
 
   @Test
   void flattensTransparentGifOnWhite() throws Exception {
-    final Path source = writeImage(directory.resolve("transparent.gif"), createImageWithRedLeftHalf(125, 75, true), "gif");
-    try (ResourceExtractionResultImpl result = processImage(source, "image/gif")) {
+    final Path path = writeImage(directory.resolve("transparent.gif"), createImageWithRedLeftHalf(125, 75, true), "gif");
+    try (ResourceExtractionResultImpl result = processImage(path, "image/gif")) {
       final BufferedImage image = assertThumbnail(result.getThumbnails().get(1), 125, 75);
       final Color background = new Color(image.getRGB(100, 35));
       assertTrue(background.getRed() > 240 && background.getGreen() > 240 && background.getBlue() > 240);
+      final ImageResourceMetadata imageResourceMetadata = (ImageResourceMetadata) result.getOriginalMetadata();
+      assertEquals(List.of("#" + RED_HEX), imageResourceMetadata.getDominantColors());
     }
   }
 
   @Test
   void includesDominantColorsWithoutUpscalingTinyImageForAnalysis() throws Exception {
-    final Path source = writeImage(directory.resolve("tiny.png"), createImageWithRedLeftHalf(2, 1, false), "png");
-    try (ResourceExtractionResultImpl resourceExtractionResult = processImage(source, "image/png")) {
+    final Path path = writeImage(directory.resolve("tiny.png"), createImageWithRedLeftHalf(2, 1, false), "png");
+    try (ResourceExtractionResultImpl resourceExtractionResult = processImage(path, "image/png")) {
       final ImageResourceMetadata imageResourceMetadata = (ImageResourceMetadata) resourceExtractionResult.getOriginalMetadata();
-      assertEquals(List.of("#FF0000", "#0000FF"), imageResourceMetadata.getDominantColors());
+      assertEquals(List.of("#" + RED_HEX, "#" + BLUE_HEX), imageResourceMetadata.getDominantColors());
     }
   }
 
   @Test
   void rasterizesSmallSvgIntoJpegThumbnails() throws Exception {
-    final Path source = directory.resolve("small.svg");
-    Files.writeString(source, """
+    final Path path = directory.resolve("small.svg");
+    Files.writeString(path, """
         <svg xmlns="http://www.w3.org/2000/svg" width="125" height="75" viewBox="0 0 12.5 7.5">
           <rect width="12.5" height="7.5" fill="red"/>
         </svg>
         """);
-    try (ResourceExtractionResultImpl resourceExtractionResult = processImage(source, "image/svg+xml")) {
+    try (ResourceExtractionResultImpl resourceExtractionResult = processImage(path, "image/svg+xml")) {
       final ImageResourceMetadata imageResourceMetadata = (ImageResourceMetadata) resourceExtractionResult.getOriginalMetadata();
       assertEquals(125, imageResourceMetadata.getWidth());
       assertEquals(75, imageResourceMetadata.getHeight());
@@ -283,7 +300,7 @@ class ImageProcessorTest {
 
   @Test
   void clearsEncodedThumbnailsWhenLargestResizeFails() throws Exception {
-    final Path source = copyFile(directory, "processing/source.png");
+    final Path path = copyFile(directory, "processing/source.png");
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("test", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("test", "image/png");
@@ -292,7 +309,7 @@ class ImageProcessorTest {
     final MediaExtractionException failure = assertThrows(MediaExtractionException.class,
         () -> {
           try (ResourceExtractionResultImpl resourceExtractionResult = new ImageProcessor(thumbnailGenerator).processImage("test",
-              "image/png", source.toFile(), Files.size(source))) {
+              "image/png", path.toFile(), Files.size(path))) {
             assertNotNull(resourceExtractionResult);
           }
         });
@@ -302,7 +319,7 @@ class ImageProcessorTest {
 
   @Test
   void clearsEncodedThumbnailsWhenSecondEncodingFails() throws Exception {
-    final Path source = copyFile(directory, "processing/source.png");
+    final Path path = copyFile(directory, "processing/source.png");
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
     final var thumbnails = thumbnailGenerator.prepareThumbnails("test", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("test", "image/png");
@@ -311,7 +328,7 @@ class ImageProcessorTest {
     final MediaExtractionException failure = assertThrows(MediaExtractionException.class,
         () -> {
           try (ResourceExtractionResultImpl resourceExtractionResult = new ImageProcessor(thumbnailGenerator).processImage("test",
-              "image/png", source.toFile(), Files.size(source))) {
+              "image/png", path.toFile(), Files.size(path))) {
             assertNotNull(resourceExtractionResult);
           }
         });
@@ -342,10 +359,10 @@ class ImageProcessorTest {
 
   @Test
   void wrapsUnsupportedImageAsExtractionFailure() throws Exception {
-    final Path source = directory.resolve("unsupported.image");
-    Files.writeString(source, "not a supported image");
+    final Path path = directory.resolve("unsupported.image");
+    Files.writeString(path, "not a supported image");
     final MediaExtractionException mediaExtractionException = assertThrows(MediaExtractionException.class, () -> {
-          try (ResourceExtractionResultImpl resourceExtractionResult = processImage(source, "image/unknown")) {
+          try (ResourceExtractionResultImpl resourceExtractionResult = processImage(path, "image/unknown")) {
             assertNotNull(resourceExtractionResult);
           }
         }
@@ -392,14 +409,14 @@ class ImageProcessorTest {
       final int index = i % sources.size();
       final String url = "image-" + i;
       jobs.add(() -> {
-        final Path source = sources.get(index);
+        final Path path = sources.get(index);
         try (ResourceExtractionResultImpl resourceExtractionResult =
-            processor.processImage(url, mimeTypes.get(index), source.toFile(), Files.size(source))) {
+            processor.processImage(url, mimeTypes.get(index), path.toFile(), Files.size(path))) {
           assertEquals(url, resourceExtractionResult.getOriginalMetadata().getResourceUrl());
           assertThumbnail(resourceExtractionResult.getThumbnails().get(0), 200, 100);
           assertThumbnail(resourceExtractionResult.getThumbnails().get(1), 400, 200);
           final ImageResourceMetadata imageResourceMetadata = (ImageResourceMetadata) resourceExtractionResult.getOriginalMetadata();
-          assertEquals(Set.of("#FF0000", "#0000FF"), new HashSet<>(imageResourceMetadata.getDominantColors().subList(0, 2)));
+          assertEquals(Set.of("#" + RED_HEX, "#" + BLUE_HEX), new HashSet<>(imageResourceMetadata.getDominantColors().subList(0, 2)));
         }
         return null;
       });
