@@ -2,6 +2,7 @@ package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.IIIFResource;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;

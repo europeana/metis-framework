@@ -1,7 +1,10 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.ImageDecoder.DecodedImageAndMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.image.ImageDecoder;
+import eu.europeana.metis.mediaprocessing.extraction.image.ImageDecoder.DecodedImageAndMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzer;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;

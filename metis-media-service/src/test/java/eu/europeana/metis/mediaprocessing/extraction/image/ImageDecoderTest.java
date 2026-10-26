@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.copyFile;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.createImageWithRedLeftHalf;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.mediaprocessing.extraction.ImageDecoder.DecodedImageAndMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.image.ImageDecoder.DecodedImageAndMetadata;
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import java.awt.Color;
 import java.awt.image.BufferedImage;

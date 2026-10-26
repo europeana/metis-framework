@@ -18,12 +18,12 @@ import java.util.Arrays;
 import java.util.Set;
 import javax.imageio.ImageIO;
 
-final class ImageTestUtils {
+public final class ImageTestUtils {
 
   private ImageTestUtils() {
   }
 
-  static BufferedImage createImageWithRedLeftHalf(int width, int height, boolean transparent) {
+  public static BufferedImage createImageWithRedLeftHalf(int width, int height, boolean transparent) {
     final BufferedImage image = new BufferedImage(width, height,
         transparent ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB);
     final Graphics2D graphics = image.createGraphics();
@@ -40,12 +40,12 @@ final class ImageTestUtils {
     return image;
   }
 
-  static Path writeImage(Path path, BufferedImage image, String format) throws IOException {
+  public static Path writeImage(Path path, BufferedImage image, String format) throws IOException {
     assertTrue(ImageIO.write(image, format, path.toFile()), "No test image writer for " + format);
     return path;
   }
 
-  static Path copyFile(Path directory, String name) throws IOException {
+  public static Path copyFile(Path directory, String name) throws IOException {
     final Path path = directory.resolve(Path.of(name).getFileName());
     try (InputStream input = ImageTestUtils.class.getResourceAsStream("/images/" + name)) {
       assertNotNull(input, "Missing image fixture: " + name);
@@ -54,7 +54,7 @@ final class ImageTestUtils {
     return path;
   }
 
-  static BufferedImage assertThumbnail(Thumbnail thumbnail, int width, int height) throws IOException {
+  public static BufferedImage assertThumbnail(Thumbnail thumbnail, int width, int height) throws IOException {
     final byte[] bytes;
     try (InputStream input = thumbnail.getContentStream()) {
       bytes = input.readAllBytes();

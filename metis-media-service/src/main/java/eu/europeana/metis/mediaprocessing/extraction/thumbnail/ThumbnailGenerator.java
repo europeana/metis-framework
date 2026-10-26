@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.thumbnail;
 
 import com.twelvemonkeys.image.ResampleOp;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
@@ -42,7 +42,7 @@ public class ThumbnailGenerator {
    * @throws MediaExtractionException If an error occurs during thumbnail preparation, resizing, encoding,
    *                                  or due to any other unexpected runtime issue.
    */
-  List<Thumbnail> generatePdfThumbnails(String url, BufferedImage pdfPage) throws MediaExtractionException {
+  public List<Thumbnail> generatePdfThumbnails(String url, BufferedImage pdfPage) throws MediaExtractionException {
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = prepareThumbnails(url, PNG_MIME_TYPE);
     BufferedImage source = pdfPage;
     try {
@@ -68,13 +68,13 @@ public class ThumbnailGenerator {
     }
   }
 
-  BufferedImage resize(BufferedImage image, int originalWidth, int originalHeight, ThumbnailKind thumbnailKind) {
+  public BufferedImage resize(BufferedImage image, int originalWidth, int originalHeight, ThumbnailKind thumbnailKind) {
     final int width = thumbnailKind.getImageSize();
     final int height = Math.max(1, (int) Math.round((double) originalHeight * width / originalWidth));
     return new ResampleOp(width, height, ResampleOp.FILTER_LANCZOS).filter(image, null);
   }
 
-  void encodeThumbnail(BufferedImage bufferedImage, ThumbnailImpl thumbnail) throws IOException {
+  public void encodeThumbnail(BufferedImage bufferedImage, ThumbnailImpl thumbnail) throws IOException {
     if (PNG_MIME_TYPE.equals(thumbnail.getMimeType())) {
       thumbnail.markAsWithContent(encodeImage(bufferedImage, "png"));
       return;
@@ -116,7 +116,7 @@ public class ThumbnailGenerator {
     return output.toByteArray();
   }
 
-  EnumMap<ThumbnailKind, ThumbnailImpl> prepareThumbnails(String url, String detectedMimeType) throws MediaExtractionException {
+  public EnumMap<ThumbnailKind, ThumbnailImpl> prepareThumbnails(String url, String detectedMimeType) throws MediaExtractionException {
     final String thumbnailMimeType = PNG_MIME_TYPE.equals(detectedMimeType) ? PNG_MIME_TYPE : JPEG_MIME_TYPE;
     final String md5 = md5Hex(url);
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = new EnumMap<>(ThumbnailKind.class);

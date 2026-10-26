@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import java.awt.color.ColorSpace;

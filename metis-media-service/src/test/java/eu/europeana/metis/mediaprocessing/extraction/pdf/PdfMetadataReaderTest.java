@@ -1,11 +1,11 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.pdf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import eu.europeana.metis.mediaprocessing.extraction.PdfMetadataReader.PdfMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfMetadataReader.PdfMetadata;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

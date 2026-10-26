@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.pdf;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -1,6 +1,6 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
-import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzer.OPAQUE_ALPHA;
+import static eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzer.OPAQUE_ALPHA;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,7 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class PaletteAnalyzerTest {
+public class PaletteAnalyzerTest {
 
   private static final int RGB_MASK = 0x00FFFFFF;
   private static final Color GRAY_100 = new Color(100, 100, 100);
@@ -30,8 +30,8 @@ class PaletteAnalyzerTest {
   private static final int QUARTER_OPAQUE_RED = withAlpha(Color.RED, 64);
   private static final int FAINT_RED = withAlpha(Color.RED, 1);
 
-  static final String RED_HEX = "FF0000";
-  static final String BLUE_HEX = "0000FF";
+  public static final String RED_HEX = "FF0000";
+  public static final String BLUE_HEX = "0000FF";
 
   private static final String GREEN_HEX = "00FF00";
   private static final String BLACK_HEX = "000000";

@@ -1,7 +1,8 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.pdf;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.PdfMetadataReader.PdfMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfMetadataReader.PdfMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,17 +18,17 @@ import org.apache.pdfbox.rendering.PDFRenderer;
  * The PdfProcessor class provides functionality for processing PDF documents. It includes methods for extracting metadata,
  * rendering the first page, and generating thumbnails for a PDF document.
  */
-class PdfProcessor {
+public class PdfProcessor {
 
   private static final int PREVIEW_DPI = 72;
 
   private final ThumbnailGenerator thumbnailGenerator;
 
-  PdfProcessor(ThumbnailGenerator thumbnailGenerator) {
+  public PdfProcessor(ThumbnailGenerator thumbnailGenerator) {
     this.thumbnailGenerator = thumbnailGenerator;
   }
 
-  PdfResult process(Path content, String resourceUrl, boolean generateThumbnails) throws MediaExtractionException {
+  public PdfResult process(Path content, String resourceUrl, boolean generateThumbnails) throws MediaExtractionException {
     if (content == null) {
       throw new MediaExtractionException("File content is null or file does not exist.");
     }
@@ -64,7 +65,7 @@ class PdfProcessor {
     return pdfRenderer.renderImageWithDPI(0, PREVIEW_DPI, ImageType.RGB);
   }
 
-  record PdfResult(boolean containsText, Integer resolution, List<Thumbnail> thumbnails) {
+  public record PdfResult(boolean containsText, Integer resolution, List<Thumbnail> thumbnails) {
 
   }
 }

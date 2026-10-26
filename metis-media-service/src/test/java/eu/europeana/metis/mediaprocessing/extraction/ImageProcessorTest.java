@@ -4,9 +4,9 @@ import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.asser
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.copyFile;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.createImageWithRedLeftHalf;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.writeImage;
-import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzer.OPAQUE_ALPHA;
-import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzerTest.BLUE_HEX;
-import static eu.europeana.metis.mediaprocessing.extraction.PaletteAnalyzerTest.RED_HEX;
+import static eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzer.OPAQUE_ALPHA;
+import static eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzerTest.BLUE_HEX;
+import static eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzerTest.RED_HEX;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
@@ -27,6 +26,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
@@ -324,7 +324,7 @@ class ImageProcessorTest {
     final var thumbnails = thumbnailGenerator.prepareThumbnails("test", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("test", "image/png");
     final IOException cause = new IOException("Encoding failed");
-    doCallRealMethod().doThrow(cause).when(thumbnailGenerator).encodeImage(any(BufferedImage.class), anyString());
+    doCallRealMethod().doThrow(cause).when(thumbnailGenerator).encodeThumbnail(any(BufferedImage.class), any(ThumbnailImpl.class));
     final MediaExtractionException failure = assertThrows(MediaExtractionException.class,
         () -> {
           try (ResourceExtractionResultImpl resourceExtractionResult = new ImageProcessor(thumbnailGenerator).processImage("test",

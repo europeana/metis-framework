@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.pdf;
 
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.assertThumbnail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +18,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.PdfProcessor.PdfResult;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor.PdfResult;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
 import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;

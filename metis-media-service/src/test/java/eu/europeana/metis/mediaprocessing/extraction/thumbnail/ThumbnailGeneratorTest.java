@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.thumbnail;
 
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.assertThumbnail;
 import static eu.europeana.metis.mediaprocessing.extraction.ImageTestUtils.createImageWithRedLeftHalf;

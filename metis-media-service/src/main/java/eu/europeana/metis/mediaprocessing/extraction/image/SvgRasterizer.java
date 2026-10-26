@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
 import com.twelvemonkeys.image.ImageUtil;
 import com.twelvemonkeys.image.InverseColorMapIndexColorModel;
@@ -14,10 +14,10 @@ import java.util.Map;
 /**
  * Maps thumbnails to the fixed palette using TwelveMonkeys, then counts the colours.
  */
-class PaletteAnalyzer {
+public class PaletteAnalyzer {
 
   private static final int MAX_COLORS = 6;
-  static final int OPAQUE_ALPHA = 255;
+  public static final int OPAQUE_ALPHA = 255;
 
   //Note: Perhaps we can use an adaptive palette instead. That might improve the results.
   // The 138 distinct RGB colours from the former colormap.png, in the same sorted order.
@@ -45,7 +45,7 @@ class PaletteAnalyzer {
   private final IndexColorModel palette = new InverseColorMapIndexColorModel(Byte.SIZE, PALETTE_COLORS.length,
       PALETTE_COLORS, 0, false, -1, DataBuffer.TYPE_BYTE);
 
-  List<String> dominantColors(BufferedImage image) {
+  public List<String> dominantColors(BufferedImage image) {
     return histogram(image).entrySet().stream()
                            .sorted(Comparator.<Map.Entry<String, Long>>comparingLong(Map.Entry::getValue).reversed()
                                              .thenComparing(Map.Entry::getKey, Comparator.reverseOrder()))

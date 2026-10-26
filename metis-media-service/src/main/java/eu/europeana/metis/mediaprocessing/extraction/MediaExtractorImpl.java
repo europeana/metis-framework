@@ -5,6 +5,8 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;

@@ -1,4 +1,4 @@
-package eu.europeana.metis.mediaprocessing.extraction;
+package eu.europeana.metis.mediaprocessing.extraction.image;
 
 import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import java.awt.image.BufferedImage;
@@ -16,7 +16,7 @@ import javax.imageio.stream.ImageInputStream;
 /**
  * Reads original image metadata and decodes pixels at a suitable resolution for thumbnails.
  */
-class ImageDecoder {
+public class ImageDecoder {
 
   private static final int THUMBNAIL_OVERSAMPLE_FACTOR = 2;
 
@@ -32,7 +32,7 @@ class ImageDecoder {
    */
   @SuppressWarnings("java:S2093")
   // Ownership of the returned image passes to the caller, who should close it properly.
-  DecodedImageAndMetadata decode(File content, int maximumWidth) throws IOException {
+  public DecodedImageAndMetadata decode(File content, int maximumWidth) throws IOException {
     BufferedImage decodedBufferedImage = null;
     try (InputStream source = Files.newInputStream(content.toPath());
         ImageInputStream input = new FileCacheImageInputStream(source, null)) {
@@ -72,7 +72,7 @@ class ImageDecoder {
   /**
    * Owns the decoded image buffer. Its dimensions may differ from the original dimensions.
    */
-  record DecodedImageAndMetadata(BufferedImage image, int originalWidth, int originalHeight, ColorSpaceType colorSpace)
+  public record DecodedImageAndMetadata(BufferedImage image, int originalWidth, int originalHeight, ColorSpaceType colorSpace)
       implements AutoCloseable {
 
     @Override

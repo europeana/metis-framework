@@ -1,7 +1,8 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
-import eu.europeana.metis.mediaprocessing.extraction.PdfProcessor.PdfResult;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor.PdfResult;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.TextResourceMetadata;
