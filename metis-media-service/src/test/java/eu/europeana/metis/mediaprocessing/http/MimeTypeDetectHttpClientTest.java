@@ -70,44 +70,44 @@ class MimeTypeDetectHttpClientTest {
   private static Stream<Arguments> download_detectMimeType() {
     return Stream.of(
         //MPEG
-        of("__files/audio_test.mp3", "audio/mpeg"),
+        of("audio/audio_test.mp3", "audio/mpeg"),
         //LAS
-        of("__files/3d/cube_8_points.las", "application/vnd.las"),
+        of("models/cube_8_points.las", "application/vnd.las"),
         //LAZ
-        of("__files/3d/cube_8_points.laz", "application/vnd.laszip"),
+        of("models/cube_8_points.laz", "application/vnd.laszip"),
         //E57
-        of("__files/3d/cube_8_points.e57", "model/e57"),
+        of("models/cube_8_points.e57", "model/e57"),
         //DXF
-        of("__files/3d/cube.dxf", "image/vnd.dxf"),
+        of("models/cube.dxf", "image/vnd.dxf"),
         //OBJ
-        of("__files/3d/cube.obj", "model/obj"),
+        of("models/cube.obj", "model/obj"),
         //DAE
-        of("__files/3d/cube.dae", "model/vnd.collada+xml"),
+        of("models/cube.dae", "model/vnd.collada+xml"),
         //STL
-        of("__files/3d/cube-ascii.stl", "model/x.stl-ascii"),
-        of("__files/3d/cube-binary.stl", "model/x.stl-binary"),
+        of("models/cube-ascii.stl", "model/x.stl-ascii"),
+        of("models/cube-binary.stl", "model/x.stl-binary"),
         //IGES
-        of("__files/3d/cube.iges", "model/iges"),
+        of("models/cube.iges", "model/iges"),
         //STEP
-        of("__files/3d/cube.stp", "model/step"),
-        of("__files/3d/cube.stpz", "model/step+zip"),
+        of("models/cube.stp", "model/step"),
+        of("models/cube.stpz", "model/step+zip"),
         //VRML
-        of("__files/3d/cube.vrml", "model/vrml"),
+        of("models/cube.vrml", "model/vrml"),
         //X3D
-        of("__files/3d/cube.x3d", "model/x3d+xml"),
-        of("__files/3d/cube.x3dv", "model/x3d-vrml"),
+        of("models/cube.x3d", "model/x3d+xml"),
+        of("models/cube.x3dv", "model/x3d-vrml"),
         //GLTF
-        of("__files/3d/cube.gltf", "model/gltf+json"),
-        of("__files/3d/cube.glb", "model/gltf-binary"),
+        of("models/cube.gltf", "model/gltf+json"),
+        of("models/cube.glb", "model/gltf-binary"),
         //OEMBED
-        of("__files/oembed.json", "application/json"),
-        of("__files/oembed.xml", "application/xml"),
+        of("oembed/oembed.json", "application/json"),
+        of("oembed/oembed.xml", "application/xml"),
         //USD
-        of("__files/3d/cube.usda", "model/vnd.usda"),
-        of("__files/3d/cube.usdz", "model/vnd.usdz+zip"),
+        of("models/cube.usda", "model/vnd.usda"),
+        of("models/cube.usdz", "model/vnd.usdz+zip"),
         //PLY
-        of("__files/3d/cube-ascii.ply", "model/ply"),
-        of("__files/3d/cube-binary.ply", "model/ply")
+        of("models/cube-ascii.ply", "model/ply"),
+        of("models/cube-binary.ply", "model/ply")
     );
   }
 }

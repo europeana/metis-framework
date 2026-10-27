@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -477,7 +478,7 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testParseMpdResource() throws MediaExtractionException, URISyntaxException {
+  void testParseMpdResource() throws MediaExtractionException, URISyntaxException, IOException {
     final Resource resource = mock(Resource.class);
     when(resource.getActualLocation())
         .thenReturn(new URI("http://127.0.0.1:" + portForWireMock + "/test-url.mpd"));
@@ -486,7 +487,7 @@ class AudioVideoProcessorTest {
         .willReturn(aResponse()
             .withStatus(200)
             .withHeader("Content-Type", "application/xml")
-            .withBodyFile("example.mpd")));
+            .withBody(IOUtils.resourceToByteArray("video/example.mpd", getClass().getClassLoader()))));
 
     final AbstractResourceMetadata metadata = audioVideoProcessor
         .parseMpdResource(resource, "application/xml");

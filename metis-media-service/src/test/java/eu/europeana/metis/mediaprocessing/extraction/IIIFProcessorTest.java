@@ -112,7 +112,7 @@ class IIIFProcessorTest {
   @Test
   void extractMetadata() throws MediaExtractionException, IOException {
     // Define input
-    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v2.json");
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
     wireMockServer.stubFor(get(urlEqualTo("/image/iiif/zw031pj2507/zw031pj2507_0001/info.json"))
