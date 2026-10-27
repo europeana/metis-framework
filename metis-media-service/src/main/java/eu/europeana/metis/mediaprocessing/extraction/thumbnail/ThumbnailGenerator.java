@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
@@ -30,20 +31,19 @@ public class ThumbnailGenerator {
   private static final String JPEG_MIME_TYPE = "image/jpeg";
 
   /**
-   * Generates thumbnails for a given PDF page. Thumbnails are derived from the provided
-   * PDF page image and resized based on predefined types. Each thumbnail is encoded
-   * based on the detected MIME type of the source URL.
+   * Generates thumbnails for a given PDF page. Thumbnails are derived from the provided PDF page image and resized based on
+   * predefined types. Each thumbnail is encoded based on the detected MIME type of the source URL.
    *
    * @param url The URL of the resource from which the PDF page is derived.
-   * @param pdfPage A {@code BufferedImage} representation of the PDF page to generate thumbnails from.
-   *                If the PDF page contains alpha transparency, it will be composited onto a white background.
-   * @return A {@code List} of {@code Thumbnail} objects representing the generated thumbnails.
-   *         Each thumbnail contains the resized image encoded in the appropriate format.
-   * @throws MediaExtractionException If an error occurs during thumbnail preparation, resizing, encoding,
-   *                                  or due to any other unexpected runtime issue.
+   * @param pdfPage A {@code BufferedImage} representation of the PDF page to generate thumbnails from. If the PDF page contains
+   * alpha transparency, it will be composited onto a white background.
+   * @return A {@code List} of {@code Thumbnail} objects representing the generated thumbnails. Each thumbnail contains the
+   * resized image encoded in the appropriate format.
+   * @throws MediaExtractionException If an error occurs during thumbnail preparation, resizing, encoding, or due to any other
+   * unexpected runtime issue.
    */
   public List<Thumbnail> generatePdfThumbnails(String url, BufferedImage pdfPage) throws MediaExtractionException {
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = prepareThumbnails(url, PNG_MIME_TYPE);
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = prepareThumbnails(url, PNG_MIME_TYPE);
     BufferedImage source = pdfPage;
     try {
       if (pdfPage.getColorModel().hasAlpha()) {
@@ -68,12 +68,28 @@ public class ThumbnailGenerator {
     }
   }
 
+  /**
+   * Resizes an image to the thumbnail width while preserving the original aspect ratio.
+   *
+   * @param image The source image. The caller retains ownership of its buffer.
+   * @param originalWidth The original image width, before any decoding subsampling.
+   * @param originalHeight The original image height, before any decoding subsampling.
+   * @param thumbnailKind The thumbnail size to generate.
+   * @return A resized image buffer that the caller must flush after use.
+   */
   public BufferedImage resize(BufferedImage image, int originalWidth, int originalHeight, ThumbnailKind thumbnailKind) {
     final int width = thumbnailKind.getImageSize();
     final int height = Math.max(1, (int) Math.round((double) originalHeight * width / originalWidth));
     return new ResampleOp(width, height, ResampleOp.FILTER_LANCZOS).filter(image, null);
   }
 
+  /**
+   * Encodes image pixels into a prepared thumbnail as PNG or JPEG, compositing transparency on white for JPEG.
+   *
+   * @param bufferedImage The image to encode. The caller retains ownership of its buffer.
+   * @param thumbnail The thumbnail whose content is replaced with the encoded bytes.
+   * @throws IOException If no suitable image writer is available or encoding fails.
+   */
   public void encodeThumbnail(BufferedImage bufferedImage, ThumbnailImpl thumbnail) throws IOException {
     if (PNG_MIME_TYPE.equals(thumbnail.getMimeType())) {
       thumbnail.markAsWithContent(encodeImage(bufferedImage, "png"));
@@ -116,7 +132,16 @@ public class ThumbnailGenerator {
     return output.toByteArray();
   }
 
-  public EnumMap<ThumbnailKind, ThumbnailImpl> prepareThumbnails(String url, String detectedMimeType) throws MediaExtractionException {
+  /**
+   * Creates an empty thumbnail for each kind, using PNG for PNG sources and JPEG otherwise.
+   *
+   * @param url The resource URL used to compute thumbnail names.
+   * @param detectedMimeType The source MIME type used to select the thumbnail format.
+   * @return A mutable map in thumbnail-kind declaration order. The caller must close its thumbnails after use.
+   * @throws MediaExtractionException If the resource URL cannot be hashed for thumbnail naming.
+   */
+  public Map<ThumbnailKind, ThumbnailImpl> prepareThumbnails(String url, String detectedMimeType)
+      throws MediaExtractionException {
     final String thumbnailMimeType = PNG_MIME_TYPE.equals(detectedMimeType) ? PNG_MIME_TYPE : JPEG_MIME_TYPE;
     final String md5 = md5Hex(url);
     final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = new EnumMap<>(ThumbnailKind.class);

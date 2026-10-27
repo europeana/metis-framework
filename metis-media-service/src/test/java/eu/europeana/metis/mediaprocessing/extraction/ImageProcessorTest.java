@@ -40,9 +40,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -302,7 +302,7 @@ class ImageProcessorTest {
   void clearsEncodedThumbnailsWhenLargestResizeFails() throws Exception {
     final Path path = copyFile(directory, "processing/source.png");
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("test", "image/png");
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("test", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("test", "image/png");
     final IllegalStateException cause = new IllegalStateException("Resize failed");
     doThrow(cause).when(thumbnailGenerator).resize(any(BufferedImage.class), anyInt(), anyInt(), eq(ThumbnailKind.LARGE));

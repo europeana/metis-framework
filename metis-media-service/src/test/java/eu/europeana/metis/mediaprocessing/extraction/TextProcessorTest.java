@@ -142,7 +142,7 @@ class TextProcessorTest {
     doReturn("thumbnail 2").when(thumbnail2).getTargetName();
     final List<Thumbnail> thumbnails = Arrays.asList(thumbnail1, thumbnail2);
     doReturn(new PdfProcessor.PdfResult(true, 300, thumbnails)).when(pdfProcessor)
-        .process(Path.of("document.pdf"), "https://example.org/document.pdf", true);
+        .processWithThumbnails(Path.of("document.pdf"), "https://example.org/document.pdf");
 
     final ResourceExtractionResultImpl result = textProcessor.extractMetadata(resource, "application/pdf", false);
     final TextResourceMetadata metadata = assertInstanceOf(TextResourceMetadata.class, result.getOriginalMetadata());
@@ -160,21 +160,21 @@ class TextProcessorTest {
   void extractsPdfMetadataWithoutRenderingWhenMainThumbnailExists() throws Exception {
     final Resource resource = pdfResource();
     doReturn(new PdfProcessor.PdfResult(false, null, null)).when(pdfProcessor)
-        .process(Path.of("document.pdf"), "https://example.org/document.pdf", false);
+        .processMetadata(Path.of("document.pdf"));
 
     final var result = textProcessor.extractMetadata(resource, "application/pdf", true);
     final var metadata = (TextResourceMetadata) result.getOriginalMetadata();
     assertFalse(metadata.containsText());
     assertNull(metadata.getResolution());
     assertNull(result.getThumbnails());
-    verify(pdfProcessor).process(Path.of("document.pdf"), "https://example.org/document.pdf", false);
+    verify(pdfProcessor).processMetadata(Path.of("document.pdf"));
   }
 
   @Test
   void propagatesPdfProcessingFailure() throws Exception {
     final Resource resource = pdfResource();
     doThrow(new MediaExtractionException("Invalid PDF")).when(pdfProcessor)
-        .process(Path.of("document.pdf"), "https://example.org/document.pdf", true);
+        .processWithThumbnails(Path.of("document.pdf"), "https://example.org/document.pdf");
     assertThrows(MediaExtractionException.class,
         () -> textProcessor.extractMetadata(resource, "application/pdf", false));
   }

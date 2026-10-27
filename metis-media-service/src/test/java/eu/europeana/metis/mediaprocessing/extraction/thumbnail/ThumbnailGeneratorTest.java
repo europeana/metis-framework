@@ -21,8 +21,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -37,7 +37,7 @@ class ThumbnailGeneratorTest {
   void preparesNamedThumbnails(String detectedMimeType, String expectedMimeType) throws Exception {
     final String url = "https://example.org/image.jpg";
     final String md5 = "72a9a83711d4b28af561e815c0a0a523";
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
     try {
       assertEquals(List.of(ThumbnailKind.MEDIUM, ThumbnailKind.LARGE), new ArrayList<>(thumbnails.keySet()));
       assertEquals(md5 + "-MEDIUM", thumbnails.get(ThumbnailKind.MEDIUM).getTargetName());
@@ -73,7 +73,7 @@ class ThumbnailGeneratorTest {
   @ValueSource(strings = {"png", "jpeg"})
   void encodesTransparencyAsPngOrWhiteJpegBackground(String format) throws Exception {
     final BufferedImage bufferedImage = createImageWithRedLeftHalf(100, 50, true);
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("image", "image/" + format);
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("image", "image/" + format);
     try {
       final ThumbnailImpl thumbnail = thumbnails.get(ThumbnailKind.MEDIUM);
       thumbnailGenerator.encodeThumbnail(bufferedImage, thumbnail);
@@ -97,7 +97,7 @@ class ThumbnailGeneratorTest {
   @Test
   void encodesRgbImageDirectlyAsJpeg() throws Exception {
     final BufferedImage bufferedImage = createImageWithRedLeftHalf(100, 50, false);
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("image", "image/jpeg");
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("image", "image/jpeg");
     try {
       final ThumbnailImpl thumbnail = thumbnails.get(ThumbnailKind.MEDIUM);
       thumbnailGenerator.encodeThumbnail(bufferedImage, thumbnail);
@@ -136,7 +136,7 @@ class ThumbnailGeneratorTest {
   @Test
   void clearsPartiallyEncodedPdfThumbnailsOnFailure() throws Exception {
     final ThumbnailGenerator failingGenerator = spy(new ThumbnailGenerator());
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = failingGenerator.prepareThumbnails("pdf", "image/png");
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = failingGenerator.prepareThumbnails("pdf", "image/png");
     doReturn(thumbnails).when(failingGenerator).prepareThumbnails("pdf", "image/png");
     final IOException ioException = new IOException("Encoding failed");
     doCallRealMethod().doThrow(ioException).when(failingGenerator).encodeImage(any(BufferedImage.class), anyString());

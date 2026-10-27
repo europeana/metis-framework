@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
@@ -91,7 +91,7 @@ class ImageProcessor implements MediaProcessor {
       throw new MediaExtractionException("Cannot perform thumbnail generation on mime type '" + detectedMimeType + "'.");
     }
 
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
     final ThumbnailKind largestKind = thumbnails.keySet().stream()
                                                 .max(Comparator.comparingInt(ThumbnailKind::getImageSize)).orElseThrow();
     final int maximumWidth = largestKind.getImageSize();
@@ -122,7 +122,7 @@ class ImageProcessor implements MediaProcessor {
   }
 
   private List<String> generateThumbnailsAndAnalyzeColors(DecodedImageAndMetadata decodedImageAndMetadata,
-      EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails, byte[] reusableOriginalImageBytes, ThumbnailKind largestKind)
+      Map<ThumbnailKind, ThumbnailImpl> thumbnails, byte[] reusableOriginalImageBytes, ThumbnailKind largestKind)
       throws IOException {
     //Skip generating thumbnails for the largest kind, we will resize it later if necessary
     for (var entry : thumbnails.entrySet()) {

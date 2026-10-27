@@ -67,8 +67,9 @@ class TextProcessor implements MediaProcessor {
     }
 
     if (PDF_MIME_TYPE.equals(detectedMimeType)) {
-      final PdfResult pdfResult = pdfProcessor.process(resource.getContentPath(), resource.getResourceUrl(),
-          generateThumbnailForPdf(resource, mainThumbnailAvailable));
+      final PdfResult pdfResult = generateThumbnailForPdf(resource, mainThumbnailAvailable)
+          ? pdfProcessor.processWithThumbnails(resource.getContentPath(), resource.getResourceUrl())
+          : pdfProcessor.processMetadata(resource.getContentPath());
       final TextResourceMetadata textResourceMetadata = new TextResourceMetadata(detectedMimeType,
           resource.getResourceUrl(), contentSize, pdfResult.containsText(), nullIfNegative(pdfResult.resolution()), pdfResult.thumbnails());
       return new ResourceExtractionResultImpl(textResourceMetadata, pdfResult.thumbnails());

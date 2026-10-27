@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -58,7 +58,7 @@ class PdfProcessorTest {
   @CsvSource({"800,400", "100,50"})
   void combinesFirstPagePreviewsWithMetadataFromLaterPages(int width, int height) throws Exception {
     final Path path = createPdf(width, height);
-    final PdfResult pdfResult = processor.process(path, "pdf", true);
+    final PdfResult pdfResult = processor.processWithThumbnails(path, "pdf");
     try {
       assertTrue(pdfResult.containsText());
       assertEquals(300, pdfResult.resolution());
@@ -90,7 +90,7 @@ class PdfProcessorTest {
     final Path path = createPdf(800, 400);
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
     final PdfProcessor pdfProcessor = spy(new PdfProcessor(thumbnailGenerator));
-    final PdfResult pdfResult = pdfProcessor.process(path, "pdf", false);
+    final PdfResult pdfResult = pdfProcessor.processMetadata(path);
     assertTrue(pdfResult.containsText());
     assertEquals(300, pdfResult.resolution());
     assertNull(pdfResult.thumbnails());
@@ -100,14 +100,16 @@ class PdfProcessorTest {
 
   @Test
   void rejectsNullInput() {
-    assertThrows(MediaExtractionException.class, () -> processor.process(null, "pdf", true));
+    assertThrows(MediaExtractionException.class, () -> processor.processWithThumbnails(null, "pdf"));
+    assertThrows(MediaExtractionException.class, () -> processor.processMetadata(null));
   }
 
   @Test
   void rejectsInvalidPdf() throws Exception {
     final Path path = directory.resolve("invalid.pdf");
     Files.writeString(path, "Not a PDF document");
-    assertThrows(MediaExtractionException.class, () -> processor.process(path, "pdf", true));
+    assertThrows(MediaExtractionException.class, () -> processor.processWithThumbnails(path, "pdf"));
+    assertThrows(MediaExtractionException.class, () -> processor.processMetadata(path));
   }
 
   @Test
@@ -116,7 +118,7 @@ class PdfProcessorTest {
     try (PDDocument pdDocument = new PDDocument()) {
       pdDocument.save(input.toFile());
     }
-    assertThrows(MediaExtractionException.class, () -> processor.process(input, "pdf", true));
+    assertThrows(MediaExtractionException.class, () -> processor.processWithThumbnails(input, "pdf"));
   }
 
   @Test
@@ -130,14 +132,15 @@ class PdfProcessorTest {
       pdDocument.protect(standardProtectionPolicy);
       pdDocument.save(input.toFile());
     }
-    assertThrows(MediaExtractionException.class, () -> processor.process(input, "pdf", true));
+    assertThrows(MediaExtractionException.class, () -> processor.processWithThumbnails(input, "pdf"));
+    assertThrows(MediaExtractionException.class, () -> processor.processMetadata(input));
   }
 
   @Test
   void closesGeneratedThumbnailsWhenDocumentClosingFails() throws Exception {
     final Path path = createPdf(800, 400);
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("pdf", "image/png");
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("pdf", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("pdf", "image/png");
     final PdfProcessor failingProcessor = spy(new PdfProcessor(thumbnailGenerator));
     final PDDocument pdDocument = spy(failingProcessor.openDocument(path));
@@ -149,7 +152,7 @@ class PdfProcessorTest {
       throw cause;
     }).when(pdDocument).close();
     final MediaExtractionException failure = assertThrows(MediaExtractionException.class,
-        () -> failingProcessor.process(path, "pdf", true));
+        () -> failingProcessor.processWithThumbnails(path, "pdf"));
     assertSame(cause, failure.getCause());
     assertTrue(thumbnails.values().stream().noneMatch(ThumbnailImpl::hasContent));
   }
@@ -158,7 +161,7 @@ class PdfProcessorTest {
   void closesGeneratedThumbnailsWhenMetadataReadingFails() throws Exception {
     final Path path = createPdf(800, 400);
     final ThumbnailGenerator thumbnailGenerator = spy(new ThumbnailGenerator());
-    final EnumMap<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("pdf", "image/png");
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails("pdf", "image/png");
     doReturn(thumbnails).when(thumbnailGenerator).prepareThumbnails("pdf", "image/png");
     final PdfProcessor failingProcessor = spy(new PdfProcessor(thumbnailGenerator));
     final PDDocument pdDocument = spy(failingProcessor.openDocument(path));
@@ -171,7 +174,7 @@ class PdfProcessorTest {
       return result;
     }).when(thumbnailGenerator).generatePdfThumbnails(eq("pdf"), any(BufferedImage.class));
     final MediaExtractionException failure = assertThrows(MediaExtractionException.class,
-        () -> failingProcessor.process(path, "pdf", true));
+        () -> failingProcessor.processWithThumbnails(path, "pdf"));
     assertSame(cause, failure.getCause());
     assertTrue(thumbnails.values().stream().noneMatch(ThumbnailImpl::hasContent));
     verify(pdDocument).close();
@@ -184,7 +187,7 @@ class PdfProcessorTest {
     for (int i = 0; i < 8; i++) {
       final String url = "pdf-" + i;
       jobs.add(() -> {
-        final PdfResult pdfResult = processor.process(path, url, true);
+        final PdfResult pdfResult = processor.processWithThumbnails(path, url);
         try {
           assertTrue(pdfResult.containsText());
           assertEquals(300, pdfResult.resolution());

@@ -45,17 +45,24 @@ public class PaletteAnalyzer {
   private final IndexColorModel palette = new InverseColorMapIndexColorModel(Byte.SIZE, PALETTE_COLORS.length,
       PALETTE_COLORS, 0, false, -1, DataBuffer.TYPE_BYTE);
 
-  public List<String> dominantColors(BufferedImage image) {
-    return histogram(image).entrySet().stream()
+  /**
+   * Finds up to six palette colors with the greatest opacity-weighted pixel counts. Ties are ordered by descending hexadecimal
+   * color code; fully transparent pixels are ignored.
+   *
+   * @param bufferedImage The image to analyze. The caller retains ownership of its buffer.
+   * @return An unmodifiable list of uppercase {@code RRGGBB} color codes, ordered by decreasing weight.
+   */
+  public List<String> dominantColors(BufferedImage bufferedImage) {
+    return histogram(bufferedImage).entrySet().stream()
                            .sorted(Comparator.<Map.Entry<String, Long>>comparingLong(Map.Entry::getValue).reversed()
                                              .thenComparing(Map.Entry::getKey, Comparator.reverseOrder()))
                            .limit(MAX_COLORS).map(Map.Entry::getKey).toList();
   }
 
   /**
-   * Calculates an opacity-weighted color histogram by mapping image colors to a predefined palette.
-   * Fully transparent pixels contribute nothing; opaque pixels contribute {@value #OPAQUE_ALPHA} and partial transparency contributes
-   * proportionally. These integer weights avoid rounding away faint pixels.
+   * Calculates an opacity-weighted color histogram by mapping image colors to a predefined palette. Fully transparent pixels
+   * contribute nothing; opaque pixels contribute {@value #OPAQUE_ALPHA} and partial transparency contributes proportionally.
+   * These integer weights avoid rounding away faint pixels.
    * <p>
    * Diffusion dithering introduces extra colours and randomized errors. For dominant-colour analysis, direct mapping is
    * deterministic and stays closer to the legacy histograms.
