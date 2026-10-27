@@ -71,24 +71,23 @@ class MediaExtractorImplITTest {
   @BeforeEach
   void stubResources() throws IOException {
     final BufferedImage preview = createImageWithRedLeftHalf(400, 200, false);
-    final ByteArrayOutputStream encodedPreview = new ByteArrayOutputStream();
-    try {
+    try (ByteArrayOutputStream encodedPreview = new ByteArrayOutputStream()) {
       assertTrue(ImageIO.write(preview, "jpeg", encodedPreview));
+      for (String servicePath : List.of(FIRST_IIIF_IMAGE, SECOND_IIIF_IMAGE)) {
+        stub(servicePath + "/info.json", "application/json", """
+            {
+              "@context": "http://iiif.io/api/image/2/context.json",
+              "@id": "%s%s",
+              "protocol": "http://iiif.io/api/image",
+              "width": 800,
+              "height": 400,
+              "profile": ["http://iiif.io/api/image/2/level2.json"]
+            }
+            """.formatted(wireMock.baseUrl(), servicePath).getBytes(StandardCharsets.UTF_8));
+        stub(servicePath + "/full/!400,400/0/default.jpg", "image/jpeg", encodedPreview.toByteArray());
+      }
     } finally {
       preview.flush();
-    }
-    for (String servicePath : List.of(FIRST_IIIF_IMAGE, SECOND_IIIF_IMAGE)) {
-      stub(servicePath + "/info.json", "application/json", """
-          {
-            "@context": "http://iiif.io/api/image/2/context.json",
-            "@id": "%s%s",
-            "protocol": "http://iiif.io/api/image",
-            "width": 800,
-            "height": 400,
-            "profile": ["http://iiif.io/api/image/2/level2.json"]
-          }
-          """.formatted(wireMock.baseUrl(), servicePath).getBytes(StandardCharsets.UTF_8));
-      stub(servicePath + "/full/!400,400/0/default.jpg", "image/jpeg", encodedPreview.toByteArray());
     }
     stub(XML_RESOURCE, "application/xml", """
         <?xml version="1.0" encoding="UTF-8"?>
