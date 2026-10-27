@@ -20,9 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import eu.europeana.metis.mediaprocessing.MediaExtractor;
-import eu.europeana.metis.mediaprocessing.MediaProcessorFactory;
 import eu.europeana.metis.mediaprocessing.RdfConverterFactory;
 import eu.europeana.metis.mediaprocessing.RdfDeserializer;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
+import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
+import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Media3dResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.RdfResourceEntry;
@@ -31,6 +34,7 @@ import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResult;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
 import eu.europeana.metis.mediaprocessing.model.UrlType;
+import eu.europeana.metis.mediaprocessing.wrappers.TikaWrapper;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -130,7 +134,7 @@ class MediaExtractorImplITTest {
             + "metis-media-service/src/test/resources/models", wireMock.baseUrl() + "/3d");
     final Set<ExtractionParameters> actualExtractionParameters = new HashSet<>();
     try (InputStream inputRdf = new ByteArrayInputStream(rdf.getBytes(StandardCharsets.UTF_8));
-        MediaExtractor mediaExtractor = new MediaProcessorFactory().createMediaExtractor()) {
+        MediaExtractor mediaExtractor = createMediaExtractor()) {
       final List<RdfResourceEntry> resourceEntries = rdfDeserializer.getRemainingResourcesForMediaExtraction(inputRdf);
       for (RdfResourceEntry resourceEntry : resourceEntries) {
         assertTrue(resourceEntry.getResourceUrl().startsWith(wireMock.baseUrl() + "/"));
@@ -156,6 +160,23 @@ class MediaExtractorImplITTest {
       }
     }
     assertEquals(expectedExtractionParameters, actualExtractionParameters);
+  }
+
+  private MediaExtractor createMediaExtractor() {
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
+    // These cases cover image, text and 3D resources. Any external command indicates unexpected audio/video processing.
+    final CommandExecutor commandExecutor = new CommandExecutor(5, (command, environment, redirectErrorStream) -> {
+      throw new AssertionError("Unexpected external command: " + command);
+    });
+    final List<MediaProcessor> processors = List.of(
+        new ImageProcessor(thumbnailGenerator),
+        new AudioVideoProcessor(commandExecutor, "ffprobe"),
+        new TextProcessor(new PdfProcessor(thumbnailGenerator)),
+        new Media3dProcessor(),
+        new OEmbedProcessor(),
+        new IIIFProcessor(thumbnailGenerator));
+    return new MediaExtractorImpl(new ResourceDownloadClient(3, mimeType -> true, 5000, 5000, 5000),
+        new MimeTypeDetectHttpClient(5000, 5000, 5000), new TikaWrapper(), processors);
   }
 
   private void assertIIIFExtraction(RdfResourceEntry resourceEntry, ResourceExtractionResult result) throws IOException {
