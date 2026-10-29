@@ -60,7 +60,6 @@ class MediaExtractorImplTest {
 
   private static ResourceDownloadClient resourceDownloadClient;
   private static MimeTypeDetectHttpClient mimeTypeDetectHttpClient;
-  private static CommandExecutor commandExecutor;
   private static TikaWrapper tika;
 
   private static ImageProcessor imageProcessor;
@@ -81,7 +80,6 @@ class MediaExtractorImplTest {
   static void prepare() {
     resourceDownloadClient = mock(ResourceDownloadClient.class);
     mimeTypeDetectHttpClient = mock(MimeTypeDetectHttpClient.class);
-    commandExecutor = mock(CommandExecutor.class);
     tika = mock(TikaWrapper.class);
     imageProcessor = mock(ImageProcessor.class);
     audioVideoProcessor = mock(AudioVideoProcessor.class);
@@ -95,7 +93,7 @@ class MediaExtractorImplTest {
 
   @BeforeEach
   void resetMocks() {
-    reset(resourceDownloadClient, mimeTypeDetectHttpClient, commandExecutor, tika, imageProcessor,
+    reset(resourceDownloadClient, mimeTypeDetectHttpClient, tika, imageProcessor,
         audioVideoProcessor, textProcessor, mediaExtractor, oEmbedProcessor, iiifProcessor);
   }
 
@@ -392,7 +390,7 @@ class MediaExtractorImplTest {
         .when(resource).hasContent();
     doReturn(detectedMimeType)
         .when(tika).detect(same(resource), any(Path.class));
-    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.json").getPath()))
+    doReturn(Paths.get(getClass().getClassLoader().getResource("oembed/oembed.json").getPath()))
         .when(resource).getContentPath();
     doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
     ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
@@ -416,7 +414,7 @@ class MediaExtractorImplTest {
         .when(resource).hasContent();
     doReturn(detectedMimeType)
         .when(tika).detect(same(resource), any(Path.class));
-    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/oembed.xml").getPath()))
+    doReturn(Paths.get(getClass().getClassLoader().getResource("oembed/oembed.xml").getPath()))
         .when(resource).getContentPath();
     doReturn(resource).when(resourceDownloadClient).downloadBasedOnMimeType(rdfResourceEntry);
     ResourceExtractionResult extractionResult = new ResourceExtractionResultImpl(
@@ -444,9 +442,9 @@ class MediaExtractorImplTest {
         .when(resource).getProvidedMimeType();
     doReturn(detectedMimeType)
         .when(tika).detect(same(resource), any(Path.class));
-    doReturn(Paths.get(getClass().getClassLoader().getResource("__files/default.jpg").getPath()))
+    doReturn(Paths.get(getClass().getClassLoader().getResource("images/default.jpg").getPath()))
         .when(resource).getContentPath();
-    doReturn(getClass().getClassLoader().getResourceAsStream("__files/default.jpg"))
+    doReturn(getClass().getClassLoader().getResourceAsStream("images/default.jpg"))
         .when(resource).getContentStream();
     when(resourceDownloadClient.downloadBasedOnMimeType(any(RdfResourceEntry.class))).thenReturn(resource);
 

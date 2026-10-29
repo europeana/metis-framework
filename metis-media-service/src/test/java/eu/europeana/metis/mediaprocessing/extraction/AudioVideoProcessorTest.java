@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -209,7 +210,7 @@ class AudioVideoProcessorTest {
     // Initialize objects
     final JSONObject object1 = mock(JSONObject.class);
     final JSONObject object2 = mock(JSONObject.class);
-    final JSONObject[] objects = new JSONObject[]{object1, object2};
+    final JSONObject[] objects = {object1, object2};
     final String value = "test value";
 
     // Test first object only
@@ -234,7 +235,7 @@ class AudioVideoProcessorTest {
 
     // Set up values
     final JSONObject object = mock(JSONObject.class);
-    final JSONObject[] objects = new JSONObject[]{object};
+    final JSONObject[] objects = {object};
     final String key = "key";
     final int value = 1;
 
@@ -250,7 +251,7 @@ class AudioVideoProcessorTest {
   @Test
   void testFindLong(){
     final JSONObject object = mock(JSONObject.class);
-    final JSONObject[] objects = new JSONObject[]{object};
+    final JSONObject[] objects = {object};
     final String key = "key";
     final long value = 1L;
 
@@ -266,7 +267,7 @@ class AudioVideoProcessorTest {
 
     // Set up values
     final JSONObject object = mock(JSONObject.class);
-    final JSONObject[] objects = new JSONObject[]{object};
+    final JSONObject[] objects = {object};
     final String key = "key";
     final double value = 1.0;
 
@@ -284,7 +285,7 @@ class AudioVideoProcessorTest {
 
     // Set up values
     final JSONObject object = mock(JSONObject.class);
-    final JSONObject[] objects = new JSONObject[]{object};
+    final JSONObject[] objects = {object};
     final String key = "key";
     final String value = "value";
 
@@ -313,11 +314,11 @@ class AudioVideoProcessorTest {
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
     doReturn(format).when(object).getJSONObject("format");
-    final JSONObject[] formatAsArray = new JSONObject[]{format};
+    final JSONObject[] formatAsArray = {format};
     final JSONObject audioStream = mock(JSONObject.class);
     doReturn(audioStream).when(audioVideoProcessor).findStream(object, "audio");
     doReturn(null).when(audioVideoProcessor).findStream(object, "video");
-    final JSONObject[] candidates = new JSONObject[]{audioStream, format};
+    final JSONObject[] candidates = {audioStream, format};
 
     // Set properties
     final Long size = 7205015L;
@@ -369,12 +370,12 @@ class AudioVideoProcessorTest {
     doReturn(object).when(audioVideoProcessor).readCommandResponseToJson(commandResponse);
     final JSONObject format = mock(JSONObject.class);
     doReturn(format).when(object).getJSONObject("format");
-    final JSONObject[] formatAsArray = new JSONObject[]{format};
+    final JSONObject[] formatAsArray = {format};
     final JSONObject audioStream = mock(JSONObject.class);
     doReturn(audioStream).when(audioVideoProcessor).findStream(object, "audio");
     final JSONObject videoStream = mock(JSONObject.class);
     doReturn(videoStream).when(audioVideoProcessor).findStream(object, "video");
-    final JSONObject[] candidates = new JSONObject[]{videoStream, format};
+    final JSONObject[] candidates = {videoStream, format};
 
     // Set properties
     final Long size = 92224193L;
@@ -477,7 +478,7 @@ class AudioVideoProcessorTest {
   }
 
   @Test
-  void testParseMpdResource() throws MediaExtractionException, URISyntaxException {
+  void testParseMpdResource() throws MediaExtractionException, URISyntaxException, IOException {
     final Resource resource = mock(Resource.class);
     when(resource.getActualLocation())
         .thenReturn(new URI("http://127.0.0.1:" + portForWireMock + "/test-url.mpd"));
@@ -486,7 +487,7 @@ class AudioVideoProcessorTest {
         .willReturn(aResponse()
             .withStatus(200)
             .withHeader("Content-Type", "application/xml")
-            .withBodyFile("example.mpd")));
+            .withBody(IOUtils.resourceToByteArray("video/example.mpd", getClass().getClassLoader()))));
 
     final AbstractResourceMetadata metadata = audioVideoProcessor
         .parseMpdResource(resource, "application/xml");

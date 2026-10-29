@@ -48,7 +48,7 @@ class IIIFValidationTest {
 
   @Test
   void fetchInfoJsonV2() throws IOException {
-    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v2.json");
     assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -78,7 +78,7 @@ class IIIFValidationTest {
 
   @Test
   void fetchInfoJsonV2WithProfile() throws IOException {
-    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2_with_profile.json");
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v2_with_profile.json");
     assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -113,7 +113,7 @@ class IIIFValidationTest {
 
   @Test
   void fetchInfoJsonV3() throws IOException {
-    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v3.json");
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v3.json");
     assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -160,7 +160,7 @@ class IIIFValidationTest {
 
   @Test
   void adjustResourceEntryToSmallIIIF() throws IOException {
-    final InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("__files/iiif_info_v2.json");
+    final InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v2.json");
     assertNotNull(inputStreamInfoJson);
     final String infoJson = new String(inputStreamInfoJson.readAllBytes());
 

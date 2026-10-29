@@ -16,4 +16,8 @@ public interface Thumbnail extends ResourceRelatedFile {
    */
   String getTargetName();
 
+  /** Releases the thumbnail content without throwing a checked exception. */
+  @Override
+  void close();
+
 }

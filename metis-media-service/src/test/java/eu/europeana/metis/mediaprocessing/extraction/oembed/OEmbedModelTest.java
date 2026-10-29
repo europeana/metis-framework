@@ -19,7 +19,7 @@ class OEmbedModelTest {
 
   @Test
   void getOEmbedModelFromJsonTest() throws IOException {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("oembed/oembed.json");
 
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
 
@@ -29,7 +29,7 @@ class OEmbedModelTest {
 
   @Test
   void getOEmbedModelFromJsonTestNoMaxDimensions() throws IOException {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/test_oembed.json");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("oembed/test_oembed.json");
 
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
     final String url = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fvimeo.com%2F42947250";
@@ -41,7 +41,7 @@ class OEmbedModelTest {
 
   @Test
   void getOEmbedModelFromXmlTest() throws IOException {
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.xml");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("oembed/oembed.xml");
 
     OEmbedModel oEmbedModel = getOEmbedModelFromXml(inputStream.readAllBytes());
 
@@ -52,7 +52,7 @@ class OEmbedModelTest {
   @Test
   void checkValidWidthAndHeightDimensions() throws IOException {
     String url = "https://vimeo.com/api/oembed.json?url=https%3A%2F%2Fcdn.pixabay.com%2Fvideo%2F2023%2F10%2F22%2F186070-876973719_small.mp4&maxheight=300&maxwidth=500";
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("oembed/oembed.json");
 
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
 
@@ -65,7 +65,7 @@ class OEmbedModelTest {
   @Test
   void checkValidWidthAndHeightDimensions_InvalidUrl() throws IOException {
     String url = "my url test";
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/oembed.json");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("oembed/oembed.json");
 
     OEmbedModel oEmbedModel = getOEmbedModelFromJson(inputStream.readAllBytes());
 
