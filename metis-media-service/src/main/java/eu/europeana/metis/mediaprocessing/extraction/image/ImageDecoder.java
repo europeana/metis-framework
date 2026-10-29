@@ -18,12 +18,18 @@ import javax.imageio.stream.ImageInputStream;
  */
 public class ImageDecoder {
 
+  // Retain extra pixels at the working resolution to preserve detail during final thumbnail resampling.
   private static final int THUMBNAIL_OVERSAMPLE_FACTOR = 2;
 
   /**
-   * Decodes the image or renders an SVG.
+   * Reads metadata from the first image or page, then decodes raster pixels, or renders an SVG for thumbnail generation.
    * <p>
-   * Note: The caller must close the returned image.
+   * Decoding follows the thumbnail generator's width-based sizing policy: height is derived from the original aspect ratio, with
+   * no independent height limit. Pixels are retained at approximately twice the largest thumbnail width to provide detail for the
+   * final resampling step. Raster subsampling uses integer steps, so its decoded width can be larger.
+   * <p>
+   * The caller must close the returned image to release its pixel buffer. This method disposes of the reader and closes its
+   * streams and releases any decoded buffer if those operations fail before ownership passes to the caller.
    *
    * @param content The original image file.
    * @param maximumWidth The largest requested thumbnail width.
@@ -43,18 +49,14 @@ public class ImageDecoder {
       final ImageReader reader = readers.next();
       try {
         reader.setInput(input);
+        // Capture source metadata before decoding can change pixel dimensions or convert the colour space.
         final int originalWidth = reader.getWidth(0);
         final int originalHeight = reader.getHeight(0);
         final ColorSpaceType colorSpace = new ImageColorSpaceReader().read(reader);
         if ("svg".equalsIgnoreCase(reader.getFormatName())) {
-          final int renderWidth = maximumWidth * THUMBNAIL_OVERSAMPLE_FACTOR;
-          final int renderHeight = Math.max(1, (int) Math.round((double) originalHeight * renderWidth / originalWidth));
-          decodedBufferedImage = new SvgRasterizer().render(content, renderWidth, renderHeight);
+          decodedBufferedImage = renderSvg(content, originalWidth, originalHeight, maximumWidth);
         } else {
-          final ImageReadParam readParam = reader.getDefaultReadParam();
-          final int subsampling = Math.max(1, originalWidth / (maximumWidth * THUMBNAIL_OVERSAMPLE_FACTOR));
-          readParam.setSourceSubsampling(subsampling, subsampling, 0, 0);
-          decodedBufferedImage = reader.read(0, readParam);
+          decodedBufferedImage = decodeRaster(reader, originalWidth, maximumWidth);
         }
         return new DecodedImageAndMetadata(decodedBufferedImage, originalWidth, originalHeight, colorSpace);
       } finally {
@@ -70,7 +72,30 @@ public class ImageDecoder {
   }
 
   /**
-   * Owns the decoded image buffer. Its dimensions may differ from the original dimensions.
+   * Renders vector content directly at the working resolution instead of rasterizing at its original dimensions first.
+   */
+  private BufferedImage renderSvg(File content, int originalWidth, int originalHeight, int maximumWidth) throws IOException {
+    final int renderWidth = maximumWidth * THUMBNAIL_OVERSAMPLE_FACTOR;
+    // Keep the original aspect ratio and at least one pixel of height for very wide images.
+    final int renderHeight = Math.max(1, (int) Math.round((double) originalHeight * renderWidth / originalWidth));
+    return new SvgRasterizer().render(content, renderWidth, renderHeight);
+  }
+
+  /**
+   * Requests evenly spaced source pixels to reduce the working buffer while retaining detail for thumbnail resampling.
+   */
+  private BufferedImage decodeRaster(ImageReader reader, int originalWidth, int maximumWidth) throws IOException {
+    final ImageReadParam readParam = reader.getDefaultReadParam();
+    // Round down to retain at least the requested working width. A step of one preserves small rasters without upscaling.
+    final int subsampling = Math.max(1, originalWidth / (maximumWidth * THUMBNAIL_OVERSAMPLE_FACTOR));
+    // Use the same step on both axes to preserve proportions, apart from rounding to whole pixels at the image edges.
+    readParam.setSourceSubsampling(subsampling, subsampling, 0, 0);
+    return reader.read(0, readParam);
+  }
+
+  /**
+   * Owns the decoded image buffer. Its dimensions may differ from the original dimensions, which describe the source image.
+   * Closing this result releases the decoded pixel buffer.
    */
   public record DecodedImageAndMetadata(BufferedImage image, int originalWidth, int originalHeight, ColorSpaceType colorSpace)
       implements AutoCloseable {
