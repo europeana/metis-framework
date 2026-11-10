@@ -1,29 +1,40 @@
 package eu.europeana.metis.mediaprocessing.extraction;
 
-import eu.europeana.metis.schema.jibx.ColorSpaceType;
 import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
+import eu.europeana.metis.mediaprocessing.extraction.image.ImageDecoder;
+import eu.europeana.metis.mediaprocessing.extraction.image.ImageDecoder.DecodedImageAndMetadata;
+import eu.europeana.metis.mediaprocessing.extraction.image.PaletteAnalyzer;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.model.ImageResourceMetadata;
 import eu.europeana.metis.mediaprocessing.model.Resource;
 import eu.europeana.metis.mediaprocessing.model.ResourceExtractionResultImpl;
 import eu.europeana.metis.mediaprocessing.model.Thumbnail;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailImpl;
+import eu.europeana.metis.mediaprocessing.model.ThumbnailKind;
 import eu.europeana.metis.schema.model.MediaType;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Map;
 
 /**
  * <p>Implementation of {@link MediaProcessor} that is designed to handle resources of type
  * {@link MediaType#IMAGE}.
  * </p>
  * <p>
- * Note: if we don't have metadata, we still return the thumbnails. This is according to the specs:
- * a thumbnail may be designated by the source record that is not itself a source image (it may be
- * derived from for instance a video).
+ * Note: if we don't have metadata, we still return the thumbnails. This is according to the specs: a thumbnail may be designated
+ * by the source record that is not itself a source image (it may be derived from for instance a video).
  * </p>
  */
 class ImageProcessor implements MediaProcessor {
 
   private final ThumbnailGenerator thumbnailGenerator;
+  private final ImageDecoder imageDecoder = new ImageDecoder();
+  private final PaletteAnalyzer paletteAnalyzer = new PaletteAnalyzer();
 
   /**
    * Constructor.
@@ -48,7 +59,7 @@ class ImageProcessor implements MediaProcessor {
 
   @Override
   public ResourceExtractionResultImpl extractMetadata(Resource resource, String detectedMimeType,
-          boolean mainThumbnailAvailable) throws MediaExtractionException {
+      boolean mainThumbnailAvailable) throws MediaExtractionException {
 
     // Sanity check
     try {
@@ -68,22 +79,99 @@ class ImageProcessor implements MediaProcessor {
           "Could not determine the size of the resource " + resource.getResourceUrl(), e);
     }
 
-    // Create the thumbnails for this image.
-    final Pair<ImageMetadata, List<Thumbnail>> thumbnailsAndMetadata =
-        thumbnailGenerator.generateThumbnails(resource.getResourceUrl(), detectedMimeType,
-            resource.getContentFile(), false);
+    return processImage(resource.getResourceUrl(), detectedMimeType, resource.getContentFile(), contentSize);
+  }
 
-    // Set the metadata in the web resource.
-    final ImageResourceMetadata resourceMetadata;
-    final ImageMetadata imageMetadata = thumbnailsAndMetadata.getLeft();
-    final ColorSpaceType colorSpace = ColorSpaceMapping
-        .getColorSpaceType(imageMetadata.getColorSpace());
-    resourceMetadata = new ImageResourceMetadata(detectedMimeType, resource.getResourceUrl(),
-            contentSize, nullIfNegative(imageMetadata.getWidth()),
-            nullIfNegative(imageMetadata.getHeight()), colorSpace,
-            imageMetadata.getDominantColors(), thumbnailsAndMetadata.getRight());
+  ResourceExtractionResultImpl processImage(String url, String detectedMimeType, File content, Long contentSize)
+      throws MediaExtractionException {
+    if (content == null) {
+      throw new MediaExtractionException("File content is null");
+    }
+    if (MediaType.getMediaType(detectedMimeType) != MediaType.IMAGE) {
+      throw new MediaExtractionException("Cannot perform thumbnail generation on mime type '" + detectedMimeType + "'.");
+    }
 
-    // Done.
-    return new ResourceExtractionResultImpl(resourceMetadata, thumbnailsAndMetadata.getRight());
+    final Map<ThumbnailKind, ThumbnailImpl> thumbnails = thumbnailGenerator.prepareThumbnails(url, detectedMimeType);
+    final ThumbnailKind largestKind = thumbnails.keySet().stream()
+                                                .max(Comparator.comparingInt(ThumbnailKind::getImageSize)).orElseThrow();
+    final int maximumWidth = largestKind.getImageSize();
+    try (DecodedImageAndMetadata decodedImageAndMetadata = imageDecoder.decode(content, maximumWidth)) {
+      // Reuse small originals only when their format already matches the JPEG/PNG thumbnail format.
+      final byte[] reusableOriginalImageBytes =
+          detectedMimeType.equals(thumbnails.get(largestKind).getMimeType())
+              && decodedImageAndMetadata.originalWidth() < maximumWidth
+              ? Files.readAllBytes(content.toPath()) : null;
+      final List<String> dominantColors =
+          generateThumbnailsAndAnalyzeColors(decodedImageAndMetadata, thumbnails, reusableOriginalImageBytes, largestKind);
+      final List<Thumbnail> generatedThumbnails = new ArrayList<>(thumbnails.values());
+      final ImageResourceMetadata imageResourceMetadata = new ImageResourceMetadata(detectedMimeType, url, contentSize,
+          nullIfNegative(decodedImageAndMetadata.originalWidth()), nullIfNegative(decodedImageAndMetadata.originalHeight()),
+          decodedImageAndMetadata.colorSpace(),
+          dominantColors, generatedThumbnails);
+      return new ResourceExtractionResultImpl(imageResourceMetadata, generatedThumbnails);
+    } catch (MediaExtractionException e) {
+      thumbnails.values().forEach(ThumbnailImpl::close);
+      throw e;
+    } catch (IOException e) {
+      thumbnails.values().forEach(ThumbnailImpl::close);
+      throw new MediaExtractionException("Could not process image", e);
+    } catch (RuntimeException e) {
+      thumbnails.values().forEach(ThumbnailImpl::close);
+      throw new MediaExtractionException("Unexpected error during processing", e);
+    }
+  }
+
+  private List<String> generateThumbnailsAndAnalyzeColors(DecodedImageAndMetadata decodedImageAndMetadata,
+      Map<ThumbnailKind, ThumbnailImpl> thumbnails, byte[] reusableOriginalImageBytes, ThumbnailKind largestKind)
+      throws IOException {
+    //Skip generating thumbnails for the largest kind, we will resize it later if necessary
+    for (var entry : thumbnails.entrySet()) {
+      if (entry.getKey() == largestKind) {
+        continue;
+      }
+      generateThumbnail(decodedImageAndMetadata, entry.getKey(), entry.getValue(), reusableOriginalImageBytes);
+    }
+
+    final ThumbnailImpl thumbnail = thumbnails.get(largestKind);
+    if (decodedImageAndMetadata.image().getWidth() < largestKind.getImageSize()) {
+      encodeOrReuseThumbnail(decodedImageAndMetadata.image(), thumbnail, reusableOriginalImageBytes);
+      return paletteAnalyzer.dominantColors(decodedImageAndMetadata.image());
+    }
+
+    final BufferedImage largestBufferedImage =
+        thumbnailGenerator.resize(decodedImageAndMetadata.image(), decodedImageAndMetadata.originalWidth(),
+            decodedImageAndMetadata.originalHeight(), largestKind);
+    try {
+      thumbnailGenerator.encodeThumbnail(largestBufferedImage, thumbnail);
+      return paletteAnalyzer.dominantColors(largestBufferedImage);
+    } finally {
+      largestBufferedImage.flush();
+    }
+  }
+
+  private void generateThumbnail(DecodedImageAndMetadata decodedImageAndMetadata, ThumbnailKind thumbnailKind,
+      ThumbnailImpl thumbnail, byte[] reusableOriginalImageBytes) throws IOException {
+    if (decodedImageAndMetadata.image().getWidth() < thumbnailKind.getImageSize()) {
+      encodeOrReuseThumbnail(decodedImageAndMetadata.image(), thumbnail, reusableOriginalImageBytes);
+      return;
+    }
+    final BufferedImage resizedBufferedImage =
+        thumbnailGenerator.resize(decodedImageAndMetadata.image(),
+            decodedImageAndMetadata.originalWidth(),
+            decodedImageAndMetadata.originalHeight(), thumbnailKind);
+    try {
+      thumbnailGenerator.encodeThumbnail(resizedBufferedImage, thumbnail);
+    } finally {
+      resizedBufferedImage.flush();
+    }
+  }
+
+  private void encodeOrReuseThumbnail(BufferedImage image, ThumbnailImpl thumbnail, byte[] reusableOriginalImageBytes)
+      throws IOException {
+    if (reusableOriginalImageBytes != null) {
+      thumbnail.markAsWithContent(reusableOriginalImageBytes);
+    } else {
+      thumbnailGenerator.encodeThumbnail(image, thumbnail);
+    }
   }
 }

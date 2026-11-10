@@ -1,16 +1,20 @@
 package eu.europeana.indexing;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.mockito.Mockito.mockConstruction;
 
 import eu.europeana.indexing.common.contract.RecordPersistence;
 import eu.europeana.indexing.common.contract.SearchPersistence;
 import eu.europeana.indexing.common.contract.TombstonePersistence;
 import eu.europeana.indexing.exception.SetupRelatedIndexingException;
+import eu.europeana.metis.mongo.connection.MongoClientProvider;
 import eu.europeana.metis.mongo.connection.MongoProperties;
+import eu.europeana.metis.mongo.dao.RecordDao;
 import eu.europeana.metis.solr.connection.SolrProperties;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedConstruction;
 
 class PersistenceFactoryTest {
 
@@ -27,13 +31,19 @@ class PersistenceFactoryTest {
   void getMongoIndexerForTombstoneRecords() throws SetupRelatedIndexingException {
     MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(SetupRelatedIndexingException::new);
     mongoProperties.setMongoHosts(new String[]{"localhost"},new int[]{27001});
-    assertInstanceOf(TombstonePersistence.class, persistenceFactory.createIndexerForTombstones(mongoProperties, "tombstoneRecordDB"));
+    try (MockedConstruction<MongoClientProvider> ignored = mockConstruction(MongoClientProvider.class);
+        MockedConstruction<RecordDao> ignored1 = mockConstruction(RecordDao.class)) {
+      assertInstanceOf(TombstonePersistence.class, persistenceFactory.createIndexerForTombstones(mongoProperties, "tombstoneRecordDB"));
+    }
   }
 
   @Test
   void getMongoIndexerForLiveRecords() throws SetupRelatedIndexingException {
     MongoProperties<SetupRelatedIndexingException> mongoProperties = new MongoProperties<>(SetupRelatedIndexingException::new);
     mongoProperties.setMongoHosts(new String[]{"localhost"},new int[]{27001});
-    assertInstanceOf(RecordPersistence.class, persistenceFactory.createIndexerForPersistence(mongoProperties, "recordDB"));
+    try (MockedConstruction<MongoClientProvider> ignored = mockConstruction(MongoClientProvider.class);
+        MockedConstruction<RecordDao> ignored1 = mockConstruction(RecordDao.class)) {
+      assertInstanceOf(RecordPersistence.class, persistenceFactory.createIndexerForPersistence(mongoProperties, "recordDB"));
+    }
   }
 }

@@ -363,7 +363,7 @@
     <edm:aggregatedCHO rdf:resource="/1532/CMC_HA_936"/>
     <edm:dataProvider rdf:resource="http://data.europeana.eu/organization/3557"></edm:dataProvider>
     <edm:isShownAt
-      rdf:resource="https://raw.githubusercontent.com/europeana/metis-framework/refs/heads/develop/metis-media-service/src/test/resources/__files/3d/cube.gltf"/>
+      rdf:resource="https://raw.githubusercontent.com/europeana/metis-framework/refs/heads/develop/metis-media-service/src/test/resources/models/cube.gltf"/>
     <edm:isShownBy rdf:resource="http://cmcassociates.co.uk/Skara_Brae/landing/sb_h10_lidar.html"/>
     <edm:object rdf:resource="http://www.cmcassociates.co.uk/Skara_Brae/scandata/house10/sb10_scandata_th.jpg"/>
     <edm:provider rdf:resource="http://data.europeana.eu/organization/1617"></edm:provider>

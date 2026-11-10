@@ -68,7 +68,7 @@ class OEmbedProcessorTest {
   @Test
   void extractMetadata() throws MediaExtractionException, IOException {
     // given
-    OEmbedResourceTest oembedResource = getOEmbedResourceTest("__files/oembed.xml", "application/xml+oembed");
+    OEmbedResourceTest oembedResource = getOEmbedResourceTest("oembed/oembed.xml", "application/xml+oembed");
     // when
     ResourceExtractionResult resourceExtractionResult = processor.extractMetadata(oembedResource.resource(),
         oembedResource.detectedMimeType(), true);
@@ -82,7 +82,7 @@ class OEmbedProcessorTest {
   @Test
   void copyMetadataWithOEmbed_expectNull() throws MediaExtractionException, IOException {
     // given
-    OEmbedResourceTest oembedResource = getOEmbedResourceTest("__files/oembed.xml", "application/xml+oembed");
+    OEmbedResourceTest oembedResource = getOEmbedResourceTest("oembed/oembed.xml", "application/xml+oembed");
     // when
     ResourceExtractionResult resourceExtractionResult = processor.copyMetadata(oembedResource.resource,
         oembedResource.detectedMimeType);
@@ -93,7 +93,7 @@ class OEmbedProcessorTest {
   @Test
   void copyMetadataNotOEmbed_expectObject() throws MediaExtractionException, IOException {
     // given
-    OEmbedResourceTest oembedResource = getOEmbedResourceTest("__files/not_oembed.xml", "application/xml");
+    OEmbedResourceTest oembedResource = getOEmbedResourceTest("oembed/not_oembed.xml", "application/xml");
     // when
     ResourceExtractionResult resourceExtractionResult = processor.copyMetadata(oembedResource.resource,
         oembedResource.detectedMimeType);

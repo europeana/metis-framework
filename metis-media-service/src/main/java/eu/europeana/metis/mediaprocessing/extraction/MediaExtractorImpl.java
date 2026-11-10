@@ -5,6 +5,8 @@ import eu.europeana.metis.mediaprocessing.exception.MediaExtractionException;
 import eu.europeana.metis.mediaprocessing.exception.MediaProcessorException;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFInfoJson;
 import eu.europeana.metis.mediaprocessing.extraction.iiif.IIIFValidation;
+import eu.europeana.metis.mediaprocessing.extraction.pdf.PdfProcessor;
+import eu.europeana.metis.mediaprocessing.extraction.thumbnail.ThumbnailGenerator;
 import eu.europeana.metis.mediaprocessing.http.MimeTypeDetectHttpClient;
 import eu.europeana.metis.mediaprocessing.http.ResourceDownloadClient;
 import eu.europeana.metis.mediaprocessing.model.IIIFResourceImpl;
@@ -33,8 +35,6 @@ import org.slf4j.LoggerFactory;
 public class MediaExtractorImpl implements MediaExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MediaExtractorImpl.class);
-  public static final String PNG_FILE_EXTENSION = ".png";
-  public static final String JPEG_FILE_EXTENSION = ".jpeg";
 
   enum ProcessingMode {FULL, REDUCED, NONE}
 
@@ -86,20 +86,17 @@ public class MediaExtractorImpl implements MediaExtractor {
    * Constructor for non-testing purposes.
    *
    * @param redirectCount The maximum number of times we will follow a redirect.
-   * @param thumbnailGenerateTimeout The maximum amount of time, in seconds, a thumbnail generation command is allowed to take
-   * before it is forcibly destroyed (i.e. cancelled).
-   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, a audio/video probe command is allowed to take before
-   * it is forcibly destroyed (i.e. cancelled).
+   * @param audioVideoProbeTimeout The maximum amount of time, in seconds, an audio/video probe command is allowed to take before
+   * it is forcibly destroyed (i.e., cancelled).
    * @param connectTimeout The connection timeout in milliseconds for downloading resources.
    * @param responseTimeout The response timeout in milliseconds for downloading resources.
    * @param downloadTimeout The download timeout in milliseconds for downloading resources.
    * @throws MediaProcessorException In case something went wrong while initializing the extractor.
    */
-  public MediaExtractorImpl(int redirectCount, int thumbnailGenerateTimeout,
+  public MediaExtractorImpl(int redirectCount,
       int audioVideoProbeTimeout, int connectTimeout, int responseTimeout, int downloadTimeout)
       throws MediaProcessorException {
-    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator(
-        new CommandExecutor(thumbnailGenerateTimeout));
+    final ThumbnailGenerator thumbnailGenerator = new ThumbnailGenerator();
     this.resourceDownloadClientOembed = new ResourceDownloadClient(redirectCount,
         type -> this.shouldDownloadForFullProcessing(type, RdfResourceKind.OEMBEDDED),
         connectTimeout, responseTimeout, downloadTimeout);
@@ -114,8 +111,7 @@ public class MediaExtractorImpl implements MediaExtractor {
     this.tika = new TikaWrapper();
     this.imageProcessor = new ImageProcessor(thumbnailGenerator);
     this.audioVideoProcessor = new AudioVideoProcessor(new CommandExecutor(audioVideoProbeTimeout));
-    this.textProcessor = new TextProcessor(thumbnailGenerator,
-        new PdfToImageConverter(new CommandExecutor(thumbnailGenerateTimeout)));
+    this.textProcessor = new TextProcessor(new PdfProcessor(thumbnailGenerator));
     this.media3dProcessor = new Media3dProcessor();
     this.oEmbedProcessor = new OEmbedProcessor();
     this.iiifProcessor = new IIIFProcessor(thumbnailGenerator);

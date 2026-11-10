@@ -173,7 +173,7 @@ class RdfDeserializerImplTest {
   @Test
   void testGetOEmbeddableObjectsFromSample_MatchingService() throws RdfDeserializationException {
     // given
-    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_oembed_sample.xml");
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("rdf/rdf_with_oembed_sample.xml");
 
     // when
     final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
@@ -192,7 +192,7 @@ class RdfDeserializerImplTest {
   @Test
   void testGetOEmbeddableObjectsFromSample_NoMatchingService() throws RdfDeserializationException {
     // given
-    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_oembed_sample_II.xml");
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("rdf/rdf_with_oembed_sample_II.xml");
 
     // when
     final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
@@ -217,7 +217,7 @@ class RdfDeserializerImplTest {
   @Test
   void testGetIIIFObjectFromSample_MatchingService() throws RdfDeserializationException {
     // given
-    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_iiif_sample.xml");
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("rdf/rdf_with_iiif_sample.xml");
 
     // when
     final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
@@ -246,7 +246,7 @@ class RdfDeserializerImplTest {
   @Test
   void testGetIIIFObjectFromSample_NoMatchingService() throws RdfDeserializationException {
     // given
-    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("__files/rdf_with_iiif_sample_II.xml");
+    final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("rdf/rdf_with_iiif_sample_II.xml");
 
     // when
     final List<RdfResourceEntry> rdfResourceEntry = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(
@@ -277,7 +277,7 @@ class RdfDeserializerImplTest {
   void testSampleWithComplexIsFormatOfGraph() throws RdfDeserializationException, IOException {
 
     // when
-    final byte[] input = IOUtils.resourceToByteArray("__files/rdf_with_complex_isformatof_graph.xml", getClass().getClassLoader());
+    final byte[] input = IOUtils.resourceToByteArray("rdf/rdf_with_complex_isformatof_graph.xml", getClass().getClassLoader());
     final RdfResourceEntry mainRdfResourceEntry = new RdfDeserializerImpl().getMainThumbnailResourceForMediaExtraction(input);
     final List<RdfResourceEntry> otherRdfResourceEntries = new RdfDeserializerImpl().getRemainingResourcesForMediaExtraction(input);
 
