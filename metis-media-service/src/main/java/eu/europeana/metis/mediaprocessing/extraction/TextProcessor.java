@@ -75,9 +75,13 @@ class TextProcessor implements MediaProcessor {
       return new ResourceExtractionResultImpl(textResourceMetadata, pdfResult.thumbnails());
     }
 
-    final boolean hasText = detectedMimeType.startsWith("text/") || "application/xhtml+xml".equals(detectedMimeType);
+    final boolean hasText = isTextMimeType(detectedMimeType);
     final TextResourceMetadata metadata = new TextResourceMetadata(detectedMimeType,
         resource.getResourceUrl(), contentSize, hasText, null, null);
     return new ResourceExtractionResultImpl(metadata, null);
+  }
+
+  private boolean isTextMimeType(String mimeType) {
+    return mimeType.startsWith("text/") || "application/xhtml+xml".equals(mimeType);
   }
 }

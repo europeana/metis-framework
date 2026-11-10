@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.metadata.IIOMetadata;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
@@ -32,7 +33,9 @@ class ImageColorSpaceReader {
     }
     final Node tree = metadata.getAsTree("javax_imageio_1.0");
     final Node type = child(child(tree, "Chroma"), "ColorSpaceType");
-    return type == null ? null : type.getAttributes().getNamedItem("name").getNodeValue();
+    final NamedNodeMap attributes = (type == null ? null : type.getAttributes());
+    final Node name = (attributes == null ? null : attributes.getNamedItem("name"));
+    return name == null ? null : name.getNodeValue();
   }
 
   private ColorSpaceType fromStandardMetadata(String name, ImageReader reader) throws IOException {

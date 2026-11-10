@@ -10,12 +10,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -168,8 +168,7 @@ public class ThumbnailGenerator {
   public static String md5Hex(String s) throws MediaExtractionException {
     try {
       byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
-      byte[] md5bytes = MessageDigest.getInstance("MD5").digest(bytes);
-      return String.format("%032x", new BigInteger(1, md5bytes));
+      return HexFormat.of().formatHex(MessageDigest.getInstance("MD5").digest(bytes));
     } catch (NoSuchAlgorithmException e) {
       throw new MediaExtractionException("Could not compute md5 hash", e);
     }

@@ -24,6 +24,8 @@ import javax.imageio.stream.ImageInputStream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.w3c.dom.NamedNodeMap;
 
 class ImageColorSpaceReaderTest {
 
@@ -77,6 +79,30 @@ class ImageColorSpaceReaderTest {
     assertEquals(ColorSpaceType.OTHER, new ImageColorSpaceReader().read(reader));
     verify(reader, never()).getRawImageType(0);
     verify(reader, never()).read(0);
+  }
+
+  @ParameterizedTest
+  @ValueSource(booleans = {false, true})
+  void fallsBackToRawTypeWhenColorSpaceNameIsMissing(boolean hasAttributes) throws Exception {
+    final ImageReader imageReader = mock(ImageReader.class);
+    final IIOMetadata iioMetadata = mock(IIOMetadata.class);
+    final IIOMetadataNode startNode = new IIOMetadataNode("javax_imageio_1.0");
+    final IIOMetadataNode chromaNode = new IIOMetadataNode("Chroma");
+    final IIOMetadataNode colorSpaceTypeNode = new IIOMetadataNode("ColorSpaceType") {
+      @Override
+      public NamedNodeMap getAttributes() {
+        return hasAttributes ? super.getAttributes() : null;
+      }
+    };
+    chromaNode.appendChild(colorSpaceTypeNode);
+    startNode.appendChild(chromaNode);
+    when(imageReader.getImageMetadata(0)).thenReturn(iioMetadata);
+    when(iioMetadata.isStandardMetadataFormatSupported()).thenReturn(true);
+    when(iioMetadata.getAsTree("javax_imageio_1.0")).thenReturn(startNode);
+    when(imageReader.getRawImageType(0)).thenReturn(ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_BYTE_GRAY));
+
+    assertEquals(ColorSpaceType.GRAYSCALE, new ImageColorSpaceReader().read(imageReader));
+    verify(imageReader, never()).read(0);
   }
 
   @Test
