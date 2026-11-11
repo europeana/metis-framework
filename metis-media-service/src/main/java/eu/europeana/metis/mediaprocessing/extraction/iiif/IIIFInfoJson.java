@@ -7,8 +7,6 @@ import java.util.Set;
  */
 public interface IIIFInfoJson {
 
-  Object getContext();
-
   String getId();
 
   int getWidth();
