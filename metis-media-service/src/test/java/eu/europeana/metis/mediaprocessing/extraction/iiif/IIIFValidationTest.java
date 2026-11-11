@@ -63,7 +63,6 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
     assertNotNull(model);
-    assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
     assertEquals(3088, model.getHeight());
@@ -94,7 +93,6 @@ class IIIFValidationTest {
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
-    assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://iiif.wellcomecollection.org/image/b20432033_B0008608.JP2", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
     assertEquals(2480, model.getHeight());
@@ -129,8 +127,6 @@ class IIIFValidationTest {
     IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
-    assertEquals(List.of("http://example.org/extension/context1.json", "http://iiif.io/api/image/3/context.json"),
-        model.getContext());
     assertEquals("https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a", model.getId());
     assertEquals("ImageService3", model.getType());
     assertEquals("http://iiif.io/api/image", model.getProtocol());

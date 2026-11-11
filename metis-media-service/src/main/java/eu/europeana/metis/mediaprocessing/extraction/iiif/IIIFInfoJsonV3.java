@@ -14,8 +14,6 @@ import tools.jackson.databind.annotation.JsonDeserialize;
  */
 public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
-  @JsonProperty("@context")
-  private List<String> context;
   @JsonProperty("id")
   private String id;
   private String type;
@@ -198,24 +196,6 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
   }
 
   /**
-   * Gets context.
-   *
-   * @return the context
-   */
-  public List<String> getContext() {
-    return Collections.unmodifiableList(context);
-  }
-
-  /**
-   * Sets context.
-   *
-   * @param context the context
-   */
-  public void setContext(List<String> context) {
-    this.context = Collections.unmodifiableList(context);
-  }
-
-  /**
    * Gets id.
    *
    * @return the id
@@ -321,7 +301,7 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
       return false;
     }
 
-    return maxWidth == that.maxWidth && maxHeight == that.maxHeight && maxArea == that.maxArea && context.equals(that.context)
+    return maxWidth == that.maxWidth && maxHeight == that.maxHeight && maxArea == that.maxArea
         && id.equals(that.id) && type.equals(that.type) && profile.equals(that.profile) && Objects.equals(
         preferredFormats, that.preferredFormats) && Objects.equals(rights, that.rights) && Objects.equals(
         extraQualities, that.extraQualities) && Objects.equals(extraFormats, that.extraFormats)
@@ -331,7 +311,7 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), context, id, type, profile, maxWidth, maxHeight, maxArea,
+    return Objects.hash(super.hashCode(), id, type, profile, maxWidth, maxHeight, maxArea,
         preferredFormats, rights, extraQualities, extraFormats, extraFeatures, partOf, seeAlso,
         service);
   }

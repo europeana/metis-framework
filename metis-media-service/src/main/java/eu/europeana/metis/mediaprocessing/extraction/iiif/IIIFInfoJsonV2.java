@@ -14,8 +14,6 @@ import tools.jackson.databind.annotation.JsonDeserialize;
  */
 public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
-  @JsonProperty("@context")
-  private String context;
   @JsonProperty("@id")
   private String id;
 
@@ -39,24 +37,6 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
    */
   public void setProfile(IIIFProfile profile) {
     this.profile = profile;
-  }
-
-  /**
-   * Gets context.
-   *
-   * @return the context
-   */
-  public String getContext() {
-    return context;
-  }
-
-  /**
-   * Sets context.
-   *
-   * @param context the context
-   */
-  public void setContext(String context) {
-    this.context = context;
   }
 
   /**
@@ -93,11 +73,11 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
       return false;
     }
 
-    return context.equals(that.context) && id.equals(that.id) && profile.equals(that.profile);
+    return id.equals(that.id) && profile.equals(that.profile);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), context, id, profile);
+    return Objects.hash(super.hashCode(), id, profile);
   }
 }
