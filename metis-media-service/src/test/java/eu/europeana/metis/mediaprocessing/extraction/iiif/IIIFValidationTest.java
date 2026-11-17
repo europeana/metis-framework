@@ -63,6 +63,7 @@ class IIIFValidationTest {
         "http://localhost:" + wireMockServer.port() + "/image/iiif/zw031pj2507/zw031pj2507_0001");
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
     assertNotNull(model);
+    assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://stacks.stanford.edu/image/iiif/zw031pj2507/zw031pj2507_0001", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
     assertEquals(3088, model.getHeight());
@@ -93,6 +94,7 @@ class IIIFValidationTest {
     IIIFInfoJsonV2 model = (IIIFInfoJsonV2) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
+    assertEquals("http://iiif.io/api/image/2/context.json", model.getContext());
     assertEquals("https://iiif.wellcomecollection.org/image/b20432033_B0008608.JP2", model.getId());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
     assertEquals(2480, model.getHeight());
@@ -110,8 +112,8 @@ class IIIFValidationTest {
   }
 
   @Test
-  void fetchInfoJsonV3() throws IOException {
-    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v3.json");
+  void fetchInfoJsonV3_withArray() throws IOException {
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v3_with_array.json");
     assertNotNull(inputStreamInfoJson);
     String infoJson = new String(inputStreamInfoJson.readAllBytes());
 
@@ -127,6 +129,8 @@ class IIIFValidationTest {
     IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
 
     assertNotNull(model);
+    assertEquals(List.of("http://example.org/extension/context1.json", "http://iiif.io/api/image/3/context.json"),
+        model.getContext());
     assertEquals("https://media.getty.edu/iiif/image/cb1813c2-cbed-4f0a-8b5b-3b31fda5619a", model.getId());
     assertEquals("ImageService3", model.getType());
     assertEquals("http://iiif.io/api/image", model.getProtocol());
@@ -152,6 +156,51 @@ class IIIFValidationTest {
         "Manifest", Map.of("en", List.of("A Book")), null, null)), model.getPartOf());
     assertIterableEquals(List.of(new IIIFLink("https://example.org/service/example",
         "Service", null, null, "https://example.org/docs/example-service.html")), model.getService());
+  }
+
+  @Test
+  void fetchInfoJsonV3_withNoArray() throws IOException {
+    InputStream inputStreamInfoJson = getClass().getClassLoader().getResourceAsStream("iiif/iiif_info_v3.json");
+    assertNotNull(inputStreamInfoJson);
+    String infoJson = new String(inputStreamInfoJson.readAllBytes());
+
+    wireMockServer.stubFor(get(urlEqualTo("/iiif.micr.io/MdUXS/info.json"))
+        .willReturn(aResponse()
+            .withHeader("Content-Type", "application/json")
+            .withBody(infoJson)
+            .withStatus(HttpStatus.OK.value())));
+
+    RdfResourceEntry resourceEntry = new RdfResourceEntry("Resource URL", Set.of(),
+        RdfResourceKind.IIIF,
+        "http://localhost:" + wireMockServer.port() + "/iiif.micr.io/MdUXS");
+    IIIFInfoJsonV3 model = (IIIFInfoJsonV3) iiifValidation.fetchInfoJson(resourceEntry);
+
+    assertNotNull(model);
+    assertEquals("http://iiif.io/api/image/3/context.json", model.getContext());
+    assertEquals("https://iiif.micr.io/MdUXS", model.getId());
+    assertEquals("ImageService3", model.getType());
+    assertEquals("http://iiif.io/api/image", model.getProtocol());
+
+    assertEquals(2918, model.getWidth());
+    assertEquals(3510, model.getHeight());
+    assertEquals(17550000, model.getMaxArea());
+
+    assertIterableEquals(List.of(new Tile(1024, 1024, List.of(1, 2, 4))), model.getTiles());
+//    assertIterableEquals(List.of(new Size(180, 256), new Size(361, 513),
+//        new Size(723, 1026), new Size(1447, 2052), new Size(2894, 4104)), model.getSizes());
+    assertEquals("level2", model.getProfile());
+//    assertIterableEquals(List.of("jpg","png", "webp"), model.getExtraFormats());
+//    assertEquals("http://rightsstatements.org/vocab/InC-EDU/1.0/", model.getRights());
+//    assertIterableEquals(List.of("png", "gif", "pdf"), model.getExtraFormats());
+//    assertIterableEquals(List.of("native", "color", "gray", "bitonal"), model.getExtraQualities());
+//    assertIterableEquals(List.of("canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader"), model.getExtraFeatures());
+//    assertIterableEquals(List.of(new IIIFLink("https://example.org/image1.xml",
+//            "Dataset", Map.of("en", List.of("Technical image metadata")), "text/xml", "https://example.org/profiles/imagedata")),
+//        model.getSeeAlso());
+//    assertIterableEquals(List.of(new IIIFLink("https://example.org/manifest/1",
+//        "Manifest", Map.of("en", List.of("A Book")), null, null)), model.getPartOf());
+//    assertIterableEquals(List.of(new IIIFLink("https://example.org/service/example",
+//        "Service", null, null, "https://example.org/docs/example-service.html")), model.getService());
   }
 
   @Test
