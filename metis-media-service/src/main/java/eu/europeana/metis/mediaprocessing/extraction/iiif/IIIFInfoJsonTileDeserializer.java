@@ -18,6 +18,7 @@ public class IIIFInfoJsonTileDeserializer extends StdDeserializer<List<Tile>> {
 
   private static final String WIDTH_FIELD = "width";
   private static final String HEIGHT_FIELD = "height";
+  private static final String SCALE_FACTORS_FIELD = "scaleFactors";
   /**
    * Instantiates a new Iiif info json tile deserializer.
    */
@@ -41,11 +42,11 @@ public class IIIFInfoJsonTileDeserializer extends StdDeserializer<List<Tile>> {
       for (int i = 0; i < node.size(); i++) {
         if (node.get(i).get(WIDTH_FIELD) != null && node.get(i).get(HEIGHT_FIELD) != null) {
           tileList.add(new Tile(node.get(i).get(WIDTH_FIELD).asInt(), node.get(i).get(HEIGHT_FIELD).asInt(),
-              objectMapper.treeToValue(node.get(i).get("scaleFactors"),
+              objectMapper.treeToValue(node.get(i).get(SCALE_FACTORS_FIELD),
                   List.class)));
         } else if (node.get(i).get(WIDTH_FIELD) != null && node.get(i).get(HEIGHT_FIELD) == null) {
-          tileList.add(
-              new Tile(node.get(i).get(WIDTH_FIELD).asInt(), objectMapper.treeToValue(node.get(i).get("scaleFactors"), List.class)));
+          tileList.add(new Tile(node.get(i).get(WIDTH_FIELD).asInt(),
+                  objectMapper.treeToValue(node.get(i).get(SCALE_FACTORS_FIELD), List.class)));
         }
       }
     }
