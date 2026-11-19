@@ -1,0 +1,58 @@
+{
+  "@context": "http://iiif.io/api/image/3/context.json",
+  "id": "https://iiif.micr.io/MdUXS",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "qualities": [
+    "default",
+    "gray",
+    "color"
+  ],
+  "formats": [
+    "jpg",
+    "png",
+    "webp"
+  ],
+  "tiles": [
+    {
+      "scaleFactors": [
+        1,
+        2,
+        4
+      ],
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "created": 1593446243268,
+  "width": 2918,
+  "height": 3510,
+  "title": "RP-P-1998-53-Original-Cropped.jpg",
+  "tileSize": 1024,
+  "version": "3.1",
+  "viewsWH": false,
+  "organisation": {
+    "name": "Rijks Collectie",
+    "slug": "rijks-collectie",
+    "logo": null,
+    "baseUrl": "https://micrio.rijksmuseum.nl/"
+  },
+  "tileBasePath": "https://micrio.rijksmuseum.nl/",
+  "maxArea": 17550000,
+  "extraFeatures": [
+    "baseUriRedirect",
+    "cors",
+    "jsonldMediaType",
+    "regionByPct",
+    "regionByPx",
+    "regionSquare",
+    "rotationBy90s",
+    "sizeByConfinedWh",
+    "sizeByH",
+    "sizeByPct",
+    "sizeByW",
+    "sizeByWh",
+    "sizeUpscaling"
+  ]
+}

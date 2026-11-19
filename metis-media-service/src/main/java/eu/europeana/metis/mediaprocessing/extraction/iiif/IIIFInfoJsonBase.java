@@ -3,6 +3,7 @@ package eu.europeana.metis.mediaprocessing.extraction.iiif;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import tools.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * The type Iiif info json base.
@@ -13,6 +14,7 @@ public class IIIFInfoJsonBase {
   private int width;
   private int height;
   private List<Size> sizes;
+  @JsonDeserialize(using = IIIFInfoJsonTileDeserializer.class)
   private List<Tile> tiles;
 
   /**

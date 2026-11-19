@@ -16,12 +16,32 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @JsonProperty("@context")
   private String context;
+
   @JsonProperty("@id")
   private String id;
 
   @JsonProperty("profile")
   @JsonDeserialize(using = IIIFInfoJsonProfileDeserializer.class)
   private IIIFProfile profile;
+
+  /**
+   * Gets context.
+   *
+   * @return the context
+   */
+  @Override
+  public String getContext() {
+    return context;
+  }
+
+  /**
+   * Sets context.
+   *
+   * @param context the context
+   */
+  public void setContext(String context) {
+    this.context = context;
+  }
 
   /**
    * Gets profile.
@@ -39,24 +59,6 @@ public class IIIFInfoJsonV2 extends IIIFInfoJsonBase implements IIIFInfoJson {
    */
   public void setProfile(IIIFProfile profile) {
     this.profile = profile;
-  }
-
-  /**
-   * Gets context.
-   *
-   * @return the context
-   */
-  public String getContext() {
-    return context;
-  }
-
-  /**
-   * Sets context.
-   *
-   * @param context the context
-   */
-  public void setContext(String context) {
-    this.context = context;
   }
 
   /**

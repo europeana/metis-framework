@@ -15,7 +15,7 @@ import tools.jackson.databind.annotation.JsonDeserialize;
 public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
 
   @JsonProperty("@context")
-  private List<String> context;
+  private Object context;
   @JsonProperty("id")
   private String id;
   private String type;
@@ -34,6 +34,24 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
   private List<IIIFLink> seeAlso;
   @JsonDeserialize(using = IIIFInfoJsonLinkDeserializer.class)
   private List<IIIFLink> service;
+
+  /**
+   * Gets context.
+   *
+   * @return the context
+   */
+  public Object getContext() {
+    return context;
+  }
+
+  /**
+   * Sets context.
+   *
+   * @param context the context
+   */
+  public void setContext(Object context) {
+    this.context = context;
+  }
 
   /**
    * Gets type.
@@ -195,24 +213,6 @@ public class IIIFInfoJsonV3 extends IIIFInfoJsonBase implements IIIFInfoJson {
    */
   public void setService(List<IIIFLink> service) {
     this.service = Collections.unmodifiableList(service);
-  }
-
-  /**
-   * Gets context.
-   *
-   * @return the context
-   */
-  public List<String> getContext() {
-    return Collections.unmodifiableList(context);
-  }
-
-  /**
-   * Sets context.
-   *
-   * @param context the context
-   */
-  public void setContext(List<String> context) {
-    this.context = Collections.unmodifiableList(context);
   }
 
   /**

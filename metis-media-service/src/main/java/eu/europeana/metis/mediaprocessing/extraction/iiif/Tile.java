@@ -34,6 +34,20 @@ public class Tile {
   }
 
   /**
+   * Instantiates a new Tile.
+   *
+   * @param width the width
+   * The height in pixels of the predefined tiles to be requested, given as an integer.
+   * If it is not specified in the JSON, then it defaults to the same as width, resulting in square tiles.
+   * @param scaleFactors the scale factors
+   */
+  public Tile(int width,  List<Integer> scaleFactors) {
+    this.width = width;
+    this.height = this.width;
+    this.scaleFactors = Collections.unmodifiableList(scaleFactors);
+  }
+
+  /**
    * Gets width.
    *
    * @return the width

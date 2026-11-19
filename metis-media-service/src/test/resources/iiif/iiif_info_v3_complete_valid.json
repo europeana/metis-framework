@@ -1,0 +1,33 @@
+{
+  "@context": "http://iiif.io/api/image/3/context.json",
+  "id": "https://example.org/image-service/abcd1234/1E34750D-38DB-4825-A38A-B60A345E591C",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level1",
+  "width": 6000,
+  "height": 4000,
+  "maxWidth": 3000,
+  "maxHeight": 2000,
+  "maxArea": 4000000,
+  "sizes": [
+    { "width": 150, "height": 100 },
+    { "width": 600, "height": 400 },
+    { "width": 3000, "height": 2000 }
+  ],
+  "tiles": [
+    { "width": 512, "scaleFactors": [ 1, 2, 4 ] },
+    { "width": 1024, "height": 2048, "scaleFactors": [ 8, 16 ] }
+  ],
+  "rights": "http://rightsstatements.org/vocab/InC-EDU/1.0/",
+  "preferredFormats": [ "png", "gif"],
+  "extraFormats": [ "png", "gif", "pdf" ],
+  "extraQualities": [ "color", "gray" ],
+  "extraFeatures": [ "canonicalLinkHeader", "rotationArbitrary", "profileLinkHeader" ],
+  "service": [
+    {
+      "id": "https://example.org/service/example",
+      "type": "Service",
+      "profile": "https://example.org/docs/example-service.html"
+    }
+  ]
+}
